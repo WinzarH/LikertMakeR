@@ -23,7 +23,7 @@ To synthesise a rating scale, the user must input the following parameters:
   *  ___seed___: optional seed for reproducibility
     
 ___LikertMakeR___ offers two different functions for synthesising a rating scale: 
-  *  ___lbeta___ draws a random sample from a scaled Beta distribution. It is very fast but gives no guarantee that the mean and standard deviation are exact. Recommended for relatively large sample sizes.
+  *  ___lfast___ draws a random sample from a scaled _Beta_ distribution. It is very fast but gives no guarantee that the mean and standard deviation are exact. Recommended for relatively large sample sizes.
   
   > ###### Example
   > a five-item, seven-point Likert scale
@@ -36,7 +36,7 @@ ___LikertMakeR___ offers two different functions for synthesising a rating scale
   > x <- lfast(256, 2, 1.8, 0, 10, seed = 42)
   > ```
   
-  *  ___lexact___ attempts to produce a vector with exact first and second moments. It uses the (Differential Evolution) algorithm in the ___DEoptim___ package to find appropriate values within the desired constraints. 
+  *  ___lexact___ attempts to produce a vector with exact first and second moments. It uses the _Differential Evolution_ algorithm in the ___DEoptim___ package to find appropriate values within the desired constraints. 
 ___lexact___ can take some time to complete the optimisation task, but is excellent for simulating data from already-published reports where only summary statistics are reported. 
   
   > ###### Example
@@ -50,7 +50,7 @@ ___lexact___ can take some time to complete the optimisation task, but is excell
   > x <- lexact(128, 2, 1.8, 0, 10, seed = 42)
   > ```
   >  ###### Example
-  > a seven-point negative-to-positive scale
+  > a seven-point negative-to-positive scale with 6 items
   > ```
   > x <- lexact(n = 64, mean = 1.2, sd = 1.00, lowerbound = -3, upperbound = 3, items = 6)
   > ```
@@ -64,7 +64,6 @@ ___LikertMakeR___ offers another function, ___lcor___, which rearranges the valu
 To create the desired correlations, the user must define the following data-frames:
   -  ___data___: a starter data set of rating-scales 
   -  ___target_cor___: the target correlation matrix 
-  -  ___runs___: optional parameter to increase the number iterations to find an optimal solution. Default = 1. If the correlation matrix is at the edge of feasible, then this *may* improve fit.
 
 ## Examples
 
@@ -140,7 +139,7 @@ tgt3 <- matrix(
   nrow = 3
 )
 
-new3 <- lcor(mydat3, tgt3, runs = 2)
+new3 <- lcor(mydat3, tgt3)
 cor(new3)
 
 ```
