@@ -1,0 +1,6 @@
+### export and import functions
+
+export("lfast", "lexact", "lcor")
+
+importFrom("stats", "cor", "rbeta")
+import("DEoptim")
