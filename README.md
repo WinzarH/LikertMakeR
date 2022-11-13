@@ -22,7 +22,9 @@ To synthesise a rating scale, the user must input the following parameters:
   *  ___items___: number of items making the scale - default is 1 
   *  ___seed___: optional seed for reproducibility
     
-___LikertMakeR___ offers two different functions for synthesising a rating scale: 
+___LikertMakeR___ offers two different functions for synthesising a rating scale: ___lfast()___ and ___lexact()___
+
+#### lfast()
   *  ___lfast___ draws a random sample from a scaled _Beta_ distribution. It is very fast but gives no guarantee that the mean and standard deviation are exact. Recommended for relatively large sample sizes.
   
   > ###### Example
@@ -36,6 +38,7 @@ ___LikertMakeR___ offers two different functions for synthesising a rating scale
   > x <- lfast(256, 2, 1.8, 0, 10, seed = 42)
   > ```
   
+#### lexact()  
   *  ___lexact___ attempts to produce a vector with exact first and second moments. It uses the _Differential Evolution_ algorithm in the ___DEoptim___ package to find appropriate values within the desired constraints. 
 ___lexact___ can take some time to complete the optimisation task, but is excellent for simulating data from already-published reports where only summary statistics are reported. 
   
@@ -143,4 +146,5 @@ new3 <- lcor(mydat3, tgt3)
 cor(new3)
 
 ```
-"A line from my own computer" 
+
+Hume Winzar: November 2022
