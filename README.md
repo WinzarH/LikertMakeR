@@ -143,3 +143,4 @@ new3 <- lcor(mydat3, tgt3)
 cor(new3)
 
 ```
+"A line from my own computer" 
