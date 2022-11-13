@@ -63,7 +63,7 @@ ___LikertMakeR___ offers another function, ___lcor___, which rearranges the valu
 
 To create the desired correlations, the user must define the following data-frames:
   -  ___data___: a starter data set of rating-scales 
-  -  ___target_cor___: the target correlation matrix 
+  -  ___target___: the target correlation matrix 
 
 ## Examples
 
