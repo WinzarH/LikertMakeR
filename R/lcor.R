@@ -5,13 +5,10 @@
 #'
 #' @name lcor
 #'
-#' @description \code{lcor()} is a function to  rearrange values in each column so that columns are correlated to match a predefined correlation matrix.
+#' @description \code{lcor()} rearranges values in each column of a data-frame so that columns are correlated to match a predefined correlation matrix.
 #'
 #' @details Values in a column do not change, so univariate statistics remain the same, but they are rearranged.
 #'
-#' @details \code{lcor()} systematically selects pairs of values in a column and swaps their places, and checks to see if this swap improves the correlation matrix. If so, the swap is retained. Otherwise, the values are returned to their original places. This process is iterated across each column. A large dataframe can take some time.
-#'
-#' @details Value pairs are evaluated one pair at a time, so a vectorised process is infeasible at present. I am working on a faster loop solution using compiled code.
 #'
 #' @param data beginning data-frame that is to be rearranged
 #' @param target target correlation matrix - should be a symmetric (square) k*k matrix, where k=n_columns of the data file
@@ -156,5 +153,6 @@ lcor <- function(data, target) {
       }
     } ## end row values swap loop
   } ## end column selection loop
+  # current_dat <- data.frame(current_dat)
   return(current_dat)
 } ## end lcor function

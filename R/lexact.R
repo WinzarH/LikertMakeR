@@ -70,7 +70,7 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   # mydata <- data.frame(score = mydat[["optim"]][["bestmem"]]) / items
   mydata <- mydat[["optim"]][["bestmem"]] / items
   row.names(mydata) <- NULL
+  # data <- data.frame(data)
 
-  # .GlobalEnv$make.likert.data <- mydata
-  return(mydata)
+ return(mydata)
 }
