@@ -11,6 +11,20 @@ the mean range will be ‘1’ to ‘5’ with intervals of 1/5=0.20.
 A 7-point Likert scale constructed from eight items will have a summed range between 8 (all rated ‘1’) and 56 (all rated ‘7’) with all integers in between, 
 and the mean range will be ‘1’ to ‘7’ with intervals of 1/8=0.125.
 
+## Install _LikertMakeR_
+
+LikertMakeR is available from the author's GitHub repository. 
+
+To download and install the package, run the following code from your R console:
+
+  > ```
+  > 
+  > library(devtools)
+  > 
+  > install_github("WinzarH/LikertMakeR")
+  > 
+  > ```
+
 ### Generating synthetic rating scales
 
 To synthesise a rating scale, the user must input the following parameters:
@@ -25,7 +39,7 @@ To synthesise a rating scale, the user must input the following parameters:
 ___LikertMakeR___ offers two different functions for synthesising a rating scale: ___lfast()___ and ___lexact()___
 
 #### lfast()
-  *  ___lfast___ draws a random sample from a scaled _Beta_ distribution. It is very fast but gives no guarantee that the mean and standard deviation are exact. Recommended for relatively large sample sizes.
+  *  ___lfast___ draws a random sample from a scaled _Beta_ distribution. It is very fast but does not guarantee that the mean and standard deviation are exact. Recommended for relatively large sample sizes.
   
   > ###### Example
   > a five-item, seven-point Likert scale
@@ -72,79 +86,79 @@ To create the desired correlations, the user must define the following data-fram
 
 ####  generate synthetic data
 
-```
+  > ```
+  > 
+  > set.seed(42) # for reproducibility
+  > 
+  > x1 <- lexact(64, 3.5, 1.0, 1, 5, 5);
+  > x2 <- lexact(64, 1.5, 0.75, 1, 5, 5);
+  > x3 <- lexact(64, 3.0, 2.0, 1, 5, 5);
+  > x4 <- lexact(64, 2.5, 1.5, 1, 5, 10);  
 
-set.seed(42) # for reproducibility
-
-x1 <- lexact(64, 3.5, 1.0, 1, 5, 5);
-x2 <- lexact(64, 1.5, 0.75, 1, 5, 5);
-x3 <- lexact(64, 3.0, 2.0, 1, 5, 5);
-x4 <- lexact(64, 2.5, 1.5, 1, 5, 10);  
-
-mydat4 <- cbind(x1, x2, x3, x4) |> 
-    data.frame()
-cor(mydat4)
-
-```
+  > mydat4 <- cbind(x1, x2, x3, x4) |> 
+  >     data.frame()
+  > cor(mydat4)
+  > 
+  > ```
 
 ####  Define a target correlation matrix
 
-```
-tgt4 <- matrix(
-c(
-  1.00, 0.50, 0.50, 0.75,
-  0.50, 1.00, 0.25, 0.65,
-  0.50, 0.25, 1.00, 0.80,
-  0.75, 0.65, 0.80, 1.00
-),
-nrow = 4
-)
-
-```
+  > ```
+  > tgt4 <- matrix(
+  > c(
+  >   1.00, 0.50, 0.50, 0.75,
+  >   0.50, 1.00, 0.25, 0.65,
+  >   0.50, 0.25, 1.00, 0.80,
+  >   0.75, 0.65, 0.80, 1.00
+  > ),
+  > nrow = 4
+  > )
+  > 
+  > ```
 
 ####  Rearrange values in each column to achieve desired correlations
 
-```
-new4 <- lcor(data = mydat4, target = tgt4);
-cor(new4)
-
-```
+  > ```
+  > new4 <- lcor(data = mydat4, target = tgt4)
+  > 
+  > cor(new4) |> round(3)
+  > 
+  > ```
 
 ####  Same starting values with a different target correlation matrix
 
-```
-
-mydat3 <- cbind(x1, x2, x3) |> data.frame()
-
-tgt3 <- matrix(
-  c(
-    1.00, 0.50, 0.95,
-    0.50, 1.00, 0.65,
-    0.95, 0.65, 1.00
-  ),
-  nrow = 3
-)
-cor(mydat3)
-
-new3 <- lcor(mydat3, tgt3)
-cor(new3)
-```
+  > ```
+  > 
+  > mydat3 <- cbind(x1, x2, x3) |> data.frame()
+  > 
+  > tgt3 <- matrix(
+  >   c(
+  >     1.00, 0.50, 0.95,
+  >     0.50, 1.00, 0.65,
+  >     0.95, 0.65, 1.00
+  >   ),
+  >  nrow = 3
+  > )
+  > 
+  > new3 <- lcor(mydat3, tgt3)
+  > cor(new3)
+  > ```
 
 ####  And another target correlation matrix
 
-```
-tgt3 <- matrix(
-  c(
-     1.00, -0.50, -0.85,
-    -0.50,  1.00,  0.60,
-    -0.85,  0.60,  1.00
-  ),
-  nrow = 3
-)
-
-new3 <- lcor(mydat3, tgt3)
-cor(new3)
-
-```
+  > ```
+  > tgt3 <- matrix(
+  >   c(
+  >      1.00, -0.50, -0.85,
+  >     -0.50,  1.00,  0.60,
+  >     -0.85,  0.60,  1.00
+  >   ),
+  >   nrow = 3
+  > )
+  > 
+  > new3 <- lcor(mydat3, tgt3)
+  > cor(new3)
+  > 
+  > ```
 
 Hume Winzar: November 2022
