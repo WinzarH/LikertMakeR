@@ -20,19 +20,19 @@ library(LikertMakeR)
 
 # *LikertMakeR*
 
-**_LikertMakeR_** synthesises Likert scale and related rating-scale data. Such scales are constrained by upper and lower bounds and discrete increments. For example, a likelihood-of-purchase scale may be an 11-point, zero-to-10 rating scale.
+**_LikertMakeR_** synthesises and correlates Likert scale and related rating-scale data. You decide the mean and standard deviation, and (optionally) the correlations among vectors, and the package will generate data with those same predefined properties.  
 
 The package generates a column of values that simulate the same properties as a rating scale. If multiple columns are generated, then you can use **_LikertMakeR_** to rearrange the values so that the new variables are correlated exactly in accord with a user-predefined correlation matrix.
 
 ## Purpose
 
-The package should be useful for teaching in the Social Sciences, and for scholars who wish to "replicate" data for further analysis and visualisation when only summary statistics have been reported.
+The package should be useful for teaching in the Social Sciences, and for scholars who wish to "replicate" rating-scale data for further analysis and visualisation when only summary statistics have been reported. 
 
-I was prompted to write the functions in the _LikertMakeR_ when I reviewed a submission for a journal, and the authors had presented their questionnaire results very poorly. By the third submission, clearly they needed an example. So I tried to generate some data with similar properties as they had reported. Contrary to the authors' conclusions, I found that the large variance in the data caused responses to pile up at the boundaries - there was a majority that agreed with a proposition, and a small, but important, minority that strongly disagreed. The simple finding caused a more nuanced discussion which, of course, could have been much earlier if the researchers had taken the trouble to look at their data.
+I was prompted to write the functions in _LikertMakeR_ after reviewing too many journal article submissions where authors presented questioonnaire results with only means and standard deviations (often only the means), with no understanding of the real distributions. Hopefully, this tool will help researchers, teachers (and other reviewers), to better think about rating-scale distributions, and the effects of variance, boundaries and number of items in a scale.
 
 ## Rating scale properties
 
-A Likert scale is the mean, or sum, of several ordinal rating scales. They are bipolar (usually "agree-disagree") responses to propositions that are determined to be moderately-to-highly correlated and capturing various facets of a construct.
+A Likert scale is the mean, or sum, of several ordinal rating scales. They are bipolar (usually  "agree-disagree") responses to propositions that are determined to be moderately-to-highly correlated and capturing various facets of a construct.
 
 Rating scales, such as Likert scales, are not continuous or unbounded.
 
@@ -42,31 +42,29 @@ Rating-scale boundaries define minima and maxima for any scale values. If the me
 
 ## Alternative packages
 
-This package is intended for synthesising & correlating rating-scale data with means, standard deviations, and correlations as close as possible to predefined parameters. If you don't need your data to be close to exact, then there are other options. 
+_LikertMakeR_ is intended for synthesising & correlating rating-scale data with means, standard deviations, and correlations as close as possible to predefined parameters. If you don't need your data to be close to exact, then other options may be faster or more flexible. 
 
-For example, researchers and teachers may simulate rating scales ahead of finalising a questionnaire or demonstrating analyses. 
-
-Different approaches are:
+Different approaches include:
 
 * sampling from a _truncated normal_ distribution. Data are sampled from a normal distribution, and then truncated to suit the rating-scale boundaries, and rounded to set discrete values as we see in rating scales. See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scale-data/) for an excellent and short example using the following packages:
 
-    - truncnorm
+    - [truncnorm](https://cran.r-project.org/web/packages/truncnorm/index.html)
     
-    - faux
+    - [faux](https://cran.r-project.org/web/packages/faux/index.html)
     
 * sampling with a predetermined probability distribution
 
 * Marginal model specification as in [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html) and  [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)  using: 
 
-    - SimCorMultRes
+    - [SimCorMultRes](https://cran.r-project.org/web/packages/SimCorMultRes/index.html)
     
-    - covsim
+    - [covsim](https://cran.r-project.org/web//packages/covsim/index.html)
     
 
 
 # Using _LikertMakeR_
 
-## Generating synthetic rating scales
+## Generate synthetic rating-scale data
 
 To synthesise a rating scale with **_LikertMakeR_**, the user must input the following parameters:
 
@@ -86,9 +84,10 @@ To synthesise a rating scale with **_LikertMakeR_**, the user must input the fol
 
 **_LikertMakeR_** offers two different functions for synthesising a rating scale: **_lfast()_** and **_lexact()_**
 
+
 ### _lfast()_
 
--   **_lfast()_** draws a random sample from a scaled *Beta* distribution. It is very fast but gives no guarantee that the mean and standard deviation are exact. Recommended for relatively large sample sizes.
+-   **_lfast()_** draws a random sample from a scaled *Beta* distribution. It is very fast but does not guarantee exact mean and standard deviation. Recommended for relatively large sample sizes, or to simulate rating scales ahead of finalising a questionnaire or demonstrating analyses. 
 
 #### _lfast()_ example
 
@@ -107,12 +106,12 @@ x <- lfast(
 )
 ```
 
-distribution of generated vector:
+distribution of the generated vector:
 
 ```{r}
 ## distribution of x
 
-hist(x, breaks = c(1:7), col = "sky blue", xlab = NULL, main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
+hist(x, breaks = seq(from = 1, to = 7, by = 0.20), col = "sky blue", xlab = NULL, main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
 ```
 
 ##### an 11-point likelihood-of-purchase scale
@@ -124,16 +123,28 @@ x <- lfast(256, 2, 2, 0, 10, seed = 42)
 ```
 
 ```{r}
-hist(x, breaks = c(0:10), col = "sky blue", xlab = NULL, main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
+hist(x, breaks = seq(from = 0, to = 10, by = 1.0), col = "sky blue", xlab = NULL, main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
 ```
 
-#### _lexact()_
+### _lexact()_
 
--   **_lexact()_** attempts to produce a vector with exact first and second moments. It uses the *Differential Evolution* algorithm in the **_DEoptim_** package to find appropriate values within the desired constraints. **_lexact()_** can take some time to complete the optimisation task, but is excellent for simulating data from already-published reports where only summary statistics are reported. *If feasible*, the function should produce data with moments that are correct to two decimal places
+**_lexact()_** attempts to produce a vector with exact first and second moments. It uses the *Differential Evolution* algorithm in the [**_DEoptim_**](https://cran.r-project.org/web/packages/DEoptim/index.html) package to find appropriate values within the desired constraints. **_lexact()_** can take time to complete the optimisation task, but is excellent for simulating data from already-published reports where only summary statistics are reported. 
 
-##### _lexact()_ example
+**_lexact()_** executed the first example, below, with the following sample-size & time combinations on my Windows 11 (Intel(R) i7-12700H 2.30 GHz) laptop.
 
-###### a five-item, seven-point Likert scale
+|  n  | seconds   |
+|:---:|:-----:|
+|  16 |  0.20 |
+|  32 |  0.37 |
+|  64 |  1.55 |
+| 128 |  7.03 |
+| 256 | 45.54 |
+
+*If feasible*, **_lexact()_** should produce data with moments that are correct to two decimal places. Infeasible cases occur when the requested standard deviation is too large for the combination of mean, n-items, and scale boundaries.
+
+#### _lexact()_ example
+
+##### a five-item, seven-point Likert scale
 
 ```{r}
 
@@ -151,7 +162,7 @@ x <- lexact(
 hist(x, breaks = c(1:7), col = "sky blue", xlab = NULL, main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
 ```
 
-###### an 11-point likelihood of purchase scale
+##### an 11-point likelihood of purchase scale
 
 ```{r}
 
@@ -162,7 +173,7 @@ x <- lexact(128, 2, 1.8, 0, 10, seed = 42)
 hist(x, breaks = c(0:10), col = "sky blue", xlab = NULL, main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
 ```
 
-###### a seven-point negative-to-positive scale with 6 items
+##### a seven-point negative-to-positive scale with 6 items
 
 ```{r}
 
@@ -182,11 +193,31 @@ hist(x, breaks = c(-3:3), col = "sky blue", xlab = NULL, main = paste("mean=", r
 
 ## Correlating vectors of synthetic rating scales
 
-**_LikertMakeR_** offers another function, **_lcor()_**, which rearranges the values in the columns of a data set so that they are correlated at a specified level. It does not change the values - it swaps their positions in a column so that univariate statistics do not change, but their correlations with other vectors do.
+**_LikertMakeR_** offers another function, **_lcor()_**, which rearranges the values in the columns of a data-set so that they are correlated at a specified level. It does not change the values - it swaps their positions within each column so that univariate statistics do not change, but their correlations with other vectors do.
 
-**_lcor()_** systematically selects pairs of values in a column and swaps their places, and checks to see if this swap improves the correlation matrix. If so, the swap is retained. Otherwise, the values are returned to their original places. This process is iterated across each column. A large dataframe can take some time.
+**_lcor()_** systematically selects pairs of values in a column and swaps their places, and checks to see if this swap improves the correlation matrix. If the revised data-frame produces a correlation matrix closer to the target correlation matrix, then the swap is retained. Otherwise, the values are returned to their original places. This process is iterated across each column. 
 
-Value pairs are evaluated one pair at a time, so a vectorised process is infeasible at present. I am working on a faster loop solution using compiled code.
+A large data-frame can take some time. Time to run a task in **_lcor()_** depends on 
+
+- number of observations,
+
+- number of columns,
+
+- number of intervals within each scale,
+
+- speed of your computer.
+
+The **_lcor()_** function in the example below had the following sample-size/time combinations:
+
+  |  n  | seconds   |
+  |:---:|:-----:|
+  |  16 |  0.16 |
+  |  32 |  0.45 |
+  |  64 |  1.52 |
+  | 128 |  5.62 |
+  | 256 | 23.30 |
+
+Value pairs are evaluated one pair at a time, so a vectorised process is infeasible at present. 
 
 To create the desired correlations, the user must define the following data-frames:
 
@@ -194,13 +225,19 @@ To create the desired correlations, the user must define the following data-fram
 
 -   **_target_**: the target correlation matrix
 
-##### _lcor()_ example
+### _lcor()_ example
 
 Let's generate some data: four 5-point Likert scales, each made with five items.
 
-###### generate uncorrelated synthetic data
+##### generate uncorrelated synthetic data
 
 ```{r }
+
+## set.seed(42)
+## x1 <- lexact(64, 3.5, 1.00, 1, 5, 5)
+## x2 <- lexact(64, 2.5, 0.75, 1, 5, 5)
+## x3 <- lexact(64, 3.0, 1.50, 1, 5, 5)
+## x4 <- lexact(64, 2.0, 1.25, 1, 5, 5)
 
 set.seed(42)
 x1 <- lexact(64, 3.5, 1.00, 1, 5, 5)
@@ -239,7 +276,7 @@ We can see that the data are close to what is expected. The synthetic data have 
 cor(mydat4) |> round(2)
 ```
 
-###### a target correlation matrix
+##### a target correlation matrix
 
 ```{r}
 ## describe a target correlation matrix
@@ -256,7 +293,7 @@ tgt4 <- matrix(
 
 So now we have a data-frame with desired first and second moments, and a target correlation matrix.
 
-###### applying the *lcor()* function.
+##### applying the *lcor()* function.
 
 ```{r}
 
