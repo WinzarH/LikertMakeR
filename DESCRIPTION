@@ -22,5 +22,4 @@ Suggests:
     testthat (>= 3.0.0),
     knitr
 RoxygenNote: 7.2.2
-Exports: tibble
 Config/testthat/edition: 3
