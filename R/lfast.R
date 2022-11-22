@@ -19,9 +19,18 @@
 #'
 #' @examples
 #'
-#' x <- lfast(n = 256, mean = 4.0, sd = 1.0, lowerbound = 1, upperbound = 7, items = 6)
+#' x <- lfast(
+#'   n = 256,
+#'   mean = 4.0,
+#'   sd = 1.0,
+#'   lowerbound = 1,
+#'   upperbound = 7,
+#'   items = 6
+#' )
 #'
-#' x <- lfast(256, 2, 1.8, 0, 10, seed = 42)
+#' x <- lfast(256, 2, 1.8, 0, 10)
+#' 
+#' x <- lfast(256, 2, 1.0, 1, 5, 10)
 #'
 lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   range <- upperbound - lowerbound
