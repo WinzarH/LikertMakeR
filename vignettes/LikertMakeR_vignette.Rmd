@@ -28,7 +28,7 @@ The package generates a column of values that simulate the same properties as a 
 
 The package should be useful for teaching in the Social Sciences, and for scholars who wish to "replicate" rating-scale data for further analysis and visualisation when only summary statistics have been reported. 
 
-I was prompted to write the functions in _LikertMakeR_ after reviewing too many journal article submissions where authors presented questioonnaire results with only means and standard deviations (often only the means), with no understanding of the real distributions. Hopefully, this tool will help researchers, teachers (and other reviewers), to better think about rating-scale distributions, and the effects of variance, boundaries and number of items in a scale.
+I was prompted to write the functions in _LikertMakeR_ after reviewing too many journal article submissions where authors presented questionnaire results with only means and standard deviations (often only the means), with no understanding of the real distributions. Hopefully, this tool will help researchers, teachers (and other reviewers), to better think about rating-scale distributions, and the effects of variance, boundaries and number of items in a scale.
 
 ## Rating scale properties
 
