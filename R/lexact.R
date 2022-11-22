@@ -42,7 +42,8 @@
 #'
 #'
 ## load libraries
-library(DEoptim)
+## library(DEoptim, include.only = 'DEoptim')
+import::from(DEoptim, "DEoptim") 
 ##
 ## Create the function
 lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {

@@ -7,13 +7,13 @@
 #'
 #' @description \code{lcor()} rearranges values in each column of a data-frame so that columns are correlated to match a predefined correlation matrix.
 #'
-#' @details Values in a column do not change, so univariate statistics remain the same, but they are rearranged.
+#' @details Values in a column do not change, so univariate statistics remain the same.
 #'
 #'
 #' @param data beginning data-frame that is to be rearranged
-#' @param target target correlation matrix - should be a symmetric (square) k*k matrix, where k=n_columns of the data file
+#' @param target target correlation matrix - should be a symmetric (square) k*k matrix
 #'
-#' @return Returns a dataframe whose column-wise correlations approximate a user-specified correlation matrix.
+#' @return Returns a data-frame whose column-wise correlations approximate a user-specified correlation matrix.
 #'
 #' @export lcor
 #' @export tibble
