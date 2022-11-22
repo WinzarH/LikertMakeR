@@ -27,28 +27,27 @@ set.seed(42)
 x1 <- lexact(64, 3.5, 1.0, 1, 5, 5)
 x2 <- lexact(64, 1.5, 0.75, 1, 5, 5)
 x3 <- lexact(64, 3.0, 2.0, 1, 5, 5)
-x4 <- lexact(64, 2.5, 1.5, 1, 5, 10)
-mydat4 <- cbind(x1, x2, x3, x4) |> data.frame()
-cor(mydat4)
+
+mydat3 <- cbind(x1, x2, x3) |> data.frame()
+
+cor(mydat3)
 
 ## describe a target correlation matrix
-tgt4 <- matrix(
+tgt3 <- matrix(
   c(
-    1.00, 0.50, 0.50, 0.75,
-    0.50, 1.00, 0.25, 0.65,
-    0.50, 0.25, 1.00, 0.80,
-    0.75, 0.65, 0.80, 1.00
+    1.00, 0.50, 0.50,
+    0.50, 1.00, 0.25, 
+    0.50, 0.25, 1.00 
   ),
-  nrow = 4
+  nrow = 3
 )
 
 ## apply lcor function
-new4 <- lcor(mydat4, tgt4)
+new3 <- lcor(mydat3, tgt3)
 
-cor(new4) |> round(3)
+cor(new3) |> round(3)
 
 ## ---
-mydat3 <- cbind(x1, x2, x3) |> data.frame()
 
 tgt3 <- matrix(
   c(
@@ -58,7 +57,6 @@ tgt3 <- matrix(
   ),
   nrow = 3
 )
-cor(mydat3)
 
 new3 <- lcor(mydat3, tgt3)
 
@@ -79,31 +77,5 @@ new3 <- lcor(mydat3, tgt3)
 
 cor(new3) |> round(3)
 
-## ---
-
-## generate random data
-n <- 128
-x1 <- sample(c(5:25), n, replace = TRUE) / 5 ## 5-point 5-items
-x2 <- sample(c(5:25), n, replace = TRUE) / 5 ## 5-point 5-items
-x3 <- sample(c(6:30), n, replace = TRUE) / 6 ## 5-point 6-items
-x4 <- sample(c(8:56), n, replace = TRUE) / 8 ## 7-point 8-items
-x5 <- sample(c(5:35), n, replace = TRUE) / 5 ## 7-point 5-items
-mydat5 <- cbind(x1, x2, x3, x4, x5) |> data.frame()
-
-tgt5 <- matrix(
-  c(
-    1.00, -0.10, -0.25, -0.50, -0.75,
-    -0.10, 1.00, 0.50, 0.50, 0.50,
-    -0.25, 0.50, 1.00, 0.50, 0.50,
-    -0.50, 0.50, 0.50, 1.00, 0.50,
-    -0.75, 0.50, 0.50, 0.50, 1.00
-  ),
-  nrow = 5
-)
-
-## (Note: this will take a little longer)
-new5 <- lcor(mydat5, tgt5)
-
-cor(new5) |> round(3)
 
 }

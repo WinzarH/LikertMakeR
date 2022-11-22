@@ -29,9 +29,26 @@ If feasible, the function should produce data with moments that are exact to two
 }
 \examples{
 
-x <- lexact(n = 32, mean = 4.2, sd = 0.85, lowerbound = 1, upperbound = 7, items = 6)
-x <- lexact(32, 4, 1.5, 0, 10, 1)
-x <- lexact(16, 3.5, 1.0, 1, 5, 5)
-x <- lexact(n = 64, mean = 1.2, sd = 1.00, lowerbound = -3, upperbound = 3, items = 6)
+x <- lexact(
+  n = 32,
+  mean = 4.2,
+  sd = 0.85,
+  lowerbound = 1,
+  upperbound = 7,
+  items = 6
+)
+
+x <- lexact(
+  n = 64,
+  mean = 1.2,
+  sd = 1.00,
+  lowerbound = -3,
+  upperbound = 3,
+  items = 4
+)
+
+#' x <- lexact(32, 4, 1.5, 0, 10, 1)
+
+
 
 }
