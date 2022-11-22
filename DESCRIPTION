@@ -1,8 +1,8 @@
 Package: LikertMakeR
 Type: Package
-Title: Synthesise and correlate rating-scale data
-Version: 0.1.1
-Date: 2022-11-17
+Title: Synthesise and Correlate Rating-Scale Data
+Version: 0.1.2
+Date: 2022-11-22
 Authors@R: 
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7475-2641"))
@@ -24,5 +24,5 @@ Suggests:
     testthat (>= 3.0.0),
     knitr
 RoxygenNote: 7.2.2
-Exports: tibble
+Export: tibble
 Config/testthat/edition: 3
