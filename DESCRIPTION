@@ -1,7 +1,7 @@
 Package: LikertMakeR
 Type: Package
 Title: Synthesise and Correlate Rating-Scale Data
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: 
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7475-2641"))
@@ -13,12 +13,12 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 LazyData: true
 Language: en-AU
-VignetteBuilder: knitr
+VignetteBuilder: 'knitr'
 Depends: R (>= 4.2.0)
-Imports: DEoptim
+Imports: 'DEoptim'
 Suggests: 
-    dplyr,
-    testthat (>= 3.0.0),
-    knitr
+    'dplyr',
+    'testthat' (>= 3.0.0),
+    'knitr'
 RoxygenNote: 7.2.2
 Config/testthat/edition: 3
