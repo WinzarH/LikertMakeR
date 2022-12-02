@@ -20,7 +20,7 @@ library(LikertMakeR)
 
 # *LikertMakeR*
 
-**_LikertMakeR_** synthesises and correlates Likert scale and related rating-scale data. You decide the mean and standard deviation, and (optionally) the correlations among vectors, and the package will generate data with those same predefined properties.  
+**_LikertMakeR_** synthesises and correlates Likert-scale and related rating-scale data. You decide the mean and standard deviation, and (optionally) the correlations among vectors, and the package will generate data with those same predefined properties.  
 
 The package generates a column of values that simulate the same properties as a rating scale. If multiple columns are generated, then you can use **_LikertMakeR_** to rearrange the values so that the new variables are correlated exactly in accord with a user-predefined correlation matrix.
 
@@ -111,7 +111,11 @@ distribution of the generated vector:
 ```{r}
 ## distribution of x
 
-hist(x, breaks = seq(from = 1, to = 7, by = 0.20), col = "sky blue", xlab = NULL, main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
+hist(x,
+  breaks = seq(from = 1, to = 7, by = 0.20),
+  col = "sky blue", xlab = NULL,
+  main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
+)
 ```
 
 ##### an 11-point likelihood-of-purchase scale
@@ -123,7 +127,11 @@ x <- lfast(256, 2, 2, 0, 10, seed = 42)
 ```
 
 ```{r}
-hist(x, breaks = seq(from = 0, to = 10, by = 1.0), col = "sky blue", xlab = NULL, main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
+hist(x,
+  breaks = seq(from = 0, to = 10, by = 1.0),
+  col = "sky blue", xlab = NULL,
+  main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
+)
 ```
 
 ### _lexact()_
@@ -159,7 +167,11 @@ x <- lexact(
 ```
 
 ```{r}
-hist(x, breaks = c(1:7), col = "sky blue", xlab = NULL, main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
+hist(x,
+  breaks = c(1:7),
+  col = "sky blue", xlab = NULL,
+  main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2))
+)
 ```
 
 ##### an 11-point likelihood of purchase scale
@@ -170,7 +182,12 @@ x <- lexact(64, 2, 1.8, 0, 10, seed = 42)
 ```
 
 ```{r}
-hist(x, breaks = c(0:10), col = "sky blue", xlab = NULL, main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
+hist(x,
+  breaks = c(0:10),
+  col = "sky blue",
+  xlab = NULL,
+  main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
+)
 ```
 
 ##### a seven-point negative-to-positive scale with 6 items
@@ -188,7 +205,11 @@ x <- lexact(
 ```
 
 ```{r}
-hist(x, breaks = c(-3:3), col = "sky blue", xlab = NULL, main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2)))
+hist(x,
+  breaks = c(-3:3),
+  col = "sky blue", xlab = NULL,
+  main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
+)
 ```
 
 ## Correlating vectors of synthetic rating scales
