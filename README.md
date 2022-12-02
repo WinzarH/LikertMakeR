@@ -2,7 +2,7 @@
 
 ___LikertMakeR___ synthesises Likert scale and related rating-scale data. Such scales are constrained by upper and lower bounds and discrete increments. For example, a likelihood-of-purchase scale may be an 11-point, zero-to-10 rating scale.
 
- A Likert scale is the mean, or sum, of several ordinal rating scales. They are bipolar (usually “agree-disagree”) responses to propositions that are determined to be moderately-to-highly correlated and capturing various facets of a construct.
+A Likert scale is the mean, or sum, of several ordinal rating scales. They are bipolar (usually “agree-disagree”) responses to propositions that are determined to be moderately-to-highly correlated and capturing various facets of a construct.
     
 Rating scales are not continuous or unbounded. 
     
@@ -13,7 +13,7 @@ and the mean range will be ‘1’ to ‘7’ with intervals of 1/8=0.125.
 
 ## Install _LikertMakeR_
 
-LikertMakeR is available from the author's GitHub repository. 
+*__LikertMakeR__* is available from the author's GitHub repository. 
 
 To download and install the package, run the following code from your R console:
 
@@ -33,7 +33,7 @@ To synthesise a rating scale, the user must input the following parameters:
   *  ___sd___: desired standard deviation
   *  ___lowerbound___: desired lower bound
   *  ___upperbound___: desired upper bound 
-  *  ___items___: number of items making the scale - default is 1 
+  *  ___items___: number of items making the scale - default = 1 
   *  ___seed___: optional seed for reproducibility
     
 ___LikertMakeR___ offers two different functions for synthesising a rating scale: ___lfast()___ and ___lexact()___
@@ -47,14 +47,14 @@ ___LikertMakeR___ offers two different functions for synthesising a rating scale
   > x <- lfast(n = 256, mean = 4.5, sd = 1.0, lowerbound = 1, upperbound = 7, items = 5)
   > ```
   >  ###### Example
-  > an 11-point likelihood of purchase scale
+  > an 11-point likelihood-of-purchase scale
   > ```
   > x <- lfast(256, 2, 1.8, 0, 10, seed = 42)
   > ```
   
 #### lexact()  
   *  ___lexact___ attempts to produce a vector with exact first and second moments. It uses the _Differential Evolution_ algorithm in the ___DEoptim___ package to find appropriate values within the desired constraints. 
-___lexact___ can take some time to complete the optimisation task, but is excellent for simulating data from already-published reports where only summary statistics are reported. 
+___lexact___ may take some time to complete the optimisation task, but is excellent for simulating data from already-published reports where only summary statistics are reported. 
   
   > ###### Example
   > a five-item, seven-point Likert scale
