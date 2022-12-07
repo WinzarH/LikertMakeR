@@ -178,9 +178,7 @@ hist(x,
 )
 ```
 
-**_lexact()_** can take time to complete the optimisation task. 
-
-**_lexact()_** executed the above example with the following sample-size & time combinations on my Windows 11 (Intel(R) i7-12700H 2.30 GHz) laptop.
+**_lexact()_** can take time to complete the optimisation task. For example, **_lexact()_** executed the above example with the following sample-size & time combinations on the author's laptop [ _Windows 11 (Intel(R) i7-12700H 2.30 GHz)_ ].
 
 |  n  | seconds   |
 |:---:|:-----:|
@@ -214,7 +212,7 @@ hist(x,
 
 #### _lexact()_ example #3
 
-##### a 7-point negative-to-positive scale with 6 items
+##### a 7-point negative-to-positive scale with 4 items
 
 ```{r}
 
@@ -252,16 +250,19 @@ To create the desired correlations, the user must define the following data-fram
 
 ### _lcor()_ example #1
 
-Let's generate some data: four 5-point Likert scales, each made with five items.
+Let's generate some data: three 5-point Likert scales, each made with five items.
 
 ##### generate uncorrelated synthetic data
 
 ```{r }
 
+n <- 64
+
 set.seed(42)
-x1 <- lexact(64, 3.5, 1.00, 1, 5, 5)
-x2 <- lexact(64, 2.5, 0.75, 1, 5, 5)
-x3 <- lexact(64, 3.0, 1.50, 1, 5, 5)
+
+x1 <- lexact(n, 3.5, 1.00, 1, 5, 5)
+x2 <- lexact(n, 2.5, 0.75, 1, 5, 5)
+x3 <- lexact(n, 3.0, 1.50, 1, 5, 5)
 
 mydat3 <- cbind(x1, x2, x3) |> data.frame()
 ```
@@ -299,6 +300,7 @@ cor(mydat3) |> round(2)
 ```{r}
 
 ## describe a target correlation matrix
+
 tgt3 <- matrix(
   c(
     1.00, 0.90, 0.75,
@@ -329,6 +331,15 @@ cor(new3) |> round(2)
 
 ```{r  fig7, fig.height = 7, fig.width = 7, fig.align = 'center'}
 
+panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {
+  usr <- par("usr")
+  par(usr = c(0, 1, 0, 1))
+  r <- cor(x, y)
+  txt <- format(c(r, 0.123456789), digits = digits)[1]
+  txt <- paste0(prefix, txt)
+  text(0.5, 0.5, txt, cex = abs(3 * r))
+}
+
 panel.hist <- function(x, ...) {
   usr <- par("usr")
   par(usr = c(usr[1:2], 0, 1.5))
@@ -340,9 +351,10 @@ panel.hist <- function(x, ...) {
   rect(breaks[-nB], 0, breaks[-1], y, col = "sky blue", ...)
 }
 pairs(new3,
-  upper.panel = NULL,
-  cex = 1.5, pch = 24, bg = "sky blue", horOdd = TRUE,
-  diag.panel = panel.hist, cex.labels = 2, font.labels = 2
+  upper.panel = panel.cor,
+  diag.panel = panel.hist,
+  cex = 1.5, pch = 21, bg = "sky blue", horOdd = TRUE,
+  cex.labels = 2, font.labels = 2
 )
 ```
 
@@ -353,6 +365,7 @@ Mean values:
 ```{r}
 
 ## calculate means
+
 apply(new3, 2, mean) |> round(3)
 ```
 
@@ -361,6 +374,7 @@ Standard deviations:
 ```{r}
 
 ## calculate standard deviations
+
 apply(new3, 2, sd) |> round(3)
 ```
 
@@ -392,17 +406,17 @@ Value pairs are evaluated one pair at a time, so a vectorised process is infeasi
 
 Let's generate some data: five 7-point Likert-scale items to help students decide what items should be included in a scale.
 
-#### generate uncorrelated synthetic data
+#### generate uncorrelated synthetic data with _lfast()_
 
 ```{r }
 
-n = 50
+n <- 128
 
-x1 <- lexact(n, 4.50, 1.00, 1, 7, 1)
-x2 <- lexact(n, 5.50, 0.70, 1, 7, 1)
-x3 <- lexact(n, 5.25, 1.25, 1, 7, 1)
-x4 <- lexact(n, 2.50, 1.25, 1, 7, 1)
-x5 <- lexact(n, 4.50, 1.50, 1, 7, 1)
+x1 <- lfast(n, 4.50, 1.00, 1, 7, 1)
+x2 <- lfast(n, 5.25, 0.70, 1, 7, 1)
+x3 <- lfast(n, 5.25, 1.25, 1, 7, 1)
+x4 <- lfast(n, 2.50, 1.50, 1, 7, 1)
+x5 <- lfast(n, 4.50, 1.50, 1, 7, 1)
 mydat5 <- cbind(x1, x2, x3, x4, x5) |> data.frame()
 ```
 
@@ -420,7 +434,7 @@ Standard deviations:
 apply(mydat5, 2, sd) |> round(3)
 ```
 
-We can see that the data are close to what is expected. The synthetic data have low correlations:
+The synthetic data have low correlations:
 
 ```{r fig8, fig.height=8, fig.width=8, fig.align='center'}
 
@@ -432,14 +446,15 @@ cor(mydat5) |> round(2)
 ```{r}
 
 ## describe a target correlation matrix
+
 tgt5 <- matrix(
   c(
-     1.00,  0.75,  0.50,  0.25, -0.50,
-     0.75,  1.00,  0.50,  0.25, -0.50,
-     0.50,  0.50,  1.00,  0.25, -0.50,
-     0.25,  0.25,  0.25,  1.00, -0.50,
-    -0.50, -0.50, -0.50, -0.50,  1.00
-    ),
+    1.00, 0.75, 0.60, 0.25, -0.60,
+    0.75, 1.00, 0.50, 0.25, -0.70,
+    0.60, 0.50, 1.00, 0.25, -0.50,
+    0.25, 0.25, 0.25, 1.00, -0.50,
+    -0.60, -0.70, -0.50, -0.50, 1.00
+  ),
   nrow = 5
 )
 ```
@@ -467,36 +482,28 @@ cor(new5) |> round(2)
 panel.hist <- function(x, ...) {
   usr <- par("usr")
   par(usr = c(usr[1:2], 0, 1.5))
-  h <- hist(x, breaks = seq(from = 1,to = 7, by = 1), plot = FALSE)
+  h <- hist(x, breaks = seq(from = 1, to = 7, by = 1), plot = FALSE)
   breaks <- h$breaks
   nB <- length(breaks)
   y <- h$counts
   y <- y / max(y)
-  rect(breaks[-nB], 0, breaks[-1], y, col = "sky blue",  ...)
+  rect(breaks[-nB], 0, breaks[-1], y, col = "sky blue", ...)
 }
+
+panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {
+  usr <- par("usr")
+  par(usr = c(0, 1, 0, 1))
+  r <- cor(x, y)
+  txt <- format(c(r, 0.123456789), digits = digits)[1]
+  txt <- paste0(prefix, txt)
+  text(0.5, 0.5, txt, cex = abs(3 * r))
+}
+
 pairs(new5,
-  upper.panel = NULL,
-  cex = 2, pch = 21, bg=rgb(0, 0, 1, 0.1), horOdd = TRUE,
-  diag.panel = panel.hist, cex.labels = 2, font.labels = 2
+  upper.panel = panel.cor,
+  diag.panel = panel.hist,
+  cex = 2, pch = 21, bg = rgb(0, 0, 1, 0.1), horOdd = TRUE,
+  cex.labels = 2,
+  font.labels = 2
 )
-```
-
-And the means and standard deviations have not changed from the original data-frame.
-
-Mean values:
-
-```{r}
-
-## calculate means
-
-apply(new5, 2, mean) |> round(3)
-```
-
-Standard deviations:
-
-```{r}
-
-## calculate standard deviations
-
-apply(new5, 2, sd) |> round(3)
 ```
