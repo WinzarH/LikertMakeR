@@ -30,7 +30,7 @@ The package generates a column of values that simulate the same properties as a 
 
 The package should be useful for teaching in the Social Sciences, and for scholars who wish to "replicate" rating-scale data for further analysis and visualisation when only summary statistics have been reported. 
 
-I was prompted to write the functions in _LikertMakeR_ after reviewing too many journal article submissions where authors presented questionnaire results with only means and standard deviations (often only the means), with no understanding of the real distributions. Hopefully, this tool will help researchers, teachers (and other reviewers), to better think about rating-scale distributions, and the effects of variance, boundaries and number of items in a scale.
+I was prompted to write the functions in _LikertMakeR_ after reviewing too many journal article submissions where authors presented questionnaire results with only means and standard deviations (often only the means), with no understanding of the real distributions. Hopefully, this tool will help researchers, teachers, and other reviewers, to better think about rating-scale distributions, and the effects of variance, boundaries and number of items in a scale.
 
 ## Rating scale properties
 
@@ -42,7 +42,7 @@ For example, a 5-point Likert scale that is constructed with, say, five items (q
 
 Rating-scale boundaries define minima and maxima for any scale values. If the mean is close to one boundary then data points will gather more closely to that boundary and the data will always be skewed.
 
-## Alternative packages
+## Alternative methods & packages
 
 _LikertMakeR_ is intended for synthesising & correlating rating-scale data with means, standard deviations, and correlations as close as possible to predefined parameters. If you don't need your data to be close to exact, then other options may be faster or more flexible. 
 
@@ -52,9 +52,21 @@ Different approaches include:
 
     - [truncnorm](https://cran.r-project.org/web/packages/truncnorm/index.html)
     
-    - [faux](https://cran.r-project.org/web/packages/faux/index.html)
+    - [faux](https://cran.r-project.org/web/packages/faux/index.html) 
+ 
+    - See also [responsesR](https://github.com/markolalovic/responsesR), by Marko Lalovic on [GitHub](https://github.com/markolalovic/responsesR), for an approach using optimal discretization and skew-normal distribution.
     
 * sampling with a predetermined probability distribution
+
+    - for example, the following code will generate a vector of values with approximately the given probabilities. 
+   
+```{r, eval = FALSE}
+     
+     n <- 128
+     sample(1:5, n, replace = TRUE,
+       prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
+     )
+```
 
 * Marginal model specification as in [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html) and  [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)  using: 
 
@@ -65,9 +77,22 @@ Different approaches include:
 
 # Using _LikertMakeR_
 
-```{r setup}
+Download and Install **_LikertMakeR_** from _GitHub_.
 
-library(LikertMakeR)
+  > ```
+  > 
+  > library(devtools)
+  > 
+  > install_github("WinzarH/LikertMakeR")
+  > 
+  > # load the package
+  > library(LikertMakeR)
+  > ```
+
+
+```{r setup, include = FALSE}
+
+  library(LikertMakeR)
 ```
 
 ## Generate synthetic rating-scale data
@@ -90,14 +115,13 @@ To synthesise a rating scale with **_LikertMakeR_**, the user must input the fol
 
 **_LikertMakeR_** offers two different functions for synthesising a rating scale: **_lfast()_** and **_lexact()_**
 
-
 ### _lfast()_
 
--   **_lfast()_** draws a random sample from a scaled *Beta* distribution. It is very fast but does not guarantee exact mean and standard deviation. Recommended for relatively large sample sizes, or to simulate rating scales ahead of finalising a questionnaire or demonstrating analyses. 
+-   **_lfast()_** draws a random sample from a scaled *Beta* distribution. It is very fast but does not guarantee exact mean and standard deviation. Recommended for relatively large sample sizes. 
 
 #### _lfast()_ example
 
-##### a ten-item, seven-point Likert scale
+##### a five-item, seven-point Likert scale
 
 ```{r }
 
@@ -113,9 +137,9 @@ x <- lfast(
 )
 ```
 
-distribution of the generated vector:
 
-```{r fig1, fig.height=3, fig.width=4, fig.align='center'}
+
+```{r fig1, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 ## distribution of x
 
@@ -136,7 +160,8 @@ hist(x,
 x <- lfast(256, 2, 2, 0, 10, seed = 42)
 ```
 
-```{r fig2, fig.height=3, fig.width=4, fig.align='center'}
+
+```{r fig2, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 hist(x,
   cex.axis = 0.5, cex.main = 0.75,
@@ -168,7 +193,7 @@ x <- lexact(
 )
 ```
 
-```{r fig3, fig.height=3, fig.width=4, fig.align='center'}
+```{r fig3, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 hist(x,
   cex.axis = 0.5, cex.main = 0.75,
@@ -199,7 +224,7 @@ Reproducible example
 x <- lexact(64, 2, 1.8, 0, 10, seed = 42)
 ```
 
-```{r fig4,  fig.height=3, fig.width=4, fig.align='center'}
+```{r fig4,  fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 hist(x,
   cex.axis = 0.5, cex.main = 0.75,
@@ -226,7 +251,7 @@ x <- lexact(
 )
 ```
 
-```{r fig5,  fig.height=3, fig.width=4, fig.align='center'}
+```{r fig5,  fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 hist(x,
   cex.axis = 0.5, cex.main = 0.75,
@@ -242,7 +267,7 @@ hist(x,
 
 **_lcor()_** systematically selects pairs of values in a column and swaps their places, and checks to see if this swap improves the correlation matrix. If the revised data-frame produces a correlation matrix closer to the target correlation matrix, then the swap is retained. Otherwise, the values are returned to their original places. This process is iterated across each column. 
 
-To create the desired correlations, the user must define the following data-frames:
+To create the desired correlated data, the user must define the following data-frames:
 
 -   **_data_**: a starter data set of rating-scales
 
@@ -256,27 +281,28 @@ Let's generate some data: three 5-point Likert scales, each made with five items
 
 ```{r }
 
-n <- 64
+n <- 32
 
-set.seed(42)
+# set.seed(42)
 
-x1 <- lexact(n, 3.5, 1.00, 1, 5, 5)
-x2 <- lexact(n, 2.5, 0.75, 1, 5, 5)
-x3 <- lexact(n, 3.0, 1.50, 1, 5, 5)
+x1 <- lexact(n, 2.5, 0.75, 1, 5, 5)
+x2 <- lexact(n, 3.0, 1.50, 1, 5, 5)
+x3 <- lexact(n, 3.5, 1.00, 1, 5, 5)
 
 mydat3 <- cbind(x1, x2, x3) |> data.frame()
 ```
 
 The first ten observations from this data-frame are:
 
-```{r}
+```{r, echo = FALSE}
 
 head(mydat3, 10)
+# print(mydat3)
 ```
 
 Mean values:
 
-```{r}
+```{r, echo = FALSE}
 
 apply(mydat3, 2, mean) |> round(3)
 ```
@@ -290,7 +316,7 @@ apply(mydat3, 2, sd) |> round(3)
 
 We can see that the data are close to what is expected. The synthetic data have low correlations:
 
-```{r fig6, fig.height=8, fig.width=8, fig.align='center'}
+```{r fig6, fig.height=8, fig.width=8, fig.align='center', echo = FALSE}
 
 cor(mydat3) |> round(2)
 ```
@@ -303,9 +329,9 @@ cor(mydat3) |> round(2)
 
 tgt3 <- matrix(
   c(
-    1.00, 0.90, 0.75,
-    0.90, 1.00, 0.85,
-    0.75, 0.85, 1.00
+    1.00, 0.80, 0.75,
+    0.80, 1.00, 0.90,
+    0.75, 0.90, 1.00
   ),
   nrow = 3
 )
@@ -324,12 +350,12 @@ new3 <- lcor(mydat3, tgt3)
 
 A new data frame with correlations close to our desired correlation matrix:
 
-```{r}
+```{r, echo = FALSE}
 
 cor(new3) |> round(2)
 ```
 
-```{r  fig7, fig.height = 7, fig.width = 7, fig.align = 'center'}
+```{r  fig7, fig.height = 7, fig.width = 7, fig.align = 'center', echo = FALSE}
 
 panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {
   usr <- par("usr")
@@ -362,7 +388,7 @@ And the means and standard deviations have not changed from the original data-fr
 
 Mean values:
 
-```{r}
+```{r, echo = FALSE}
 
 ## calculate means
 
@@ -371,7 +397,7 @@ apply(new3, 2, mean) |> round(3)
 
 Standard deviations:
 
-```{r}
+```{r, echo = FALSE}
 
 ## calculate standard deviations
 
@@ -404,7 +430,7 @@ Value pairs are evaluated one pair at a time, so a vectorised process is infeasi
 
 #### Dummy data for scale development
 
-Let's generate some data: five 7-point Likert-scale items to help students decide what items should be included in a scale.
+Let's generate some data: five 7-point items to help students decide what items should be included in a Likert scale.
 
 #### generate uncorrelated synthetic data with _lfast()_
 
@@ -412,31 +438,32 @@ Let's generate some data: five 7-point Likert-scale items to help students decid
 
 n <- 128
 
-x1 <- lfast(n, 4.50, 1.00, 1, 7, 1)
-x2 <- lfast(n, 5.25, 0.70, 1, 7, 1)
-x3 <- lfast(n, 5.25, 1.25, 1, 7, 1)
-x4 <- lfast(n, 2.50, 1.50, 1, 7, 1)
-x5 <- lfast(n, 4.50, 1.50, 1, 7, 1)
+x1 <- lfast(n, 2.50, 1.50, 1, 7, 1)
+x2 <- lfast(n, 4.50, 1.00, 1, 7, 1)
+x3 <- lfast(n, 4.50, 1.50, 1, 7, 1)
+x4 <- lfast(n, 5.25, 0.70, 1, 7, 1)
+x5 <- lfast(n, 5.25, 1.25, 1, 7, 1)
+
 mydat5 <- cbind(x1, x2, x3, x4, x5) |> data.frame()
 ```
 
 Mean values:
 
-```{r}
+```{r, echo = FALSE}
 
 apply(mydat5, 2, mean) |> round(3)
 ```
 
 Standard deviations:
 
-```{r echo=FALSE}
+```{r, echo=FALSE}
 
 apply(mydat5, 2, sd) |> round(3)
 ```
 
 The synthetic data have low correlations:
 
-```{r fig8, fig.height=8, fig.width=8, fig.align='center'}
+```{r fig8, fig.height=8, fig.width=8, fig.align='center', echo = FALSE}
 
 cor(mydat5) |> round(2)
 ```
@@ -449,11 +476,11 @@ cor(mydat5) |> round(2)
 
 tgt5 <- matrix(
   c(
-    1.00, 0.75, 0.60, 0.25, -0.60,
-    0.75, 1.00, 0.50, 0.25, -0.70,
-    0.60, 0.50, 1.00, 0.25, -0.50,
-    0.25, 0.25, 0.25, 1.00, -0.50,
-    -0.60, -0.70, -0.50, -0.50, 1.00
+    1.00, 0.80, 0.75, 0.25, -0.75,
+    0.80, 1.00, 0.70, 0.25, -0.70,
+    0.75, 0.70, 1.00, 0.25, -0.50,
+    0.25, 0.25, 0.25, 1.00, -0.40,
+    -0.75, -0.70, -0.50, -0.40, 1.00
   ),
   nrow = 5
 )
@@ -472,12 +499,12 @@ new5 <- lcor(mydat5, tgt5)
 
 A new data frame with correlations close to our desired correlation matrix:
 
-```{r}
+```{r, echo = FALSE}
 
 cor(new5) |> round(2)
 ```
 
-```{r  fig9, fig.height = 7, fig.width = 7, fig.align = 'center'}
+```{r  fig9, fig.height = 7, fig.width = 7, fig.align = 'center', echo = FALSE}
 
 panel.hist <- function(x, ...) {
   usr <- par("usr")
