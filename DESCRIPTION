@@ -5,7 +5,7 @@ Version: 0.1.5
 Authors@R: 
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7475-2641"))
-Description: Synthesise and correlate rating-scale data with predefined first & second moments, and predefined correlation matrix.
+Description: Synthesise and correlate rating-scale data with predefined first & second moments and, optionally, predefined correlation matrix.
 URL: https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
 License: MIT + file LICENSE
@@ -20,5 +20,5 @@ Suggests:
     'dplyr',
     'testthat' (>= 3.0.0),
     'knitr'
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Config/testthat/edition: 3
