@@ -9,6 +9,9 @@ The package is intended for
    - "reproducing" rating-scale data for further analysis and visualisation when only summary statistics have been reported, and 
    
    - Teaching. Helping researchers and students to better understand the relationships among scale properties, sample size, number of items, etc. 
+   
+   - Checking the feasibility of scale moments with given scale and correlation properties
+
 
 Functions in ___LikertMakeR___ are:
 
@@ -94,7 +97,7 @@ Example: a five-item, seven-point Likert scale
   >
   > ```
   > 
-  > x <- lfast(256, 2, 1.8, 0, 10)
+  > x <- lfast(256, 2.5, 2.5, 0, 10)
   > 
   > ```
   >
