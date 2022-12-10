@@ -1,25 +1,31 @@
 # LikertMakeR
 
-___LikertMakeR___ synthesises Likert scale and related rating-scale data. Such scales are constrained by upper and lower bounds and discrete increments. 
+___LikertMakeR___ synthesises Likert scale and related rating-scale data. 
+Such scales are constrained by upper and lower bounds and discrete increments. 
 
 ## Purpose
 
 The package is intended for 
 
-   - "reproducing" rating-scale data for further analysis and visualisation when only summary statistics have been reported, and 
+   - "reproducing" rating-scale data for further analysis and visualisation 
+   when only summary statistics have been reported, 
    
-   - Teaching. Helping researchers and students to better understand the relationships among scale properties, sample size, number of items, etc. 
-   
-   - Checking the feasibility of scale moments with given scale and correlation properties
+   - Teaching. Helping researchers and students to better understand the 
+   relationships among scale properties, sample size, number of items, etc. 
+
+   - Checking the feasibility of scale moments with given scale and 
+   correlation properties 
 
 
 Functions in ___LikertMakeR___ are:
 
-*  ___lfast()___ draws a random sample from a scaled _Beta_ distribution to approximate predefined first and second moments
+*  ___lfast()___ draws a random sample from a scaled _Beta_ distribution to 
+approximate predefined first and second moments
 
 *  ___lexact()___ attempts to produce a vector with exact first and second moments 
 
- * ___lcor()___ rearranges the values in the columns of a data set so that they are correlated to match a predefined correlation matrix
+ * ___lcor()___ rearranges the values in the columns of a data set so that they 
+ are correlated to match a predefined correlation matrix
 
 
 ## Rating scale properties
@@ -46,7 +52,6 @@ intervals of 1/8=0.125.
 
 To download and install the package, run the following code from your R console:
 
-  >
   > ```
   > 
   > library(devtools)
@@ -54,7 +59,7 @@ To download and install the package, run the following code from your R console:
   > install_github("WinzarH/LikertMakeR")
   > 
   > ```
-  > 
+
 
 ## Generating synthetic rating scales
 
@@ -75,23 +80,24 @@ To synthesise a rating scale, the user must input the following parameters:
   *  ___seed___: optional seed for reproducibility 
   
     
-___LikertMakeR___ offers two different functions for synthesising a rating scale: ___lfast()___ and ___lexact()___
+___LikertMakeR___ offers two different functions for synthesising a rating 
+scale: ___lfast()___ and ___lexact()___
 
 ### lfast()
 
-  *  ___lfast()___ draws a random sample from a scaled _Beta_ distribution. It is very fast but does not guarantee that the mean and standard deviation are exact. Recommended for relatively large sample sizes.
+  *  ___lfast()___ draws a random sample from a scaled _Beta_ distribution. 
+  It is very fast but does not guarantee that the mean and standard deviation are exact. 
+  Recommended for relatively large sample sizes.
   
 
 Example: a five-item, seven-point Likert scale
 
-  >
   > ```
   > 
   > x <- lfast(n = 256, mean = 4.5, sd = 1.0, lowerbound = 1, upperbound = 7, items = 5)
   > 
   > ```
-  >
-  
+
  Example:  an 11-point likelihood-of-purchase scale
  
   >
@@ -101,6 +107,14 @@ Example: a five-item, seven-point Likert scale
   > 
   > ```
   >
+
+ Example:  an 11-point likelihood-of-purchase scale
+ 
+  > ```
+  > 
+  > x <- lfast(256, 2, 1.8, 0, 10)
+  > 
+  > ```
 
   
 ### lexact()  
@@ -117,34 +131,27 @@ where only summary statistics are reported.
  
  Example: a five-item, seven-point Likert scale
 
-  >
   > ```
   > 
   > x <- lexact(n = 64, mean = 4.5, sd = 1.0, lowerbound = 1, upperbound = 7, items = 5)
   > 
   > ```
-  > 
-
+ 
  Example:  an 11-point likelihood of purchase scale
 
-  > 
   > ```
   > 
-  > x <- lexact(64, 2, 1.8, 0, 10)
+  > x <- lexact(64, 2.5, 2.5, 0, 10)
   > 
   > ```
-  > 
 
  Example:  a seven-point negative-to-positive scale with 6 items
 
-  >
   > ```
   > 
-  > x <- lexact(n = 64, mean = 1.2, sd = 1.00, lowerbound = -3, upperbound = 3, items = 6)
+  > x <- lexact(n = 64, mean = 1.25, sd = 1.00, lowerbound = -3, upperbound = 3, items = 6)
   > 
   > ```
-  >
-
 
   
 ## Correlating vectors of synthetic rating scales
@@ -166,16 +173,15 @@ following objects:
 
 ####  generate synthetic data
 
-  > 
   > ```
   > 
   > set.seed(42) # for reproducibility
   > 
   > n <- 64
-  > x1 <- lexact(n, 3.5, 1.0, 1, 5, 5) 
+  > x1 <- lexact(n, 3.5, 1.00, 1, 5, 5) 
   > x2 <- lexact(n, 1.5, 0.75, 1, 5, 5) 
-  > x3 <- lexact(n, 3.0, 1.7, 1, 5, 5) 
-  > x4 <- lexact(n, 2.5, 1.5, 1, 5, 10)   
+  > x3 <- lexact(n, 3.0, 1.70, 1, 5, 5) 
+  > x4 <- lexact(n, 2.5, 1.50, 1, 5, 5)   
   > 
   > mydat4 <- cbind(x1, x2, x3, x4) |> 
   >     data.frame()
@@ -184,11 +190,11 @@ following objects:
   > cor(mydat4) |> round(3)
   > 
   > ```
-  >
+
 
 ####  Define a target correlation matrix
 
-  > 
+
   > ```
   > 
   > tgt4 <- matrix(
@@ -202,11 +208,10 @@ following objects:
   > )
   > 
   > ```
-  > 
+
 
 ####  Rearrange values in each column to achieve desired correlations
 
-  >  
   > ```
   > 
   > new4 <- lcor(data = mydat4, target = tgt4)
@@ -214,11 +219,9 @@ following objects:
   > cor(new4) |> round(3)
   > 
   > ```
-  > 
 
 #####  Same starting values with a different target correlation matrix
 
-  > 
   > ```
   > 
   > mydat3 <- cbind(x1, x2, x3) |> data.frame()
@@ -237,11 +240,9 @@ following objects:
   > cor(new3) |> round(3)
   > 
   > ```
-  > 
 
 #####  Another target correlation matrix
 
-  > 
   > ```
   > 
   > tgt3 <- matrix(
@@ -258,6 +259,5 @@ following objects:
   > cor(new3) |> round(3)
   > 
   > ```
-  > 
 
 
