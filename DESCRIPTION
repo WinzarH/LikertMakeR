@@ -1,11 +1,11 @@
 Package: LikertMakeR
 Type: Package
 Title: Synthesise and Correlate Rating-Scale Data
-Version: 0.1.3
+Version: 0.1.5
 Authors@R: 
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7475-2641"))
-Description: Simulate rating-scale data with predefined first & second moments, and sample size plus parameters of the scale. Then rearrange the values in each column so the columns correlate to match a predefined correlation matrix.
+Description: Synthesise and correlate rating-scale data with predefined first & second moments, and predefined correlation matrix.
 URL: https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
 License: MIT + file LICENSE
