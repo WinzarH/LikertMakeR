@@ -1,11 +1,16 @@
 Package: LikertMakeR
+Version: 0.1-5
+Date: 2022-12-11
 Type: Package
 Title: Synthesise and Correlate Rating-Scale Data
-Version: 0.1.5
 Authors@R: 
-    person("Hume", "Winzar", , "winzar@gmail.com", role = c("aut", "cre"),
+    person("Hume", "Winzar", 
+           email = "winzar@gmail.com", 
+           role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7475-2641"))
-Description: Synthesise and correlate rating-scale data with predefined first & second moments and, optionally, predefined correlation matrix.
+Description: Synthesise and correlate rating-scale data with 
+  predefined first & second moments and, optionally, predefined 
+  correlation matrix.
 URL: https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
 License: MIT + file LICENSE
@@ -13,12 +18,12 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 LazyData: true
 Language: en-AU
-VignetteBuilder: 'knitr'
+VignetteBuilder: knitr
 Depends: R (>= 4.2.0)
 Imports: DEoptim
 Suggests: 
-    'dplyr',
-    'testthat' (>= 3.0.0),
-    'knitr'
+    dplyr (>= 1.0.0),
+    testthat (>= 3.0.0),
+    knitr (>= 1.0.0)
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
