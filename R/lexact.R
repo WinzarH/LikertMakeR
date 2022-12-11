@@ -1,7 +1,7 @@
-#' Generate Likert scale data with only Mean and Standard Deviation
+#' Generate rating-scale data with only Mean and Standard Deviation
 #' @name lexact
-#' @description \code{lexact()} is a function to randomly generate rating-scale values with predefined first and second moments.
-#' @details If feasible, the function should produce data with moments that are exact to two decimal places.
+#' @description \code{lexact()} generates rating-scale values with predefined first and second moments.
+#' @details If feasible, moments are exact to two decimal places.
 #'
 #'
 #' @param n the number of observations to simulate
@@ -42,7 +42,7 @@
 #'
 #'
 ## load libraries
-## library(DEoptim, include.only = 'DEoptim')
+library(DEoptim, include.only = c('DEoptim', 'DEoptim.control'))
 import::from(DEoptim, "DEoptim") 
 ##
 ## Create the function
@@ -51,21 +51,22 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   max <- upperbound * items
   mean <- mean * items
   target_sd <- sd * items
+  ##
   ## define target statistic to be minimised
+  ## Two parameters must be optimised: mean & sd.
+  ## Difference between mean & target mean, and 
+  ## difference between sd & target sd.
+  ## Target statistic is the sum of the differences, 
+  ## with a slight advantage to mean.
+  ##
   opt_scale <- function(x) {
-    ## Two parameters must be optimised: mean & sd.
-    ## Difference between mean & target mean, and difference between sd &
-    ## target sd.
-    ## We create a target statistic which is the sum of the differences, with a
-    ## slight advantage to mean.
-    target_stat <- ((mean - mean(x)) * 200)^2 +
-      ((target_sd - sd(x)) * 100)^2
-    target_stat
+    target_stat <- ((mean - mean(x)) * 200)^2 + ((target_sd - sd(x)) * 100)^2
+    return(target_stat)
   }
   lower <- rep(min, each = n)
   upper <- rep(max, each = n)
   itermax <- n * 10
-  fnmap_f <- function(x) round(x)
+  fnmap_f <- function(x) round(x) ## integer output
 
   if (missing(seed)) {
   } else {
@@ -83,10 +84,8 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   )
 
   mydat <- summary(my_vector)
-  # mydata <- data.frame(score = mydat[["optim"]][["bestmem"]]) / items
   mydata <- mydat[["optim"]][["bestmem"]] / items
   row.names(mydata) <- NULL
-  # data <- data.frame(data)
 
   return(mydata)
 }
