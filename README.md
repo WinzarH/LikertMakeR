@@ -133,23 +133,23 @@ where only summary statistics are reported.
 
   > ```
   > 
-  > x <- lexact(n = 64, mean = 4.5, sd = 1.0, lowerbound = 1, upperbound = 7, items = 5)
+  > x <- lexact(n = 32, mean = 4.5, sd = 1.0, lowerbound = 1, upperbound = 7, items = 5)
   > 
   > ```
  
- Example:  an 11-point likelihood of purchase scale
+ Example:  an 11-point likelihood-of-purchase scale
 
   > ```
   > 
-  > x <- lexact(64, 2.5, 2.5, 0, 10)
+  > x <- lexact(32, 2.5, 2.5, 0, 10)
   > 
   > ```
 
- Example:  a seven-point negative-to-positive scale with 6 items
+ Example:  a seven-point negative-to-positive scale with 4 items
 
   > ```
   > 
-  > x <- lexact(n = 64, mean = 1.25, sd = 1.00, lowerbound = -3, upperbound = 3, items = 6)
+  > x <- lexact(n = 32, mean = 1.25, sd = 1.00, lowerbound = -3, upperbound = 3, items = 4)
   > 
   > ```
 
@@ -177,7 +177,7 @@ following objects:
   > 
   > set.seed(42) # for reproducibility
   > 
-  > n <- 64
+  > n <- 32
   > x1 <- lexact(n, 3.5, 1.00, 1, 5, 5) 
   > x2 <- lexact(n, 1.5, 0.75, 1, 5, 5) 
   > x3 <- lexact(n, 3.0, 1.70, 1, 5, 5) 

@@ -20,7 +20,8 @@ LazyData: true
 Language: en-AU
 VignetteBuilder: knitr
 Depends: R (>= 4.2.0)
-Imports: DEoptim
+Imports: 
+    DEoptim (>= 2.2.0),
 Suggests: 
     dplyr (>= 1.0.0),
     testthat (>= 3.0.0),

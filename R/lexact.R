@@ -19,12 +19,12 @@
 #' @import DEoptim
 #'
 #' @export lexact
-#' @export tibble
+#' @export
 #'
 #' @examples
 #'
 #' x <- lexact(
-#'   n = 32,
+#'   n = 16,
 #'   mean = 4.2,
 #'   sd = 0.85,
 #'   lowerbound = 1,
@@ -33,7 +33,7 @@
 #' )
 #'
 #' x <- lexact(
-#'   n = 32,
+#'   n = 16,
 #'   mean = 1.2,
 #'   sd = 1.00,
 #'   lowerbound = -3,
@@ -41,7 +41,7 @@
 #'   items = 4
 #' )
 #'
-#' x <- lexact(32, 2, 2.5, 0, 10)
+#' x <- lexact(16, 2, 2.5, 0, 10)
 #'
 ## load libraries
 library(DEoptim, include.only = c("DEoptim", "DEoptim.control"))

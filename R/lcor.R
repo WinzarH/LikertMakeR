@@ -18,18 +18,19 @@
 #' (square) k*k matrix
 #'
 #' @return Returns a data-frame whose column-wise correlations
-#' approximate a user-specified correlation matrix.
+#' approximate a user-specified correlation matrix
 #'
 #' @export lcor
-#' @export tibble
-#'
+#' @export
+#' 
 #' @examples
 #'
 #' ## generate uncorrelated synthetic data
-#' set.seed(42)
-#' x1 <- lexact(64, 3.5, 1.0, 1, 5, 5)
-#' x2 <- lexact(64, 1.5, 0.75, 1, 5, 5)
-#' x3 <- lexact(64, 3.0, 2.0, 1, 5, 5)
+#' 
+#' n <- 16
+#' x1 <- lexact(n, 3.5, 1.0, 1, 5, 5)
+#' x2 <- lexact(n, 1.5, 0.75, 1, 5, 5)
+#' x3 <- lexact(n, 3.0, 2.0, 1, 5, 5)
 #'
 #' mydat3 <- cbind(x1, x2, x3) |> data.frame()
 #'
