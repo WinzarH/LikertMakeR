@@ -5,8 +5,6 @@
 #' for example,a 1-5 scale made from 5 items (questions) or 0-10
 #' likelihood-of-purchase scale.
 #'
-#'
-#'
 #' @param n number of observations to generate
 #' @param mean target mean
 #' @param sd target standard deviation
@@ -16,10 +14,11 @@
 #' @param seed optional seed for reproducibility
 #'
 #' @return a vector of simulated data approximating user-specified conditions.
-#'
+#' 
+#' @importFrom stats rbeta
+#' 
 #' @export lfast
-#' @export tibble
-#'
+#' 
 #' @examples
 #'
 #' x <- lfast(

@@ -3,5 +3,6 @@
 export(lcor)
 export(lexact)
 export(lfast)
-export(tibble)
 import(DEoptim)
+importFrom(stats,cor)
+importFrom(stats,rbeta)

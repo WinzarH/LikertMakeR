@@ -19,7 +19,6 @@
 #' @import DEoptim
 #'
 #' @export lexact
-#' @export
 #'
 #' @examples
 #'

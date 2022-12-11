@@ -1,6 +1,3 @@
-## likertMakeR
-##
-
 #' Rearrange columns in a data-frame to fit a predefined correlation matrix
 #'
 #' @name lcor
@@ -20,8 +17,9 @@
 #' @return Returns a data-frame whose column-wise correlations
 #' approximate a user-specified correlation matrix
 #'
+#' @importFrom stats cor
+#'
 #' @export lcor
-#' @export
 #' 
 #' @examples
 #'

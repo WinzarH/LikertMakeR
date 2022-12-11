@@ -113,11 +113,14 @@ To synthesise a rating scale with **_LikertMakeR_**, the user must input the fol
 
 -   **_seed_**: optional seed for reproducibility
 
-**_LikertMakeR_** offers two different functions for synthesising a rating scale: **_lfast()_** and **_lexact()_**
+**_LikertMakeR_** offers two different functions for synthesising a 
+rating scale: **_lfast()_** and **_lexact()_**
 
 ### _lfast()_
 
--   **_lfast()_** draws a random sample from a scaled *Beta* distribution. It is very fast but does not guarantee exact mean and standard deviation. Recommended for relatively large sample sizes. 
+-   **_lfast()_** draws a random sample from a scaled *Beta* distribution. 
+It is very fast but does not guarantee exact mean and standard deviation. 
+Recommended for relatively large sample sizes. 
 
 #### _lfast()_ example
 
@@ -157,7 +160,7 @@ hist(x,
 
 ## an 11-point likelihood-of-purchase scale
 
-x <- lfast(256, 2, 2, 0, 10, seed = 42)
+x <- lfast(256, 2, 2, 0, 10)
 ```
 
 
@@ -189,7 +192,7 @@ large for the combination of mean, n-items, and scale boundaries.
 ```{r}
 
 x <- lexact(
-  n = 64,
+  n = 32,
   mean = 5.0,
   sd = 1.0,
   lowerbound = 1,
@@ -225,11 +228,9 @@ laptop [ _Windows 11 (Intel(R) i7-12700H 2.30 GHz)_ ].
 
 ##### 11-point likelihood-of-purchase scale
 
-Reproducible example
-
 ```{r}
 
-x <- lexact(64, 2, 1.8, 0, 10, seed = 42)
+x <- lexact(32, 2, 1.8, 0, 10)
 ```
 
 ```{r fig4,  fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
@@ -250,7 +251,7 @@ hist(x,
 ```{r}
 
 x <- lexact(
-  n = 64,
+  n = 32,
   mean = 1.2,
   sd = 1.00,
   lowerbound = -3,
@@ -302,9 +303,7 @@ each made with five items.
 
 ```{r }
 
-n <- 32
-
-# set.seed(42)
+n <- 16
 
 x1 <- lexact(n, 2.5, 0.75, 1, 5, 5)
 x2 <- lexact(n, 3.0, 1.50, 1, 5, 5)
