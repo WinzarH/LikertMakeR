@@ -16,6 +16,8 @@
 #'
 #' @return a vector of simulated data with user-specified conditions.
 #'
+#' @import DEoptim
+#'
 #' @export lexact
 #' @export tibble
 #'
@@ -31,7 +33,7 @@
 #' )
 #'
 #' x <- lexact(
-#'   n = 64,
+#'   n = 32,
 #'   mean = 1.2,
 #'   sd = 1.00,
 #'   lowerbound = -3,
@@ -39,11 +41,10 @@
 #'   items = 4
 #' )
 #'
-#' #' x <- lexact(32, 4, 1.5, 0, 10, 1)
+#' x <- lexact(32, 2, 2.5, 0, 10)
 #'
 ## load libraries
 library(DEoptim, include.only = c("DEoptim", "DEoptim.control"))
-import::from(DEoptim, "DEoptim")
 ##
 ## Create the function
 lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
@@ -74,8 +75,8 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   }
   ## run the optimisation algorithm
   ## this can take some time
-  my_vector <- DEoptim(opt_scale, lower, upper,
-    control = DEoptim.control(
+  my_vector <- DEoptim::DEoptim(opt_scale, lower, upper,
+    control = DEoptim::DEoptim.control(
       itermax = itermax,
       trace = FALSE,
       parallelType = "parallel"
