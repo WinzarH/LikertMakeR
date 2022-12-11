@@ -5,15 +5,20 @@
 #'
 #' @name lcor
 #'
-#' @description \code{lcor()} rearranges values in each column of a data-frame so that columns are correlated to match a predefined correlation matrix.
+#' @description \code{lcor()} rearranges values in each column of a
+#' data-frame so that columns are correlated to match a predefined
+#' correlation matrix.
 #'
-#' @details Values in a column do not change, so univariate statistics remain the same.
+#' @details Values in a column do not change, so univariate
+#' statistics remain the same.
 #'
 #'
 #' @param data beginning data-frame that is to be rearranged
-#' @param target target correlation matrix - should be a symmetric (square) k*k matrix
+#' @param target target correlation matrix - should be a symmetric
+#' (square) k*k matrix
 #'
-#' @return Returns a data-frame whose column-wise correlations approximate a user-specified correlation matrix.
+#' @return Returns a data-frame whose column-wise correlations
+#' approximate a user-specified correlation matrix.
 #'
 #' @export lcor
 #' @export tibble
@@ -25,17 +30,17 @@
 #' x1 <- lexact(64, 3.5, 1.0, 1, 5, 5)
 #' x2 <- lexact(64, 1.5, 0.75, 1, 5, 5)
 #' x3 <- lexact(64, 3.0, 2.0, 1, 5, 5)
-#' 
+#'
 #' mydat3 <- cbind(x1, x2, x3) |> data.frame()
-#' 
+#'
 #' cor(mydat3)
 #'
 #' ## describe a target correlation matrix
 #' tgt3 <- matrix(
 #'   c(
 #'     1.00, 0.50, 0.50,
-#'     0.50, 1.00, 0.25, 
-#'     0.50, 0.25, 1.00 
+#'     0.50, 1.00, 0.25,
+#'     0.50, 0.25, 1.00
 #'   ),
 #'   nrow = 3
 #' )
@@ -125,6 +130,6 @@ lcor <- function(data, target) {
       }
     } ## end row values swap loop
   } ## end column selection loop
-  # current_dat <- data.frame(current_dat)
+
   return(current_dat)
 } ## end lcor function

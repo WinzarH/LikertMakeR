@@ -1,18 +1,21 @@
 #' Rating scale data (e.g. Likert scale) from a Scaled Beta Distribution
 #' @name lfast
-#' @description \code{lfast()} generates random discrete values from a (scaled Beta distribution) so the data replicate a Likert scale - for example,a 1-5 scale made from 5 items (questions) or 0-10 likelihood of purchase scale.
+#' @description \code{lfast()} generates random discrete values from a
+#' (scaled Beta distribution) so the data replicate a rating scale -
+#' for example,a 1-5 scale made from 5 items (questions) or 0-10
+#' likelihood-of-purchase scale.
 #'
 #'
 #'
-#' @param n the number of observations to generate
-#' @param mean a mean to approximate
-#' @param sd a standard deviation to approximate
-#' @param lowerbound a lower bound for the scale (e.g. '1' for a 1-5 rating scale)
-#' @param upperbound an upper bound for the scale (e.g. '5' for a 1-5 rating scale)
+#' @param n number of observations to generate
+#' @param mean target mean
+#' @param sd target standard deviation
+#' @param lowerbound lower bound (e.g. '1' for a 1-5 rating scale)
+#' @param upperbound upper bound (e.g. '5' for a 1-5 rating scale)
 #' @param items number of items in the rating scale. Default = 1
 #' @param seed optional seed for reproducibility
 #'
-#' @return a vector of simulated data approximating the user-specified conditions.
+#' @return a vector of simulated data approximating user-specified conditions.
 #'
 #' @export lfast
 #' @export tibble
@@ -29,7 +32,7 @@
 #' )
 #'
 #' x <- lfast(256, 2, 1.8, 0, 10)
-#' 
+#'
 #' x <- lfast(256, 2, 1.0, 1, 5, 10)
 #'
 lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
@@ -47,7 +50,6 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   data <- rbeta(n, a, b)
   ## rescale Beta values to desired parameters
   data <- round((data * range + lowerbound) * items) / items
-  # data <- data.frame(data)
 
   return(data)
 }

@@ -1,6 +1,8 @@
 #' Generate rating-scale data with only Mean and Standard Deviation
 #' @name lexact
-#' @description \code{lexact()} generates rating-scale values with predefined first and second moments.
+#' @description \code{lexact()} generates rating-scale values with
+#' predefined first and second moments.
+#' 
 #' @details If feasible, moments are exact to two decimal places.
 #'
 #'
@@ -39,11 +41,9 @@
 #'
 #' #' x <- lexact(32, 4, 1.5, 0, 10, 1)
 #'
-#'
-#'
 ## load libraries
-library(DEoptim, include.only = c('DEoptim', 'DEoptim.control'))
-import::from(DEoptim, "DEoptim") 
+library(DEoptim, include.only = c("DEoptim", "DEoptim.control"))
+import::from(DEoptim, "DEoptim")
 ##
 ## Create the function
 lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
@@ -54,9 +54,9 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   ##
   ## define target statistic to be minimised
   ## Two parameters must be optimised: mean & sd.
-  ## Difference between mean & target mean, and 
+  ## Difference between mean & target mean, and
   ## difference between sd & target sd.
-  ## Target statistic is the sum of the differences, 
+  ## Target statistic is the sum of the differences,
   ## with a slight advantage to mean.
   ##
   opt_scale <- function(x) {
@@ -78,7 +78,7 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
     control = DEoptim.control(
       itermax = itermax,
       trace = FALSE,
-      parallelType <- 1
+      parallelType = "parallel"
     ),
     fnMap = fnmap_f
   )
