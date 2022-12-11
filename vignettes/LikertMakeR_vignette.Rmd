@@ -61,7 +61,7 @@ Different approaches include:
     - for example, the following code will generate a vector of values with approximately the given probabilities. 
    
 ```{r, eval = FALSE}
-     
+
      n <- 128
      sample(1:5, n, replace = TRUE,
        prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
@@ -123,7 +123,7 @@ To synthesise a rating scale with **_LikertMakeR_**, the user must input the fol
 
 ##### a five-item, seven-point Likert scale
 
-```{r }
+```{r}
 
 ## a five-item, seven-point Likert scale
 
@@ -173,9 +173,14 @@ hist(x,
 
 ### _lexact()_
 
-**_lexact()_** attempts to produce a vector with exact first and second moments. It uses the *Differential Evolution* algorithm in the [**_DEoptim_**](https://cran.r-project.org/web/packages/DEoptim/index.html) package to find appropriate values within the desired constraints. 
+**_lexact()_** attempts to produce a vector with exact first and second moments. 
+It uses the *Differential Evolution* algorithm in the [**_DEoptim_**](https://cran.r-project.org/web/packages/DEoptim/index.html) 
+package to find appropriate values within the desired constraints. 
 
-*If feasible*, **_lexact()_** should produce data with moments that are correct to two decimal places. Infeasible cases occur when the requested standard deviation is too large for the combination of mean, n-items, and scale boundaries.
+*If feasible*, **_lexact()_** should produce data with moments that are 
+correct to two decimal places. 
+Infeasible cases occur when the requested standard deviation is too 
+large for the combination of mean, n-items, and scale boundaries.
 
 #### _lexact()_ example #1
 
@@ -203,7 +208,10 @@ hist(x,
 )
 ```
 
-**_lexact()_** can take time to complete the optimisation task. For example, **_lexact()_** executed the above example with the following sample-size & time combinations on the author's laptop [ _Windows 11 (Intel(R) i7-12700H 2.30 GHz)_ ].
+**_lexact()_** can take time to complete the optimisation task. 
+For example, **_lexact()_** executed the above example with the 
+following sample-size & time combinations on the author's 
+laptop [ _Windows 11 (Intel(R) i7-12700H 2.30 GHz)_ ].
 
 |  n  | seconds   |
 |:---:|:-----:|
@@ -263,11 +271,23 @@ hist(x,
 
 ## Correlating vectors of synthetic rating scales
 
-**_LikertMakeR_** offers another function, **_lcor()_**, which rearranges the values in the columns of a data-set so that they are correlated at a specified level. It does not change the values - it swaps their positions within each column so that univariate statistics do not change, but their correlations with other vectors do.
+**_LikertMakeR_** offers another function, **_lcor()_**, 
+which rearranges the values in the columns of a data-set so that 
+they are correlated at a specified level. It does not change the 
+values - it swaps their positions within each column so that 
+univariate statistics do not change, but their correlations with 
+other vectors do.
 
-**_lcor()_** systematically selects pairs of values in a column and swaps their places, and checks to see if this swap improves the correlation matrix. If the revised data-frame produces a correlation matrix closer to the target correlation matrix, then the swap is retained. Otherwise, the values are returned to their original places. This process is iterated across each column. 
+**_lcor()_** systematically selects pairs of values in a column 
+and swaps their places, and checks to see if this swap improves 
+the correlation matrix. If the revised data-frame produces a 
+correlation matrix closer to the target correlation matrix, 
+then the swap is retained. 
+Otherwise, the values are returned to their original places. 
+This process is iterated across each column. 
 
-To create the desired correlated data, the user must define the following data-frames:
+To create the desired correlated data, the user must define the 
+following data-frames:
 
 -   **_data_**: a starter data set of rating-scales
 
@@ -275,7 +295,8 @@ To create the desired correlated data, the user must define the following data-f
 
 ### _lcor()_ example #1
 
-Let's generate some data: three 5-point Likert scales, each made with five items.
+Let's generate some data: three 5-point Likert scales, 
+each made with five items.
 
 ##### generate uncorrelated synthetic data
 
@@ -297,7 +318,6 @@ The first ten observations from this data-frame are:
 ```{r, echo = FALSE}
 
 head(mydat3, 10)
-# print(mydat3)
 ```
 
 Mean values:
@@ -314,7 +334,8 @@ Standard deviations:
 apply(mydat3, 2, sd) |> round(3)
 ```
 
-We can see that the data are close to what is expected. The synthetic data have low correlations:
+We can see that the data are close to what is expected. 
+The synthetic data have low correlations:
 
 ```{r fig6, fig.height=8, fig.width=8, fig.align='center', echo = FALSE}
 
@@ -337,7 +358,8 @@ tgt3 <- matrix(
 )
 ```
 
-So now we have a data-frame with desired first and second moments, and a target correlation matrix.
+So now we have a data-frame with desired first and second moments, 
+and a target correlation matrix.
 
 ##### applying the *lcor()* function.
 
@@ -404,7 +426,8 @@ Standard deviations:
 apply(new3, 2, sd) |> round(3)
 ```
 
-A large data-frame can take some time. Time to run a task in **_lcor()_** depends on 
+A large data-frame can take some time. 
+Time to run a task in **_lcor()_** depends on 
 
 - number of observations,
 
@@ -414,7 +437,8 @@ A large data-frame can take some time. Time to run a task in **_lcor()_** depend
 
 - speed of your computer.
 
-The **_lcor()_** function in the example above had the following sample-size/time combinations on the author's laptop:
+The **_lcor()_** function in the example above had the 
+following sample-size/time combinations on the author's laptop:
 
   |  n  | seconds   |
   |:---:|:-----:|
@@ -424,13 +448,15 @@ The **_lcor()_** function in the example above had the following sample-size/tim
   | 128 |  5.62 |
   | 256 | 23.30 |
 
-Value pairs are evaluated one pair at a time, so a vectorised process is infeasible at present. 
+Value pairs are evaluated one pair at a time, 
+so a vectorised process is infeasible at present. 
 
 ### _lcor()_ example #2
 
 #### Dummy data for scale development
 
-Let's generate some data: five 7-point items to help students decide what items should be included in a Likert scale.
+Let's generate some data: five 7-point items to help students 
+decide what items should be included in a Likert scale.
 
 #### generate uncorrelated synthetic data with _lfast()_
 
