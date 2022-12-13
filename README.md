@@ -94,7 +94,13 @@ Example: a five-item, seven-point Likert scale
 
   > ```
   > 
-  > x <- lfast(n = 256, mean = 4.5, sd = 1.0, lowerbound = 1, upperbound = 7, items = 5)
+  > x <- lfast(
+  >   n = 256, 
+  >   mean = 4.5, sd = 1.0, 
+  >   lowerbound = 1, 
+  >   upperbound = 7, 
+  >   items = 5
+  >   )
   > 
   > ```
 
@@ -133,7 +139,14 @@ where only summary statistics are reported.
 
   > ```
   > 
-  > x <- lexact(n = 32, mean = 4.5, sd = 1.0, lowerbound = 1, upperbound = 7, items = 5)
+  > x <- lexact(
+  >   n = 32, 
+  >   mean = 4.5, 
+  >   sd = 1.0, 
+  >   lowerbound = 1, 
+  >   upperbound = 7, 
+  >   items = 5
+  >   )
   > 
   > ```
  
@@ -149,7 +162,14 @@ where only summary statistics are reported.
 
   > ```
   > 
-  > x <- lexact(n = 32, mean = 1.25, sd = 1.00, lowerbound = -3, upperbound = 3, items = 4)
+  > x <- lexact(
+  >   n = 32, 
+  >   mean = 1.25, 
+  >   sd = 1.00, 
+  >   lowerbound = -3, 
+  >   upperbound = 3, 
+  >   items = 4
+  >   )
   > 
   > ```
 
