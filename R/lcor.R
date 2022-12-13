@@ -17,9 +17,10 @@
 #' @return Returns a data-frame whose column-wise correlations
 #' approximate a user-specified correlation matrix
 #'
-#' @importFrom stats cor
-#' @import parallelly
-#' @import parallel
+#' @importFrom stats cor 
+#' @import DEoptim 
+#' @import parallelly 
+#' @import parallel 
 #'
 #' @export lcor
 #' 
