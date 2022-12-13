@@ -18,6 +18,8 @@
 #' approximate a user-specified correlation matrix
 #'
 #' @importFrom stats cor
+#' @import parallelly
+#' @import parallel
 #'
 #' @export lcor
 #' 

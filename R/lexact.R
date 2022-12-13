@@ -17,6 +17,8 @@
 #' @return a vector of simulated data with user-specified conditions.
 #'
 #' @import DEoptim
+#' @import parallelly
+#' @import parallel
 #'
 #' @export lexact
 #'
