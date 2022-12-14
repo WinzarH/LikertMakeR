@@ -2,7 +2,7 @@
 % Please edit documentation in R/lexact.R
 \name{lexact}
 \alias{lexact}
-\title{Generate Likert scale data with only Mean and Standard Deviation}
+\title{Generate rating-scale data with only Mean and Standard Deviation}
 \arguments{
 \item{n}{the number of observations to simulate}
 
@@ -22,24 +22,25 @@
 a vector of simulated data with user-specified conditions.
 }
 \description{
-\code{lexact()} is a function to randomly generate rating-scale values with predefined first and second moments.
+\code{lexact()} generates rating-scale values with
+predefined first and second moments.
 }
 \details{
-If feasible, the function should produce data with moments that are exact to two decimal places.
+If feasible, moments are exact to two decimal places.
 }
 \examples{
 
 x <- lexact(
-  n = 32,
-  mean = 4.2,
+  n = 16,
+  mean = 3.2,
   sd = 0.85,
   lowerbound = 1,
-  upperbound = 7,
+  upperbound = 5,
   items = 6
 )
 
 x <- lexact(
-  n = 64,
+  n = 16,
   mean = 1.2,
   sd = 1.00,
   lowerbound = -3,
@@ -47,8 +48,6 @@ x <- lexact(
   items = 4
 )
 
-#' x <- lexact(32, 4, 1.5, 0, 10, 1)
-
-
+x <- lexact(16, 2, 2.5, 0, 10)
 
 }

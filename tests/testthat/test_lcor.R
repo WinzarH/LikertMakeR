@@ -1,93 +1,136 @@
-## context("check-output") 
-library(testthat) # load testthat package
-library(LikertMakeR) # load our package
-
-## generate data
-x1 <- lexact(64, 3.5, 1.00, 1, 5, 5)
-x2 <- lexact(64, 2.5, 0.75, 1, 5, 5)
-x3 <- lexact(64, 3.0, 1.50, 1, 5, 5)
-mydat3 <- cbind(x1, x2, x3) |> data.frame()
-
-## describe target correlation matrix
-tgt3 <- matrix(
-  c(
-    1.00, 0.50, 0.75,
-    0.50, 1.00, 0.60,
-    0.75, 0.60, 1.00
-  ),
-  nrow = 3
-)
-
-
-# Test whether the output is a data frame
-test_that("lcor() returns a data frame", {
-  ## generate data
-  x1 <- lexact(64, 3.5, 1.00, 1, 5, 5)
-  x2 <- lexact(64, 2.5, 0.75, 1, 5, 5)
-  x3 <- lexact(64, 3.0, 1.50, 1, 5, 5)
-  mydat3 <- cbind(x1, x2, x3) |> data.frame()
+#' Rearrange columns in a data-frame to fit a predefined correlation matrix
+#'
+#' @name lcor
+#'
+#' @description \code{lcor()} rearranges values in each column of a
+#' data-frame so that columns are correlated to match a predefined
+#' correlation matrix.
+#'
+#' @details Values in a column do not change, so univariate
+#' statistics remain the same.
+#'
+#'
+#' @param data beginning data-frame that is to be rearranged
+#' @param target target correlation matrix - should be a symmetric
+#' (square) k*k matrix
+#'
+#' @return Returns a data-frame whose column-wise correlations
+#' approximate a user-specified correlation matrix
+#'
+#' @importFrom stats cor 
+#' @importFrom stats rbeta
+#' 
+#' @export lcor
+#' 
+#' @examples
+#'
+#' ## generate uncorrelated synthetic data
+#' 
+#' n <- 32
+#' x1 <- lfast(n, 3.5, 1.0, 1, 5, 5)
+#' x2 <- lfast(n, 1.5, 0.75, 1, 5, 5)
+#' x3 <- lfast(n, 3.0, 2.0, 1, 5, 5)
+#'
+#' mydat3 <- cbind(x1, x2, x3) |> data.frame()
+#'
+#' cor(mydat3)
+#'
+#' ## describe a target correlation matrix
+#' tgt3 <- matrix(
+#'   c(
+#'     1.00, 0.50, 0.50,
+#'     0.50, 1.00, 0.25,
+#'     0.50, 0.25, 1.00
+#'   ),
+#'   nrow = 3
+#' )
+#'
+#' ## apply lcor function
+#' new3 <- lcor(mydat3, tgt3)
+#'
+#' cor(new3) |> round(3)
+#'
+#' ## ---
+#'
+#' tgt3 <- matrix(
+#'   c(
+#'     1.00, 0.50, 0.95,
+#'     0.50, 1.00, 0.65,
+#'     0.95, 0.65, 1.00
+#'   ),
+#'   nrow = 3
+#' )
+#'
+#' new3 <- lcor(mydat3, tgt3)
+#'
+#' cor(new3)
+#'
+#' ## ---
+#'
+#' tgt3 <- matrix(
+#'   c(
+#'     1.00, -0.50, -0.85,
+#'     -0.50, 1.00, 0.60,
+#'     -0.85, 0.60, 1.00
+#'   ),
+#'   nrow = 3
+#' )
+#'
+#' new3 <- lcor(mydat3, tgt3)
+#'
+#' cor(new3) |> round(3)
+#'
+#'
+lcor <- function(data, target) {
+  current_dat <- data
+  current_cor <- cor(current_dat)
+  target_cor <- target
+  diff.score <- sum((abs(target_cor - current_cor)) * 1000)
+  n <- nrow(current_dat)
+  nc <- ncol(current_dat)
   
-  ## describe target correlation matrix
-  tgt3 <- matrix(
-    c(
-      1.00, 0.50, 0.75,
-      0.50, 1.00, 0.60,
-      0.75, 0.60, 1.00
-    ),
-    nrow = 3
-  )
+  ## generate a complete list of value-pairs as switch candidates
+  ye <- expand.grid(c(1:n), c(1:n))
+  ye <- subset(ye, ye[, 1] != ye[, 2])
+  ny <- nrow(ye)
   
-  new3 <- lcor(data = mydat3, target = tgt3)
+  ## begin column selection loop
+  ## for each column in the data set ...
+  for (r in 1:ny) {
+    ## Other columns are relative to first column
+    
+    ### begin row values swap loop
+    for (colID in 2:nc) {
+      ## locate data points to switch
+      i <- ye[r, 1]
+      j <- ye[r, 2]
+      
+      ## check that values in two locations are different
+      if (current_dat[i, colID] == current_dat[j, colID]) {
+        break
+      }
+      
+      ## record values in case they need to be put back
+      ii <- current_dat[i, colID]
+      jj <- current_dat[j, colID]
+      
+      ## swap the values in selected locations
+      current_dat[i, colID] <- jj
+      current_dat[j, colID] <- ii
+      
+      ## if switched values reduce the difference between correlation
+      ## matrices then keep the switch, otherwise put them back
+      if (sum((abs(target_cor - cor(current_dat))) * 1000) < diff.score) {
+        ## update data-frame and target statistic
+        current_cor <- cor(current_dat)
+        diff.score <- sum((abs(target_cor - current_cor)) * 1000)
+      } else {
+        ## swap values back
+        current_dat[i, colID] <- ii
+        current_dat[j, colID] <- jj
+      }
+    } ## end row values swap loop
+  } ## end column selection loop
   
-  expect_type(new3, 'list')
-})
-
-## Test whether the output contains the right number of rows
-test_that("lcor() returns a dataframe with correct number of rows", {
-
-  ## generate data
-  x1 <- lexact(64, 3.5, 1.00, 1, 5, 5)
-  x2 <- lexact(64, 2.5, 0.75, 1, 5, 5)
-  x3 <- lexact(64, 3.0, 1.50, 1, 5, 5)
-  mydat3 <- cbind(x1, x2, x3) |> data.frame()
-  
-  ## describe target correlation matrix
-  tgt3 <- matrix(
-    c(
-      1.00, 0.50, 0.75,
-      0.50, 1.00, 0.60,
-      0.75, 0.60, 1.00
-    ),
-    nrow = 3
-  )
-  
-  new3 <- lcor(data = mydat3, target = tgt3)
-  
-  expect_equal(nrow(new3), nrow(mydat3))
-})
-
-
-test_that("lcor() returns a dataframe with columns that are correlated close to target matrix", {
-  
-  ## generate data
-  x1 <- lexact(64, 3.5, 1.00, 1, 5, 5)
-  x2 <- lexact(64, 2.5, 0.75, 1, 5, 5)
-  x3 <- lexact(64, 3.0, 1.50, 1, 5, 5)
-  mydat3 <- cbind(x1, x2, x3) |> data.frame()
-  
-  ## describe target correlation matrix
-  tgt3 <- matrix(
-    c(
-      1.00, 0.50, 0.75,
-      0.50, 1.00, 0.60,
-      0.75, 0.60, 1.00
-    ),
-    nrow = 3
-  )
-  
-  new3 <- lcor(data = mydat3, target = tgt3)
-  
-  newmat3 <- cor(new3) |> round(2)
-  testthat::expect_setequal(newmat3, tgt3)
-})
-
+  return(current_dat)
+} ## end lcor function

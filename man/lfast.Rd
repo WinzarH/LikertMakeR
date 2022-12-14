@@ -7,25 +7,28 @@
 lfast(n, mean, sd, lowerbound, upperbound, items = 1, seed)
 }
 \arguments{
-\item{n}{the number of observations to generate}
+\item{n}{number of observations to generate}
 
-\item{mean}{a mean to approximate}
+\item{mean}{target mean}
 
-\item{sd}{a standard deviation to approximate}
+\item{sd}{target standard deviation}
 
-\item{lowerbound}{a lower bound for the scale (e.g. '1' for a 1-5 rating scale)}
+\item{lowerbound}{lower bound (e.g. '1' for a 1-5 rating scale)}
 
-\item{upperbound}{an upper bound for the scale (e.g. '5' for a 1-5 rating scale)}
+\item{upperbound}{upper bound (e.g. '5' for a 1-5 rating scale)}
 
 \item{items}{number of items in the rating scale. Default = 1}
 
 \item{seed}{optional seed for reproducibility}
 }
 \value{
-a vector of simulated data approximating the user-specified conditions.
+a vector of simulated data approximating user-specified conditions.
 }
 \description{
-\code{lfast()} generates random discrete values from a (scaled Beta distribution) so the data replicate a Likert scale - for example,a 1-5 scale made from 5 items (questions) or 0-10 likelihood of purchase scale.
+\code{lfast()} generates random discrete values from a
+(scaled Beta distribution) so the data replicate a rating scale -
+for example,a 1-5 scale made from 5 items (questions) or 0-10
+likelihood-of-purchase scale.
 }
 \examples{
 
@@ -40,6 +43,6 @@ x <- lfast(
 
 x <- lfast(256, 2, 1.8, 0, 10)
 
-x <- lfast(256, 2, 1.0, 1, 5, 10)
+x <- lfast(256, 2, 1.0, 1, 5, 5)
 
 }
