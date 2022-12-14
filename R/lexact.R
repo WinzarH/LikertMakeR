@@ -26,10 +26,10 @@
 #'
 #' x <- lexact(
 #'   n = 16,
-#'   mean = 4.2,
+#'   mean = 3.2,
 #'   sd = 0.85,
 #'   lowerbound = 1,
-#'   upperbound = 7,
+#'   upperbound = 5,
 #'   items = 6
 #' )
 #'

@@ -18,20 +18,18 @@
 #' approximate a user-specified correlation matrix
 #'
 #' @importFrom stats cor 
-#' @import DEoptim 
-#' @import parallelly 
-#' @import parallel 
-#'
+#' @importFrom stats rbeta
+#' 
 #' @export lcor
 #' 
 #' @examples
 #'
 #' ## generate uncorrelated synthetic data
 #' 
-#' n <- 16
-#' x1 <- lexact(n, 3.5, 1.0, 1, 5, 5)
-#' x2 <- lexact(n, 1.5, 0.75, 1, 5, 5)
-#' x3 <- lexact(n, 3.0, 2.0, 1, 5, 5)
+#' n <- 32
+#' x1 <- lfast(n, 3.5, 1.0, 1, 5, 5)
+#' x2 <- lfast(n, 1.5, 0.75, 1, 5, 5)
+#' x3 <- lfast(n, 3.0, 2.0, 1, 5, 5)
 #'
 #' mydat3 <- cbind(x1, x2, x3) |> data.frame()
 #'
@@ -71,7 +69,7 @@
 #'
 #' tgt3 <- matrix(
 #'   c(
-#'     1.00, -0.50, -0.95,
+#'     1.00, -0.50, -0.85,
 #'     -0.50, 1.00, 0.60,
 #'     -0.85, 0.60, 1.00
 #'   ),
@@ -97,15 +95,16 @@ lcor <- function(data, target) {
   ny <- nrow(ye)
 
   ## begin column selection loop
+  ## for each column in the data set ...
   for (r in 1:ny) {
-    ## for each column in the data set ...
     ## Other columns are relative to first column
+    
     ### begin row values swap loop
     for (colID in 2:nc) {
       ## locate data points to switch
       i <- ye[r, 1]
       j <- ye[r, 2]
-
+      
       ## check that values in two locations are different
       if (current_dat[i, colID] == current_dat[j, colID]) {
         break
