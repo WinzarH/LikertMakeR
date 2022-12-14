@@ -1,5 +1,9 @@
 # LikertMakeR
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 ___LikertMakeR___ synthesises Likert scale and related rating-scale data. 
 Such scales are constrained by upper and lower bounds and discrete increments. 
 
