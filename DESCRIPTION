@@ -11,6 +11,8 @@ Authors@R:
 Description: Synthesise and correlate rating-scale data with 
   predefined first & second moments and, optionally, predefined 
   correlation matrix
+URL: https://github.com/WinzarH/LikertMakeR
+BugReports: https://github.com/WinzarH/LikertMakeR/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
