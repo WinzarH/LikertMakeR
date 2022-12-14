@@ -17,15 +17,15 @@
 #' @return Returns a data-frame whose column-wise correlations
 #' approximate a user-specified correlation matrix
 #'
-#' @importFrom stats cor 
+#' @importFrom stats cor
 #' @importFrom stats rbeta
-#' 
+#'
 #' @export lcor
-#' 
+#'
 #' @examples
 #'
 #' ## generate uncorrelated synthetic data
-#' 
+#'
 #' n <- 32
 #' x1 <- lfast(n, 3.5, 1.0, 1, 5, 5)
 #' x2 <- lfast(n, 1.5, 0.75, 1, 5, 5)
@@ -80,17 +80,18 @@
 #'
 #' cor(new3) |> round(3)
 #'
-#'
 lcor <- function(data, target) {
+  multiplier <- 10000
   current_dat <- data
   current_cor <- cor(current_dat)
   target_cor <- target
-  diff.score <- sum((abs(target_cor - current_cor)) * 1000)
+  diff.score <- sum((abs(target_cor - current_cor)) * multiplier)
   n <- nrow(current_dat)
   nc <- ncol(current_dat)
 
   ## generate a complete list of value-pairs as switch candidates
   ye <- expand.grid(c(1:n), c(1:n))
+  ## no need to switch with yourself
   ye <- subset(ye, ye[, 1] != ye[, 2])
   ny <- nrow(ye)
 
@@ -98,13 +99,13 @@ lcor <- function(data, target) {
   ## for each column in the data set ...
   for (r in 1:ny) {
     ## Other columns are relative to first column
-    
+    ##
     ### begin row values swap loop
     for (colID in 2:nc) {
       ## locate data points to switch
       i <- ye[r, 1]
       j <- ye[r, 2]
-      
+
       ## check that values in two locations are different
       if (current_dat[i, colID] == current_dat[j, colID]) {
         break
@@ -120,10 +121,10 @@ lcor <- function(data, target) {
 
       ## if switched values reduce the difference between correlation
       ## matrices then keep the switch, otherwise put them back
-      if (sum((abs(target_cor - cor(current_dat))) * 1000) < diff.score) {
+      if (sum((abs(target_cor - cor(current_dat))) * multiplier) < diff.score) {
         ## update data-frame and target statistic
         current_cor <- cor(current_dat)
-        diff.score <- sum((abs(target_cor - current_cor)) * 1000)
+        diff.score <- sum((abs(target_cor - current_cor)) * multiplier)
       } else {
         ## swap values back
         current_dat[i, colID] <- ii

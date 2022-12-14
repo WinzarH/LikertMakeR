@@ -2,7 +2,7 @@
 #' @name lexact
 #' @description \code{lexact()} generates rating-scale values with
 #' predefined first and second moments.
-#' 
+#'
 #' @details If feasible, moments are exact to two decimal places.
 #'
 #'
@@ -45,6 +45,13 @@
 #' x <- lexact(16, 2, 2.5, 0, 10)
 #'
 ## load libraries
+my_packages <- c("foreach", "parallelly", "DEoptim")
+# Extract not installed packages
+not_installed <- my_packages[!(my_packages %in%
+  installed.packages()[, "Package"])]
+# Install not installed packages
+if (length(not_installed)) install.packages(not_installed)
+
 library(DEoptim, include.only = c("DEoptim", "DEoptim.control"))
 ##
 ## Create the function
@@ -53,6 +60,15 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   max <- upperbound * items
   mean <- mean * items
   target_sd <- sd * items
+
+  ## idiot check
+  if (mean <= min || mean >= max) {
+    stop("ERROR: mean is out of range")
+  }
+  if (target_sd >= (max - min) * 0.6) {
+    warning("Standard Deviation is large relative to range
+            \nDerived SD will be less than specified")
+  }
   ##
   ## define target statistic to be minimised
   ## Two parameters must be optimised: mean & sd.
@@ -80,14 +96,14 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
     control = DEoptim::DEoptim.control(
       itermax = itermax,
       trace = FALSE,
-      parallelType = "parallel"
+      parallelType = "auto"
     ),
     fnMap = fnmap_f
   )
 
-  mydat <- summary(my_vector)
-  mydata <- mydat[["optim"]][["bestmem"]] / items
-  row.names(mydata) <- NULL
+  my_best <- summary(my_vector)
+  my_data <- my_best[["optim"]][["bestmem"]] / items
+  row.names(my_data) <- NULL
 
-  return(mydata)
+  return(my_data)
 }

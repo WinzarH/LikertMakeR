@@ -39,6 +39,16 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   m <- (mean - lowerbound) / range ## rescale mean
   s <- sd / range ## rescale sd
 
+  ## idiot check
+  if (mean <= lowerbound || mean >= upperbound) {
+    stop("ERROR: mean is out of range")
+  }
+  if (sd >= range * 0.6) {
+    warning("Standard Deviation is large relative to range  
+            \nDerived SD will be less than specified
+            \nOr the solution is not feasible")
+  }
+  
   a <- (m^2 - m^3 - m * s^2) / s^2 ## alpha shape parameter
   b <- (m - 2 * m^2 + m^3 - s^2 + m * s^2) / s^2 ## beta shape parameter
   if (missing(seed)) {
