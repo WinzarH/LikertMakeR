@@ -188,7 +188,7 @@ following objects:
   > 
   > set.seed(42) # for reproducibility
   > 
-  > n <- 64
+  > n <- 32
   > x1 <- lfast(n, 3.5, 1.00, 1, 5, 5) 
   > x2 <- lfast(n, 1.5, 0.75, 1, 5, 5) 
   > x3 <- lfast(n, 3.0, 1.70, 1, 5, 5) 

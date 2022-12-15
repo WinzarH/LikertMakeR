@@ -32,8 +32,6 @@
 #'
 #' x <- lfast(256, 2, 1.8, 0, 10)
 #'
-#' x <- lfast(256, 2, 1.0, 1, 5, 5)
-#'
 lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   range <- upperbound - lowerbound
   m <- (mean - lowerbound) / range ## rescale mean

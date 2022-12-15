@@ -284,7 +284,7 @@ following data-frames:
 ### _lcor()_ example #1
 
 Let's generate some data: three 5-point Likert scales, 
-each made with five items.
+each with five items.
 
 ##### generate uncorrelated synthetic data
 
@@ -323,7 +323,7 @@ apply(mydat3, 2, sd) |> round(3)
 We can see that the data are close to what is expected. 
 The synthetic data have low correlations:
 
-```{r fig6, fig.height=8, fig.width=8, fig.align='center', echo = FALSE}
+```{r, echo = FALSE}
 
 cor(mydat3) |> round(2)
 ```
@@ -363,7 +363,7 @@ A new data frame with correlations close to our desired correlation matrix:
 cor(new3) |> round(2)
 ```
 
-```{r  fig7, fig.height = 7, fig.width = 7, fig.align = 'center', echo = FALSE}
+```{r  fig6, fig.height = 7, fig.width = 7, fig.align = 'center', echo = FALSE}
 
 panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {
   usr <- par("usr")
@@ -450,7 +450,7 @@ apply(mydat5, 2, sd) |> round(3)
 
 The synthetic data have low correlations:
 
-```{r fig8, fig.height=8, fig.width=8, fig.align='center', echo = FALSE}
+```{r, echo = FALSE}
 
 cor(mydat5) |> round(2)
 ```
@@ -463,11 +463,11 @@ cor(mydat5) |> round(2)
 
 tgt5 <- matrix(
   c(
-    1.00, 0.80, 0.75, 0.25, -0.75,
-    0.80, 1.00, 0.70, 0.25, -0.70,
-    0.75, 0.70, 1.00, 0.25, -0.50,
-    0.25, 0.25, 0.25, 1.00, -0.40,
-    -0.75, -0.70, -0.50, -0.40, 1.00
+     1.00,  0.80,  0.75,  0.25, -0.75,
+     0.80,  1.00,  0.70,  0.25, -0.70,
+     0.75,  0.70,  1.00,  0.25, -0.50,
+     0.25,  0.25,  0.25,  1.00, -0.40,
+    -0.75, -0.70, -0.50, -0.40,  1.00
   ),
   nrow = 5
 )
@@ -491,7 +491,7 @@ A new data frame with correlations close to our desired correlation matrix:
 cor(new5) |> round(2)
 ```
 
-```{r  fig9, fig.height = 7, fig.width = 7, fig.align = 'center', echo = FALSE}
+```{r  fig7, fig.height = 7, fig.width = 7, fig.align = 'center', echo = FALSE}
 
 panel.hist <- function(x, ...) {
   usr <- par("usr")

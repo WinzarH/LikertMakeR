@@ -14,24 +14,16 @@
 #' @param items number of items in the Likert scale. Default = 1
 #' @param seed optional seed for reproducibility
 #'
-#' @return a vector of simulated data with user-specified conditions.
+#' @return a vector of simulated data with user-specified mean and standard deviation.
 #'
-#' @import DEoptim
+#' @importFrom DEoptim DEoptim
+#' @importFrom DEoptim DEoptim.control
 #' @import parallelly
 #' @import parallel
 #'
 #' @export lexact
 #'
 #' @examples
-#'
-#' x <- lexact(
-#'   n = 16,
-#'   mean = 3.2,
-#'   sd = 0.85,
-#'   lowerbound = 1,
-#'   upperbound = 5,
-#'   items = 6
-#' )
 #'
 #' x <- lexact(
 #'   n = 16,
@@ -44,8 +36,6 @@
 #'
 #' x <- lexact(16, 2, 2.5, 0, 10)
 #'
-## load libraries
-library(DEoptim, include.only = c("DEoptim", "DEoptim.control"))
 ##
 ## Create the function
 lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
