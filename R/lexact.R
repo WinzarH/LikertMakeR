@@ -27,17 +27,15 @@
 #'
 #' x <- lexact(
 #'   n = 16,
-#'   mean = 1.2,
+#'   mean = 3.25,
 #'   sd = 1.00,
-#'   lowerbound = -3,
-#'   upperbound = 3,
+#'   lowerbound = 1,
+#'   upperbound = 5,
 #'   items = 4
 #' )
 #'
-#' x <- lexact(16, 2, 2.5, 0, 10)
-#'
 ##
-## Create the function
+## Create lexact function
 lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   min <- lowerbound * items
   max <- upperbound * items

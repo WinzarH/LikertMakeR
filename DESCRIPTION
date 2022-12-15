@@ -3,10 +3,13 @@ Version: 0.1.5
 Type: Package
 Title: Synthesise and Correlate Rating-Scale Data
 Authors@R: 
-    person("Hume", "Winzar", 
-           email = "winzar@gmail.com", 
-           role = c("cre", "aut"),
-           comment = c(ORCID = "0000-0001-7475-2641"))
+    person(
+    given = "Hume", 
+    family = "Winzar", 
+    email = "winzar@gmail.com", 
+    role = c("cre", "aut"),
+    comment = c(ORCID = "0000-0001-7475-2641")
+    )
 Description: Synthesise and correlate rating-scale data with 
   predefined first & second moments and, optionally, predefined 
   correlation matrix.
