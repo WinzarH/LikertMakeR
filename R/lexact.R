@@ -45,13 +45,6 @@
 #' x <- lexact(16, 2, 2.5, 0, 10)
 #'
 ## load libraries
-my_packages <- c("foreach", "parallelly", "DEoptim")
-# Extract not installed packages
-not_installed <- my_packages[!(my_packages %in%
-  installed.packages()[, "Package"])]
-# Install not installed packages
-if (length(not_installed)) install.packages(not_installed)
-
 library(DEoptim, include.only = c("DEoptim", "DEoptim.control"))
 ##
 ## Create the function

@@ -46,7 +46,7 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   if (sd >= range * 0.6) {
     warning("Standard Deviation is large relative to range  
             \nDerived SD will be less than specified
-            \nOr the solution is not feasible")
+            \nOr the solution is not feasible, producing 'NA' values")
   }
   
   a <- (m^2 - m^3 - m * s^2) / s^2 ## alpha shape parameter
