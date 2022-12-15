@@ -5,7 +5,7 @@ Title: Synthesise and Correlate Rating-Scale Data
 Authors@R: 
     person("Hume", "Winzar", 
            email = "winzar@gmail.com", 
-           role = c("aut", "cre"),
+           role = c("cre", "aut"),
            comment = c(ORCID = "0000-0001-7475-2641"))
 Description: Synthesise and correlate rating-scale data with 
   predefined first & second moments and, optionally, predefined 
@@ -15,6 +15,7 @@ BugReports: https://github.com/WinzarH/LikertMakeR/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+Language: en-GB
 VignetteBuilder: knitr
 Depends: R (>= 4.2.0)
 Imports: 

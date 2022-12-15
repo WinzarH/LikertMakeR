@@ -118,15 +118,6 @@ Example: a five-item, seven-point Likert scale
   > ```
   >
 
- Example:  an 11-point likelihood-of-purchase scale
- 
-  > ```
-  > 
-  > x <- lfast(256, 2, 1.8, 0, 10)
-  > 
-  > ```
-
-  
 ### lexact()  
 
   *  ___lexact()___ attempts to produce a vector with exact first and 
@@ -244,31 +235,12 @@ following objects:
   > 
   > ```
 
-#####  Same starting values with a different target correlation matrix
+#####  three starting vectors and different target correlation matrix
 
   > ```
   > 
   > mydat3 <- cbind(x1, x2, x3) |> data.frame()
-  > 
-  > tgt3 <- matrix(
-  >   c(
-  >     1.00, 0.50, 0.95,
-  >     0.50, 1.00, 0.65,
-  >     0.95, 0.65, 1.00
-  >   ),
-  >  nrow = 3
-  > )
-  > 
-  > new3 <- lcor(mydat3, tgt3)
-  > 
-  > cor(new3) |> round(3)
-  > 
-  > ```
-
-#####  Another target correlation matrix
-
-  > ```
-  > 
+  >
   > tgt3 <- matrix(
   >   c(
   >      1.00, -0.50, -0.85,
@@ -283,5 +255,3 @@ following objects:
   > cor(new3) |> round(3)
   > 
   > ```
-
-
