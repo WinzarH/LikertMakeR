@@ -192,7 +192,7 @@ large for the combination of mean, n-items, and scale boundaries.
 ```{r}
 
 x <- lexact(
-  n = 32,
+  n = 16,
   mean = 5.0,
   sd = 1.0,
   lowerbound = 1,
@@ -217,7 +217,7 @@ hist(x,
 
 ```{r}
 
-x <- lexact(32, 2, 1.8, 0, 10)
+x <- lexact(16, 2, 1.8, 0, 10)
 ```
 
 ```{r fig4,  fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
@@ -238,7 +238,7 @@ hist(x,
 ```{r}
 
 x <- lexact(
-  n = 32,
+  n = 16,
   mean = 1.2,
   sd = 1.00,
   lowerbound = -3,
@@ -281,7 +281,7 @@ following data-frames:
 
 -   **_target_**: the target correlation matrix
 
-### _lcor()_ example #1
+### _lcor()_ example
 
 Let's generate some data: three 5-point Likert scales, 
 each with five items.
@@ -290,7 +290,7 @@ each with five items.
 
 ```{r }
 
-n <- 16
+n <- 32
 
 x1 <- lexact(n, 2.5, 0.75, 1, 5, 5)
 x2 <- lexact(n, 3.0, 1.50, 1, 5, 5)
@@ -410,116 +410,6 @@ Standard deviations:
 ## calculate standard deviations
 
 apply(new3, 2, sd) |> round(3)
-```
-
-### _lcor()_ example #2
-
-#### Dummy data for scale development
-
-Let's generate some data: five 7-point items to help students 
-decide what items should be included in a Likert scale.
-
-#### generate uncorrelated synthetic data with _lfast()_
-
-```{r }
-
-n <- 128
-
-x1 <- lfast(n, 2.50, 1.50, 1, 7, 1)
-x2 <- lfast(n, 4.50, 1.00, 1, 7, 1)
-x3 <- lfast(n, 4.50, 1.50, 1, 7, 1)
-x4 <- lfast(n, 5.25, 0.70, 1, 7, 1)
-x5 <- lfast(n, 5.25, 1.25, 1, 7, 1)
-
-mydat5 <- cbind(x1, x2, x3, x4, x5) |> data.frame()
-```
-
-Mean values:
-
-```{r, echo = FALSE}
-
-apply(mydat5, 2, mean) |> round(3)
-```
-
-Standard deviations:
-
-```{r, echo=FALSE}
-
-apply(mydat5, 2, sd) |> round(3)
-```
-
-The synthetic data have low correlations:
-
-```{r, echo = FALSE}
-
-cor(mydat5) |> round(2)
-```
-
-##### a target correlation matrix
-
-```{r}
-
-## describe a target correlation matrix
-
-tgt5 <- matrix(
-  c(
-     1.00,  0.80,  0.75,  0.25, -0.75,
-     0.80,  1.00,  0.70,  0.25, -0.70,
-     0.75,  0.70,  1.00,  0.25, -0.50,
-     0.25,  0.25,  0.25,  1.00, -0.40,
-    -0.75, -0.70, -0.50, -0.40,  1.00
-  ),
-  nrow = 5
-)
-```
-
-So now we have a data-frame with desired first and second moments, and a target correlation matrix.
-
-##### applying the *lcor()* function.
-
-```{r}
-
-## apply lcor function
-
-new5 <- lcor(mydat5, tgt5)
-```
-
-A new data frame with correlations close to our desired correlation matrix:
-
-```{r, echo = FALSE}
-
-cor(new5) |> round(2)
-```
-
-```{r  fig7, fig.height = 7, fig.width = 7, fig.align = 'center', echo = FALSE}
-
-panel.hist <- function(x, ...) {
-  usr <- par("usr")
-  par(usr = c(usr[1:2], 0, 1.5))
-  h <- hist(x, breaks = seq(from = 1, to = 7, by = 1), plot = FALSE)
-  breaks <- h$breaks
-  nB <- length(breaks)
-  y <- h$counts
-  y <- y / max(y)
-  rect(breaks[-nB], 0, breaks[-1], y, col = "sky blue", ...)
-}
-
-panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {
-  usr <- par("usr")
-  par(usr = c(0, 1, 0, 1))
-  r <- cor(x, y)
-  txt <- format(c(r, 0.123456789), digits = digits)[1]
-  txt <- paste0(prefix, txt)
-  text(0.5, 0.5, txt, cex = abs(3 * r))
-}
-
-pairs(new5,
-  upper.panel = panel.cor,
-  diag.panel = panel.hist,
-  cex = 2, pch = 21, bg = rgb(0, 0, 1, 0.1), horOdd = TRUE,
-  cex.labels = 2,
-  font.labels = 2
-)
 ```
 
 ## Runtimes
