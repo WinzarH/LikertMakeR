@@ -50,9 +50,9 @@ Different approaches include:
 
 * sampling from a _truncated normal_ distribution. Data are sampled from a normal distribution, and then truncated to suit the rating-scale boundaries, and rounded to set discrete values as we see in rating scales. See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scale-data/) for an excellent and short example using the following packages:
 
-    - [truncnorm](https://cran.r-project.org/web/packages/truncnorm/index.html)
+    - [truncnorm](https://cran.r-project.org/package=truncnorm)
     
-    - [faux](https://cran.r-project.org/web/packages/faux/index.html) 
+    - [faux](https://cran.r-project.org/package=faux) 
  
     - See also [responsesR](https://github.com/markolalovic/responsesR), by Marko Lalovic on [GitHub](https://github.com/markolalovic/responsesR), for an approach using optimal discretization and skew-normal distribution.
     
@@ -70,9 +70,9 @@ Different approaches include:
 
 * Marginal model specification as in [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html) and  [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)  using: 
 
-    - [SimCorMultRes](https://cran.r-project.org/web/packages/SimCorMultRes/index.html)
+    - [SimCorMultRes](https://cran.r-project.org/package=SimCorMultRes)
     
-    - [covsim](https://cran.r-project.org/web//packages/covsim/index.html)
+    - [covsim](https://cran.r-project.org/package=covsim)
 
 
 # Using _LikertMakeR_
@@ -177,7 +177,7 @@ hist(x,
 ### _lexact()_
 
 **_lexact()_** attempts to produce a vector with exact first and second moments. 
-It uses the *Differential Evolution* algorithm in the [**_DEoptim_**](https://cran.r-project.org/web/packages/DEoptim/index.html) 
+It uses the *Differential Evolution* algorithm in the [**_DEoptim_**](https://cran.r-project.org/package=DEoptim) 
 package to find appropriate values within the desired constraints. 
 
 *If feasible*, **_lexact()_** should produce data with moments that are 
@@ -210,19 +210,6 @@ hist(x,
   main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2))
 )
 ```
-
-**_lexact()_** can take time to complete the optimisation task. 
-For example, **_lexact()_** executed the above example with the 
-following sample-size & time combinations on the author's 
-laptop [ _Windows 11 (Intel(R) i7-12700H 2.30 GHz)_ ].
-
-|  n  | seconds   |
-|:---:|:-----:|
-|  16 |  0.20 |
-|  32 |  0.37 |
-|  64 |  1.55 |
-| 128 |  7.03 |
-| 256 | 45.54 |
 
 #### _lexact()_ example #2
 
@@ -312,11 +299,11 @@ x3 <- lexact(n, 3.5, 1.00, 1, 5, 5)
 mydat3 <- cbind(x1, x2, x3) |> data.frame()
 ```
 
-The first ten observations from this data-frame are:
+Observations from this data-frame are:
 
 ```{r, echo = FALSE}
 
-head(mydat3, 10)
+head(mydat3, n)
 ```
 
 Mean values:
@@ -424,31 +411,6 @@ Standard deviations:
 
 apply(new3, 2, sd) |> round(3)
 ```
-
-A large data-frame can take some time. 
-Time to run a task in **_lcor()_** depends on 
-
-- number of observations,
-
-- number of columns,
-
-- number of intervals within each scale,
-
-- speed of your computer.
-
-The **_lcor()_** function in the example above had the 
-following sample-size/time combinations on the author's laptop:
-
-  |  n  | seconds   |
-  |:---:|:-----:|
-  |  16 |  0.16 |
-  |  32 |  0.45 |
-  |  64 |  1.52 |
-  | 128 |  5.62 |
-  | 256 | 23.30 |
-
-Value pairs are evaluated one pair at a time, 
-so a vectorised process is infeasible at present. 
 
 ### _lcor()_ example #2
 
@@ -559,3 +521,47 @@ pairs(new5,
   font.labels = 2
 )
 ```
+
+## Runtimes
+
+### _lexact()_ 
+
+**_lexact()_** can take time to complete the optimisation task. 
+For example, **_lexact()_** executed first example, above, with 
+the following sample-size & time combinations on the author's 
+laptop [ _Windows 11 (Intel(R) i7-12700H 2.30 GHz)_ ].
+
+|  n  | seconds   |
+|:---:|:-----:|
+|  16 |  0.20 |
+|  32 |  0.37 |
+|  64 |  1.55 |
+| 128 |  7.03 |
+| 256 | 45.54 |
+
+### _lcor()_ 
+
+A large data-frame can take some time. 
+Time to run a task in **_lcor()_** depends on 
+
+- number of observations,
+
+- number of columns,
+
+- number of intervals within each scale,
+
+- speed of your computer.
+
+The **_lcor()_** function in example_1 above had the 
+following sample-size/time combinations on the author's laptop:
+
+  |  n  | seconds   |
+  |:---:|:-----:|
+  |  16 |  0.16 |
+  |  32 |  0.45 |
+  |  64 |  1.52 |
+  | 128 |  5.62 |
+  | 256 | 23.30 |
+
+Value pairs are evaluated one pair at a time, 
+so a vectorised process is infeasible at present. 
