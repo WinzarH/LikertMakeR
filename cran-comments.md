@@ -1,16 +1,24 @@
-## R CMD check results
+## Resubmission
 
-0 errors | 0 warnings | 1 note
+This is a resubmission. In this version I have:
 
-* This is a new release.
+* updated DESCRIPTION file
 
-── R CMD check results  LikertMakeR 0.──
-Duration: 45.8s
+    - title to title case
+    
+    - resolved Author and Authors@R conflict
+    
+    - removed Date and Language fields for simplicity
+    
+* updated vignette file
+
+    - CRAN URLs are in canonical form
+
+
+    
+── R CMD check results ───── LikertMakeR 0.1.5 ────
+Duration: 47.7s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 R CMD check succeeded
-
-
-
-

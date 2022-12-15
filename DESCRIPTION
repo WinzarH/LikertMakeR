@@ -9,18 +9,16 @@ Authors@R:
            comment = c(ORCID = "0000-0001-7475-2641"))
 Description: Synthesise and correlate rating-scale data with 
   predefined first & second moments and, optionally, predefined 
-  correlation matrix
+  correlation matrix.
 URL: https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-LazyData: true
 VignetteBuilder: knitr
 Depends: R (>= 4.2.0)
 Imports: 
     DEoptim (>= 2.2-0),
-    foreach,
     parallelly
 Suggests: 
     knitr,
