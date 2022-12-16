@@ -1,7 +1,7 @@
 # LikertMakeR
 
 <p align="center">
-  <img src="assets/LikertMakeR_hex.png" width="350" alt="LikertMakeR logo">
+  <img src="assets/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
 </p>
 
 ___LikertMakeR___ synthesises Likert scale and related rating-scale data. 
