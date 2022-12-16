@@ -18,7 +18,6 @@
 #'
 #' @importFrom DEoptim DEoptim
 #' @importFrom DEoptim DEoptim.control
-#' @import foreach
 #' @import parallelly
 #' @import parallel
 #'
@@ -78,7 +77,7 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
     control = DEoptim::DEoptim.control(
       itermax = itermax,
       trace = FALSE,
-      parallelType = "auto"
+      parallelType = "parallel"
     ),
     fnMap = fnmap_f
   )
