@@ -124,19 +124,19 @@ Recommended for relatively large sample sizes.
 
 #### _lfast()_ example
 
-##### a five-item, seven-point Likert scale
+##### a four-item, five-point Likert scale
 
 ```{r}
 
-## a five-item, seven-point Likert scale
+## a four-item, five-point Likert scale
 
 x <- lfast(
   n = 512,
-  mean = 4.0,
+  mean = 2.0,
   sd = 1.0,
   lowerbound = 1,
-  upperbound = 7,
-  items = 5
+  upperbound = 5,
+  items = 4
 )
 ```
 
@@ -148,7 +148,7 @@ x <- lfast(
 
 hist(x,
   cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = 1, to = 7, by = 0.20),
+  breaks = seq(from = 1, to = 5, by = 0.25),
   col = "sky blue", xlab = NULL, ylab = NULL,
   main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
 )
@@ -187,17 +187,17 @@ large for the combination of mean, n-items, and scale boundaries.
 
 #### _lexact()_ example #1
 
-##### a five-item, seven-point Likert scale
+##### a four-item, five-point Likert scale
 
 ```{r}
 
 x <- lexact(
   n = 16,
-  mean = 5.0,
+  mean = 2.5,
   sd = 1.0,
   lowerbound = 1,
-  upperbound = 7,
-  items = 5
+  upperbound = 5,
+  items = 4
 )
 ```
 
@@ -205,7 +205,7 @@ x <- lexact(
 
 hist(x,
   cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = 1, to = 7, by = 0.2),
+  breaks = seq(from = 1, to = 5, by = 0.25),
   col = "sky blue", xlab = NULL, ylab = NULL,
   main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2))
 )
@@ -227,32 +227,6 @@ hist(x,
   breaks = c(0:10),
   col = "sky blue",
   xlab = NULL, ylab = NULL,
-  main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
-)
-```
-
-#### _lexact()_ example #3
-
-##### a 7-point negative-to-positive scale with 4 items
-
-```{r}
-
-x <- lexact(
-  n = 16,
-  mean = 1.2,
-  sd = 1.00,
-  lowerbound = -3,
-  upperbound = 3,
-  items = 4
-)
-```
-
-```{r fig5,  fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
-
-hist(x,
-  cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = -3, to = 3, by = 0.25),
-  col = "sky blue", xlab = NULL, ylab = NULL,
   main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
 )
 ```
@@ -290,7 +264,7 @@ each with five items.
 
 ```{r }
 
-n <- 16
+n <- 8
 
 x1 <- lexact(n, 2.5, 0.75, 1, 5, 5)
 x2 <- lexact(n, 3.0, 1.50, 1, 5, 5)
@@ -361,55 +335,6 @@ A new data frame with correlations close to our desired correlation matrix:
 ```{r, echo = FALSE}
 
 cor(new3) |> round(2)
-```
-
-```{r  fig6, fig.height = 7, fig.width = 7, fig.align = 'center', echo = FALSE}
-
-panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {
-  usr <- par("usr")
-  par(usr = c(0, 1, 0, 1))
-  r <- cor(x, y)
-  txt <- format(c(r, 0.123456789), digits = digits)[1]
-  txt <- paste0(prefix, txt)
-  text(0.5, 0.5, txt, cex = abs(3 * r))
-}
-
-panel.hist <- function(x, ...) {
-  usr <- par("usr")
-  par(usr = c(usr[1:2], 0, 1.5))
-  h <- hist(x, breaks = seq(from = 1, to = 5, by = 0.20), plot = FALSE)
-  breaks <- h$breaks
-  nB <- length(breaks)
-  y <- h$counts
-  y <- y / max(y)
-  rect(breaks[-nB], 0, breaks[-1], y, col = "sky blue", ...)
-}
-pairs(new3,
-  upper.panel = panel.cor,
-  diag.panel = panel.hist,
-  cex = 1.5, pch = 21, bg = "sky blue", horOdd = TRUE,
-  cex.labels = 2, font.labels = 2
-)
-```
-
-And the means and standard deviations have not changed from the original data-frame.
-
-Mean values:
-
-```{r, echo = FALSE}
-
-## calculate means
-
-apply(new3, 2, mean) |> round(3)
-```
-
-Standard deviations:
-
-```{r, echo = FALSE}
-
-## calculate standard deviations
-
-apply(new3, 2, sd) |> round(3)
 ```
 
 ## Runtimes
