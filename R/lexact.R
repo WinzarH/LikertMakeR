@@ -18,6 +18,7 @@
 #'
 #' @importFrom DEoptim DEoptim
 #' @importFrom DEoptim DEoptim.control
+#' @import foreach
 #' @import parallelly
 #' @import parallel
 #'
