@@ -290,7 +290,7 @@ each with five items.
 
 ```{r }
 
-n <- 32
+n <- 16
 
 x1 <- lexact(n, 2.5, 0.75, 1, 5, 5)
 x2 <- lexact(n, 3.0, 1.50, 1, 5, 5)
