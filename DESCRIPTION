@@ -23,8 +23,6 @@ VignetteBuilder: knitr
 Depends: R (>= 4.2.0)
 Imports: 
     DEoptim (>= 2.2-0),
-    foreach,
-    parallel,
     parallelly
 Suggests: 
     knitr,

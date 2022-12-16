@@ -19,7 +19,6 @@
 #' @importFrom DEoptim DEoptim
 #' @importFrom DEoptim DEoptim.control
 #' @import parallelly
-#' @import parallel
 #'
 #' @export lexact
 #'
