@@ -52,7 +52,7 @@ intervals of 1/8=0.125.
 
 To download and install the package, run the following code from your R console:
 
-  > ```
+  > ```{r, eval=FALSE}
   > 
   > library(devtools)
   > 
