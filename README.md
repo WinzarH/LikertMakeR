@@ -1,6 +1,8 @@
 # LikertMakeR
 
-![](assets/LikertMakeR_hex.png){width=25%}
+<p align="center">
+  <img src="assets/LikertMakeR_hex.png" width="350" alt="LikertMakeR logo">
+</p>
 
 ___LikertMakeR___ synthesises Likert scale and related rating-scale data. 
 Such scales are constrained by upper and lower bounds and discrete increments. 
