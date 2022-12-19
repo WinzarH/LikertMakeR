@@ -14,7 +14,7 @@
 #' @param items number of items in the Likert scale. Default = 1
 #' @param seed optional seed for reproducibility
 #'
-#' @return a vector of simulated data with user-specified mean and standard deviation.
+#' @return a vector with user-specified parameters
 #'
 #' @importFrom DEoptim DEoptim
 #' @importFrom DEoptim DEoptim.control
