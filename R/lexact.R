@@ -18,7 +18,7 @@
 #'
 #' @importFrom DEoptim DEoptim
 #' @importFrom DEoptim DEoptim.control
-#' @import parallelly
+#' @import parallel
 #'
 #' @export lexact
 #'
@@ -74,6 +74,7 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   ## this can take some time
   my_vector <- DEoptim::DEoptim(opt_scale, lower, upper,
     control = DEoptim::DEoptim.control(
+      VTR = 0,
       itermax = itermax,
       trace = FALSE,
       parallelType = "parallel"
