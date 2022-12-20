@@ -135,7 +135,7 @@ where only summary statistics are reported.
   > ```
   > 
   > x <- lexact(
-  >   n = 16, 
+  >   n = 32, 
   >   mean = 4.5, 
   >   sd = 1.0, 
   >   lowerbound = 1, 
@@ -158,7 +158,7 @@ where only summary statistics are reported.
   > ```
   > 
   > x <- lexact(
-  >   n = 16, 
+  >   n = 32, 
   >   mean = 1.25, 
   >   sd = 1.00, 
   >   lowerbound = -3, 
@@ -192,7 +192,7 @@ following objects:
   > 
   > set.seed(42) # for reproducibility
   > 
-  > n <- 32
+  > n <- 64
   > x1 <- lfast(n, 3.5, 1.00, 1, 5, 5) 
   > x2 <- lfast(n, 1.5, 0.75, 1, 5, 5) 
   > x3 <- lfast(n, 3.0, 1.70, 1, 5, 5) 

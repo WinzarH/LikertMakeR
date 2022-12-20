@@ -1,6 +1,8 @@
 # LikertMakeR 0.1.5
 
-tried to reduce sample size in examples to reduce runtime. It seems the CRAN checks run on only one thread
+Reduced runtime by setting target to zero instead of -Inf. 
+
+Specified one thread instead of attempting Parallel
 
 * about ready for submission to CRAN
 

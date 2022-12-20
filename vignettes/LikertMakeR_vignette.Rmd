@@ -42,38 +42,7 @@ For example, a 5-point Likert scale that is constructed with, say, five items (q
 
 Rating-scale boundaries define minima and maxima for any scale values. If the mean is close to one boundary then data points will gather more closely to that boundary and the data will always be skewed.
 
-## Alternative methods & packages
-
-_LikertMakeR_ is intended for synthesising & correlating rating-scale data with means, standard deviations, and correlations as close as possible to predefined parameters. If you don't need your data to be close to exact, then other options may be faster or more flexible. 
-
-Different approaches include:
-
-* sampling from a _truncated normal_ distribution. Data are sampled from a normal distribution, and then truncated to suit the rating-scale boundaries, and rounded to set discrete values as we see in rating scales. See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scale-data/) for an excellent and short example using the following packages:
-
-    - [truncnorm](https://cran.r-project.org/package=truncnorm)
-    
-    - [faux](https://cran.r-project.org/package=faux) 
- 
-    - See also [responsesR](https://github.com/markolalovic/responsesR), by Marko Lalovic on [GitHub](https://github.com/markolalovic/responsesR), for an approach using optimal discretization and skew-normal distribution.
-    
-* sampling with a predetermined probability distribution
-
-    - for example, the following code will generate a vector of values with approximately the given probabilities. 
-   
-```{r, eval = FALSE}
-
-     n <- 128
-     sample(1:5, n, replace = TRUE,
-       prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
-     )
-```
-
-* Marginal model specification as in [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html) and  [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)  using: 
-
-    - [SimCorMultRes](https://cran.r-project.org/package=SimCorMultRes)
-    
-    - [covsim](https://cran.r-project.org/package=covsim)
-
+## ----
 
 # Using _LikertMakeR_
 
@@ -115,6 +84,8 @@ To synthesise a rating scale with **_LikertMakeR_**, the user must input the fol
 
 **_LikertMakeR_** offers two different functions for synthesising a 
 rating scale: **_lfast()_** and **_lexact()_**
+
+## ----
 
 ### _lfast()_
 
@@ -174,6 +145,7 @@ hist(x,
 )
 ```
 
+## ----
 ### _lexact()_
 
 **_lexact()_** attempts to produce a vector with exact first and second moments. 
@@ -192,7 +164,7 @@ large for the combination of mean, n-items, and scale boundaries.
 ```{r}
 
 x <- lexact(
-  n = 16,
+  n = 64,
   mean = 2.5,
   sd = 1.0,
   lowerbound = 1,
@@ -217,7 +189,7 @@ hist(x,
 
 ```{r}
 
-x <- lexact(16, 2, 1.8, 0, 10)
+x <- lexact(64, 2, 1.8, 0, 10)
 ```
 
 ```{r fig4,  fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
@@ -231,6 +203,7 @@ hist(x,
 )
 ```
 
+## ----
 ## Correlating vectors of synthetic rating scales
 
 **_LikertMakeR_** offers another function, **_lcor()_**, 
@@ -264,7 +237,7 @@ each with five items.
 
 ```{r }
 
-n <- 8
+n <- 32
 
 x1 <- lexact(n, 2.5, 0.75, 1, 5, 5)
 x2 <- lexact(n, 3.0, 1.50, 1, 5, 5)
@@ -273,11 +246,11 @@ x3 <- lexact(n, 3.5, 1.00, 1, 5, 5)
 mydat3 <- cbind(x1, x2, x3) |> data.frame()
 ```
 
-Observations from this data-frame are:
+The first 10 observations from this data-frame are:
 
 ```{r, echo = FALSE}
 
-head(mydat3, n)
+head(mydat3, 10)
 ```
 
 Mean values:
@@ -337,46 +310,38 @@ A new data frame with correlations close to our desired correlation matrix:
 cor(new3) |> round(2)
 ```
 
-## Runtimes
+## ----
 
-### _lexact()_ 
+## Alternative methods & packages
 
-**_lexact()_** can take time to complete the optimisation task. 
-For example, **_lexact()_** executed first example, above, with 
-the following sample-size & time combinations on the author's 
-laptop [ _Windows 11 (Intel(R) i7-12700H 2.30 GHz)_ ].
+_LikertMakeR_ is intended for synthesising & correlating rating-scale data with means, standard deviations, and correlations as close as possible to predefined parameters. If you don't need your data to be close to exact, then other options may be faster or more flexible. 
 
-|  n  | seconds   |
-|:---:|:-----:|
-|  16 |  0.20 |
-|  32 |  0.37 |
-|  64 |  1.55 |
-| 128 |  7.03 |
-| 256 | 45.54 |
+Different approaches include:
 
-### _lcor()_ 
+* sampling from a _truncated normal_ distribution. Data are sampled from a normal distribution, and then truncated to suit the rating-scale boundaries, and rounded to set discrete values as we see in rating scales. See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scale-data/) for an excellent and short example using the following packages:
 
-A large data-frame can take some time. 
-Time to run a task in **_lcor()_** depends on 
+    - [truncnorm](https://cran.r-project.org/package=truncnorm)
+    
+    - [faux](https://cran.r-project.org/package=faux) 
+ 
+    - See also [responsesR](https://github.com/markolalovic/responsesR), by Marko Lalovic on [GitHub](https://github.com/markolalovic/responsesR), for an approach using optimal discretization and skew-normal distribution.
+    
+* sampling with a predetermined probability distribution
 
-- number of observations,
+    - for example, the following code will generate a vector of values with approximately the given probabilities. 
+   
+```{r, eval = FALSE}
 
-- number of columns,
+     n <- 128
+     sample(1:5, n, replace = TRUE,
+       prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
+     )
+```
 
-- number of intervals within each scale,
+* Marginal model specification as in [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html) and  [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)  using: 
 
-- speed of your computer.
+    - [SimCorMultRes](https://cran.r-project.org/package=SimCorMultRes)
+    
+    - [covsim](https://cran.r-project.org/package=covsim)
 
-The **_lcor()_** function in example_1 above had the 
-following sample-size/time combinations on the author's laptop:
-
-  |  n  | seconds   |
-  |:---:|:-----:|
-  |  16 |  0.16 |
-  |  32 |  0.45 |
-  |  64 |  1.52 |
-  | 128 |  5.62 |
-  | 256 | 23.30 |
-
-Value pairs are evaluated one pair at a time, 
-so a vectorised process is infeasible at present. 
+## ----
