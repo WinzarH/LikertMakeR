@@ -50,7 +50,6 @@
 #'
 #' cor(new3) |> round(3)
 #'
-#'
 lcor <- function(data, target) {
   multiplier <- 10000
   current_dat <- data

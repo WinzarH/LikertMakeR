@@ -6,13 +6,13 @@
 #' @details If feasible, moments are exact to two decimal places.
 #'
 #'
-#' @param n the number of observations to simulate
-#' @param mean target mean
-#' @param sd target standard deviation
-#' @param lowerbound a lower bound for the data to be generated
-#' @param upperbound an upper bound for the data to be generated
-#' @param items number of items in the Likert scale. Default = 1
-#' @param seed optional seed for reproducibility
+#' @param n (positive, int) the number of observations to simulate
+#' @param mean (real)  target mean
+#' @param sd (real)  target standard deviation
+#' @param lowerbound (positive, int) a lower bound for the data to be generated
+#' @param upperbound (positive, int) an upper bound for the data to be generated
+#' @param items (positive, int) number of items in the Likert scale. Default = 1
+#' @param seed (real)  optional seed for reproducibility
 #'
 #' @return a vector with user-specified parameters
 #'

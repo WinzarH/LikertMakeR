@@ -5,20 +5,20 @@
 #' for example,a 1-5 scale made from 5 items (questions) or 0-10
 #' likelihood-of-purchase scale.
 #'
-#' @param n number of observations to generate
-#' @param mean target mean
-#' @param sd target standard deviation
-#' @param lowerbound lower bound (e.g. '1' for a 1-5 rating scale)
-#' @param upperbound upper bound (e.g. '5' for a 1-5 rating scale)
-#' @param items number of items in the rating scale. Default = 1
-#' @param seed optional seed for reproducibility
+#' @param n (positive, int) number of observations to generate
+#' @param mean (real) target mean
+#' @param sd  (real) target standard deviation
+#' @param lowerbound (positive, int) lower bound (e.g. '1' for a 1-5 rating scale)
+#' @param upperbound (positive, int) upper bound (e.g. '5' for a 1-5 rating scale)
+#' @param items (positive, int) number of items in the rating scale. Default = 1
+#' @param seed  (real) optional seed for reproducibility
 #'
 #' @return a vector of simulated data approximating user-specified conditions.
-#' 
+#'
 #' @importFrom stats rbeta
-#' 
+#'
 #' @export lfast
-#' 
+#'
 #' @examples
 #'
 #' x <- lfast(
@@ -42,11 +42,11 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
     stop("ERROR: mean is out of range")
   }
   if (sd >= range * 0.6) {
-    warning("Standard Deviation is large relative to range  
+    warning("Standard Deviation is large relative to range
             \nDerived SD will be less than specified
             \nOr the solution is not feasible, producing 'NA' values")
   }
-  
+
   a <- (m^2 - m^3 - m * s^2) / s^2 ## alpha shape parameter
   b <- (m - 2 * m^2 + m^3 - s^2 + m * s^2) / s^2 ## beta shape parameter
   if (missing(seed)) {
