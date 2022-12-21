@@ -19,7 +19,7 @@ Description: Synthesise and correlate rating-scale data with
   synthesise a vector of discrete values with predefined mean and standard 
   deviation  exact to two decimal places, if feasible. 
   The function, _lfast()_, draws a random sample from a _Beta_ distribution 
-  which is rescaled to give a vector with appproximate first and second moments. 
+  which is rescaled to give a vector with approximate first and second moments. 
   It is much faster than _lexact_ but not as precise. 
   The function, _lcor_, systematically swaps values within each column in a 
   data-frame so that they are correlated to fit a predefined correlation matrix.
