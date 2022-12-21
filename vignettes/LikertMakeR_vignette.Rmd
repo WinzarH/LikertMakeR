@@ -85,7 +85,7 @@ To synthesise a rating scale with **_LikertMakeR_**, the user must input the fol
 **_LikertMakeR_** offers two different functions for synthesising a 
 rating scale: **_lfast()_** and **_lexact()_**
 
-## ----
+---
 
 ### _lfast()_
 
@@ -145,12 +145,15 @@ hist(x,
 )
 ```
 
-## ----
+---
+
 ### _lexact()_
 
 **_lexact()_** attempts to produce a vector with exact first and second moments. 
 It uses the *Differential Evolution* algorithm in the [**_DEoptim_**](https://cran.r-project.org/package=DEoptim) 
 package to find appropriate values within the desired constraints. 
+The [DEoptim](https://CRAN.R-project.org/package=DEoptim) package is described 
+in Mullen, Ardia, Gil, Windover, & Cline (2011) <doi:10.18637/jss.v040.i06>.
 
 *If feasible*, **_lexact()_** should produce data with moments that are 
 correct to two decimal places. 
@@ -203,7 +206,8 @@ hist(x,
 )
 ```
 
-## ----
+---
+
 ## Correlating vectors of synthetic rating scales
 
 **_LikertMakeR_** offers another function, **_lcor()_**, 
@@ -310,7 +314,7 @@ A new data frame with correlations close to our desired correlation matrix:
 cor(new3) |> round(2)
 ```
 
-## ----
+---
 
 ## Alternative methods & packages
 
@@ -324,7 +328,9 @@ Different approaches include:
     
     - [faux](https://cran.r-project.org/package=faux) 
  
-    - See also [responsesR](https://github.com/markolalovic/responsesR), by Marko Lalovic on [GitHub](https://github.com/markolalovic/responsesR), for an approach using optimal discretization and skew-normal distribution.
+    - See also the _rLikert()_ function from the 
+    [responsesR](https://github.com/markolalovic/responsesR) package, 
+    [Lalovic (2021)](https://github.com/markolalovic/responsesR), for an approach using optimal discretization and skew-normal distribution.
     
 * sampling with a predetermined probability distribution
 
@@ -338,10 +344,31 @@ Different approaches include:
      )
 ```
 
-* Marginal model specification as in [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html) and  [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)  using: 
+* Marginal model specification as in 
+  [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html) and 
+  [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)  using: 
 
     - [SimCorMultRes](https://cran.r-project.org/package=SimCorMultRes)
     
     - [covsim](https://cran.r-project.org/package=covsim)
 
-## ----
+---
+
+## References
+
+Grønneberg, S., Foldnes, N., & Marcoulides, K. M. (2022).
+covsim: An R Package for Simulating Non-Normal Data for Structural Equation Models Using Copulas. _Journal of Statistical Software_, 102(1), 1–45. <doi:10.18637/jss.v102.i03>
+
+Heinz, A. (2021), Simulating Correlated Likert-Scale Data In R: 
+3 Simple Steps (blog post)
+<https://glaswasser.github.io/simulating-correlated-likert-scale-data/>
+
+Lalovic, M. (2021), _responsesR_: Simulate Likert scale item responses
+<https://github.com/markolalovic/responsesR>
+
+Mullen, K. M., Ardia, D., Gil, D. L., Windover, D., & Cline, J. (2011). 
+DEoptim: An R Package for Global Optimization by Differential Evolution.
+_Journal of Statistical Software_, 40(6), 1–26.
+<doi:10.18637/jss.v040.i06>
+
+Touloumis, A. (2016), Simulating Correlated Binary and Multinomial Responses under Marginal Model Specification: The SimCorMultRes Package, _The R Journal_ 8:2, 79-91. <doi:10.32614/RJ-2016-034>
