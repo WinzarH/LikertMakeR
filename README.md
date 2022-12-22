@@ -1,7 +1,9 @@
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
 # LikertMakeR
 
 <p align="center">
-  <img src="assets/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
+  <img src="https://github.com/WinzarH/LikertMakeR/blob/main/assets/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
 </p>
 
 ___LikertMakeR___ synthesises Likert scale and related rating-scale data. 
@@ -21,14 +23,14 @@ The package is intended for
    correlation properties 
 
 
-Functions in ___LikertMakeR___ are:
+Functions in **_LikertMakeR_** are:
 
-*  ___lfast()___ draws a random sample from a scaled _Beta_ distribution to 
+*  **_lfast()_** draws a random sample from a scaled _Beta_ distribution to 
 approximate predefined first and second moments
 
-*  ___lexact()___ attempts to produce a vector with exact first and second moments 
+*  **_lexact()_** attempts to produce a vector with exact first and second moments 
 
- * ___lcor()___ rearranges the values in the columns of a data set so that they 
+ * **_lcor()_** rearranges the values in the columns of a data set so that they 
  are correlated to match a predefined correlation matrix
 
 
@@ -50,16 +52,31 @@ summed range between 8 (all rated ‘1’) and 56 (all rated ‘7’) with
 all integers in between, and the mean range will be ‘1’ to ‘7’ with 
 intervals of 1/8=0.125.
 
+#### Alternative approaches
+
+Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. For example, the following code will generate a vector of values with approximately the given probabilities. 
+   
+> ```{r, eval = FALSE}
+> 
+>      n <- 128
+>      sample(1:5, n, replace = TRUE,
+>        prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
+>      )
+> ```
+
+The functions `lfast()` and `lexact()` allow the user 
+to specify exact univariate statistics as they might 
+ordinarily be reported. 
+
 ## Install _LikertMakeR_
 
-*__LikertMakeR__* is available from the author's GitHub repository. 
+The development version of **_LikertMakeR_** is available from the author's GitHub repository. 
 
 To download and install the package, run the following code from your R console:
 
   > ```{r, eval=FALSE}
   > 
   > library(devtools)
-  > 
   > install_github("WinzarH/LikertMakeR")
   > 
   > ```
@@ -84,12 +101,12 @@ To synthesise a rating scale, the user must input the following parameters:
   *  ___seed___: optional seed for reproducibility 
   
     
-___LikertMakeR___ offers two different functions for synthesising a rating 
-scale: ___lfast()___ and ___lexact()___
+* **_LikertMakeR_** offers two different functions for synthesising a rating 
+scale: **_lfast()_** and **_lexact()_**
 
 ### lfast()
 
-  *  ___lfast()___ draws a random sample from a scaled _Beta_ distribution. 
+  *  **_lfast()_** draws a random sample from a scaled _Beta_ distribution. 
   It is very fast but does not guarantee that the mean and standard deviation are exact. 
   Recommended for relatively large sample sizes.
   
@@ -120,9 +137,9 @@ Example: a five-item, seven-point Likert scale
 
 ### lexact()  
 
-  *  ___lexact()___ attempts to produce a vector with exact first and 
+  *  **_lexact()_** attempts to produce a vector with exact first and 
   second moments. It uses the _Differential Evolution_ algorithm in 
-  the ___DEoptim___ package to find appropriate values within the 
+  the ['DEoptim'](https://CRAN.R-project.org/package=DEoptim) package to find appropriate values within the 
   desired constraints. 
   
 ___lexact()___ may take some time to complete the optimisation task, 
@@ -255,3 +272,13 @@ following objects:
   > cor(new3) |> round(3)
   > 
   > ```
+
+
+### To cite _LikertMakeR_
+
+here’s how to cite this package:
+
+> ```
+> 
+> Winzar, H. (2022). LikertMakeR: Synthesise and correlate rating-scale data with predefined first & second moments, <https://github.com/WinzarH/LikertMakeR>
+> ```
