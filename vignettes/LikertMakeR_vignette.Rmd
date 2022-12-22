@@ -150,7 +150,7 @@ hist(x,
 ### _lexact()_
 
 **_lexact()_** attempts to produce a vector with exact first and second moments. 
-It uses the *Differential Evolution* algorithm in the [**_DEoptim_**](https://cran.r-project.org/package=DEoptim) 
+It uses the *Differential Evolution* algorithm in the **_[DEoptim](https://cran.r-project.org/package=DEoptim)_** 
 package to find appropriate values within the desired constraints. 
 The [DEoptim](https://CRAN.R-project.org/package=DEoptim) package is described 
 in Mullen, Ardia, Gil, Windover, & Cline (2011) <doi:10.18637/jss.v040.i06>.
