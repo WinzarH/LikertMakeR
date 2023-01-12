@@ -3,8 +3,6 @@
 export(lcor)
 export(lexact)
 export(lfast)
-import(parallel)
-import(parallelly)
 importFrom(DEoptim,DEoptim)
 importFrom(DEoptim,DEoptim.control)
 importFrom(stats,cor)
