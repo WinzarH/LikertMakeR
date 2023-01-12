@@ -1,3 +1,7 @@
+^\.github$
+^\.git$
+cran-comments.md
+^CRAN-SUBMISSION$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.github$
+^\notes$
