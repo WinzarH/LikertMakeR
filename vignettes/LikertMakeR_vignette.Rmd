@@ -1,7 +1,6 @@
 ---
 title: "LikertMakeR"
-subtitle: |
-    ![](LikertMakeR_hex.png){width=5cm}
+subtitle: "synthesise and correlate related rating-scale data"
 author: Hume Winzar
 date: December 2022    
 output: rmarkdown::html_vignette
@@ -20,29 +19,61 @@ knitr::opts_chunk$set(
 
 
 
-# *LikertMakeR*
+# LikertMakeR
 
-**_LikertMakeR_** synthesises and correlates Likert-scale and related rating-scale data. You decide the mean and standard deviation, and (optionally) the correlations among vectors, and the package will generate data with those same predefined properties.  
+<p align="center">
+  <img src="https://github.com/WinzarH/LikertMakeR/blob/main/assets/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
+</p>
 
-The package generates a column of values that simulate the same properties as a rating scale. If multiple columns are generated, then you can use **_LikertMakeR_** to rearrange the values so that the new variables are correlated exactly in accord with a user-predefined correlation matrix.
+
+**_LikertMakeR_** synthesises and correlates Likert-scale and related 
+rating-scale data. 
+You decide the mean and standard deviation, and (optionally) the correlations 
+among vectors, and the package will generate data with those same predefined 
+properties.  
+
+The package generates a column of values that simulate the same properties 
+as a rating scale. 
+If multiple columns are generated, then you can use 
+**_LikertMakeR_** to rearrange the values so that the new variables are 
+correlated exactly in accord with a user-predefined correlation matrix.
 
 ## Purpose
 
-The package should be useful for teaching in the Social Sciences, and for scholars who wish to "replicate" rating-scale data for further analysis and visualisation when only summary statistics have been reported. 
+The package should be useful for teaching in the Social Sciences, 
+and for scholars who wish to "replicate" rating-scale data for further 
+analysis and visualisation when only summary statistics have been reported. 
 
-I was prompted to write the functions in _LikertMakeR_ after reviewing too many journal article submissions where authors presented questionnaire results with only means and standard deviations (often only the means), with no understanding of the real distributions. Hopefully, this tool will help researchers, teachers, and other reviewers, to better think about rating-scale distributions, and the effects of variance, boundaries and number of items in a scale.
+I was prompted to write the functions in _LikertMakeR_ after reviewing too 
+many journal article submissions where authors presented questionnaire results 
+with only means and standard deviations (often only the means), with no 
+apparent understanding of the real distributions. 
+Hopefully, this tool will help researchers, teachers, and other reviewers, 
+to better think about rating-scale distributions, and the effects of variance, 
+boundaries and number of items in a scale.
 
 ## Rating scale properties
 
-A Likert scale is the mean, or sum, of several ordinal rating scales. They are bipolar (usually  "agree-disagree") responses to propositions that are determined to be moderately-to-highly correlated and capturing various facets of a construct.
+A Likert scale is the mean, or sum, of several ordinal rating scales. 
+They are bipolar (usually  "agree-disagree") responses to propositions that 
+are determined to be moderately-to-highly correlated and capturing various 
+facets of a construct.
 
 Rating scales, such as Likert scales, are not continuous or unbounded.
 
-For example, a 5-point Likert scale that is constructed with, say, five items (questions) will have a summed range of between 5 (all rated '1') and 25 (all rated '5') with all integers in between, and the mean range will be '1' to '5' with intervals of 1/5=0.20. A 7-point Likert scale constructed from eight items will have a summed range between 8 (all rated '1') and 56 (all rated '7') with all integers in between, and the mean range will be '1' to '7' with intervals of 1/8=0.125.
+For example, a 5-point Likert scale that is constructed with, say, five items 
+(questions) will have a summed range of between 5 (all rated '1') and 25 
+(all rated '5') with all integers in between, and the mean range will 
+be '1' to '5' with intervals of 1/5=0.20. A 7-point Likert scale constructed 
+from eight items will have a summed range between 8 (all rated '1') and 
+56 (all rated '7') with all integers in between, and the mean range will 
+be '1' to '7' with intervals of 1/8=0.125.
 
-Rating-scale boundaries define minima and maxima for any scale values. If the mean is close to one boundary then data points will gather more closely to that boundary and the data will always be skewed.
+Rating-scale boundaries define minima and maxima for any scale values. 
+If the mean is close to one boundary then data points will gather more 
+closely to that boundary and the data will always be skewed.
 
-## ----
+____
 
 # Using _LikertMakeR_
 
@@ -66,7 +97,8 @@ Download and Install **_LikertMakeR_** from _GitHub_.
 
 ## Generate synthetic rating-scale data
 
-To synthesise a rating scale with **_LikertMakeR_**, the user must input the following parameters:
+To synthesise a rating scale with **_LikertMakeR_**, the user must input 
+the following parameters:
 
 -   **_n_**: sample size
 
@@ -85,7 +117,7 @@ To synthesise a rating scale with **_LikertMakeR_**, the user must input the fol
 **_LikertMakeR_** offers two different functions for synthesising a 
 rating scale: **_lfast()_** and **_lexact()_**
 
----
+____
 
 ### _lfast()_
 
@@ -98,8 +130,6 @@ Recommended for relatively large sample sizes.
 ##### a four-item, five-point Likert scale
 
 ```{r}
-
-## a four-item, five-point Likert scale
 
 x <- lfast(
   n = 512,
@@ -129,8 +159,6 @@ hist(x,
 
 ```{r}
 
-## an 11-point likelihood-of-purchase scale
-
 x <- lfast(256, 2, 2, 0, 10)
 ```
 
@@ -145,7 +173,7 @@ hist(x,
 )
 ```
 
----
+____
 
 ### _lexact()_
 
@@ -155,7 +183,7 @@ package to find appropriate values within the desired constraints.
 The [DEoptim](https://CRAN.R-project.org/package=DEoptim) package is described 
 in Mullen, Ardia, Gil, Windover, & Cline (2011) <doi:10.18637/jss.v040.i06>.
 
-*If feasible*, **_lexact()_** should produce data with moments that are 
+If feasible, **_lexact()_** should produce data with moments that are 
 correct to two decimal places. 
 Infeasible cases occur when the requested standard deviation is too 
 large for the combination of mean, n-items, and scale boundaries.
@@ -206,7 +234,7 @@ hist(x,
 )
 ```
 
----
+____
 
 ## Correlating vectors of synthetic rating scales
 
@@ -314,15 +342,21 @@ A new data frame with correlations close to our desired correlation matrix:
 cor(new3) |> round(2)
 ```
 
----
+____
 
 ## Alternative methods & packages
 
-_LikertMakeR_ is intended for synthesising & correlating rating-scale data with means, standard deviations, and correlations as close as possible to predefined parameters. If you don't need your data to be close to exact, then other options may be faster or more flexible. 
+_LikertMakeR_ is intended for synthesising & correlating 
+rating-scale data with means, standard deviations, and 
+correlations as close as possible to predefined parameters. 
+If you don't need your data to be close to exact, then other 
+options may be faster or more flexible. 
 
 Different approaches include:
 
-* sampling from a _truncated normal_ distribution. Data are sampled from a normal distribution, and then truncated to suit the rating-scale boundaries, and rounded to set discrete values as we see in rating scales. See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scale-data/) for an excellent and short example using the following packages:
+* sampling from a _truncated normal_ distribution. 
+Data are sampled from a normal distribution, and then truncated to suit the rating-scale boundaries, and rounded to set discrete values as we see in rating scales. 
+See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scale-data/) for an excellent and short example using the following packages:
 
     - [truncnorm](https://cran.r-project.org/package=truncnorm)
     
@@ -334,7 +368,8 @@ Different approaches include:
     
 * sampling with a predetermined probability distribution
 
-    - for example, the following code will generate a vector of values with approximately the given probabilities. 
+    - for example, the following code will generate a vector of 
+    values with approximately the given probabilities. 
    
 ```{r, eval = FALSE}
 
@@ -352,7 +387,7 @@ Different approaches include:
     
     - [covsim](https://cran.r-project.org/package=covsim)
 
----
+____
 
 ## References
 
