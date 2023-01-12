@@ -6,7 +6,7 @@
   <img src="https://github.com/WinzarH/LikertMakeR/blob/main/assets/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
 </p>
 
-___LikertMakeR___ synthesises Likert scale and related rating-scale data. 
+**_LikertMakeR_** synthesises Likert scale and related rating-scale data. 
 Such scales are constrained by upper and lower bounds and discrete increments. 
 
 ## Purpose
@@ -17,7 +17,7 @@ The package is intended for
    when only summary statistics have been reported, 
    
    - Teaching. Helping researchers and students to better understand the 
-   relationships among scale properties, sample size, number of items, etc. 
+   relationships among scale properties, sample size, number of items, etc.. 
 
    - Checking the feasibility of scale moments with given scale and 
    correlation properties 
@@ -28,9 +28,10 @@ Functions in **_LikertMakeR_** are:
 *  **_lfast()_** draws a random sample from a scaled _Beta_ distribution to 
 approximate predefined first and second moments
 
-*  **_lexact()_** attempts to produce a vector with exact first and second moments 
+*  **_lexact()_** attempts to produce a vector with exact 
+first and second moments 
 
- * **_lcor()_** rearranges the values in the columns of a data set so that they 
+* **_lcor()_** rearranges the values in the columns of a data set so that they 
  are correlated to match a predefined correlation matrix
 
 
@@ -86,19 +87,19 @@ To download and install the package, run the following code from your R console:
 
 To synthesise a rating scale, the user must input the following parameters:
 
-  *  ___n___: sample size 
+  *  **_n_**: sample size 
   
-  *  ___mean___: desired mean 
+  *  **_mean_**: desired mean 
   
-  *  ___sd___: desired standard deviation
+  *  **_sd_**: desired standard deviation
   
-  *  ___lowerbound___: desired lower bound
+  *  **_lowerbound_**: desired lower bound
   
-  *  ___upperbound___: desired upper bound 
+  *  **_upperbound_**: desired upper bound 
   
-  *  ___items___: number of items making the scale - default = 1 
+  *  **_items_**: number of items making the scale - default = 1 
   
-  *  ___seed___: optional seed for reproducibility 
+  *  **_seed_**: optional seed for reproducibility 
   
     
 * **_LikertMakeR_** offers two different functions for synthesising a rating 
@@ -142,7 +143,7 @@ Example: a five-item, seven-point Likert scale
   the ['DEoptim'](https://CRAN.R-project.org/package=DEoptim) package to find appropriate values within the 
   desired constraints. 
   
-___lexact()___ may take some time to complete the optimisation task, 
+**_lexact()_** may take some time to complete the optimisation task, 
 but is excellent for simulating data from already-published reports 
 where only summary statistics are reported. 
 
@@ -188,7 +189,7 @@ where only summary statistics are reported.
   
 ## Correlating vectors of synthetic rating scales
 
-___LikertMakeR___ offers another function, ___lcor()___, which rearranges 
+**_LikertMakeR_** offers another function, **_lcor()_**, which rearranges 
 the values in the columns of a data set so that they are correlated at 
 a specified level. It does not change the values - it swaps their 
 positions in a column so that univariate statistics do not change, 
@@ -197,9 +198,9 @@ but their correlations with other vectors do.
 To create the desired correlations, the user must define the 
 following objects: 
 
-  -  ___data___: a starter data set of rating-scales 
+  -  **_data_**: a starter data set of rating-scales 
   
-  -  ___target___: the target correlation matrix 
+  -  **_target_**: the target correlation matrix 
 
 ### _lcor()_ Examples
 
