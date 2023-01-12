@@ -10,9 +10,9 @@ Authors@R:
     role = c("cre", "aut"),
     comment = c(ORCID = "0000-0001-7475-2641")
     )
-Description: Synthesise and correlate rating-scale data with 
-  predefined first & second moments and, optionally, predefined 
-  correlation matrix. 
+Description: Synthesise rating-scale data with predefined 
+  first & second moments and, optionally, correlate multiple vectors with 
+  predefined  correlation matrix. 
   The function, `lexact()`, uses the 'DEoptim' 
   <https://CRAN.R-project.org/package=DEoptim> package, described in 
   Mullen, Ardia, Gil, Windover, & Cline (2011) <doi:10.18637/jss.v040.i06>,
