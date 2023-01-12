@@ -34,7 +34,7 @@
 #'
 ##
 ## Create lexact function
-lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
+lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed = NULL) {
   min <- lowerbound * items
   max <- upperbound * items
   mean <- mean * items
@@ -44,7 +44,7 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   if (mean <= min || mean >= max) {
     stop("ERROR: mean is out of range")
   }
-  if (target_sd >= (max - min) * 0.6) {
+  if (target_sd >= (max - min) * 0.5) {
     warning("Standard Deviation is large relative to range
             \nDerived SD will be less than specified")
   }
@@ -65,10 +65,6 @@ lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
   itermax <- n * 10
   fnmap_f <- function(x) round(x) ## integer output
 
-  if (missing(seed)) {
-  } else {
-    set.seed(seed)
-  }
   ## run the optimisation algorithm
   ## this can take some time
   my_vector <- DEoptim::DEoptim(opt_scale, lower, upper,

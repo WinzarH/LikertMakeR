@@ -61,7 +61,7 @@ lcor <- function(data, target) {
 
   ## generate a complete list of value-pairs as switch candidates
   ye <- expand.grid(c(1:n), c(1:n))
-  ## no need to switch with yourself
+  ## no need to switch with yourself so we can remove these pairs
   ye <- subset(ye, ye[, 1] != ye[, 2])
   ny <- nrow(ye)
 

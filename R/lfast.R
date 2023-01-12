@@ -32,7 +32,7 @@
 #'
 #' x <- lfast(256, 2, 1.8, 0, 10)
 #'
-lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
+lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed = NULL) {
   range <- upperbound - lowerbound
   m <- (mean - lowerbound) / range ## rescale mean
   s <- sd / range ## rescale sd
@@ -49,10 +49,7 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed) {
 
   a <- (m^2 - m^3 - m * s^2) / s^2 ## alpha shape parameter
   b <- (m - 2 * m^2 + m^3 - s^2 + m * s^2) / s^2 ## beta shape parameter
-  if (missing(seed)) {
-  } else {
-    set.seed(seed)
-  }
+
   ## generate data with range 0-1 as Beta distribution
   data <- rbeta(n, a, b)
   ## rescale Beta values to desired parameters
