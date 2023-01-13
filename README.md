@@ -1,5 +1,8 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
+[![Downloads - total]()](https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR?color=brightgreen)
+[![Downloads -  monthly]()](https://cranlogs.r-pkg.org/badges/LikertMakeR?color=yellow)
+
 # LikertMakeR
 
 <p align="center">
