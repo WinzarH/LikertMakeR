@@ -4,6 +4,7 @@
 [https://cranlogs.r-pkg.org/badges/LikertMakeR?color=yellow](https://cranlogs.r-pkg.org/badges/LikertMakeR?color=yellow)
 
 
+
 # LikertMakeR
 
 <p align="center">
