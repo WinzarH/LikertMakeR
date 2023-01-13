@@ -1,9 +1,9 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
-[https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR?color=brightgreen](https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR?color=brightgreen)
-[https://cranlogs.r-pkg.org/badges/LikertMakeR?color=yellow](https://cranlogs.r-pkg.org/badges/LikertMakeR?color=yellow)
 
 
+[![metacran downloads total](https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR)](https://cran.r-project.org/package=LikertMakeR)
+[![metacran downloads last month](https://cranlogs.r-pkg.org/badges/last-month/LikertMakeR)](https://cran.r-project.org/package=LikertMakeR)
 
 # LikertMakeR
 
