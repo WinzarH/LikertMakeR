@@ -1,7 +1,8 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
-[![Downloads - total]()](https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR?color=brightgreen)
-[![Downloads -  monthly]()](https://cranlogs.r-pkg.org/badges/LikertMakeR?color=yellow)
+[https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR?color=brightgreen](https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR?color=brightgreen)
+[https://cranlogs.r-pkg.org/badges/LikertMakeR?color=yellow](https://cranlogs.r-pkg.org/badges/LikertMakeR?color=yellow)
+
 
 # LikertMakeR
 
@@ -11,6 +12,7 @@
 
 **_LikertMakeR_** synthesises Likert scale and related rating-scale data. 
 Such scales are constrained by upper and lower bounds and discrete increments. 
+
 
 ## Purpose
 
@@ -56,6 +58,7 @@ summed range between 8 (all rated ‘1’) and 56 (all rated ‘7’) with
 all integers in between, and the mean range will be ‘1’ to ‘7’ with 
 intervals of 1/8=0.125.
 
+
 #### Alternative approaches
 
 Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. For example, the following code will generate a vector of values with approximately the given probabilities. 
@@ -71,6 +74,8 @@ Typically, a researcher will synthesise rating-scale data by sampling with a pre
 The functions `lfast()` and `lexact()` allow the user 
 to specify exact univariate statistics as they might 
 ordinarily be reported. 
+
+
 
 ## Install _LikertMakeR_
 
@@ -108,6 +113,7 @@ To synthesise a rating scale, the user must input the following parameters:
 * **_LikertMakeR_** offers two different functions for synthesising a rating 
 scale: **_lfast()_** and **_lexact()_**
 
+
 ### lfast()
 
   *  **_lfast()_** draws a random sample from a scaled _Beta_ distribution. 
@@ -138,6 +144,7 @@ Example: a five-item, seven-point Likert scale
   > 
   > ```
   >
+
 
 ### lexact()  
 
@@ -189,6 +196,7 @@ where only summary statistics are reported.
   > 
   > ```
 
+
   
 ## Correlating vectors of synthetic rating scales
 
@@ -205,7 +213,10 @@ following objects:
   
   -  **_target_**: the target correlation matrix 
 
+
+
 ### _lcor()_ Examples
+
 
 ####  generate synthetic data
 
@@ -255,6 +266,7 @@ following objects:
   > cor(new4) |> round(3)
   > 
   > ```
+
 
 #####  three starting vectors and different target correlation matrix
 
