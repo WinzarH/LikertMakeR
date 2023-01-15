@@ -6,6 +6,8 @@
 
 # LikertMakeR
 
+Synthesise and correlate rating-scale data with predefined first & second moments
+
 <p align="center">
   <img src="https://github.com/WinzarH/LikertMakeR/blob/main/assets/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
 </p>
@@ -18,13 +20,13 @@ Such scales are constrained by upper and lower bounds and discrete increments.
 
 The package is intended for 
 
-  - "reproducing" rating-scale data for further analysis and visualisation 
+  1. "reproducing" rating-scale data for further analysis and visualisation 
   when only summary statistics have been reported, 
    
-  - Teaching. Helping researchers and students to better understand the 
+  2. teaching. Helping researchers and students to better understand the 
   relationships among scale properties, sample size, number of items, etc.. 
 
-  - Checking the feasibility of scale moments with given scale and 
+  3. checking the feasibility of scale moments with given scale and 
   correlation properties 
 
 
@@ -33,7 +35,7 @@ Functions in **_LikertMakeR_** are:
   -  **_lfast()_** draws a random sample from a scaled _Beta_ distribution to 
   approximate predefined first and second moments
 
-  -  **_lexact()_** attempts to produce a vector with exact 
+  -  **_lexact()_** attempts to produce a vector with exact predefined
   first and second moments 
 
   - **_lcor()_** rearranges the values in the columns of a data set so that they 
@@ -79,9 +81,17 @@ ordinarily be reported.
 
 ## Install _LikertMakeR_
 
-The development version of **_LikertMakeR_** is available from the author's GitHub repository. 
+To download and install the package, run the following code from your R console.
 
-To download and install the package, run the following code from your R console:
+From __CRAN__:
+
+    > ```
+    > 
+    > install.packages('LikertMakeR')
+    >
+    > ```
+
+The latest development version is available from the author's _GitHub_ repository.
 
     > ```
     > 
@@ -91,7 +101,7 @@ To download and install the package, run the following code from your R console:
     > ```
 
 
-## Generating synthetic rating scales
+## Generate synthetic rating scales
 
 To synthesise a rating scale, the user must input the following parameters:
 
@@ -105,13 +115,13 @@ To synthesise a rating scale, the user must input the following parameters:
   
 -  **_upperbound_**: desired upper bound 
   
--  **_items_**: number of items making the scale - default = 1 
+-  **_items_**: number of items making the scale. Default&nbsp;=&nbsp;1 
   
 -  **_seed_**: optional seed for reproducibility 
   
     
 **_LikertMakeR_** offers two different functions for synthesising a rating 
-scale: **_lfast()_** and **_lexact()_**
+scale: **_lfast()_**&nbsp;and&nbsp;**_lexact()_**
 
 
 ### lfast()
@@ -149,8 +159,9 @@ Example: a five-item, seven-point Likert scale
 ### lexact()  
 
   -  **_lexact()_** attempts to produce a vector with exact first and 
-  second moments. It uses the _Differential Evolution_ algorithm in 
-  the ['DEoptim'](https://CRAN.R-project.org/package=DEoptim) package to find appropriate values within the 
+  second moments. It uses the _Differential&nbsp;Evolution_ algorithm in 
+  the ['DEoptim'](https://CRAN.R-project.org/package=DEoptim) package to 
+  find appropriate values within the 
   desired constraints. 
   
 **_lexact()_** may take some time to complete the optimisation task, 
@@ -292,7 +303,7 @@ following objects:
 
 ### To cite _LikertMakeR_
 
-here’s how to cite this package:
+Here’s how to cite this package:
 
     > ```
     > 
@@ -301,3 +312,16 @@ here’s how to cite this package:
     <https://github.com/WinzarH/LikertMakeR>
     >
     > ```
+    
+#### BIB:    
+
+    @computer_program{Winzar2022,
+        abstract = {LikertMakeR synthesises Likert scale and related rating-scale data. 
+        Such scales are constrained by upper and lower bounds and discrete increments},
+        author = {Hume Winzar},
+        journal = {GitHub},
+        month = {12},
+        title = {LikertMakeR: Synthesise and correlate rating-scale data with predefined first & second moments},
+        url = {https://github.com/WinzarH/LikertMakeR},
+        year = {2022},
+    }
