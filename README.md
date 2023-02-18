@@ -315,7 +315,7 @@ Here’s how to cite this package:
     
 #### BIB:    
 
-    @computer_program{Winzar2022,
+    @software{winzar2022,
         abstract = {LikertMakeR synthesises Likert scale and related rating-scale data. 
         Such scales are constrained by upper and lower bounds and discrete increments},
         author = {Hume Winzar},
