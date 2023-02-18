@@ -222,7 +222,7 @@ following objects:
          data.frame()
      
      head(mydat4)
-     cor(mydat4) | round(3)
+     cor(mydat4) |> round(3)
      
 
 ####  Define a target correlation matrix
@@ -246,7 +246,7 @@ following objects:
 
      new4 <- lcor(data = mydat4, target = tgt4)
      
-     cor(new4) | round(3)
+     cor(new4) |> round(3)
      
 
 
@@ -254,7 +254,7 @@ following objects:
 #####  three starting vectors and different target correlation matrix
 
 
-     mydat3 <- cbind(x1, x2, x3) | data.frame()
+     mydat3 <- cbind(x1, x2, x3) |> data.frame()
     
      tgt3 <- matrix(
        c(
@@ -267,7 +267,7 @@ following objects:
      
      new3 <- lcor(mydat3, tgt3) 
      
-     cor(new3) | round(3)
+     cor(new3) |> round(3)
      
 
 ### To cite _LikertMakeR_
