@@ -4,22 +4,22 @@
 \alias{lfast}
 \title{Rating scale data (e.g. Likert scale) from a Scaled Beta Distribution}
 \usage{
-lfast(n, mean, sd, lowerbound, upperbound, items = 1, seed)
+lfast(n, mean, sd, lowerbound, upperbound, items = 1, seed = NULL)
 }
 \arguments{
-\item{n}{number of observations to generate}
+\item{n}{(positive, int) number of observations to generate}
 
-\item{mean}{target mean}
+\item{mean}{(real) target mean}
 
-\item{sd}{target standard deviation}
+\item{sd}{(real) target standard deviation}
 
-\item{lowerbound}{lower bound (e.g. '1' for a 1-5 rating scale)}
+\item{lowerbound}{(positive, int) lower bound (e.g. '1' for a 1-5 rating scale)}
 
-\item{upperbound}{upper bound (e.g. '5' for a 1-5 rating scale)}
+\item{upperbound}{(positive, int) upper bound (e.g. '5' for a 1-5 rating scale)}
 
-\item{items}{number of items in the rating scale. Default = 1}
+\item{items}{(positive, int) number of items in the rating scale. Default = 1}
 
-\item{seed}{optional seed for reproducibility}
+\item{seed}{(real) optional seed for reproducibility}
 }
 \value{
 a vector of simulated data approximating user-specified conditions.
@@ -42,7 +42,5 @@ x <- lfast(
 )
 
 x <- lfast(256, 2, 1.8, 0, 10)
-
-x <- lfast(256, 2, 1.0, 1, 5, 5)
 
 }

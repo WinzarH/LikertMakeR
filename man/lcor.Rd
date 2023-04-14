@@ -41,9 +41,9 @@ cor(mydat3)
 ## describe a target correlation matrix
 tgt3 <- matrix(
   c(
-    1.00, 0.50, 0.50,
+    1.00, 0.50, 0.75,
     0.50, 1.00, 0.25,
-    0.50, 0.25, 1.00
+    0.75, 0.25, 1.00
   ),
   nrow = 3
 )
@@ -52,36 +52,5 @@ tgt3 <- matrix(
 new3 <- lcor(mydat3, tgt3)
 
 cor(new3) |> round(3)
-
-## ---
-
-tgt3 <- matrix(
-  c(
-    1.00, 0.50, 0.95,
-    0.50, 1.00, 0.65,
-    0.95, 0.65, 1.00
-  ),
-  nrow = 3
-)
-
-new3 <- lcor(mydat3, tgt3)
-
-cor(new3)
-
-## ---
-
-tgt3 <- matrix(
-  c(
-    1.00, -0.50, -0.85,
-    -0.50, 1.00, 0.60,
-    -0.85, 0.60, 1.00
-  ),
-  nrow = 3
-)
-
-new3 <- lcor(mydat3, tgt3)
-
-cor(new3) |> round(3)
-
 
 }

@@ -1,0 +1,74 @@
+// C code translated by chat GPT
+
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_NROW 1000
+#define MAX_NCOL 1000
+
+double cor(double *current_dat, int n, int nc) {
+  double current_cor = 0;
+  // ... compute correlation
+  return current_cor;
+}
+
+void lcor(double *data, double *target, double *current_dat, int n, int nc) {
+  int multiplier = 10000;
+  for (int i = 0; i < n * nc; ++i) {
+    current_dat[i] = data[i];
+  }
+  double current_cor = cor(current_dat, n, nc);
+  double target_cor = *target;
+  double diff_score = 0;
+  for (int i = 0; i < n * nc; ++i) {
+    diff_score += fabs(target_cor - current_cor[i]) * multiplier;
+  }
+
+  int ye[MAX_NROW][2];
+  int ny = 0;
+  for (int i = 0; i < n; ++i) {
+    for (int j = i + 1; j < n; ++j) {
+      ye[ny][0] = i;
+      ye[ny][1] = j;
+      ++ny;
+    }
+  }
+
+  for (int r = 0; r < ny; ++r) {
+    for (int colID = 1; colID < nc; ++colID) {
+      int i = ye[r][0];
+      int j = ye[r][1];
+      if (current_dat[i * nc + colID] == current_dat[j * nc + colID]) {
+        break;
+      }
+      double ii = current_dat[i * nc + colID];
+      double jj = current_dat[j * nc + colID];
+      current_dat[i * nc + colID] = jj;
+      current_dat[j * nc + colID] = ii;
+      double new_diff_score = 0;
+      for (int k = 0; k < n * nc; ++k) {
+        new_diff_score += fabs(target_cor - current_cor[k]) * multiplier;
+      }
+      if (new_diff_score < diff_score) {
+        diff_score = new_diff_score;
+        current_cor = cor(current_dat, n, nc);
+      } else {
+        current_dat[i * nc + colID] = ii;
+        current_dat[j * nc + colID] = jj;
+      }
+    }
+  }
+}
+
+int main() {
+  double data[MAX_NROW][MAX_NCOL];
+  double target;
+  double current_dat[MAX_NROW][MAX_NCOL];
+  int n = 0;
+  int nc = 0;
+  // ... read data and target into data, target, n, nc
+  lcor(*data, &target, *current_dat, n, nc);
+  // ... output current_dat
+  return 0;
+}

@@ -3,23 +3,26 @@
 \name{lexact}
 \alias{lexact}
 \title{Generate rating-scale data with only Mean and Standard Deviation}
+\usage{
+lexact(n, mean, sd, lowerbound, upperbound, items = 1, seed = NULL)
+}
 \arguments{
-\item{n}{the number of observations to simulate}
+\item{n}{(positive, int) the number of observations to simulate}
 
-\item{mean}{target mean}
+\item{mean}{(real)  target mean}
 
-\item{sd}{target standard deviation}
+\item{sd}{(real)  target standard deviation}
 
-\item{lowerbound}{a lower bound for the data to be generated}
+\item{lowerbound}{(positive, int) a lower bound for the data to be generated}
 
-\item{upperbound}{an upper bound for the data to be generated}
+\item{upperbound}{(positive, int) an upper bound for the data to be generated}
 
-\item{items}{number of items in the Likert scale. Default = 1}
+\item{items}{(positive, int) number of items in the Likert scale. Default = 1}
 
-\item{seed}{optional seed for reproducibility}
+\item{seed}{(real)  optional seed for reproducibility}
 }
 \value{
-a vector of simulated data with user-specified conditions.
+a vector with user-specified parameters
 }
 \description{
 \code{lexact()} generates rating-scale values with
@@ -32,22 +35,11 @@ If feasible, moments are exact to two decimal places.
 
 x <- lexact(
   n = 16,
-  mean = 3.2,
-  sd = 0.85,
+  mean = 3.25,
+  sd = 1.00,
   lowerbound = 1,
   upperbound = 5,
-  items = 6
-)
-
-x <- lexact(
-  n = 16,
-  mean = 1.2,
-  sd = 1.00,
-  lowerbound = -3,
-  upperbound = 3,
   items = 4
 )
-
-x <- lexact(16, 2, 2.5, 0, 10)
 
 }

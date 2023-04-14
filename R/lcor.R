@@ -91,10 +91,11 @@ lcor <- function(data, target) {
 
       ## if switched values reduce the difference between correlation
       ## matrices then keep the switch, otherwise put them back
-      if (sum((abs(target_cor - cor(current_dat))) * multiplier) < diff.score) {
+      new.diff.score <- sum((abs(target_cor - cor(current_dat))) * multiplier)
+      if (new.diff.score < diff.score) {
         ## update data-frame and target statistic
         current_cor <- cor(current_dat)
-        diff.score <- sum((abs(target_cor - current_cor)) * multiplier)
+        diff.score <- new.diff.score
       } else {
         ## swap values back
         current_dat[i, colID] <- ii
