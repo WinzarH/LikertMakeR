@@ -9,7 +9,7 @@
 Synthesise and correlate rating-scale data with predefined first & second moments
 
 <p align="center">
-  <img src="https://github.com/WinzarH/LikertMakeR/blob/main/assets/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
+  <img src="https://github.com/WinzarH/LikertMakeR/blob/main/vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
 </p>
 
 **_LikertMakeR_** synthesises Likert scale and related rating-scale data. 
@@ -38,8 +38,8 @@ Functions in **_LikertMakeR_** are:
   -  **_lexact()_** attempts to produce a vector with exact predefined
   first and second moments 
 
-  - **_lcor()_** rearranges the values in the columns of a data set so that they 
-  are correlated to match a predefined correlation matrix
+  - **_lcor()_** rearranges the values in the columns of a data set so that 
+  they are correlated to match a predefined correlation matrix
 
 
 ## Rating scale properties
@@ -47,7 +47,7 @@ Functions in **_LikertMakeR_** are:
 A Likert scale is the mean, or sum, of several ordinal rating scales. 
 They are bipolar (usually “agree-disagree”) responses to propositions 
 that are determined to be moderately-to-highly correlated and 
-capturing various facets of a construct.
+capturing various facets of a theoretical construct.
     
 Rating scales are not continuous or unbounded. 
     
@@ -63,14 +63,17 @@ intervals of 1/8=0.125.
 
 #### Alternative approaches
 
-Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. For example, the following code will generate a vector of values with approximately the given probabilities. 
+Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities. 
    
 
           n <- 128
           sample(1:5, n, replace = TRUE,
             prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
           )
-      
+
+This approach is ideal for testing Likert items but it does not help when 
+working on complete Likert scales, or for when we want to specify means 
+and standard deviations.  
 
 The functions `lfast()` and `lexact()` allow the user 
 to specify exact univariate statistics as they might 
@@ -88,7 +91,8 @@ From __CRAN__:
      install.packages('LikertMakeR')
     
 
-The latest development version is available from the author's _GitHub_ repository.
+The latest development version is available from the 
+author's _GitHub_ repository.
 
 
      library(devtools)
@@ -192,8 +196,9 @@ where only summary statistics are reported.
 
 **_LikertMakeR_** offers another function, **_lcor()_**, which rearranges 
 the values in the columns of a data set so that they are correlated at 
-a specified level. It does not change the values - it swaps their 
-positions in a column so that univariate statistics do not change, 
+a specified level. 
+It does not change the values - it swaps their positions in a column so 
+that univariate statistics do not change, 
 but their correlations with other vectors do.
 
 To create the desired correlations, the user must define the 

@@ -1,0 +1,68 @@
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// Define a function lcor_cpp that takes two NumericMatrix objects as input
+// and returns a double
+// [[Rcpp::export]]
+double lcor_cpp(NumericMatrix data, NumericMatrix target) {
+  // Set a multiplier to 10000
+  double multiplier = 10000;
+  // Make a copy of the data
+  NumericMatrix current_dat = clone(data);
+  // Calculate the correlation matrix of the data
+  NumericMatrix current_cor = cor(current_dat);
+  // Make a copy of the target correlation matrix
+  NumericMatrix target_cor = clone(target);
+  // Calculate the difference score between the target correlation matrix and the current correlation matrix
+  double diff_score = sum((abs(target_cor - current_cor)) * multiplier);
+  // Get the number of rows in the data
+  int n = current_dat.nrow();
+  // Get the number of columns in the data
+  int nc = current_dat.ncol();
+  // Create a matrix of all possible pairs of row indices
+  NumericMatrix ye(n*n, 2);
+  int k = 0;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      if (i != j) {
+        ye(k, 0) = i;
+        ye(k, 1) = j;
+        k++;
+      }
+    }
+  }
+  // Remove pairs where the row indices are the same
+  NumericMatrix ye_sub = ye(Range(0, k-1), Range(0, 1));
+  // Get the number of pairs
+  int ny = ye_sub.nrow();
+  // Loop over each column in the data set
+  for (int colID = 1; colID < nc; colID++) {
+    // Loop over each pair of row indices
+    for (int r = 0; r < ny; r++) {
+      // Get the row indices to swap
+      int i = ye_sub(r, 0);
+      int j = ye_sub(r, 1);
+      // Check if the values in the two locations are different
+      if (current_dat(i, colID) != current_dat(j, colID)) {
+        // Make a copy of the current data
+        NumericMatrix current_dat_copy = clone(current_dat);
+        // Swap the values at the two locations
+        double temp = current_dat_copy(i, colID);
+        current_dat_copy(i, colID) = current_dat_copy(j, colID);
+        current_dat_copy(j, colID) = temp;
+        // Calculate the correlation matrix of the modified data
+        NumericMatrix current_cor_copy = cor(current_dat_copy);
+        // Calculate the difference score between the target correlation matrix and the modified correlation matrix
+        double diff = sum(abs(target_cor - current_cor_copy)) * multiplier;
+        // If the difference score is lower than the current difference score, update the current difference score and the current data and correlation matrix
+        if (diff < diff_score) {
+          diff_score = diff;
+          current_dat = clone(current_dat_copy);
+          current_cor = clone(current_cor_copy);
+        }
+      }
+    }
+  }
+  // Return the minimum difference score found
+  return diff_score;
+}

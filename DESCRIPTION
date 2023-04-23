@@ -1,5 +1,5 @@
 Package: LikertMakeR
-Version: 0.1.5
+Version: 0.2.0
 Type: Package
 Title: Synthesise and Correlate Rating-Scale Data
 Authors@R: 

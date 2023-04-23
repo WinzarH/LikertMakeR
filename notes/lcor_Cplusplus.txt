@@ -1,0 +1,280 @@
+Introduction to the Rcpp Package in R (Examples)
+
+https://statisticsglobe.com/rcpp-package-in-r
+
+
+lcor() translation by Bing
+
+Yes, I can help you translate the R code into C++. Here's a possible translation of the R code you provided:
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericMatrix lcor(NumericMatrix data, NumericMatrix target) {
+  double multiplier = 10000;
+  NumericMatrix current_dat = data;
+  NumericMatrix current_cor = cor(current_dat);
+  NumericMatrix target_cor = target;
+  double diff_score = sum(abs(target_cor - current_cor)) * multiplier;
+  int n = current_dat.nrow();
+  int nc = current_dat.ncol();
+
+  // generate a complete list of value-pairs as switch candidates
+  IntegerVector seq_n = seq_len(n);
+  IntegerVector seq_nc = seq_len(nc);
+  IntegerVector i_vec(nc - 1);
+  IntegerVector j_vec(nc - 1);
+  for (int i = 0; i < nc - 1; ++i) {
+    i_vec[i] = seq_n[0];
+    j_vec[i] = seq_n[i + 1];
+  }
+  IntegerMatrix ye(nc * (nc - 1), 2);
+  int k = 0;
+  for (int i = 0; i < nc - 1; ++i) {
+    for (int j = i + 1; j < nc; ++j) {
+      ye(k, _) = IntegerVector::create(i_vec[i], j_vec[j]);
+      k++;
+    }
+  }
+  
+  // begin column selection loop
+  // for each column in the data set ...
+  for (int r = 0; r < nc * (nc - 1); ++r) {
+    // Other columns are relative to first column
+    //
+    // begin row values swap loop
+    for (int colID = 1; colID < nc; ++colID) {
+      // locate data points to switch
+      int i = ye(r,0) -1;
+      int j = ye(r,1) -1;
+
+      // check that values in two locations are different
+      if (current_dat(i,colID) == current_dat(j,colID)) {
+        break;
+      }
+
+      // record values in case they need to be put back
+      double ii = current_dat(i,colID);
+      double jj = current_dat(j,colID);
+
+      // swap the values in selected locations
+      current_dat(i,colID) = jj;
+      current_dat(j,colID) = ii;
+
+      // if switched values reduce the difference between correlation
+      // matrices then keep the switch, otherwise put them back
+      double new_diff_score = sum(abs(target_cor - cor(current_dat))) * multiplier;
+      if (new_diff_score < diff_score) {
+        // update data-frame and target statistic
+        current_cor = cor(current_dat);
+        diff_score = new_diff_score;
+      } else {
+        // swap values back
+        current_dat(i,colID) = ii;
+        current_dat(j,colID) = jj;
+      }
+    } // end row values swap loop
+  } // end column selection loop
+
+return(current_dat);
+} // end lcor function
+
+```
+
+This C++ code uses Rcpp library which allows you to write C++ functions that can be called directly from R². The `NumericMatrix` class is used to represent matrices in C++². The `cor()` function is used to calculate correlation matrices⁵. 
+
+Please note that this is just one possible translation of the R code into C++. There may be other ways to translate this code into C++.
+
+I hope this helps! Let me know if you have any other questions.
+
+Source: Conversation with Bing, 14/04/2023(1) Translate R Linear Algebra Code to Armadillo C++ • armacmp - GitHub Pages. https://dirkschumacher.github.io/armacmp/ Accessed 14/04/2023.
+(2) Converting R code to C code - Stack Overflow. https://stackoverflow.com/questions/10143485/converting-r-code-to-c-code Accessed 14/04/2023.
+(3) translate r code to c++ code - General - Posit Community. https://community.rstudio.com/t/translate-r-code-to-c-code/91696 Accessed 14/04/2023.
+(4) dirkschumacher/armacmp - Github. https://github.com/dirkschumacher/armacmp Accessed 14/04/2023.
+(5) Translate R to C++ (eventually with Rcpp) - Cross Validated. https://stats.stackexchange.com/questions/4017/translate-r-to-c-eventually-with-rcpp Accessed 14/04/2023.
+
+
+
+
+
+Translation from chat GPT
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+// function to calculate the correlation matrix
+vector<vector<double>> corr(vector<vector<double>> data) {
+    int n = data.size();
+    int m = data[0].size();
+    vector<double> means(m);
+    vector<double> sd(m);
+    vector<vector<double>> cor(m, vector<double>(m));
+
+    // calculate means and standard deviations for each column
+    for (int j = 0; j < m; j++) {
+        double sum = 0.0;
+        double sum_sq = 0.0;
+        for (int i = 0; i < n; i++) {
+            sum += data[i][j];
+            sum_sq += data[i][j] * data[i][j];
+        }
+        means[j] = sum / n;
+        sd[j] = sqrt((sum_sq / n) - (means[j] * means[j]));
+    }
+
+    // calculate the correlation matrix
+    for (int j1 = 0; j1 < m; j1++) {
+        cor[j1][j1] = 1.0;
+        for (int j2 = j1 + 1; j2 < m; j2++) {
+            double sum = 0.0;
+            for (int i = 0; i < n; i++) {
+                sum += (data[i][j1] - means[j1]) * (data[i][j2] - means[j2]);
+            }
+            cor[j1][j2] = cor[j2][j1] = sum / (n * sd[j1] * sd[j2]);
+        }
+    }
+
+    return cor;
+}
+
+// function to calculate the lcor score
+double lcor(vector<vector<double>> data, vector<vector<double>> target, double multiplier) {
+    int n = data.size();
+    int m = data[0].size();
+    double current_score = 0.0;
+
+    // calculate the initial score
+    auto current_cor = corr(data);
+    for (int j1 = 0; j1 < m; j1++) {
+        for (int j2 = j1 + 1; j2 < m; j2++) {
+            current_score += abs(target[j1][j2] - current_cor[j1][j2]) * multiplier;
+        }
+    }
+
+    // generate a complete list of value-pairs as switch candidates
+    vector<pair<int, int>> pairs;
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            pairs.push_back(make_pair(i, j));
+        }
+    }
+
+    // begin column selection loop
+    for (int j = 0; j < m; j++) {
+        // for each column in the data set ...
+        // Other columns are relative to first column
+        for (int i = 0; i < pairs.size(); i++) {
+            // begin row values swap loop
+            auto [p1, p2] = pairs[i];
+            for (int k = 0; k < m; k++) {
+                // locate data points to switch
+                int i1 = p1 * m + k;
+                int i2 = p2 * m + k;
+
+                // check that values in two locations are different
+                if (data[p1][k] == data[p2][k]) {
+                    break;
+                }
+
+                // record values in case they need to be put back
+                double v1 = data[p
+
+
+
+
+
+And another translation from chat GPT
+
+#include <RcppArmadillo.h>
+
+arma::mat lcor(arma::mat& data, arma::mat& target) {
+  double multiplier = 10000;
+  arma::mat current_dat = data;
+  arma::mat current_cor = cor(current_dat);
+  arma::mat target_cor = target;
+  double diff_score = arma::accu((arma::abs(target_cor - current_cor)) * multiplier);
+  int n = current_dat.n_rows;
+  int nc = current_dat.n_cols;
+
+  // generate a complete list of value-pairs as switch candidates
+  arma::mat ye = arma::cartesian_product(arma::regspace<arma::vec>(0, n - 1), arma::regspace<arma::vec>(0, n - 1));
+  // no need to switch with yourself so we can remove these pairs
+  ye = ye.rows(arma::find(ye.col(0) != ye.col(1)));
+  int ny = ye.n_rows;
+
+  // begin column selection loop
+  // for each column in the data set ...
+  for (int r = 0; r < ny; r++) {
+    // Other columns are relative to first column
+    //
+    // begin row values swap loop
+    for (int colID = 1; colID < nc; colID++) {
+      // locate data points to switch
+      int i = ye(r, 0);
+      int j = ye(r, 1);
+
+      // check that values in two locations are different
+      if (current_dat(i, colID) == current_dat(j, colID)) {
+        break;
+      }
+
+      // record values in case they need to be put back
+      double ii = current_dat(i, colID);
+      double jj = current_dat(j, colID);
+
+      // swap the values in selected locations
+      current_dat(i, colID) = jj;
+      current_dat(j, colID) = ii;
+
+      // if switched values reduce the difference between correlation
+      // matrices then keep the switch, otherwise put them back
+      double new_diff_score = arma::accu((arma::abs(target_cor - cor(current_dat))) * multiplier);
+      if (new_diff_score < diff_score) {
+        // update data-frame and target statistic
+        current_cor = cor(current_dat);
+        diff_score = new_diff_score;
+      } else {
+        // swap values back
+        current_dat(i, colID) = ii;
+        current_dat(j, colID) = jj;
+      }
+    } // end row values swap loop
+  } // end column selection loop
+
+  return current_dat;
+} // end lcor function
+
+
+
+NOTES on ARMA
+
+Yes, you can use the arma::mat code in an R package, but you need to make sure that the package has a dependency on the Armadillo library and that it is properly linked during installation.
+
+To add Armadillo as a dependency in your R package, you can add the following line to the DESCRIPTION file:
+
+
+Imports: RcppArmadillo
+
+
+This will automatically include the Armadillo library when your package is installed.
+
+You can then use arma::mat in your C++ code by including the following header file at the top of your C++ source file:
+
+
+
+#include <RcppArmadillo.h>
+
+This header includes the necessary Armadillo and Rcpp headers and defines the arma namespace.
+
+After that, you can define arma::mat objects and use them to perform matrix operations in your C++ code.
+
+Note that you will also need to properly link your package to the Armadillo library during installation, which can be done by including appropriate settings in the src/Makevars file of your package.
+
+
+
