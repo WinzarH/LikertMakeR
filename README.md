@@ -73,11 +73,10 @@ Typically, a researcher will synthesise rating-scale data by sampling with a pre
 
 This approach is ideal for testing Likert items but it does not help when 
 working on complete Likert scales, or for when we want to specify means 
-and standard deviations.  
+and standard deviations as they might be reported in published research.  
 
-The functions `lfast()` and `lexact()` allow the user 
-to specify exact univariate statistics as they might 
-ordinarily be reported. 
+The functions `lfast()` and `lexact()` allow the user to specify exact 
+univariate statistics as they might ordinarily be reported. 
 
 
 
@@ -152,8 +151,7 @@ Example: a five-item, seven-point Likert scale
   -  **_lexact()_** attempts to produce a vector with exact first and 
   second moments. It uses the _Differential&nbsp;Evolution_ algorithm in 
   the ['DEoptim'](https://CRAN.R-project.org/package=DEoptim) package to 
-  find appropriate values within the 
-  desired constraints. 
+  find appropriate values within the desired constraints. 
   
 **_lexact()_** may take some time to complete the optimisation task, 
 but is excellent for simulating data from already-published reports 
@@ -180,7 +178,6 @@ where only summary statistics are reported.
      
 
  Example:  a seven-point negative-to-positive scale with 4 items
-
 
      x <- lexact(
        n = 32, 
@@ -246,7 +243,7 @@ following objects:
 
 
 
-####  Rearrange values in each column to achieve desired correlations
+####  Apply _lcor()_ to rearrange values in each column achieving desired correlations
 
 
      new4 <- lcor(data = mydat4, target = tgt4)
@@ -259,7 +256,8 @@ following objects:
 #####  three starting vectors and different target correlation matrix
 
 
-     mydat3 <- cbind(x1, x2, x3) |> data.frame()
+     mydat3 <- cbind(x1, x2, x3) |> 
+       data.frame()
     
      tgt3 <- matrix(
        c(
@@ -281,8 +279,9 @@ Here’s how to cite this package:
 
 
      Winzar, H. (2022). LikertMakeR: Synthesise and correlate rating-scale 
-    data with predefined first & second moments,
-    <https://github.com/WinzarH/LikertMakeR
+    data with predefined first & second moments, 
+    The Comprehensive R Archive Network (CRAN),
+    <https://CRAN.R-project.org/package=LikertMakeR>
     
     
 #### BIB:    
@@ -290,9 +289,9 @@ Here’s how to cite this package:
     @software{winzar2022,
     title = {LikertMakeR: Synthesise and correlate rating-scale data with predefined first & second moments},
     author = {Hume Winzar},
-    abstract = {LikertMakeR synthesises Likert scale and related rating-scale data, and optionally correlates these vectors to fit a predefined correlation matrix.},
-    journal = {GitHub},
+    abstract = {LikertMakeR synthesises Likert scale and related rating-scale data with predefined means and standard deviations, and optionally correlates these vectors to fit a predefined correlation matrix.},
+    journal = {The Comprehensive R Archive Network (CRAN)},
     month = {12},
     year = {2022},
-    url = {https://github.com/WinzarH/LikertMakeR},
+    url = {https://CRAN.R-project.org/package=LikertMakeR},
     }
