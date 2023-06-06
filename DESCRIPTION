@@ -33,7 +33,8 @@ VignetteBuilder: knitr
 Depends: R (>= 4.2.0)
 Imports: 
     DEoptim (>= 2.2-0),
-    RcppArmadillo,
+    Rcpp
+    RcppEigen,
 Suggests: 
     knitr,
     testthat
