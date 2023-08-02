@@ -60,9 +60,11 @@ lcor <- function(data, target) {
   nc <- ncol(current_dat)
 
   ## generate a complete list of value-pairs as switch candidates
-  ye <- expand.grid(c(1:n), c(1:n))
+  y1 <- expand.grid(c(1:n), c(1:n))
   ## no need to switch with yourself so we can remove these pairs
-  ye <- subset(ye, ye[, 1] != ye[, 2])
+  y1 <- subset(ye, ye[, 1] != ye[, 2])
+  ## shuffle rows for cases where data are systematically ordered
+  ye <- y1[sample(nrow(y1)),]
   ny <- nrow(ye)
 
   ## begin column selection loop
