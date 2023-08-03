@@ -6,7 +6,7 @@
 
 # LikertMakeR
 
-Synthesise and correlate rating-scale data with predefined first & second moments
+Synthesise and correlate rating-scale data with predefined first & second moments (mean and standard deviation)
 
 <p align="center">
   <img src="https://github.com/WinzarH/LikertMakeR/blob/main/vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
@@ -64,7 +64,6 @@ intervals of 1/8=0.125.
 #### Alternative approaches
 
 Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities. 
-   
 
           n <- 128
           sample(1:5, n, replace = TRUE,
@@ -194,9 +193,9 @@ where only summary statistics are reported.
 **_LikertMakeR_** offers another function, **_lcor()_**, which rearranges 
 the values in the columns of a data set so that they are correlated at 
 a specified level. 
-It does not change the values - it swaps their positions in a column so 
+It does not change the values - it swaps their positions in each column so 
 that univariate statistics do not change, 
-but their correlations with other vectors do.
+but their correlations with other columns do.
 
 To create the desired correlations, the user must define the 
 following objects: 
@@ -212,7 +211,7 @@ following objects:
 ####  generate synthetic data
 
      
-     set.seed(42) # for reproducibility
+     set.seed(42) ## for reproducibility
      
      n <- 64
      x1 <- lfast(n, 3.5, 1.00, 1, 5, 5) 
