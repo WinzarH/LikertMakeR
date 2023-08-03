@@ -38,7 +38,7 @@ Functions in **_LikertMakeR_** are:
   -  **_lexact()_** attempts to produce a vector with exact predefined
   first and second moments 
 
-  - **_lcor()_** rearranges the values in the columns of a data set so that 
+  - **_lcor()_** rearranges the values in the columns of a dataframe so that 
   they are correlated to match a predefined correlation matrix
 
 
@@ -70,7 +70,7 @@ Typically, a researcher will synthesise rating-scale data by sampling with a pre
             prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
           )
 
-This approach is ideal for testing Likert items but it does not help when 
+This approach is good for testing Likert items but it does not help when 
 working on complete Likert scales, or for when we want to specify means 
 and standard deviations as they might be reported in published research.  
 
@@ -127,7 +127,7 @@ scale: **_lfast()_**&nbsp;and&nbsp;**_lexact()_**
     Recommended for relatively large sample sizes.
   
 
-Example: a five-item, seven-point Likert scale
+#### _lfast()_ Example: a five-item, seven-point Likert scale
 
      
      x <- lfast(
@@ -139,7 +139,7 @@ Example: a five-item, seven-point Likert scale
        )
      
 
- Example:  an 11-point likelihood-of-purchase scale
+#### _lfast()_ Example:  an 11-point likelihood-of-purchase scale
  
      
      x <- lfast(256, 2.5, 2.5, 0, 10)
@@ -157,7 +157,7 @@ but is excellent for simulating data from already-published reports
 where only summary statistics are reported. 
 
  
- Example: a five-item, seven-point Likert scale
+ #### _lexact()_ Example: a five-item, seven-point Likert scale
 
 
      x <- lexact(
@@ -170,13 +170,13 @@ where only summary statistics are reported.
        )
      
 
- Example:  an 11-point likelihood-of-purchase scale
+ #### _lexact()_ Example:  an 11-point likelihood-of-purchase scale
 
 
      x <- lexact(32, 2.5, 2.5, 0, 10)
      
 
- Example:  a seven-point negative-to-positive scale with 4 items
+ #### _lexact()_ Example:  a seven-point negative-to-positive scale with 4 items
 
      x <- lexact(
        n = 32, 
@@ -205,8 +205,7 @@ following objects:
   -  **_target_**: the target correlation matrix 
 
 
-### _lcor()_ Examples
-
+### **_lcor()_** Example #1
 
 ####  generate synthetic data
 
@@ -251,8 +250,9 @@ following objects:
      
 
 
+### **_lcor()_** example #2
 
-#####  three starting vectors and different target correlation matrix
+#####  three starting columns and a different target correlation matrix
 
 
      mydat3 <- cbind(x1, x2, x3) |> 
