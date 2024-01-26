@@ -30,7 +30,7 @@
 #'   items = 6
 #' )
 #'
-#' x <- lfast(256, 2, 1.8, 0, 10)
+#' x <- lfast(256, 3.0, 2.0, 0, 10)
 #'
 lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed = NULL) {
   range <- upperbound - lowerbound

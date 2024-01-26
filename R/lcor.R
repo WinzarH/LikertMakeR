@@ -10,7 +10,7 @@
 #' statistics remain the same.
 #'
 #'
-#' @param data beginning data-frame that is to be rearranged
+#' @param data data-frame that is to be rearranged
 #' @param target target correlation matrix - should be a symmetric
 #' (square) k*k matrix
 #'
@@ -27,11 +27,16 @@
 #' ## generate uncorrelated synthetic data
 #'
 #' n <- 32
-#' x1 <- lfast(n, 3.5, 1.0, 1, 5, 5)
-#' x2 <- lfast(n, 1.5, 0.75, 1, 5, 5)
-#' x3 <- lfast(n, 3.0, 2.0, 1, 5, 5)
+#' lowerbound <- 1
+#' upperbound <- 5
+#' items <- 5
 #'
-#' mydat3 <- cbind(x1, x2, x3) |> data.frame()
+#' mydat3 <- data.frame(
+#'   x1 = lexact(n, 2.5, 0.75, lowerbound, upperbound, items),
+#'   x2 = lexact(n, 3.0, 1.50, lowerbound, upperbound, items),
+#'   x3 = lexact(n, 3.5, 1.00, lowerbound, upperbound, items)
+#' )
+#'
 #'
 #' cor(mydat3) |> round(3)
 #'
@@ -54,6 +59,41 @@ lcor <- function(data, target) {
   current_dat <- data
   target_cor <- target
 
+  #### idiot checks
+  if (ncol(target_cor) != nrow(target_cor)) {
+    stop("ERROR:
+         \ntarget correlation matrix should be a square matrix,
+         \nwith symetrical upper and lower triangles and '1' in the diagonal")
+  }
+  # Check if the diagonal has all 1s
+  if (!all(diag(target_cor) == 1)) {
+    stop("ERROR:
+         \nDiagonal should be all '1'.")
+  }
+  # Check if the lower triangle mirrors the upper triangle
+  if (!all(target_cor == t(target_cor))) {
+    stop("ERROR:
+         \nLower triangle does not mirror the upper triangle.")
+  }
+  # Check if values range from -1 to +1
+  if (any(target_cor < -1) || any(target_cor > 1)) {
+    stop("Correlations must range between -1 to +1.")
+  }
+  if (ncol(target_cor) != ncol(current_dat)) {
+    stop("ERROR:
+         \ndimensions of target correlation matrix should match
+         \nthe number of columns in the data-frame")
+  }
+  ## test for positive-definite correlation matrix
+  eigen_values <- eigen(target_cor)$values
+  is_positive_definite <- any(eigen_values >= 0)
+  if (is_positive_definite == FALSE) {
+    stop("ERROR: \nTarget correlation matrix is not positive definite.
+	\nSome requested correlations are impossible")
+  }
+  #### end idiot checks
+
+
   n <- nrow(current_dat)
   nc <- ncol(current_dat)
 
@@ -70,6 +110,11 @@ lcor <- function(data, target) {
   ye <- y1[sample(nrow(y1)), ]
   ny <- nrow(ye)
 
+  ## Within each column we select a pair of values and swap their places,
+  ## then check if this improves the fit between the data correlation
+  ## matrix and target correlation matrix.
+  ## Repeat until all row-swaps within all columns are complete.
+  ##
   ## begin column selection loop
   ## for each column in the data set ...
   for (r in 1:ny) {
@@ -107,4 +152,3 @@ lcor <- function(data, target) {
 
   return(current_dat)
 } ## end lcor function
-
