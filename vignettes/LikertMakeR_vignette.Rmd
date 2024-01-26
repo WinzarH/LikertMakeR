@@ -2,7 +2,7 @@
 title: "LikertMakeR"
 subtitle: "synthesise and correlate related rating-scale data"
 author: Hume Winzar
-date: December 2022    
+date: January 2024    
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{LikertMakeR}
@@ -18,13 +18,11 @@ knitr::opts_chunk$set(
 ```
 
 
-
 # LikertMakeR
 
 <p align="center">
-  <img src="https://github.com/WinzarH/LikertMakeR/blob/main/assets/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
+  <img src="https://github.com/WinzarH/LikertMakeR/raw/main/vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
 </p>
-
 
 **_LikertMakeR_** synthesises and correlates Likert-scale and related 
 rating-scale data. 
@@ -44,6 +42,8 @@ The package should be useful for teaching in the Social Sciences,
 and for scholars who wish to "replicate" rating-scale data for further 
 analysis and visualisation when only summary statistics have been reported. 
 
+## Motivation
+
 I was prompted to write the functions in _LikertMakeR_ after reviewing too 
 many journal article submissions where authors presented questionnaire results 
 with only means and standard deviations (often only the means), with no 
@@ -55,9 +55,9 @@ boundaries and number of items in a scale.
 ## Rating scale properties
 
 A Likert scale is the mean, or sum, of several ordinal rating scales. 
-They are bipolar (usually  "agree-disagree") responses to propositions that 
-are determined to be moderately-to-highly correlated and capturing various 
-facets of a construct.
+Typically, they are bipolar (usually  "agree-disagree") responses to 
+propositions that are determined to be moderately-to-highly correlated 
+and that capture various facets of a construct.
 
 Rating scales, such as Likert scales, are not continuous or unbounded.
 
@@ -77,7 +77,21 @@ ____
 
 # Using _LikertMakeR_
 
-Download and Install **_LikertMakeR_** from _GitHub_.
+## Download and Install _LikertMakeR_
+
+## from _CRAN_
+
+  > ```
+  >
+  > # install the package
+  > install.packages("LikertMakeR")
+  > 
+  > # load the package
+  > library(LikertMakeR)
+  >
+  > ```
+
+### development version from _GitHub_.
 
   > ```
   > 
@@ -87,6 +101,7 @@ Download and Install **_LikertMakeR_** from _GitHub_.
   > 
   > # load the package
   > library(LikertMakeR)
+  >
   > ```
 
 
@@ -133,8 +148,8 @@ Recommended for relatively large sample sizes.
 
 x <- lfast(
   n = 512,
-  mean = 2.0,
-  sd = 1.0,
+  mean = 2.5,
+  sd = 0.75,
   lowerbound = 1,
   upperbound = 5,
   items = 4
@@ -159,7 +174,7 @@ hist(x,
 
 ```{r}
 
-x <- lfast(256, 2, 2, 0, 10)
+x <- lfast(256, 3, 2, 0, 10)
 ```
 
 
@@ -178,15 +193,21 @@ ____
 ### _lexact()_
 
 **_lexact()_** attempts to produce a vector with exact first and second moments. 
-It uses the *Differential Evolution* algorithm in the **_[DEoptim](https://cran.r-project.org/package=DEoptim)_** 
-package to find appropriate values within the desired constraints. 
-The [DEoptim](https://CRAN.R-project.org/package=DEoptim) package is described 
-in Mullen, Ardia, Gil, Windover, & Cline (2011) <doi:10.18637/jss.v040.i06>.
 
 If feasible, **_lexact()_** should produce data with moments that are 
 correct to two decimal places. 
 Infeasible cases occur when the requested standard deviation is too 
 large for the combination of mean, n-items, and scale boundaries.
+
+The optimisation process means that the function is considerably slower than 
+**_lfast()_**: taking exponentially more time with the number of items, and 
+linearly more time with the sample size.
+
+_lexact()_ uses the *Differential Evolution* algorithm in the 
+**_[DEoptim](https://cran.r-project.org/package=DEoptim)_** 
+package to find appropriate values within the desired constraints. 
+The [DEoptim](https://CRAN.R-project.org/package=DEoptim) package is described 
+in Mullen, Ardia, Gil, Windover, & Cline (2011) <doi:10.18637/jss.v040.i06>.
 
 #### _lexact()_ example #1
 
@@ -195,9 +216,9 @@ large for the combination of mean, n-items, and scale boundaries.
 ```{r}
 
 x <- lexact(
-  n = 64,
+  n = 128,
   mean = 2.5,
-  sd = 1.0,
+  sd = 0.75,
   lowerbound = 1,
   upperbound = 5,
   items = 4
@@ -220,7 +241,7 @@ hist(x,
 
 ```{r}
 
-x <- lexact(64, 2, 1.8, 0, 10)
+x <- lexact(128, 3, 2, 0, 10)
 ```
 
 ```{r fig4,  fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
@@ -268,14 +289,17 @@ each with five items.
 ##### generate uncorrelated synthetic data
 
 ```{r }
+n <- 64
+lowerbound <- 1
+upperbound <- 5
+items <- 5
 
-n <- 32
+mydat3 <- data.frame(
+  x1 = lexact(n, 2.5, 0.75, lowerbound, upperbound, items),
+  x2 = lexact(n, 3.0, 1.50, lowerbound, upperbound, items),
+  x3 = lexact(n, 3.5, 1.00, lowerbound, upperbound, items)
+)
 
-x1 <- lexact(n, 2.5, 0.75, 1, 5, 5)
-x2 <- lexact(n, 3.0, 1.50, 1, 5, 5)
-x3 <- lexact(n, 3.5, 1.00, 1, 5, 5)
-
-mydat3 <- cbind(x1, x2, x3) |> data.frame()
 ```
 
 The first 10 observations from this data-frame are:
@@ -283,28 +307,30 @@ The first 10 observations from this data-frame are:
 ```{r, echo = FALSE}
 
 head(mydat3, 10)
+
 ```
 
-Mean values:
+And the first and second moments (to 3 decimal places) are:
 
 ```{r, echo = FALSE}
 
-apply(mydat3, 2, mean) |> round(3)
+moments <- data.frame(
+  mean = apply(mydat3, 2, mean) |> round(3),
+  sd = apply(mydat3, 2, sd) |> round(3)
+)
+
+t(moments)
+
 ```
 
-Standard deviations:
+We can see that the data have first and second moments very close to what is expected. 
 
-```{r echo=FALSE}
-
-apply(mydat3, 2, sd) |> round(3)
-```
-
-We can see that the data are close to what is expected. 
 The synthetic data have low correlations:
 
 ```{r, echo = FALSE}
 
 cor(mydat3) |> round(2)
+
 ```
 
 ##### a target correlation matrix
@@ -315,9 +341,9 @@ cor(mydat3) |> round(2)
 
 tgt3 <- matrix(
   c(
-    1.00, 0.80, 0.75,
-    0.80, 1.00, 0.90,
-    0.75, 0.90, 1.00
+    1.00, 0.85, 0.75,
+    0.85, 1.00, 0.65,
+    0.75, 0.65, 1.00
   ),
   nrow = 3
 )
@@ -333,18 +359,30 @@ and a target correlation matrix.
 ## apply lcor function
 
 new3 <- lcor(mydat3, tgt3)
+
 ```
 
-A new data frame with correlations close to our desired correlation matrix:
+The first column of the new data-frame will not change, but values of the other 
+columns are rearranged. 
+The first 10 observations from this data-frame are:
 
 ```{r, echo = FALSE}
 
-cor(new3) |> round(2)
+head(new3, 10)
+
+```
+
+And the new data frame is correlated close to our desired correlation matrix:
+
+```{r, echo = FALSE}
+
+cor(new3) |> round(3)
+
 ```
 
 ____
 
-## Alternative methods & packages
+# Alternative methods & packages
 
 _LikertMakeR_ is intended for synthesising & correlating 
 rating-scale data with means, standard deviations, and 
@@ -354,9 +392,21 @@ options may be faster or more flexible.
 
 Different approaches include:
 
-* sampling from a _truncated normal_ distribution. 
-Data are sampled from a normal distribution, and then truncated to suit the rating-scale boundaries, and rounded to set discrete values as we see in rating scales. 
-See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scale-data/) for an excellent and short example using the following packages:
+    - sampling from a _truncated normal_ distribution
+    
+    - sampling with a predetermined probability distribution
+    
+    - marginal model specification
+   
+
+### sampling from a _truncated normal_ distribution 
+
+Data are sampled from a normal distribution, and then truncated to suit 
+the rating-scale boundaries, and rounded to set discrete values as we see 
+in rating scales. 
+
+See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scale-data/) 
+for an excellent and short example using the following packages:
 
     - [truncnorm](https://cran.r-project.org/package=truncnorm)
     
@@ -364,12 +414,14 @@ See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scal
  
     - See also the _rLikert()_ function from the 
     [responsesR](https://github.com/markolalovic/responsesR) package, 
-    [Lalovic (2021)](https://github.com/markolalovic/responsesR), for an approach using optimal discretization and skew-normal distribution.
+    [Lalovic (2021)](https://github.com/markolalovic/responsesR), for an 
+    approach using optimal discretization and skew-normal distribution.
     
-* sampling with a predetermined probability distribution
+### sampling with a predetermined probability distribution
 
-    - for example, the following code will generate a vector of 
-    values with approximately the given probabilities. 
+    - the following code will generate a vector of values with approximately 
+    the given probabilities. 
+    Good for simulating a single item.
    
 ```{r, eval = FALSE}
 
@@ -379,17 +431,31 @@ See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scal
      )
 ```
 
-* Marginal model specification as in 
-  [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html) and 
-  [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)  using: 
 
-    - [SimCorMultRes](https://cran.r-project.org/package=SimCorMultRes)
+
+### marginal model specification 
+
+Marginal model specification extends the idea of a predefined probability 
+distribution to multivariate and correlated data-frames.
+
+- [SimCorrMix: Simulation of Correlated Data with Multiple Variable Types Including Continuous and Count Mixture Distributions](https://CRAN.R-project.org/package=SimCorrMix) on CRAN.
     
-    - [covsim](https://cran.r-project.org/package=covsim)
+- [SimMultiCorrData: Simulation of Correlated Data with Multiple Variable Types]( https://CRAN.R-project.org/package=SimMultiCorrData) on CRAN.
+
+- [lsasim: Functions to Facilitate the Simulation of Large Scale Assessment Data](https://CRAN.R-project.org/package=lsasim) on CRAN. 
+See [Matta et al. (2018)](https://doi.org/10.1186/s40536-018-0068-8)
+
+- [GenOrd:Simulation of Discrete Random Variables with Given Correlation Matrix and Marginal Distributions](https://CRAN.R-project.org/package=GenOrd) on CRAN.
+
+- [SimCorMultRes: Simulates Correlated Multinomial Responses](https://cran.r-project.org/package=SimCorMultRes) on CRAN. 
+See  [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html)
+    
+- [covsim: VITA, IG and PLSIM Simulation for Given Covariance and Marginals](https://cran.r-project.org/package=covsim) on CRAN. 
+See [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)
 
 ____
 
-## References
+# References
 
 Grønneberg, S., Foldnes, N., & Marcoulides, K. M. (2022).
 covsim: An R Package for Simulating Non-Normal Data for Structural Equation Models Using Copulas. _Journal of Statistical Software_, 102(1), 1–45. <doi:10.18637/jss.v102.i03>
@@ -398,12 +464,21 @@ Heinz, A. (2021), Simulating Correlated Likert-Scale Data In R:
 3 Simple Steps (blog post)
 <https://glaswasser.github.io/simulating-correlated-likert-scale-data/>
 
-Lalovic, M. (2021), _responsesR_: Simulate Likert scale item responses
+Lalovic, M. (2021), _responsesR_: Simulate Likert scale item responses 
+(on GitHub)
 <https://github.com/markolalovic/responsesR>
+
+Matta, T.H., Rutkowski, L., Rutkowski, D. & Liaw, Y.L. (2018), 
+lsasim: an R package for simulating large-scale assessment data. 
+_Large-scale Assessments in Education_ 6, 15. 
+<doi:10.1186/s40536-018-0068-8>
 
 Mullen, K. M., Ardia, D., Gil, D. L., Windover, D., & Cline, J. (2011). 
 DEoptim: An R Package for Global Optimization by Differential Evolution.
 _Journal of Statistical Software_, 40(6), 1–26.
 <doi:10.18637/jss.v040.i06>
 
-Touloumis, A. (2016), Simulating Correlated Binary and Multinomial Responses under Marginal Model Specification: The SimCorMultRes Package, _The R Journal_ 8:2, 79-91. <doi:10.32614/RJ-2016-034>
+Touloumis, A. (2016), Simulating Correlated Binary and Multinomial Responses 
+under Marginal Model Specification: The SimCorMultRes Package, 
+_The R Journal_ 8:2, 79-91. 
+<doi:10.32614/RJ-2016-034>

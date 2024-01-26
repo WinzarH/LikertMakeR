@@ -33,7 +33,7 @@
 #'
 #' mydat3 <- cbind(x1, x2, x3) |> data.frame()
 #'
-#' cor(mydat3)
+#' cor(mydat3) |> round(3)
 #'
 #' ## describe a target correlation matrix
 #' tgt3 <- matrix(
@@ -42,7 +42,7 @@
 #'     0.50, 1.00, 0.25,
 #'     0.75, 0.25, 1.00
 #'   ),
-#'   nrow = 3
+#'   nrow = 3, ncol = 3
 #' )
 #'
 #' ## apply lcor function
@@ -51,46 +51,45 @@
 #' cor(new3) |> round(3)
 #'
 lcor <- function(data, target) {
-  multiplier <- 10000
   current_dat <- data
-  current_cor <- cor(current_dat)
   target_cor <- target
-  diff.score <- sum((abs(target_cor - current_cor)) * multiplier)
+
   n <- nrow(current_dat)
   nc <- ncol(current_dat)
+
+  current_cor <- cor(current_dat)
+  multiplier <- 1000
+  diff.score <- sum((abs(target_cor - current_cor)) * multiplier)
+
 
   ## generate a complete list of value-pairs as switch candidates
   y1 <- expand.grid(c(1:n), c(1:n))
   ## no need to switch with yourself so we can remove these pairs
-  y1 <- subset(ye, ye[, 1] != ye[, 2])
+  y1 <- subset(y1, y1[, 1] != y1[, 2])
   ## shuffle rows for cases where data are systematically ordered
-  ye <- y1[sample(nrow(y1)),]
+  ye <- y1[sample(nrow(y1)), ]
   ny <- nrow(ye)
 
   ## begin column selection loop
   ## for each column in the data set ...
   for (r in 1:ny) {
     ## Other columns are relative to first column
-    ##
+    ## so we can save a little time skipping this column
     ### begin row values swap loop
     for (colID in 2:nc) {
       ## locate data points to switch
       i <- ye[r, 1]
       j <- ye[r, 2]
-
       ## check that values in two locations are different
       if (current_dat[i, colID] == current_dat[j, colID]) {
         break
       }
-
       ## record values in case they need to be put back
       ii <- current_dat[i, colID]
       jj <- current_dat[j, colID]
-
       ## swap the values in selected locations
       current_dat[i, colID] <- jj
       current_dat[j, colID] <- ii
-
       ## if switched values reduce the difference between correlation
       ## matrices then keep the switch, otherwise put them back
       new.diff.score <- sum((abs(target_cor - cor(current_dat))) * multiplier)
@@ -108,3 +107,4 @@ lcor <- function(data, target) {
 
   return(current_dat)
 } ## end lcor function
+
