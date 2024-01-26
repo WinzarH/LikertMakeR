@@ -21,7 +21,7 @@
 #'
 #' @examples
 #'
-#' x <- lfast(
+#' seven_point <- lfast(
 #'   n = 256,
 #'   mean = 4.0,
 #'   sd = 1.0,
@@ -30,7 +30,9 @@
 #'   items = 6
 #' )
 #'
-#' x <- lfast(256, 3.0, 2.0, 0, 10)
+#' eleven_point <- lfast(256, 3.0, 2.0, 0, 10)
+#'
+#' positive_negative <- lfast(256, 0.5, 2.0, -3, 3)
 #'
 lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed = NULL) {
   range <- upperbound - lowerbound
