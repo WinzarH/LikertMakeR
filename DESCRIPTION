@@ -34,6 +34,7 @@ Depends: R (>= 4.2.0)
 Imports: 
     DEoptim (>= 2.2-0),
 Suggests: 
+    rmarkdown,
     knitr,
     testthat
 RoxygenNote: 7.3.1
