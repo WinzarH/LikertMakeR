@@ -18,6 +18,12 @@ knitr::opts_chunk$set(
 ```
 
 
+```{r setup, include = FALSE}
+
+  library(LikertMakeR)
+```
+
+
 # LikertMakeR
 
 <p align="center">
@@ -104,11 +110,6 @@ ____
   >
   > ```
 
-
-```{r setup, include = FALSE}
-
-  library(LikertMakeR)
-```
 
 ## Generate synthetic rating-scale data
 
@@ -295,9 +296,9 @@ upperbound <- 5
 items <- 5
 
 mydat3 <- data.frame(
-  x1 = lexact(n, 2.5, 0.75, lowerbound, upperbound, items),
-  x2 = lexact(n, 3.0, 1.50, lowerbound, upperbound, items),
-  x3 = lexact(n, 3.5, 1.00, lowerbound, upperbound, items)
+  x1 = lfast(n, 2.5, 0.75, lowerbound, upperbound, items),
+  x2 = lfast(n, 3.0, 1.50, lowerbound, upperbound, items),
+  x3 = lfast(n, 3.5, 1.00, lowerbound, upperbound, items)
 )
 
 ```
