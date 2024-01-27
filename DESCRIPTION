@@ -1,5 +1,5 @@
 Package: LikertMakeR
-Version: 0.2.0
+Version: 0.1.6
 Type: Package
 Title: Synthesise and Correlate Rating-Scale Data
 Authors@R: 
@@ -18,7 +18,7 @@ Description: Synthesise rating-scale data with predefined
   Mullen, Ardia, Gil, Windover, & Cline (2011) <doi:10.18637/jss.v040.i06>,
   to synthesise a vector of discrete values with predefined mean and 
   standard deviation exact to two decimal places, if feasible. 
-  The function, `lfast()`, draws a random sample from a _Beta_ distribution 
+  The function, `lfast()`, draws a random sample from a Beta distribution 
   which is rescaled to give a vector with approximate first and second moments. 
   It is much faster than `lexact()` but not as precise. 
   The function, `lcor()`, systematically swaps values within each column of a 
@@ -33,10 +33,8 @@ VignetteBuilder: knitr
 Depends: R (>= 4.2.0)
 Imports: 
     DEoptim (>= 2.2-0),
-    Rcpp,
-    RcppEigen
 Suggests: 
     knitr,
     testthat
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Config/testthat/edition: 3
