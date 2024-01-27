@@ -32,12 +32,12 @@
 #' items <- 5
 #'
 #' mydat3 <- data.frame(
-#'   x1 = lexact(n, 2.5, 0.75, lowerbound, upperbound, items),
-#'   x2 = lexact(n, 3.0, 1.50, lowerbound, upperbound, items),
-#'   x3 = lexact(n, 3.5, 1.00, lowerbound, upperbound, items)
+#'   x1 = lfast(n, 2.5, 0.75, lowerbound, upperbound, items),
+#'   x2 = lfast(n, 3.0, 1.50, lowerbound, upperbound, items),
+#'   x3 = lfast(n, 3.5, 1.00, lowerbound, upperbound, items)
 #' )
 #'
-#'
+#' ### check correlation
 #' cor(mydat3) |> round(3)
 #'
 #' ## describe a target correlation matrix
@@ -53,6 +53,7 @@
 #' ## apply lcor function
 #' new3 <- lcor(mydat3, tgt3)
 #'
+#' ### check new correlation
 #' cor(new3) |> round(3)
 #'
 lcor <- function(data, target) {

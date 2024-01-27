@@ -34,6 +34,7 @@
 #'
 #' positive_negative <- lfast(256, 0.5, 2.0, -3, 3)
 #'
+#'
 lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, seed = NULL) {
   range <- upperbound - lowerbound
   m <- (mean - lowerbound) / range ## rescale mean
