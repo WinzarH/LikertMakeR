@@ -1,7 +1,8 @@
 ^\.github$
-^\.git$
 cran-comments.md
 ^CRAN-SUBMISSION$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 notes
+^doc$
+^Meta$
