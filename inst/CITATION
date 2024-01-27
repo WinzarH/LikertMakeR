@@ -1,11 +1,12 @@
 citHeader("To cite LikertMakeR in publications use:")
 
-citEntry(
-  entry    = "Manual",
+bibentry(
+  bibtype  = "Manual",
   title    = "LikertMakeR: Synthesise and correlate rating-scale data with predefined first & second moments",
   author   = as.person("Hume Winzar"),
   year     = 2022,
   url      = "https://github.com/WinzarH/LikertMakeR",
+  note     = "Latest version: 0.1.6, January 2024",
   textVersion = paste(
   "Winzar, H. (2022). LikertMakeR: Synthesise and correlate rating-scale data with predefined first & second moments, https://github.com/WinzarH/LikertMakeR"
   )
