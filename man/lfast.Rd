@@ -32,7 +32,7 @@ likelihood-of-purchase scale.
 }
 \examples{
 
-x <- lfast(
+seven_point <- lfast(
   n = 256,
   mean = 4.0,
   sd = 1.0,
@@ -41,6 +41,9 @@ x <- lfast(
   items = 6
 )
 
-x <- lfast(256, 2, 1.8, 0, 10)
+eleven_point <- lfast(256, 3.0, 2.0, 0, 10)
+
+positive_negative <- lfast(256, 0.5, 2.0, -3, 3)
+
 
 }

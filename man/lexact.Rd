@@ -42,4 +42,9 @@ x <- lexact(
   items = 4
 )
 
+
+eleven_point <- lfast(32, 3.0, 2.0, 0, 10)
+
+positive_negative <- lfast(32, 0.5, 2.0, -3, 3)
+
 }

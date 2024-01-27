@@ -7,7 +7,7 @@
 lcor(data, target)
 }
 \arguments{
-\item{data}{beginning data-frame that is to be rearranged}
+\item{data}{data-frame that is to be rearranged}
 
 \item{target}{target correlation matrix - should be a symmetric
 (square) k*k matrix}
@@ -30,13 +30,18 @@ statistics remain the same.
 ## generate uncorrelated synthetic data
 
 n <- 32
-x1 <- lfast(n, 3.5, 1.0, 1, 5, 5)
-x2 <- lfast(n, 1.5, 0.75, 1, 5, 5)
-x3 <- lfast(n, 3.0, 2.0, 1, 5, 5)
+lowerbound <- 1
+upperbound <- 5
+items <- 5
 
-mydat3 <- cbind(x1, x2, x3) |> data.frame()
+mydat3 <- data.frame(
+  x1 = lexact(n, 2.5, 0.75, lowerbound, upperbound, items),
+  x2 = lexact(n, 3.0, 1.50, lowerbound, upperbound, items),
+  x3 = lexact(n, 3.5, 1.00, lowerbound, upperbound, items)
+)
 
-cor(mydat3)
+
+cor(mydat3) |> round(3)
 
 ## describe a target correlation matrix
 tgt3 <- matrix(
@@ -45,7 +50,7 @@ tgt3 <- matrix(
     0.50, 1.00, 0.25,
     0.75, 0.25, 1.00
   ),
-  nrow = 3
+  nrow = 3, ncol = 3
 )
 
 ## apply lcor function
