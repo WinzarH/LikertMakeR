@@ -392,11 +392,11 @@ options may be faster or more flexible.
 
 Different approaches include:
 
-    - sampling from a _truncated normal_ distribution
+- sampling from a _truncated normal_ distribution
     
-    - sampling with a predetermined probability distribution
+- sampling with a predetermined probability distribution
     
-    - marginal model specification
+- marginal model specification
    
 
 ### sampling from a _truncated normal_ distribution 
@@ -408,18 +408,18 @@ in rating scales.
 See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scale-data/) 
 for an excellent and short example using the following packages:
 
-    - [truncnorm](https://cran.r-project.org/package=truncnorm)
+- [truncnorm](https://cran.r-project.org/package=truncnorm)
     
-    - [faux](https://cran.r-project.org/package=faux) 
+- [faux](https://cran.r-project.org/package=faux) 
  
-    - See also the _rLikert()_ function from the 
-    [responsesR](https://github.com/markolalovic/responsesR) package, 
-    [Lalovic (2021)](https://github.com/markolalovic/responsesR), for an 
-    approach using optimal discretization and skew-normal distribution.
+- See also the _rLikert()_ function from the 
+  [responsesR](https://github.com/markolalovic/responsesR) package, 
+  [Lalovic (2021)](https://github.com/markolalovic/responsesR), for an 
+  approach using optimal discretization and skew-normal distribution.
     
 ### sampling with a predetermined probability distribution
 
-    - the following code will generate a vector of values with approximately 
+- the following code will generate a vector of values with approximately 
     the given probabilities. 
     Good for simulating a single item.
    
