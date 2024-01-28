@@ -32,7 +32,10 @@ Language: en-GB
 VignetteBuilder: knitr
 Depends: R (>= 4.2.0)
 Imports: 
-    DEoptim (>= 2.2-0),
+    DEoptim (>= 2.2-0)
+LinkingTo: 
+    Rcpp, 
+    RcppArmadillo
 Suggests: 
     rmarkdown,
     knitr,
