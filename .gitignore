@@ -4,3 +4,6 @@
 .Ruserdata
 /doc/
 /Meta/
+.o
+.so
+.dll
