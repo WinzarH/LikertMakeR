@@ -267,6 +267,8 @@ values - it swaps their positions within each column so that
 univariate statistics do not change, but their correlations with 
 other vectors do.
 
+### _lcor()_ and _lcor_C()_
+
 **_lcor()_** systematically selects pairs of values in a column 
 and swaps their places, and checks to see if this swap improves 
 the correlation matrix. If the revised data-frame produces a 
@@ -274,6 +276,10 @@ correlation matrix closer to the target correlation matrix,
 then the swap is retained. 
 Otherwise, the values are returned to their original places. 
 This process is iterated across each column. 
+
+**_lcor_C()_** is an implementation of _lcor()_ written in C++ 
+it is here as a trial ahead of replacing _lcor()_ in the near future. 
+It is much faster!
 
 To create the desired correlated data, the user must define the 
 following data-frames:
@@ -380,6 +386,7 @@ And the new data frame is correlated close to our desired correlation matrix:
 cor(new3) |> round(3)
 
 ```
+
 
 ____
 
