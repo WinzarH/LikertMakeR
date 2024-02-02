@@ -4,8 +4,8 @@
 .Ruserdata
 /doc/
 /Meta/
+/extras/
 .o
 .so
 .dll
-lcor_speedtest.R
-devtools_submissionSteps.R
+

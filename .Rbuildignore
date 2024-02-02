@@ -3,11 +3,10 @@ cran-comments.md
 ^CRAN-SUBMISSION$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-notes
+extras
 ^doc$
 ^Meta$
 ^.o
 ^.so
 ^.dll
-^lcor_speedtest.R
-^devtools_submissionSteps.R
+
