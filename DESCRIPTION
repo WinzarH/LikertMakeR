@@ -1,5 +1,5 @@
 Package: LikertMakeR
-Version: 0.1.6
+Version: 0.1.7
 Type: Package
 Title: Synthesise and Correlate Rating-Scale Data
 Authors@R: 
@@ -32,13 +32,14 @@ Language: en-GB
 VignetteBuilder: knitr
 Depends: R (>= 4.2.0)
 Imports: 
-    DEoptim (>= 2.2-0)
+    DEoptim (>= 2.2-0),
+    Rcpp
 LinkingTo: 
     Rcpp, 
     RcppArmadillo
 Suggests: 
     rmarkdown,
     knitr,
-    testthat
+    testthat (>= 3.0.0)
 RoxygenNote: 7.3.1
 Config/testthat/edition: 3
