@@ -228,8 +228,7 @@ following objects:
      x3 <- lfast(n, 3.0, 1.70, 1, 5, 5) 
      x4 <- lfast(n, 2.5, 1.50, 1, 5, 5)   
      
-     mydat4 <- cbind(x1, x2, x3, x4) |> 
-         data.frame()
+     mydat4 <- data.frame(x1, x2, x3, x4) 
      
      head(mydat4)
      cor(mydat4) |> round(3)
@@ -267,8 +266,7 @@ following objects:
 
 #####  three starting columns and a different target correlation matrix
 
-     mydat3 <- cbind(x1, x2, x3) |> 
-       data.frame()
+     mydat3 <- data.frame(x1, x2, x3) 
     
      tgt3 <- matrix(
        c(
