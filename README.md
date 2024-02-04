@@ -9,8 +9,11 @@
 Synthesise and correlate rating-scale data with predefined first & second moments (mean and standard deviation)
 
 <p align="center">
-  <img src="https://github.com/WinzarH/LikertMakeR/blob/main/vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
+  <img src="vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
 </p>
+
+[//]: # (<img src="https://github.com/WinzarH/LikertMakeR/blob/main/vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">)
+
 
 **_LikertMakeR_** synthesises Likert scale and related rating-scale data. 
 Such scales are constrained by upper and lower bounds and discrete increments. 
@@ -40,6 +43,9 @@ Functions in **_LikertMakeR_** are:
 
   - **_lcor()_** rearranges the values in the columns of a dataframe so that 
   they are correlated to match a predefined correlation matrix
+
+  - **_lcor_C()_** is a **C++** implementation of the _lcor()_ function intended
+  to replace _lcor()_ in my next CRAN submission
 
 
 ## Rating scale properties
@@ -193,9 +199,13 @@ where only summary statistics are reported.
 **_LikertMakeR_** offers another function, **_lcor()_**, which rearranges 
 the values in the columns of a data set so that they are correlated at 
 a specified level. 
-It does not change the values - it swaps their positions in each column so 
+**_lcor()_** does not change the values - it swaps their positions in each column so 
 that univariate statistics do not change, 
 but their correlations with other columns do.
+
+**_lcor_C()_** is an alternative implementation of _lcor()_ written in **C++**. 
+_lcor_C()_ runs more than 100 times faster than _lcor()_, producing the same outcome.
+It will replace _lcor()_ in the next CRAN submission.
 
 To create the desired correlations, the user must define the 
 following objects: 
@@ -205,7 +215,7 @@ following objects:
   -  **_target_**: the target correlation matrix 
 
 
-### **_lcor()_** Example #1
+### **_lcor()_** / **_lcor_C()_**  Example #1
 
 ####  generate synthetic data
 
@@ -218,7 +228,7 @@ following objects:
      x3 <- lfast(n, 3.0, 1.70, 1, 5, 5) 
      x4 <- lfast(n, 2.5, 1.50, 1, 5, 5)   
      
-     mydat4 <- cbind(x1, x2, x3, x4) | 
+     mydat4 <- cbind(x1, x2, x3, x4) |> 
          data.frame()
      
      head(mydat4)
@@ -239,21 +249,23 @@ following objects:
      )
      
 
+####  Apply _lcor()_ or _lcor_C()_ to rearrange values in each column achieving desired correlations
 
-
-####  Apply _lcor()_ to rearrange values in each column achieving desired correlations
-
+##### _lcor()_ application
 
      new4 <- lcor(data = mydat4, target = tgt4)
      
      cor(new4) |> round(3)
+
+##### _lcor_C()_ application
      
+     new4C <- lcor_C(data = mydat4, target = tgt4)
+     
+     cor(new4C) |> round(3)
 
-
-### **_lcor()_** example #2
+### **_lcor()_** / **_lcor_C()_** example #2
 
 #####  three starting columns and a different target correlation matrix
-
 
      mydat3 <- cbind(x1, x2, x3) |> 
        data.frame()
@@ -267,22 +279,29 @@ following objects:
        nrow = 3
      )
      
+##### _lcor()_ application     
+
      new3 <- lcor(mydat3, tgt3) 
      
      cor(new3) |> round(3)
      
+##### _lcor_C()_ application     
+
+     new3C <- lcor_C(mydat3, tgt3) 
+     
+     cor(new3C) |> round(3)
+     
+****
 
 ### To cite _LikertMakeR_
 
 Here’s how to cite this package:
 
-
      Winzar, H. (2022). LikertMakeR: Synthesise and correlate rating-scale 
     data with predefined first & second moments, 
     The Comprehensive R Archive Network (CRAN),
     <https://CRAN.R-project.org/package=LikertMakeR>
-    
-    
+        
 #### BIB:    
 
     @software{winzar2022,
