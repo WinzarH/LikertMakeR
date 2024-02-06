@@ -12,8 +12,6 @@ Synthesise and correlate rating-scale data with predefined first & second moment
   <img src="vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
 </p>
 
-[//]: # (<img src="https://github.com/WinzarH/LikertMakeR/blob/main/vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">)
-
 
 **_LikertMakeR_** synthesises Likert scale and related rating-scale data. 
 Such scales are constrained by upper and lower bounds and discrete increments. 
@@ -33,7 +31,7 @@ The package is intended for
   correlation properties 
 
 
-Functions in thid development version of **_LikertMakeR_** are:
+Functions in this development version of **_LikertMakeR_** are:
 
   -  **_lfast()_** draws a random sample from a scaled _Beta_ distribution to 
   approximate predefined first and second moments
@@ -48,16 +46,11 @@ Functions in thid development version of **_LikertMakeR_** are:
   - **_lcor()_** rearranges the values in the columns of a dataframe so that 
   they are correlated to match a predefined correlation matrix
 
-<<<<<<< HEAD
-  - **_lcor_C()_** is a C++ implementation of _lcor()_ which runs much more quickly. 
-  
-  
-=======
   - **_lcor_C()_** is a **C++** implementation of the _lcor()_ function intended
   to replace _lcor()_ in my next CRAN submission
 
 
->>>>>>> aae2e96840f2a38af18734e59c2fea68e7159245
+
 ## Rating scale properties
 
 A Likert scale is the mean, or sum, of several ordinal rating scales. 
@@ -90,7 +83,8 @@ This approach is good for testing Likert items but it does not help when
 working on complete Likert scales, or for when we want to specify means 
 and standard deviations as they might be reported in published research.  
 
-The functions `lfast()` and `lexact()` allow the user to specify exact 
+The functions `lfast()`, `lfast_R()`, and
+   `lexact()` allow the user to specify exact 
 univariate statistics as they might ordinarily be reported. 
 
 
@@ -133,16 +127,21 @@ To synthesise a rating scale, the user must input the following parameters:
   
     
 **_LikertMakeR_** offers two different functions for synthesising a rating 
-scale: **_lfast()_**&nbsp;and&nbsp;**_lexact()_**
+scale: **_lfast()_**&nbsp;and&nbsp;**_lexact()_**, and a new addition: 
+**_lfast_R()_** which is a more accurate version of _lfast()_.
 
 
-### lfast()
+### lfast() & lfast_R()
 
   -  **_lfast()_** draws a random sample from a scaled _Beta_ distribution. 
     It is very fast but does not guarantee that the mean and standard deviation 
     are exact. 
     Recommended for relatively large sample sizes.
-  
+ 
+   -  **_lfast_R()_** draws repeated random samples from a scaled _Beta_ 
+   distributionm, selecting the best-fit for the predefined moments, 
+   usually accurate to two decimal places.
+   It is expected to replace _lexact()_ in the next submission to _CRAN_.
 
 #### _lfast()_ Example: a five-item, seven-point Likert scale
 
@@ -162,13 +161,6 @@ scale: **_lfast()_**&nbsp;and&nbsp;**_lexact()_**
      x <- lfast(256, 2.5, 2.5, 0, 10)
      
 
-
-### lfast_R()
-
-  -  **_lfast_R()_** draws repeated random samples from a scaled _Beta_ distribution. 
-    It is very fast and usually produces mean and standard deviation correct to two 
-    decimal places.
-  
 
 #### _lfast_R()_ Example: a five-item, seven-point Likert scale
 
@@ -239,18 +231,13 @@ where only summary statistics are reported.
 **_LikertMakeR_** offers another function, **_lcor()_**, which rearranges 
 the values in the columns of a data set so that they are correlated at 
 a specified level. 
-**_lcor()_** does not change the values - it swaps their positions in each column so 
-that univariate statistics do not change, 
+**_lcor()_** does not change the values - it swaps their positions in each 
+column so that univariate statistics do not change, 
 but their correlations with other columns do.
 
-<<<<<<< HEAD
-**_lcor_C()_** is a much faster version of _lcor()_, written in C++. 
-It is expected to replace _lcor()_ in the next submission to _CRAN_.
-=======
-**_lcor_C()_** is an alternative implementation of _lcor()_ written in **C++**. 
+**_lcor_C()_** is an implementation of _lcor()_ written in **C++**. 
 _lcor_C()_ runs more than 100 times faster than _lcor()_, producing the same outcome.
 It will replace _lcor()_ in the next CRAN submission.
->>>>>>> aae2e96840f2a38af18734e59c2fea68e7159245
 
 To create the desired correlations, the user must define the 
 following objects: 
@@ -260,14 +247,12 @@ following objects:
   -  **_target_**: the target correlation matrix 
 
 
-<<<<<<< HEAD
+
+
 ### **_lcor()_** & **_lcor_C()_** Example #1
-=======
-### **_lcor()_** / **_lcor_C()_**  Example #1
->>>>>>> aae2e96840f2a38af18734e59c2fea68e7159245
+
 
 ####  generate synthetic data
-
      
      set.seed(42) ## for reproducibility
      
@@ -297,20 +282,17 @@ following objects:
      )
      
 
-####  Apply _lcor()_ or _lcor_C()_ to rearrange values in each column achieving desired correlations
-
-<<<<<<< HEAD
-
 ####  Apply _lcor()_ to rearrange values in each column achieving desired correlations
-=======
+
+
 ##### _lcor()_ application
->>>>>>> aae2e96840f2a38af18734e59c2fea68e7159245
+
 
      new4 <- lcor(data = mydat4, target = tgt4)
      
      cor(new4) |> round(3)
 
-<<<<<<< HEAD
+
      
 ####  Apply _lcor_C()_ produces the same result more quickly
 
@@ -320,16 +302,8 @@ following objects:
 
 
 
-### **_lcor()_**  & **_lcor_C()_** example #2
-=======
-##### _lcor_C()_ application
-     
-     new4C <- lcor_C(data = mydat4, target = tgt4)
-     
-     cor(new4C) |> round(3)
+### _lcor()_ & _lcor_C()_ example #2
 
-### **_lcor()_** / **_lcor_C()_** example #2
->>>>>>> aae2e96840f2a38af18734e59c2fea68e7159245
 
 #####  three starting columns and a different target correlation matrix
 
@@ -344,34 +318,24 @@ following objects:
        nrow = 3
      )
      
-<<<<<<< HEAD
-####  Apply _lcor()_ 
-=======
-##### _lcor()_ application     
->>>>>>> aae2e96840f2a38af18734e59c2fea68e7159245
+
+##### Apply _lcor()_      
+
 
      new3 <- lcor(mydat3, tgt3) 
      
      cor(new3) |> round(3)
 
      
-<<<<<<< HEAD
 ####  Apply _lcor_C()_ 
 
      new3C <- lcor_C(mydat3, tgt3) 
      
      cor(new3C) |> round(3)     
 
-_____
-=======
-##### _lcor_C()_ application     
 
-     new3C <- lcor_C(mydat3, tgt3) 
-     
-     cor(new3C) |> round(3)
-     
+
 ****
->>>>>>> aae2e96840f2a38af18734e59c2fea68e7159245
 
 ### To cite _LikertMakeR_
 
