@@ -130,24 +130,34 @@ the following parameters:
 
 -   **_seed_**: optional seed for reproducibility
 
-**_LikertMakeR_** offers two different functions for synthesising a 
-rating scale: **_lfast()_** and **_lexact()_**
+**_LikertMakeR_** offers three functions for synthesising a 
+rating scale: **_lfast()_** and **_lexact()_**, and a recent addition:
+**_lfast_R()_**. _lfast_R()_ is likely to replace _lexact()_ in the next 
+submission to CRAN.
+
 
 ____
 
-### _lfast()_
+### _lfast()_ and **_lfast_R()_**
 
 -   **_lfast()_** draws a random sample from a scaled *Beta* distribution. 
 It is very fast but does not guarantee exact mean and standard deviation. 
 Recommended for relatively large sample sizes. 
 
-#### _lfast()_ example
+- **_lfast_R()_** draws repeated random samples from a scaled *Beta* 
+distribution.
+It is slightly slower than _lfast()_ but usually produces a vector with 
+moments accurate to two decimal places.
+
+#### _lfast()_ & _lfast_R()_ example
 
 ##### a four-item, five-point Likert scale
 
+###### _lfast()_
+
 ```{r}
 
-x <- lfast(
+x1 <- lfast(
   n = 512,
   mean = 2.5,
   sd = 0.75,
@@ -163,31 +173,88 @@ x <- lfast(
 
 ## distribution of x
 
-hist(x,
+hist(x1,
   cex.axis = 0.5, cex.main = 0.75,
   breaks = seq(from = 1, to = 5, by = 0.25),
   col = "sky blue", xlab = NULL, ylab = NULL,
-  main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
+  main = paste("mu=", round(mean(x1), 2), ", sd=", round(sd(x1), 2))
 )
 ```
 
-##### an 11-point likelihood-of-purchase scale
+
+###### _lfast_R()_
 
 ```{r}
 
-x <- lfast(256, 3, 2, 0, 10)
+x2 <- lfast_R(
+  n = 512,
+  mean = 2.5,
+  sd = 0.75,
+  lowerbound = 1,
+  upperbound = 5,
+  items = 4
+)
 ```
+
 
 
 ```{r fig2, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
-hist(x,
+## distribution of x
+
+hist(x2,
+  cex.axis = 0.5, cex.main = 0.75,
+  breaks = seq(from = 1, to = 5, by = 0.25),
+  col = "sky blue", xlab = NULL, ylab = NULL,
+  main = paste("mu=", round(mean(x2), 2), ", sd=", round(sd(x2), 2))
+)
+```
+
+
+
+##### an 11-point likelihood-of-purchase scale
+
+###### _lfast()_
+
+```{r}
+
+x3 <- lfast(256, 3, 2, 0, 10)
+```
+
+
+```{r fig3, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
+
+hist(x3,
   cex.axis = 0.5, cex.main = 0.75,
   breaks = seq(from = 0, to = 10, by = 1.0),
   col = "sky blue", xlab = NULL, ylab = NULL,
-  main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
+  main = paste("mu=", round(mean(x3), 2), ", sd=", round(sd(x3), 2))
 )
 ```
+
+
+###### _lfast_R()_
+
+
+```{r}
+
+x4 <- lfast_R(256, 3, 2, 0, 10)
+```
+
+
+```{r fig4, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
+
+hist(x4,
+  cex.axis = 0.5, cex.main = 0.75,
+  breaks = seq(from = 0, to = 10, by = 1.0),
+  col = "sky blue", xlab = NULL, ylab = NULL,
+  main = paste("mu=", round(mean(x4), 2), ", sd=", round(sd(x4), 2))
+)
+```
+
+
+
+
 
 ____
 
@@ -217,7 +284,7 @@ in Mullen, Ardia, Gil, Windover, & Cline (2011) <doi:10.18637/jss.v040.i06>.
 ```{r}
 
 x <- lexact(
-  n = 128,
+  n = 64,
   mean = 2.5,
   sd = 0.75,
   lowerbound = 1,
@@ -226,7 +293,8 @@ x <- lexact(
 )
 ```
 
-```{r fig3, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
+
+```{r fig5, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 hist(x,
   cex.axis = 0.5, cex.main = 0.75,
@@ -242,10 +310,10 @@ hist(x,
 
 ```{r}
 
-x <- lexact(128, 3, 2, 0, 10)
+x <- lexact(64, 3, 2, 0, 10)
 ```
 
-```{r fig4,  fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
+```{r fig6,  fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 hist(x,
   cex.axis = 0.5, cex.main = 0.75,
@@ -296,15 +364,15 @@ each with five items.
 ##### generate uncorrelated synthetic data
 
 ```{r }
-n <- 64
+n <- 128
 lowerbound <- 1
 upperbound <- 5
 items <- 5
 
 mydat3 <- data.frame(
-  x1 = lfast(n, 2.5, 0.75, lowerbound, upperbound, items),
-  x2 = lfast(n, 3.0, 1.50, lowerbound, upperbound, items),
-  x3 = lfast(n, 3.5, 1.00, lowerbound, upperbound, items)
+  x1 = lfast_R(n, 2.5, 0.75, lowerbound, upperbound, items),
+  x2 = lfast_R(n, 3.0, 1.50, lowerbound, upperbound, items),
+  x3 = lfast_R(n, 3.5, 1.00, lowerbound, upperbound, items)
 )
 
 ```
@@ -384,6 +452,25 @@ And the new data frame is correlated close to our desired correlation matrix:
 ```{r, echo = FALSE}
 
 cor(new3) |> round(3)
+
+```
+
+
+##### applying the *lcor_C()* function.
+
+```{r}
+
+## apply lcor_C function
+
+new3C <- lcor_C(mydat3, tgt3)
+
+```
+
+**_lcor_C()_** should run more quickly than _lcor()_, with the same output: 
+
+```{r, echo = FALSE}
+
+cor(new3C) |> round(3)
 
 ```
 
