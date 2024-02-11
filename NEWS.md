@@ -1,3 +1,19 @@
+# LikertMakeR 0.1.9 (2024-02-11)
+
+### Added a new functions: **_makeCorrAlpha()_**, **_makeItems()_**, _alpha()_, _eigenvalues()_
+
+ * _makeCorrAlpha()_ constructs a random correlation matrix of given 
+  dimensions and predefined Cronbach's Alpha. 
+
+ * _makeItems()_ generates synthetic rating-scale data with predefined 
+  first and second moments and a predefined correlation matrix
+
+ * _alpha()_ calculate Cronbach's Alpha from a given correlation matrix
+  or a given dataframe
+  
+ * _eigenvalues()_ calculates eigenvalues of a correlation matrix with 
+  an optional scree plot  
+
 
 # LikertMakeR 0.1.7 (2024-02-02)
 
