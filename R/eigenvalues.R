@@ -32,16 +32,16 @@
 #' evals <- eigenvalues(cormatrix = correlationMatrix)
 #' evals <- eigenvalues(correlationMatrix, 1)
 #'
-#'
-#'
 eigenvalues <- function(cormatrix, scree = FALSE) {
   e_vals <- eigen(cormatrix)$values
   if (scree == TRUE) {
     plot(e_vals,
       pch = 19, col = "black", cex = 1.5, ylab = "Eigenvalues",
-      main = paste0("Scree Plot of ", deparse(substitute(cormatrix))),
+      ylim = c(0, max(e_vals)),
+      main = paste0("Scree Plot: ", deparse(substitute(cormatrix))),
       col.main = "black", type = "b"
     )
+    abline(h = 1, col = "blue", lty = 2)
   }
   if (min(e_vals) >= 0) {
     cat(deparse(substitute(cormatrix)), " is positive-definite\n\n")
@@ -51,4 +51,3 @@ eigenvalues <- function(cormatrix, scree = FALSE) {
   cat("Eigenvalues:\n", e_vals, "\n")
   return(e_vals)
 } ## end eigenvalues function
-
