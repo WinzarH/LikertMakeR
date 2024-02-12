@@ -16,6 +16,7 @@
 #' @examples
 #'
 #' ## define parameters
+#'
 #' correlationMatrix <- matrix(
 #'   c(
 #'     1.00, 0.25, 0.35, 0.40,
@@ -27,6 +28,7 @@
 #' )
 #'
 #' ## apply function
+#'
 #' evals <- eigenvalues(cormatrix = correlationMatrix)
 #' evals <- eigenvalues(correlationMatrix, 1)
 #'
@@ -46,7 +48,7 @@ eigenvalues <- function(cormatrix, scree = FALSE) {
   } else {
     cat(deparse(substitute(cormatrix)), " is NOT positive-definite\n\n")
   }
-  cat("Eigenvalues:\n", e_vals)
+  cat("Eigenvalues:\n", e_vals, "\n")
   return(e_vals)
-} ## end eigenvaalues function
+} ## end eigenvalues function
 
