@@ -2,7 +2,7 @@
 title: "LikertMakeR"
 subtitle: "synthesise and correlate related rating-scale data"
 author: Hume Winzar
-date: January 2024    
+date: February 2024    
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{LikertMakeR}
@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 # LikertMakeR
 
 <p align="center">
-  <img src="https://github.com/WinzarH/LikertMakeR/raw/main/vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
+  <img src="vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
 </p>
 
 **_LikertMakeR_** synthesises and correlates Likert-scale and related 
@@ -53,17 +53,17 @@ analysis and visualisation when only summary statistics have been reported.
 I was prompted to write the functions in _LikertMakeR_ after reviewing too 
 many journal article submissions where authors presented questionnaire results 
 with only means and standard deviations (often only the means), with no 
-apparent understanding of the real distributions. 
+apparent understanding of scale distributions. 
 Hopefully, this tool will help researchers, teachers, and other reviewers, 
 to better think about rating-scale distributions, and the effects of variance, 
-boundaries and number of items in a scale.
+scale boundaries, and number of items in a scale.
 
 ## Rating scale properties
 
 A Likert scale is the mean, or sum, of several ordinal rating scales. 
 Typically, they are bipolar (usually  "agree-disagree") responses to 
 propositions that are determined to be moderately-to-highly correlated 
-and that capture various facets of a construct.
+and that capture various facets of a theoretical construct.
 
 Rating scales, such as Likert scales, are not continuous or unbounded.
 
@@ -79,7 +79,32 @@ Rating-scale boundaries define minima and maxima for any scale values.
 If the mean is close to one boundary then data points will gather more 
 closely to that boundary and the data will always be skewed.
 
-____
+_____
+
+
+## _LikertMakeR_ functions
+
+  * [_lfast()_ and _lfast_R()_](#_lfast()_-and-_lfast_R()_) quickly generate a vector of values with approximate predefined moments
+  
+  * [_lexact()_](#_lexact()_) also generates a vector of values, but accurate to two decimal places. (_lfast_R()_ does this too, but more quickly, so lexact()_ remains as a legacy function)
+  
+  * [_lcor()_ and _lcor_C()_](#_lcor()_-and-_lcor_C()_) take a dataframe of rating-scale values and rearranges the values in each column so that the columns are correlated to match a predefined correlation matrix.
+  
+  * [_makeCorrAlpha_](#_makeCorrAlpha_) constructs a random correlation 
+  matrix of given dimensions and predefined Cronbach's Alpha
+  
+  * [_makeItems()_](_makeItems()_) is a wrapper function for _lfast_R()_ 
+  and _lcor_C()_ to generate synthetic rating-scale data with predefined 
+  first and second moments and a predefined correlation matrix
+  
+  * [_alpha()_](_alpha()_) calculates Cronbach's Alpha from a given 
+  correlation matrix or a given dataframe
+  
+  * [_eigenvalues()_](_eigenvalues()_) calculates eigenvalues of a 
+  correlation matrix, reports on positive-definite status of the matrix 
+  and, optionally, displays a scree plot to visualise the eigenvalues
+
+_____
 
 # Using _LikertMakeR_
 
@@ -138,7 +163,7 @@ submission to CRAN.
 
 ____
 
-### _lfast()_ and **_lfast_R()_**
+### _lfast()_ and _lfast_R()_
 
 -   **_lfast()_** draws a random sample from a scaled *Beta* distribution. 
 It is very fast but does not guarantee exact mean and standard deviation. 
@@ -473,6 +498,11 @@ new3C <- lcor_C(mydat3, tgt3)
 cor(new3C) |> round(3)
 
 ```
+
+
+
+
+
 
 
 ____
