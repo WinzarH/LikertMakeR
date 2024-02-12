@@ -27,6 +27,7 @@ matrix and optionally produces a scree plot.
 \examples{
 
 ## define parameters
+
 correlationMatrix <- matrix(
   c(
     1.00, 0.25, 0.35, 0.40,
@@ -38,9 +39,8 @@ correlationMatrix <- matrix(
 )
 
 ## apply function
+
 evals <- eigenvalues(cormatrix = correlationMatrix)
 evals <- eigenvalues(correlationMatrix, 1)
-
-
 
 }
