@@ -9,6 +9,8 @@
 #' @param scree (logical) default = `FALSE`. If `TRUE` (or `1`), then
 #'  \code{eigenvalues()} produces a scree plot to illustrate the eigenvalues
 #'
+#' @importFrom graphics abline
+#'
 #' @return a vector of eigenvalues
 #' @return report on positive-definite status of cormatrix
 #' @export eigenvalues
