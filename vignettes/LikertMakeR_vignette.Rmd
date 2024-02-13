@@ -4,6 +4,8 @@ subtitle: "synthesise and correlate related rating-scale data"
 author: Hume Winzar
 date: February 2024    
 output: rmarkdown::html_vignette
+# output: rmarkdown::pdf_document
+
 vignette: >
   %\VignetteIndexEntry{LikertMakeR}
   %\VignetteEngine{knitr::rmarkdown}
@@ -26,9 +28,16 @@ knitr::opts_chunk$set(
 
 # LikertMakeR
 
-<p align="center">
-  <img src="LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
-</p>
+<!-- <p align="center"> -->
+<!--   <img src="LikertMakeR_hex.png" width="250" alt="LikertMakeR logo"> -->
+<!-- </p> -->
+
+```{r logo, fig.align='center', echo=FALSE, out.width = '20%'}
+knitr::include_graphics("LikertMakeR_hex.png")
+```
+
+
+<!-- ![LikertMakeR](LikertMakeR_hex.png){#id .class width=25%} -->
 
 **_LikertMakeR_** synthesises and correlates Likert-scale and related 
 rating-scale data. 
