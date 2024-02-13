@@ -111,14 +111,12 @@ _____
 
 ## Download and Install _LikertMakeR_
 
-## from _CRAN_
+### from _CRAN_
 
   > ```
   >
-  > # install the package
   > install.packages("LikertMakeR")
   > 
-  > # load the package
   > library(LikertMakeR)
   >
   > ```
@@ -131,7 +129,6 @@ _____
   > 
   > install_github("WinzarH/LikertMakeR")
   > 
-  > # load the package
   > library(LikertMakeR)
   >
   > ```
@@ -294,8 +291,8 @@ Infeasible cases occur when the requested standard deviation is too
 large for the combination of mean, n-items, and scale boundaries.
 
 The optimisation process means that the function is considerably slower than 
-**_lfast()_**: taking exponentially more time with the number of items, and 
-linearly more time with the sample size.
+**_lfast()_** or than **_lfast_R()_**: taking exponentially more time with 
+the number of items, and linearly more time with the sample size.
 
 _lexact()_ uses the *Differential Evolution* algorithm in the 
 **_[DEoptim](https://cran.r-project.org/package=DEoptim)_** 
@@ -387,9 +384,10 @@ following data-frames:
 Let's generate some data: three 5-point Likert scales, 
 each with five items.
 
-##### generate uncorrelated synthetic data
-
 ```{r }
+
+## generate uncorrelated synthetic data
+
 n <- 128
 lowerbound <- 1
 upperbound <- 5
@@ -403,11 +401,11 @@ mydat3 <- data.frame(
 
 ```
 
-The first 10 observations from this data-frame are:
+The first five observations from this data-frame are:
 
 ```{r, echo = FALSE}
 
-head(mydat3, 10)
+head(mydat3, 5)
 
 ```
 
@@ -424,7 +422,8 @@ t(moments)
 
 ```
 
-We can see that the data have first and second moments very close to what is expected. 
+We can see that the data have first and second moments very close 
+to what is expected. 
 
 The synthetic data have low correlations:
 
@@ -434,7 +433,7 @@ cor(mydat3) |> round(2)
 
 ```
 
-##### a target correlation matrix
+
 
 ```{r}
 
@@ -453,23 +452,22 @@ tgt3 <- matrix(
 So now we have a data-frame with desired first and second moments, 
 and a target correlation matrix.
 
-##### applying the *lcor()* function.
-
 ```{r}
 
-## apply lcor function
+## apply lcor() function
 
 new3 <- lcor(mydat3, tgt3)
 
 ```
 
-The first column of the new data-frame will not change, but values of the other 
-columns are rearranged. 
-The first 10 observations from this data-frame are:
+The first column of the new data-frame will not change, but values of the 
+other columns are rearranged. 
+
+The first five observations from this data-frame are:
 
 ```{r, echo = FALSE}
 
-head(new3, 10)
+head(new3, 5)
 
 ```
 
@@ -481,8 +479,6 @@ cor(new3) |> round(3)
 
 ```
 
-
-##### applying the *lcor_C()* function.
 
 ```{r}
 
@@ -501,9 +497,9 @@ cor(new3C) |> round(3)
 ```
 
 
-# Generate a correlation matrix from Cronbach's Alpha
+## Generate a correlation matrix from Cronbach's Alpha
 
-## makeCorrAlpha()
+### makeCorrAlpha()
 
 **_makeCorrAlpha()_**, constructs a random correlation matrix of given 
  dimensions and predefined Cronbach's Alpha 
@@ -526,31 +522,27 @@ because solutions are so volatile,
 a feasible solution still may be possible, and often is. 
 The user is encouraged to try again, possibly several times, to find one.
 
-## _makeCorrAlpha()_ examples
+### _makeCorrAlpha()_ examples
 
 
-###  four variables, Alpha = 0.85
+####  four variables, Alpha = 0.85
 
-#### define parameters 
 
 ```{r}
+
+## define parameters 
 
     items <- 4
     alpha <- 0.85
     variance <- 0.5
-```
 
 
-#### apply makeCorrAlpha() function
-
-```{r}
+## apply makeCorrAlpha() function
 
     set.seed(42)
     
     cor_matrix_4 <- makeCorrAlpha(items, alpha, variance)
 ```
-
-
 
 
 #### test output with Helper functions
@@ -559,6 +551,8 @@ Cronbach's Alpha for the generated correlation matrix is:
 
 ```{r}
 
+## using helper function alpha()
+
     alpha(cor_matrix_4)
 ```
 
@@ -566,25 +560,24 @@ And the correlation matrix is positive-definite:
 
 ```{r fig7,  fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
     
-    eigenvalues(cor_matrix_4, 1)
+## using helper function eigenvalues()   
+
+eigenvalues(cor_matrix_4, 1)
 ```
 
 
-###  four variables, Alpha = 0.85, larger variance
-
-#### define parameters 
+####  four variables, Alpha = 0.85, larger variance
 
 ```{r}
+
+## define parameters 
 
    items <- 12
    alpha <- 0.90
    variance <- 1.0
-```
 
-
-#### apply makeCorrAlpha() function
-
-```{r}
+   
+## apply makeCorrAlpha() function
 
     set.seed(42) 
 
@@ -609,9 +602,12 @@ And the correlation matrix is positive-definite:
 
 **_makeItems()_** generates a dataframe of random discrete
 values from a _scaled Beta distribution_ so the data replicate a rating
-scale, and are correlated close to a predefined correlation matrix.
+scale, and are correlated close to a predefined correlation matrix. 
 
-_makeItems()_ is a "shortcut" combination of
+Generally, means, standard deviations, and correlations are correct to 
+two decimal places.
+
+_makeItems()_ is a wrapper function for 
 
  * _lfast_R()_, which takes repeated samples selecting a vector that
   best fits the desired moments, and
@@ -621,9 +617,10 @@ _makeItems()_ is a "shortcut" combination of
 
 ### _makeItems()_ examples
 
-#### define parameters
 
 ```{r}
+
+## define parameters
 
     n <- 128
 
@@ -642,14 +639,8 @@ _makeItems()_ is a "shortcut" combination of
      ),
      nrow = 4, ncol = 4
     )
-```
 
-
-
-
-#### apply function
-
-```{r}
+## apply makeItems() function
 
     df <- makeItems(
        n = n, 
@@ -659,14 +650,8 @@ _makeItems()_ is a "shortcut" combination of
        sds = dfSds, 
        cormatrix = corMat
        )
-```
 
-
-
-
-#### test function
-
-```{r}
+## test the function
 
     head(df); tail(df)
     
@@ -687,8 +672,8 @@ _likertMakeR()_ includes two additional functions that may be of help
   matrix or a given dataframe
   
  * **_eigenvalues()_** calculates eigenvalues of a correlation matrix, 
- a report on whether the correlation matrix is positive definite and 
- an optional scree plot
+ a report on whether the correlation matrix is positive definite, and 
+ produces an optional scree plot.
 
 ### alpha()
 
@@ -698,11 +683,12 @@ with a message to that effect.
 
 ### alpha() examples
 
-#### define parameters
-
-##### Sample data frame
 
 ```{r}
+
+## define parameters
+
+### example data frame
 
     df <- data.frame(
      V1  =  c(4, 2, 4, 3, 2, 2, 2, 1),
@@ -710,13 +696,9 @@ with a message to that effect.
      V3  =  c(4, 1, 3, 5, 4, 1, 4, 2),
      V4  =  c(4, 3, 4, 5, 3, 3, 3, 3)
     )
-```
 
 
-
-##### example correlation matrix
-
-```{r}
+### example correlation matrix
 
     corMat <- matrix(
      c(
@@ -727,12 +709,9 @@ with a message to that effect.
      ),
      nrow = 4, ncol = 4
     )
-```
 
 
-#### apply function examples
-
-```{r}
+## apply function examples
 
     alpha(cor_matrix = corMat)
 
@@ -751,9 +730,10 @@ _eigenvalues()_ calculates eigenvalues of a correlation
 
 ### eigenvalues() examples
 
-#### define parameters
 
 ```{r}
+
+## define parameters
 
     correlationMatrix <- matrix(
      c(
@@ -764,19 +744,16 @@ _eigenvalues()_ calculates eigenvalues of a correlation
      ),
      nrow = 4, ncol = 4
     )
-```
 
 
-#### apply function
-
-```{r}
+## apply function
 
     evals <- eigenvalues(cormatrix = correlationMatrix)
  
     print(evals)
 ```
 
-###### eigenvalues() function with optional scree plot
+##### eigenvalues() function with optional scree plot
 
 ```{r fig9, fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
 
