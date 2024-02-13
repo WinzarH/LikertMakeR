@@ -5,7 +5,6 @@ author: Hume Winzar
 date: February 2024    
 output: rmarkdown::html_vignette
 # output: rmarkdown::pdf_document
-
 vignette: >
   %\VignetteIndexEntry{LikertMakeR}
   %\VignetteEngine{knitr::rmarkdown}
