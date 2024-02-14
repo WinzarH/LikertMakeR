@@ -2,9 +2,9 @@
 title: "LikertMakeR"
 subtitle: "synthesise and correlate related rating-scale data"
 author: Hume Winzar
-date: February 2024    
-output: rmarkdown::html_vignette
-# output: rmarkdown::pdf_document
+date: February 2024 
+# output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{LikertMakeR}
   %\VignetteEngine{knitr::rmarkdown}
@@ -13,26 +13,27 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+ collapse = TRUE,
+ comment = "#>"
 )
 ```
 
 
 ```{r setup, include = FALSE}
 
-  library(LikertMakeR)
+ library(LikertMakeR)
 ```
 
 
 # LikertMakeR
 
 <!-- <p align="center"> -->
-<!--   <img src="LikertMakeR_hex.png" width="250" alt="LikertMakeR logo"> -->
+<!-- <img src="LikertMakeR_hex.png" width="250" alt="LikertMakeR logo"> -->
 <!-- </p> -->
 
-```{r logo, fig.align='center', echo=FALSE, out.width = '20%'}
-knitr::include_graphics("LikertMakeR_hex.png")
+```{r logo, fig.align='center', echo=FALSE, out.width = '25%'}
+
+knitr::include_graphics("LikertMakeR_2.png")
 ```
 
 
@@ -42,7 +43,7 @@ knitr::include_graphics("LikertMakeR_hex.png")
 rating-scale data. 
 You decide the mean and standard deviation, and (optionally) the correlations 
 among vectors, and the package will generate data with those same predefined 
-properties.  
+properties. 
 
 The package generates a column of values that simulate the same properties 
 as a rating scale. 
@@ -62,15 +63,17 @@ I was prompted to write the functions in _LikertMakeR_ after reviewing too
 many journal article submissions where authors presented questionnaire results 
 with only means and standard deviations (often only the means), with no 
 apparent understanding of scale distributions, and their impact on scale 
-properties.  
+properties. 
 Hopefully, this tool will help researchers, teachers, and other reviewers, 
 to better think about rating-scale distributions, and the effects of variance, 
 scale boundaries, and number of items in a scale.
 
+\pagebreak
+
 ## Rating scale properties
 
 A Likert scale is the mean, or sum, of several ordinal rating scales. 
-Typically, they are bipolar (usually  "agree-disagree") responses to 
+Typically, they are bipolar (usually "agree-disagree") responses to 
 propositions that are determined to be moderately-to-highly correlated 
 and that capture various facets of a theoretical construct.
 
@@ -86,34 +89,43 @@ be '1' to '7' with intervals of 1/8=0.125.
 
 Rating-scale boundaries define minima and maxima for any scale values. 
 If the mean is close to one boundary then data points will gather more 
-closely to that boundary and the data will always be skewed.
+closely to that boundary. 
+If the mean is not in the middle of a scale, 
+and if the standard deviation is any more than about 1/4 of the scale range, 
+then the data will be always skewed.
 
 _____
-
 
 ## _LikertMakeR_ functions
 
-  * [_lfast()_ and _lfast_R()_](#_lfast()_-and-_lfast_R()_) quickly generate a vector of values with approximate predefined moments
-  
-  * [_lexact()_](#_lexact()_) also generates a vector of values, but accurate to two decimal places. (_lfast_R()_ does this too, but more quickly, so lexact()_ remains as a legacy function)
-  
-  * [_lcor()_ and _lcor_C()_](#_lcor()_-and-_lcor_C()_) take a dataframe of rating-scale values and rearranges the values in each column so that the columns are correlated to match a predefined correlation matrix.
-  
-  * [_makeCorrAlpha_](#_makeCorrAlpha_) constructs a random correlation 
-  matrix of given dimensions and predefined Cronbach's Alpha
-  
-  * [_makeItems()_](_makeItems()_) is a wrapper function for _lfast_R()_ 
-  and _lcor_C()_ to generate synthetic rating-scale data with predefined 
-  first and second moments and a predefined correlation matrix
-  
-  * [_alpha()_](_alpha()_) calculates Cronbach's Alpha from a given 
-  correlation matrix or a given dataframe
-  
-  * [_eigenvalues()_](_eigenvalues()_) calculates eigenvalues of a 
-  correlation matrix, reports on positive-definite status of the matrix 
-  and, optionally, displays a scree plot to visualise the eigenvalues
+ * _lfast()_ and _lfast_R()_ quickly generate a vector of values with 
+ approximate predefined moments
+ 
+ * _lexact()_ also generates a vector of values, but accurate to two 
+ decimal places. _lfast_R()_ does this too, but more quickly, so 
+ _lexact()_ remains as a legacy function.
+ 
+ * _lcor()_ and _lcor_C()_ take a dataframe of rating-scale values and 
+ rearranges the values in each column so that the columns are correlated 
+ to match a predefined correlation matrix.
+ 
+ * _makeCorrAlpha_ constructs a random correlation 
+ matrix of given dimensions and predefined Cronbach's Alpha
+ 
+ * _makeItems()_ is a wrapper function for _lfast_R()_ 
+ and _lcor_C()_ to generate synthetic rating-scale data with predefined 
+ first and second moments and a predefined correlation matrix
+ 
+ * _alpha()_ calculates Cronbach's Alpha from a given 
+ correlation matrix or a given dataframe
+ 
+ * _eigenvalues()_ calculates eigenvalues of a correlation matrix, 
+ reports on positive-definite status of the matrix and, optionally, 
+ displays a scree plot to visualise the eigenvalues
 
 _____
+
+\pagebreak
 
 # Using _LikertMakeR_
 
@@ -121,25 +133,22 @@ _____
 
 ### from _CRAN_
 
-  > ```
-  >
-  > install.packages("LikertMakeR")
-  > 
-  > library(LikertMakeR)
-  >
-  > ```
+    > ```
+    >
+    > install.packages("LikertMakeR")
+    > library(LikertMakeR)
+    >
+    > ```
 
 ### development version from _GitHub_.
 
-  > ```
-  > 
-  > library(devtools)
-  > 
-  > install_github("WinzarH/LikertMakeR")
-  > 
-  > library(LikertMakeR)
-  >
-  > ```
+    > ```
+    > 
+    > library(devtools)
+    > install_github("WinzarH/LikertMakeR")
+    > library(LikertMakeR)
+    >
+    > ```
 
 
 ## Generate synthetic rating-scale data
@@ -147,19 +156,19 @@ _____
 To synthesise a rating scale with **_LikertMakeR_**, the user must input 
 the following parameters:
 
--   **_n_**: sample size
+ - **_n_**: sample size
 
--   **_mean_**: desired mean
+ - **_mean_**: desired mean
 
--   **_sd_**: desired standard deviation
+ - **_sd_**: desired standard deviation
 
--   **_lowerbound_**: desired lower bound
+ - **_lowerbound_**: desired lower bound
 
--   **_upperbound_**: desired upper bound
+ - **_upperbound_**: desired upper bound
 
--   **_items_**: number of items making the scale - default = 1
+ - **_items_**: number of items making the scale - default = 1
 
--   **_seed_**: optional seed for reproducibility
+ - **_seed_**: optional seed for reproducibility
 
 **_LikertMakeR_** offers three functions for synthesising a 
 rating scale: **_lfast()_** and **_lexact()_**, and a recent addition:
@@ -171,7 +180,7 @@ ____
 
 ### _lfast()_ and _lfast_R()_
 
--   **_lfast()_** draws a random sample from a scaled *Beta* distribution. 
+- **_lfast()_** draws a random sample from a scaled *Beta* distribution. 
 It is very fast but does not guarantee exact mean and standard deviation. 
 Recommended for relatively large sample sizes. 
 
@@ -189,12 +198,12 @@ moments accurate to two decimal places.
 ```{r}
 
 x1 <- lfast(
-  n = 512,
-  mean = 2.5,
-  sd = 0.75,
-  lowerbound = 1,
-  upperbound = 5,
-  items = 4
+ n = 512,
+ mean = 2.5,
+ sd = 0.75,
+ lowerbound = 1,
+ upperbound = 5,
+ items = 4
 )
 ```
 
@@ -205,10 +214,10 @@ x1 <- lfast(
 ## distribution of x
 
 hist(x1,
-  cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = 1, to = 5, by = 0.25),
-  col = "sky blue", xlab = NULL, ylab = NULL,
-  main = paste("mu=", round(mean(x1), 2), ", sd=", round(sd(x1), 2))
+ cex.axis = 0.5, cex.main = 0.75,
+ breaks = seq(from = 1, to = 5, by = 0.25),
+ col = "sky blue", xlab = NULL, ylab = NULL,
+ main = paste("mu=", round(mean(x1), 2), ", sd=", round(sd(x1), 2))
 )
 ```
 
@@ -218,12 +227,12 @@ hist(x1,
 ```{r}
 
 x2 <- lfast_R(
-  n = 512,
-  mean = 2.5,
-  sd = 0.75,
-  lowerbound = 1,
-  upperbound = 5,
-  items = 4
+ n = 512,
+ mean = 2.5,
+ sd = 0.75,
+ lowerbound = 1,
+ upperbound = 5,
+ items = 4
 )
 ```
 
@@ -234,10 +243,10 @@ x2 <- lfast_R(
 ## distribution of x
 
 hist(x2,
-  cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = 1, to = 5, by = 0.25),
-  col = "sky blue", xlab = NULL, ylab = NULL,
-  main = paste("mu=", round(mean(x2), 2), ", sd=", round(sd(x2), 2))
+ cex.axis = 0.5, cex.main = 0.75,
+ breaks = seq(from = 1, to = 5, by = 0.25),
+ col = "sky blue", xlab = NULL, ylab = NULL,
+ main = paste("mu=", round(mean(x2), 2), ", sd=", round(sd(x2), 2))
 )
 ```
 
@@ -256,10 +265,10 @@ x3 <- lfast(256, 3, 2, 0, 10)
 ```{r fig3, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 hist(x3,
-  cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = 0, to = 10, by = 1.0),
-  col = "sky blue", xlab = NULL, ylab = NULL,
-  main = paste("mu=", round(mean(x3), 2), ", sd=", round(sd(x3), 2))
+ cex.axis = 0.5, cex.main = 0.75,
+ breaks = seq(from = 0, to = 10, by = 1.0),
+ col = "sky blue", xlab = NULL, ylab = NULL,
+ main = paste("mu=", round(mean(x3), 2), ", sd=", round(sd(x3), 2))
 )
 ```
 
@@ -276,22 +285,20 @@ x4 <- lfast_R(256, 3, 2, 0, 10)
 ```{r fig4, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 hist(x4,
-  cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = 0, to = 10, by = 1.0),
-  col = "sky blue", xlab = NULL, ylab = NULL,
-  main = paste("mu=", round(mean(x4), 2), ", sd=", round(sd(x4), 2))
+ cex.axis = 0.5, cex.main = 0.75,
+ breaks = seq(from = 0, to = 10, by = 1.0),
+ col = "sky blue", xlab = NULL, ylab = NULL,
+ main = paste("mu=", round(mean(x4), 2), ", sd=", round(sd(x4), 2))
 )
 ```
-
-
-
 
 
 ____
 
 ### _lexact()_
 
-**_lexact()_** attempts to produce a vector with exact first and second moments. 
+**_lexact()_** attempts to produce a vector with exact first and 
+ second moments. 
 
 If feasible, **_lexact()_** should produce data with moments that are 
 correct to two decimal places. 
@@ -315,12 +322,12 @@ in Mullen, Ardia, Gil, Windover, & Cline (2011) <doi:10.18637/jss.v040.i06>.
 ```{r}
 
 x <- lexact(
-  n = 64,
-  mean = 2.5,
-  sd = 0.75,
-  lowerbound = 1,
-  upperbound = 5,
-  items = 4
+ n = 64,
+ mean = 2.5,
+ sd = 0.75,
+ lowerbound = 1,
+ upperbound = 5,
+ items = 4
 )
 ```
 
@@ -328,10 +335,10 @@ x <- lexact(
 ```{r fig5, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 hist(x,
-  cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = 1, to = 5, by = 0.25),
-  col = "sky blue", xlab = NULL, ylab = NULL,
-  main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2))
+ cex.axis = 0.5, cex.main = 0.75,
+ breaks = seq(from = 1, to = 5, by = 0.25),
+ col = "sky blue", xlab = NULL, ylab = NULL,
+ main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2))
 )
 ```
 
@@ -344,20 +351,21 @@ hist(x,
 x <- lexact(64, 3, 2, 0, 10)
 ```
 
-```{r fig6,  fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
+
+```{r fig6, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
 
 hist(x,
-  cex.axis = 0.5, cex.main = 0.75,
-  breaks = c(0:10),
-  col = "sky blue",
-  xlab = NULL, ylab = NULL,
-  main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
+ cex.axis = 0.5, cex.main = 0.75,
+ breaks = c(0:10),
+ col = "sky blue",
+ xlab = NULL, ylab = NULL,
+ main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
 )
 ```
 
 ____
 
-## Correlating vectors of synthetic rating scales
+## Correlating rating scales
 
 **_LikertMakeR_** offers another function, **_lcor()_**, 
 which rearranges the values in the columns of a data-set so that 
@@ -381,11 +389,11 @@ it is here as a trial ahead of replacing _lcor()_ in the near future.
 It is much faster!
 
 To create the desired correlated data, the user must define the 
-following data-frames:
+following parameters:
 
--   **_data_**: a starter data set of rating-scales
+- **_data_**: a starter data set of rating-scales
 
--   **_target_**: the target correlation matrix
+- **_target_**: the target correlation matrix
 
 ### _lcor()_ example
 
@@ -402,18 +410,17 @@ upperbound <- 5
 items <- 5
 
 mydat3 <- data.frame(
-  x1 = lfast_R(n, 2.5, 0.75, lowerbound, upperbound, items),
-  x2 = lfast_R(n, 3.0, 1.50, lowerbound, upperbound, items),
-  x3 = lfast_R(n, 3.5, 1.00, lowerbound, upperbound, items)
+ x1 = lfast_R(n, 2.5, 0.75, lowerbound, upperbound, items),
+ x2 = lfast_R(n, 3.0, 1.50, lowerbound, upperbound, items),
+ x3 = lfast_R(n, 3.5, 1.00, lowerbound, upperbound, items)
 )
-
 ```
 
-The first five observations from this data-frame are:
+The first six observations from this data-frame are:
 
 ```{r, echo = FALSE}
 
-head(mydat3, 5)
+head(mydat3, 6)
 
 ```
 
@@ -422,12 +429,11 @@ And the first and second moments (to 3 decimal places) are:
 ```{r, echo = FALSE}
 
 moments <- data.frame(
-  mean = apply(mydat3, 2, mean) |> round(3),
-  sd = apply(mydat3, 2, sd) |> round(3)
+ mean = apply(mydat3, 2, mean) |> round(3),
+ sd = apply(mydat3, 2, sd) |> round(3)
 )
 
 t(moments)
-
 ```
 
 We can see that the data have first and second moments very close 
@@ -437,8 +443,7 @@ The synthetic data have low correlations:
 
 ```{r, echo = FALSE}
 
-cor(mydat3) |> round(2)
-
+cor(mydat3) |> round(3)
 ```
 
 
@@ -448,12 +453,12 @@ cor(mydat3) |> round(2)
 ## describe a target correlation matrix
 
 tgt3 <- matrix(
-  c(
-    1.00, 0.85, 0.75,
-    0.85, 1.00, 0.65,
-    0.75, 0.65, 1.00
-  ),
-  nrow = 3
+ c(
+ 1.00, 0.85, 0.75,
+ 0.85, 1.00, 0.65,
+ 0.75, 0.65, 1.00
+ ),
+ nrow = 3
 )
 ```
 
@@ -465,26 +470,23 @@ and a target correlation matrix.
 ## apply lcor() function
 
 new3 <- lcor(mydat3, tgt3)
-
 ```
 
 The first column of the new data-frame will not change, but values of the 
 other columns are rearranged. 
 
-The first five observations from this data-frame are:
+The first six observations from this data-frame are:
 
 ```{r, echo = FALSE}
 
-head(new3, 5)
-
+head(new3, 6)
 ```
 
-And the new data frame is correlated close to our desired correlation matrix:
+And the new data frame is correlated close to our desired correlation matrix; here presented to 3 decimal places:
 
 ```{r, echo = FALSE}
 
 cor(new3) |> round(3)
-
 ```
 
 
@@ -493,7 +495,6 @@ cor(new3) |> round(3)
 ## apply lcor_C function
 
 new3C <- lcor_C(mydat3, tgt3)
-
 ```
 
 **_lcor_C()_** should run more quickly than _lcor()_, with the same output: 
@@ -501,7 +502,6 @@ new3C <- lcor_C(mydat3, tgt3)
 ```{r, echo = FALSE}
 
 cor(new3C) |> round(3)
-
 ```
 
 
@@ -510,46 +510,58 @@ cor(new3C) |> round(3)
 ### makeCorrAlpha()
 
 **_makeCorrAlpha()_**, constructs a random correlation matrix of given 
- dimensions and predefined Cronbach's Alpha 
+ dimensions and predefined Cronbach's Alpha. 
+ 
+To create the desired correlation matrix, the user must define the 
+following parameters:
 
-Random values generated by _makeCorrAlpha()_ are volatile.
+- **_items_**: or "k" - the number of rows and columns of the 
+ desired correlation matrix. 
+
+- **_alpha_**: the target value for Cronbach's Alpha
+
+- **_variance_**: a notional variance coefficient to affect the spread of 
+values in the correlation matrix. Default = '0.5'. 
+A value of '0' produces a matrix where all off-diagonal correlations 
+are equal. 
+Setting 'variance = 1.0' gives a wider range of values. 
+
+
+Random values generated by _makeCorrAlpha()_ are highly volatile.
  _makeCorrAlpha()_ may not generate a feasible (positive-definite)
  correlation matrix, especially when
 
-  * variance is high relative to
-  
-     * desired Alpha, and
-     
-     * desired correlation dimensions
+ * variance is high relative to
+ 
+     - desired Alpha, and
+ 
+     - desired correlation dimensions
 
 _makeCorrAlpha()_ will inform the user if the resulting correlation
  matrix is positive definite, or not.
 
 If the returned correlation matrix is not positive-definite, 
 because solutions are so volatile, 
-a feasible solution still may be possible, and often is. 
+a feasible solution may be still possible, and often is. 
 The user is encouraged to try again, possibly several times, to find one.
 
 ### _makeCorrAlpha()_ examples
 
-
-####  four variables, Alpha = 0.85
-
+#### four variables, Alpha = 0.85
 
 ```{r}
 
 ## define parameters 
 
-    items <- 4
-    alpha <- 0.85
-    variance <- 0.5
-
+ items <- 4
+ alpha <- 0.85
+ variance <- 0.5
 
 ## apply makeCorrAlpha() function
 
-    set.seed(42)
-    
-    cor_matrix_4 <- makeCorrAlpha(items, alpha, variance)
+ set.seed(42)
+ 
+ cor_matrix_4 <- makeCorrAlpha(items, alpha, variance)
 ```
 
 
@@ -561,35 +573,35 @@ Cronbach's Alpha for the generated correlation matrix is:
 
 ## using helper function alpha()
 
-    alpha(cor_matrix_4)
+ alpha(cor_matrix_4)
 ```
 
 And the correlation matrix is positive-definite:
 
-```{r fig7,  fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
-    
-## using helper function eigenvalues()   
+```{r fig7, fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
+ 
+## using helper function eigenvalues() 
 
 eigenvalues(cor_matrix_4, 1)
 ```
 
 
-####  four variables, Alpha = 0.85, larger variance
+#### twelve variables, alpha = 0.90, variance = 1
 
 ```{r}
 
 ## define parameters 
 
-   items <- 12
-   alpha <- 0.90
-   variance <- 1.0
+ items <- 12
+ alpha <- 0.90
+ variance <- 1.0
 
-   
+ 
 ## apply makeCorrAlpha() function
 
-    set.seed(42) 
+ set.seed(42) 
 
-    cor_matrix_12 <- makeCorrAlpha(items, alpha, variance)
+ cor_matrix_12 <- makeCorrAlpha(items, alpha, variance)
 ```
 
 
@@ -597,9 +609,9 @@ eigenvalues(cor_matrix_4, 1)
 
 ```{r fig8, fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
 
-    alpha(cor_matrix_12)
+ alpha(cor_matrix_12)
 
-    eigenvalues(cor_matrix_12, 1)
+ eigenvalues(cor_matrix_12, 1)
 ```
 
 
@@ -618,56 +630,75 @@ two decimal places.
 _makeItems()_ is a wrapper function for 
 
  * _lfast_R()_, which takes repeated samples selecting a vector that
-  best fits the desired moments, and
-  
+ best fits the desired moments, and
+ 
  * _lcor_C()_, which rearranges values in each column of the dataframe
-  so they closely match the desired correlation matrix.
+ so they closely match the desired correlation matrix.
+ 
+
+To create the desired dataframe, the user must define the 
+following parameters:
+
+- **_n_**: number of observations 
+
+- **_lowerbound_**: a vector of length 'k' of values for the lower bound 
+ of each variable (For example, '1' for a 1-5 rating scale)
+
+- **_upperbound_**: a vector of length 'k' of values for the upper bound 
+ of each variable (For example, '5' for a 1-5 rating scale)
+
+- **_dfMeans_**: a vector of length 'k' of desired means of each variable
+
+- **_dfSds_**: a vector of length 'k' of desired standard deviations of 
+ each variable
+ 
+- **_cormatrix_**: a target correlation matrix with 'k' rows and 'k' columns. 
+
 
 ### _makeItems()_ examples
-
 
 ```{r}
 
 ## define parameters
 
-    n <- 128
+ n <- 128
 
-    lowerbound <- rep(1, 4)
-    upperbound <- rep(5, 4)
-    
-    dfMeans <- c(2.5, 3.0, 3.0, 3.5)
-    dfSds <- c(1.0, 1.0, 1.5, 0.75)
+ lowerbound <- rep(1, 4)
+ upperbound <- rep(5, 4)
+ 
+ dfMeans <- c(2.5, 3.0, 3.0, 3.5)
+ dfSds <- c(1.0, 1.0, 1.5, 0.75)
 
-    corMat <- matrix(
-    c(
-     1.00, 0.25, 0.35, 0.40,
-     0.25, 1.00, 0.70, 0.75,
-     0.35, 0.70, 1.00, 0.80,
-     0.40, 0.75, 0.80, 1.00
-     ),
-     nrow = 4, ncol = 4
-    )
+ corMat <- matrix(
+ c(
+ 1.00, 0.25, 0.35, 0.40,
+ 0.25, 1.00, 0.70, 0.75,
+ 0.35, 0.70, 1.00, 0.80,
+ 0.40, 0.75, 0.80, 1.00
+ ),
+ nrow = 4, ncol = 4
+ )
 
 ## apply makeItems() function
 
-    df <- makeItems(
-       n = n, 
-       lowerbound = lowerbound, 
-       upperbound = upperbound, 
-       means = dfMeans, 
-       sds = dfSds, 
-       cormatrix = corMat
-       )
+ df <- makeItems(
+ n = n, 
+ lowerbound = lowerbound, 
+ upperbound = upperbound, 
+ means = dfMeans, 
+ sds = dfSds, 
+ cormatrix = corMat
+ )
 
 ## test the function
 
-    head(df); tail(df)
-    
-    apply(df, 2, mean) |> round(3)
-    
-    apply(df, 2, sd) |> round(3)
-    
-    cor(df) |> round(3)
+ head(df); tail(df)
+ 
+ apply(df, 2, mean) |> round(3)
+ 
+ apply(df, 2, sd) |> round(3)
+ 
+ cor(df) |> round(3)
 ```
 
 
@@ -677,8 +708,8 @@ _likertMakeR()_ includes two additional functions that may be of help
  when examining parameters and output.
 
  * **_alpha()_** calculates Cronbach's Alpha from a given correlation 
-  matrix or a given dataframe
-  
+ matrix or a given dataframe
+ 
  * **_eigenvalues()_** calculates eigenvalues of a correlation matrix, 
  a report on whether the correlation matrix is positive definite, and 
  produces an optional scree plot.
@@ -691,41 +722,38 @@ with a message to that effect.
 
 ### alpha() examples
 
-
 ```{r}
 
 ## define parameters
 
 ### example data frame
 
-    df <- data.frame(
-     V1  =  c(4, 2, 4, 3, 2, 2, 2, 1),
-     V2  =  c(4, 1, 3, 4, 4, 3, 2, 3),
-     V3  =  c(4, 1, 3, 5, 4, 1, 4, 2),
-     V4  =  c(4, 3, 4, 5, 3, 3, 3, 3)
-    )
-
+ df <- data.frame(
+ V1 = c(4, 2, 4, 3, 2, 2, 2, 1),
+ V2 = c(4, 1, 3, 4, 4, 3, 2, 3),
+ V3 = c(4, 1, 3, 5, 4, 1, 4, 2),
+ V4 = c(4, 3, 4, 5, 3, 3, 3, 3)
+ )
 
 ### example correlation matrix
 
-    corMat <- matrix(
-     c(
-      1.00, 0.35, 0.45, 0.70,
-      0.35, 1.00, 0.60, 0.55,
-      0.45, 0.60, 1.00, 0.65,
-      0.70, 0.55, 0.65, 1.00
-     ),
-     nrow = 4, ncol = 4
-    )
-
+ corMat <- matrix(
+ c(
+ 1.00, 0.35, 0.45, 0.70,
+ 0.35, 1.00, 0.60, 0.55,
+ 0.45, 0.60, 1.00, 0.65,
+ 0.70, 0.55, 0.65, 1.00
+ ),
+ nrow = 4, ncol = 4
+ )
 
 ## apply function examples
 
-    alpha(cor_matrix = corMat)
+ alpha(cor_matrix = corMat)
 
-    alpha( , df)
+ alpha( , df)
 
-    alpha(corMat, df)
+ alpha(corMat, df)
 ```
 
 
@@ -743,33 +771,34 @@ _eigenvalues()_ calculates eigenvalues of a correlation
 
 ## define parameters
 
-    correlationMatrix <- matrix(
-     c(
-      1.00, 0.25, 0.35, 0.40,
-      0.25, 1.00, 0.70, 0.75,
-      0.35, 0.70, 1.00, 0.80,
-      0.40, 0.75, 0.80, 1.00
-     ),
-     nrow = 4, ncol = 4
-    )
+ correlationMatrix <- matrix(
+ c(
+ 1.00, 0.25, 0.35, 0.40,
+ 0.25, 1.00, 0.70, 0.75,
+ 0.35, 0.70, 1.00, 0.80,
+ 0.40, 0.75, 0.80, 1.00
+ ),
+ nrow = 4, ncol = 4
+ )
 
 
 ## apply function
 
-    evals <- eigenvalues(cormatrix = correlationMatrix)
+ evals <- eigenvalues(cormatrix = correlationMatrix)
  
-    print(evals)
+ print(evals)
 ```
 
 ##### eigenvalues() function with optional scree plot
 
 ```{r fig9, fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
 
-    evals <- eigenvalues(correlationMatrix, 1)
+ evals <- eigenvalues(correlationMatrix, 1)
 ```
 
 
 ____
+
 
 # Alternative methods & packages
 
@@ -782,11 +811,11 @@ options may be faster or more flexible.
 Different approaches include:
 
 - sampling from a _truncated normal_ distribution
-    
+ 
 - sampling with a predetermined probability distribution
-    
+ 
 - marginal model specification
-   
+ 
 
 ### sampling from a _truncated normal_ distribution 
 
@@ -798,28 +827,27 @@ See [Heiz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scal
 for an excellent and short example using the following packages:
 
 - [truncnorm](https://cran.r-project.org/package=truncnorm)
-    
+ 
 - [faux](https://cran.r-project.org/package=faux) 
  
 - See also the _rLikert()_ function from the 
-  [responsesR](https://github.com/markolalovic/responsesR) package, 
-  [Lalovic (2021)](https://github.com/markolalovic/responsesR), for an 
-  approach using optimal discretization and skew-normal distribution.
-    
+ [responsesR](https://github.com/markolalovic/responsesR) package, 
+ [Lalovic (2021)](https://github.com/markolalovic/responsesR), for an 
+ approach using optimal discretization and skew-normal distribution.
+ 
 ### sampling with a predetermined probability distribution
 
 - the following code will generate a vector of values with approximately 
-    the given probabilities. 
-    Good for simulating a single item.
-   
+ the given probabilities. 
+ Good for simulating a single item.
+ 
 ```{r, eval = FALSE}
 
-     n <- 128
-     sample(1:5, n, replace = TRUE,
-       prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
-     )
+ n <- 128
+ sample(1:5, n, replace = TRUE,
+ prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
+ )
 ```
-
 
 
 ### marginal model specification 
@@ -828,7 +856,7 @@ Marginal model specification extends the idea of a predefined probability
 distribution to multivariate and correlated data-frames.
 
 - [SimCorrMix: Simulation of Correlated Data with Multiple Variable Types Including Continuous and Count Mixture Distributions](https://CRAN.R-project.org/package=SimCorrMix) on CRAN.
-    
+ 
 - [SimMultiCorrData: Simulation of Correlated Data with Multiple Variable Types]( https://CRAN.R-project.org/package=SimMultiCorrData) on CRAN.
 
 - [lsasim: Functions to Facilitate the Simulation of Large Scale Assessment Data](https://CRAN.R-project.org/package=lsasim) on CRAN. 
@@ -837,12 +865,13 @@ See [Matta et al. (2018)](https://doi.org/10.1186/s40536-018-0068-8)
 - [GenOrd:Simulation of Discrete Random Variables with Given Correlation Matrix and Marginal Distributions](https://CRAN.R-project.org/package=GenOrd) on CRAN.
 
 - [SimCorMultRes: Simulates Correlated Multinomial Responses](https://cran.r-project.org/package=SimCorMultRes) on CRAN. 
-See  [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html)
-    
+See [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html)
+ 
 - [covsim: VITA, IG and PLSIM Simulation for Given Covariance and Marginals](https://cran.r-project.org/package=covsim) on CRAN. 
 See [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)
 
 ____
+
 
 # References
 
