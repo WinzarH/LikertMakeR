@@ -38,12 +38,19 @@ eigenvalues <- function(cormatrix, scree = FALSE) {
   e_vals <- eigen(cormatrix)$values
   if (scree == TRUE) {
     plot(e_vals,
-      pch = 19, col = "black", cex = 1.5, ylab = "Eigenvalues",
-      ylim = c(0, max(e_vals)),
+      pch = 19, col = "black", cex = 1.0,
+      ylab = "Eigenvalues",
+      ylim = c(min(0, min(e_vals)), max(e_vals)),
       main = paste0("Scree Plot: ", deparse(substitute(cormatrix))),
-      col.main = "black", type = "b"
+      cex.main = 1, col.main = "black",
+      type = "b"
     )
-    abline(h = 1, col = "blue", lty = 2)
+    abline(h = c(0, 1), col = "blue", lty = 2)
+    rect(
+      xleft = 0.8, xright = length(e_vals) * 1.1,
+      ytop = 0, ybottom = min(0, min(e_vals) * 1.25),
+      col = "#FFC0CB56", border = NA
+    )
   }
   if (min(e_vals) >= 0) {
     cat(deparse(substitute(cormatrix)), " is positive-definite\n\n")
