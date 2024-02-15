@@ -1,10 +1,10 @@
 ---
 title: "LikertMakeR"
-subtitle: "synthesise and correlate related rating-scale data"
+subtitle: "synthesise and correlate rating-scale data"
 author: Hume Winzar
 date: February 2024 
-# output: rmarkdown::html_vignette
-output: rmarkdown::pdf_document
+output: rmarkdown::html_vignette
+# output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{LikertMakeR}
   %\VignetteEngine{knitr::rmarkdown}
@@ -216,7 +216,7 @@ x1 <- lfast(
 hist(x1,
  cex.axis = 0.5, cex.main = 0.75,
  breaks = seq(from = 1, to = 5, by = 0.25),
- col = "sky blue", xlab = NULL, ylab = NULL,
+ col = "skyblue", xlab = NULL, ylab = NULL,
  main = paste("mu=", round(mean(x1), 2), ", sd=", round(sd(x1), 2))
 )
 ```
@@ -245,7 +245,7 @@ x2 <- lfast_R(
 hist(x2,
  cex.axis = 0.5, cex.main = 0.75,
  breaks = seq(from = 1, to = 5, by = 0.25),
- col = "sky blue", xlab = NULL, ylab = NULL,
+ col = "skyblue", xlab = NULL, ylab = NULL,
  main = paste("mu=", round(mean(x2), 2), ", sd=", round(sd(x2), 2))
 )
 ```
@@ -267,7 +267,7 @@ x3 <- lfast(256, 3, 2, 0, 10)
 hist(x3,
  cex.axis = 0.5, cex.main = 0.75,
  breaks = seq(from = 0, to = 10, by = 1.0),
- col = "sky blue", xlab = NULL, ylab = NULL,
+ col = "skyblue", xlab = NULL, ylab = NULL,
  main = paste("mu=", round(mean(x3), 2), ", sd=", round(sd(x3), 2))
 )
 ```
@@ -287,7 +287,7 @@ x4 <- lfast_R(256, 3, 2, 0, 10)
 hist(x4,
  cex.axis = 0.5, cex.main = 0.75,
  breaks = seq(from = 0, to = 10, by = 1.0),
- col = "sky blue", xlab = NULL, ylab = NULL,
+ col = "skyblue", xlab = NULL, ylab = NULL,
  main = paste("mu=", round(mean(x4), 2), ", sd=", round(sd(x4), 2))
 )
 ```
@@ -337,7 +337,7 @@ x <- lexact(
 hist(x,
  cex.axis = 0.5, cex.main = 0.75,
  breaks = seq(from = 1, to = 5, by = 0.25),
- col = "sky blue", xlab = NULL, ylab = NULL,
+ col = "skyblue", xlab = NULL, ylab = NULL,
  main = paste("mean=", round(mean(x), 2), ", sd=", round(sd(x), 2))
 )
 ```
@@ -357,7 +357,7 @@ x <- lexact(64, 3, 2, 0, 10)
 hist(x,
  cex.axis = 0.5, cex.main = 0.75,
  breaks = c(0:10),
- col = "sky blue",
+ col = "skyblue",
  xlab = NULL, ylab = NULL,
  main = paste("mu=", round(mean(x), 2), ", sd=", round(sd(x), 2))
 )
@@ -403,7 +403,6 @@ each with five items.
 ```{r }
 
 ## generate uncorrelated synthetic data
-
 n <- 128
 lowerbound <- 1
 upperbound <- 5
@@ -421,7 +420,6 @@ The first six observations from this data-frame are:
 ```{r, echo = FALSE}
 
 head(mydat3, 6)
-
 ```
 
 And the first and second moments (to 3 decimal places) are:
@@ -545,29 +543,34 @@ because solutions are so volatile,
 a feasible solution may be still possible, and often is. 
 The user is encouraged to try again, possibly several times, to find one.
 
-### _makeCorrAlpha()_ examples
+#### _makeCorrAlpha()_ examples
 
-#### four variables, Alpha = 0.85
+##### Four variables, alpha = 0.85, variance = default
 
 ```{r}
 
 ## define parameters 
-
  items <- 4
  alpha <- 0.85
- variance <- 0.5
+ # variance <- 0.5 ## by default
 
 ## apply makeCorrAlpha() function
-
  set.seed(42)
  
- cor_matrix_4 <- makeCorrAlpha(items, alpha, variance)
+ cor_matrix_4 <- makeCorrAlpha(items, alpha)
+```
+
+_makeCorrAlpha()_ produced the following correlation matrix 
+(to three decimal places):
+
+```{r, echo = FALSE}
+
+cor_matrix_4 |> round(3)
 ```
 
 
-#### test output with Helper functions
 
-Cronbach's Alpha for the generated correlation matrix is:
+##### test output with Helper functions
 
 ```{r}
 
@@ -576,9 +579,9 @@ Cronbach's Alpha for the generated correlation matrix is:
  alpha(cor_matrix_4)
 ```
 
-And the correlation matrix is positive-definite:
 
-```{r fig7, fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
+
+```{r fig7, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
  
 ## using helper function eigenvalues() 
 
@@ -591,27 +594,34 @@ eigenvalues(cor_matrix_4, 1)
 ```{r}
 
 ## define parameters 
-
  items <- 12
  alpha <- 0.90
  variance <- 1.0
 
- 
 ## apply makeCorrAlpha() function
-
  set.seed(42) 
 
  cor_matrix_12 <- makeCorrAlpha(items, alpha, variance)
 ```
 
+######  -
 
-#### test output
+_makeCorrAlpha()_ produced the following correlation matrix 
+(to two decimal places):
 
-```{r fig8, fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
+```{r, echo = FALSE}
+
+cor_matrix_12 |> round(2)
+```
+
+
+##### test output
+
+```{r fig8, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
 
  alpha(cor_matrix_12)
 
- eigenvalues(cor_matrix_12, 1)
+ eigenvalues(cor_matrix_12, 1) |> round(3)
 ```
 
 
@@ -662,10 +672,8 @@ following parameters:
 ## define parameters
 
  n <- 128
-
  lowerbound <- rep(1, 4)
  upperbound <- rep(5, 4)
- 
  dfMeans <- c(2.5, 3.0, 3.0, 3.5)
  dfSds <- c(1.0, 1.0, 1.5, 0.75)
 
@@ -680,7 +688,6 @@ following parameters:
  )
 
 ## apply makeItems() function
-
  df <- makeItems(
  n = n, 
  lowerbound = lowerbound, 
@@ -691,15 +698,129 @@ following parameters:
  )
 
 ## test the function
-
  head(df); tail(df)
- 
  apply(df, 2, mean) |> round(3)
- 
  apply(df, 2, sd) |> round(3)
- 
  cor(df) |> round(3)
 ```
+
+
+## Generate a dataframe from Cronbach's Alpha and predefined moments
+
+This is a two-step process:
+  
+  1. apply **_makeCorrAlpha()_** to genereate a correlation matrix from 
+   desired alpha,
+  
+  2. apply **_makeItems()_** to generate rating-scale items from the 
+    correlation matrix and desired moments
+  
+So required parameters are:
+
+  - **_k_**: number items/ columns 
+  
+  - **_alpha_**: a target Cronbach's Alpha. 
+
+  - **_n_**: number of observations 
+
+  - **_lowerbound_**: a vector of length 'k' of values for the lower bound 
+   of each variable 
+
+  - **_upperbound_**: a vector of length 'k' of values for the upper bound 
+   of each variable
+
+  - **_means_**: a vector of length 'k' of desired means of each variable
+
+  - **_sds_**: a vector of length 'k' of desired standard deviations of 
+   each variable
+ 
+### Step 1: Generate a correlation matrix
+
+```{r}
+
+## define parameters
+k <- 6
+alpha <- 0.90
+
+## generate correlation matrix
+set.seed(42)
+myCorr <- makeCorrAlpha(k, alpha)
+
+## display correlation matrix
+myCorr |> round(3)
+
+### checking Cronbach's Alpha
+alpha(myCorr)
+```
+
+
+### Step 2: Generate dataframe
+
+```{r}
+
+## define parameters
+n <- 256
+lowerbound <- rep(1, k)
+upperbound <- rep(5, k)
+myMeans    <- c(2.75, 3.00, 3.00, 3.25, 3.50, 3.5)
+mySds      <- c(1.00, 0.75, 1.00, 1.00, 1.00, 1.5)
+
+## Generate Items
+myItems <- makeItems(n, lowerbound, upperbound, myMeans, mySds, myCorr)
+
+## resulting data frame
+head(myItems)
+tail(myItems)
+
+## means and standard deviations
+myMoments <- data.frame(
+  means = apply(myItems, 2, mean) |> round(3),
+  sds = apply(myItems, 2, sd) |> round(3)
+) |> t()
+myMoments
+
+## Cronbach's Alpha of data frame
+alpha(NULL, myItems)
+```
+
+#### Summary plots of new data frame
+
+```{r fig9, fig.height=5, fig.width=5, fig.align='center', echo=FALSE, warning=FALSE}
+
+# Correlation panel
+panel.cor <- function(x, y) {
+  usr <- par("usr")
+  on.exit(par(usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- round(cor(x, y), digits = 2)
+  txt <- paste0(r)
+  cex.cor <- 0.8 / strwidth(txt)
+  text(0.5, 0.5, txt, cex = 1.25)
+}
+# Customize upper panel
+upper.panel <- function(x, y) {
+  points(x, y, pch = 19, col = "#0000ff11")
+}
+# diagonals
+panel.hist <- function(x, ...) {
+  usr <- par("usr")
+  on.exit(par(usr))
+  par(usr = c(usr[1:2], 0, 1.5))
+  h <- hist(x, plot = FALSE)
+  breaks <- h$breaks
+  nB <- length(breaks)
+  y <- h$counts
+  y <- y / max(y)
+  rect(breaks[-nB], 0, breaks[-1], y, col = "#0000ff50")
+}
+# Create the plots
+pairs(myItems,
+  lower.panel = panel.cor,
+  upper.panel = upper.panel,
+  diag.panel = panel.hist
+)
+```
+
 
 
 ## Helper functions
@@ -725,35 +846,27 @@ with a message to that effect.
 ```{r}
 
 ## define parameters
+df <- data.frame(
+  V1 = c(4, 2, 4, 3, 2, 2, 2, 1),
+  V2 = c(4, 1, 3, 4, 4, 3, 2, 3),
+  V3 = c(4, 1, 3, 5, 4, 1, 4, 2),
+  V4 = c(4, 3, 4, 5, 3, 3, 3, 3)
+)
 
-### example data frame
-
- df <- data.frame(
- V1 = c(4, 2, 4, 3, 2, 2, 2, 1),
- V2 = c(4, 1, 3, 4, 4, 3, 2, 3),
- V3 = c(4, 1, 3, 5, 4, 1, 4, 2),
- V4 = c(4, 3, 4, 5, 3, 3, 3, 3)
- )
-
-### example correlation matrix
-
- corMat <- matrix(
- c(
- 1.00, 0.35, 0.45, 0.70,
- 0.35, 1.00, 0.60, 0.55,
- 0.45, 0.60, 1.00, 0.65,
- 0.70, 0.55, 0.65, 1.00
- ),
- nrow = 4, ncol = 4
- )
+corMat <- matrix(
+  c(
+    1.00, 0.35, 0.45, 0.70,
+    0.35, 1.00, 0.60, 0.55,
+    0.45, 0.60, 1.00, 0.65,
+    0.70, 0.55, 0.65, 1.00
+  ),
+  nrow = 4, ncol = 4
+)
 
 ## apply function examples
-
- alpha(cor_matrix = corMat)
-
- alpha( , df)
-
- alpha(corMat, df)
+alpha(cor_matrix = corMat)
+alpha(, df)
+alpha(corMat, df)
 ```
 
 
@@ -770,28 +883,25 @@ _eigenvalues()_ calculates eigenvalues of a correlation
 ```{r}
 
 ## define parameters
-
- correlationMatrix <- matrix(
- c(
- 1.00, 0.25, 0.35, 0.40,
- 0.25, 1.00, 0.70, 0.75,
- 0.35, 0.70, 1.00, 0.80,
- 0.40, 0.75, 0.80, 1.00
- ),
- nrow = 4, ncol = 4
- )
-
+correlationMatrix <- matrix(
+  c(
+    1.00, 0.25, 0.35, 0.40,
+    0.25, 1.00, 0.70, 0.75,
+    0.35, 0.70, 1.00, 0.80,
+    0.40, 0.75, 0.80, 1.00
+  ),
+  nrow = 4, ncol = 4
+)
 
 ## apply function
+evals <- eigenvalues(cormatrix = correlationMatrix)
 
- evals <- eigenvalues(cormatrix = correlationMatrix)
- 
- print(evals)
+print(evals)
 ```
 
 ##### eigenvalues() function with optional scree plot
 
-```{r fig9, fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
+```{r fig10, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
 
  evals <- eigenvalues(correlationMatrix, 1)
 ```
@@ -799,6 +909,7 @@ _eigenvalues()_ calculates eigenvalues of a correlation
 
 ____
 
+\pagebreak
 
 # Alternative methods & packages
 
