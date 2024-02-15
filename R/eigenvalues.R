@@ -45,7 +45,7 @@ eigenvalues <- function(cormatrix, scree = FALSE) {
       cex.main = 1, col.main = "black",
       type = "b"
     )
-    abline(h = c(0, 1), col = "blue", lty = 2)
+    abline(h = c(0, 1), col = "skyblue", lty = 2)
     rect(
       xleft = 0.8, xright = length(e_vals) * 1.1,
       ytop = 0, ybottom = min(0, min(e_vals) * 1.25),
