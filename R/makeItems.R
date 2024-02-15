@@ -99,9 +99,6 @@ makeItems <- function(n, lowerbound, upperbound, means, sds, cormatrix) {
   ## end integrity checks
   ####
 
-
-
-  ####
   ###   combine lfast() and lcor()
   ####
 
