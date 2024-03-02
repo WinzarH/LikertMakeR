@@ -505,17 +505,17 @@ following parameters:
 
 - **_n_**: number of observations 
 
-- **_lowerbound_**: a vector of length 'k' of values for the lower bound 
- of each variable (For example, '1' for a 1-5 rating scale)
-
-- **_upperbound_**: a vector of length 'k' of values for the upper bound 
- of each variable (For example, '5' for a 1-5 rating scale)
-
 - **_dfMeans_**: a vector of length 'k' of desired means of each variable
 
 - **_dfSds_**: a vector of length 'k' of desired standard deviations of 
  each variable
  
+ - **_lowerbound_**: a vector of length 'k' of values for the lower bound 
+ of each variable (For example, '1' for a 1-5 rating scale)
+
+- **_upperbound_**: a vector of length 'k' of values for the upper bound 
+ of each variable (For example, '5' for a 1-5 rating scale)
+
 - **_cormatrix_**: a target correlation matrix with 'k' rows and 'k' columns. 
 
 
@@ -526,11 +526,11 @@ following parameters:
 ## define parameters
 
  n <- 128
- lowerbound <- rep(1, 4)
- upperbound <- rep(5, 4)
  dfMeans <- c(2.5, 3.0, 3.0, 3.5)
  dfSds <- c(1.0, 1.0, 1.5, 0.75)
-
+ lowerbound <- rep(1, 4)
+ upperbound <- rep(5, 4)
+ 
  corMat <- matrix(
  c(
  1.00, 0.25, 0.35, 0.45,
@@ -544,10 +544,10 @@ following parameters:
 ## apply makeItems() function
  df <- makeItems(
  n = n, 
- lowerbound = lowerbound, 
- upperbound = upperbound, 
  means = dfMeans, 
  sds = dfSds, 
+ lowerbound = lowerbound, 
+ upperbound = upperbound, 
  cormatrix = corMat
  )
 
@@ -615,13 +615,13 @@ alpha(myCorr)
 
 ## define parameters
 n <- 256
-lowerbound <- rep(1, k)
-upperbound <- rep(5, k)
 myMeans    <- c(2.75, 3.00, 3.00, 3.25, 3.50, 3.5)
 mySds      <- c(1.00, 0.75, 1.00, 1.00, 1.00, 1.5)
+lowerbound <- rep(1, k)
+upperbound <- rep(5, k)
 
 ## Generate Items
-myItems <- makeItems(n, lowerbound, upperbound, myMeans, mySds, myCorr)
+myItems <- makeItems(n, myMeans, mySds, lowerbound, upperbound, myCorr)
 
 ## resulting data frame
 head(myItems)

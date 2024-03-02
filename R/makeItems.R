@@ -56,8 +56,8 @@
 #'
 #' ## apply function
 #'
-#' df <- makeItems(n = n, lowerbound = lowerbound, upperbound = upperbound,
-#'       means = dfMeans, sds = dfSds, cormatrix = corMat)
+#' df <- makeItems(n = n, means = dfMeans, sds = dfSds,
+#' lowerbound = lowerbound, upperbound = upperbound, cormatrix = corMat)
 #'
 #' ## test function
 #'

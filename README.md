@@ -336,6 +336,8 @@ _makeItems()_ is a wrapper function for:
 #### define parameters
 
     n <- 16
+    dfMeans <- c(2.5, 3.0, 3.0, 3.5)
+    dfSds <- c(1.0, 1.0, 1.5, 0.75)
     lowerbound <- rep(1, 4)
     upperbound <- rep(5, 4)
     
@@ -349,17 +351,16 @@ _makeItems()_ is a wrapper function for:
      nrow = 4, ncol = 4
     )
 
-    dfMeans <- c(2.5, 3.0, 3.0, 3.5)
-    dfSds <- c(1.0, 1.0, 1.5, 0.75)
+
 
 #### apply function
 
     df <- makeItems(
        n = n, 
-       lowerbound = lowerbound, 
-       upperbound = upperbound, 
        means = dfMeans, 
        sds = dfSds, 
+       lowerbound = lowerbound, 
+       upperbound = upperbound, 
        cormatrix = corMat
        )
 
