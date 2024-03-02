@@ -26,5 +26,5 @@ test_that("alpha runs silently with valid inputs", {
 
   expect_no_warning(alpha(corMat, df))
 
-  expect_no_warning(alpha(, df))
+  expect_no_warning(alpha(NULL, df))
 })
