@@ -9,7 +9,7 @@
 Synthesise and correlate rating-scale data with predefined first & second moments (mean and standard deviation)
 
 <p align="center">
-  <img src="vignettes/LikertMakeR_hex.png" width="250" alt="LikertMakeR logo">
+  <img src="vignettes/LikertMakeR_2.png" width="250" alt="LikertMakeR logo">
 </p>
 
 
@@ -33,15 +33,9 @@ The package is intended for
 
 Functions in this development version of **_LikertMakeR_** are:
 
-  -  [**_lfast()_**](#lfast()-&-lfast_R()) draws a random sample from a 
-  scaled _Beta_ distribution to approximate predefined first and 
-  second moments
+  -  [**_lfast()_**](#lfast()-&-lfast()) draws repeated random samples from a 
+  scaled _Beta_ distribution to approximate predefined first and second moments
   
-  -  [**_lfast_R()_**](#lfast()-&-lfast_R()) draws repeated random sample 
-  from a scaled _Beta_ distribution to selecting the best vector with 
-  predefined first and second moments. 
-  Slightly slower than _lfast()_, but much faster than _lexact()_.
-
   -  [**_lexact()_**](#lexact()) attempts to produce a vector with exact 
   predefined first and second moments 
 
@@ -49,16 +43,12 @@ Functions in this development version of **_LikertMakeR_** are:
   rearranges the values in the columns of a dataframe so that 
   they are correlated to match a predefined correlation matrix
 
-  - [**_lcor_C()_**](#Correlating-vectors-of-synthetic-rating-scales) 
-  is a **C++** implementation of the _lcor()_ function 
-  intended to replace _lcor()_ in my next CRAN submission
-
   - [**_makeCorrAlpha_**](#Generate-a-correlation-matrix-from-Cronbach's-Alpha)
   constructs a random correlation matrix of given 
   dimensions and predefined Cronbach's Alpha
   
   - [**_makeItems()_**](#Generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments) 
-  is a wrapper function for _lfast_R()_ and _lcor_C()_ 
+  is a wrapper function for _lfast()_ and _lcor_C()_ 
   to generate synthetic rating-scale data with predefined first and second 
   moments and a predefined correlation matrix
   
@@ -102,7 +92,7 @@ This approach is good for testing Likert items but it does not help when
 working on complete Likert scales, or for when we want to specify means 
 and standard deviations as they might be reported in published research.  
 
-The functions `lfast()`, `lfast_R()`, and
+The functions `lfast()`, `lfast()`, and
    `lexact()` allow the user to specify exact 
 univariate statistics as they might ordinarily be reported. 
 
@@ -145,23 +135,12 @@ To synthesise a rating scale, the user must input the following parameters:
 -  **_seed_**: optional seed for reproducibility 
   
     
-**_LikertMakeR_** offers two different functions for synthesising a rating 
-scale: **_lfast()_**&nbsp;and&nbsp;**_lexact()_**, and a new addition: 
-**_lfast_R()_** which is a more accurate version of _lfast()_.
+### lfast() 
 
-
-### lfast() & lfast_R()
-
-  -  **_lfast()_** draws a random sample from a scaled _Beta_ distribution. 
-    It is very fast but does not guarantee that the mean and standard deviation 
-    are exact. 
-    Recommended for relatively large sample sizes.
+  -  **_lfast()_** draws repeated random samples from a 
+   scaled _Beta_ distribution. 
+    It should be accurate to two decimal places.
  
-   -  **_lfast_R()_** draws repeated random samples from a scaled _Beta_ 
-   distributionm, selecting the best-fit for the predefined moments, 
-   usually accurate to two decimal places.
-   It is expected to replace _lexact()_ in the next submission to _CRAN_.
-
 #### _lfast()_ Example: a five-item, seven-point Likert scale
 
      x <- lfast(
@@ -177,68 +156,7 @@ scale: **_lfast()_**&nbsp;and&nbsp;**_lexact()_**, and a new addition:
  
      x <- lfast(256, 2.5, 2.5, 0, 10)
      
-
-#### _lfast_R()_ Example: a five-item, seven-point Likert scale
-
-     x <- lfast_R(
-       n = 256, 
-       mean = 4.5, sd = 1.0, 
-       lowerbound = 1, 
-       upperbound = 7, 
-       items = 5
-       )
-     
-
-#### _lfast_R()_ Example:  an 11-point likelihood-of-purchase scale
- 
-     x <- lfast_R(256, 2.5, 2.5, 0, 10)
-     
-
-
-
-
-### lexact()  
-
- -  **_lexact()_** attempts to produce a vector with exact first and 
-  second moments. It uses the _Differential&nbsp;Evolution_ algorithm in 
-  the ['DEoptim'](https://CRAN.R-project.org/package=DEoptim) package to 
-  find appropriate values within the desired constraints. 
-  
-**_lexact()_** may take some time to complete the optimisation task, 
-but is excellent for simulating data from already-published reports 
-where only summary statistics are reported. 
-
- 
-#### _lexact()_ Example: a five-item, seven-point Likert scale
-
-
-      x <- lexact(
-        n = 32, 
-        mean = 4.5, 
-        sd = 1.0, 
-        lowerbound = 1, 
-        upperbound = 7, 
-        items = 5
-        )
-     
-
- #### _lexact()_ Example:  an 11-point likelihood-of-purchase scale
-
-
-     x <- lexact(32, 2.5, 2.5, 0, 10)
-     
-
- #### _lexact()_ Example:  a seven-point negative-to-positive scale with 4 items
-
-     x <- lexact(
-       n = 32, 
-       mean = 1.25, 
-       sd = 1.00, 
-       lowerbound = -3, 
-       upperbound = 3, 
-       items = 4
-       )
-     
+____
 
 ## Correlating vectors of synthetic rating scales
 
@@ -248,10 +166,6 @@ a specified level.
 **_lcor()_** does not change the values - it swaps their positions in each 
 column so that univariate statistics do not change, 
 but their correlations with other columns do.
-
-**_lcor_C()_** is an implementation of _lcor()_ written in **C++**. 
-_lcor_C()_ runs more than 100 times faster than _lcor()_, producing the same outcome.
-It will replace _lcor()_ in the next CRAN submission.
 
 To create the desired correlations, the user must define the 
 following objects: 
@@ -263,7 +177,7 @@ following objects:
 
 
 
-### **_lcor()_** & **_lcor_C()_** Example #1
+### **_lcor()_**  Example #1
 
 
 ####  generate synthetic data
@@ -271,10 +185,10 @@ following objects:
      set.seed(42) ## for reproducibility
      
      n <- 64
-     x1 <- lfast_R(n, 3.5, 1.00, 1, 5, 5) 
-     x2 <- lfast_R(n, 1.5, 0.75, 1, 5, 5) 
-     x3 <- lfast_R(n, 3.0, 1.70, 1, 5, 5) 
-     x4 <- lfast_R(n, 2.5, 1.50, 1, 5, 5)   
+     x1 <- lfast(n, 3.5, 1.00, 1, 5, 5) 
+     x2 <- lfast(n, 1.5, 0.75, 1, 5, 5) 
+     x3 <- lfast(n, 3.0, 1.70, 1, 5, 5) 
+     x4 <- lfast(n, 2.5, 1.50, 1, 5, 5)   
      
      mydat4 <- data.frame(x1, x2, x3, x4) 
      
@@ -286,9 +200,9 @@ following objects:
 
      tgt4 <- matrix(
      c(
-       1.00, 0.50, 0.50, 0.75,
-       0.50, 1.00, 0.25, 0.65,
-       0.50, 0.25, 1.00, 0.80,
+       1.00, 0.55, 0.60, 0.75,
+       0.55, 1.00, 0.25, 0.65,
+       0.60, 0.25, 1.00, 0.80,
        0.75, 0.65, 0.80, 1.00
      ),
      nrow = 4
@@ -306,16 +220,8 @@ following objects:
      cor(new4) |> round(3)
 
 
-     
-####  Apply _lcor_C()_ produces the same result more quickly
 
-     new4C <- lcor(data = mydat4, target = tgt4)
-     
-     cor(new4C) |> round(3)
-
-
-
-### _lcor()_ & _lcor_C()_ example #2
+### _lcor()_  example #2
 
 
 #####  three starting columns and a different target correlation matrix
@@ -339,13 +245,7 @@ following objects:
      
      cor(new3) |> round(3)
 
-     
-####  Apply _lcor_C()_ 
-
-     new3C <- lcor_C(mydat3, tgt3) 
-     
-     cor(new3C) |> round(3)     
-
+____
 
 # Generate a correlation matrix from Cronbach's Alpha
 
@@ -380,10 +280,8 @@ The user is encouraged to try again, possibly several times, to find one.
 #### define parameters 
 
     items <- 4
-    
     alpha <- 0.85
-    
-    variance <- 0.5
+    variance <- 0.5  
 
 #### apply makeCorrAlpha() function
 
@@ -394,17 +292,14 @@ The user is encouraged to try again, possibly several times, to find one.
 #### test output with Helper functions
 
     alpha(cor_matrix_4)
-    
     eigenvalues(cor_matrix_4, 1)
 
-###  four variables, Alpha = 0.85, larger variance
+###  four variables, Alpha = 0.90, larger variance
 
 #### define parameters 
 
     items <- 12
-    
     alpha <- 0.90
-    
     variance <- 1.0
 
 #### apply makeCorrAlpha() function
@@ -416,8 +311,9 @@ The user is encouraged to try again, possibly several times, to find one.
 #### test output
 
     alpha(cor_matrix_12)
-
     eigenvalues(cor_matrix_12, 1)
+
+____
 
 ## Generate a dataframe of rating scales from a correlation matrix and predefined moments
 
@@ -427,12 +323,12 @@ The user is encouraged to try again, possibly several times, to find one.
 values from a _scaled Beta distribution_ so the data replicate a rating
 scale, and are correlated close to a predefined correlation matrix.
 
-_makeItems()_ is a "shortcut" combination of
+_makeItems()_ is a wrapper function for:
 
- * _lfast_R()_, which takes repeated samples selecting a vector that
+ * _lfast()_, which takes repeated samples selecting a vector that
   best fits the desired moments, and
   
- * _lcor_C()_, which rearranges values in each column of the dataframe
+ * _lcor()_, which rearranges values in each column of the dataframe
   so they closely match the desired correlation matrix.
 
 ### _makeItems()_ examples
@@ -440,11 +336,9 @@ _makeItems()_ is a "shortcut" combination of
 #### define parameters
 
     n <- 16
-    
     lowerbound <- rep(1, 4)
-    
     upperbound <- rep(5, 4)
-
+    
     corMat <- matrix(
     c(
      1.00, 0.25, 0.35, 0.40,
@@ -456,7 +350,6 @@ _makeItems()_ is a "shortcut" combination of
     )
 
     dfMeans <- c(2.5, 3.0, 3.0, 3.5)
-    
     dfSds <- c(1.0, 1.0, 1.5, 0.75)
 
 #### apply function
@@ -525,9 +418,9 @@ with a message to that effect.
 
 #### apply function examples
 
-    alpha(cor_matrix = corMat)
+    alpha(cormatrix = corMat)
 
-    alpha(, df)
+    alpha(NULL, df)
 
     alpha(corMat, df)
 

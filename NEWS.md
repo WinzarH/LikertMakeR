@@ -1,3 +1,12 @@
+# LikertMakeR 0.2.0 (2024-03-02)
+
+## For submission to CRAN
+
+Faster and more accurate functions: **_lcor()_** & **_lfast()_**
+
+These replace the old **_lcor()_** & **_lfast()_** with the previous **_lcor_C()_** & **_lfast_R()_**
+
+
 # LikertMakeR 0.1.9 (2024-02-11)
 
 ### Added a new functions: **_makeCorrAlpha()_**, **_makeItems()_**, _alpha()_, _eigenvalues()_
