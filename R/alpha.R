@@ -1,10 +1,9 @@
-#' Calculate Cronbach's Alpha from a given correlation matrix or a given
-#' dataframe
+#' Calculate Cronbach's Alpha from a correlation matrix or dataframe
 #' @name alpha
 #' @description \code{alpha()} calculate Cronbach's Alpha from a given
 #'   correlation matrix or a given dataframe.
 #'
-#' @param cor_matrix (real) a square symmetrical matrix with values
+#' @param cormatrix (real) a square symmetrical matrix with values
 #'   ranging from -1 to +1 and '1' in the diagonal
 #' @param data (real) a dataframe or matrix
 #'
@@ -34,35 +33,33 @@
 #'
 #' ## apply function examples
 #'
-#' alpha(cor_matrix = corMat)
+#' alpha(cormatrix = corMat)
 #'
 #' alpha(, df)
 #'
 #' alpha(corMat, df)
 #'
-#'
-#'
-alpha <- function(cor_matrix = NULL, data = NULL) {
+alpha <- function(cormatrix = NULL, data = NULL) {
   ## input integrity checks
-  if (is.null(cor_matrix) && is.null(data)) {
+  if (is.null(cormatrix) && is.null(data)) {
     message("Error: Please input either a correlation matrix or a data file")
     return(NULL)
   } else {
-    if (is.null(cor_matrix)) {
-      cor_matrix <- cor(data)
+    if (is.null(cormatrix)) {
+      cormatrix <- cor(data)
     } else {
-      if (!is.null(cor_matrix) && !is.null(data)) {
-        message("Warning: Both cor_matrix and data present.
-                \nUsing cor_matrix by default.")
+      if (!is.null(cormatrix) && !is.null(data)) {
+        message("Warning: Both cormatrix and data present.
+                \nUsing cormatrix by default.")
       }
     }
   } ## END input integrity checks
 
   # Calculate Cronbach's Alpha from the correlation matrix
   # find the mean of upper (or lower) triangle
-  mean_r <- mean(cor_matrix[upper.tri(cor_matrix)])
+  mean_r <- mean(cormatrix[upper.tri(cormatrix)])
 
-  k <- ncol(cor_matrix)
+  k <- ncol(cormatrix)
   # calculate alpha
   cronbachAlpha <- (k * mean_r) / (1 + (k - 1) * mean_r)
 
