@@ -2,8 +2,7 @@
 #' @importFrom Rcpp sourceCpp
 NULL
 
-#' A C++ implementation of the lcor() function to rearrange columns
-#' in a data-frame to fit a predefined correlation matrix
+#' Rearrange columns in a data-frame to fit a predefined correlation matrix
 #'
 #' @description \code{lcor_C()} rearranges values in each column of a
 #' data-frame so that columns are correlated to match a predefined

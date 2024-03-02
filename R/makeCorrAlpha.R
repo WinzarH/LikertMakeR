@@ -1,7 +1,5 @@
-#' makeCorrAlpha
+#' Construct a random correlation matrix of given dimensions from predefined Cronbach's Alpha
 #'
-#' Construct a random correlation matrix of given dimensions and
-#'  predefined Cronbach's Alpha
 #' @name makeCorrAlpha
 #' @description \code{makeCorrAlpha()} generates a random correlation
 #'  matrix of given dimensions and predefined Cronbach's Alpha

@@ -1,5 +1,3 @@
-#' makeItems
-#'
 #' Generate synthetic rating-scale data with predefined
 #'  first and second moments and a predefined correlation matrix
 #'
@@ -7,7 +5,7 @@
 #' @description \code{makeItems()} generates a dataframe of random discrete
 #'  values from a (scaled Beta distribution) so the data replicate a rating
 #'  scale, and are correlated close to a predefined correlation matrix.
-#'  \code{makeItems()} is actually a combination of
+#'  \code{makeItems()} is wrapper function for:
 #'
 #'   * \code{lfast()}, which takes repeated samples selecting a vector that
 #'    best fits the desired moments, and
@@ -15,16 +13,16 @@
 #'    so they closely match the desired correlation matrix.
 #'
 #' @param n (positive, int) number of observations to generate
+#' @param means (real) target means: a vector of length k
+#'  of mean values for each scale item
+#' @param sds (positive, real) target standard deviations: a vector of length k
+#'  of standard deviation values for each scale item
 #' @param lowerbound (positive, int) a vector of length k
 #'  (same as rows & columns of correlation matrix) of values for lower bound
 #'  of each scale item (e.g. '1' for a 1-5 rating scale)
 #' @param upperbound (positive, int) a vector of length k
 #'  (same as rows & columns of correlation matrix) of values for upper bound
 #'  of each scale item (e.g. '5' for a 1-5 rating scale)
-#' @param means (real) target means: a vector of length k
-#'  of mean values for each scale item
-#' @param sds (real) target standard deviations: a vector of length k
-#'  of standard deviation values for each scale item
 #' @param cormatrix (real, matrix) the target correlation matrix:
 #'  a square symmetric matrix of values renging between -1 and +1,
 #'  and '1' in the diagonal.
@@ -72,7 +70,7 @@
 #' cor(df) |> round(3)
 #'
 #'
-makeItems <- function(n, lowerbound, upperbound, means, sds, cormatrix) {
+makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
   ####
   ###  input parameters integrity checks
   ####

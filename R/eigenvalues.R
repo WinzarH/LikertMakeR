@@ -1,6 +1,5 @@
-#' eigenvalues
+#' calculate eigenvalues of a correlation matrix with optional scree plot
 #'
-#' #' calculate eigenvalues of a correlation matrix with optional scree plot
 #' @name eigenvalues
 #' @description \code{eigenvalues()} calculate eigenvalues of a correlation
 #'  matrix and optionally produces a scree plot.

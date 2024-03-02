@@ -1,4 +1,5 @@
-#' Rating scale data (e.g. Likert scale) from a Scaled Beta Distribution
+#' Deprecated. Use lfast() instead
+#'
 #' @name lexact
 #' @description \code{lexact} is DEPRECATED. Replaced by \code{lfast}.
 #' Previously, \code{lexact} used a Differential Evolution (DE) algorithm to
