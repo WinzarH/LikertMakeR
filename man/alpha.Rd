@@ -2,13 +2,12 @@
 % Please edit documentation in R/alpha.R
 \name{alpha}
 \alias{alpha}
-\title{Calculate Cronbach's Alpha from a given correlation matrix or a given
-dataframe}
+\title{Calculate Cronbach's Alpha from a correlation matrix or dataframe}
 \usage{
-alpha(cor_matrix = NULL, data = NULL)
+alpha(cormatrix = NULL, data = NULL)
 }
 \arguments{
-\item{cor_matrix}{(real) a square symmetrical matrix with values
+\item{cormatrix}{(real) a square symmetrical matrix with values
 ranging from -1 to +1 and '1' in the diagonal}
 
 \item{data}{(real) a dataframe or matrix}
@@ -43,12 +42,10 @@ corMat <- matrix(
 
 ## apply function examples
 
-alpha(cor_matrix = corMat)
+alpha(cormatrix = corMat)
 
 alpha(, df)
 
 alpha(corMat, df)
-
-
 
 }
