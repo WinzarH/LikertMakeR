@@ -9,9 +9,9 @@
 #'  scale, and are correlated close to a predefined correlation matrix.
 #'  \code{makeItems()} is actually a combination of
 #'
-#'   * \code{lfast_R()}, which takes repeated samples selecting a vector that
+#'   * \code{lfast()}, which takes repeated samples selecting a vector that
 #'    best fits the desired moments, and
-#'   * \code{lcor_C()}, which rearranges values in each column of the dataframe
+#'   * \code{lcor()}, which rearranges values in each column of the dataframe
 #'    so they closely match the desired correlation matrix.
 #'
 #' @param n (positive, int) number of observations to generate
@@ -108,10 +108,10 @@ makeItems <- function(n, lowerbound, upperbound, means, sds, cormatrix) {
   df <- as.data.frame(matrix(nrow = n, ncol = k))
 
   for (i in 1:k) {
-    df[, i] <- lfast_R(n, means[i], sds[i], lowerbound[i], upperbound[i])
+    df[, i] <- lfast(n, means[i], sds[i], lowerbound[i], upperbound[i])
   }
 
-  new_df <- lcor_C(df, cormatrix)
+  new_df <- lcor(df, cormatrix)
 
   return(new_df)
 } ### END make_items function
