@@ -36,9 +36,9 @@ values from a (scaled Beta distribution) so the data replicate a rating
 scale, and are correlated close to a predefined correlation matrix.
 \code{makeItems()} is actually a combination of
 \itemize{
-\item \code{lfast_R()}, which takes repeated samples selecting a vector that
+\item \code{lfast()}, which takes repeated samples selecting a vector that
 best fits the desired moments, and
-\item \code{lcor_C()}, which rearranges values in each column of the dataframe
+\item \code{lcor()}, which rearranges values in each column of the dataframe
 so they closely match the desired correlation matrix.
 }
 }

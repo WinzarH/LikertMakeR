@@ -2,49 +2,44 @@
 % Please edit documentation in R/lexact.R
 \name{lexact}
 \alias{lexact}
-\title{Generate rating-scale data with only Mean and Standard Deviation}
+\title{Rating scale data (e.g. Likert scale) from a Scaled Beta Distribution}
 \usage{
-lexact(n, mean, sd, lowerbound, upperbound, items = 1, seed = NULL)
+lexact(n, mean, sd, lowerbound, upperbound, items = 1)
 }
 \arguments{
-\item{n}{(positive, int) the number of observations to simulate}
+\item{n}{(positive, int) number of observations to generate}
 
-\item{mean}{(real)  target mean}
+\item{mean}{(real) target mean}
 
-\item{sd}{(real)  target standard deviation}
+\item{sd}{(real) target standard deviation}
 
-\item{lowerbound}{(positive, int) a lower bound for the data to be generated}
+\item{lowerbound}{(positive, int) lower bound (e.g. '1' for a 1-5 rating scale)}
 
-\item{upperbound}{(positive, int) an upper bound for the data to be generated}
+\item{upperbound}{(positive, int) upper bound (e.g. '5' for a 1-5 rating scale)}
 
-\item{items}{(positive, int) number of items in the Likert scale. Default = 1}
-
-\item{seed}{(real)  optional seed for reproducibility}
+\item{items}{(positive, int) number of items in the rating scale. Default = 1}
 }
 \value{
-a vector with user-specified parameters
+a vector of simulated data approximating user-specified conditions.
 }
 \description{
-\code{lexact()} generates rating-scale values with
-predefined first and second moments.
-}
-\details{
-If feasible, moments are exact to two decimal places.
+\code{lexact} is DEPRECATED. Replaced by \code{lfast}.
+Previously, \code{lexact} used a Differential Evolution (DE) algorithm to
+find an optimum solution for finding desired mean and standard deviation,
+but we found that the updated\code{lfast} function is much faster and just
+as accurate. Also the package is much less bulky.
 }
 \examples{
 
 x <- lexact(
-  n = 16,
-  mean = 3.25,
-  sd = 1.00,
+  n = 256,
+  mean = 4.0,
+  sd = 1.0,
   lowerbound = 1,
-  upperbound = 5,
-  items = 4
+  upperbound = 7,
+  items = 6
 )
 
-
-eleven_point <- lfast(32, 3.0, 2.0, 0, 10)
-
-positive_negative <- lfast(32, 0.5, 2.0, -3, 3)
+x <- lexact(256, 2, 1.8, 0, 10)
 
 }

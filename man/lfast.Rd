@@ -4,7 +4,7 @@
 \alias{lfast}
 \title{Rating scale data (e.g. Likert scale) from a Scaled Beta Distribution}
 \usage{
-lfast(n, mean, sd, lowerbound, upperbound, items = 1, seed = NULL)
+lfast(n, mean, sd, lowerbound, upperbound, items = 1)
 }
 \arguments{
 \item{n}{(positive, int) number of observations to generate}
@@ -18,8 +18,6 @@ lfast(n, mean, sd, lowerbound, upperbound, items = 1, seed = NULL)
 \item{upperbound}{(positive, int) upper bound (e.g. '5' for a 1-5 rating scale)}
 
 \item{items}{(positive, int) number of items in the rating scale. Default = 1}
-
-\item{seed}{(real) optional seed for reproducibility}
 }
 \value{
 a vector of simulated data approximating user-specified conditions.
@@ -29,10 +27,13 @@ a vector of simulated data approximating user-specified conditions.
 (scaled Beta distribution) so the data replicate a rating scale -
 for example,a 1-5 scale made from 5 items (questions) or 0-10
 likelihood-of-purchase scale.
+\code{lfast()} takes repeated samples selecting a vector that best
+fits the desired moments, while \code{lfast()} takes just one sample.
+\code{lfast()} is slightly slower than \code{lfast()}.
 }
 \examples{
 
-seven_point <- lfast(
+x <- lfast(
   n = 256,
   mean = 4.0,
   sd = 1.0,
@@ -41,9 +42,6 @@ seven_point <- lfast(
   items = 6
 )
 
-eleven_point <- lfast(256, 3.0, 2.0, 0, 10)
-
-positive_negative <- lfast(256, 0.5, 2.0, -3, 3)
-
+x <- lfast(256, 2, 1.8, 0, 10)
 
 }
