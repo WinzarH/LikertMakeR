@@ -4,7 +4,7 @@
 [![metacran downloads last month](https://cranlogs.r-pkg.org/badges/last-month/LikertMakeR)](https://cran.r-project.org/package=LikertMakeR)
 
 
-# LikertMakeR
+# LikertMakeR (V 0.2.0  March 2024)
 
 Synthesise and correlate rating-scale data with predefined first & second moments (mean and standard deviation)
 

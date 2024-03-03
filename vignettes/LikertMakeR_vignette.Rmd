@@ -2,7 +2,7 @@
 title: "LikertMakeR"
 subtitle: "synthesise and correlate rating-scale data"
 author: Hume Winzar
-date: February 2024 
+date: March 2024 
 output: rmarkdown::html_vignette
 # output: rmarkdown::pdf_document
 vignette: >
@@ -26,6 +26,8 @@ knitr::opts_chunk$set(
 
 
 # LikertMakeR
+
+V 0.2.0 March 2024
 
 <!-- <p align="center"> -->
 <!-- <img src="LikertMakeR_hex.png" width="250" alt="LikertMakeR logo"> -->
