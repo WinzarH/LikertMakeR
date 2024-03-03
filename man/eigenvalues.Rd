@@ -2,7 +2,7 @@
 % Please edit documentation in R/eigenvalues.R
 \name{eigenvalues}
 \alias{eigenvalues}
-\title{eigenvalues}
+\title{calculate eigenvalues of a correlation matrix with optional scree plot}
 \usage{
 eigenvalues(cormatrix, scree = FALSE)
 }
@@ -20,9 +20,6 @@ report on positive-definite status of cormatrix
 \description{
 \code{eigenvalues()} calculate eigenvalues of a correlation
 matrix and optionally produces a scree plot.
-}
-\details{
-#' calculate eigenvalues of a correlation matrix with optional scree plot
 }
 \examples{
 

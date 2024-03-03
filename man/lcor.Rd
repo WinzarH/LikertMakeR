@@ -2,8 +2,7 @@
 % Please edit documentation in R/lcor.R
 \name{lcor}
 \alias{lcor}
-\title{A C++ implementation of the lcor() function to rearrange columns
-in a data-frame to fit a predefined correlation matrix}
+\title{Rearrange columns in a data-frame to fit a predefined correlation matrix}
 \usage{
 lcor(data, target)
 }

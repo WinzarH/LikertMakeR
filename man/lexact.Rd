@@ -2,7 +2,7 @@
 % Please edit documentation in R/lexact.R
 \name{lexact}
 \alias{lexact}
-\title{Rating scale data (e.g. Likert scale) from a Scaled Beta Distribution}
+\title{Deprecated. Use lfast() instead}
 \usage{
 lexact(n, mean, sd, lowerbound, upperbound, items = 1)
 }

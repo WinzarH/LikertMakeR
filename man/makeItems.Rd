@@ -2,12 +2,19 @@
 % Please edit documentation in R/makeItems.R
 \name{makeItems}
 \alias{makeItems}
-\title{makeItems}
+\title{Generate synthetic rating-scale data with predefined
+first and second moments and a predefined correlation matrix}
 \usage{
-makeItems(n, lowerbound, upperbound, means, sds, cormatrix)
+makeItems(n, means, sds, lowerbound, upperbound, cormatrix)
 }
 \arguments{
 \item{n}{(positive, int) number of observations to generate}
+
+\item{means}{(real) target means: a vector of length k
+of mean values for each scale item}
+
+\item{sds}{(positive, real) target standard deviations: a vector of length k
+of standard deviation values for each scale item}
 
 \item{lowerbound}{(positive, int) a vector of length k
 (same as rows & columns of correlation matrix) of values for lower bound
@@ -16,12 +23,6 @@ of each scale item (e.g. '1' for a 1-5 rating scale)}
 \item{upperbound}{(positive, int) a vector of length k
 (same as rows & columns of correlation matrix) of values for upper bound
 of each scale item (e.g. '5' for a 1-5 rating scale)}
-
-\item{means}{(real) target means: a vector of length k
-of mean values for each scale item}
-
-\item{sds}{(real) target standard deviations: a vector of length k
-of standard deviation values for each scale item}
 
 \item{cormatrix}{(real, matrix) the target correlation matrix:
 a square symmetric matrix of values renging between -1 and +1,
@@ -34,17 +35,13 @@ a dataframe of rating-scale values
 \code{makeItems()} generates a dataframe of random discrete
 values from a (scaled Beta distribution) so the data replicate a rating
 scale, and are correlated close to a predefined correlation matrix.
-\code{makeItems()} is actually a combination of
+\code{makeItems()} is wrapper function for:
 \itemize{
 \item \code{lfast()}, which takes repeated samples selecting a vector that
 best fits the desired moments, and
 \item \code{lcor()}, which rearranges values in each column of the dataframe
 so they closely match the desired correlation matrix.
 }
-}
-\details{
-Generate synthetic rating-scale data with predefined
-first and second moments and a predefined correlation matrix
 }
 \examples{
 
@@ -72,8 +69,8 @@ dfSds <- c(1.0, 1.0, 1.5, 0.75)
 
 ## apply function
 
-df <- makeItems(n = n, lowerbound = lowerbound, upperbound = upperbound,
-      means = dfMeans, sds = dfSds, cormatrix = corMat)
+df <- makeItems(n = n, means = dfMeans, sds = dfSds,
+lowerbound = lowerbound, upperbound = upperbound, cormatrix = corMat)
 
 ## test function
 
