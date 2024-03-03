@@ -49,7 +49,9 @@ The package generates a column of values that simulate the same properties
 as a rating scale. 
 If multiple columns are generated, then you can use 
 **_LikertMakeR_** to rearrange the values so that the new variables are 
-correlated exactly in accord with a user-predefined correlation matrix.
+correlated exactly in accord with a user-predefined correlation matrix. 
+
+Functions can be combined to generate synthetic rating-scale data from a predefined Cronbach's Alpha.
 
 ## Purpose
 
@@ -64,6 +66,7 @@ many journal article submissions where authors presented questionnaire results
 with only means and standard deviations (often only the means), with no 
 apparent understanding of scale distributions, and their impact on scale 
 properties. 
+
 Hopefully, this tool will help researchers, teachers, and other reviewers, 
 to better think about rating-scale distributions, and the effects of variance, 
 scale boundaries, and number of items in a scale.
@@ -564,7 +567,7 @@ ____
 
 This is a two-step process:
   
-  1. apply **_makeCorrAlpha()_** to genereate a correlation matrix from 
+  1. apply **_makeCorrAlpha()_** to generate a correlation matrix from 
    desired alpha,
   
   2. apply **_makeItems()_** to generate rating-scale items from the 
