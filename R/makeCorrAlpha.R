@@ -1,10 +1,11 @@
-#' Construct a random correlation matrix of given dimensions from predefined Cronbach's Alpha
+#' Correlation matrix from Cronbach's Alpha
 #'
 #' @name makeCorrAlpha
+#'
 #' @description \code{makeCorrAlpha()} generates a random correlation
 #'  matrix of given dimensions and predefined Cronbach's Alpha
 #'
-#' @param items (positive, int) number of rows & columns to generate
+#' @param items (positive, int) matrix dimensions: number of rows & columns to generate
 #' @param alpha (real) target Cronbach's Alpha
 #'  (usually positive, must be between -1 and +1)
 #' @param variance (positive, real) Default = 0.5.
@@ -35,19 +36,24 @@
 #'
 #' @examples
 #'
+#' # define parameters
 #' items <- 4
 #' alpha <- 0.85
 #' variance <- 0.5
 #'
+#' # apply function
 #' set.seed(42)
-#' cor_matrix <- makeCorrAlpha(items, alpha, variance)
+#' cor_matrix <- makeCorrAlpha(items = items, alpha = alpha, variance = variance)
 #'
+#' # test function output
 #' print(cor_matrix)
 #' alpha(cor_matrix)
 #' eigenvalues(cor_matrix,1)
 #'
-#' cor_matrix2 <- makeCorrAlpha(items = 6, alpha = 0.95)
+#' # higher alpha, more items
+#' cor_matrix2 <- makeCorrAlpha(items = 8, alpha = 0.95)
 #'
+#' # test output
 #' print(cor_matrix2)
 #' alpha(cor_matrix2)
 #' eigenvalues(cor_matrix2,1)

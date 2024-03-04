@@ -1,11 +1,19 @@
 #' Deprecated. Use lfast() instead
 #'
 #' @name lexact
-#' @description \code{lexact} is DEPRECATED. Replaced by \code{lfast}.
+#'
+#' @description \code{lexact} is DEPRECATED. Replaced by new version of
+#'  \code{lfast}.
+#'
+#' \code{lexact} remains as a legacy for earlier package users.
+#' It is now just a wrapper for \code{lfast}
+#'
 #' Previously, \code{lexact} used a Differential Evolution (DE) algorithm to
-#' find an optimum solution for finding desired mean and standard deviation,
-#' but we found that the updated\code{lfast} function is much faster and just
-#' as accurate. Also the package is much less bulky.
+#' find an optimum solution with desired mean and standard deviation,
+#' but we found that the updated \code{lfast} function is much faster and just
+#' as accurate.
+#'
+#' Also the package is much less bulky.
 #'
 #' @param n (positive, int) number of observations to generate
 #' @param mean (real) target mean

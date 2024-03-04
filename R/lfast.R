@@ -1,12 +1,15 @@
-#' Rating scale data (e.g. Likert scale) from a Scaled Beta Distribution
+#' Synthesise rating-scale data from a Scaled Beta Distribution
+#'
 #' @name lfast
-#' @description \code{lfast()} generates random discrete values from a
-#' (scaled Beta distribution) so the data replicate a rating scale -
-#' for example,a 1-5 scale made from 5 items (questions) or 0-10
+#'
+#' @description \code{lfast()} takes repeated samples selecting a vector
+#' that best fits the desired moments.
+#'
+#' \code{lfast()} generates random discrete values from a
+#' scaled Beta distribution so the data replicate a rating scale -
+#' for example, a 1-5 Likert scale made from 5 items (questions) or 0-10
 #' likelihood-of-purchase scale.
-#' \code{lfast()} takes repeated samples selecting a vector that best
-#' fits the desired moments, while \code{lfast()} takes just one sample.
-#' \code{lfast()} is slightly slower than \code{lfast()}.
+#'
 #'
 #'
 #' @param n (positive, int) number of observations to generate
@@ -24,6 +27,7 @@
 #'
 #' @examples
 #'
+#' ## six-item 1-7 rating scale
 #' x <- lfast(
 #'   n = 256,
 #'   mean = 4.0,
@@ -33,6 +37,7 @@
 #'   items = 6
 #' )
 #'
+#' ## eleven-point 'likelihood of purchase' scale
 #' x <- lfast(256, 2, 1.8, 0, 10)
 #'
 lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1) {
@@ -82,7 +87,15 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1) {
       break
     }
   }
-  print(paste0("best solution in ", i, " iterations"))
+
+  ## print iterations reached
+  if (i == maxiter) {
+    print(paste0("reached maximum of ", i, " iterations"))
+  } else {
+    print(paste0("best solution in ", i, " iterations"))
+  }
+
+  # print(paste0("best solution in ", i, " iterations"))
   return(best_vector)
 }
 
