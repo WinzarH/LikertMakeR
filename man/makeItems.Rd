@@ -2,13 +2,13 @@
 % Please edit documentation in R/makeItems.R
 \name{makeItems}
 \alias{makeItems}
-\title{Generate synthetic rating-scale data with predefined
+\title{Synthetic rating-scale data with given
 first and second moments and a predefined correlation matrix}
 \usage{
 makeItems(n, means, sds, lowerbound, upperbound, cormatrix)
 }
 \arguments{
-\item{n}{(positive, int) number of observations to generate}
+\item{n}{(positive, int) sample-size - number of observations}
 
 \item{means}{(real) target means: a vector of length k
 of mean values for each scale item}
@@ -25,20 +25,21 @@ of each scale item (e.g. '1' for a 1-5 rating scale)}
 of each scale item (e.g. '5' for a 1-5 rating scale)}
 
 \item{cormatrix}{(real, matrix) the target correlation matrix:
-a square symmetric matrix of values renging between -1 and +1,
-and '1' in the diagonal.}
+a square symmetric positive-semi-definite matrix of values ranging
+between -1 and +1, and '1' in the diagonal.}
 }
 \value{
 a dataframe of rating-scale values
 }
 \description{
 \code{makeItems()} generates a dataframe of random discrete
-values from a (scaled Beta distribution) so the data replicate a rating
-scale, and are correlated close to a predefined correlation matrix.
+values so the data replicate a rating scale,
+and are correlated close to a predefined correlation matrix.
+
 \code{makeItems()} is wrapper function for:
 \itemize{
-\item \code{lfast()}, which takes repeated samples selecting a vector that
-best fits the desired moments, and
+\item \code{lfast()}, generates a dataframe that best fits the desired
+moments, and
 \item \code{lcor()}, which rearranges values in each column of the dataframe
 so they closely match the desired correlation matrix.
 }
@@ -48,24 +49,20 @@ so they closely match the desired correlation matrix.
 ## define parameters
 
 n <- 16
-
+dfMeans <- c(2.5, 3.0, 3.0, 3.5)
+dfSds <- c(1.0, 1.0, 1.5, 0.75)
 lowerbound <- rep(1, 4)
-
 upperbound <- rep(5, 4)
 
 corMat <- matrix(
   c(
-    1.00, 0.25, 0.35, 0.40,
-    0.25, 1.00, 0.70, 0.75,
-    0.35, 0.70, 1.00, 0.80,
-    0.40, 0.75, 0.80, 1.00
+  1.00, 0.30, 0.40, 0.60,
+  0.30, 1.00, 0.50, 0.70,
+  0.40, 0.50, 1.00, 0.80,
+  0.60, 0.70, 0.80, 1.00
   ),
   nrow = 4, ncol = 4
 )
-
-dfMeans <- c(2.5, 3.0, 3.0, 3.5)
-
-dfSds <- c(1.0, 1.0, 1.5, 0.75)
 
 ## apply function
 
@@ -74,12 +71,15 @@ lowerbound = lowerbound, upperbound = upperbound, cormatrix = corMat)
 
 ## test function
 
-print(df)
+str(df)
 
+# means
 apply(df, 2, mean) |> round(3)
 
+# standard deviations
 apply(df, 2, sd) |> round(3)
 
+# correlations
 cor(df) |> round(3)
 
 

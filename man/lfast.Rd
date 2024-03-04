@@ -2,7 +2,7 @@
 % Please edit documentation in R/lfast.R
 \name{lfast}
 \alias{lfast}
-\title{Rating scale data (e.g. Likert scale) from a Scaled Beta Distribution}
+\title{Synthesise rating-scale data from a Scaled Beta Distribution}
 \usage{
 lfast(n, mean, sd, lowerbound, upperbound, items = 1)
 }
@@ -23,16 +23,17 @@ lfast(n, mean, sd, lowerbound, upperbound, items = 1)
 a vector of simulated data approximating user-specified conditions.
 }
 \description{
+\code{lfast()} takes repeated samples selecting a vector
+that best fits the desired moments.
+
 \code{lfast()} generates random discrete values from a
-(scaled Beta distribution) so the data replicate a rating scale -
-for example,a 1-5 scale made from 5 items (questions) or 0-10
+scaled Beta distribution so the data replicate a rating scale -
+for example, a 1-5 Likert scale made from 5 items (questions) or 0-10
 likelihood-of-purchase scale.
-\code{lfast()} takes repeated samples selecting a vector that best
-fits the desired moments, while \code{lfast()} takes just one sample.
-\code{lfast()} is slightly slower than \code{lfast()}.
 }
 \examples{
 
+## six-item 1-7 rating scale
 x <- lfast(
   n = 256,
   mean = 4.0,
@@ -42,6 +43,7 @@ x <- lfast(
   items = 6
 )
 
+## eleven-point 'likelihood of purchase' scale
 x <- lfast(256, 2, 1.8, 0, 10)
 
 }
