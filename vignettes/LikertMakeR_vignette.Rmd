@@ -53,7 +53,8 @@ If multiple columns are generated, then you can use
 **_LikertMakeR_** to rearrange the values so that the new variables are 
 correlated exactly in accord with a user-predefined correlation matrix. 
 
-Functions can be combined to generate synthetic rating-scale data from a predefined Cronbach's Alpha.
+Functions can be combined to generate synthetic rating-scale data from a 
+predefined Cronbach's Alpha.
 
 ## Purpose
 
@@ -71,8 +72,9 @@ properties.
 
 Hopefully, this tool will help researchers, teachers, and other reviewers, 
 to better think about rating-scale distributions, and the effects of variance, 
-scale boundaries, and number of items in a scale.
-
+scale boundaries, and number of items in a scale. 
+Researchers can also use _LikertMakeR_ to prepare analyses ahead of a 
+formal survey.
 
 
 ## Rating scale properties
@@ -103,15 +105,15 @@ _____
 
 ## _LikertMakeR_ functions
 
- * _lfast()_ quickly generate a vector of values with 
- approximate predefined moments. 
+ * _lfast()_ generate a vector of values with predefined 
+ mean and standard deviation. 
  
  * _lcor()_ takes a dataframe of rating-scale values and rearranges the 
  values in each column so that the columns are correlated to match a 
  predefined correlation matrix.
  
  * _makeCorrAlpha_ constructs a random correlation matrix of given 
- dimensions and predefined Cronbach's Alpha.
+ dimensions from a predefined Cronbach's Alpha.
  
  * _makeItems()_ is a wrapper function for _lfast()_ 
  and _lcor()_ to generate synthetic rating-scale data with predefined 
@@ -169,8 +171,8 @@ the following parameters:
 
  - **_items_**: number of items making the scale - default = 1
 
-The previous version of _LikertMakeR_ had a function, _lexact()_, 
- which was very slow and no more accurate than _lfast()_. 
+The previous version of _LikertMakeR_ had a function, _lexact()_, which was 
+slow and no more accurate than the latest version of _lfast()_. 
  So, _lexact()_ is now deprecated. 
  
 ____
@@ -382,6 +384,8 @@ values in the correlation matrix. Default = '0.5'.
 A value of '0' produces a matrix where all off-diagonal correlations 
 are equal. 
 Setting 'variance = 1.0' gives a wider range of values. 
+Setting 'variance = 2.0', or above, may be feasible but increases the 
+likelihood of a non-positive-definite matrix.
 
 ### makeCorrAlpha() is volatile
 
