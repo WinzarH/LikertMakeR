@@ -6,7 +6,7 @@ bibentry(
   author   = as.person("Hume Winzar"),
   year     = 2022,
   url      = "https://github.com/WinzarH/LikertMakeR",
-  note     = "Latest version: 0.1.9, February 2024",
+  note     = "Latest version: 0.2.1, March 2024",
   textVersion = paste(
   "Winzar, H. (2022). LikertMakeR: Synthesise and correlate rating-scale data with predefined first & second moments, https://github.com/WinzarH/LikertMakeR"
   )
