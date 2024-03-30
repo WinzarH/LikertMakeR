@@ -8,7 +8,8 @@ Authors@R:
 Description: Synthesise rating-scale data with predefined first & second
     moments (mean & standard deviation) and, optionally, correlate
     multiple vectors with predefined correlation matrix.  Also generate
-    synthetic rating-scale data with predefined Cronbach's Alpha.
+    synthetic rating-scale data with predefined Cronbach's Alpha, 
+    or generate rating-scale items from a predefined scale.
 License: MIT + file LICENSE
 URL: https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
