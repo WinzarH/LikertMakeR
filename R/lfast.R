@@ -38,7 +38,7 @@
 #' )
 #'
 #' ## eleven-point 'likelihood of purchase' scale
-#' x <- lfast(256, 2, 1.8, 0, 10)
+#' x <- lfast(256, 3, 3.0, 0, 10)
 #'
 lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1) {
   range <- upperbound - lowerbound
