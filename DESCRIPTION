@@ -1,35 +1,34 @@
-Package: LikertMakeR
-Version: 0.2.0
 Type: Package
+Package: LikertMakeR
 Title: Synthesise and Correlate Rating-Scale Data
+Version: 0.2.2
 Authors@R: 
-    person(
-    given = "Hume", 
-    family = "Winzar", 
-    email = "winzar@gmail.com", 
-    role = c("cre", "aut"),
-    comment = c(ORCID = "0000-0001-7475-2641")
-    )
-Description: Synthesise rating-scale data with predefined 
-  first & second moments (mean & standard deviation) and, optionally, 
-  correlate multiple vectors with predefined correlation matrix. 
-  Also generate synthetic rating-scale data with predefined Cronbach's Alpha.
+    person("Hume", "Winzar", , "winzar@gmail.com", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0001-7475-2641"))
+Description: Synthesise rating-scale data with predefined first & second
+    moments (mean & standard deviation) and, optionally, correlate
+    multiple vectors with predefined correlation matrix.  Also generate
+    synthetic rating-scale data with predefined Cronbach's Alpha.
+License: MIT + file LICENSE
 URL: https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
-License: MIT + file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-Language: en-GB
-VignetteBuilder: knitr
-Depends: R (>= 4.2.0)
+Depends: 
+    R (>= 4.2.0)
 Imports: 
+    dplyr,
+    gtools,
     Rcpp
-LinkingTo: 
-    Rcpp, 
-    RcppArmadillo
 Suggests: 
-    rmarkdown,
     knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
-RoxygenNote: 7.3.1
+LinkingTo: 
+    Rcpp,
+    RcppArmadillo
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-GB
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1

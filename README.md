@@ -1,10 +1,11 @@
-
+  <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![metacran downloads total](https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR)](https://cran.r-project.org/package=LikertMakeR)
 [![metacran downloads last month](https://cranlogs.r-pkg.org/badges/last-month/LikertMakeR)](https://cran.r-project.org/package=LikertMakeR)
+[![R-CMD-check](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml)
+  <!-- badges: end -->
 
-
-# LikertMakeR (V 0.2.0  March 2024)
+# LikertMakeR (V 0.2.2  April 2024)
 
 Synthesise and correlate rating-scale data with predefined first & second moments (mean and standard deviation)
 
@@ -51,6 +52,8 @@ Functions in this development version of **_LikertMakeR_** are:
   to generate synthetic rating-scale data with predefined first and second 
   moments and a predefined correlation matrix
   
+  - [**_makeItemsScale()_**](#Generate-a-dataframe-of-rating-scale-items-from-a-summative-scale) Generate a dataframe of rating scale items from a summative scale
+
   - [**_alpha()_**](#alpha()) calculates Cronbach's Alpha from a given 
   correlation matrix or a given dataframe
   
@@ -371,6 +374,31 @@ _makeItems()_ is a wrapper function for:
     apply(df, 2, sd) |> round(3)
     
     cor(df) |> round(3)
+
+
+
+## Generate a dataframe of rating-scale items from a summated rating scale
+
+### makeItemsScale()
+
+  -  **_makeItemsScale()_** generate a dataframe of rating-scale items from a summated rating scale.
+ 
+#### _makeItemsScale()_ Example: all values in a five-item, seven-point Likert scale
+
+  lower <- 1
+  upper <- 7
+  items <- 5
+
+  myvalues <- c((lower * items):(upper * items))
+
+  ## apply function test
+
+  makeItemsScale(
+    scale = myvalues,
+    lowerbound = lower,
+    upperbound = upper,
+    items = items
+  )
 
 ## Helper functions
 
