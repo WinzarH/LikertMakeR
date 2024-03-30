@@ -1,6 +1,6 @@
-## Unit tests for makeCorrAlpha() function
+## Unit tests for makeItems() function
 
-test_that("makeCorrAlpha runs silently with valid inputs", {
+test_that("makeItems runs silently with valid inputs", {
   ## define parameters
   n <- 16
   lowerbound <- rep(1, 4)
