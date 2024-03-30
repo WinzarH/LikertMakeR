@@ -845,6 +845,19 @@ See [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/in
 - [covsim: VITA, IG and PLSIM Simulation for Given Covariance and Marginals](https://cran.r-project.org/package=covsim) on CRAN. 
 See [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)
 
+### Factor Models: Classical Test Theory (CTT) 
+
+The [psych package](https://CRAN.R-project.org/package=psych) has several 
+excellent functions for simulating rating-scale data based on factor loadings. 
+These focus on factor and item correlations rather than item moments. 
+Highly recommended.
+
+- [**_psych::sim.item_**  Generate simulated data structures for circumplex, spherical, or simple structure](https://CRAN.R-project.org/package=psych)
+
+- [**_psych::sim.congeneric_** Simulate a congeneric data set with or without minor factors](https://CRAN.R-project.org/package=psych)
+See [Revelle (in prep)](https://personality-project.org/r/book/)
+
+
 ____
 
 
@@ -865,6 +878,8 @@ Matta, T.H., Rutkowski, L., Rutkowski, D. & Liaw, Y.L. (2018),
 lsasim: an R package for simulating large-scale assessment data. 
 _Large-scale Assessments in Education_ 6, 15. 
 <doi:10.1186/s40536-018-0068-8>
+
+Revelle, W. (in prep) _An introduction to psychometric theory with applications in R_. To be published by Springer. (working draft available at <https://personality-project.org/r/book/> )
 
 Touloumis, A. (2016), Simulating Correlated Binary and Multinomial Responses 
 under Marginal Model Specification: The SimCorMultRes Package, 
