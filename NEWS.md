@@ -1,3 +1,13 @@
+
+# LikertMakeR 0.2.2 (2024-03-31)
+
+## makeItemsScale() function
+
+Generate rating-scale items from a given summated scale
+
+
+
+
 # LikertMakeR 0.2.0 (2024-03-02)
 
 ## For submission to CRAN

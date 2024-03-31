@@ -292,6 +292,7 @@ The user is encouraged to try again, possibly several times, to find one.
 #### test output with Helper functions
 
     alpha(cor_matrix_4)
+    
     eigenvalues(cor_matrix_4, 1)
 
 ###  four variables, Alpha = 0.90, larger variance
@@ -311,6 +312,7 @@ The user is encouraged to try again, possibly several times, to find one.
 #### test output
 
     alpha(cor_matrix_12)
+    
     eigenvalues(cor_matrix_12, 1)
 
 ____
@@ -376,7 +378,6 @@ _makeItems()_ is a wrapper function for:
     cor(df) |> round(3)
 
 
-
 ## Generate a dataframe of rating-scale items from a summated rating scale
 
 ### makeItemsScale()
@@ -385,20 +386,20 @@ _makeItems()_ is a wrapper function for:
  
 #### _makeItemsScale()_ Example: all values in a five-item, seven-point Likert scale
 
-  lower <- 1
-  upper <- 7
-  items <- 5
+    lower <- 1
+    upper <- 7
+    items <- 5
 
-  myvalues <- c((lower * items):(upper * items))
+    myvalues <- c((lower * items):(upper * items))
 
-  ## apply function test
+#### apply makeItemsScale() function 
 
-  makeItemsScale(
-    scale = myvalues,
-    lowerbound = lower,
-    upperbound = upper,
-    items = items
-  )
+    makeItemsScale(
+     scale = myvalues,
+     lowerbound = lower,
+     upperbound = upper,
+     items = items
+    )
 
 ## Helper functions
 
@@ -479,8 +480,6 @@ _eigenvalues()_ calculates eigenvalues of a correlation
     print(evals)
  
     evals <- eigenvalues(correlationMatrix, 1)
-
-
 
 
 ****
