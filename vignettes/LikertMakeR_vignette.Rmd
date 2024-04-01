@@ -858,6 +858,12 @@ Highly recommended.
 See [Revelle (in prep)](https://personality-project.org/r/book/)
 
 
+### General data simulation
+
+[**_simpr_**](https://CRAN.R-project.org/package=simpr) provides a general, 
+simple, and tidyverse-friendly framework for generating simulated data, 
+fitting models on simulations, and tidying model results.
+
 ____
 
 
