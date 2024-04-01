@@ -1,3 +1,5 @@
+# 
+
   <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![metacran downloads total](https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR)](https://cran.r-project.org/package=LikertMakeR)
@@ -5,13 +7,11 @@
 [![R-CMD-check](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml)
   <!-- badges: end -->
 
-# LikertMakeR (V 0.2.2  April 2024)
+# LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
+
+(V 0.2.2  April 2024)
 
 Synthesise and correlate rating-scale data with predefined first & second moments (mean and standard deviation)
-
-<p align="center">
-  <img src="vignettes/LikertMakeR_2.png" width="250" alt="LikertMakeR logo">
-</p>
 
 
 **_LikertMakeR_** synthesises Likert scale and related rating-scale data. 
@@ -26,13 +26,13 @@ The package is intended for
   when only summary statistics have been reported, 
    
   2. teaching. Helping researchers and students to better understand the 
-  relationships among scale properties, sample size, number of items, etc.. 
+  relationships among scale properties, sample size, number of items, etc ...  
 
   3. checking the feasibility of scale moments with given scale and 
   correlation properties 
 
 
-Functions in this development version of **_LikertMakeR_** are:
+Functions in this version of **_LikertMakeR_** are:
 
   -  [**_lfast()_**](#lfast()-&-lfast()) draws repeated random samples from a 
   scaled _Beta_ distribution to approximate predefined first and second moments
@@ -52,7 +52,8 @@ Functions in this development version of **_LikertMakeR_** are:
   to generate synthetic rating-scale data with predefined first and second 
   moments and a predefined correlation matrix
   
-  - [**_makeItemsScale()_**](#Generate-a-dataframe-of-rating-scale-items-from-a-summative-scale) Generate a dataframe of rating scale items from a summative scale
+  - [**_makeItemsScale()_**](#Generate-a-dataframe-of-rating-scale-items-from-a-summative-scale) 
+  Generate a dataframe of rating scale items from a summative scale
 
   - [**_alpha()_**](#alpha()) calculates Cronbach's Alpha from a given 
   correlation matrix or a given dataframe
@@ -94,10 +95,12 @@ This approach is good for testing Likert items but it does not help when
 working on complete Likert scales, or for when we want to specify means 
 and standard deviations as they might be reported in published research.  
 
-The functions `lfast()`, `lfast()`, and
-   `lexact()` allow the user to specify exact 
+The function `lfast()` allows the user to specify exact 
 univariate statistics as they might ordinarily be reported. 
-
+`lcor()` will take multiple scales created with `lfast()` and rearrange 
+values so that the vectors are correlated.
+`makeCorrAlpha()` generates a correlation matrix from a predefined 
+_Cronbach's Alpha_.
 
 
 ## Install _LikertMakeR_
