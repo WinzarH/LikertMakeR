@@ -26,7 +26,7 @@
 #'
 #' @examples
 #'
-#' # define parameters
+#' ## define parameters
 #' items <- 4
 #' lowerbound <- 1
 #' upperbound <- 5
@@ -38,35 +38,90 @@
 #'
 #' ## create scale
 #' set.seed(42)
-#' meanScale <- lfast(n = n, mean = mean, sd = sd,
-#'      lowerbound = lowerbound, upperbound = upperbound,
-#'      items = items)
+#' meanScale <- lfast(
+#'   n = n, mean = mean, sd = sd,
+#'   lowerbound = lowerbound, upperbound = upperbound,
+#'   items = items
+#' )
 #' summatedScale <- meanScale * items
 #'
 #' ## create items
-#' newItems <- makeItemsScale(scale = summatedScale,
-#'      lowerbound = lowerbound, upperbound = upperbound,
-#'      items = items)
+#' newItems <- makeItemsScale(
+#'   scale = summatedScale,
+#'   lowerbound = lowerbound, upperbound = upperbound,
+#'   items = items
+#' )
 #' head(newItems)
 #'
-#'
-#'
+#' ##
+#' ## Testing Lowest value to Highest value of a scale
+#' ##
 #' lowerbound <- 1
-#' upperbound <- 7
-#' items <- 3
+#' upperbound <- 5
+#' items <- 6
 #'
+#' # lowest to highest values
 #' myvalues <- c((lowerbound * items):(upperbound * items))
 #'
-#' mydata <- makeItemsScale(scale = myvalues,
-#'      lowerbound = lowerbound, upperbound = upperbound,
-#'      items = items)
+#' ## Low variance usually gives higher Cronbach's Alpha
+#' mydat_20 <- makeItemsScale(
+#'   scale = myvalues,
+#'   lowerbound = lowerbound, upperbound = upperbound,
+#'   items = items, variance = 0.20
+#' )
 #'
-#' mydata
+#' mydat_20
+#' moments <- data.frame(
+#' means = apply(mydat_20, MARGIN = 2, FUN = mean) |> round(3),
+#' sds = apply(mydat_20, MARGIN = 2, FUN = sd) |> round(3)
+#' ) |> t()
+#' moments
+#' cor(mydat_20) |> round(2)
+#' alpha(mydat_20) > round(2)
+#'
+#'
+#' ## default variance
+#' mydat_50 <- makeItemsScale(
+#'   scale = myvalues,
+#'   lowerbound = lowerbound, upperbound = upperbound,
+#'   items = items, variance = 0.50
+#' )
+#'
+#' mydat_50
+#' moments <- data.frame(
+#' means = apply(mydat_50, MARGIN = 2, FUN = mean) |> round(3),
+#' sds = apply(mydat_50, MARGIN = 2, FUN = sd) |> round(3)
+#' ) |> t()
+#' moments
+#' cor(mydat_50) |> round(2)
+#' alpha(mydat_50) > round(2)
+#'
+#'
+#' ## higher variance usually gives lower Cronbach's Alpha
+#' mydat_80 <- makeItemsScale(
+#'   scale = myvalues,
+#'   lowerbound = lowerbound, upperbound = upperbound,
+#'   items = items, variance = 0.80
+#' )
+#'
+#' mydat_80
+#' moments <- data.frame(
+#' means = apply(mydat_80, MARGIN = 2, FUN = mean) |> round(3),
+#' sds = apply(mydat_80, MARGIN = 2, FUN = sd) |> round(3)
+#' ) |> t()
+#' moments
+#' cor(mydat_80) |> round(2)
+#' alpha(mydat_80) > round(2)
+#'
 #'
 
-makeItemsScale <- function(scale, lowerbound, upperbound, items) {
+makeItemsScale <- function(scale, lowerbound, upperbound, items, variance = 0.5) {
+  ## idiot checks
+  # if (min(scale) <= lowerbound || max(scale) >= upperbound) {
+  #   stop("ERROR: Scale and Bounds are out of range")
+  # }
+
   makeCombinations <- function(lowerbound, upperbound, items) {
-
     # combinations(n, r, v = 1:n, set = TRUE, repeats.allowed = FALSE)
     # n:  Size of the source vector
     # r:  Size of the target vectors
@@ -90,13 +145,17 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items) {
     shortdat <- filter(mycombinations, mycombinations$sums == targetSum)
     sds <- apply(shortdat[, 1:items], MARGIN = 1, FUN = sd)
     shortdat <- cbind(shortdat, sds)
-    sliceRow <- ifelse((nrow(shortdat) > 1 & min(shortdat$sds) == 0), 2, 1)
+
+    sliceRow <- ifelse(nrow(shortdat) > 1,
+      as.integer(quantile(c(1:nrow(shortdat)), probs = variance)),
+      1
+    )
+
     vec <- shortdat |>
       arrange(sds) |>
       slice(sliceRow) |>
-      # select(all_of(1:items)) |>
-      select(1:items) |>
-      permute()
+      select(all_of(1:items))
+
     return(vec)
   }
 
@@ -105,12 +164,21 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items) {
     upperbound = upperbound,
     items = items
   )
+
   mydat <- data.frame(NULL)
+
   for (i in 1:length(scale)) {
-    vRow <- makeVector(candidates, scale[i], items)
+    vRow <- makeVector(candidates, scale[i], items) |>
+      permute()
     mydat <- rbind(mydat, vRow)
+  }
+
+  mydat <- mydat |>
+    select(order(colnames(mydat)))
+
+  for (i in 1:nrow(mydat)) {
+    mydat[i, ] <- mydat[i, ] |> permute()
   }
 
   return(mydat)
 }
-
