@@ -34,8 +34,9 @@ The package is intended for
 
 Functions in this version of **_LikertMakeR_** are:
 
-  -  [**_lfast()_**](#lfast()-&-lfast()) draws repeated random samples from a 
-  scaled _Beta_ distribution to approximate predefined first and second moments
+  -  [**_lfast()_**](#lfast()) applies a simple _Evolutionary Algorithm_, 
+  based on repeated random samples from a scaled _Beta_ distribution, to 
+  approximate predefined first and second moments
   
   -  [**_lexact()_**](#lexact()) DEPRECATED. Use _lfast()_ instead.
 
@@ -48,7 +49,7 @@ Functions in this version of **_LikertMakeR_** are:
   dimensions and predefined Cronbach's Alpha
   
   - [**_makeItems()_**](#Generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments) 
-  is a wrapper function for _lfast()_ and _lcor_C()_ 
+  is a wrapper function for _lfast()_ and _lcor()_ 
   to generate synthetic rating-scale data with predefined first and second 
   moments and a predefined correlation matrix
   
@@ -123,7 +124,17 @@ author's _GitHub_ repository.
 
 ## Generate synthetic rating scales
 
-To synthesise a rating scale, the user must input the following parameters:
+### lfast() 
+
+  -  **_lfast()_** draws repeated random samples from a 
+   scaled _Beta_ distribution. 
+    It should be accurate to two decimal places.
+ 
+#### lfast() usage
+
+    lfast(n, mean, sd, lowerbound, upperbound, items = 1)
+ 
+##### lfast arguments
 
 -  **_n_**: sample size 
   
@@ -131,33 +142,26 @@ To synthesise a rating scale, the user must input the following parameters:
   
 -  **_sd_**: desired standard deviation
   
--  **_lowerbound_**: desired lower bound
+-  **_lowerbound_**: desired lower bound (e.g. '1' for a 1-5 rating scale)
   
--  **_upperbound_**: desired upper bound 
+-  **_upperbound_**: desired upper bound (e.g. '5' for a 1-5 rating scale)
   
 -  **_items_**: number of items making the scale. Default&nbsp;=&nbsp;1 
   
--  **_seed_**: optional seed for reproducibility 
-  
-    
-### lfast() 
 
-  -  **_lfast()_** draws repeated random samples from a 
-   scaled _Beta_ distribution. 
-    It should be accurate to two decimal places.
- 
 #### _lfast()_ Example: a five-item, seven-point Likert scale
 
      x <- lfast(
        n = 256, 
-       mean = 4.5, sd = 1.0, 
+       mean = 4.5, 
+       sd = 1.0, 
        lowerbound = 1, 
        upperbound = 7, 
        items = 5
        )
      
 
-#### _lfast()_ Example:  an 11-point likelihood-of-purchase scale
+#### _lfast()_ Example:  an 11-point _likelihood-of-purchase_ scale
  
      x <- lfast(256, 2.5, 2.5, 0, 10)
      
@@ -165,14 +169,20 @@ ____
 
 ## Correlating vectors of synthetic rating scales
 
-The function, **_lcor()_**, rearranges the values in the columns of a data 
-set so that they are correlated at a specified level. 
+### lcor() 
+
+The function, **_lcor()_**, applies a simple evolutionary algorithm to 
+rearrange the values in the columns of a data set so that they are correlated 
+at a specified level. 
 **_lcor()_** does not change the values - it swaps their positions in each 
 column so that univariate statistics do not change, 
 but their correlations with other columns do.
 
-To create the desired correlations, the user must define the 
-following objects: 
+#### lcor() usage
+
+      lcor(data, target)
+
+##### lcor() arguments
 
   -  **_data_**: a starter data set of rating-scales 
   
@@ -184,9 +194,7 @@ following objects:
 
 ####  generate synthetic data
      
-     set.seed(42) ## for reproducibility
-     
-     n <- 64
+      n <- 64
      x1 <- lfast(n, 3.5, 1.00, 1, 5, 5) 
      x2 <- lfast(n, 1.5, 0.75, 1, 5, 5) 
      x3 <- lfast(n, 3.0, 1.70, 1, 5, 5) 
@@ -210,12 +218,7 @@ following objects:
      nrow = 4
      )
      
-
-####  Apply _lcor()_ to rearrange values in each column achieving desired correlations
-
-
-##### _lcor()_ application
-
+#### _lcor()_ application
 
      new4 <- lcor(data = mydat4, target = tgt4)
      
@@ -223,7 +226,7 @@ following objects:
 
 
 
-### _lcor()_  example #2
+### _lcor()_ example #2
 
 
 #####  three starting columns and a different target correlation matrix
@@ -249,12 +252,34 @@ following objects:
 
 ____
 
-# Generate a correlation matrix from Cronbach's Alpha
+## Generate a correlation matrix from Cronbach's Alpha
 
-## makeCorrAlpha()
+### makeCorrAlpha()
 
 **_makeCorrAlpha()_**, constructs a random correlation matrix of given 
  dimensions and predefined Cronbach's Alpha. 
+
+
+#### makeCorrAlpha() usage
+
+      makeCorrAlpha(items, alpha, variance = 0.5)
+
+##### makeCorrAlpha() arguments
+
+  -  **_items_**: = 'k '= number of rows & columns to generate 
+  
+  -  **_alpha_**: the target correlation matrixtarget Cronbach's Alpha 
+  (usually positive, must be between -1 and +1) 
+  
+  -  **_variance_**: standard deviation of values sampled from a 
+  normally-distributed log transformation. 
+  Default = '0.5'. 
+  A value of '0' makes all values in the correlation matrix the same, 
+  equal to the mean correlation needed to produce the desired _Alpha_. 
+  A value of '2', or more, risks producing a matrix that is not 
+  positive-definite, so not feasible.
+
+#### NOTE
 
 Random values generated by _makeCorrAlpha()_ are volatile.
  _makeCorrAlpha()_ may not generate a feasible (positive-definite)
@@ -275,24 +300,22 @@ a feasible solution still may be possible, and often is.
 The user is encouraged to try again, possibly several times, to find one.
 
 
-## _makeCorrAlpha()_ examples
+### _makeCorrAlpha()_ examples
 
 
 ###  four variables, Alpha = 0.85
 
-#### define parameters 
+##### define parameters 
 
     items <- 4
     alpha <- 0.85
     variance <- 0.5  
 
-#### apply makeCorrAlpha() function
+##### apply makeCorrAlpha() function
 
-    set.seed(42)
-    
     cor_matrix_4 <- makeCorrAlpha(items, alpha, variance)
 
-#### test output with Helper functions
+##### test output with Helper functions
 
     alpha(cor_matrix_4)
     
@@ -300,19 +323,17 @@ The user is encouraged to try again, possibly several times, to find one.
 
 ###  four variables, Alpha = 0.90, larger variance
 
-#### define parameters 
+##### define parameters 
 
     items <- 12
     alpha <- 0.90
     variance <- 1.0
 
-#### apply makeCorrAlpha() function
-
-    set.seed(42) 
+##@## apply makeCorrAlpha() function
 
     cor_matrix_12 <- makeCorrAlpha(items, alpha, variance)
 
-#### test output
+##### test output
 
     alpha(cor_matrix_12)
     
@@ -330,11 +351,36 @@ scale, and are correlated close to a predefined correlation matrix.
 
 _makeItems()_ is a wrapper function for:
 
- * _lfast()_, which takes repeated samples selecting a vector that
-  best fits the desired moments, and
+ * _lfast()_, which generates a vector that best fits the desired moments, and
   
  * _lcor()_, which rearranges values in each column of the dataframe
   so they closely match the desired correlation matrix.
+
+
+#### _makeItems()_ usage 
+
+    makeItems(n, means, sds, lowerbound, upperbound, cormatrix)
+
+#### _makeItems()_ arguments
+
+  - **_n_**: number of observations to generate
+
+  - **_means_**: target means: a vector of length k of mean values for each 
+  scale item
+
+  - **_sds_**: target standard deviations: a vector of length k of standard 
+  deviation values for each scale item
+
+  - **_lowerbound_**: vector of length k (same as rows & columns of correlation 
+  matrix) of values for lower bound of each scale item (e.g. '1' for a 1-5 
+  rating scale)
+
+  - **_upperbound_**:	vector of length k (same as rows & columns of correlation 
+  matrix) of values for upper bound of each scale item (e.g. '5' for a 1-5 
+  rating scale)
+
+  - **_cormatrix_**: target correlation matrix: a square symmetric matrix of 
+  values renging between '-1 'and '+1', and '1' in the diagonal.
 
 
 ### _makeItems()_ examples
@@ -386,8 +432,26 @@ _makeItems()_ is a wrapper function for:
 ### makeItemsScale()
 
   -  **_makeItemsScale()_** generate a dataframe of rating-scale items from a summated rating scale.
+
+#### _makeItemsScale()_ usage 
+
+    makeItemsScale(scale, lowerbound, upperbound, items)
+
+#### _makeItemsScale()_ arguments 
+
+  - **_scale_**: a vector or dataframe of the summated rating scale.
+ Should range from ('lowerbound' * 'items') to ('upperbound' * 'items') 
  
-#### _makeItemsScale()_ Example: all values in a five-item, seven-point Likert scale
+  - **_lowerbound_**: lower bound of the scale item
+ (example: '1' in a '1' to '5' rating) 
+ 
+  - **_upperbound_**:  upper bound of the scale item
+ (example: '5' in a '1' to '5' rating) 
+ 
+  - **_items_**: k, or number of columns to generate
+  
+ 
+#### _makeItemsScale()_ Example: all possible values in a five-item, seven-point summated Likert scale
 
     lower <- 1
     upper <- 7
@@ -404,15 +468,48 @@ _makeItems()_ is a wrapper function for:
      items = items
     )
 
+#### _makeItemsScale()_ Example #2
+
+##### generate a summated scale
+
+    n <- 64
+    mean <- 3.5
+    sd <- 1.00
+    lowerbound <- 1
+    upperbound <- 5
+    items <- 4
+
+    meanScale <- lfast(
+      n = n, mean = mean, sd = sd,
+      lowerbound = lowerbound, upperbound = upperbound,
+      items = items 
+    )
+
+    summatedScale <- meanScale * items
+
+#### create items
+
+    newItems <- makeItemsScale(
+      scale = summatedScale,
+      lowerbound = lowerbound, 
+      upperbound = upperbound,
+      items = items
+    )
+
+
+
+
+
+
 ## Helper functions
 
 _likertMakeR()_ includes two additional functions that may be of help 
  when examining parameters and output.
 
- * **_alpha()_** calculates Cronbach's Alpha from a given correlation 
+ - **_alpha()_** calculates Cronbach's Alpha from a given correlation 
   matrix or a given dataframe
   
- * **_eigenvalues()_** calculates eigenvalues of a correlation matrix, 
+ - **_eigenvalues()_** calculates eigenvalues of a correlation matrix, 
  a report on whether the correlation matrix is positive definite and 
  an optional scree plot
 
@@ -422,9 +519,18 @@ _alpha()_ accepts, as input, either a correlation matrix or a dataframe.
 If both are submitted, then the correlation matrix is used by default, 
 with a message to that effect.
 
-### alpha() examples
+#### alpha() usage
 
-#### define parameters
+    alpha(cormatrix = NULL, data = NULL)
+
+#### alpha() arguments
+
+ - **_cormatrix_**: a square symmetrical matrix with values ranging from 
+ '-1' to '+1' and '1' in the diagonal
+
+ - **_data_**: a data frame or data matrix
+
+#### alpha() examples
 
 ##### Sample data frame
 
@@ -450,6 +556,8 @@ with a message to that effect.
 #### apply function examples
 
     alpha(cormatrix = corMat)
+    
+    alpha(data = df)
 
     alpha(NULL, df)
 
@@ -461,6 +569,16 @@ _eigenvalues()_ calculates eigenvalues of a correlation
  matrix, reports on whether the matrix is positive-definite,
  and optionally produces a scree plot.
 
+#### eigenvalues() usage 
+
+    eigenvalues(cormatrix, scree = FALSE) 
+
+#### eigenvalues() arguments 
+
+ - **_cormatrix_**: a correlation matrix
+
+ - **_scree_**: (logical) default = FALSE. If TRUE (or 1), 
+ then eigenvalues() produces a scree plot to illustrate the eigenvalues
 
 ### eigenvalues() examples
 
