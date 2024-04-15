@@ -1,7 +1,7 @@
 
 # LikertMakeR 0.2.2 (2024-03-31)
 
-## makeItemsScale() function
+## added makeItemsScale() function
 
 Generate rating-scale items from a given summated scale
 
