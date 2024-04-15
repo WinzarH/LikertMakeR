@@ -126,27 +126,27 @@ author's _GitHub_ repository.
 
 ### lfast() 
 
-  -  **_lfast()_** draws repeated random samples from a 
-   scaled _Beta_ distribution. 
+  -  **_lfast()_** generates a vector of synthetic values with 
+    predefined first and second moments. 
     It should be accurate to two decimal places.
  
 #### lfast() usage
 
     lfast(n, mean, sd, lowerbound, upperbound, items = 1)
- 
+
 ##### lfast arguments
 
--  **_n_**: sample size 
+  -  **_n_**: sample size 
   
--  **_mean_**: desired mean 
+  -  **_mean_**: desired mean 
   
--  **_sd_**: desired standard deviation
+  -  **_sd_**: desired standard deviation
   
--  **_lowerbound_**: desired lower bound (e.g. '1' for a 1-5 rating scale)
+  -  **_lowerbound_**: desired lower bound (e.g. '1' for a 1-5 rating scale)
   
--  **_upperbound_**: desired upper bound (e.g. '5' for a 1-5 rating scale)
+  -  **_upperbound_**: desired upper bound (e.g. '5' for a 1-5 rating scale)
   
--  **_items_**: number of items making the scale. Default&nbsp;=&nbsp;1 
+  -  **_items_**: number of items making the scale. Default&nbsp;=&nbsp;1 
   
 
 #### _lfast()_ Example: a five-item, seven-point Likert scale
@@ -351,9 +351,9 @@ scale, and are correlated close to a predefined correlation matrix.
 
 _makeItems()_ is a wrapper function for:
 
- * _lfast()_, which generates a vector that best fits the desired moments, and
+  * _lfast()_, which generates a vector that best fits the desired moments, and
   
- * _lcor()_, which rearranges values in each column of the dataframe
+  * _lcor()_, which rearranges values in each column of the dataframe
   so they closely match the desired correlation matrix.
 
 
@@ -440,13 +440,13 @@ _makeItems()_ is a wrapper function for:
 #### _makeItemsScale()_ arguments 
 
   - **_scale_**: a vector or dataframe of the summated rating scale.
- Should range from ('lowerbound' * 'items') to ('upperbound' * 'items') 
+   Should range from ('lowerbound' * 'items') to ('upperbound' * 'items') 
  
   - **_lowerbound_**: lower bound of the scale item
- (example: '1' in a '1' to '5' rating) 
+   (example: '1' in a '1' to '5' rating) 
  
   - **_upperbound_**:  upper bound of the scale item
- (example: '5' in a '1' to '5' rating) 
+   (example: '5' in a '1' to '5' rating) 
  
   - **_items_**: k, or number of columns to generate
   
@@ -495,10 +495,6 @@ _makeItems()_ is a wrapper function for:
       upperbound = upperbound,
       items = items
     )
-
-
-
-
 
 
 ## Helper functions
