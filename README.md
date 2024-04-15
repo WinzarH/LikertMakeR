@@ -1,3 +1,4 @@
+
 # 
 
   <!-- badges: start -->
@@ -266,7 +267,8 @@ ____
 
 ##### makeCorrAlpha() arguments
 
-  -  **_items_**: 'k' = number of rows & columns to generate 
+  -  **_items_**: 'k', dimensions (number of rows & columns) of the
+   desired correlation matrix 
   
   -  **_alpha_**: target Cronbach's Alpha 
   (usually positive, must be greater than '-1' and less than '+1') 
@@ -599,7 +601,8 @@ _eigenvalues()_ calculates eigenvalues of a correlation
     evals <- eigenvalues(correlationMatrix, 1)
 
 
-****
+____
+
 
 ### To cite _LikertMakeR_
 
