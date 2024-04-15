@@ -266,10 +266,10 @@ ____
 
 ##### makeCorrAlpha() arguments
 
-  -  **_items_**: = 'k '= number of rows & columns to generate 
+  -  **_items_**: 'k' = number of rows & columns to generate 
   
-  -  **_alpha_**: the target correlation matrixtarget Cronbach's Alpha 
-  (usually positive, must be between -1 and +1) 
+  -  **_alpha_**: target Cronbach's Alpha 
+  (usually positive, must be greater than '-1' and less than '+1') 
   
   -  **_variance_**: standard deviation of values sampled from a 
   normally-distributed log transformation. 
