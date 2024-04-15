@@ -331,7 +331,7 @@ The user is encouraged to try again, possibly several times, to find one.
     alpha <- 0.90
     variance <- 1.0
 
-##@## apply makeCorrAlpha() function
+##### apply makeCorrAlpha() function
 
     cor_matrix_12 <- makeCorrAlpha(items, alpha, variance)
 
@@ -576,7 +576,7 @@ _eigenvalues()_ calculates eigenvalues of a correlation
  - **_cormatrix_**: a correlation matrix
 
  - **_scree_**: (logical) default = FALSE. If TRUE (or 1), 
- then eigenvalues() produces a scree plot to illustrate the eigenvalues
+ then _eigenvalues()_ produces a scree plot to illustrate the eigenvalues
 
 ### eigenvalues() examples
 
