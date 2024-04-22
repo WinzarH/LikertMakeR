@@ -76,6 +76,10 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
   ####
   ###  input parameters integrity checks
   ####
+
+  ## round correlation values to sensible values
+  cormatrix <- cormatrix |> round(5)
+
   { ## BEGIN input parameters integrity
     if (length(upperbound) != length(lowerbound) ||
       length(upperbound) != ncol(cormatrix) ||
@@ -113,8 +117,12 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
     df[, i] <- lfast(n, means[i], sds[i], lowerbound[i], upperbound[i])
   }
 
-  cat(paste0("Arranging data set"))
+  cat(paste0("\nArranging data to match correlations\n"))
   new_df <- lcor(df, cormatrix)
+
+  if (exists("new_df")) {
+    cat(paste0("\nSuccessfully generated correlated variables\n"))
+  }
 
   return(new_df)
 } ### END make_items function
