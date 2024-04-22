@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-/doc/
+/vignettes/
 /Meta/
 /extras/
 .o
