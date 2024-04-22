@@ -22,7 +22,7 @@ Should range from ('lowerbound' * 'items') to ('upperbound' * 'items')}
 from a normally-distributed log transformation. Default = '0.5'.
 
 A value of '0' makes all values in the correlation matrix the same,
-equal to the mean correlation needed to produce the desired \emph{Alpha}.
+equal to the mean correlation needed to produce the desired \emph{Cronbach's Alpha}.
 A value of '2', or more, risks producing a matrix that is not positive-
 definite, so not feasible.}
 }
@@ -63,7 +63,7 @@ newItems <- makeItemsScale(
   lowerbound = lowerbound, upperbound = upperbound,
   items = items
 )
-head(newItems)
+str(newItems)
 
 ##
 ## Testing Lowest value to Highest value of a scale
@@ -82,7 +82,7 @@ mydat_20 <- makeItemsScale(
   items = items, variance = 0.20
 )
 
-mydat_20
+str(mydat_20)
 
 moments <- data.frame(
   means = apply(mydat_20, MARGIN = 2, FUN = mean) |> round(3),
@@ -92,7 +92,7 @@ moments <- data.frame(
 moments
 
 cor(mydat_20) |> round(2)
-alpha(mydat_20) > round(2)
+alpha(mydat_20) |> round(2)
 
 
 ## default variance
@@ -102,7 +102,7 @@ mydat_50 <- makeItemsScale(
   items = items, variance = 0.50
 )
 
-mydat_50
+str(mydat_50)
 
 moments <- data.frame(
   means = apply(mydat_50, MARGIN = 2, FUN = mean) |> round(3),
@@ -112,7 +112,7 @@ moments <- data.frame(
 moments
 
 cor(mydat_50) |> round(2)
-alpha(mydat_50) > round(2)
+alpha(mydat_50) |> round(2)
 
 
 ## higher variance usually gives lower Cronbach's Alpha
@@ -122,7 +122,7 @@ mydat_80 <- makeItemsScale(
   items = items, variance = 0.80
 )
 
-mydat_80
+str(mydat_80)
 
 moments <- data.frame(
   means = apply(mydat_80, MARGIN = 2, FUN = mean) |> round(3),
@@ -132,7 +132,7 @@ moments <- data.frame(
 moments
 
 cor(mydat_80) |> round(2)
-alpha(mydat_80) > round(2)
+alpha(mydat_80) |> round(2)
 
 
 }
