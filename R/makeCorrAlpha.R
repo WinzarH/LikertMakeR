@@ -54,9 +54,9 @@
 #' cor_matrix2 <- makeCorrAlpha(items = 8, alpha = 0.95)
 #'
 #' # test output
-#' print(cor_matrix2)
-#' alpha(cor_matrix2)
-#' eigenvalues(cor_matrix2,1)
+#' cor_matrix2 |> round(2)
+#' alpha(cor_matrix2) |> round(3)
+#' eigenvalues(cor_matrix2,1) |> round(3)
 #'
 #'
 makeCorrAlpha <- function(items, alpha, variance = 0.5) {
@@ -168,7 +168,6 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5) {
         break
       }
     } ## end swap values in the correlation matrix loop
-    ###
 
     return(best_matrix)
   } ### end improve_cor_matrix Function
