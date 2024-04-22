@@ -1,5 +1,5 @@
 
-# 
+# &nbsp;
 
   <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -10,7 +10,7 @@
 
 # LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 0.2.2  April 2024)
+(V 0.2.5  April 2024)
 
 Synthesise and correlate rating-scale data with predefined first & second moments (mean and standard deviation)
 
@@ -323,7 +323,7 @@ The user is encouraged to try again, possibly several times, to find one.
     
     eigenvalues(cor_matrix_4, 1)
 
-###  four variables, Alpha = 0.90, larger variance
+####  four variables, Alpha = 0.90, larger variance
 
 ##### define parameters 
 
@@ -353,9 +353,9 @@ scale, and are correlated close to a predefined correlation matrix.
 
 _makeItems()_ is a wrapper function for:
 
-  * _lfast()_, which generates a vector that best fits the desired moments, and
+  - _lfast()_, which generates a vector that best fits the desired moments, and
   
-  * _lcor()_, which rearranges values in each column of the dataframe
+  - _lcor()_, which rearranges values in each column of the dataframe
   so they closely match the desired correlation matrix.
 
 
@@ -408,15 +408,14 @@ _makeItems()_ is a wrapper function for:
 
 
 #### apply function
-
     df <- makeItems(
-       n = n, 
-       means = dfMeans, 
-       sds = dfSds, 
-       lowerbound = lowerbound, 
-       upperbound = upperbound, 
+       n = n,
+       means = dfMeans,
+       sds = dfSds,
+       lowerbound = lowerbound,
+       upperbound = upperbound,
        cormatrix = corMat
-       )
+     )
 
 #### test function
  
@@ -428,6 +427,8 @@ _makeItems()_ is a wrapper function for:
     
     cor(df) |> round(3)
 
+
+___
 
 ## Generate a dataframe of rating-scale items from a summated rating scale
 
@@ -498,6 +499,120 @@ _makeItems()_ is a wrapper function for:
       items = items
     )
 
+___
+
+## Create a multidimensional dataframe of scale items as we might see from a questionnaire
+
+### correlateScales() 
+
+_**correlateScales()**_ takes several dataframes of rating-scale
+items and rearranges their rows so that the scales are correlated according
+ to a predefined correlation matrix. Univariate statistics for each 
+ dataframe of rating-scale items do not change, 
+ but their correlations with rating-scale items in other dataframes do.
+ 
+ 
+#### correlateScales() usage
+
+    correlateScales(dataframes, scalecors)
+
+#### correlateScales() arguments
+
+ - _**dataframes**_:  a list of 'k' dataframes to be rearranged and combined
+ 
+ - _**scalecors**_: target correlation matrix - should be a symmetric
+k*k positive-semi-definite matrix, where 'k' is the number of dataframes
+
+#### correlateScales() example
+
+
+##### three attitude scales, each of three items
+
+    n <- 64
+    lower <- 1
+    upper <- 5
+
+###### attitude #1
+
+    cor_1 <- makeCorrAlpha(items = 3, alpha = 0.85)
+    means_1 <- c(2.5, 2.5, 3.0)
+    sds_1 <- c(0.9, 1.0, 1.0)
+    Att_1 <- makeItems(
+      n, means_1, sds_1,
+      rep(lower, 4), rep(upper, 4),
+      cor_1
+    )
+
+###### attitude #2
+
+    cor_2 <- makeCorrAlpha(items = 3, alpha = 0.80)
+    means_2 <- c(2.5, 3.0, 3.5)
+    sds_2 <- c(1.0, 1.5, 1.0)
+    Att_2 <- makeItems(
+      n, means_2, sds_2,
+      rep(lower, 5), rep(upper, 5),
+      cor_2
+    )
+
+###### attitude #3
+
+    cor_3 <- makeCorrAlpha(items = 3, alpha = 0.75)
+    means_3 <- c(2.5, 3.0, 3.5)
+    sds_3 <- c(1.0, 1.5, 1.0)
+
+    Att_3 <- makeItems(
+      n, means_3, sds_3,
+      rep(lower, 6), rep(upper, 6),
+      cor_3
+    )
+
+
+
+
+##### correlateScales parameters
+
+###### target scale correlation matrix
+
+    scale_cors <- matrix(
+      c(
+        1.0, 0.6, 0.5,
+        0.6, 1.0, 0.4, 
+        0.5, 0.4, 1.0
+      ),
+      nrow = 3
+    )
+
+    data_frames <- list("A1" = Att_1, "A2" = Att_2, "A3" = Att_3)
+
+
+
+
+##### apply the correlateScales() function
+
+    my_correlated_scales <- correlateScales(
+      dataframes = data_frames,
+      scalecors = scale_cors
+    )
+
+
+##### Check the properties of our derived dataframe
+
+
+###### data structure
+
+    str(my_correlated_scales)
+
+###### inter-item correlations
+
+    cor(my_correlated_scales) |> round(2)
+
+
+###### eigenvalues of dataframe correlations
+
+    eigenvalues(cormatrix = cor(my_correlated_scales), scree = TRUE) |> 
+    round(2)
+
+___
 
 ## Helper functions
 

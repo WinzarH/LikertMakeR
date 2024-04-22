@@ -2,8 +2,10 @@
 title: "LikertMakeR"
 subtitle: "synthesise and correlate rating-scale data"
 author: Hume Winzar
-date: March 2024 
+date: April 2024 
+version: 0.2.5
 output: rmarkdown::html_vignette
+
 # output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{LikertMakeR}
@@ -25,9 +27,9 @@ knitr::opts_chunk$set(
 ```
 
 
-# LikertMakeR
+<!-- # LikertMakeR -->
 
-V 0.2.0 March 2024
+<!-- V 0.2.5 April 2024 -->
 
 <!-- <p align="center"> -->
 <!-- <img src="LikertMakeR_hex.png" width="250" alt="LikertMakeR logo"> -->
@@ -35,7 +37,7 @@ V 0.2.0 March 2024
 
 ```{r logo, fig.align='center', echo=FALSE, out.width = '25%'}
 
-knitr::include_graphics("LikertMakeR_2.png")
+knitr::include_graphics("LikertMakeR_3.png")
 ```
 
 
@@ -89,10 +91,10 @@ Rating scales, such as Likert scales, are not continuous or unbounded.
 For example, a 5-point Likert scale that is constructed with, say, five items 
 (questions) will have a summed range of between 5 (all rated '1') and 25 
 (all rated '5') with all integers in between, and the mean range will 
-be '1' to '5' with intervals of 1/5=0.20. A 7-point Likert scale constructed 
-from eight items will have a summed range between 8 (all rated '1') and 
-56 (all rated '7') with all integers in between, and the mean range will 
-be '1' to '7' with intervals of 1/8=0.125.
+be '1' to '5' with intervals of 1/5=0.20. 
+A 7-point Likert scale constructed from eight items will have a summed range 
+between 8 (all rated '1') and 56 (all rated '7') with all integers in between, 
+and the mean range will be '1' to '7' with intervals of 1/8=0.125.
 
 Rating-scale boundaries define minima and maxima for any scale values. 
 If the mean is close to one boundary then data points will gather more 
@@ -100,6 +102,8 @@ closely to that boundary.
 If the mean is not in the middle of a scale, 
 and if the standard deviation is any more than about 1/4 of the scale range, 
 then the data will be always skewed.
+
+
 
 _____
 
@@ -118,6 +122,13 @@ _____
  * _makeItems()_ is a wrapper function for _lfast()_ 
  and _lcor()_ to generate synthetic rating-scale data with predefined 
  first and second moments and a predefined correlation matrix.
+ 
+ * _makeItemsScale()_ generates a random dataframe of scale items based 
+ on a predefined summated scale, such as created by the _lfast()_ function.
+ 
+ * _correlateScales()_ creates a dataframe of correlated summated scales as 
+ one might find in completed survey questionnaire and possibly used in a 
+ Structural Equation model.
  
  * _alpha()_ calculates Cronbach's Alpha from a given correlation matrix 
  or a given dataframe.
@@ -156,7 +167,15 @@ ____
 
 ## Generate synthetic rating-scale data
 
-To synthesise a rating scale with **_LikertMakeR_**, the user must input 
+
+### _lfast()_
+
+- **_lfast()_** applies a simple evolutionary algorithm 
+which draws repeated random samples from a scaled *Beta* distribution. 
+It produces a vector of values with mean and standard 
+deviation correct to two decimal places.
+
+To synthesise a rating scale with **_lfast()_**, the user must input 
 the following parameters:
 
  - **_n_**: sample size
@@ -175,14 +194,6 @@ The previous version of _LikertMakeR_ had a function, _lexact()_, which was
 slow and no more accurate than the latest version of _lfast()_. 
  So, _lexact()_ is now deprecated. 
  
-____
-
-### _lfast()_
-
-- **_lfast()_** draws repeated random samples from a 
-scaled *Beta* distribution. 
-It produces a vector of values with mean and standard 
-deviation correct to two decimal places.
 
 #### _lfast()_ example
 
@@ -363,6 +374,8 @@ And the new data frame is correlated close to our desired correlation matrix; he
 cor(new3) |> round(3)
 ```
 
+____
+
 
 ## Generate a correlation matrix from Cronbach's Alpha
 
@@ -488,6 +501,9 @@ cor_matrix_12 |> round(2)
 ```
 
 
+____
+
+
 
 ## Generate a dataframe of rating scales from a correlation matrix and predefined moments
 
@@ -568,6 +584,7 @@ following parameters:
 ```
 
 ____
+
 
 ## Generate a dataframe from Cronbach's Alpha and predefined moments
 
@@ -687,6 +704,215 @@ pairs(myItems,
 
 ____
 
+
+
+## Create a multidimensinoal dataframe of correlated scale items 
+
+### correlateScales()
+
+Correlated rating-scale items generally are summed or averaged to create a measure of an "unobservable", or "latent", construct.
+
+_**correlateScales()**_ takes several such dataframes of rating-scale
+items and rearranges their rows so that the scales are correlated according
+to a predefined correlation matrix. Univariate statistics for each
+dataframe of rating-scale items do not change, but their correlations with
+rating-scale items in other dataframes do.
+
+To run _**correlateScales()**_, parameters are:
+
+ - _**dataframes**_: a list of 'k' dataframes to be rearranged and combined 
+
+ - _**scalecors**_: target correlation matrix - should be a symmetric k*k 
+  positive-semi-definite matrix, where 'k' is the number of dataframes
+
+As with other functions in _LikertMakeR_, _correlateScales()_ focuses on item and scale moments (mean and standard deviation) rather than on covariance structure. 
+If you wish to simulate data for teaching or experimenting with Structural Equation modelling, then I recommend the _sim.item()_ and _sim.congeneric()_ functions from the [psych package](https://CRAN.R-project.org/package=psych)
+
+### correlateScales() examples
+
+
+#### three attitudes and a behavioural intention
+
+##### create dataframes of Likert-scale items
+ 
+```{r correlateScales_dataframes, echo = TRUE}
+n <- 32
+lower <- 1
+upper <- 5
+
+### attitude #1
+cor_1 <- makeCorrAlpha(items = 4, alpha = 0.90)
+means_1 <- c(2.5, 2.5, 3.0, 3.5)
+sds_1 <- c(0.9, 1.0, 0.9, 1.0)
+Att_1 <- makeItems(
+  n, means_1, sds_1,
+  rep(lower, 4), rep(upper, 4),
+  cor_1
+)
+
+### attitude #2
+cor_2 <- makeCorrAlpha(items = 5, alpha = 0.85)
+means_2 <- c(2.5, 2.5, 3.0, 3.0, 3.5)
+sds_2 <- c(1.0, 1.0, 0.9, 1.0, 1.5)
+Att_2 <- makeItems(
+  n, means_2, sds_2,
+  rep(lower, 5), rep(upper, 5),
+  cor_2
+)
+
+### attitude #3
+cor_3 <- makeCorrAlpha(items = 6, alpha = 0.75)
+means_3 <- c(2.5, 2.5, 3.0, 3.0, 3.5, 3.5)
+sds_3 <- c(1.0, 1.5, 1.0, 1.5, 1.0, 1.5)
+
+Att_3 <- makeItems(
+  n, means_3, sds_3,
+  rep(lower, 6), rep(upper, 6),
+  cor_3
+)
+
+### behavioural intention
+intent <- lfast(n, mean = 3.0, sd = 3, lowerbound = 0, upperbound = 10) |>
+  data.frame()
+names(intent) <- "int"
+ 
+```
+
+###### check properties of item dataframes
+
+```{r dataframe_properties}
+
+## Attitude #1
+A1_moments <- data.frame(
+  means = apply(Att_1, 2, mean) |> round(2),
+  sds = apply(Att_1, 2, sd) |> round(2)
+) |> t()
+A1_moments
+cor(Att_1) |> round(2)
+
+## Attitude #2
+A2_moments <- data.frame(
+  means = apply(Att_2, 2, mean) |> round(2),
+  sds = apply(Att_2, 2, sd) |> round(2)
+) |> t()
+
+A2_moments
+cor(Att_2) |> round(2)
+
+## Attitude #3
+A3_moments <- data.frame(
+  means = apply(Att_3, 2, mean) |> round(2),
+  sds = apply(Att_3, 2, sd) |> round(2)
+) |> t()
+
+A3_moments
+cor(Att_3) |> round(2)
+
+## Intention
+
+intent_moments <- data.frame(
+  mean = apply(intent, 2, mean) |> round(2),
+  sd = apply(intent, 2, sd) |> round(2)
+) |> t()
+
+intent_moments
+
+```
+
+
+
+##### correlateScales parameters
+
+```{r correlateScales_parameters}
+
+ ### target scale correlation matrix
+ scale_cors <- matrix(
+   c(
+     1.0, 0.6, 0.5, 0.3,
+     0.6, 1.0, 0.4, 0.2,
+     0.5, 0.4, 1.0, 0.1,
+     0.3, 0.2, 0.1, 1.0
+   ),
+   nrow = 4
+ )
+
+data_frames <- list("A1" = Att_1, "A2" = Att_2, "A3" = Att_3, "Int" = intent)
+
+```
+
+
+#### apply the correlateScales() function
+
+```{r my_correlated_scales}
+
+my_correlated_scales <- correlateScales(
+  dataframes = data_frames,
+  scalecors = scale_cors
+)
+```
+
+#### plot the new correlated scale items
+
+```{r fig6, fig.height=9, fig.width=9, fig.align='center', echo=FALSE, warning=FALSE}
+
+# Correlation panel
+panel.cor <- function(x, y) {
+  usr <- par("usr")
+  on.exit(par(usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- round(cor(x, y), digits = 2)
+  txt <- paste0(r)
+  cex.cor <- 0.8 / strwidth(txt)
+  text(0.5, 0.5, txt, cex = 1.25)
+}
+# Customize upper panel
+upper.panel <- function(x, y) {
+  points(x, y, pch = 19, col = "#0000ff11")
+}
+# diagonals
+panel.hist <- function(x, ...) {
+  usr <- par("usr")
+  on.exit(par(usr))
+  par(usr = c(usr[1:2], 0, 1.5))
+  h <- hist(x, plot = FALSE)
+  breaks <- h$breaks
+  nB <- length(breaks)
+  y <- h$counts
+  y <- y / max(y)
+  rect(breaks[-nB], 0, breaks[-1], y, col = "#0000ff50")
+}
+# Create the plots
+pairs(my_correlated_scales,
+  lower.panel = panel.cor,
+  upper.panel = upper.panel,
+  diag.panel = panel.hist
+)
+```
+
+
+
+
+
+###### Check the properties of our derived dataframe
+
+```{r newdata_check}
+
+## data structure
+str(my_correlated_scales)
+
+```
+
+
+```{r fig7, fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
+ 
+## eigenvalues of dataframe correlations
+eigenvalues(cormatrix = cor(my_correlated_scales), scree = TRUE) |> round(2)
+
+```
+
+
+____
+
 ## Helper functions
 
 _likertMakeR()_ includes two additional functions that may be of help 
@@ -766,7 +992,7 @@ print(evals)
 
 ##### eigenvalues() function with optional scree plot
 
-```{r fig6, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
+```{r fig8, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
 
  evals <- eigenvalues(correlationMatrix, 1)
 ```
@@ -822,6 +1048,7 @@ for an excellent and short example using the following packages:
  sample(1:5, n, replace = TRUE,
  prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
  )
+ 
 ```
 
 
@@ -857,12 +1084,19 @@ Highly recommended.
 - [**_psych::sim.congeneric_** Simulate a congeneric data set with or without minor factors](https://CRAN.R-project.org/package=psych)
 See [Revelle (in prep)](https://personality-project.org/r/book/)
 
+Also:
+
+[**_simsem_**](https://CRAN.R-project.org/package=simsem) has many 
+functions for simulating and testing data for application in 
+Structural Equation modelling. 
+See examples at [https://simsem.org/](https://simsem.org/) 
 
 ### General data simulation
 
 [**_simpr_**](https://CRAN.R-project.org/package=simpr) provides a general, 
 simple, and tidyverse-friendly framework for generating simulated data, 
 fitting models on simulations, and tidying model results.
+
 
 ____
 
@@ -884,6 +1118,10 @@ Matta, T.H., Rutkowski, L., Rutkowski, D. & Liaw, Y.L. (2018),
 lsasim: an R package for simulating large-scale assessment data. 
 _Large-scale Assessments in Education_ 6, 15. 
 <doi:10.1186/s40536-018-0068-8>
+
+Pornprasertmanit, S., Miller, P., & Schoemann, A. (2021).
+simsem: R package for simulated structural equation modeling
+<https://simsem.org/>
 
 Revelle, W. (in prep) _An introduction to psychometric theory with applications in R_. To be published by Springer. (working draft available at <https://personality-project.org/r/book/> )
 

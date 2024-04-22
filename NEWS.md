@@ -1,4 +1,12 @@
 
+# LikertMakeR 0.2.5 (2024-04-20)
+
+## added correlateScales() function
+
+Create a dataframe of correlated scales  from different dataframes of scale items
+
+
+
 # LikertMakeR 0.2.2 (2024-03-31)
 
 ## added makeItemsScale() function
