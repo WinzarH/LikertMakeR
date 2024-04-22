@@ -49,7 +49,7 @@ alpha <- function(cormatrix = NULL, data = NULL) {
       cormatrix <- cor(data)
     } else {
       if (!is.null(cormatrix) && !is.null(data)) {
-        message("Warning: Both cormatrix and data present.
+        message("Alert: \nBoth cormatrix and data present.
                 \nUsing cormatrix by default.")
       }
     }
