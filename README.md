@@ -49,13 +49,17 @@ Functions in this version of **_LikertMakeR_** are:
   constructs a random correlation matrix of given 
   dimensions and predefined Cronbach's Alpha
   
-  - [**_makeItems()_**](#Generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments) 
+  - [**_makeItems()_**](#Generate) 
   is a wrapper function for _lfast()_ and _lcor()_ 
   to generate synthetic rating-scale data with predefined first and second 
   moments and a predefined correlation matrix
   
   - [**_makeItemsScale()_**](#Generate-a-dataframe-of-rating-scale-items-from-a-summative-scale) 
   Generate a dataframe of rating scale items from a summative scale
+  
+  - [_**correlateScales()**_](#correlateScales()) generates a multidimensional 
+  dataframe by combining several dataframes of rating-scale items so that their 
+  summated scales are correlated according to a predefined correlation matrix.
 
   - [**_alpha()_**](#alpha()) calculates Cronbach's Alpha from a given 
   correlation matrix or a given dataframe
@@ -102,7 +106,8 @@ univariate statistics as they might ordinarily be reported.
 `lcor()` will take multiple scales created with `lfast()` and rearrange 
 values so that the vectors are correlated.
 `makeCorrAlpha()` generates a correlation matrix from a predefined 
-_Cronbach's Alpha_.
+_Cronbach's Alpha_, thus enabling the user to apply `lcor()` and `lfast()` to 
+generate scale items with an exact _Cronbach's Alpha_. 
 
 
 ## Install _LikertMakeR_
