@@ -11,6 +11,11 @@
 #' @param variance (positive, real) Default = 0.5.
 #'  User-provided standard deviation of values sampled from a
 #'  normally-distributed log transformation.
+#' @param precision (positive, real) Default = 0.
+#'  User-defined value ranging from '0' to '3' to add some random variation
+#'  around the target Cronbach's Alpha.
+#'  '0' gives an exact alpha (to two decimal places)
+#'
 #'
 #' @importFrom stats rnorm
 #'
@@ -48,7 +53,7 @@
 #' # test function output
 #' print(cor_matrix)
 #' alpha(cor_matrix)
-#' eigenvalues(cor_matrix,1)
+#' eigenvalues(cor_matrix, 1)
 #'
 #' # higher alpha, more items
 #' cor_matrix2 <- makeCorrAlpha(items = 8, alpha = 0.95)
@@ -56,15 +61,19 @@
 #' # test output
 #' cor_matrix2 |> round(2)
 #' alpha(cor_matrix2) |> round(3)
-#' eigenvalues(cor_matrix2,1) |> round(3)
+#' eigenvalues(cor_matrix2, 1) |> round(3)
 #'
 #'
-makeCorrAlpha <- function(items, alpha, variance = 0.5) {
-  k <- items
-
-  # Calculate the mean correlation coefficient from alpha
-  mean_r <- alpha / (k - alpha * (k - 1))
-
+#' # large random variation around alpha
+#' set.seed(42)
+#' cor_matrix3 <- makeCorrAlpha(items = 6, alpha = 0.85, precision = 2)
+#'
+#' # test output
+#' cor_matrix3 |> round(2)
+#' alpha(cor_matrix3) |> round(3)
+#' eigenvalues(cor_matrix3, 1) |> round(3)
+#'
+makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
   ####
   ###  Helper functions
 
@@ -173,9 +182,26 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5) {
   } ### end improve_cor_matrix Function
   ### end helper functions
 
+  k <- items
+
+  if (precision < 0) {precision <- 0 }
+  if (precision > 3) {precision <- 3 }
+
+
+  ## Calculate the mean correlation coefficient from alpha
+
+  target_mean_r <- alpha / (k - alpha * (k - 1))
+
+  ## add some random variation to the target mean correlation
+  logr_sd_coefficient <- 2^(2^(4 / (precision + 1)))
+  logr_sd <- 1 / logr_sd_coefficient
+
+  log_transformed_r <- log_transform((target_mean_r) + rnorm(1, 0, logr_sd))
+  mean_r <- exp_transform(log_transformed_r)
+
   ###  set up for correlation values search
   ## translate correlation (-1 to +1) into continuous variable (-inf to +inf)
-  log_transformed_r <- log_transform(mean_r)
+  # log_transformed_r <- log_transform(mean_r)
   tolerance <- 1e-5
 
   current_mean_cors <- 0
