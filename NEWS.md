@@ -1,4 +1,13 @@
 
+# LikertMakeR 0.2.6 (2024-05-11)
+
+## added 'precision' parameter to makeCorrAlpha() function
+
+'precision' adds random variation around the target Cronbach's Alpha. Default = '0' (no variation giving Alpha exact to two decimal places)
+
+
+
+
 # LikertMakeR 0.2.5 (2024-04-20)
 
 ## added correlateScales() function

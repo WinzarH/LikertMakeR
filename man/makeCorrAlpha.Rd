@@ -4,7 +4,7 @@
 \alias{makeCorrAlpha}
 \title{Correlation matrix from Cronbach's Alpha}
 \usage{
-makeCorrAlpha(items, alpha, variance = 0.5)
+makeCorrAlpha(items, alpha, variance = 0.5, precision = 0)
 }
 \arguments{
 \item{items}{(positive, int) matrix dimensions: number of rows & columns to generate}
@@ -15,6 +15,11 @@ makeCorrAlpha(items, alpha, variance = 0.5)
 \item{variance}{(positive, real) Default = 0.5.
 User-provided standard deviation of values sampled from a
 normally-distributed log transformation.}
+
+\item{precision}{(positive, real) Default = 0.
+User-defined value ranging from '0' to '3' to add some random variation
+around the target Cronbach's Alpha.
+'0' gives an exact alpha (to two decimal places)}
 }
 \value{
 a correlation matrix
@@ -56,7 +61,7 @@ cor_matrix <- makeCorrAlpha(items = items, alpha = alpha, variance = variance)
 # test function output
 print(cor_matrix)
 alpha(cor_matrix)
-eigenvalues(cor_matrix,1)
+eigenvalues(cor_matrix, 1)
 
 # higher alpha, more items
 cor_matrix2 <- makeCorrAlpha(items = 8, alpha = 0.95)
@@ -64,7 +69,16 @@ cor_matrix2 <- makeCorrAlpha(items = 8, alpha = 0.95)
 # test output
 cor_matrix2 |> round(2)
 alpha(cor_matrix2) |> round(3)
-eigenvalues(cor_matrix2,1) |> round(3)
+eigenvalues(cor_matrix2, 1) |> round(3)
 
+
+# large random variation around alpha
+set.seed(42)
+cor_matrix3 <- makeCorrAlpha(items = 6, alpha = 0.85, precision = 2)
+
+# test output
+cor_matrix3 |> round(2)
+alpha(cor_matrix3) |> round(3)
+eigenvalues(cor_matrix3, 1) |> round(3)
 
 }
