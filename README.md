@@ -393,22 +393,22 @@ _makeItems()_ is a wrapper function for:
 
   - **_n_**: number of observations to generate
 
-  - **_means_**: target means: a vector of length k of mean values for each 
+  - **_means_**: target means: a vector of length 'k' of mean values for each 
   scale item
 
-  - **_sds_**: target standard deviations: a vector of length k of standard 
+  - **_sds_**: target standard deviations: a vector of length 'k' of standard 
   deviation values for each scale item
 
-  - **_lowerbound_**: vector of length k (same as rows & columns of correlation 
-  matrix) of values for lower bound of each scale item (e.g. '1' for a 1-5 
-  rating scale)
+  - **_lowerbound_**: vector of length 'k' (same as rows & columns of 
+  correlation matrix) of values for lower bound of each scale item
+  (e.g. '1' for a 1-5 rating scale)
 
-  - **_upperbound_**:	vector of length k (same as rows & columns of correlation 
-  matrix) of values for upper bound of each scale item (e.g. '5' for a 1-5 
-  rating scale)
+  - **_upperbound_**:	vector of length 'k' (same as rows & columns of 
+  correlation matrix) of values for upper bound of each scale item 
+  (e.g. '5' for a 1-5 rating scale)
 
-  - **_cormatrix_**: target correlation matrix: a square symmetric matrix of 
-  values renging between '-1 'and '+1', and '1' in the diagonal.
+  - **_cormatrix_**: target correlation matrix: a 'k' x 'k' square symmetric 
+  matrix of values ranging between '-1 'and '+1', and '1' in the diagonal.
 
 
 ### _makeItems()_ examples
