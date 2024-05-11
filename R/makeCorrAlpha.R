@@ -172,6 +172,7 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
       }
 
       is_positive_definite <- min(best_eigen_values) >= 0
+
       if (is_positive_definite) {
         cat(paste0("stopped at swap - ", r, "\n"))
         break
@@ -184,8 +185,12 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
 
   k <- items
 
-  if (precision < 0) {precision <- 0 }
-  if (precision > 3) {precision <- 3 }
+  if (precision < 0) {
+    precision <- 0
+  }
+  if (precision > 3) {
+    precision <- 3
+  }
 
 
   ## Calculate the mean correlation coefficient from alpha
@@ -259,4 +264,3 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
 
   return(cor_matrix)
 } ## end matrixFromAlpha function
-
