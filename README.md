@@ -268,7 +268,7 @@ ____
 
 #### makeCorrAlpha() usage
 
-      makeCorrAlpha(items, alpha, variance = 0.5)
+      makeCorrAlpha(items, alpha, variance = 0.5, precision = 0)
 
 ##### makeCorrAlpha() arguments
 
@@ -289,7 +289,7 @@ ____
   - **_precision_**: a value between '0' and '3' to add some random variation around the target Cronbach's Alpha.
   Default = '0'.
   A value of '0' produces the desired _Alpha_ exact to two decimal places.
-  Higher values produce random values around the desired _Alpha_.
+  Higher values produce increasingly random values around the desired _Alpha_.
 
 #### NOTE
 
