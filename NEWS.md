@@ -1,4 +1,13 @@
 
+
+# LikertMakeR 0.3.0 (2024-05-18)
+
+## more randomness in swaps task to makeCorrAlpha() function
+
+correlation matrix usually has values sorted lowest to highest. This happens less often 
+
+
+
 # LikertMakeR 0.2.6 (2024-05-11)
 
 ## added 'precision' parameter to makeCorrAlpha() function

@@ -10,7 +10,7 @@
 
 # LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 0.2.6  May 2024)
+(V 0.3.0  May 2024)
 
 Synthesise and correlate rating-scale data with predefined first & second moments (mean and standard deviation)
 
