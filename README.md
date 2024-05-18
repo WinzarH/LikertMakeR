@@ -47,7 +47,7 @@ Functions in this version of **_LikertMakeR_** are:
 
   - [**_makeCorrAlpha_**](#Generate-a-correlation-matrix-from-Cronbach's-Alpha)
   constructs a random correlation matrix of given 
-  dimensions and predefined Cronbach's Alpha
+  dimensions and predefined _Cronbach's Alpha_
   
   - [**_makeItems()_**](#Generate) 
   is a wrapper function for _lfast()_ and _lcor()_ 
@@ -134,11 +134,11 @@ author's _GitHub_ repository.
 
   -  **_lfast()_** generates a vector of synthetic values with 
     predefined first and second moments. 
-    It should be accurate to two decimal places.
+    It should be accurate to two decimal places. 
  
 #### lfast() usage
 
-    lfast(n, mean, sd, lowerbound, upperbound, items = 1)
+    lfast(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0)
 
 ##### lfast arguments
 
@@ -154,6 +154,9 @@ author's _GitHub_ repository.
   
   -  **_items_**: number of items making the scale. Default&nbsp;=&nbsp;1 
   
+  -  **_precision_**: can relax the level of accuracy of moments. Default&nbsp;=&nbsp;0 
+  
+  
 
 #### _lfast()_ Example: a five-item, seven-point Likert scale
 
@@ -165,9 +168,22 @@ author's _GitHub_ repository.
        upperbound = 7, 
        items = 5
        )
-     
 
-#### _lfast()_ Example:  an 11-point _likelihood-of-purchase_ scale
+
+#### _lfast()_ Example: a four-item, five-point Likert scale with moderate precision
+
+     x <- lfast(
+       n = 256, 
+       mean = 3.25, 
+       sd = 1.0, 
+       lowerbound = 1, 
+       upperbound = 5, 
+       items = 5,
+       precision = 4
+       )
+      
+
+#### _lfast()_ Example: an 11-point _likelihood-of-purchase_ scale
  
      x <- lfast(256, 2.5, 2.5, 0, 10)
      
