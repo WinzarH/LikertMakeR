@@ -124,8 +124,14 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
   ## rearrange correlation values to find a possible positive definite matrix
   improve_cor_matrix <- function() {
     n_swap <- length(random_cors)
-    swap_candidates <- expand.grid(r1 = 1:n_swap, r2 = 1:n_swap)
+    swaps <- c(1:n_swap)
+    swaps <- sample(swaps, n_swap, replace = FALSE)
+
+    swap_candidates <- expand.grid(r1 = swaps, r2 = swaps)
     swap_candidates <- swap_candidates[swap_candidates[, 1] != swap_candidates[, 2], ]
+
+    ## delete this line!
+    # swap_candidates <- swap_candidates[order(nrow(swap_candidates):1),]
 
     current_vector <- random_cors
     n_swap_candidates <- nrow(swap_candidates)
@@ -171,9 +177,9 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
         current_vector[j] <- jj
       }
 
-      is_positive_definite <- min(best_eigen_values) >= 0
+      # is_positive_definite <- min(best_eigen_values) >= 0
 
-      if (is_positive_definite) {
+      if (min(best_eigen_values) >= 0) {
         cat(paste0("stopped at swap - ", r, "\n"))
         break
       }
@@ -258,8 +264,8 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
   if (min(eigen(cor_matrix)$values) >= 0) {
     cat("The correlation matrix is positive definite\n")
   } else {
-    cat("The correlation matrix is NOT positive definite
-        \nTry running again (or reduce the Variance parameter)\n")
+    cat("Correlation matrix is NOT positive definite
+        \nTry running again (or reduce Variance parameter)\n")
   }
 
   return(cor_matrix)
