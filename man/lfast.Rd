@@ -20,7 +20,7 @@ lfast(n, mean, sd, lowerbound, upperbound, items = 1)
 \item{items}{(positive, int) number of items in the rating scale. Default = 1}
 }
 \value{
-a vector of simulated data approximating user-specified conditions.
+a vector approximating user-specified conditions.
 }
 \description{
 \code{lfast()} takes repeated samples selecting a vector
