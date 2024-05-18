@@ -19,7 +19,7 @@
 #' @param upperbound (positive, int) upper bound (e.g. '5' for a 1-5 rating scale)
 #' @param items (positive, int) number of items in the rating scale. Default = 1
 #'
-#' @return a vector of simulated data approximating user-specified conditions.
+#' @return a vector approximating user-specified conditions.
 #'
 #' @importFrom stats rbeta
 #'
