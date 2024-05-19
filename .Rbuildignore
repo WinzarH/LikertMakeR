@@ -10,3 +10,4 @@ extras
 ^.so
 ^.dll
 
+^cran-comments\.md$

@@ -15,15 +15,14 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
- collapse = TRUE,
- comment = "#>"
+  collapse = TRUE,
+  comment = "#>"
 )
 ```
 
 
 ```{r setup, include = FALSE}
-
- library(LikertMakeR)
+library(LikertMakeR)
 ```
 
 
@@ -36,7 +35,6 @@ knitr::opts_chunk$set(
 <!-- </p> -->
 
 ```{r logo, fig.align='center', echo=FALSE, out.width = '25%'}
-
 knitr::include_graphics("LikertMakeR_3.png")
 ```
 
@@ -201,28 +199,26 @@ slow and no more accurate than the latest version of _lfast()_.
 
 
 ```{r lfastExample}
-
 x1 <- lfast(
- n = 512,
- mean = 2.5,
- sd = 0.75,
- lowerbound = 1,
- upperbound = 5,
- items = 4
+  n = 512,
+  mean = 2.5,
+  sd = 0.75,
+  lowerbound = 1,
+  upperbound = 5,
+  items = 4
 )
 ```
 
 
 
 ```{r fig1, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
-
 ## distribution of x
 
 hist(x1,
- cex.axis = 0.5, cex.main = 0.75,
- breaks = seq(from = 1, to = 5, by = 0.25),
- col = "skyblue", xlab = NULL, ylab = NULL,
- main = paste("mu=", round(mean(x1), 2), ", sd=", round(sd(x1), 2))
+  cex.axis = 0.5, cex.main = 0.75,
+  breaks = seq(from = 1, to = 5, by = 0.25),
+  col = "skyblue", xlab = NULL, ylab = NULL,
+  main = paste("mu=", round(mean(x1), 2), ", sd=", round(sd(x1), 2))
 )
 ```
 
@@ -232,18 +228,16 @@ hist(x1,
 ###### _lfast()_
 
 ```{r lfastx3}
-
 x3 <- lfast(256, 3, 2, 0, 10)
 ```
 
 
 ```{r fig2, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
-
 hist(x3,
- cex.axis = 0.5, cex.main = 0.75,
- breaks = seq(from = 0, to = 10, by = 1.0),
- col = "skyblue", xlab = NULL, ylab = NULL,
- main = paste("mu=", round(mean(x3), 2), ", sd=", round(sd(x3), 2))
+  cex.axis = 0.5, cex.main = 0.75,
+  breaks = seq(from = 0, to = 10, by = 1.0),
+  col = "skyblue", xlab = NULL, ylab = NULL,
+  main = paste("mu=", round(mean(x3), 2), ", sd=", round(sd(x3), 2))
 )
 ```
 
@@ -288,7 +282,6 @@ Let's generate some data: three 5-point Likert scales,
 each with five items.
 
 ```{r lcorExample}
-
 ## generate uncorrelated synthetic data
 n <- 128
 lowerbound <- 1
@@ -296,26 +289,24 @@ upperbound <- 5
 items <- 5
 
 mydat3 <- data.frame(
- x1 = lfast(n, 2.5, 0.75, lowerbound, upperbound, items),
- x2 = lfast(n, 3.0, 1.50, lowerbound, upperbound, items),
- x3 = lfast(n, 3.5, 1.00, lowerbound, upperbound, items)
+  x1 = lfast(n, 2.5, 0.75, lowerbound, upperbound, items),
+  x2 = lfast(n, 3.0, 1.50, lowerbound, upperbound, items),
+  x3 = lfast(n, 3.5, 1.00, lowerbound, upperbound, items)
 )
 ```
 
 The first six observations from this data-frame are:
 
 ```{r mydat3Head, echo = FALSE}
-
 head(mydat3, 6)
 ```
 
 And the first and second moments (to 3 decimal places) are:
 
 ```{r mydat3Moments, echo = FALSE}
-
 moments <- data.frame(
- mean = apply(mydat3, 2, mean) |> round(3),
- sd = apply(mydat3, 2, sd) |> round(3)
+  mean = apply(mydat3, 2, mean) |> round(3),
+  sd = apply(mydat3, 2, sd) |> round(3)
 )
 
 t(moments)
@@ -327,23 +318,21 @@ to what is expected.
 The synthetic data have low correlations:
 
 ```{r mydat3Cor, echo = FALSE}
-
 cor(mydat3) |> round(3)
 ```
 
 Now, let's define a target correlation matrix:
 
 ```{r tgt3}
-
 ## describe a target correlation matrix
 
 tgt3 <- matrix(
- c(
- 1.00, 0.85, 0.75,
- 0.85, 1.00, 0.65,
- 0.75, 0.65, 1.00
- ),
- nrow = 3
+  c(
+    1.00, 0.85, 0.75,
+    0.85, 1.00, 0.65,
+    0.75, 0.65, 1.00
+  ),
+  nrow = 3
 )
 ```
 
@@ -351,7 +340,6 @@ So now we have a data-frame with desired first and second moments,
 and a target correlation matrix.
 
 ```{r new3}
-
 ## apply lcor() function
 
 new3 <- lcor(mydat3, tgt3)
@@ -363,14 +351,12 @@ other columns are rearranged.
 The first six observations from this data-frame are:
 
 ```{r new3Head, echo = FALSE}
-
 head(new3, 6)
 ```
 
 And the new data frame is correlated close to our desired correlation matrix; here presented to 3 decimal places:
 
 ```{r new3Cor, echo = FALSE}
-
 cor(new3) |> round(3)
 ```
 
@@ -424,23 +410,21 @@ The user is encouraged to try again, possibly several times, to find one.
 ##### Four variables, alpha = 0.85, variance = default
 
 ```{r cor_matrix_4}
-
-## define parameters 
- items <- 4
- alpha <- 0.85
- # variance <- 0.5 ## by default
+## define parameters
+items <- 4
+alpha <- 0.85
+# variance <- 0.5 ## by default
 
 ## apply makeCorrAlpha() function
- set.seed(42)
- 
- cor_matrix_4 <- makeCorrAlpha(items, alpha)
+set.seed(42)
+
+cor_matrix_4 <- makeCorrAlpha(items, alpha)
 ```
 
 _makeCorrAlpha()_ produced the following correlation matrix 
 (to three decimal places):
 
 ```{r cor_matrix_4Print, echo = FALSE}
-
 cor_matrix_4 |> round(3)
 ```
 
@@ -449,17 +433,15 @@ cor_matrix_4 |> round(3)
 ##### test output with Helper functions
 
 ```{r cor_matrix_4Alpha}
-
 ## using helper function alpha()
 
- alpha(cor_matrix_4)
+alpha(cor_matrix_4)
 ```
 
 
 
 ```{r fig3, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
- 
-## using helper function eigenvalues() 
+## using helper function eigenvalues()
 
 eigenvalues(cor_matrix_4, 1)
 ```
@@ -468,16 +450,15 @@ eigenvalues(cor_matrix_4, 1)
 #### twelve variables, alpha = 0.90, variance = 1
 
 ```{r cor_matrix_12}
-
-## define parameters 
- items <- 12
- alpha <- 0.90
- variance <- 1.0
+## define parameters
+items <- 12
+alpha <- 0.90
+variance <- 1.0
 
 ## apply makeCorrAlpha() function
- set.seed(42) 
+set.seed(42)
 
- cor_matrix_12 <- makeCorrAlpha(items, alpha, variance)
+cor_matrix_12 <- makeCorrAlpha(items, alpha, variance)
 ```
 
 ######  -
@@ -486,7 +467,6 @@ _makeCorrAlpha()_ produced the following correlation matrix
 (to two decimal places):
 
 ```{r cor_matrix_12Print, echo = FALSE}
-
 cor_matrix_12 |> round(2)
 ```
 
@@ -494,10 +474,9 @@ cor_matrix_12 |> round(2)
 ##### test output
 
 ```{r fig4, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
+alpha(cor_matrix_12)
 
- alpha(cor_matrix_12)
-
- eigenvalues(cor_matrix_12, 1) |> round(3)
+eigenvalues(cor_matrix_12, 1) |> round(3)
 ```
 
 
@@ -547,40 +526,40 @@ following parameters:
 ### _makeItems()_ examples
 
 ```{r makeItemsExample}
-
 ## define parameters
 
- n <- 128
- dfMeans <- c(2.5, 3.0, 3.0, 3.5)
- dfSds <- c(1.0, 1.0, 1.5, 0.75)
- lowerbound <- rep(1, 4)
- upperbound <- rep(5, 4)
- 
- corMat <- matrix(
- c(
- 1.00, 0.25, 0.35, 0.45,
- 0.25, 1.00, 0.70, 0.75,
- 0.35, 0.70, 1.00, 0.85,
- 0.45, 0.75, 0.85, 1.00
- ),
- nrow = 4, ncol = 4
- )
+n <- 128
+dfMeans <- c(2.5, 3.0, 3.0, 3.5)
+dfSds <- c(1.0, 1.0, 1.5, 0.75)
+lowerbound <- rep(1, 4)
+upperbound <- rep(5, 4)
+
+corMat <- matrix(
+  c(
+    1.00, 0.25, 0.35, 0.45,
+    0.25, 1.00, 0.70, 0.75,
+    0.35, 0.70, 1.00, 0.85,
+    0.45, 0.75, 0.85, 1.00
+  ),
+  nrow = 4, ncol = 4
+)
 
 ## apply makeItems() function
- df <- makeItems(
- n = n, 
- means = dfMeans, 
- sds = dfSds, 
- lowerbound = lowerbound, 
- upperbound = upperbound, 
- cormatrix = corMat
- )
+df <- makeItems(
+  n = n,
+  means = dfMeans,
+  sds = dfSds,
+  lowerbound = lowerbound,
+  upperbound = upperbound,
+  cormatrix = corMat
+)
 
 ## test the function
- head(df); tail(df)
- apply(df, 2, mean) |> round(3)
- apply(df, 2, sd) |> round(3)
- cor(df) |> round(3)
+head(df)
+tail(df)
+apply(df, 2, mean) |> round(3)
+apply(df, 2, sd) |> round(3)
+cor(df) |> round(3)
 ```
 
 ____
@@ -618,7 +597,6 @@ So required parameters are:
 ### Step 1: Generate a correlation matrix
 
 ```{r genCorrelation}
-
 ## define parameters
 k <- 6
 alpha <- 0.85
@@ -638,11 +616,10 @@ alpha(myCorr)
 ### Step 2: Generate dataframe
 
 ```{r genDataframe}
-
 ## define parameters
 n <- 256
-myMeans    <- c(2.75, 3.00, 3.00, 3.25, 3.50, 3.5)
-mySds      <- c(1.00, 0.75, 1.00, 1.00, 1.00, 1.5)
+myMeans <- c(2.75, 3.00, 3.00, 3.25, 3.50, 3.5)
+mySds <- c(1.00, 0.75, 1.00, 1.00, 1.00, 1.5)
 lowerbound <- rep(1, k)
 upperbound <- rep(5, k)
 
@@ -667,7 +644,6 @@ alpha(NULL, myItems)
 #### Summary plots of new data frame
 
 ```{r fig5, fig.height=5, fig.width=5, fig.align='center', echo=FALSE, warning=FALSE}
-
 # Correlation panel
 panel.cor <- function(x, y) {
   usr <- par("usr")
@@ -775,13 +751,11 @@ Att_3 <- makeItems(
 intent <- lfast(n, mean = 3.0, sd = 3, lowerbound = 0, upperbound = 10) |>
   data.frame()
 names(intent) <- "int"
- 
 ```
 
 ###### check properties of item dataframes
 
 ```{r dataframe_properties}
-
 ## Attitude #1
 A1_moments <- data.frame(
   means = apply(Att_1, 2, mean) |> round(2),
@@ -816,7 +790,6 @@ intent_moments <- data.frame(
 ) |> t()
 
 intent_moments
-
 ```
 
 
@@ -824,27 +797,24 @@ intent_moments
 ##### correlateScales parameters
 
 ```{r correlateScales_parameters}
-
- ### target scale correlation matrix
- scale_cors <- matrix(
-   c(
-     1.0, 0.6, 0.5, 0.3,
-     0.6, 1.0, 0.4, 0.2,
-     0.5, 0.4, 1.0, 0.1,
-     0.3, 0.2, 0.1, 1.0
-   ),
-   nrow = 4
- )
+### target scale correlation matrix
+scale_cors <- matrix(
+  c(
+    1.0, 0.6, 0.5, 0.3,
+    0.6, 1.0, 0.4, 0.2,
+    0.5, 0.4, 1.0, 0.1,
+    0.3, 0.2, 0.1, 1.0
+  ),
+  nrow = 4
+)
 
 data_frames <- list("A1" = Att_1, "A2" = Att_2, "A3" = Att_3, "Int" = intent)
-
 ```
 
 
 #### apply the correlateScales() function
 
 ```{r my_correlated_scales}
-
 my_correlated_scales <- correlateScales(
   dataframes = data_frames,
   scalecors = scale_cors
@@ -854,7 +824,6 @@ my_correlated_scales <- correlateScales(
 #### plot the new correlated scale items
 
 ```{r fig6, fig.height=9, fig.width=9, fig.align='center', echo=FALSE, warning=FALSE}
-
 # Correlation panel
 panel.cor <- function(x, y) {
   usr <- par("usr")
@@ -896,18 +865,14 @@ pairs(my_correlated_scales,
 ###### Check the properties of our derived dataframe
 
 ```{r newdata_check}
-
 ## data structure
 str(my_correlated_scales)
-
 ```
 
 
 ```{r fig7, fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
- 
 ## eigenvalues of dataframe correlations
 eigenvalues(cormatrix = cor(my_correlated_scales), scree = TRUE) |> round(2)
-
 ```
 
 
@@ -934,7 +899,6 @@ with a message to that effect.
 ### alpha() examples
 
 ```{r alphaExample}
-
 ## define parameters
 df <- data.frame(
   V1 = c(4, 2, 4, 3, 2, 2, 2, 1),
@@ -972,7 +936,6 @@ _eigenvalues()_ calculates eigenvalues of a correlation
 
 
 ```{r eigenExample}
-
 ## define parameters
 correlationMatrix <- matrix(
   c(
@@ -993,8 +956,7 @@ print(evals)
 ##### eigenvalues() function with optional scree plot
 
 ```{r fig8, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
-
- evals <- eigenvalues(correlationMatrix, 1)
+evals <- eigenvalues(correlationMatrix, 1)
 ```
 
 
@@ -1043,12 +1005,11 @@ for an excellent and short example using the following packages:
  Good for simulating a single item.
  
 ```{r, eval = FALSE}
-
- n <- 128
- sample(1:5, n, replace = TRUE,
- prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
- )
- 
+n <- 128
+sample(1:5, n,
+  replace = TRUE,
+  prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
+)
 ```
 
 
