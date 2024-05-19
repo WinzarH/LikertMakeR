@@ -56,18 +56,20 @@ upperbound <- rep(5, 4)
 
 corMat <- matrix(
   c(
-  1.00, 0.30, 0.40, 0.60,
-  0.30, 1.00, 0.50, 0.70,
-  0.40, 0.50, 1.00, 0.80,
-  0.60, 0.70, 0.80, 1.00
+    1.00, 0.30, 0.40, 0.60,
+    0.30, 1.00, 0.50, 0.70,
+    0.40, 0.50, 1.00, 0.80,
+    0.60, 0.70, 0.80, 1.00
   ),
   nrow = 4, ncol = 4
 )
 
 ## apply function
 
-df <- makeItems(n = n, means = dfMeans, sds = dfSds,
-lowerbound = lowerbound, upperbound = upperbound, cormatrix = corMat)
+df <- makeItems(
+  n = n, means = dfMeans, sds = dfSds,
+  lowerbound = lowerbound, upperbound = upperbound, cormatrix = corMat
+)
 
 ## test function
 
@@ -81,6 +83,5 @@ apply(df, 2, sd) |> round(3)
 
 # correlations
 cor(df) |> round(3)
-
 
 }

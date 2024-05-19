@@ -134,5 +134,4 @@ moments
 cor(mydat_80) |> round(2)
 alpha(mydat_80) |> round(2)
 
-
 }
