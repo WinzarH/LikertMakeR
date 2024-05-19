@@ -1,4 +1,4 @@
-#' Synthesise rating-scale data from a Scaled Beta Distribution
+#' Synthesise rating-scale data with predefined mean and standard deviation
 #'
 #' @name lfast
 #'
