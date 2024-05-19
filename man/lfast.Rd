@@ -2,7 +2,7 @@
 % Please edit documentation in R/lfast.R
 \name{lfast}
 \alias{lfast}
-\title{Synthesise rating-scale data from a Scaled Beta Distribution}
+\title{Synthesise rating-scale data with predefined mean and standard deviation}
 \usage{
 lfast(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0)
 }
