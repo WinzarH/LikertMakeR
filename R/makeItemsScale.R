@@ -129,10 +129,7 @@
 #' cor(mydat_80) |> round(2)
 #' alpha(mydat_80) |> round(2)
 #'
-#'
-
 makeItemsScale <- function(scale, lowerbound, upperbound, items, variance = 0.5) {
-
   makeCombinations <- function(lowerbound, upperbound, items) {
     # combinations(n, r, v = 1:n, set = TRUE, repeats.allowed = FALSE)
     # n:  Size of the source vector

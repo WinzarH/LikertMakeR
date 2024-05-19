@@ -41,7 +41,7 @@ NULL
 #'     1.00, 0.50, 0.75,
 #'     0.50, 1.00, 0.25,
 #'     0.75, 0.25, 1.00
-#'     ),
+#'   ),
 #'   nrow = 3, ncol = 3
 #' )
 #'
@@ -56,5 +56,5 @@ NULL
 #'
 #' @export
 lcor <- function(data, target) {
-  .Call('_LikertMakeR_lcor_C', data, target, PACKAGE = 'LikertMakeR')
+  .Call("_LikertMakeR_lcor_C", data, target, PACKAGE = "LikertMakeR")
 }

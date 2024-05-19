@@ -54,7 +54,7 @@
 #' x <- lfast(256, 3, 3.0, 0, 10)
 #'
 lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0) {
-  tolerance <- 0.0025 * 2 ^ precision
+  tolerance <- 0.0025 * 2^precision
 
   range <- upperbound - lowerbound
   m <- (mean - lowerbound) / range ## rescale mean
