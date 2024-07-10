@@ -27,7 +27,8 @@ The package is intended for
   when only summary statistics have been reported, 
    
   2. teaching. Helping researchers and students to better understand the 
-  relationships among scale properties, sample size, number of items, etc ...  
+  relationships among scale properties, sample size, number of items, 
+  _etc._ ...  
 
   3. checking the feasibility of scale moments with given scale and 
   correlation properties 
@@ -73,7 +74,7 @@ Functions in this version of **_LikertMakeR_** are:
 
 A Likert scale is the mean, or sum, of several ordinal rating scales. 
 They are bipolar (usually “agree-disagree”) responses to propositions 
-that are determined to be moderately-to-highly correlated and 
+that are determined to be moderately-to-highly correlated among each other, and 
 capturing various facets of a theoretical construct.
     
 Rating scales are not continuous or unbounded. 
@@ -193,7 +194,7 @@ ____
 
 ### lcor() 
 
-The function, **_lcor()_**, applies a simple evolutionary algorithm to 
+The function, **_lcor()_**, applies a simple _evolutionary algorithm_ to 
 rearrange the values in the columns of a data set so that they are correlated 
 at a specified level. 
 **_lcor()_** does not change the values - it swaps their positions in each 
@@ -279,7 +280,7 @@ ____
 ### makeCorrAlpha()
 
 **_makeCorrAlpha()_**, constructs a random correlation matrix of given 
- dimensions and predefined Cronbach's Alpha. 
+ dimensions and predefined _Cronbach's Alpha_. 
 
 
 #### makeCorrAlpha() usage
@@ -304,7 +305,7 @@ ____
   
   - **_precision_**: a value between '0' and '3' to add some random variation around the target Cronbach's Alpha.
   Default = '0'.
-  A value of '0' produces the desired _Alpha_ exact to two decimal places.
+  A value of '0' produces the desired _Alpha_, generally exact to two decimal places.
   Higher values produce increasingly random values around the desired _Alpha_.
 
 #### NOTE
@@ -551,7 +552,8 @@ _**correlateScales()**_ takes several dataframes of rating-scale
 items and rearranges their rows so that the scales are correlated according
  to a predefined correlation matrix. Univariate statistics for each 
  dataframe of rating-scale items do not change, 
- but their correlations with rating-scale items in other dataframes do.
+ and inter-item correlations within a dataframe do not change,
+ but their correlations with rating-scale items in _other_ dataframes do change.
  
  
 #### correlateScales() usage
