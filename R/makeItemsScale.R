@@ -16,12 +16,13 @@
 #' (example: '5' in a '1' to '5' rating)
 #' @param items (positive, int) k, or number of columns to generate
 #' @param variance (positive, real) standard deviation of values sampled
-#' from a normally-distributed log transformation. Default = '0.5'.
+#' from a normally-distributed log transformation.
+#' Must lie between '0' and '1'.
+#' Default = '0.5'.
 #'
-#' A value of '0' makes all values in the correlation matrix the same,
-#' equal to the mean correlation needed to produce the desired _Cronbach's Alpha_.
-#' A value of '2', or more, risks producing a matrix that is not positive-
-#' definite, so not feasible.
+#' A value of '0' tends to make all values in the correlation matrix about
+#' the same,  and producing a relatively high _Cronbach's Alpha_.
+#' A value of '1' produces a relatively low _Cronbach's Alpha_.
 #'
 #' @importFrom gtools combinations permute
 #' @importFrom dplyr filter arrange slice select all_of
@@ -87,7 +88,7 @@
 #' moments
 #'
 #' cor(mydat_20) |> round(2)
-#' alpha(mydat_20) |> round(2)
+#' alpha(data = mydat_20) |> round(2)
 #'
 #'
 #' ## default variance
@@ -107,7 +108,7 @@
 #' moments
 #'
 #' cor(mydat_50) |> round(2)
-#' alpha(mydat_50) |> round(2)
+#' alpha(data = mydat_50) |> round(2)
 #'
 #'
 #' ## higher variance usually gives lower Cronbach's Alpha
@@ -127,7 +128,7 @@
 #' moments
 #'
 #' cor(mydat_80) |> round(2)
-#' alpha(mydat_80) |> round(2)
+#' alpha(data = mydat_80) |> round(2)
 #'
 makeItemsScale <- function(scale, lowerbound, upperbound, items, variance = 0.5) {
   makeCombinations <- function(lowerbound, upperbound, items) {
