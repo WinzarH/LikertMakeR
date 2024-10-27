@@ -2,8 +2,8 @@
 title: "LikertMakeR"
 subtitle: "synthesise and correlate rating-scale data"
 author: Hume Winzar
-date: April 2024 
-version: 0.2.5
+date: October 2024 
+version: 0.4.0
 output: rmarkdown::html_vignette
 
 # output: rmarkdown::pdf_document
@@ -122,18 +122,20 @@ _____
  first and second moments and a predefined correlation matrix.
  
  * _makeItemsScale()_ generates a random dataframe of scale items based 
- on a predefined summated scale, such as created by the _lfast()_ function.
+ on a predefined summated scale with a desired Cronbach's Alpha.
  
  * _correlateScales()_ creates a dataframe of correlated summated scales as 
  one might find in completed survey questionnaire and possibly used in a 
  Structural Equation model.
  
- * _alpha()_ calculates Cronbach's Alpha from a given correlation matrix 
- or a given dataframe.
+ * Helper Functions 
  
- * _eigenvalues()_ calculates eigenvalues of a correlation matrix, 
- reports on positive-definite status of the matrix and, optionally, 
- displays a scree plot to visualise the eigenvalues.
+     - _alpha()_ calculates Cronbach's Alpha from a given correlation 
+     matrix or a given dataframe.
+ 
+     - _eigenvalues()_ calculates eigenvalues of a correlation matrix, 
+     reports on positive-definite status of the matrix and, optionally, 
+     displays a scree plot to visualise the eigenvalues.
 
 _____
 
@@ -243,12 +245,6 @@ hist(x3,
 
 ____
 
-### _lexact()_
-
-**_lexact()_** Deprecated. _lexact()_ is now simply a wrapper for _lfast()_.
-
-____
-
 ## Correlating rating scales
 
 The function, **_lcor()_**, rearranges the values in the columns of a 
@@ -262,7 +258,7 @@ but their correlations with other vectors do.
 **_lcor()_** systematically selects pairs of values in a column 
 and swaps their places, and checks to see if this swap improves 
 the correlation matrix. 
-If the revised data-frame produces a correlation matrix closer to the 
+If the revised dataframe produces a correlation matrix closer to the 
 target correlation matrix, then the swap is retained. 
 Otherwise, the values are returned to their original places. 
 This process is iterated across each column. 
@@ -295,7 +291,7 @@ mydat3 <- data.frame(
 )
 ```
 
-The first six observations from this data-frame are:
+The first six observations from this dataframe are:
 
 ```{r mydat3Head, echo = FALSE}
 head(mydat3, 6)
@@ -336,7 +332,7 @@ tgt3 <- matrix(
 )
 ```
 
-So now we have a data-frame with desired first and second moments, 
+So now we have a dataframe with desired first and second moments, 
 and a target correlation matrix.
 
 ```{r new3}
@@ -345,10 +341,10 @@ and a target correlation matrix.
 new3 <- lcor(mydat3, tgt3)
 ```
 
-The first column of the new data-frame will not change, but values of the 
+The first column of the new dataframe will not change, but values of the 
 other columns are rearranged. 
 
-The first six observations from this data-frame are:
+The first six observations from this dataframe are:
 
 ```{r new3Head, echo = FALSE}
 head(new3, 6)
@@ -615,7 +611,7 @@ alpha(myCorr)
 
 ### Step 2: Generate dataframe
 
-```{r genDataframe}
+```{r gendataframe}
 ## define parameters
 n <- 256
 myMeans <- c(2.75, 3.00, 3.00, 3.25, 3.50, 3.5)
@@ -1016,7 +1012,7 @@ sample(1:5, n,
 ### marginal model specification 
 
 Marginal model specification extends the idea of a predefined probability 
-distribution to multivariate and correlated data-frames.
+distribution to multivariate and correlated dataframes.
 
 - [SimCorrMix: Simulation of Correlated Data with Multiple Variable Types Including Continuous and Count Mixture Distributions](https://CRAN.R-project.org/package=SimCorrMix) on CRAN.
  
