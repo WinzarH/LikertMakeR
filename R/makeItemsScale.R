@@ -3,7 +3,7 @@
 #' @name makeItemsScale
 #'
 #' @description \code{makeItemsScale()} generates a random dataframe
-#'  of scale items based on a predefined summated scale 
+#'  of scale items based on a predefined summated scale
 #'  (such as created by the \code{lfast()} function),
 #'  and a desired _Cronbach's Alpha_.
 #'
@@ -19,14 +19,15 @@
 #' @param alpha (posiitve, real) desired _Cronbach's Alpha_ for the
 #' new dataframe of items.
 #' Default = '0.8'.
-#' 
+#'
+#'
 #' See [details]
-#' 
+#'
 #' @param variance (positive, real) the quantile from which to select
 #' items that give given summated scores.
 #' Must lie between '0' and '1'.
 #' Default = '0.5'.
-#' 
+#'
 #' See [details]
 #'
 #'
@@ -37,7 +38,7 @@
 #' \code{makeItemsScale()} rearranges the item values within each row,
 #' attempting to give a dataframe of Likert-scale items that produce a
 #' predefined _Cronbach's Alpha_.
-#' 
+#'
 #' Default value for target alpha is '0.8'.
 #'
 #' More extreme values for the 'variance' parameter may reduce the chances
@@ -49,7 +50,6 @@
 #' specific value, and these combinations have different levels of variance:
 #'
 #'   * low-variance: '3 + 4 = 7'
-#'
 #'   * high-variance: '1 + 6 = 7'
 #'
 #' The 'variance' parameter defines guidelines for the amount of variance
@@ -57,11 +57,10 @@
 #'
 #' For example, consider a summated value of '9' on which we apply
 #' the \code{makeItemsScale()} function to generate three items.
-#' With zero variance (variance parameter = '0') then we see all items with 
-#' the same value - the mean of '3'.
-#' With variance = '1' then we see all items with values
+#' With zero variance (variance parameter = '0'), then we see all items with
+#' the same value, the mean of '3'.
+#' With variance = '1', then we see all items with values
 #' that give the maximum variance among those items.
-#'  [add Roxygen: list(markdown = TRUE) to your DESCRIPTION file.]
 #'
 #'   | variance | v1 | v2 | v3 | sum |
 #'   |----------|----|----|----|-----|
@@ -76,7 +75,6 @@
 #' Similarly, the same mean value applied to six items with
 #'  \code{makeItemsScale()} gives the following combinations at
 #'  different values of the 'variance' parameter.
-#'
 #'
 #'   | variance | v1 | v2 | v3 | v4 | v5 | v6 | sum |
 #'   |----------|----|----|----|----|----|----|-----|
@@ -93,14 +91,14 @@
 #'   |----------|----|----|----|----|----|----|-----|
 #'   | 0.0      |  3 |  3 |  3 |  4 |  4 |  4 |  21 |
 #'   | 0.2      |  3 |  3 |  3 |  3 |  4 |  5 |  21 |
-#'   | 0.4      |  2 |  2 |  4 |  4 |  4 |  5 |  21 | 
+#'   | 0.4      |  2 |  2 |  4 |  4 |  4 |  5 |  21 |
 #'   | 0.6      |  1 |  3 |  4 |  4 |  4 |  5 |  21 |
 #'   | 0.8      |  1 |  2 |  4 |  4 |  5 |  5 |  21 |
 #'   | 1.0      |  1 |  1 |  4 |  5 |  5 |  5 |  21 |
 #'
-#'  The default value for 'variance' is '0.5' which gives a reasonable 
-#'  range of item values. 
-#'  But if you want 'responses' that are more consistent then choose 
+#'  The default value for 'variance' is '0.5' which gives a reasonable
+#'  range of item values.
+#'  But if you want 'responses' that are more consistent then choose
 #'  a lower variance value.
 #'
 #'
