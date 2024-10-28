@@ -112,10 +112,9 @@ values so that the vectors are correlated.
 `makeCorrAlpha()` generates a correlation matrix from a predefined 
 _Cronbach's Alpha()_, thus enabling the user to apply `lcor()` and `lfast()` 
 to generate scale items with an exact _Cronbach's Alpha_. 
-`makeItems()` is a wrapper function for `lfast()` and `lcor()`  
-to generate synthetic rating-scale data with predefined first and second 
-moments and a predefined correlation matrix. 
-`makeItemsScale()` Generate a dataframe of rating scale items from a 
+`makeItems()` will generate synthetic rating-scale data with predefined 
+first and second moments and a predefined correlation matrix. 
+`makeItemsScale()` generate a dataframe of rating scale items from a 
 summative scale and desired _Cronbach's Alpha_. 
 `correlateScales()` generates a multidimensional dataframe by combining several
 dataframes of rating-scale items so that their summated scales are correlated 
@@ -140,7 +139,7 @@ author's _GitHub_ repository.
      install_github("WinzarH/LikertMakeR")
      
 
-## Generate synthetic rating scales {#lfast}
+## [Generate synthetic rating scales]{#lfast}
 
 ### lfast() 
 
@@ -201,7 +200,7 @@ author's _GitHub_ repository.
      
 ____
 
-## Correlating vectors of synthetic rating scales {#lcor}
+## [Correlating vectors of synthetic rating scales]{#lcor}
 
 ### lcor() 
 
@@ -286,7 +285,7 @@ but their correlations with other columns do.
 
 ____
 
-## Generate a correlation matrix from Cronbach's Alpha {#makeCorrAlpha}
+## [Generate a correlation matrix from Cronbach's Alpha]{#makeCorrAlpha}
 
 ### makeCorrAlpha()
 
@@ -397,7 +396,7 @@ The user is encouraged to try again, possibly several times, to find one.
 
 ____
 
-## Generate a dataframe of rating scales from a correlation matrix and predefined moments {#makeItems}
+## [Generate a dataframe of rating scales from a correlation matrix and predefined moments]{#makeItems}
 
 ### makeItems()
 
@@ -484,11 +483,11 @@ _makeItems()_ is a wrapper function for:
 
 ___
 
-## Generate a dataframe of rating-scale items from a summated rating scale {#makeItemsScale}
+## [Generate a dataframe of rating-scale items from a summated rating scale]{#makeItemsScale}
 
 ### makeItemsScale()
 
-  -  **_makeItemsScale()_** generate a dataframe of rating-scale items from a summated rating scale and desired _Cronbach's Alpha_.
+  -  **_makeItemsScale()_** generates a dataframe of rating-scale items from a summated rating scale and desired _Cronbach's Alpha_.
 
 #### _makeItemsScale()_ usage 
 
@@ -568,7 +567,7 @@ ___
 ___
 
 
-## Create a multidimensional dataframe of scale items as we might see from a questionnaire {#correlateScales}
+## [Create a multidimensional dataframe of scale items as we might see from a questionnaire]{#correlateScales}
 
 ### correlateScales() 
 
@@ -691,7 +690,7 @@ _likertMakeR()_ includes two additional functions that may be of help
   a report on whether the correlation matrix is positive definite and 
   an optional scree plot
 
-### alpha() {#alpha}
+### [alpha()]{#alpha}
 
 _alpha()_ accepts, as input, either a correlation matrix or a dataframe. 
 If both are submitted, then the correlation matrix is used by default, 
@@ -741,7 +740,7 @@ with a message to that effect.
 
     alpha(corMat, df)
 
-### eigenvalues() {#eigenvalues}
+### [eigenvalues()]{#eigenvalues}
 
 _eigenvalues()_ calculates eigenvalues of a correlation
  matrix, reports on whether the matrix is positive-definite,
@@ -789,7 +788,7 @@ ____
 Here’s how to cite this package:
 
      Winzar, H. (2022). LikertMakeR: Synthesise and correlate rating-scale 
-    data with predefined first & second moments, 
+    data with predefined first & second moments, Version 0.4.0 (2024),
     The Comprehensive R Archive Network (CRAN),
     <https://CRAN.R-project.org/package=LikertMakeR>
         
@@ -802,5 +801,6 @@ Here’s how to cite this package:
     journal = {The Comprehensive R Archive Network (CRAN)},
     month = {12},
     year = {2022},
+    version = {0.4.0, (2024)}
     url = {https://CRAN.R-project.org/package=LikertMakeR},
     }
