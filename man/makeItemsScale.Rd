@@ -2,9 +2,16 @@
 % Please edit documentation in R/makeItemsScale.R
 \name{makeItemsScale}
 \alias{makeItemsScale}
-\title{scale items from a summated scale}
+\title{scale items from a summated scale and desired Cronbach's Alpha}
 \usage{
-makeItemsScale(scale, lowerbound, upperbound, items, variance = 0.5)
+makeItemsScale(
+  scale,
+  lowerbound,
+  upperbound,
+  items,
+  alpha = 0.8,
+  variance = 0.5
+)
 }
 \arguments{
 \item{scale}{(int) a vector or dataframe of the summated rating scale.
@@ -18,23 +25,100 @@ Should range from ('lowerbound' * 'items') to ('upperbound' * 'items')}
 
 \item{items}{(positive, int) k, or number of columns to generate}
 
-\item{variance}{(positive, real) standard deviation of values sampled
-from a normally-distributed log transformation. Default = '0.5'.
+\item{alpha}{(posiitve, real) desired \emph{Cronbach's Alpha} for the
+new dataframe of items.
+Default = '0.8'.
 
-A value of '0' makes all values in the correlation matrix the same,
-equal to the mean correlation needed to produce the desired \emph{Cronbach's Alpha}.
-A value of '2', or more, risks producing a matrix that is not positive-
-definite, so not feasible.}
+See \verb{@details} for further information on the \code{alpha} parameter}
+
+\item{variance}{(positive, real) the quantile from which to select
+items that give given summated scores.
+Must lie between '0' and '1'.
+Default = '0.5'.
+
+See \verb{@details} for further information on the \code{variance} parameter}
 }
 \value{
 a dataframe with 'items' columns and 'length(scale)' rows
 }
 \description{
 \code{makeItemsScale()} generates a random dataframe
-of scale items based on a predefined summated scale,
-such as created by the \code{lfast()} function.
+of scale items based on a predefined summated scale
+(such as created by the \code{lfast()} function),
+and a desired \emph{Cronbach's Alpha}.
 
-scale, lowerbound, upperbound, items
+scale, lowerbound, upperbound, items, alpha, variance
+}
+\details{
+\subsection{alpha}{
+
+\code{makeItemsScale()} rearranges the item values within each row,
+attempting to give a dataframe of Likert-scale items that produce a
+predefined \emph{Cronbach's Alpha}.
+
+Default value for target alpha is '0.8'.
+
+More extreme values for the 'variance' parameter may reduce the chances
+of achieving the desired Alpha. So you may need to experiment a little.
+}
+
+\subsection{variance}{
+
+There may be many ways to find a combination of integers that sum to a
+specific value, and these combinations have different levels of variance:
+\itemize{
+\item low-variance: '3 + 4 = 7'
+\item high-variance: '1 + 6 = 7'
+}
+
+The 'variance' parameter defines guidelines for the amount of variance
+among item values that your new dataframe should have.
+
+For example, consider a summated value of '9' on which we apply
+the \code{makeItemsScale()} function to generate three items.
+With zero variance (variance parameter = '0'), then we see all items with
+the same value, the mean of '3'.
+With variance = '1', then we see all items with values
+that give the maximum variance among those items.\tabular{lllll}{
+   variance \tab v1 \tab v2 \tab v3 \tab sum \cr
+   0.0 \tab 3 \tab 3 \tab 3 \tab 9 \cr
+   0.2 \tab 3 \tab 3 \tab 3 \tab 9 \cr
+   0.4 \tab 2 \tab 3 \tab 4 \tab 9 \cr
+   0.6 \tab 1 \tab 4 \tab 4 \tab 9 \cr
+   0.8 \tab 2 \tab 2 \tab 5 \tab 9 \cr
+   1.0 \tab 1 \tab 3 \tab 5 \tab 9 \cr
+}
+
+
+Similarly, the same mean value applied to six items with
+\code{makeItemsScale()} gives the following combinations at
+different values of the 'variance' parameter.\tabular{llllllll}{
+   variance \tab v1 \tab v2 \tab v3 \tab v4 \tab v5 \tab v6 \tab sum \cr
+   0.0 \tab 3 \tab 3 \tab 3 \tab 3 \tab 3 \tab 3 \tab 18 \cr
+   0.2 \tab 1 \tab 3 \tab 3 \tab 3 \tab 4 \tab 4 \tab 18 \cr
+   0.4 \tab 1 \tab 2 \tab 3 \tab 4 \tab 4 \tab 4 \tab 18 \cr
+   0.6 \tab 1 \tab 1 \tab 4 \tab 4 \tab 4 \tab 4 \tab 18 \cr
+   0.8 \tab 1 \tab 1 \tab 3 \tab 4 \tab 4 \tab 5 \tab 18 \cr
+   1.0 \tab 1 \tab 1 \tab 1 \tab 5 \tab 5 \tab 5 \tab 18 \cr
+}
+
+
+And a mean value of '3.5' gives the following combinations.\tabular{llllllll}{
+   variance \tab v1 \tab v2 \tab v3 \tab v4 \tab v5 \tab v6 \tab sum \cr
+   0.0 \tab 3 \tab 3 \tab 3 \tab 4 \tab 4 \tab 4 \tab 21 \cr
+   0.2 \tab 3 \tab 3 \tab 3 \tab 3 \tab 4 \tab 5 \tab 21 \cr
+   0.4 \tab 2 \tab 2 \tab 4 \tab 4 \tab 4 \tab 5 \tab 21 \cr
+   0.6 \tab 1 \tab 3 \tab 4 \tab 4 \tab 4 \tab 5 \tab 21 \cr
+   0.8 \tab 1 \tab 2 \tab 4 \tab 4 \tab 5 \tab 5 \tab 21 \cr
+   1.0 \tab 1 \tab 1 \tab 4 \tab 5 \tab 5 \tab 5 \tab 21 \cr
+}
+
+
+The default value for 'variance' is '0.5' which gives a reasonable
+range of item values.
+But if you want 'responses' that are more consistent then choose
+a lower variance value.
+}
 }
 \examples{
 
@@ -64,22 +148,36 @@ newItems <- makeItemsScale(
   items = items
 )
 str(newItems)
+alpha(data = newItems) |> round(2)
 
-##
-## Testing Lowest value to Highest value of a scale
-##
-lowerbound <- 1
-upperbound <- 5
-items <- 6
-
-# lowest to highest values
-myvalues <- c((lowerbound * items):(upperbound * items))
-
-## Low variance usually gives higher Cronbach's Alpha
-mydat_20 <- makeItemsScale(
-  scale = myvalues,
+## create items with lower Alpha and lower variance but same summated scale
+newItems <- makeItemsScale(
+  scale = summatedScale,
   lowerbound = lowerbound, upperbound = upperbound,
-  items = items, variance = 0.20
+  items = items,
+  alpha = 0.7,
+  variance = 0.3
+)
+str(newItems)
+alpha(data = newItems) |> round(2)
+
+## create items with higher Alpha but same summated scale
+newItems <- makeItemsScale(
+  scale = summatedScale,
+  lowerbound = lowerbound, upperbound = upperbound,
+  items = items,
+  alpha = 0.9,
+  variance = 0.5
+)
+str(newItems)
+alpha(data = newItems) |> round(2)
+
+
+## very low variance usually gives higher Cronbach's Alpha
+mydat_20 <- makeItemsScale(
+  scale = summatedScale,
+  lowerbound = lowerbound, upperbound = upperbound,
+  items = items, alpha = 0.8, variance = 0.20
 )
 
 str(mydat_20)
@@ -92,14 +190,14 @@ moments <- data.frame(
 moments
 
 cor(mydat_20) |> round(2)
-alpha(mydat_20) |> round(2)
+alpha(data = mydat_20) |> round(2)
 
 
-## default variance
+## default alpha (0.8) and default variance (0.5)
 mydat_50 <- makeItemsScale(
-  scale = myvalues,
+  scale = summatedScale,
   lowerbound = lowerbound, upperbound = upperbound,
-  items = items, variance = 0.50
+  items = items
 )
 
 str(mydat_50)
@@ -112,12 +210,11 @@ moments <- data.frame(
 moments
 
 cor(mydat_50) |> round(2)
-alpha(mydat_50) |> round(2)
+alpha(data = mydat_50) |> round(2)
 
 
-## higher variance usually gives lower Cronbach's Alpha
 mydat_80 <- makeItemsScale(
-  scale = myvalues,
+  scale = summatedScale,
   lowerbound = lowerbound, upperbound = upperbound,
   items = items, variance = 0.80
 )
@@ -132,6 +229,6 @@ moments <- data.frame(
 moments
 
 cor(mydat_80) |> round(2)
-alpha(mydat_80) |> round(2)
+alpha(data = mydat_80) |> round(2)
 
 }

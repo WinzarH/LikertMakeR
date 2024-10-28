@@ -20,15 +20,14 @@
 #' new dataframe of items.
 #' Default = '0.8'.
 #'
-#'
-#' See [details]
+#' See `@details` for further information on the `alpha` parameter
 #'
 #' @param variance (positive, real) the quantile from which to select
 #' items that give given summated scores.
 #' Must lie between '0' and '1'.
 #' Default = '0.5'.
 #'
-#' See [details]
+#' See `@details` for further information on the `variance` parameter
 #'
 #'
 #' @details
