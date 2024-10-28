@@ -41,27 +41,25 @@ Functions in this version of **_LikertMakeR_** are:
   applies a simple _Evolutionary Algorithm_, 
   based on repeated random samples from a scaled _Beta_ distribution, 
   to approximate predefined first and second moments
-  
-  -  [**_lexact()_**](#lexact()) DEPRECATED. Use _lfast()_ instead.
 
   - [**_lcor()_**](#lcor) 
   rearranges the values in the columns of a dataframe so that 
   they are correlated to match a predefined correlation matrix
 
-  - [**_makeCorrAlpha_**](#makeCorrAlpha)
+  - [**_makeCorrAlpha_**](#makecorralpha)
   constructs a random correlation matrix of given 
   dimensions and predefined _Cronbach's Alpha_
   
-  - [**_makeItems()_**](#makeItems) 
+  - [**_makeItems()_**](#makeitems) 
   is a wrapper function for _lfast()_ and _lcor()_ 
   to generate synthetic rating-scale data with predefined first and second 
   moments and a predefined correlation matrix
   
-  - [**_makeItemsScale()_**](#makeItemsScale) 
+  - [**_makeItemsScale()_**](#makeitemsscale) 
   Generate a dataframe of rating scale items from a summative scale and 
   desired Cronbach's Alpha
   
-  - [_**correlateScales()**_](#correlateScales) generates a multidimensional 
+  - [_**correlateScales()**_](#correlatescales) generates a multidimensional 
   dataframe by combining several dataframes of rating-scale items so that their 
   summated scales are correlated according to a predefined correlation matrix.
 
@@ -77,8 +75,8 @@ Functions in this version of **_LikertMakeR_** are:
 
 A Likert scale is the mean, or sum, of several ordinal rating scales. 
 They are bipolar (usually “agree-disagree”) responses to propositions 
-that are determined to be moderately-to-highly correlated among each other, and 
-capturing various facets of a theoretical construct.
+that are determined to be moderately-to-highly correlated among each other, 
+and capturing various facets of a theoretical construct.
     
 Rating scales are not continuous or unbounded. 
     
@@ -139,7 +137,7 @@ author's _GitHub_ repository.
      install_github("WinzarH/LikertMakeR")
      
 
-## [Generate synthetic rating scales]{#lfast}
+## Generate synthetic rating scales 
 
 ### lfast() 
 
@@ -200,7 +198,7 @@ author's _GitHub_ repository.
      
 ____
 
-## [Correlating vectors of synthetic rating scales]{#lcor}
+## Correlating vectors of synthetic rating scales
 
 ### lcor() 
 
@@ -285,7 +283,7 @@ but their correlations with other columns do.
 
 ____
 
-## [Generate a correlation matrix from Cronbach's Alpha]{#makeCorrAlpha}
+## Generate a correlation matrix from Cronbach's Alpha
 
 ### makeCorrAlpha()
 
@@ -396,7 +394,7 @@ The user is encouraged to try again, possibly several times, to find one.
 
 ____
 
-## [Generate a dataframe of rating scales from a correlation matrix and predefined moments]{#makeItems}
+## Generate a dataframe of rating scales from a correlation matrix and predefined moments
 
 ### makeItems()
 
@@ -483,7 +481,7 @@ _makeItems()_ is a wrapper function for:
 
 ___
 
-## [Generate a dataframe of rating-scale items from a summated rating scale]{#makeItemsScale}
+## Generate a dataframe of rating-scale items from a summated rating scale
 
 ### makeItemsScale()
 
@@ -567,7 +565,7 @@ ___
 ___
 
 
-## [Create a multidimensional dataframe of scale items as we might see from a questionnaire]{#correlateScales}
+## Create a multidimensional dataframe of scale items as we might see from a questionnaire
 
 ### correlateScales() 
 
@@ -690,7 +688,7 @@ _likertMakeR()_ includes two additional functions that may be of help
   a report on whether the correlation matrix is positive definite and 
   an optional scree plot
 
-### [alpha()]{#alpha}
+### alpha()
 
 _alpha()_ accepts, as input, either a correlation matrix or a dataframe. 
 If both are submitted, then the correlation matrix is used by default, 
@@ -740,7 +738,7 @@ with a message to that effect.
 
     alpha(corMat, df)
 
-### [eigenvalues()]{#eigenvalues}
+### [eigenvalues()] (#eigenvalues)
 
 _eigenvalues()_ calculates eigenvalues of a correlation
  matrix, reports on whether the matrix is positive-definite,
