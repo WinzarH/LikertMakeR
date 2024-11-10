@@ -10,7 +10,7 @@
 
 # LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 0.4.0  October 2024)
+(V 0.4.0  November 2024)
 
 Synthesise and correlate rating-scale data with predefined 
 first & second moments (mean and standard deviation)
@@ -107,6 +107,7 @@ The function `lfast()` allows the user to specify exact
 univariate statistics as they might ordinarily be reported. 
 `lcor()` will take multiple scales created with `lfast()` and rearrange 
 values so that the vectors are correlated.
+
 `makeCorrAlpha()` generates a correlation matrix from a predefined 
 _Cronbach's Alpha()_, thus enabling the user to apply `lcor()` and `lfast()` 
 to generate scale items with an exact _Cronbach's Alpha_. 
@@ -540,6 +541,10 @@ ___
       upperbound = upperbound,
       items = items
     )
+    
+    cor(newItems_1) |> round(2)
+    alpha(data = newItems_1)
+    eigenvalues(cor(newItems_1), 1)
 
 ####  _makeItemsScale()_ with same summated values and higher _alpha_
 
@@ -551,17 +556,25 @@ ___
       alpha = 0.9
     )
     
-####  same summated values with lower _alpha_ and lower _variance_
+    cor(newItems_2) |> round(2)
+    alpha(data = newItems_2)
+    eigenvalues(cor(newItems_2), 1)
+
+####  same summated values with lower _alpha_ that may require higher _variance_
 
     newItems_3 <- makeItemsScale(
       scale = summatedScale,
       lowerbound = lowerbound, 
       upperbound = upperbound,
       items = items,
-      alpha = 0.7,
-      variance = 0.3
-    )
-    
+      alpha = 0.6,
+      variance = 0.7
+    )   
+
+    cor(newItems_3) |> round(2)
+    alpha(data = newItems_3)
+    eigenvalues(cor(newItems_3), 1)
+
 ___
 
 
