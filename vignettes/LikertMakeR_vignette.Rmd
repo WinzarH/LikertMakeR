@@ -1197,10 +1197,12 @@ for an excellent and short example using the following packages:
  
 - [faux](https://cran.r-project.org/package=faux) 
  
-- See also the _rLikert()_ function from the 
- [responsesR](https://github.com/markolalovic/responsesR) package, 
- [Lalovic (2021)](https://github.com/markolalovic/responsesR), for an 
- approach using optimal discretization and skew-normal distribution.
+- See also the _rLikert()_ function from the excellent
+ [latent2likert](https://github.com/markolalovic/latent2likert) package, 
+ [Lalovic (2024)](https://latent2likert.lalovic.io/), for an 
+ approach using optimal discretization and skew-normal distribution. 
+ _latent2likert()_ converts continuous latent variables into ordinal 
+ categories to generate Likert scale item responses.
  
 ### sampling with a predetermined probability distribution
 
@@ -1275,9 +1277,7 @@ Heinz, A. (2021), Simulating Correlated Likert-Scale Data In R:
 3 Simple Steps (blog post)
 <https://glaswasser.github.io/simulating-correlated-likert-scale-data/>
 
-Lalovic, M. (2021), _responsesR_: Simulate Likert scale item responses 
-(on GitHub)
-<https://github.com/markolalovic/responsesR>
+Lalovic M (2024). latent2likert: Converting Latent Variables into Likert Scale Responses. R package version 1.2.2, <https://latent2likert.lalovic.io/>. 
 
 Matta, T.H., Rutkowski, L., Rutkowski, D. & Liaw, Y.L. (2018), 
 lsasim: an R package for simulating large-scale assessment data. 
