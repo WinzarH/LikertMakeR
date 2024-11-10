@@ -102,7 +102,7 @@ then the data will be always skewed, as shown in the following plots.
 
 
 ```{r skew, fig.align='center', echo=FALSE, out.width = '85%', fig.cap="Off-centre means always give skewed distribution in bounded rating scales"}
-knitr::include_graphics("skew.png")
+knitr::include_graphics("skew_chart.png")
 ```
 
 _____
