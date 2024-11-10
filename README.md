@@ -12,11 +12,10 @@
 
 (V 0.4.0  November 2024)
 
-Synthesise and correlate rating-scale data with predefined 
-first & second moments (mean and standard deviation)
+Synthesise and correlate Likert scale and similar rating-scale data with 
+predefined first & second moments (mean and standard deviation)
  
- 
-**_LikertMakeR_** synthesises Likert scale and related rating-scale data. 
+**_LikertMakeR_** synthesises rating-scale data. 
 Such scales are constrained by upper and lower bounds and discrete increments. 
  
  
@@ -798,15 +797,17 @@ ____
 
 Here’s how to cite this package:
 
-     Winzar, H. (2022). LikertMakeR: Synthesise and correlate rating-scale 
-    data with predefined first & second moments, Version 0.4.0 (2024),
+     Winzar, H. (2022). LikertMakeR: Synthesise and correlate Likert-scale 
+     and related rating-scale data with predefined first & second moments, 
+     Version 0.4.0 (2024),
     The Comprehensive R Archive Network (CRAN),
     <https://CRAN.R-project.org/package=LikertMakeR>
         
 #### BIB:    
 
     @software{winzar2022,
-    title = {LikertMakeR: Synthesise and correlate rating-scale data with predefined first & second moments},
+    title = {LikertMakeR: Synthesise and correlate Likert-scale 
+    and related rating-scale data with predefined first & second moments},
     author = {Hume Winzar},
     abstract = {LikertMakeR synthesises Likert scale and related rating-scale data with predefined means and standard deviations, and optionally correlates these vectors to fit a predefined correlation matrix or Cronbach's Alpha.},
     journal = {The Comprehensive R Archive Network (CRAN)},
