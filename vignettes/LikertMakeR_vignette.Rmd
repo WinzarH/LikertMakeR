@@ -2,7 +2,7 @@
 title: "LikertMakeR"
 subtitle: "synthesise and correlate rating-scale data"
 author: Hume Winzar
-date: October 2024 
+date: November 2024 
 version: 0.4.0
 output: rmarkdown::html_vignette
 
@@ -13,15 +13,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-```
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 
-
-```{r setup, include = FALSE}
 library(LikertMakeR)
 ```
 
@@ -43,9 +41,9 @@ knitr::include_graphics("LikertMakeR_3.png")
 
 **_LikertMakeR_** synthesises and correlates Likert-scale and related 
 rating-scale data. 
-You decide the mean and standard deviation, and (optionally) the correlations 
-among vectors, and the package will generate data with those same predefined 
-properties. 
+You decide the mean and standard deviation, and (optionally) the 
+correlations among vectors, 
+and the package will generate data with those same predefined properties. 
 
 The package generates a column of values that simulate the same properties 
 as a rating scale. 
@@ -64,15 +62,16 @@ analysis and visualisation when only summary statistics have been reported.
 
 ## Motivation
 
-I was prompted to write the functions in _LikertMakeR_ after reviewing too 
-many journal article submissions where authors presented questionnaire results 
-with only means and standard deviations (often only the means), with no 
-apparent understanding of scale distributions, and their impact on scale 
-properties. 
+I was prompted to write the functions in _LikertMakeR_ after reviewing 
+too many journal article submissions where authors presented questionnaire 
+results with only means and standard deviations (often only the means), 
+with no apparent understanding of scale distributions, 
+and their impact on scale properties. 
 
-Hopefully, this tool will help researchers, teachers, and other reviewers, 
-to better think about rating-scale distributions, and the effects of variance, 
-scale boundaries, and number of items in a scale. 
+Hopefully, this tool will help researchers, teachers & students, 
+and other reviewers, to better think about rating-scale distributions, 
+and the effects of variance, scale boundaries, 
+and number of items in a scale. 
 Researchers can also use _LikertMakeR_ to prepare analyses ahead of a 
 formal survey.
 
@@ -86,22 +85,25 @@ and that capture some facet of a theoretical construct.
 
 Rating scales, such as Likert scales, are not continuous or unbounded.
 
-For example, a 5-point Likert scale that is constructed with, say, five items 
-(questions) will have a summed range of between 5 (all rated '1') and 25 
-(all rated '5') with all integers in between, and the mean range will 
-be '1' to '5' with intervals of 1/5=0.20. 
-A 7-point Likert scale constructed from eight items will have a summed range 
-between 8 (all rated '1') and 56 (all rated '7') with all integers in between, 
+For example, a 5-point Likert scale that is constructed with, 
+say, five items (questions) will have a summed range of between 5 
+(all rated '1') and 25 (all rated '5') with all integers in between, 
+and the mean range will be '1' to '5' with intervals of 1/5=0.20. 
+A 7-point Likert scale constructed from eight items will have a summed 
+range between 8 (all rated '1') and 56 (all rated '7') with all integers 
+in between, 
 and the mean range will be '1' to '7' with intervals of 1/8=0.125.
 
 Rating-scale boundaries define minima and maxima for any scale values. 
 If the mean is close to one boundary then data points will gather more 
 closely to that boundary. 
 If the mean is not in the middle of a scale, 
-and if the standard deviation is any more than about 1/4 of the scale range, 
-then the data will be always skewed.
+then the data will be always skewed, as shown in the following plots.
 
 
+```{r skew, fig.align='center', echo=FALSE, out.width = '85%', fig.cap="Off-centre means always give skewed distribution in bounded rating scales"}
+knitr::include_graphics("skew.png")
+```
 
 _____
 
@@ -173,7 +175,7 @@ ____
 - **_lfast()_** applies a simple evolutionary algorithm 
 which draws repeated random samples from a scaled *Beta* distribution. 
 It produces a vector of values with mean and standard 
-deviation correct to two decimal places.
+deviation typically correct to two decimal places.
 
 To synthesise a rating scale with **_lfast()_**, the user must input 
 the following parameters:
@@ -190,8 +192,8 @@ the following parameters:
 
  - **_items_**: number of items making the scale - default = 1
 
-The previous version of _LikertMakeR_ had a function, _lexact()_, which was 
-slow and no more accurate than the latest version of _lfast()_. 
+An earlier version of _LikertMakeR_ had a function, _lexact()_, 
+which was slow and no more accurate than the latest version of _lfast()_. 
  So, _lexact()_ is now deprecated. 
  
 
@@ -201,26 +203,29 @@ slow and no more accurate than the latest version of _lfast()_.
 
 
 ```{r lfastExample}
+nItems <- 4
+mean <- 2.5
+sd <- 0.75
+
 x1 <- lfast(
   n = 512,
-  mean = 2.5,
-  sd = 0.75,
+  mean = mean,
+  sd = sd,
   lowerbound = 1,
   upperbound = 5,
-  items = 4
+  items = nItems
 )
 ```
 
 
 
-```{r fig1, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
+```{r fig1, fig.height=3, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: 4-item, 1-5 Likert scale"}
 ## distribution of x
-
 hist(x1,
   cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = 1, to = 5, by = 0.25),
+  breaks = seq(from = (1 - (1 / 8)), to = (5 + (1 / 8)), by = (1 / 4)),
   col = "skyblue", xlab = NULL, ylab = NULL,
-  main = paste("mu=", round(mean(x1), 2), ", sd=", round(sd(x1), 2))
+  main = paste0("mu=", round(mean(x1), 2), ", sd=", round(sd(x1), 2))
 )
 ```
 
@@ -229,17 +234,18 @@ hist(x1,
 
 ###### _lfast()_
 
-```{r lfastx3}
-x3 <- lfast(256, 3, 2, 0, 10)
+```{r lfastx2}
+x2 <- lfast(256, 3, 2.5, 0, 10)
 ```
 
 
-```{r fig2, fig.height=3, fig.width=4, fig.align='center', echo = FALSE}
-hist(x3,
+```{r fig2, fig.height=3, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: likelihood-of-purchase scale"}
+## generate histogram
+hist(x2,
   cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = 0, to = 10, by = 1.0),
+  breaks = seq(from = -0.5, to = 10.5, by = 1),
   col = "skyblue", xlab = NULL, ylab = NULL,
-  main = paste("mu=", round(mean(x3), 2), ", sd=", round(sd(x3), 2))
+  main = paste0("mu=", round(mean(x2), 2), ", sd=", round(sd(x2), 2))
 )
 ```
 
@@ -267,7 +273,8 @@ To create the desired correlated data, the user must define the
 following parameters:
 
 - **_data_**: a starter data set of rating-scales. 
-Number of columns must match the dimensions of the _target_ correlation matrix.
+Number of columns must match the dimensions of the _target_ 
+correlation matrix.
 
 - **_target_**: the target correlation matrix. 
 
@@ -303,25 +310,24 @@ And the first and second moments (to 3 decimal places) are:
 moments <- data.frame(
   mean = apply(mydat3, 2, mean) |> round(3),
   sd = apply(mydat3, 2, sd) |> round(3)
-)
+) |> t()
 
-t(moments)
+moments
 ```
 
-We can see that the data have first and second moments very close 
+We can see that the data have first and second moments are very close 
 to what is expected. 
 
-The synthetic data have low correlations:
+As we should expect, randomly-generated synthetic data have low correlations:
 
 ```{r mydat3Cor, echo = FALSE}
-cor(mydat3) |> round(3)
+cor(mydat3) |> round(2)
 ```
 
 Now, let's define a target correlation matrix:
 
 ```{r tgt3}
 ## describe a target correlation matrix
-
 tgt3 <- matrix(
   c(
     1.00, 0.85, 0.75,
@@ -337,17 +343,15 @@ and a target correlation matrix.
 
 ```{r new3}
 ## apply lcor() function
-
-new3 <- lcor(mydat3, tgt3)
+new3 <- lcor(data = mydat3, target = tgt3)
 ```
 
-The first column of the new dataframe will not change, but values of the 
-other columns are rearranged. 
+Values in each column of the new dataframe do not change from the original;  the values are rearranged. 
 
-The first six observations from this dataframe are:
+The first ten observations from this dataframe are:
 
 ```{r new3Head, echo = FALSE}
-head(new3, 6)
+head(new3, 10)
 ```
 
 And the new data frame is correlated close to our desired correlation matrix; here presented to 3 decimal places:
@@ -436,14 +440,14 @@ alpha(cor_matrix_4)
 
 
 
-```{r fig3, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
+```{r fig3, fig.height=3, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE}
 ## using helper function eigenvalues()
 
 eigenvalues(cor_matrix_4, 1)
 ```
 
 
-#### twelve variables, alpha = 0.90, variance = 1
+#### twelve variables, alpha = 0.90, variance = 1 
 
 ```{r cor_matrix_12}
 ## define parameters
@@ -454,7 +458,7 @@ variance <- 1.0
 ## apply makeCorrAlpha() function
 set.seed(42)
 
-cor_matrix_12 <- makeCorrAlpha(items, alpha, variance)
+cor_matrix_12 <- makeCorrAlpha(items = items, alpha = alpha, variance = variance)
 ```
 
 ######  -
@@ -469,9 +473,11 @@ cor_matrix_12 |> round(2)
 
 ##### test output
 
-```{r fig4, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
+```{r fig4, fig.height=3, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE}
+## calculate Cronbach's Alpha
 alpha(cor_matrix_12)
 
+## calculate eigenvalues of the correlation matrix
 eigenvalues(cor_matrix_12, 1) |> round(3)
 ```
 
@@ -523,7 +529,6 @@ following parameters:
 
 ```{r makeItemsExample}
 ## define parameters
-
 n <- 128
 dfMeans <- c(2.5, 3.0, 3.0, 3.5)
 dfSds <- c(1.0, 1.0, 1.5, 0.75)
@@ -553,8 +558,16 @@ df <- makeItems(
 ## test the function
 head(df)
 tail(df)
-apply(df, 2, mean) |> round(3)
-apply(df, 2, sd) |> round(3)
+
+### means should be correct to two decimal places
+dfmoments <- data.frame(
+  mean = apply(df, 2, mean) |> round(3),
+  sd = apply(df, 2, sd) |> round(3)
+) |> t()
+
+dfmoments
+
+### correlations should be correct to two decimal places
 cor(df) |> round(3)
 ```
 
@@ -571,7 +584,7 @@ This is a two-step process:
   2. apply **_makeItems()_** to generate rating-scale items from the 
     correlation matrix and desired moments
   
-So required parameters are:
+Required parameters are:
 
   - **_k_**: number items/ columns 
   
@@ -595,17 +608,17 @@ So required parameters are:
 ```{r genCorrelation}
 ## define parameters
 k <- 6
-alpha <- 0.85
+myAlpha <- 0.85
 
 ## generate correlation matrix
 set.seed(42)
-myCorr <- makeCorrAlpha(k, alpha)
+myCorr <- makeCorrAlpha(items = k, alpha = myAlpha)
 
 ## display correlation matrix
 myCorr |> round(3)
 
 ### checking Cronbach's Alpha
-alpha(myCorr)
+alpha(cormatrix = myCorr)
 ```
 
 
@@ -620,7 +633,11 @@ lowerbound <- rep(1, k)
 upperbound <- rep(5, k)
 
 ## Generate Items
-myItems <- makeItems(n, myMeans, mySds, lowerbound, upperbound, myCorr)
+myItems <- makeItems(
+  n = n, means = myMeans, sds = mySds,
+  lowerbound = lowerbound, upperbound = upperbound,
+  cormatrix = myCorr
+)
 
 ## resulting data frame
 head(myItems)
@@ -639,7 +656,7 @@ alpha(NULL, myItems)
 
 #### Summary plots of new data frame
 
-```{r fig5, fig.height=5, fig.width=5, fig.align='center', echo=FALSE, warning=FALSE}
+```{r fig5, fig.height=5, fig.width=5, fig.align='center', echo=FALSE, warning=FALSE, crop = TRUE, fig.cap="Summary of dataframe from makeItems() function"}
 # Correlation panel
 panel.cor <- function(x, y) {
   usr <- par("usr")
@@ -664,7 +681,7 @@ panel.hist <- function(x, ...) {
   nB <- length(breaks)
   y <- h$counts
   y <- y / max(y)
-  rect(breaks[-nB], 0, breaks[-1], y, col = "#0000ff50")
+  rect(breaks[-nB], 0, breaks[-1], y, col = "#87ceeb66")
 }
 # Create the plots
 pairs(myItems,
@@ -677,8 +694,154 @@ pairs(myItems,
 ____
 
 
+## Generate a dataframe of rating-scale items from a summated rating scale
 
-## Create a multidimensinoal dataframe of correlated scale items 
+### makeItemsScale()
+
+  -  **_makeItemsScale()_** generates a dataframe of rating-scale items from a summated rating scale and desired _Cronbach's Alpha_.
+
+
+To create the desired dataframe, the user must define the 
+following parameters:
+
+  - **_scale_**: a vector or dataframe of the summated rating scale.
+   Should range from ('lowerbound' * 'items') to ('upperbound' * 'items') 
+ 
+  - **_lowerbound_**: lower bound of the scale item
+   (example: '1' in a '1' to '5' rating) 
+ 
+  - **_upperbound_**:  upper bound of the scale item
+   (example: '5' in a '1' to '5' rating) 
+ 
+  - **_items_**: k, or number of columns to generate
+  
+  - **_alpha_**: desired Cronbach's Alpha. Default = '0.8'
+  
+  - **_variance_**: quantile for selecting the combination of items that 
+  give summated scores. 
+  Must lie between '0' (minimum variance) and '1' (maximum variance). 
+  Default = '0.5'.
+  
+ 
+#### _makeItemsScale()_ Example:
+
+##### generate a summated scale
+
+```{r generate_summated_scale}
+## define parameters
+n <- 256
+mean <- 3.00
+sd <- 0.85
+lowerbound <- 1
+upperbound <- 5
+items <- 4
+
+## apply lfast() function
+meanScale <- lfast(
+  n = n, mean = mean, sd = sd,
+  lowerbound = lowerbound, upperbound = upperbound,
+  items = items
+)
+
+## sum over all items
+summatedScale <- meanScale * items
+```
+
+```{r summatedScale_histogram, echo=FALSE, fig.height=3, fig.width=5, fig.align='center', crop = TRUE, fig.cap="Summated scale distribution"}
+## Histogram of summated scale
+hist(summatedScale,
+  cex.axis = 0.5, cex.main = 0.75,
+  breaks = seq(
+    from = ((lowerbound * items) - 0.5),
+    to = ((upperbound * items) + 0.5), by = 1
+  ),
+  col = "skyblue", xlab = NULL, ylab = NULL,
+  main = paste0(
+    "mu=", round(mean * items, 2), ", sd=", round(sd * items, 2), ", range:",
+    (lowerbound * items), ":", (upperbound * items)
+  )
+)
+```
+
+
+#### create items with _makeItemsScale()_
+
+```{r makeItemsScale_example_1, fig.height=3, fig.width=5, fig.align='center', crop = TRUE}
+## apply makeItemsScale() function
+newItems_1 <- makeItemsScale(
+  scale = summatedScale,
+  lowerbound = lowerbound,
+  upperbound = upperbound,
+  items = items
+)
+
+### First 10 observations and summated scale
+head(cbind(newItems_1, summatedScale), 10)
+
+### correlation matrix
+cor(newItems_1) |> round(2)
+
+### default Cronbach's alpha = 0.80
+alpha(data = newItems_1) |> round(4)
+
+### calculate eigenvalues and print scree plot
+eigenvalues(cor(newItems_1), 1) |> round(3)
+```
+
+
+####  _makeItemsScale()_ with same summated values and higher _alpha_
+```{r makeItemsScale_example_2, fig.height=3, fig.width=5, fig.align='center', crop = TRUE}
+## apply makeItemsScale() function
+newItems_2 <- makeItemsScale(
+  scale = summatedScale,
+  lowerbound = lowerbound,
+  upperbound = upperbound,
+  items = items,
+  alpha = 0.9
+)
+
+### First 10 observations and summated scale
+head(cbind(newItems_2, summatedScale), 10)
+
+### correlation matrix
+cor(newItems_2) |> round(2)
+
+### requested Cronbach's alpha = 0.90
+alpha(data = newItems_2) |> round(4)
+
+### calculate eigenvalues and print scree plot
+eigenvalues(cor(newItems_2), 1) |> round(3)
+```
+
+####  same summated values with lower _alpha_ that may require higher _variance_
+
+```{r makeItemsScale_example_3, fig.height=3, fig.width=5, fig.align='center', crop = TRUE}
+## apply makeItemsScale() function
+newItems_3 <- makeItemsScale(
+  scale = summatedScale,
+  lowerbound = lowerbound,
+  upperbound = upperbound,
+  items = items,
+  alpha = 0.6,
+  variance = 0.7
+)
+
+### First 10 observations and summated scale
+head(cbind(newItems_3, summatedScale), 10)
+
+### correlation matrix
+cor(newItems_3) |> round(2)
+
+### requested Cronbach's alpha = 0.70
+alpha(data = newItems_3) |> round(4)
+
+### calculate eigenvalues and print scree plot
+eigenvalues(cor(newItems_3), 1) |> round(3)
+```
+
+----
+
+## Create a multidimensional dataframe of correlated scale items 
 
 ### correlateScales()
 
@@ -702,30 +865,41 @@ If you wish to simulate data for teaching or experimenting with Structural Equat
 
 ### correlateScales() examples
 
-
 #### three attitudes and a behavioural intention
 
 ##### create dataframes of Likert-scale items
  
 ```{r correlateScales_dataframes, echo = TRUE}
-n <- 32
+n <- 128
 lower <- 1
 upper <- 5
 
 ### attitude #1
-cor_1 <- makeCorrAlpha(items = 4, alpha = 0.90)
+
+#### generate a correlation matrix
+cor_1 <- makeCorrAlpha(items = 4, alpha = 0.80)
+
+#### specify moments as vectors
 means_1 <- c(2.5, 2.5, 3.0, 3.5)
-sds_1 <- c(0.9, 1.0, 0.9, 1.0)
+sds_1 <- c(0.75, 0.85, 0.85, 0.75)
+
+#### apply makeItems() function
 Att_1 <- makeItems(
-  n, means_1, sds_1,
-  rep(lower, 4), rep(upper, 4),
-  cor_1
+  n = n, means = means_1, sds = sds_1,
+  lowerbound = rep(lower, 4), upperbound = rep(upper, 4),
+  cormatrix = cor_1
 )
 
 ### attitude #2
+
+#### generate a correlation matrix
 cor_2 <- makeCorrAlpha(items = 5, alpha = 0.85)
+
+#### specify moments as vectors
 means_2 <- c(2.5, 2.5, 3.0, 3.0, 3.5)
-sds_2 <- c(1.0, 1.0, 0.9, 1.0, 1.5)
+sds_2 <- c(0.75, 0.85, 0.75, 0.85, 0.75)
+
+#### apply makeItems() function
 Att_2 <- makeItems(
   n, means_2, sds_2,
   rep(lower, 5), rep(upper, 5),
@@ -733,10 +907,15 @@ Att_2 <- makeItems(
 )
 
 ### attitude #3
-cor_3 <- makeCorrAlpha(items = 6, alpha = 0.75)
-means_3 <- c(2.5, 2.5, 3.0, 3.0, 3.5, 3.5)
-sds_3 <- c(1.0, 1.5, 1.0, 1.5, 1.0, 1.5)
 
+#### generate a correlation matrix
+cor_3 <- makeCorrAlpha(items = 6, alpha = 0.90)
+
+#### specify moments as vectors
+means_3 <- c(2.5, 2.5, 3.0, 3.0, 3.5, 3.5)
+sds_3 <- c(0.75, 0.85, 0.85, 1.0, 0.75, 0.85)
+
+#### apply makeItems() function
 Att_3 <- makeItems(
   n, means_3, sds_3,
   rep(lower, 6), rep(upper, 6),
@@ -744,7 +923,7 @@ Att_3 <- makeItems(
 )
 
 ### behavioural intention
-intent <- lfast(n, mean = 3.0, sd = 3, lowerbound = 0, upperbound = 10) |>
+intent <- lfast(n, mean = 4.0, sd = 3, lowerbound = 0, upperbound = 10) |>
   data.frame()
 names(intent) <- "int"
 ```
@@ -757,8 +936,15 @@ A1_moments <- data.frame(
   means = apply(Att_1, 2, mean) |> round(2),
   sds = apply(Att_1, 2, sd) |> round(2)
 ) |> t()
+
+### Attitude #1 moments
 A1_moments
+
+### Attitude #1 correlations
 cor(Att_1) |> round(2)
+
+### Attitude #1 cronbach's alpha
+alpha(cor(Att_1)) |> round(3)
 
 ## Attitude #2
 A2_moments <- data.frame(
@@ -766,8 +952,14 @@ A2_moments <- data.frame(
   sds = apply(Att_2, 2, sd) |> round(2)
 ) |> t()
 
+### Attitude #2 moments
 A2_moments
+
+### Attitude #2 correlations
 cor(Att_2) |> round(2)
+
+### Attitude #2 cronbach's alpha
+alpha(cor(Att_2)) |> round(3)
 
 ## Attitude #3
 A3_moments <- data.frame(
@@ -775,16 +967,24 @@ A3_moments <- data.frame(
   sds = apply(Att_3, 2, sd) |> round(2)
 ) |> t()
 
+### Attitude #3 moments
 A3_moments
+
+### Attitude #3 correlations
 cor(Att_3) |> round(2)
 
-## Intention
+### Attitude #2 cronbach's alpha
+alpha(cor(Att_3)) |> round(3)
+
+
+## Behavioural Intention
 
 intent_moments <- data.frame(
-  mean = apply(intent, 2, mean) |> round(2),
-  sd = apply(intent, 2, sd) |> round(2)
+  mean = apply(intent, 2, mean) |> round(3),
+  sd = apply(intent, 2, sd) |> round(3)
 ) |> t()
 
+### Intention moments
 intent_moments
 ```
 
@@ -796,14 +996,15 @@ intent_moments
 ### target scale correlation matrix
 scale_cors <- matrix(
   c(
-    1.0, 0.6, 0.5, 0.3,
-    0.6, 1.0, 0.4, 0.2,
-    0.5, 0.4, 1.0, 0.1,
-    0.3, 0.2, 0.1, 1.0
+    1.0, 0.7, 0.6, 0.5,
+    0.7, 1.0, 0.4, 0.3,
+    0.6, 0.4, 1.0, 0.2,
+    0.5, 0.3, 0.2, 1.0
   ),
   nrow = 4
 )
 
+### bring dataframes into a list
 data_frames <- list("A1" = Att_1, "A2" = Att_2, "A3" = Att_3, "Int" = intent)
 ```
 
@@ -811,6 +1012,7 @@ data_frames <- list("A1" = Att_1, "A2" = Att_2, "A3" = Att_3, "Int" = intent)
 #### apply the correlateScales() function
 
 ```{r my_correlated_scales}
+### apply correlateScales() function
 my_correlated_scales <- correlateScales(
   dataframes = data_frames,
   scalecors = scale_cors
@@ -819,7 +1021,7 @@ my_correlated_scales <- correlateScales(
 
 #### plot the new correlated scale items
 
-```{r fig6, fig.height=9, fig.width=9, fig.align='center', echo=FALSE, warning=FALSE}
+```{r fig6, fig.height=9, fig.width=9, fig.align='center', echo=FALSE, warning=FALSE,  crop = TRUE}
 # Correlation panel
 panel.cor <- function(x, y) {
   usr <- par("usr")
@@ -855,9 +1057,6 @@ pairs(my_correlated_scales,
 ```
 
 
-
-
-
 ###### Check the properties of our derived dataframe
 
 ```{r newdata_check}
@@ -866,10 +1065,18 @@ str(my_correlated_scales)
 ```
 
 
-```{r fig7, fig.height=4, fig.width=5, fig.align='center', echo = TRUE}
+```{r fig7, fig.height=3, fig.width=5, fig.align='center', echo = TRUE,  crop = TRUE}
 ## eigenvalues of dataframe correlations
-eigenvalues(cormatrix = cor(my_correlated_scales), scree = TRUE) |> round(2)
+Cor_Correlated_Scales <- cor(my_correlated_scales)
+eigenvalues(cormatrix = Cor_Correlated_Scales, scree = TRUE) |> round(2)
 ```
+
+```{r fig7a, fig.height=3, fig.width=5, fig.align='center', echo = TRUE,  crop = TRUE}
+#### Eigenvalues of predictor variable items only
+Cor_Attitude_items <- cor(my_correlated_scales[, -16])
+eigenvalues(cormatrix = Cor_Attitude_items, scree = TRUE) |> round(2)
+```
+
 
 
 ____
@@ -951,8 +1158,9 @@ print(evals)
 
 ##### eigenvalues() function with optional scree plot
 
-```{r fig8, fig.height=4, fig.width=4, fig.align='center', echo = TRUE}
+```{r fig8, fig.height=3, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE}
 evals <- eigenvalues(correlationMatrix, 1)
+print(evals)
 ```
 
 
