@@ -1,5 +1,5 @@
 
-# LikertMakeR 0.4.0 (2024-10-28)
+# LikertMakeR 0.4.0 (2024-11-10)
 
 ## target Cronbach's Alpha added to makeItemsScale() function 
 
