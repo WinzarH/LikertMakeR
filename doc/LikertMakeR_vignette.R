@@ -11,7 +11,7 @@ library(LikertMakeR)
 knitr::include_graphics("LikertMakeR_3.png")
 
 ## ----skew, fig.align='center', echo=FALSE, out.width = '85%', fig.cap="Off-centre means always give skewed distribution in bounded rating scales"----
-knitr::include_graphics("skew.png")
+knitr::include_graphics("skew_chart.png")
 
 ## ----lfastExample-------------------------------------------------------------
 nItems <- 4
@@ -594,9 +594,9 @@ evals <- eigenvalues(correlationMatrix, 1)
 print(evals)
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  n <- 128
-#  sample(1:5, n,
-#    replace = TRUE,
-#    prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
-#  )
+# n <- 128
+# sample(1:5, n,
+#   replace = TRUE,
+#   prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
+# )
 
