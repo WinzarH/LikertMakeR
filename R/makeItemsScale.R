@@ -354,7 +354,6 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
 
   for (i in 1:nrow(scale)) {
     vRow <- makeVector(candidates, scale[i, ], items) |>
-    # vRow <- makeVector(candidates, scale[i], items) |>
       permute()
     mydat <- rbind(mydat, vRow)
   }
