@@ -102,7 +102,7 @@
 #'
 #'
 #' @importFrom gtools combinations permute
-#' @importFrom dplyr filter arrange slice select all_of
+#' @importFrom dplyr filter arrange slice select all_of pull slice_sample
 #' @importFrom stats sd quantile
 #'
 #' @return a dataframe with 'items' columns and 'length(scale)' rows
@@ -347,10 +347,12 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
     items = items
   )
 
+  scale <- as.data.frame(scale) # if case scale is submitted as a vector
   mydat <- data.frame(NULL)
 
   for (i in 1:nrow(scale)) {
     vRow <- makeVector(candidates, scale[i, ], items) |>
+    # vRow <- makeVector(candidates, scale[i], items) |>
       permute()
     mydat <- rbind(mydat, vRow)
   }
