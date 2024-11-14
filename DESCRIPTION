@@ -6,11 +6,11 @@ Authors@R:
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0001-7475-2641"))
 Description: Synthesise Likert scale and related rating-scale data with
-    predefined first and second moments (mean and standard deviation), 
+    predefined first and second moments (mean and standard deviation),
     and, optionally, correlate multiple vectors using a predefined
-    correlation matrix. Additionally, generate synthetic rating-scale items
-    with a predefined Cronbach's Alpha, or create rating-scale items based
-    on a predefined summated scale.
+    correlation matrix. Additionally, generate synthetic rating-scale
+    items with a predefined Cronbach's Alpha, or create rating-scale items
+    based on a predefined summated scale.
 License: MIT + file LICENSE
 URL: https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
