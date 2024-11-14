@@ -240,8 +240,8 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
       n = length(c(lowerbound:upperbound)),
       repeats.allowed = TRUE
     )
-    sums <- apply(mycombinations, MARGIN = 1, FUN = sum)
-    mycombinations <- cbind(mycombinations, sums) |> data.frame()
+    # sums <- apply(mycombinations, MARGIN = 1, FUN = sum)
+    # mycombinations <- cbind(mycombinations, sums) |> data.frame()
 
     return(mycombinations)
   }
@@ -251,6 +251,8 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
   ##  desired summated value, and at the desired variance quantile
   ###
   makeVector <- function(mycombinations, targetSum, items) {
+    sums <- apply(mycombinations, MARGIN = 1, FUN = sum)
+    mycombinations <- cbind(mycombinations, sums) |> data.frame()
     shortdat <- filter(mycombinations, mycombinations$sums == targetSum)
     sds <- apply(shortdat[, 1:items], MARGIN = 1, FUN = sd) |> round(2)
     shortdat <- cbind(shortdat, sds)
@@ -260,7 +262,7 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
       1
     )
 
-    # Arrange by "sum" and extract the value for "sum" at the quantile row
+    # extract the value for "sd" at the quantile row
     target_sd <- shortdat |>
       # arrange(sds) |>
       slice(sliceRow) |>
