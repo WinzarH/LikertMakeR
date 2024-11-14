@@ -252,18 +252,25 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
   ###
   makeVector <- function(mycombinations, targetSum, items) {
     shortdat <- filter(mycombinations, mycombinations$sums == targetSum)
-    sds <- apply(shortdat[, 1:items], MARGIN = 1, FUN = sd)
+    sds <- apply(shortdat[, 1:items], MARGIN = 1, FUN = sd) |> round(2)
     shortdat <- cbind(shortdat, sds)
-
+    shortdat <- shortdat |> arrange(sds)
     sliceRow <- ifelse(nrow(shortdat) > 1,
       as.integer(quantile(c(1:nrow(shortdat)), probs = variance)),
       1
     )
 
-    vec <- shortdat |>
-      arrange(sds) |>
+    # Arrange by "sum" and extract the value for "sum" at the quantile row
+    target_sd <- shortdat |>
+      # arrange(sds) |>
       slice(sliceRow) |>
-      select(all_of(1:items))
+      pull(sds)
+
+    vec <- shortdat |>
+      # arrange(sds) |>
+      filter(sds == target_sd) |>
+      slice_sample(n = 1) |>
+      subset(select = -c(sums, sds))
 
     return(vec)
   }
@@ -334,7 +341,6 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
   ## Functions done.. Now we run some calculations!
   ###
 
-  ##
   candidates <- makeCombinations(
     lowerbound = lowerbound,
     upperbound = upperbound,
@@ -343,8 +349,8 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
 
   mydat <- data.frame(NULL)
 
-  for (i in 1:length(scale)) {
-    vRow <- makeVector(candidates, scale[i], items) |>
+  for (i in 1:nrow(scale)) {
+    vRow <- makeVector(candidates, scale[i, ], items) |>
       permute()
     mydat <- rbind(mydat, vRow)
   }
