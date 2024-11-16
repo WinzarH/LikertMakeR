@@ -32,7 +32,9 @@ The package is intended for
  
   3. checking the feasibility of scale moments with given scale and 
   correlation properties 
+
  
+## Functions
  
 Functions in this version of **_LikertMakeR_** are:
 
@@ -51,16 +53,17 @@ Functions in this version of **_LikertMakeR_** are:
   
   - [**_makeItems()_**](#makeitems) 
   is a wrapper function for _lfast()_ and _lcor()_ 
-  to generate synthetic rating-scale data with predefined first and second 
-  moments and a predefined correlation matrix
+  to generate synthetic rating-scale data with predefined first and 
+  second moments and a predefined correlation matrix
   
   - [**_makeItemsScale()_**](#makeitemsscale) 
-  Generate a dataframe of rating scale items from a summative scale and 
-  desired Cronbach's Alpha
+  Generate a dataframe of rating scale items from a summative scale 
+  and desired Cronbach's Alpha
   
-  - [_**correlateScales()**_](#correlatescales) generates a multidimensional 
-  dataframe by combining several dataframes of rating-scale items so that their 
-  summated scales are correlated according to a predefined correlation matrix.
+  - [_**correlateScales()**_](#correlatescales) generates a 
+  multidimensional dataframe by combining several dataframes of 
+  rating-scale items so that their summated scales are correlated 
+  according to a predefined correlation matrix.
 
   - [**_alpha()_**](#alpha) calculates Cronbach's Alpha from a given 
   correlation matrix or a given dataframe
@@ -89,7 +92,7 @@ all integers in between, and the mean range will be ‘1’ to ‘7’ with
 intervals of 1/8=0.125.
 
 
-#### Alternative approaches
+#### Alternative approaches to synthesising scales
 
 Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities. 
 
@@ -311,10 +314,12 @@ ____
   A value of '2', or more, risks producing a matrix that is not 
   positive-definite, so not feasible.
   
-  - **_precision_**: a value between '0' and '3' to add some random variation around the target Cronbach's Alpha.
+  - **_precision_**: a value between '0' and '3' to add some random 
+  variation around the target Cronbach's Alpha.
   Default = '0'.
-  A value of '0' produces the desired _Alpha_, generally exact to two decimal places.
-  Higher values produce increasingly random values around the desired _Alpha_.
+  A value of '0' produces the desired _Alpha_, generally exact to two 
+  decimal places. Higher values produce increasingly random values around 
+  the desired _Alpha_.
 
 #### NOTE
 
@@ -485,7 +490,8 @@ ___
 
 ### makeItemsScale()
 
-  -  **_makeItemsScale()_** generates a dataframe of rating-scale items from a summated rating scale and desired _Cronbach's Alpha_.
+  -  **_makeItemsScale()_** generates a dataframe of rating-scale items 
+    from a summated rating scale and desired _Cronbach's Alpha_.
 
 #### _makeItemsScale()_ usage 
 
@@ -582,11 +588,11 @@ ___
 ### correlateScales() 
 
 _**correlateScales()**_ takes several dataframes of rating-scale
-items and rearranges their rows so that the scales are correlated according
+ items and rearranges their rows so that the scales are correlated according
  to a predefined correlation matrix. Univariate statistics for each 
  dataframe of rating-scale items do not change, 
- and inter-item correlations within a dataframe do not change,
- but their correlations with rating-scale items in _other_ dataframes do change.
+ and inter-item correlations within a dataframe do not change, but their 
+ correlations with rating-scale items in _other_ dataframes do change.
  
  
 #### correlateScales() usage

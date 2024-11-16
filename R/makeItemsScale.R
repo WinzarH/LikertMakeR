@@ -250,6 +250,19 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
   ##  makeVector selects a row of item values rowsums equal to a
   ##  desired summated value, and at the desired variance quantile
   ###
+
+## normProb() adds variation to selection of variance quantile
+  normProb <- function() {
+    probs <- variance + rnorm(n = 1, mean = 0, sd = 0.3)
+    if (probs < 0.0) {
+      probs <- 0.0
+    }
+    if (probs > 1.0) {
+      probs <- 1.0
+    }
+    return(probs)
+  }
+
   makeVector <- function(mycombinations, targetSum, items) {
     sums <- apply(mycombinations, MARGIN = 1, FUN = sum)
     mycombinations <- cbind(mycombinations, sums) |> data.frame()
@@ -258,7 +271,7 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
     shortdat <- cbind(shortdat, sds)
     shortdat <- shortdat |> arrange(sds)
     sliceRow <- ifelse(nrow(shortdat) > 1,
-      as.integer(quantile(c(1:nrow(shortdat)), probs = variance)),
+      as.integer(quantile(c(1:nrow(shortdat)), probs = normProb())),
       1
     )
 
@@ -288,7 +301,7 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
 
     # Target alpha value
     target_alpha <- alpha
-    alpha_tolerance <- 0.0025 # Define tolerance for acceptable alpha
+    alpha_tolerance <- 0.00125 # Define tolerance for acceptable alpha
 
     # Boolean flag to control loop continuation
     improvement_found <- TRUE
@@ -349,8 +362,10 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
     items = items
   )
 
-  scale <- as.data.frame(scale) # if case scale is submitted as a vector
+  scale <- as.data.frame(scale) # if scale is submitted as a vector
   mydat <- data.frame(NULL)
+
+  message(paste0("generate ", nrow(scale), " rows"))
 
   for (i in 1:nrow(scale)) {
     vRow <- makeVector(candidates, scale[i, ], items) |>
@@ -365,7 +380,15 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
     mydat[i, ] <- mydat[i, ] |> permute()
   }
 
+  message(paste0("rearrange ", items, " values within each of ", nrow(scale), " rows"))
+
   optimised_dat <- rearrangeRowValues()
+
+  best_alpha <- alpha(data = optimised_dat) |> round(4)
+
+  message(paste0("Complete!"))
+
+  message(paste0("desired Cronbach's alpha = ", alpha, " (achieved alpha = ", best_alpha, ")"))
 
   return(optimised_dat)
 }
