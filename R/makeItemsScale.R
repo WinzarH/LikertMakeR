@@ -224,6 +224,7 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
   ###
   ##  makeCombinations produces a dataframe of all combinations of item values
   ###
+
   makeCombinations <- function(lowerbound, upperbound, items) {
     # combinations(n, r, v = 1:n, set = TRUE, repeats.allowed = FALSE)
     # n:  Size of the source vector
@@ -251,9 +252,9 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
   ##  desired summated value, and at the desired variance quantile
   ###
 
-## normProb() adds variation to selection of variance quantile
+  ## normProb() adds variation to selection of variance quantile
   normProb <- function() {
-    probs <- variance + rnorm(n = 1, mean = 0, sd = 0.3)
+    probs <- variance + rnorm(n = 1, mean = 0, sd = 0.2)
     if (probs < 0.0) {
       probs <- 0.0
     }
@@ -295,7 +296,7 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
   ##  in each row to achieve desired Cronbach's Alpha
   ###
   rearrangeRowValues <- function() {
-    # Initialize variables to track the best alpha and corresponding dataframe
+    # Initialize variables for best alpha and corresponding dataframe
     best_alpha <- alpha(data = mydat)
     best_newItems <- mydat
 
@@ -320,9 +321,10 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
           for (i in 1:nrow(best_newItems)) {
             # Skip if the values are equal (no need for redundant swap)
             if (best_newItems[i, j] == best_newItems[i, k]) next
-            # print(paste0("j=",j,", k=",k,", i=",i))
+
             # Make a copy of best_newItems to work with
             temp_items <- best_newItems
+
             # Swap the values in row i, columns j and k
             temp <- temp_items[i, j]
             temp_items[i, j] <- temp_items[i, k]
@@ -338,7 +340,7 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
               improvement_found <- TRUE
             }
 
-            # Stop if alpha is within the acceptable tolerance
+            # Stop if alpha is within tolerance
             if (abs(best_alpha - target_alpha) <= alpha_tolerance) {
               improvement_found <- FALSE
               break
