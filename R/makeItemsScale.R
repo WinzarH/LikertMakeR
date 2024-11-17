@@ -181,7 +181,7 @@
 #' mydat_80 <- makeItemsScale(
 #'   scale = summatedScale,
 #'   lowerbound = lower, upperbound = upper,
-#'   items = items, variance = 0.80
+#'   items = k, variance = 0.80
 #' )
 #'
 #' ### test new dataframe
