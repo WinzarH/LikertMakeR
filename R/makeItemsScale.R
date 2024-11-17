@@ -180,7 +180,7 @@
 #' ## default alpha (0.8) and higher variance (0.8)
 #' mydat_80 <- makeItemsScale(
 #'   scale = summatedScale,
-#'   lowerbound = lowerbound, upperbound = upperbound,
+#'   lowerbound = lower, upperbound = upper,
 #'   items = items, variance = 0.80
 #' )
 #'

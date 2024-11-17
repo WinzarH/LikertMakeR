@@ -123,52 +123,46 @@ a lower variance value.
 \examples{
 
 ## define parameters
-items <- 4
-lowerbound <- 1
-upperbound <- 5
+k <- 4
+lower <- 1
+upper <- 5
 
 ## scale properties
 n <- 64
-mean <- 3.5
-sd <- 1.00
+mean <- 3.0
+sd <- 0.85
 
 ## create scale
 set.seed(42)
 meanScale <- lfast(
   n = n, mean = mean, sd = sd,
-  lowerbound = lowerbound, upperbound = upperbound,
-  items = items
+  lowerbound = lower, upperbound = upper,
+  items = k
 )
-summatedScale <- meanScale * items
+summatedScale <- meanScale * k
 
-## create items
+## create new items
 newItems <- makeItemsScale(
   scale = summatedScale,
-  lowerbound = lowerbound, upperbound = upperbound,
-  items = items
+  lowerbound = lower, upperbound = upper,
+  items = k
 )
+
+### test new items
 str(newItems)
 alpha(data = newItems) |> round(2)
 
-## create items with lower Alpha and lower variance but same summated scale
-newItems <- makeItemsScale(
-  scale = summatedScale,
-  lowerbound = lowerbound, upperbound = upperbound,
-  items = items,
-  alpha = 0.7,
-  variance = 0.3
-)
-str(newItems)
-alpha(data = newItems) |> round(2)
 
 ## create items with higher Alpha but same summated scale
 newItems <- makeItemsScale(
   scale = summatedScale,
-  lowerbound = lowerbound, upperbound = upperbound,
-  items = items,
+  lowerbound = lower, upperbound = upper,
+  items = k,
   alpha = 0.9,
   variance = 0.5
 )
+
+### test new items
 str(newItems)
 alpha(data = newItems) |> round(2)
 
@@ -176,10 +170,11 @@ alpha(data = newItems) |> round(2)
 ## very low variance usually gives higher Cronbach's Alpha
 mydat_20 <- makeItemsScale(
   scale = summatedScale,
-  lowerbound = lowerbound, upperbound = upperbound,
-  items = items, alpha = 0.8, variance = 0.20
+  lowerbound = lower, upperbound = upper,
+  items = k, alpha = 0.8, variance = 0.20
 )
 
+### test new data frame
 str(mydat_20)
 
 moments <- data.frame(
@@ -193,32 +188,14 @@ cor(mydat_20) |> round(2)
 alpha(data = mydat_20) |> round(2)
 
 
-## default alpha (0.8) and default variance (0.5)
-mydat_50 <- makeItemsScale(
-  scale = summatedScale,
-  lowerbound = lowerbound, upperbound = upperbound,
-  items = items
-)
-
-str(mydat_50)
-
-moments <- data.frame(
-  means = apply(mydat_50, MARGIN = 2, FUN = mean) |> round(3),
-  sds = apply(mydat_50, MARGIN = 2, FUN = sd) |> round(3)
-) |> t()
-
-moments
-
-cor(mydat_50) |> round(2)
-alpha(data = mydat_50) |> round(2)
-
-
+## default alpha (0.8) and higher variance (0.8)
 mydat_80 <- makeItemsScale(
   scale = summatedScale,
   lowerbound = lowerbound, upperbound = upperbound,
   items = items, variance = 0.80
 )
 
+### test new dataframe
 str(mydat_80)
 
 moments <- data.frame(
