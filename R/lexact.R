@@ -42,6 +42,7 @@
 #' x <- lexact(256, 2, 1.8, 0, 10)
 #'
 lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1) {
+  message("lexact() function is deprecated. \nUsing the more efficient lfast() function instead")
   lfast(
     n = n, mean = mean, sd = sd,
     lowerbound = lowerbound, upperbound = upperbound, items = items

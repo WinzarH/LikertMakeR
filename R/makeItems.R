@@ -89,7 +89,8 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
       length(means) != nrow(cormatrix) ||
       length(sds) != nrow(cormatrix)
     ) {
-      message("ERROR:\nParameters have unequal length & dimensions ")
+      message("ERROR:\nParameters have unequal length & dimensions
+              \nlowerbound, upperbound, means, sds must all be vectors of equal length (k) \nand cormatrix must be of k dimensions")
       return(NULL)
     }
   } ## END input parameters integrity

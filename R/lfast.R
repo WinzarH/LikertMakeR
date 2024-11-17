@@ -60,7 +60,7 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0)
   m <- (mean - lowerbound) / range ## rescale mean
   s <- sd / range ## rescale sd
 
-  ## idiot check
+  ## idiot checks
   if (mean <= lowerbound || mean >= upperbound) {
     stop("ERROR: mean is out of range")
   }
@@ -105,11 +105,10 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0)
 
   ## print iterations reached
   if (i == maxiter) {
-    print(paste0("reached maximum of ", i, " iterations"))
+    message(paste0("reached maximum of ", i, " iterations"))
   } else {
-    print(paste0("best solution in ", i, " iterations"))
+    message(paste0("best solution in ", i, " iterations"))
   }
 
-  # print(paste0("best solution in ", i, " iterations"))
   return(best_vector)
 }
