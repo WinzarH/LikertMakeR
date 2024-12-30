@@ -10,7 +10,7 @@
 
 # LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 0.4.0  November 2024)
+(V 0.4.5  December 2024)
 
 Synthesise and correlate Likert scale and similar rating-scale data with 
 predefined first & second moments (mean and standard deviation)
@@ -59,6 +59,9 @@ Functions in this version of **_LikertMakeR_** are:
   - [**_makeItemsScale()_**](#makeitemsscale) 
   Generate a dataframe of rating scale items from a summative scale 
   and desired Cronbach's Alpha
+  
+  - [**_makePaired()_**](#makePaired) 
+  Generate a dataset from paired-sample t-test summary statistics
   
   - [_**correlateScales()**_](#correlatescales) generates a 
   multidimensional dataframe by combining several dataframes of 
@@ -582,6 +585,14 @@ ___
 
 ___
 
+## Create a dataframe for paired-sample t-test
+
+### makePaired()
+
+
+
+___
+
 
 ## Create a multidimensional dataframe of scale items as we might see from a questionnaire
 
@@ -756,7 +767,7 @@ with a message to that effect.
 
     alpha(corMat, df)
 
-### [eigenvalues()] (#eigenvalues)
+### eigenvalues()
 
 _eigenvalues()_ calculates eigenvalues of a correlation
  matrix, reports on whether the matrix is positive-definite,

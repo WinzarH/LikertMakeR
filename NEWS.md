@@ -1,4 +1,12 @@
 
+# LikertMakeR 0.4.5 (2024-12-30)
+
+## makePaired() function added
+
+_makePaired()_ generates a dataframe of two paired vectors to emulate data 
+for a paired-sample t-test
+
+
 # LikertMakeR 0.4.0 (2024-11-17)
 
 ## target Cronbach's Alpha added to makeItemsScale() function 
