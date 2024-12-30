@@ -70,6 +70,8 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0)
             \nOr the solution is not feasible, producing 'NA' values")
   }
 
+
+  ## Beta distribution shape parameters
   a <- (m^2 - m^3 - m * s^2) / s^2 ## alpha shape parameter
   b <- (m - 2 * m^2 + m^3 - s^2 + m * s^2) / s^2 ## beta shape parameter
 
@@ -87,7 +89,7 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0)
     ## difference between target moments and actual moments
     mean_dif <- mean(item_vector) - mean
     sd_dif <- sd(item_vector) - sd
-    temp_value <- abs(mean_dif) + abs(sd_dif)
+    temp_value <- abs(mean_dif) + abs(sd_dif) ## simple figure to be minimised
 
     ## keep the best result so far
     if (temp_value < best_value) {
