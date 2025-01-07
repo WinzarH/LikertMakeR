@@ -1,5 +1,5 @@
 
-# LikertMakeR 0.4.5 (2024-12-30)
+# LikertMakeR 0.4.5 (2025-01-07)
 
 ## makePaired() function added
 

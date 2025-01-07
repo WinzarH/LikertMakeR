@@ -10,7 +10,7 @@
 
 # LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 0.4.5  December 2024)
+(V 0.4.5  January 2025)
 
 Synthesise and correlate Likert scale and similar rating-scale data with 
 predefined first & second moments (mean and standard deviation)
@@ -83,8 +83,8 @@ They are bipolar (usually “agree-disagree”) responses to propositions
 that are determined to be moderately-to-highly correlated among each other, 
 and capturing various facets of a theoretical construct.
     
-Rating scales are not continuous or unbounded. 
-    
+Summated rating scales are not continuous or unbounded. 
+
 For example, a 5-point Likert scale that is constructed with, say, 
 five items (questions) will have a summed range of between 5 
 (all rated ‘1’) and 25 (all rated ‘5’) with all integers in between, 
@@ -94,10 +94,17 @@ summed range between 8 (all rated ‘1’) and 56 (all rated ‘7’) with
 all integers in between, and the mean range will be ‘1’ to ‘7’ with 
 intervals of 1/8=0.125.
 
+Technically, because they are bounded and not continuous, parametric statistics, such as mean, standard deviation, and correlation, should not be applied to summated rating scales. In practice, however, parametric statistics are commonly used in the social sciences because:
+
+  1. they are in common usage and easily understood,
+  
+  2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost always)_ the same as for parametric statistics for such data. <br> 
+For example, [D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) argue that a summated scale, made with multiple items, "approaches" an interval scale measure.
 
 #### Alternative approaches to synthesising scales
 
-Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities. 
+Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. <br>
+For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities. 
 
           n <- 128
           sample(1:5, n, replace = TRUE,
@@ -130,19 +137,19 @@ according to a predefined correlation matrix.
 To download and install the package, run the following code from your R console.
 
 From __CRAN__:
-
-
+     
+     
      install.packages('LikertMakeR')
+     
     
-
 The latest development version is available from the 
 author's _GitHub_ repository.
-
-
+     
+     
      library(devtools)
      install_github("WinzarH/LikertMakeR")
      
-
+     
 ## Generate synthetic rating scales 
 
 ### lfast() 
@@ -589,7 +596,48 @@ ___
 
 ### makePaired()
 
+_makePaired()_ generates a dataset from paired-sample t-test summary statistics.
 
+_makePaired()_ generates correlated values so the data replicate rating scales taken, for example, in a before and after experimental design. The function is effectively a wrapper function for _lfast()_ and _lcor()_ with the addition of a t-statistic from which the between-column correlation is inferred.
+
+Paired t-tests apply to observations that are associated with each other. For example: the same people before and after a treatment; the same people rating two different objects; ratings by husband & wife; _etc._
+
+#### makePaired() usage
+
+    makePaired(n, means, sds, t_value, lowerbound, upperbound, items = 1, precision = 0)
+
+#### makePaired() arguments
+
+- _**n**_ sample size
+- _**means**_ a [1:2] vector of target means for two before/after measures
+- _**sds**_ a [1:2] vector of target standard deviations
+- _**t_value**_ desired paired t-statistic
+- _**lowerbound**_ lower bound (e.g. '1' for a 1-5 rating scale)
+- _**upperbound**_ upper bound (e.g. '5' for a 1-5 rating scale)
+- _**items**_ number of items in the rating scale. Default = 1
+- _**precision**_ can relax the level of accuracy required. (e.g. '1' generally creates a vector with moments correct within '0.025', '2' generally within '0.05'). Default = 0, which generally gives results correct within two decimal places.
+
+#### makePaired() examples
+
+    n <- 20
+    means <- c(2.5, 3.0)
+    sds <- c(1.0, 1.5)
+    lowerbound <- 1
+    upperbound <- 5
+    items <- 6
+    t <- -2.5
+    
+    pairedDat <- makePaired(n = n, means = means, sds = sds, t_value = t, lowerbound = lowerbound, upperbound = upperbound, items = items)
+    
+    str(pairedDat)
+    cor(pairedDat) |> round(2)
+    pairedMoments <- data.frame(
+      mean = apply(newDat, MARGIN = 2, FUN = mean) |> round(3),
+      sd = apply(newDat, MARGIN = 2, FUN = sd) |> round(3)
+    ) |> t()
+    pairedMoments
+    
+    t.test(pairedDat$V1, pairedDat$V2, paired = TRUE)
 
 ___
 
