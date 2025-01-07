@@ -362,6 +362,61 @@ alpha(data = newItems_3) |> round(4)
 ### calculate eigenvalues and print scree plot
 eigenvalues(cor(newItems_3), 1) |> round(3)
 
+## ----independent-samples_t-test, echo = TRUE----------------------------------
+## define parameters
+lower <- 1
+upper <- 5
+items <- 6
+
+## generate two independent samples
+x1 <- lfast(
+  n = 20, mean = 2.5, sd = 0.75,
+  lowerbound = lower, upperbound = upper, items = items
+)
+x2 <- lfast(
+  n = 30, mean = 3.0, sd = 0.85,
+  lowerbound = lower, upperbound = upper, items = items
+)
+
+## run independent-samples t-test
+t.test(x1, x2)
+
+## ----paired-sample_t-test_data, , echo = TRUE---------------------------------
+## define parameters
+n <- 20
+means <- c(2.5, 3.0)
+sds <- c(0.75, 0.85)
+lower <- 1
+upper <- 5
+items <- 6
+t <- -2.5
+
+## run the function
+pairedDat <- makePaired(
+  n = n, means = means, sds = sds,
+  t_value = t,
+  lowerbound = lower, upperbound = upper, items = items
+)
+
+## ----makePaired_output_properties, echo=TRUE----------------------------------
+## test function output
+str(pairedDat)
+
+cor(pairedDat) |> round(2)
+
+pairedMoments <- data.frame(
+  mean = apply(pairedDat, MARGIN = 2, FUN = mean) |> round(3),
+  sd = apply(pairedDat, MARGIN = 2, FUN = sd) |> round(3)
+) |> t()
+
+pairedMoments
+
+## ----paired-sample_t-test, echo=TRUE------------------------------------------
+## run a paired-sample t-test
+paired_t <- t.test(pairedDat$V1, pairedDat$V2, paired = TRUE)
+
+paired_t
+
 ## ----correlateScales_dataframes, echo = TRUE----------------------------------
 n <- 128
 lower <- 1
