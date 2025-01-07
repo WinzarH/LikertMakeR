@@ -30,6 +30,7 @@
 #' @param n (positive, integer) sample size
 #' @param means (real) a [1:2] vector of target means for two before/after measures
 #' @param sds (real) a [1:2] vector of target standard deviations
+#' @param t_value (real) desired paired t-statistic
 #' @param lowerbound (positive, int) lower bound (e.g. '1' for a 1-5 rating scale)
 #' @param upperbound (positive, int) upper bound (e.g. '5' for a 1-5 rating scale)
 #' @param items (positive, int) number of items in the rating scale. Default = 1
@@ -44,6 +45,7 @@
 #'
 #'
 #' @note
+#'
 #' Larger sample sizes usually result in higher t-statistics, and correspondingly small p-values.
 #'
 #' Small sample sizes with relatively large standard deviations and relatively high t-statistics can result in impossible correlation values.
@@ -61,7 +63,7 @@
 #' upperbound <- 5
 #' items <- 6
 #' t <- -2.5
-#' pairedDat <- makePaired(n = n, means = means, sds = sds, lowerbound = lowerbound, upperbound = upperbound, items = items, t_value = t)
+#' pairedDat <- makePaired(n = n, means = means, sds = sds, t_value = t, lowerbound = lowerbound, upperbound = upperbound, items = items)
 #'
 #' str(pairedDat)
 #' cor(pairedDat) |> round(2)

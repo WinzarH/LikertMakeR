@@ -2,8 +2,8 @@
 title: "LikertMakeR"
 subtitle: "synthesise and correlate rating-scale data"
 author: Hume Winzar
-date: November 2024 
-version: 0.4.0
+date: January 2025
+version: 0.4.5
 output: rmarkdown::html_vignette
 
 # output: rmarkdown::pdf_document
@@ -52,7 +52,7 @@ If multiple columns are generated, then you can use
 correlated exactly in accord with a user-predefined correlation matrix. 
 
 Functions can be combined to generate synthetic rating-scale data from a 
-predefined Cronbach's Alpha.
+predefined _Cronbach's Alpha_.
 
 ## Purpose
 
@@ -93,6 +93,13 @@ A 7-point Likert scale constructed from eight items will have a summed
 range between 8 (all rated '1') and 56 (all rated '7') with all integers 
 in between, 
 and the mean range will be '1' to '7' with intervals of 1/8=0.125.
+
+Technically, because they are bounded and not continuous, parametric statistics, such as mean, standard deviation, and correlation, should not be applied to summated rating scales. In practice, however, parametric statistics are commonly used in the social sciences because:
+
+  1. they are in common usage and easily understood,
+  
+  2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost always)_ the same as for parametric statistics for such data. <br> 
+For example, [D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) argue that a summated scale, made with multiple items, "approaches" an interval scale measure.
 
 Rating-scale boundaries define minima and maxima for any scale values. 
 If the mean is close to one boundary then data points will gather more 
@@ -838,6 +845,107 @@ alpha(data = newItems_3) |> round(4)
 ### calculate eigenvalues and print scree plot
 eigenvalues(cor(newItems_3), 1) |> round(3)
 ```
+
+----
+
+## Create a dataframe for a t-test
+
+Generating a data for an **independent-samples t-test** is trivial with _LikertMakeR_. But a dataframe for a **paired-sample t-test** is tricky because the observations are related to each other. That is, we must generate a dataframe of correlated observations.
+
+### Independent-samples t-test
+
+Note that such tests don't even require the same sample-size.
+
+```{r independent-samples_t-test, echo = TRUE}
+## define parameters
+lower <- 1
+upper <- 5
+items <- 6
+
+## generate two independent samples
+x1 <- lfast(
+  n = 20, mean = 2.5, sd = 0.75,
+  lowerbound = lower, upperbound = upper, items = items
+)
+x2 <- lfast(
+  n = 30, mean = 3.0, sd = 0.85,
+  lowerbound = lower, upperbound = upper, items = items
+)
+
+## run independent-samples t-test
+t.test(x1, x2)
+```
+
+### makePaired() paired-sample t-test
+
+_**makePaired()**_ generates correlated values so the data replicate rating scales taken, for example, in a before and after experimental design. The function is effectively a wrapper function for _lfast()_ and _lcor()_ with the addition of a t-statistic from which the between-column correlation is inferred.
+
+Paired t-tests apply to observations that are associated with each other. For example: the same people rating the same object before and after a treatment; the same people rating two different objects; ratings by husband & wife; _etc._
+
+_**makePaired()**_ has similar parameters as for the _lfast()_ function with the addition of a value for the desired t-statistic.
+
+ - _**n**_ sample size
+ 
+ - _**means**_ a [1:2] vector of target means for two before/after measures
+
+ - _**sds**_ a [1:2] vector of target standard deviations
+
+ - _**t_value**_ desired paired t-statistic
+
+ - _**lowerbound**_ lower bound (e.g. '1' for a 1-5 rating scale)
+
+ - _**upperbound**_ upper bound (e.g. '5' for a 1-5 rating scale)
+
+ - _**items**_ number of items in the rating scale.
+
+ - _**precision**_ can relax the level of accuracy required, as in _lfast()_.
+
+### makePaired() examples
+
+```{r paired-sample_t-test_data, , echo = TRUE}
+## define parameters
+n <- 20
+means <- c(2.5, 3.0)
+sds <- c(0.75, 0.85)
+lower <- 1
+upper <- 5
+items <- 6
+t <- -2.5
+
+## run the function
+pairedDat <- makePaired(
+  n = n, means = means, sds = sds,
+  t_value = t,
+  lowerbound = lower, upperbound = upper, items = items
+)
+```
+
+###### check properties of new data
+
+```{r makePaired_output_properties, echo=TRUE}
+## test function output
+str(pairedDat)
+
+cor(pairedDat) |> round(2)
+
+pairedMoments <- data.frame(
+  mean = apply(pairedDat, MARGIN = 2, FUN = mean) |> round(3),
+  sd = apply(pairedDat, MARGIN = 2, FUN = sd) |> round(3)
+) |> t()
+
+pairedMoments
+```
+
+
+###### run a paired-sample t-test with new data
+
+```{r paired-sample_t-test, echo=TRUE}
+## run a paired-sample t-test
+paired_t <- t.test(pairedDat$V1, pairedDat$V2, paired = TRUE)
+
+paired_t
+```
+
 
 ----
 
