@@ -13,9 +13,9 @@ lfast(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0)
 
 \item{sd}{(positive, real) target standard deviation}
 
-\item{lowerbound}{(positive, int) lower bound (e.g. '1' for a 1-5 rating scale)}
+\item{lowerbound}{(int) lower bound (e.g. '1' for a 1-5 rating scale)}
 
-\item{upperbound}{(positive, int) upper bound (e.g. '5' for a 1-5 rating scale)}
+\item{upperbound}{(int) upper bound (e.g. '5' for a 1-5 rating scale)}
 
 \item{items}{(positive, int) number of items in the rating scale. Default = 1}
 
@@ -43,6 +43,16 @@ x <- lfast(
   lowerbound = 1,
   upperbound = 7,
   items = 6
+)
+
+## five-item -3 to +3 rating scale
+x <- lfast(
+  n = 64,
+  mean = 0.025,
+  sd = 1.25,
+  lowerbound = -3,
+  upperbound = 3,
+  items = 5
 )
 
 ## four-item 1-5 rating scale with medium variation

@@ -15,8 +15,8 @@
 #' @param n (positive, int) number of observations to generate
 #' @param mean (real) target mean, between upper and lower bounds
 #' @param sd  (positive, real) target standard deviation
-#' @param lowerbound (positive, int) lower bound (e.g. '1' for a 1-5 rating scale)
-#' @param upperbound (positive, int) upper bound (e.g. '5' for a 1-5 rating scale)
+#' @param lowerbound (int) lower bound (e.g. '1' for a 1-5 rating scale)
+#' @param upperbound (int) upper bound (e.g. '5' for a 1-5 rating scale)
 #' @param items (positive, int) number of items in the rating scale. Default = 1
 #' @param precision (positive, real) can relax the level of accuracy required. (e.g. '1' generally generates a vector with moments correct within '0.025', '2' generally within '0.05') Default = 0
 #'
@@ -37,6 +37,16 @@
 #'   lowerbound = 1,
 #'   upperbound = 7,
 #'   items = 6
+#' )
+#'
+#' ## five-item -3 to +3 rating scale
+#' x <- lfast(
+#'   n = 64,
+#'   mean = 0.025,
+#'   sd = 1.25,
+#'   lowerbound = -3,
+#'   upperbound = 3,
+#'   items = 5
 #' )
 #'
 #' ## four-item 1-5 rating scale with medium variation
