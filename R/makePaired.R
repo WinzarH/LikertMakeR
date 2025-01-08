@@ -42,7 +42,8 @@
 #' @return a dataframe approximating user-specified conditions.
 #'
 #' @importFrom stats rbeta
-#'
+#' @importFrom Rcpp sourceCpp
+NULL
 #'
 #' @export makePaired
 #'
