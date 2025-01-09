@@ -1,9 +1,9 @@
 ---
 title: "LikertMakeR"
-subtitle: "synthesise and correlate rating-scale data"
+subtitle: "synthesise and correlate Likert scale and rating-scale data using only summary statistics"
 author: Hume Winzar
 date: January 2025
-version: 0.4.5
+version: 1.0.0
 output: rmarkdown::html_vignette
 
 # output: rmarkdown::pdf_document
@@ -39,20 +39,14 @@ knitr::include_graphics("LikertMakeR_3.png")
 
 <!-- ![LikertMakeR](LikertMakeR_hex.png){#id .class width=25%} -->
 
-**_LikertMakeR_** synthesises and correlates Likert-scale and related 
-rating-scale data. 
-You decide the mean and standard deviation, and (optionally) the 
-correlations among vectors, 
-and the package will generate data with those same predefined properties. 
 
-The package generates a column of values that simulate the same properties 
-as a rating scale. 
-If multiple columns are generated, then you can use 
-**_LikertMakeR_** to rearrange the values so that the new variables are 
-correlated exactly in accord with a user-predefined correlation matrix. 
-
-Functions can be combined to generate synthetic rating-scale data from a 
-predefined _Cronbach's Alpha_.
+_**LikertMakeR**_ [(Winzar, 2020)](https://cran.r-project.org/package=LikertMakeR) 
+lets you create synthetic Likert-scale data.  
+Set the mean, standard deviation, and correlations, and the package 
+generates data matching those properties. 
+It can also rearrange existing data columns to achieve a desired 
+correlation structure or generate data based on 
+_Cronbach's Alpha_ or other summary statistics.
 
 ## Purpose
 
@@ -98,12 +92,12 @@ Technically, because they are bounded and not continuous, parametric statistics,
 
   1. they are in common usage and easily understood,
   
-  2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost always)_ the same as for parametric statistics for such data. <br> 
+  2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost)_ always the same as for parametric statistics for such data. <br /> 
 For example, [D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) argue that a summated scale, made with multiple items, "approaches" an interval scale measure.
 
 Rating-scale boundaries define minima and maxima for any scale values. 
 If the mean is close to one boundary then data points will gather more 
-closely to that boundary. 
+closely to that boundary. <br />
 If the mean is not in the middle of a scale, 
 then the data will be always skewed, as shown in the following plots.
 
@@ -116,33 +110,36 @@ _____
 
 ## _LikertMakeR_ functions
 
- * _lfast()_ generate a vector of values with predefined 
+ * *lfast()* generate a vector of values with predefined 
  mean and standard deviation. 
  
- * _lcor()_ takes a dataframe of rating-scale values and rearranges the 
+ * *lcor()* takes a dataframe of rating-scale values and rearranges the 
  values in each column so that the columns are correlated to match a 
  predefined correlation matrix.
  
- * _makeCorrAlpha_ constructs a random correlation matrix of given 
+ * *makeCorrAlpha* constructs a random correlation matrix of given 
  dimensions from a predefined Cronbach's Alpha.
  
- * _makeItems()_ is a wrapper function for _lfast()_ 
+ * *makeItems()* is a wrapper function for _lfast()_ 
  and _lcor()_ to generate synthetic rating-scale data with predefined 
  first and second moments and a predefined correlation matrix.
  
- * _makeItemsScale()_ generates a random dataframe of scale items based 
+ * *makeItemsScale()* generates a random dataframe of scale items based 
  on a predefined summated scale with a desired Cronbach's Alpha.
  
- * _correlateScales()_ creates a dataframe of correlated summated scales as 
- one might find in completed survey questionnaire and possibly used in a 
- Structural Equation model.
+ * *makePaired()* generates a dataframe of two correlated columns based 
+ on summary data from a paired-sample t-test.
+ 
+ * *correlateScales()* creates a dataframe of correlated summated scales 
+ as one might find in completed survey questionnaire and possibly used 
+ in a  Structural Equation model.
  
  * Helper Functions 
  
-     - _alpha()_ calculates Cronbach's Alpha from a given correlation 
+     - *alpha()* calculates Cronbach's Alpha from a given correlation 
      matrix or a given dataframe.
  
-     - _eigenvalues()_ calculates eigenvalues of a correlation matrix, 
+     - *eigenvalues()* calculates eigenvalues of a correlation matrix, 
      reports on positive-definite status of the matrix and, optionally, 
      displays a scree plot to visualise the eigenvalues.
 
@@ -175,7 +172,6 @@ _____
 ____
 
 ## Generate synthetic rating-scale data
-
 
 ### _lfast()_
 
@@ -878,9 +874,9 @@ t.test(x1, x2)
 
 ### makePaired() paired-sample t-test
 
-_**makePaired()**_ generates correlated values so the data replicate rating scales taken, for example, in a before and after experimental design. The function is effectively a wrapper function for _lfast()_ and _lcor()_ with the addition of a t-statistic from which the between-column correlation is inferred.
+_**makePaired()**_ generates correlated values so the data replicate rating scales taken, for example, in a before and after experimental design. The function is effectively a wrapper function for _lfast()_ and _lcor()_ with the addition of a _t-statistic_ from which the between-column correlation is inferred.
 
-Paired t-tests apply to observations that are associated with each other. For example: the same people rating the same object before and after a treatment; the same people rating two different objects; ratings by husband & wife; _etc._
+Paired t-tests apply to observations that are associated with each other. For example: the same people rating the same object before and after a treatment, the same people rating two different objects, ratings by husband & wife, _etc._
 
 _**makePaired()**_ has similar parameters as for the _lfast()_ function with the addition of a value for the desired t-statistic.
 
@@ -937,7 +933,7 @@ pairedMoments
 ```
 
 
-###### run a paired-sample t-test with new data
+###### run a paired-sample t-test with the new data
 
 ```{r paired-sample_t-test, echo=TRUE}
 ## run a paired-sample t-test
@@ -1350,8 +1346,8 @@ See [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)
 ### Factor Models: Classical Test Theory (CTT) 
 
 The [psych package](https://CRAN.R-project.org/package=psych) has several 
-excellent functions for simulating rating-scale data based on factor loadings. 
-These focus on factor and item correlations rather than item moments. 
+excellent functions for simulating rating-scale data based on factor loadings. <br /> 
+These focus on factor and item correlations rather than item moments. <br />
 Highly recommended.
 
 - [**_psych::sim.item_**  Generate simulated data structures for circumplex, spherical, or simple structure](https://CRAN.R-project.org/package=psych)
@@ -1378,6 +1374,9 @@ ____
 
 # References
 
+D'Alessandro, S., H. Winzar, B. Lowe, Ba.J. Babin, W. Zikmund (2020). 
+_Marketing Research_ 5<sup>ed</sup>, Cengage Australia.  <https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund> 
+
 Grønneberg, S., Foldnes, N., & Marcoulides, K. M. (2022).
 covsim: An R Package for Simulating Non-Normal Data for Structural Equation Models Using Copulas. _Journal of Statistical Software_, 102(1), 1–45. <doi:10.18637/jss.v102.i03>
 
@@ -1396,9 +1395,13 @@ Pornprasertmanit, S., Miller, P., & Schoemann, A. (2021).
 simsem: R package for simulated structural equation modeling
 <https://simsem.org/>
 
-Revelle, W. (in prep) _An introduction to psychometric theory with applications in R_. To be published by Springer. (working draft available at <https://personality-project.org/r/book/> )
+Revelle, W. (in prep) _An introduction to psychometric theory with applications in R_. Springer. (working draft available at <https://personality-project.org/r/book/> )
 
 Touloumis, A. (2016), Simulating Correlated Binary and Multinomial Responses 
 under Marginal Model Specification: The SimCorMultRes Package, 
 _The R Journal_ 8:2, 79-91. 
 <doi:10.32614/RJ-2016-034>
+
+Winzar, H. (2020). LikertMakeR: Synthesise and correlate Likert scale and 
+related rating-scale data with predefined first and second moments. CRAN: 
+<doi: 10.32614/CRAN.package.LikertMakeR>
