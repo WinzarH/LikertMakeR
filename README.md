@@ -10,10 +10,11 @@
 
 # LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 0.4.5  January 2025)
+(V 1.0.0  January 2025)
 
 Synthesise and correlate Likert scale and similar rating-scale data with 
-predefined first & second moments (mean and standard deviation)
+predefined first & second moments (mean and standard deviation), 
+_Cronbach's Alpha_, and other summary statistics. 
  
 **_LikertMakeR_** synthesises rating-scale data. 
 Such scales are constrained by upper and lower bounds and discrete increments. 
@@ -98,12 +99,13 @@ Technically, because they are bounded and not continuous, parametric statistics,
 
   1. they are in common usage and easily understood,
   
-  2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost always)_ the same as for parametric statistics for such data. <br> 
-For example, [D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) argue that a summated scale, made with multiple items, "approaches" an interval scale measure.
+  2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost)_ always the same as for parametric statistics for such data. <br /> 
+[D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) argue that a summated scale, made with multiple items, "approaches" an interval scale measure.
+
 
 #### Alternative approaches to synthesising scales
 
-Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. <br>
+Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. <br />
 For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities. 
 
           n <- 128

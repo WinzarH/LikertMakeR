@@ -1,3 +1,12 @@
+# LikertMakeR 1.0.0 (2025-01-08)
+
+## update version number to correct major.minor.patch format
+
+No update from V 0.4.5.
+
+This will be the new numbered for submission to CRAN
+
+
 
 # LikertMakeR 0.4.5 (2025-01-07)
 
