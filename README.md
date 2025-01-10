@@ -862,11 +862,11 @@ ____
 
 ### To cite _LikertMakeR_
 
-Here’s how to cite this package:
+#### APA:
 
      Winzar, H. (2022). LikertMakeR: Synthesise and correlate Likert-scale 
      and related rating-scale data with predefined first & second moments, 
-     Version 0.4.5 (2025),
+     Version 1.0.0 (2025),
      The Comprehensive R Archive Network (CRAN),
     <https://CRAN.R-project.org/package=LikertMakeR>
         
@@ -880,6 +880,6 @@ Here’s how to cite this package:
     journal = {The Comprehensive R Archive Network (CRAN)},
     month = {12},
     year = {2022},
-    version = {0.4.5, (2025)}
+    version = {1.0.0 (2025)}
     url = {https://CRAN.R-project.org/package=LikertMakeR},
     }
