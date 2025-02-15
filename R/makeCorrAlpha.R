@@ -3,17 +3,20 @@
 #' @name makeCorrAlpha
 #'
 #' @description \code{makeCorrAlpha()} generates a random correlation
-#'  matrix of given dimensions and predefined Cronbach's Alpha
+#'  matrix of given dimensions and predefined _Cronbach's Alpha_.
+#'
+#' Such a correlation matrix can be applied to the \code{makeItems()}
+#' function to generate synthetic data with the predefined alpha.
 #'
 #' @param items (positive, int) matrix dimensions: number of rows & columns to generate
 #' @param alpha (real) target Cronbach's Alpha
-#'  (usually positive, must be between -1 and +1)
+#'  (usually positive, must be between about -0.3 and +1)
 #' @param variance (positive, real) Default = 0.5.
 #'  User-provided standard deviation of values sampled from a
 #'  normally-distributed log transformation.
 #' @param precision (positive, real) Default = 0.
 #'  User-defined value ranging from '0' to '3' to add some random variation
-#'  around the target Cronbach's Alpha.
+#'  around the target _Cronbach's Alpha_.
 #'  '0' gives an exact alpha (to two decimal places)
 #'
 #'
