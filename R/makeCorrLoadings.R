@@ -1,4 +1,5 @@
-#'
+#' Generate a correlation matrix of inter-item correlations from
+#'  item factor loadings
 #'
 #' @name makeCorrLoadings
 #'
@@ -10,11 +11,11 @@
 #' Such a correlation matrix can be applied to the \code{makeItems()}
 #' function to generate synthetic data with those predefined factor structures.
 #'
-#' @param factor_loadings (numeric matrix) **k** (items) by **f** (factors)
+#' @param loadings (numeric matrix) **k** (items) by **f** (factors)
 #'  matrix of **standardised** factor loadings. Item names and Factor names
 #'  can be taken from the row_names (items) and the column_names (factors),
 #'  if present.
-#' @param factor_cor (numeric matrix) **f x f** factor correlation matrix
+#' @param factorCor (numeric matrix) **f x f** factor correlation matrix
 #' @param uniquenesses (numeric vector) length **k** vector of uniquenesses.
 #' If NULL, the default, compute from the calculated communalities.
 #' @param nearPD (logical) If TRUE, project factorCor and the final
@@ -25,6 +26,7 @@
 #' @return Correlation matrix of inter-item correlations
 #'
 #' @importFrom Matrix nearPD
+#' @importFrom stats cov2cor
 #'
 #' @export makeCorrLoadings
 #'

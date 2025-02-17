@@ -439,12 +439,12 @@ ____
 
 ##### makeCorrLoadings() arguments
 
-  - **_factor_loadings_**:  'k' (items) by 'f' (factors)
+  - **_loadings_**:  'k' (items) by 'f' (factors)
   matrix of _standardised_ factor loadings. Item names and Factor names
   can be taken from the row_names (items) and the column_names (factors),
   if present.
 
-  - **_factor_cor_**:  'f' x 'f' factor correlation matrix. 
+  - **_factorCor_**:  'f' x 'f' factor correlation matrix. 
   If not present, then we assume that the factors are uncorrelated 
   (orthogonal), which is rare in practice, and the function applies an 
   identity matrix for _factor_cor_.
