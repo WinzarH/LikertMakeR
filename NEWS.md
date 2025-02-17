@@ -1,3 +1,16 @@
+# LikertMakeR 1.0.0 (2025-02-17)
+
+## makeCorrLoadings() function added
+
+makeCorrLoadings() generates a correlation matrix of
+inter-item correlations based on item factor loadings as might be seen in
+_Exploratory Factor Analysis_ (**EFA**) or a _Structural Equation Model_
+(**SEM**).
+
+Such a correlation matrix can be applied to the \code{makeItems()}
+function to generate synthetic data with those predefined factor structures.
+
+
 # LikertMakeR 1.0.0 (2025-01-08)
 
 ## update version number to correct major.minor.patch format
@@ -5,7 +18,6 @@
 No update from V 0.4.5.
 
 This will be the new numbered for submission to CRAN
-
 
 
 # LikertMakeR 0.4.5 (2025-01-07)

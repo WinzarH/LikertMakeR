@@ -10,15 +10,14 @@
 
 # LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 1.0.0  January 2025)
+(V 1.0.0  February 2025)
 
 Synthesise and correlate Likert scale and similar rating-scale data with 
 predefined first & second moments (mean and standard deviation), 
-_Cronbach's Alpha_, and other summary statistics. 
+_Cronbach's Alpha_, _Factor Loadings_, and other summary statistics. 
  
 **_LikertMakeR_** synthesises rating-scale data. 
 Such scales are constrained by upper and lower bounds and discrete increments. 
- 
  
 ## Purpose
  
@@ -42,32 +41,39 @@ Functions in this version of **_LikertMakeR_** are:
   -  [**_lfast()_**](#lfast) 
   applies a simple _Evolutionary Algorithm_, 
   based on repeated random samples from a scaled _Beta_ distribution, 
-  to approximate predefined first and second moments
+  to approximate predefined first and second moments.
 
   - [**_lcor()_**](#lcor) 
   rearranges the values in the columns of a dataframe so that 
-  they are correlated to match a predefined correlation matrix
+  they are correlated to match a predefined correlation matrix.
 
   - [**_makeCorrAlpha_**](#makecorralpha)
-  constructs a random correlation matrix of given 
-  dimensions and predefined _Cronbach's Alpha_
+  constructs a random item correlation matrix of given 
+  dimensions and predefined _Cronbach's Alpha_.
+  
+  - [**_makeCorrLoadings_**](#makeCorrLoadings)
+  constructs a item correlation matrix based on factor loadings and 
+  factor correlations as might be reported in _Exploratory Factor Analysis_
+  (**EFA**) or _Structural Equation Modelling_ (**SEM**).
   
   - [**_makeItems()_**](#makeitems) 
   is a wrapper function for _lfast()_ and _lcor()_ 
   to generate synthetic rating-scale data with predefined first and 
-  second moments and a predefined correlation matrix
+  second moments and a predefined correlation matrix.
   
   - [**_makeItemsScale()_**](#makeitemsscale) 
   Generate a dataframe of rating scale items from a summative scale 
-  and desired Cronbach's Alpha
+  and desired Cronbach's Alpha.
   
   - [**_makePaired()_**](#makePaired) 
-  Generate a dataset from paired-sample t-test summary statistics
+  Generate a dataset from paired-sample t-test summary statistics.
   
   - [_**correlateScales()**_](#correlatescales) generates a 
   multidimensional dataframe by combining several dataframes of 
   rating-scale items so that their summated scales are correlated 
   according to a predefined correlation matrix.
+
+##### Helper functions
 
   - [**_alpha()_**](#alpha) calculates Cronbach's Alpha from a given 
   correlation matrix or a given dataframe
@@ -95,13 +101,19 @@ summed range between 8 (all rated ‘1’) and 56 (all rated ‘7’) with
 all integers in between, and the mean range will be ‘1’ to ‘7’ with 
 intervals of 1/8=0.125.
 
-Technically, because they are bounded and not continuous, parametric statistics, such as mean, standard deviation, and correlation, should not be applied to summated rating scales. In practice, however, parametric statistics are commonly used in the social sciences because:
+Technically, because they are bounded with discrete values, parametric 
+statistics, such as mean, standard deviation, and correlation, should not be 
+applied to summated rating scales. In practice, however, parametric statistics 
+are commonly used in the social sciences because:
 
   1. they are in common usage and easily understood,
   
-  2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost)_ always the same as for parametric statistics for such data. <br /> 
-[D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) argue that a summated scale, made with multiple items, "approaches" an interval scale measure.
-
+  2. results and conclusions drawn from technically-correct non-parametric 
+  statistics are _(almost)_ always the same as for parametric statistics for 
+  such data. <br /> 
+[D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) 
+argue that a summated scale, made with multiple items, "approaches" an 
+interval scale measure.
 
 #### Alternative approaches to synthesising scales
 
@@ -123,10 +135,14 @@ univariate statistics as they might ordinarily be reported.
 values so that the vectors are correlated.
 
 `makeCorrAlpha()` generates a correlation matrix from a predefined 
-_Cronbach's Alpha()_, thus enabling the user to apply `lcor()` and `lfast()` 
-to generate scale items with an exact _Cronbach's Alpha_. 
+_Cronbach's Alpha()_, enabling the user to apply `makeItems()` 
+to generate scale items that produce an exact _Cronbach's Alpha_. 
+`makeCorrLoadings()` generates a correlation matrix from factor loadings data, 
+enabling the user to apply `makeItems()` to generate multidimensional data.
+
 `makeItems()` will generate synthetic rating-scale data with predefined 
 first and second moments and a predefined correlation matrix. 
+
 `makeItemsScale()` generate a dataframe of rating scale items from a 
 summative scale and desired _Cronbach's Alpha_. 
 `correlateScales()` generates a multidimensional dataframe by combining several
@@ -356,7 +372,6 @@ The user is encouraged to try again, possibly several times, to find one.
 
 ### _makeCorrAlpha()_ examples
 
-
 ###  four variables, Alpha = 0.85
 
 ##### define parameters 
@@ -365,11 +380,11 @@ The user is encouraged to try again, possibly several times, to find one.
     alpha <- 0.85
     variance <- 0.5  
 
-##### apply makeCorrAlpha() function
+**apply makeCorrAlpha() function**
 
     cor_matrix_4 <- makeCorrAlpha(items, alpha, variance)
 
-##### test output with Helper functions
+**test output with Helper functions**
 
     alpha(cor_matrix_4)
     eigenvalues(cor_matrix_4, 1)
@@ -383,11 +398,11 @@ The user is encouraged to try again, possibly several times, to find one.
     alpha <- 0.95
     variance <- 1.0
 
-##### apply makeCorrAlpha() function
+**apply makeCorrAlpha() function**
 
     cor_matrix_8 <- makeCorrAlpha(items, alpha, variance)
 
-##### test output
+**test output**
 
     alpha(cor_matrix_8)
     eigenvalues(cor_matrix_8, 1)
@@ -399,16 +414,98 @@ The user is encouraged to try again, possibly several times, to find one.
 
     precision <- 2
 
-##### apply makeCorrAlpha() function
+ **apply makeCorrAlpha() function**
 
     cor_matrix_8a <- makeCorrAlpha(items, alpha, variance, precision)
 
-##### test output
+ **test output**
 
     alpha(cor_matrix_8a)
     eigenvalues(cor_matrix_8a, 1)
 
+____
 
+## Generate a correlation matrix from factor loadings
+
+### makeCorrLoadings
+
+ **_makeCorrLoadings()_** generates a correlation matrix from factor loadings 
+ and factor correlations as might be seen in _Exploratory Factor Analysis_ 
+ (**EFA**) or a _Structural Equation Model_ (**SEM**).
+ 
+#### makeCorrLoadings() usage
+
+      makeCorrLoadings(loadings, factorCor = NULL, uniquenesses = NULL, nearPD = FALSE)
+
+##### makeCorrLoadings() arguments
+
+  - **_factor_loadings_**:  'k' (items) by 'f' (factors)
+  matrix of _standardised_ factor loadings. Item names and Factor names
+  can be taken from the row_names (items) and the column_names (factors),
+  if present.
+
+  - **_factor_cor_**:  'f' x 'f' factor correlation matrix. 
+  If not present, then we assume that the factors are uncorrelated 
+  (orthogonal), which is rare in practice, and the function applies an 
+  identity matrix for _factor_cor_.
+ 
+  - **_uniquenesses_**: length 'k' vector of uniquenesses.
+     If NULL, the default, compute from the calculated communalities.
+ 
+  - **_nearPD_**: (logical) If TRUE, project factorCor and the final
+ correlation matrix onto nearest Positive Definite matrix, if needed.
+ (It should never be needed.)
+
+### makeCorrLoadings() examples
+
+####  Typical application from published EFA results
+
+##### define parameters 
+
+**Example loadings**
+
+    factorLoadings <- matrix(
+      c(
+          0.05, 0.20, 0.70,
+          0.10, 0.05, 0.80,
+          0.05, 0.15, 0.85,
+          0.20, 0.85, 0.15,
+          0.05, 0.85, 0.10,
+          0.10, 0.90, 0.05,
+          0.90, 0.15, 0.05,
+          0.80, 0.10, 0.10
+       ),
+       nrow = 8, ncol = 3, byrow = TRUE
+    )
+
+**row and column names**
+
+    rownames(factorLoadings) <- c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8")
+    colnames(factorLoadings) <- c("Factor1", "Factor2", "Factor3")
+
+**Factor correlation matrix**
+  
+    factorCor <- matrix(
+    c(
+      1.0,  0.7, 0.6,
+      0.7,  1.0, 0.4,
+      0.6,  0.4, 1.0
+     ),
+    nrow = 3, byrow = TRUE
+    )
+
+##### Apply the function
+
+    itemCorrelations <- makeCorrLoadings(factorLoadings, factorCor)
+
+    round(itemCorrelations, 3)
+
+####  Assuming orthogonal factors
+
+    itemCors <- makeCorrLoadings(factorLoadings)
+
+    round(itemCors, 3)
+ 
 ____
 
 ## Generate a dataframe of rating scales from a correlation matrix and predefined moments
@@ -760,11 +857,11 @@ ___
 _likertMakeR()_ includes two additional functions that may be of help 
  when examining parameters and output.
 
-  - **_alpha()_** calculates Cronbach's Alpha from a given correlation 
+  - **_alpha()_** calculates _Cronbach's Alpha_ from a given correlation 
    matrix or a given dataframe
   
   - **_eigenvalues()_** calculates eigenvalues of a correlation matrix, 
-  a report on whether the correlation matrix is positive definite and 
+  and reports on whether the correlation matrix is positive definite and 
   an optional scree plot
 
 ### alpha()
@@ -829,10 +926,10 @@ _eigenvalues()_ calculates eigenvalues of a correlation
 
 #### eigenvalues() arguments 
 
-  - **_cormatrix_**: a correlation matrix
+  - **_cormatrix_**: a correlation matrix.
 
   - **_scree_**: (logical) default = FALSE. If TRUE (or 1), 
-  then _eigenvalues()_ produces a scree plot to illustrate the eigenvalues
+  then _eigenvalues()_ produces a scree plot to illustrate the eigenvalues.
 
 ### eigenvalues() examples
 
@@ -855,6 +952,8 @@ _eigenvalues()_ calculates eigenvalues of a correlation
     print(evals)
  
     evals <- eigenvalues(correlationMatrix, 1)
+    
+    print(evals)
 
 
 ____

@@ -7,7 +7,7 @@ Authors@R:
            comment = c(ORCID = "0000-0001-7475-2641"))
 Description: Generate and correlate synthetic Likert and rating-scale 
     data with predefined means, standard deviations, _Cronbach's Alpha_, 
-    and other summary statistics. 
+    _Factor Loadings_, and other summary statistics. 
 License: MIT + file LICENSE
 URL: https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
@@ -16,7 +16,8 @@ Depends:
 Imports: 
     dplyr,
     gtools,
-    Rcpp
+    Rcpp, 
+    Matrix
 Suggests: 
     knitr,
     rmarkdown,
