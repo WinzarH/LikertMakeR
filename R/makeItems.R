@@ -53,6 +53,10 @@
 #'   nrow = 4, ncol = 4
 #' )
 #'
+#'  item_names <- c("Q1", "Q2", "Q3", "Q4")
+#'  rownames(corMat) <- item_names
+#'  colnames(corMat) <- item_names
+#'
 #' ## apply function
 #'
 #' df <- makeItems(
@@ -110,6 +114,8 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
 
   k <- ncol(cormatrix)
 
+  item_names <- rownames(cormatrix)
+
   # Initialize the dataframe
   df <- as.data.frame(matrix(nrow = n, ncol = k))
 
@@ -123,8 +129,10 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
   new_df <- lcor(df, cormatrix)
 
   if (exists("new_df")) {
-    cat(paste0("\nSuccessfully generated correlated variables\n"))
+    cat(paste0("\nSuccessfully generated correlated variables\n\n"))
   }
+
+  colnames(new_df) <- item_names
 
   return(new_df)
 } ### END make_items function
