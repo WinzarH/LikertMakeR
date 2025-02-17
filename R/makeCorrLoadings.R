@@ -14,16 +14,15 @@
 #'  matrix of **standardised** factor loadings. Item names and Factor names
 #'  can be taken from the row_names (items) and the column_names (factors),
 #'  if present.
-#' @param factor_cor (numeric matrix) target mean,
-#' between upper and lower bounds
-#' @param diagnostics  (logical) Default = _FALSE_.
-#' If _diagnostics = TRUE_, the function outputs a diagnostic table with:
-#'  - Variance explained per item
-#'  - Residual variance per item
-#'  - Comments to alert extreme factor loadings
+#' @param factor_cor (numeric matrix) **f x f** factor correlation matrix
+#' @param uniquenesses (numeric vector) length **k** vector of uniquenesses.
+#' If NULL, the default, compute from the calculated communalities.
+#' @param nearPD (logical) If TRUE, project factorCor and the final
+#' correlation matrix onto nearest Positive Definite matrix, if needed.
+#' (It should never be needed.)
 #'
-#' @return a list including correlation matrix,
-#' McDonald's Omega and summary statistics
+#'
+#' @return Correlation matrix of inter-item correlations
 #'
 #' @importFrom Matrix nearPD
 #'
@@ -31,230 +30,131 @@
 #'
 #' @examples
 #'
-#' ### Define factor loadings with item and factor names
-#' fl_named <- matrix(
-#'   c(0.05, 0.10, 0.60,
-#'     0.10, 0.60, 0.05,
-#'     0.70, 0.05, 0.05,
-#'     0.80, 0.00, 0.00
-#'     ),
-#'     nrow = 4, ncol = 3, byrow = TRUE
-#'                   )
-#'  rownames(fl_named) <- c("Q1", "Q2", "Q3", "Q4")
-#'  colnames(fl_named) <- c("Factor1", "Factor2", "Factor3")
+#' # Example loadings
+#' factorLoadings <- matrix(
+#'   c(
+#'       0.05, 0.20, 0.70,
+#'       0.10, 0.05, 0.80,
+#'       0.05, 0.15, 0.85,
+#'       0.20, 0.85, 0.15,
+#'       0.05, 0.85, 0.10,
+#'       0.10, 0.90, 0.05,
+#'       0.90, 0.15, 0.05,
+#'       0.80, 0.10, 0.10
+#'    ),
+#'    nrow = 8, ncol = 3, byrow = TRUE
+#' )
 #'
-#' ### Define factor correlation matrix
-#' factor_cor <- matrix(c(1.0, 0.6, 0.5,
-#'                        0.6, 1.0, 0.4,
-#'                        0.5, 0.4, 1.0),
-#'                nrow = 3, byrow = TRUE)
+#'  # row and column names
+#'  rownames(factorLoadings) <- c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8")
+#'  colnames(factorLoadings) <- c("Factor1", "Factor2", "Factor3")
 #'
-#' rownames(factor_cor) <- colnames(factor_cor) <- colnames(fl_named)
+#'  # Factor correlation matrix
+#'  factorCor <- matrix(
+#'  c(
+#'    1.0,  0.7, 0.6,
+#'    0.7,  1.0, 0.4,
+#'    0.6,  0.4, 1.0
+#'   ),
+#'  nrow = 3, byrow = TRUE
+#'  )
 #'
-#' # Run function with diagnostics enabled
-#' result <- makeCorrLoadings(fl_named, factor_cor, diagnostics = TRUE)
+#'  # Apply the function
+#'  itemCorrelations <- makeCorrLoadings(factorLoadings, factorCor)
 #'
-#' print(result)
-#' item_correlations <- result$cor_matrix
+#'  round(itemCorrelations, 3)
 #'
-#' # Run without diagnostics and no factor-correlations (independent factors)
-#' independent_factors_result <- makeCorrLoadings(fl_named)
-#'
-#' print(independent_factors_result)
-#' if_item_cors <- independent_factors_result$cor_matrix
 #'
 
+makeCorrLoadings <- function(loadings,
+                             factorCor = NULL,
+                             uniquenesses = NULL,
+                             nearPD = FALSE) {
+  # loadings:    p x m matrix of factor loadings
+  # factorCor:   m x m factor correlation matrix (Phi)
+  # uniquenesses: length p vector of uniquenesses. If NULL, compute from 1 - rowSums(loadings^2)
+  # nearPD:       logical. If TRUE, project factorCor and the final R onto nearest PD matrix if needed.
 
-makeCorrLoadings <- function(factor_loadings, factor_cor = NULL, diagnostics = FALSE) {
-  # Function to validate factor loadings and factor correlation matrix before use
-  validateLoadings <- function(factor_loadings, factor_cor) {
-    # Check that factor_loadings is a numeric matrix
-    if (!is.matrix(factor_loadings) || !is.numeric(factor_loadings)) {
-      stop(
-        "Error: ",
-        "factor_loadings must be a numeric matrix where ",
-        "rows = items and columns = factors."
-      )
-    }
 
-    # Get dimensions
-    num_items <- nrow(factor_loadings)
-    num_factors <- ncol(factor_loadings)
+  p <- nrow(loadings)
+  m <- ncol(loadings)
 
-    # Ensure factor correlation matrix is square and matches  number of factors
-    if (!is.null(factor_cor)) {
-      if (!is.matrix(factor_cor) || !is.numeric(factor_cor)) {
-        stop("Error: factor_cor must be a numeric square matrix.")
-      }
-
-      if (!all(dim(factor_cor) == c(num_factors, num_factors))) {
-        stop(
-          "Error: ",
-          "factor_cor must be a square matrix with dimensions equal ",
-          "to the number of factors."
-        )
-      }
-
-      # Check if factor correlation matrix is positive definite
-      if (any(eigen(factor_cor)$values <= 0)) {
-        stop(
-          "Error: ",
-          "Provided factor correlation matrix is not positive definite!"
-        )
-      }
-    }
-
-    # Compute variance explained by factor loadings for each item
-    variance_explained <- rowSums(factor_loadings^2)
-
-    # Check for overloaded items (sum of squares > 1)
-    overloaded_items <- which(variance_explained > 1)
-    if (length(overloaded_items) > 0) {
-      stop(paste(
-        "Error: ",
-        " The following items have factor loadings that exceed a total",
-        " variance of 1, indicating an input error:",
-        paste(overloaded_items, collapse = ", ")
-      ))
-    }
-
-    # If everything is valid, return TRUE
-    return(TRUE)
+  # Convert any non-finite loadings to 0 and warn
+  if (any(!is.finite(loadings))) {
+    warning("Some loadings were non-finite (NA/NaN/Inf). Setting them to 0.")
+    loadings[!is.finite(loadings)] <- 0
   }
 
-  ## Function for calculating McDonald's Omega
-  computeOmega <- function(factor_loadings, factor_cor = NULL) {
-    num_factors <- ncol(factor_loadings)
-    # Omega without factor correlation
-    omega_values_independent <- numeric(num_factors)
-    # Omega with factor correlation
-    omega_values_adjusted <- numeric(num_factors)
-
-
-    # Residual variance per item
-    residual_variance <- 1 - rowSums(factor_loadings^2)
-
-    for (j in 1:num_factors) {
-      lambda_j <- matrix(factor_loadings[, j],
-                         nrow = nrow(factor_loadings),
-                         ncol = 1
-      ) # Ensure matrix format
-
-      # Standard (Independent) Omega
-      omega_values_independent[j] <-
-        sum(lambda_j^2) / (sum(lambda_j^2) + sum(residual_variance))
-
-      # Adjusted Omega (Accounting for Inter-Factor Correlation)
-      if (!is.null(factor_cor)) {
-        # Extract factor-level loadings
-        lambda_factors <- matrix(factor_loadings[j, ], nrow = 1)
-        numerator <- lambda_factors %*% factor_cor %*% t(lambda_factors)
-        denominator <- numerator + sum(residual_variance)
-        omega_values_adjusted[j] <- numerator / denominator
-      } else {
-        # No adjustment if factors uncorrelated
-        omega_values_adjusted[j] <- omega_values_independent[j]
-      }
-    }
-
-    return(list(
-      omega_independent = omega_values_independent,
-      omega_adjusted = omega_values_adjusted
-    ))
+  # Identity matrix for Phi implies orthogonal factors
+  if (is.null(factorCor)) {
+    factorCor <- diag(m)
   }
 
-
-  # Validate inputs first
-  validation_result <- tryCatch(
-    validateLoadings(factor_loadings, factor_cor),
-    error = function(e) {
-      message("Validation failed: ", e$message)
-      return(FALSE)
-    }
-  )
-
-  # Stop execution if validation fails
-  if (!validation_result) {
-    stop(
-      "Error: Input validation failed. ",
-      "Please check factor loadings and factor correlation matrix."
-    )
+  if (!all(dim(factorCor) == c(m, m))) {
+    stop("factorCor must be an m x m matrix, where m = ncol(loadings).")
   }
 
-  # Number of items and factors
-  num_items <- nrow(factor_loadings)
-  num_factors <- ncol(factor_loadings)
-
-  # Preserve row and column names (if available)
-  item_names <- rownames(factor_loadings)
-  column_names <- colnames(factor_loadings)
-
-
-  # If no factor correlation matrix is provided, assume independent factors
-  if (is.null(factor_cor)) {
-    # Identity matrix (factors are uncorrelated)
-    factor_cor <- diag(num_factors)
+  # Check that factorCor is a valid correlation matrix (diagonal=1, symmetric)
+  if (!isSymmetric(factorCor) || any(diag(factorCor) != 1)) {
+    warning("factorCor should be a correlation matrix with 1s on the diagonal, and symmetrical.")
   }
 
-  # Compute residual variances for each item
-  variance_explained <- rowSums(factor_loadings^2)
-  residual_variances <- 1 - variance_explained
-
-  # Compute both versions of Omega
-  omega_values <- computeOmega(factor_loadings, factor_cor)
-
-  # Construct the raw correlation matrix: R = L Φ L'
-  raw_correlation_matrix <- factor_loadings %*% factor_cor %*% t(factor_loadings)
-
-  # Adjust diagonal elements to include residual variances
-  diag(raw_correlation_matrix) <- diag(raw_correlation_matrix) + residual_variances
-
-  # **Rescale the correlation matrix to force diagonals to 1**
-  # Get square root of variances
-  diag_sqrt <- sqrt(diag(raw_correlation_matrix))
-  # Normalize
-  correlation_matrix <- raw_correlation_matrix / (diag_sqrt %o% diag_sqrt)
-
-  # If row names exist, apply them to the correlation matrix
-  if (!is.null(item_names)) {
-    rownames(correlation_matrix) <- item_names
-    colnames(correlation_matrix) <- item_names
+  # Check for non-finite values
+  if (any(!is.finite(factorCor))) {
+    warning("factorCor contains non-finite values (NA/NaN/Inf). They may cause invalid results.")
   }
 
-  # Generate diagnostics if requested
-  if (diagnostics) {
-    diagnostics_table <- data.frame(
-      Item = if (!is.null(item_names)) {
-        item_names
-      } else {
-        paste0("Item", 1:num_items)
-      },
-      VarianceExplained = variance_explained,
-      ResidualVariance = residual_variances,
-      Comment = ifelse(variance_explained > 0.9, "High Loadings",
-                       ifelse(variance_explained < 0.2, "Low Loadings", "OK")
-      )
-    )
-
-    # Print diagnostics table
-    # print(diagnostics_table)
-  }
-
-  # Return results as a list
-  return(list(
-    cor_matrix = correlation_matrix,
-    residual_variances = residual_variances,
-    variance_explained = variance_explained,
-    factor_loadings = factor_loadings,
-    factor_cor = factor_cor,
-    omega_independent = omega_values$omega_independent, # Standard Omega
-    omega_adjusted = omega_values$omega_adjusted, # Adjusted Omega
-    item_names = item_names,
-    column_names = column_names,
-    diagnostics_table = if (diagnostics) {
-      diagnostics_table
+  # Check if factorCor is positive definite
+  eigsPhi <- eigen(factorCor, only.values = TRUE)$values
+  if (any(eigsPhi <= 0)) {
+    msg <- "factorCor is not positive definite. Some eigenvalues are <= 0."
+    if (nearPD) {
+      warning(paste(msg, "Attempting to fix with nearPD()."))
+      factorCor <- as.matrix(Matrix::nearPD(factorCor)$mat)
     } else {
-      NULL
-    } # Include diagnostics if requested
-  )) # end return list
-}  # end function
+      warning(msg)
+    }
+  }
+
+  # Compute communalities
+  communalities <- rowSums(loadings^2)
+
+  # If uniqueness not supplied, compute from rowSums of loadings^2
+  if (is.null(uniquenesses)) {
+    uniquenesses <- 1 - communalities
+  } else {
+    if (length(uniquenesses) != p) {
+      stop("Length of 'uniquenesses' must match the number of items (rows in loadings).")
+    }
+  }
+
+  tol <- 1e-8
+  if (any(communalities > 1 + tol)) {
+    warning("Some item communalities exceed 1, indicating invalid loadings or non-standardized items.")
+  }
+  if (any(uniquenesses < 0 - tol)) {
+    warning("Some uniquenesses are negative, indicating invalid loadings or non-standardized items.")
+  }
+
+  Psi <- diag(uniquenesses, nrow = p, ncol = p)
+
+  # Sigma = Lambda * Phi * Lambda^T + Psi
+  Sigma <- loadings %*% factorCor %*% t(loadings) + Psi
+
+  # Convert to correlation matrix
+  R <- cov2cor(Sigma)
+
+  # Check if R is positive definite
+  eigsR <- eigen(R, only.values = TRUE)$values
+  if (any(eigsR <= 0)) {
+    msgR <- "Implied correlation matrix is not positive definite."
+    if (nearPD) {
+      warning(paste(msgR, "Attempting to fix with nearPD()."))
+      R <- as.matrix(Matrix::nearPD(R)$mat)
+    } else {
+      warning(paste(msgR, "Check your loadings, and factorCor."))
+    }
+  }
+
+  return(R)
+}
