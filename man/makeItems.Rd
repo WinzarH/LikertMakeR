@@ -64,6 +64,10 @@ corMat <- matrix(
   nrow = 4, ncol = 4
 )
 
+ item_names <- c("Q1", "Q2", "Q3", "Q4")
+ rownames(corMat) <- item_names
+ colnames(corMat) <- item_names
+
 ## apply function
 
 df <- makeItems(
