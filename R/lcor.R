@@ -5,7 +5,7 @@
 #' @useDynLib LikertMakeR
 #'
 #' @importFrom Rcpp sourceCpp
-NULL
+#' NULL
 #' @description \code{lcor_C()} rearranges values in each column of a
 #' data-frame so that columns are correlated to match a predefined
 #' correlation matrix.
