@@ -44,36 +44,35 @@ function to generate synthetic data with those predefined factor structures.
 # Example loadings
 factorLoadings <- matrix(
   c(
-      0.05, 0.20, 0.70,
-      0.10, 0.05, 0.80,
-      0.05, 0.15, 0.85,
-      0.20, 0.85, 0.15,
-      0.05, 0.85, 0.10,
-      0.10, 0.90, 0.05,
-      0.90, 0.15, 0.05,
-      0.80, 0.10, 0.10
-   ),
-   nrow = 8, ncol = 3, byrow = TRUE
+    0.05, 0.20, 0.70,
+    0.10, 0.05, 0.80,
+    0.05, 0.15, 0.85,
+    0.20, 0.85, 0.15,
+    0.05, 0.85, 0.10,
+    0.10, 0.90, 0.05,
+    0.90, 0.15, 0.05,
+    0.80, 0.10, 0.10
+  ),
+  nrow = 8, ncol = 3, byrow = TRUE
 )
 
- # row and column names
- rownames(factorLoadings) <- c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8")
- colnames(factorLoadings) <- c("Factor1", "Factor2", "Factor3")
+# row and column names
+rownames(factorLoadings) <- c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8")
+colnames(factorLoadings) <- c("Factor1", "Factor2", "Factor3")
 
- # Factor correlation matrix
- factorCor <- matrix(
- c(
-   1.0,  0.7, 0.6,
-   0.7,  1.0, 0.4,
-   0.6,  0.4, 1.0
+# Factor correlation matrix
+factorCor <- matrix(
+  c(
+    1.0,  0.7, 0.6,
+    0.7,  1.0, 0.4,
+    0.6,  0.4, 1.0
   ),
- nrow = 3, byrow = TRUE
- )
+  nrow = 3, byrow = TRUE
+)
 
- # Apply the function
- itemCorrelations <- makeCorrLoadings(factorLoadings, factorCor)
+# Apply the function
+itemCorrelations <- makeCorrLoadings(factorLoadings, factorCor)
 
- round(itemCorrelations, 3)
-
+round(itemCorrelations, 3)
 
 }
