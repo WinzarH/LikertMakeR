@@ -1,7 +1,6 @@
 # test-makeCorrLoadings.R
 
 test_that("makeCorrLoadings returns a valid correlation matrix by default", {
-
   Lambda <- matrix(
     c(
       0.05, 0.20, 0.70,
@@ -41,7 +40,6 @@ test_that("makeCorrLoadings returns a valid correlation matrix by default", {
 
 
 test_that("makeCorrLoadings warns on invalid inputs", {
-
   # 1) Non-finite loadings
   badLoadings <- matrix(c(NA, Inf, 0.2, 0.1), nrow = 2)
 
@@ -50,7 +48,7 @@ test_that("makeCorrLoadings warns on invalid inputs", {
 
   expect_warning(
     makeCorrLoadings(badLoadings, factorCor = diag(2)),
-    regexp = "Some loadings were non-finite"  # or partial text from your warning message
+    regexp = "Some loadings were non-finite" # or partial text from your warning message
   )
 
   # Replacing with zeros, now the loadings are effectively c(0, 0, 0.2, 0.1).
@@ -58,7 +56,8 @@ test_that("makeCorrLoadings warns on invalid inputs", {
 
   expect_warning(
     makeCorrLoadings(matrix(c(0.2, 0.1, 0.3, 0.4), nrow = 2),
-                     factorCor = badPhi),
+      factorCor = badPhi
+    ),
     regexp = "is not positive definite"
   )
 })
