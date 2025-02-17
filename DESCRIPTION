@@ -1,6 +1,6 @@
 Type: Package
 Package: LikertMakeR
-Title: Synthesise and Correlate Likert Scale and Rating-Scale Data based on summary statistics only 
+Title: Synthesise and Correlate Likert Scale and Rating-Scale Data Based on Summary Statistics Only
 Version: 1.0.0
 Authors@R: 
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("cre", "aut"),
