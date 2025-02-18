@@ -13,8 +13,6 @@ URL: https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
 Depends: 
     R (>= 4.2.0)
-SystemRequirements: 
-    C++14
 Imports: 
     dplyr,
     gtools,
