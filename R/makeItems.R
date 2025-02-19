@@ -1,5 +1,5 @@
-#' Synthetic rating-scale data with given
-#'  first and second moments and a predefined correlation matrix
+#' Synthesise rating-scale data with given first and second moments and a
+#' predefined correlation matrix
 #'
 #' @name makeItems
 #'

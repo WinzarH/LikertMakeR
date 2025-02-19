@@ -1,4 +1,4 @@
-#' scale items from a summated scale and desired Cronbach's Alpha
+#' From a summated scale, generate individual scale items with desired Cronbach's Alpha
 #'
 #' @name makeItemsScale
 #'

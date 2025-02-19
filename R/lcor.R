@@ -1,4 +1,4 @@
-#' Rearrange columns in a data-frame to fit a predefined correlation matrix
+#' Rearrange elements in each column of a data-frame to fit a predefined correlation matrix
 #'
 #' @name lcor
 #'

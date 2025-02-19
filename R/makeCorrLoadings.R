@@ -1,5 +1,4 @@
-#' Generate a correlation matrix of inter-item correlations from
-#'  item factor loadings
+#' Correlation matrix from item factor loadings
 #'
 #' @name makeCorrLoadings
 #'
@@ -15,13 +14,17 @@
 #'  matrix of **standardised** factor loadings. Item names and Factor names
 #'  can be taken from the row_names (items) and the column_names (factors),
 #'  if present.
-#' @param factorCor (numeric matrix) **f x f** factor correlation matrix
+#' @param factorCor (numeric matrix) **f** x **f** factor correlation matrix
 #' @param uniquenesses (numeric vector) length **k** vector of uniquenesses.
-#' If NULL, the default, compute from the calculated communalities.
+#' If _NULL_, the default, compute from the calculated communalities.
 #' @param nearPD (logical) If TRUE, project factorCor and the final
 #' correlation matrix onto nearest Positive Definite matrix, if needed.
-#' (It should never be needed.)
 #'
+#' @Note The _nearPD_ option applies the _Matrix::nearPD()_ function to force
+#'  a non-positive-definite matrix to be positive-definite.
+#' It should be used only when a matrix is "nearly" PD.
+#' In most cases, a non-PD matrix that appears in the makeCorrLoadings()
+#' function means that there is a problem with the input parameters.
 #'
 #' @return Correlation matrix of inter-item correlations
 #'
