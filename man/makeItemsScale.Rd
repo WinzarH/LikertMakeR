@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeItemsScale.R
 \name{makeItemsScale}
 \alias{makeItemsScale}
-\title{scale items from a summated scale and desired Cronbach's Alpha}
+\title{From a summated scale, generate individual scale items with desired Cronbach's Alpha}
 \usage{
 makeItemsScale(
   scale,

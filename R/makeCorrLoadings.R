@@ -20,7 +20,8 @@
 #' @param nearPD (logical) If TRUE, project factorCor and the final
 #' correlation matrix onto nearest Positive Definite matrix, if needed.
 #'
-#' @Note The _nearPD_ option applies the _Matrix::nearPD()_ function to force
+#' @note
+#' The _nearPD_ option applies the _Matrix::nearPD()_ function to force
 #'  a non-positive-definite matrix to be positive-definite.
 #' It should be used only when a matrix is "nearly" PD.
 #' In most cases, a non-PD matrix that appears in the makeCorrLoadings()

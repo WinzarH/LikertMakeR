@@ -2,8 +2,7 @@
 % Please edit documentation in R/makeCorrLoadings.R
 \name{makeCorrLoadings}
 \alias{makeCorrLoadings}
-\title{Generate a correlation matrix of inter-item correlations from
-item factor loadings}
+\title{Correlation matrix from item factor loadings}
 \usage{
 makeCorrLoadings(
   loadings,
@@ -18,14 +17,13 @@ matrix of \strong{standardised} factor loadings. Item names and Factor names
 can be taken from the row_names (items) and the column_names (factors),
 if present.}
 
-\item{factorCor}{(numeric matrix) \strong{f x f} factor correlation matrix}
+\item{factorCor}{(numeric matrix) \strong{f} x \strong{f} factor correlation matrix}
 
 \item{uniquenesses}{(numeric vector) length \strong{k} vector of uniquenesses.
-If NULL, the default, compute from the calculated communalities.}
+If \emph{NULL}, the default, compute from the calculated communalities.}
 
 \item{nearPD}{(logical) If TRUE, project factorCor and the final
-correlation matrix onto nearest Positive Definite matrix, if needed.
-(It should never be needed.)}
+correlation matrix onto nearest Positive Definite matrix, if needed.}
 }
 \value{
 Correlation matrix of inter-item correlations
@@ -38,6 +36,13 @@ inter-item correlations based on item factor loadings as might be seen in
 
 Such a correlation matrix can be applied to the \code{makeItems()}
 function to generate synthetic data with those predefined factor structures.
+}
+\note{
+The \emph{nearPD} option applies the \emph{Matrix::nearPD()} function to force
+a non-positive-definite matrix to be positive-definite.
+It should be used only when a matrix is "nearly" PD.
+In most cases, a non-PD matrix that appears in the makeCorrLoadings()
+function means that there is a problem with the input parameters.
 }
 \examples{
 
