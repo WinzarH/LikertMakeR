@@ -148,7 +148,18 @@ makeCorrLoadings <- function(loadings,
   # Convert to correlation matrix
   R <- cov2cor(Sigma)
 
-  # Check if R is positive definite
+  ## function to replace upper triangle of a matrix with the
+  ## transpose of the lower triangle.
+  symmetrize_matrix <- function(mat) {
+    mat[upper.tri(mat)] <- t(mat)[upper.tri(mat)]
+    return(mat)
+  }
+
+  ## sometimes the resulting matrix is not symmetric due to
+  ## small computing differences, so we cheat...
+  R <- symmetrize_matrix(R)
+
+  ## Check if R is positive definite
   eigsR <- eigen(R, only.values = TRUE)$values
   if (any(eigsR <= 0)) {
     msgR <- "Implied correlation matrix is not positive definite."
