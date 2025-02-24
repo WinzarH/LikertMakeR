@@ -258,14 +258,14 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
   ## If not positive definite then reorder correlations
   if (is_positive_definite == FALSE) {
     cat("Correlation matrix is not yet positive definite
-        \nWorking on it\n")
+        \nWorking on it\n\n")
     cor_matrix <- improve_cor_matrix()
   }
 
   ####
   ## report positive definite status
   if (min(eigen(cor_matrix)$values) >= 0) {
-    cat("The correlation matrix is positive definite\n")
+    cat("The correlation matrix is positive definite\n\n")
   } else {
     cat("Correlation matrix is NOT positive definite
         \nTry running again (or reduce Variance parameter)\n")

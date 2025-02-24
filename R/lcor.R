@@ -14,6 +14,7 @@
 #' statistics remain the same.
 #'
 #' @param data data-frame that is to be rearranged
+#'
 #' @param target target correlation matrix - should be a symmetric
 #' k*k positive-semi-definite matrix
 #'
