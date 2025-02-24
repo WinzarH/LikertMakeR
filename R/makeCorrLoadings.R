@@ -12,11 +12,19 @@
 #'
 #' @param loadings (numeric matrix) **k** (items) by **f** (factors)
 #'  matrix of **standardised** factor loadings. Item names and Factor names
-#'  can be taken from the row_names (items) and the column_names (factors),
+#'  are taken from the row_names (items) and the column_names (factors),
 #'  if present.
+#'
+#'  @note
+#'  "Censored" loadings (for example, where loadings less than '0.30' are
+#'  removed for clarity) tend to severely reduce the accuracy of the
+#'  `makeCorrLoadings()` function.
+#'
 #' @param factorCor (numeric matrix) **f** x **f** factor correlation matrix
+#'
 #' @param uniquenesses (numeric vector) length **k** vector of uniquenesses.
 #' If _NULL_, the default, compute from the calculated communalities.
+#'
 #' @param nearPD (logical) If TRUE, project factorCor and the final
 #' correlation matrix onto nearest Positive Definite matrix, if needed.
 #'
