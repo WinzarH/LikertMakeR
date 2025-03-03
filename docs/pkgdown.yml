@@ -1,9 +1,0 @@
-pandoc: '3.2'
-pkgdown: 2.1.1
-pkgdown_sha: ~
-articles:
-  LikertMakeR_vignette: LikertMakeR_vignette.html
-last_built: 2025-03-03T10:38Z
-urls:
-  reference: https://winzarh.github.io/LikertMakeR/reference
-  article: https://winzarh.github.io/LikertMakeR/articles
