@@ -1,0 +1,42 @@
+url: https://winzarh.github.io/LikertMakeR/
+
+template:
+  bootstrap: 5
+
+authors:
+  WinzarH:
+    href: https://github.com/winzarh
+
+home:
+  title: "LikertMakeR"
+  description: "Synthesise and correlate Likert scale and similar
+    rating-scale data with predefined first & second moments
+    (mean and standard deviation), Cronbach's Alpha, Factor Loadings,
+    and other summary statistics."
+  strip_header: true
+
+navbar:
+  structure:
+    left: [reference, articles, news]
+    right: [github]
+  components:
+    articles:
+      text: Articles
+      menu:
+        - text: "LikertMakeR Vignette"
+          href: articles/LikertMakeR_vignette.html
+        - text: "makeCorrLoadings_validation"
+          href: articles/makeCorrLoadings_Validate.html
+
+articles:
+  - title: "LikertMakeR Vignette"
+    contents:
+      - LikertMakeR_vignette
+  - title: "makeCorrLoadings validation"
+    contents:
+      - makeCorrLoadings_Validate
+
+
+
+
+

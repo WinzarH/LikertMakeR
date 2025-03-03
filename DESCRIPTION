@@ -10,7 +10,7 @@ Description: Generate and correlate synthetic Likert and rating-scale data
     with predefined means, standard deviations, _Cronbach's Alpha_,
     _Factor Loading table_, and other summary statistics.
 License: MIT + file LICENSE
-URL: https://github.com/WinzarH/LikertMakeR
+URL: https://winzarh.github.io/LikertMakeR, https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
 Depends: 
     R (>= 4.2.0)
