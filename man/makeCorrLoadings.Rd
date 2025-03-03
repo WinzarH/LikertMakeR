@@ -14,8 +14,13 @@ makeCorrLoadings(
 \arguments{
 \item{loadings}{(numeric matrix) \strong{k} (items) by \strong{f} (factors)
 matrix of \strong{standardised} factor loadings. Item names and Factor names
-can be taken from the row_names (items) and the column_names (factors),
-if present.}
+are taken from the row_names (items) and the column_names (factors),
+if present.
+
+@note
+"Censored" loadings (for example, where loadings less than '0.30' are
+removed for clarity) tend to severely reduce the accuracy of the
+\code{makeCorrLoadings()} function.}
 
 \item{factorCor}{(numeric matrix) \strong{f} x \strong{f} factor correlation matrix}
 
