@@ -2,12 +2,14 @@ citHeader("To cite LikertMakeR in publications use:")
 
 bibentry(
   bibtype  = "Manual",
-  title    = "LikertMakeR: Synthesise and correlate rating-scale data with predefined first & second moments",
+  title    = "Generate and correlate synthetic Likert and rating-scale data
+    with predefined means, standard deviations, Cronbach's Alpha,
+    Factor Loading table, and other summary statistics.",
   author   = as.person("Hume Winzar"),
   year     = 2022,
   url      = "https://github.com/WinzarH/LikertMakeR",
-  note     = "Latest version: 0.4.5, January 2025",
+  note     = "Latest version: 1.0.0, March 2025",
   textVersion = paste(
-  "Winzar, H. (2022). LikertMakeR: Synthesise and correlate rating-scale data with predefined first & second moments, (GitHub repository), (Version: 0.4.5, January 2025).   https://github.com/WinzarH/LikertMakeR"
+  "Winzar, H. (2022). LikertMakeR: Synthesise and correlate rating-scale data with predefined first & second moments, (GitHub repository), (Version: 1.0.0, March 2025).   https://github.com/WinzarH/LikertMakeR"
   )
 )
