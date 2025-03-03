@@ -25,16 +25,16 @@ navbar:
       menu:
         - text: "LikertMakeR Vignette"
           href: articles/LikertMakeR_vignette.html
-        - text: "makeCorrLoadings_validation"
-          href: articles/makeCorrLoadings_Validate.html
+        # - text: "makeCorrLoadings_validation"
+        #   href: articles/makeCorrLoadings_Validate.html
 
 articles:
   - title: "LikertMakeR Vignette"
     contents:
       - LikertMakeR_vignette
-  - title: "makeCorrLoadings validation"
-    contents:
-      - makeCorrLoadings_Validate
+  # - title: "makeCorrLoadings validation"
+  #   contents:
+  #     - makeCorrLoadings_Validate
 
 
 
