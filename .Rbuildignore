@@ -9,5 +9,6 @@ extras
 ^.o
 ^.so
 ^.dll
-
 ^cran-comments\.md$
+inst/articles/
+_pkgdown.yml
