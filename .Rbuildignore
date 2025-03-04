@@ -12,3 +12,4 @@ extras
 ^cran-comments\.md$
 inst/articles/
 _pkgdown.yml
+pkgdown
