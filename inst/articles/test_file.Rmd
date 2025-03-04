@@ -1,0 +1,6 @@
+---
+title: "makeCorrLoadings validation"
+---
+
+This is a simple validation article.
+

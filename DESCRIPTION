@@ -10,7 +10,7 @@ Description: Generate and correlate synthetic Likert and rating-scale data
     with predefined means, standard deviations, _Cronbach's Alpha_,
     _Factor Loading table_, and other summary statistics.
 License: MIT + file LICENSE
-URL: https://github.com/WinzarH/LikertMakeR
+URL: https://github.com/WinzarH/LikertMakeR, https://winzarh.github.io/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
 Depends: 
     R (>= 4.2.0)
@@ -33,3 +33,4 @@ Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Config/Needs/website: rmarkdown
