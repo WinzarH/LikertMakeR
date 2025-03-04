@@ -15,11 +15,11 @@ author:
 abstract: > 
  makeCorrLoadings() produces a correlation matrix from published item-factor loadings and factor loadings. We test how well the function reproduces the true correlation matrix compared with known "true" data. Results show that the function works very well when all item-factor loadings are available. This remains the case even when factor correlations and uniqueness values are missing. 
 format: 
-  html: default
-  # pdf:
-  #   papersize: A4
+  # html: default
+  pdf:
+    papersize: A4
 bibliography: references.bib 
-output: rmarkdown::html_vignette
+# output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{makeCorrLoadings validation}
   %\VignetteEngine{knitr::rmarkdown}
