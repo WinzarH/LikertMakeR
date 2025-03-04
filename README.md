@@ -456,6 +456,15 @@ ____
  correlation matrix onto nearest Positive Definite matrix, if needed.
  (It should never be needed.)
 
+###### Note
+
+"Censored" loadings (for example, where loadings less than '0.30' are
+removed for clarity) tend to severely reduce the accuracy of the
+`makeCorrLoadings()` function. 
+For a detailed demonstration, see [makeCorrLoadings validation](https://github.com/WinzarH/LikertMakeR/tree/main/inst/articles/makeCorrLoadings_Validate.html) 
+on the package website on GitHub.
+
+
 ### makeCorrLoadings() examples
 
 ####  Typical application from published EFA results
