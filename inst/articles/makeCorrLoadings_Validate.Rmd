@@ -634,7 +634,7 @@ loadings are given.
 ### Original data: bfi 25 Personality items representing 5 factors
 
 25 personality self report items taken from the [International
-Personality Item Pool (ipip.ori.org/)](https://ipip.ori.org/) were
+Personality Item Pool (ipip.ori.org)](https://ipip.ori.org) were
 included as part of the *Synthetic Aperture Personality Assessment*
 *(SAPA)* web based personality assessment project. The data are
 available through the `psychTools` package [@psychTools].

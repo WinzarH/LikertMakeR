@@ -34,5 +34,5 @@ articles:
       - LikertMakeR_vignette
   - title: "makeCorrLoadings validation"
     contents:
-      - inst/articles/makeCorrLoadings_Validate
+      - "inst/articles/makeCorrLoadings_Validate"
 
