@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   LikertMakeR_vignette: LikertMakeR_vignette.html
-last_built: 2025-03-04T00:26Z
+last_built: 2025-03-04T01:43Z
 urls:
   reference: https://winzarh.github.io/LikertMakeR/reference
   article: https://winzarh.github.io/LikertMakeR/articles

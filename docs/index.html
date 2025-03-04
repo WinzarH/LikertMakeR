@@ -43,6 +43,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/LikertMakeR_vignette.html">LikertMakeR Vignette</a></li>
+    <li><a class="dropdown-item" href="articles/makeCorrLoadings_Validate.html">makeCorrLoadings validation</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -410,6 +411,11 @@
 <li><p><strong><em>uniquenesses</em></strong>: length ‘k’ vector of uniquenesses. If NULL, the default, compute from the calculated communalities.</p></li>
 <li><p><strong><em>nearPD</em></strong>: (logical) If TRUE, project factorCor and the final correlation matrix onto nearest Positive Definite matrix, if needed. (It should never be needed.)</p></li>
 </ul>
+<div class="section level6">
+<h6 id="note-1">Note<a class="anchor" aria-label="anchor" href="#note-1"></a>
+</h6>
+<p>“Censored” loadings (for example, where loadings less than ‘0.30’ are removed for clarity) tend to severely reduce the accuracy of the <code><a href="reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> function. For a detailed demonstration, see <a href="https://github.com/WinzarH/LikertMakeR/tree/main/inst/articles/makeCorrLoadings_Validate.html" class="external-link">makeCorrLoadings validation</a> on the package website on GitHub.</p>
+</div>
 </div>
 </div>
 </div>
