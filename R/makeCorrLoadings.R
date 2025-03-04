@@ -89,6 +89,11 @@ makeCorrLoadings <- function(loadings,
   # uniquenesses: length p vector of uniquenesses. If NULL, compute from 1 - rowSums(loadings^2)
   # nearPD:       logical. If TRUE, project factorCor and the final R onto nearest PD matrix if needed.
 
+  # Ensure that loadings is a matrix
+  if (!is.matrix(loadings)) {
+    warning("Expecting loadings to be a matrix. I'll convert for you.")
+    loadings <- as.matrix(loadings)
+  }
 
   p <- nrow(loadings)
   m <- ncol(loadings)

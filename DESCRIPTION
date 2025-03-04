@@ -2,7 +2,7 @@ Type: Package
 Package: LikertMakeR
 Title: Synthesise and Correlate Likert Scale and Rating-Scale Data Based
     on Summary Statistics Only
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0001-7475-2641"))
