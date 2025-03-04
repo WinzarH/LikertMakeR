@@ -2,6 +2,11 @@ url: https://winzarh.github.io/LikertMakeR/
 
 template:
   bootstrap: 5
+  # bootswatch: litera
+  light-switch: true
+
+deploy:
+  install_metadata: true
 
 authors:
   WinzarH:
@@ -20,19 +25,25 @@ navbar:
     left: [reference, articles, news]
     right: [github]
   components:
-    articles:
+    vignettes:
       text: Articles
       menu:
         - text: "LikertMakeR Vignette"
-          href: articles/LikertMakeR_vignette.html
+          href: vignettes/LikertMakeR_vignette.html
+        # - text: "makeCorrLoadings validation"
+        #   href: vignettes/articles/makeCorrLoadings_Validate.html
+    articles:
+      text: Demonstrations
+      menu:
         - text: "makeCorrLoadings validation"
-          href: articles/makeCorrLoadings_Validate.html
+          href: vignettes/articles/makeCorrLoadings_Validate.html
 
-articles:
-  - title: "LikertMakeR Vignette"
-    contents:
-      - LikertMakeR_vignette
-  - title: "makeCorrLoadings validation"
-    contents:
-      - "inst/articles/makeCorrLoadings_Validate"
+
+# articles:
+#   - title: "LikertMakeR Vignette"
+#     contents:
+#       - LikertMakeR_vignette
+#   - title: "test file"
+#     contents:
+#       - test_file
 
