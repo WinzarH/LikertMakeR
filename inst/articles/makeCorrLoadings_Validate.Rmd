@@ -1,29 +1,48 @@
 ---
-title: "makeCorrLoadings validation"
+title: "makeCorrLoadings() function validation"
 subtitle: "How well does the function reproduce a target correlation matrix?"
-author: 
-  - name: Hume Winzar
-    orcid: 0000-0001-7475-2641
-    email: winzar@gmail.com
-    affiliation: 
-      - name: Macquarie University
-        city: Sydney
-        state: NSW
-        url: www.mq.edu.au
-  # name: Hume Winzar
-  # affiliation: Macquarie University
+date: "`r Sys.Date()`"
+# author: 
+#   - name: "Hume Winzar"
+#     orcid: 0000-0001-7475-2641
+#     email: winzar@gmail.com
+#     affiliation: 
+#       - name: Macquarie University
+#         city: Sydney
+#         state: NSW
+#         url: www.mq.edu.au
+author: Hume Winzar
+# name: Hume Winzar
+affiliation: Macquarie University
 abstract: > 
- makeCorrLoadings() produces a correlation matrix from published item-factor loadings and factor loadings. We test how well the function reproduces the true correlation matrix compared with known "true" data. Results show that the function works very well when all item-factor loadings are available. This remains the case even when factor correlations and uniqueness values are missing. 
-format: 
-  # html: default
-  pdf:
-    papersize: A4
+ The makeCorrLoadings() function produces a correlation matrix from predefined item-factor loadings and factor correlatons. We compare the output of the function with known "true" data. Results show that the function works very well when all item-factor loadings are available. This remains the case even when factor correlations and uniqueness values are missing. 
+output: 
+#   pdf_document:
+#     # papersize: a4paper
+#     latex_engine: xelatex
+# documentclass: article
+# classoption: 
+#   a4paper
+# geometry: margin=2cm
+  html_document:
+    code_folding: hide
+    number_sections: false
+  # bookdown::html_document2:
+  #   number_sections: FALSE
+  #   code_folding: hide 
+  # bookdown::pdf_document2:
+  #   number_sections: FALSE
+  #   papersize: A4
+# format: 
+#   html: default
+  # pdf:
+  #   papersize: A4
 bibliography: references.bib 
 # output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{makeCorrLoadings validation}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 theme: 
   - litera, 
   - styles.scss
@@ -44,28 +63,28 @@ and other summary statistics.
 
 The `makeCorrLoadings()` function generates a correlation matrix from
 factor loadings and factor correlations as might be published in the
-results of *Exploratory Factor Analysis* (**EFA**) or a *Structural
-Equation Model* (**SEM**). The resulting correlation matrix then can be
-applied to the `makeItems()` function to generate a synthetic data set
-of rating-scale items that closely resemble the original data that
-created the factor loadings summary table.
+results of *Exploratory Factor Analysis* (**EFA**) or a
+*Structural Equation Model* (**SEM**). 
+The resulting correlation matrix then can be applied to the `makeItems()` 
+function to generate a synthetic data set of rating-scale items that closely 
+resemble the original data that created the factor loadings summary table.
 
 This paper tests how well the `makeCorrLoadings()` function achieves
 that goal.
 
-## Study design
+# Study design
 
-A validate `makeCorrLoadings()` function should be able to produce a
+A valid `makeCorrLoadings()` function should be able to produce a
 correlation matrix that is identical to the original correlation matrix.
 Further, subsequent treatment with `makeItems()` should produce a
 dataframe that appears to come from the same population as the original
 sample.
 
-So we need an original, True, dataframe, preferably several different
+So we need an original, _True_, dataframe - preferably several different
 original dataframes so that results are generalisable.
 
 ```{r}
-#| output: FALSE
+#| eval: false
 
 ## install packages
 library(LikertMakeR) # for makeCorrLoadings() function
@@ -77,21 +96,36 @@ library(knitr) # table output
 library(kableExtra) # table width and more
 ```
 
+
+```{r}
+#| echo: false
+
+## install packages
+library(LikertMakeR, warn.conflicts=F, quietly=T) # for makeCorrLoadings() function
+library(rosetta, warn.conflicts=F, quietly=T) # data and some functions
+library(dplyr, warn.conflicts=F, quietly=T) # data editing & manipulation
+library(psych, warn.conflicts=F, quietly=T) # EFA functions
+library(psychTools, warn.conflicts=F, quietly=T)
+library(knitr, warn.conflicts=F, quietly=T) # table output
+library(kableExtra, warn.conflicts=F, quietly=T) # table width and more
+```
+
 # Study #1: Party Panel 2015
 
 ### Original data
 
-We use the pp15 dataset from the `rosetta` package [@rosetta]. This is a
+We use the _pp15 dataset_ from the `rosetta` package [@rosetta]. This is a
 subset of the Party Panel 2015 dataset. Party Panel is an annual
 semi-panel study among Dutch nightlife patrons, where every year, the
-determinants of another nightlife-related risk behavior is mapped. In
+determinants of another nightlife-related risk behaviour is mapped. In
 2015, determinants were measured of behaviours related to using highly
 dosed ecstasy pills.
 
 Nine items are relevant to this study. Each is a 7-point likert-style
 question scored in the range *-3* to *+3*.
 
-The questions and the item labels are presented as follows:
+The questions and the item labels are presented in Table \ref{tab:pp_names}.
+
 
 ```{r}
 #| echo: false
@@ -125,7 +159,9 @@ labels <- data.frame(
   Labels = itemLabels
 )
 
-kable(labels) |>
+kable(labels, 
+      # format = "latex", # booktabs = TRUE, 
+      caption = "\\label{tab:pp_names} Item-names - Party Panel data") |>
   kable_classic(full_width = F)
 ```
 
@@ -156,20 +192,29 @@ names(dat) <- itemLabels
 sampleSize <- nrow(dat)
 ```
 
+
 ### Target correlation matrix
 
-The correlations among these nine items should be reproducable by the
+
+The correlations among these nine items should be reproducible by the
 `makeCorrLoadings()` function.
+
 
 ```{r}
 ## correlation matrix
 pp15_cor <- cor(dat)
 ```
 
+
+The item-correlations matrix is presented in Table \ref{tab:pp_icors}.
+
+
 ```{r}
 #| echo: false
 
-kable(pp15_cor, digits = 2) |>
+kable(pp15_cor, digits = 2, 
+      # format = "latex", # booktabs = TRUE, 
+      caption = "\\label{tab:pp_icors} Item correlations - Party Panel data") |>
   kable_classic(full_width = F)
 ```
 
@@ -216,7 +261,7 @@ corresponding p-value for each test.
 
 Some pretesting suggest that two factors are appropriate for this
 sample. And we're confident that the factors will be correlated, so we
-use promax rotation.
+use _promax_ rotation.
 
 ```{r}
 ## factor analysis from `rosetta` package
@@ -232,23 +277,38 @@ factorCorrs <- rfaDose$output$correlations
 
 #### Factor Loadings
 
+
+Table \ref{tab:pp_floadings} presents item-factor loadings and uniquenesses for the nine items under consideration.
+
+
 ```{r}
 #| echo: false
 
-kable(factorLoadings, digits = 2) |>
+kable(factorLoadings, digits = 2, 
+      # format = "latex", # booktabs = TRUE, 
+      caption = "\\label{tab:pp_floadings} Item-factor loadings - Party Panel data") |>
   kable_classic(full_width = F)
 ```
+
 
 #### Factor Correlations
 
+
+Table \ref{tab:pp_fcors} presents factor correlations after Exploratory Factor Analysis.
+
+
 ```{r}
 #| echo: false
 
-kable(factorCorrs, digits = 2) |>
+kable(factorCorrs, digits = 2, 
+      # format = "latex", # booktabs = TRUE, 
+      caption = "\\label{tab:pp_fcors} Factor correlations - Party Panel data") |>
   kable_classic(full_width = F)
 ```
 
+
 ### Test Case #1: Full information
+
 
 ```{r}
 ## round input values to 5 decimal places
@@ -273,13 +333,15 @@ chiSq_1 <- cortest.jennrich(
 )
 ```
 
+
 ### Test case #2: Full information - No uniquenesses
 
-factor loadings and factor correlations to 5 decimal places but without
-uniquenesses
+
+Factor loadings and factor correlations to five decimal places but without
+uniquenesses.
 
 ```{r}
-## round input values to 2 decimal places
+## round input values to 5 decimal places
 # factor loadings
 fl2 <- factorLoadings[, 1:2] |>
   round(5) |>
@@ -302,7 +364,9 @@ chiSq_2 <- cortest.jennrich(
 
 ### Test case #3: Rounded loadings
 
-factor loadings and factor correlations to two decimal places.
+
+Factor loadings and factor correlations to two decimal places.
+
 
 ```{r}
 ## round input values to 2 decimal places
@@ -317,7 +381,7 @@ un3 <- factorLoadings[, 3] |>
 fc3 <- factorCorrs |>
   round(2) |>
   as.matrix()
-## Compare the two matrices
+## Generate new correlation matrix
 itemCors_3 <- makeCorrLoadings(
   loadings = fl3,
   factorCor = fc3,
@@ -330,10 +394,13 @@ chiSq_3 <- cortest.jennrich(
 )
 ```
 
+
 ### Test case #4: Rounded loadings - No uniquenesses
 
+
 Factor loadings and factor correlations to two decimal places, and no
-uniquenesses
+uniquenesses.
+
 
 ```{r}
 ## round input values to 2 decimal places
@@ -358,6 +425,7 @@ chiSq_4 <- cortest.jennrich(
 )
 ```
 
+
 ### Censored loadings
 
 Often, item-factor loadings are presented with lower values removed for
@@ -368,7 +436,8 @@ reverse-engineering that we're employing with the `makeCorrLoadings()`
 function.
 
 In this study, we set the level of hidden loadings at values less than
-'0.1', '0.2' and '0.3'.
+'0.1', '0.2' and '0.3'. Table \ref{tab:pp_censored} presents item factor loadings with all values, and under the three different "censored" conditions.
+
 
 ```{r}
 #| echo: false
@@ -397,20 +466,29 @@ fl_c[fl_c == 0] <- " "
 fl <- cbind(fl_0, fl_a, fl_b, fl_c)
 colnames(fl) <- c("f1", "f2", "f1", "f2", "f1", "f2", "f1", "f2")
 header_text <- c("Item" = 1, "all values" = 2, "< 0.1 out" = 2, "< 0.2 out" = 2, "<0.3 out" = 2)
+
 # print summary factor loadings
-kable(fl, digits = 2, align = rep("c", 8)) |>
-  column_spec(1:9, border_left = T, border_right = T) |>
+kable(fl, digits = 2, align = rep("c", 8), 
+      # format = "latex", # booktabs = TRUE, 
+      caption = "\\label{tab:pp_censored} Censored (hidden) loadings - Party Panel data") |>
+  row_spec(0, bold = TRUE) |>
+  column_spec(1:9, border_left = F, border_right = F) |>
   kable_styling() |>
   add_header_above(
     header = header_text,
-    align = "c"
-  )
+    align = "c",
+    bold = TRUE,
+    italic = TRUE
+  )  
 ```
+
 
 ### Test case #5: Censored loadings
 
+
 Factor loadings less than '0.1', '0.2', '0.3' are removed for clarity,
 presented to two decimal places.
+
 
 ```{r}
 ## round input values to 2 decimal places
@@ -474,13 +552,17 @@ chiSq_5c <- cortest.jennrich(
   R1 = pp15_cor, R2 = itemCors_5c,
   n1 = sampleSize, n2 = sampleSize
 )
-# kable(itemCors_5, digits = 2)
 ```
+
 
 ### Test case #6: Censored loadings - no uniquenesses
 
-With no declared uniquenesses, they are inferred from estimated
-communalities.
+
+With no declared uniquenesses. That is, Uniquenesses are estimated from
+`1-communalities`, where: 
+
+$$communalities = \Sigma(factor\_loadings^2)$$
+
 
 ```{r}
 itemCors_6a <- makeCorrLoadings(
@@ -517,11 +599,13 @@ chiSq_6c <- cortest.jennrich(
 )
 ```
 
+
 ### Test case #7 Censored loadings, no uniqueness, no factor correlations
 
-No uniquenesses. That is, Uniquenesses are estimated from
-1-communalities, where communalities = sum(factor-loadings\^2). And no
-factor correlations. That is, we assume orthogonal factors.
+
+Uniquenesses are inferred from estimated communalities, 
+and we assume orthogonal factors.
+
 
 ```{r}
 itemCors_7a <- makeCorrLoadings(
@@ -558,7 +642,11 @@ chiSq_7c <- cortest.jennrich(
 )
 ```
 
+
 ## Summary results
+
+Table \ref{tab:pp_summary} summarises results from this test, presenting Jennrich $\chi^2$ test and associated _p_-values. 
+
 
 ```{r}
 #| echo: false
@@ -617,9 +705,12 @@ summary_results_1 <- data.frame(
   p = p
 )
 
-kable(summary_results_1) |>
-  kable_classic(full_width = F)
+kable(summary_results_1, 
+      # format = "latex", # booktabs = TRUE, 
+      caption = "\\label{tab:pp_summary} Summary results of makeCorrLoadings() tests - Party Panel data") |>
+  kable_classic(full_width = F)  
 ```
+
 
 ## Conclusion
 
@@ -628,6 +719,8 @@ on factor loadings, but much less well when "summary" (censored) factor
 loadings are given.
 
 ------------------------------------------------------------------------
+
+\newpage
 
 # Study #2: Big Five (bfi personality items)
 
@@ -648,8 +741,8 @@ For purposes of this study, we confine ourselves to women (sex==2) with
 postgraduate qualifications (education==5), giving us a sample size of
 229 subjects.
 
-The dataset contains the following 28 variables. (The q numbers are the
-SAPA item numbers).
+The dataset contains the following 28 variables. (The _q_ numbers are the
+_SAPA_ item numbers).
 
 -   A1 Am indifferent to the feelings of others. (q_146)
 -   A2 Inquire about others’ well-being. (q_1162)
@@ -681,10 +774,13 @@ SAPA item numbers).
     5=graduate_degree)
 -   age age in years
 
+
 ### Second target correlation matrix
+
 
 The correlations among these 25 items should be reproducable by the
 `makeCorrLoadings()` function.
+
 
 ```{r}
 ## download data
@@ -699,6 +795,7 @@ sampleSize <- nrow(bfi_short)
 ## derive correlation matrix
 bfi_cor <- cor(bfi_short)
 ```
+
 
 #### Test cases and Evaluation
 
@@ -716,10 +813,12 @@ correlation reporting:
 And, as in the first study, we compare the *True* correlation matrix
 with a *Synthetic* matrix, employing a *Jennrich test*.
 
+
 ### Exploratory Factor Analysis
 
 Five correlated factors are appropriate for this sample, so we use
 promax rotation.
+
 
 ```{r}
 ## factor analysis from `rosetta` package is a less messy version of the `psych::fa()` function
@@ -729,30 +828,43 @@ fa_bfi <- rosetta::factorAnalysis(
   nfactors = 5,
   rotate = "promax"
 )
-
 bfiLoadings <- fa_bfi$output$loadings
 bfiCorrs <- fa_bfi$output$correlations
 ```
 
+
 #### item-factor loadings & uniquenesses
+
+Table \ref{tab:b5_loadings} presents item-factor loadings and uniquenesses for the Big-5 data under consideration.
+
 
 ```{r}
 #| echo: false
 
-kable(bfiLoadings, digits = 2) |>
+kable(bfiLoadings, digits = 2, 
+      # format = "latex", # booktabs = TRUE, 
+      caption = "\\label{tab:b5_loadings} Item-factor loadings - Big 5 data") |>
   kable_classic(full_width = F)
 ```
+
 
 #### factor correlations
 
+Table \ref{tab:b5_fcors} presents factor correlations after the Exploratory Factor Analysis.
+
+
 ```{r}
 #| echo: false
 
-kable(bfiCorrs, digits = 2) |>
+kable(bfiCorrs, digits = 2, 
+      # format = "latex", # booktabs = TRUE, 
+      caption = "\\label{tab:b5_fcors} Factor correlations - Big 5 data") |>
   kable_classic(full_width = F)
 ```
 
+
 ### Test Case #1: Full information
+
 
 ```{r}
 ## round input values to 5 decimal places
@@ -779,9 +891,11 @@ chiSq_1 <- cortest.jennrich(
 
 ### Other test cases as for the first study
 
-The remaining test cases are as for the first study and this last test
-case. Changes are made to the number of decimal places considered, the
-presence of uniquenesses, presence of factor correlation matrix, and
+The remaining test cases are as for the first study. 
+Experimental manipulations include: 
+Changes to the number of decimal places considered, 
+the presence of uniquenesses, 
+presence of factor correlation matrix, and
 level of item-factor loading that is included.
 
 <!-- ### Test case #2: Full information - No uniquenesses  -->
@@ -1035,7 +1149,11 @@ chiSq_7c <- cortest.jennrich(
 )
 ```
 
+
 ## Study #2 Summary results
+
+Table \ref{tab:b5_summary} presents summary results for the tests on the Big-5 (bfi) data. 
+
 
 ```{r}
 #| echo: false
@@ -1095,13 +1213,19 @@ summary_results_2 <- data.frame(
 )
 
 # summary_results_2
-kable(summary_results_2, digits = c(0, 1, 5)) |>
+kable(summary_results_2, digits = c(0, 1, 5), 
+      # format = "latex", # booktabs = TRUE, 
+      caption = "\\label{tab:b5_summary} Summary results - Big 5 data") |>
   kable_classic(full_width = F)
 ```
 
+
+\newpage
+
 # Overall Results
 
-Both studies show consistent results.
+Both studies show similar and consistent results, as illustrated in Table \ref{tab:overall}.
+
 
 ```{r}
 #| echo: false
@@ -1116,18 +1240,23 @@ overall_summary <- data.frame(
 
 names(overall_summary) <- c("treatment", "chi2", "p", "chi2", "p")
 
-kable(overall_summary, digits = c(0, 1, 3, 1, 3)) |>
+kable(overall_summary, digits = c(0, 1, 3, 1, 3), 
+      # format = "latex", # booktabs = TRUE, 
+      caption = "\\label{tab:overall} Overall summary results") |>
   column_spec(4, border_left = T) |>
   kable_classic(full_width = F) |>
-  add_header_above(c(" " = 1, "Party panel" = 2, "Big 5 (bfi)" = 2))
+  add_header_above(c(" " = 1, "Party panel" = 2, "Big 5 (bfi)" = 2))  #|>
+  # kable_styling(latex_options = "hold_position")
 ```
 
-## Conclusions
+
+# Conclusions
+
 
 The `makeCorrLoadings()` function is designed to produce an item
 correlation matrix based on item-factor loadings and factor correlations
-as one might see in the results of Exploratory Factor Analysis (EFA) or
-Structural Equation Modelling (SEM).
+as one might see in the results of _Exploratory Factor Analysis_ (EFA) or
+_Structural Equation Modelling_ (SEM).
 
 Results of this study suggest that the `makeCorrLoadings()` function
 does a surprisingly good job of reproducing the target correlation
@@ -1138,6 +1267,8 @@ robust even with the absence of specified *uniquenesses*, or even
 without *factor correlations*. But a valid reproduction of a correlation
 matrix should have complete item-factor loadings.
 
+
 ------------------------------------------------------------------------
 
-## References
+
+# References
