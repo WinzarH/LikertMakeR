@@ -2,17 +2,7 @@
 title: "makeCorrLoadings() function validation"
 subtitle: "How well does the function reproduce a target correlation matrix?"
 date: "`r Sys.Date()`"
-# author: 
-#   - name: "Hume Winzar"
-#     orcid: 0000-0001-7475-2641
-#     email: winzar@gmail.com
-#     affiliation: 
-#       - name: Macquarie University
-#         city: Sydney
-#         state: NSW
-#         url: www.mq.edu.au
 author: Hume Winzar
-# name: Hume Winzar
 affiliation: Macquarie University
 abstract: > 
  The makeCorrLoadings() function produces a correlation matrix from predefined item-factor loadings and factor correlatons. We compare the output of the function with known "true" data. Results show that the function works very well when all item-factor loadings are available. This remains the case even when factor correlations and uniqueness values are missing. 
@@ -27,16 +17,6 @@ output:
   html_document:
     code_folding: hide
     number_sections: false
-  # bookdown::html_document2:
-  #   number_sections: FALSE
-  #   code_folding: hide 
-  # bookdown::pdf_document2:
-  #   number_sections: FALSE
-  #   papersize: A4
-# format: 
-#   html: default
-  # pdf:
-  #   papersize: A4
 bibliography: references.bib 
 # output: rmarkdown::html_vignette
 vignette: >
@@ -44,7 +24,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 theme: 
-  - litera, 
+  - journal, 
   - styles.scss
 editor_options: 
   markdown: 
