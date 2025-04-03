@@ -18,7 +18,8 @@
 #'  @note
 #'  "Censored" loadings (for example, where loadings less than '0.30' are
 #'  removed for clarity) tend to severely reduce the accuracy of the
-#'  `makeCorrLoadings()` function. For a detailed demonstration, see [makeCorrLoadings validation](https://github.com/WinzarH/LikertMakeR/tree/main/inst/articles/makeCorrLoadings_Validate.pdf) on the package website on GitHub.
+#'  `makeCorrLoadings()` function. For a detailed demonstration, see the file
+#'  **makeCorrLoadings_Validate.pdf** in the package website on GitHub.
 #'
 #'
 #'
@@ -86,8 +87,10 @@ makeCorrLoadings <- function(loadings,
                              nearPD = FALSE) {
   # loadings:    p x m matrix of factor loadings
   # factorCor:   m x m factor correlation matrix (Phi)
-  # uniquenesses: length p vector of uniquenesses. If NULL, compute from 1 - rowSums(loadings^2)
-  # nearPD:       logical. If TRUE, project factorCor and the final R onto nearest PD matrix if needed.
+  # uniquenesses: length p vector of uniquenesses.
+  #   If NULL, compute from 1 - rowSums(loadings^2)
+  # nearPD:  logical.
+  #   If TRUE, project factorCor and final Rho onto nearest PD matrix if needed.
 
   # Ensure that loadings is a matrix
   if (!is.matrix(loadings)) {
@@ -115,12 +118,13 @@ makeCorrLoadings <- function(loadings,
 
   # Check that factorCor is a valid correlation matrix (diagonal=1, symmetric)
   if (!isSymmetric(factorCor) || any(diag(factorCor) != 1)) {
-    warning("factorCor should be a correlation matrix with 1s on the diagonal, and symmetrical.")
+    warning("factorCor should be a correlation matrix.")
   }
 
   # Check for non-finite values
   if (any(!is.finite(factorCor))) {
-    warning("factorCor contains non-finite values (NA/NaN/Inf). They may cause invalid results.")
+    warning("factorCor contains non-finite values (NA/NaN/Inf).
+            \nThey may cause invalid results.")
   }
 
   # Check if factorCor is positive definite
@@ -143,16 +147,19 @@ makeCorrLoadings <- function(loadings,
     uniquenesses <- 1 - communalities
   } else {
     if (length(uniquenesses) != p) {
-      stop("Length of 'uniquenesses' must match the number of items (rows in loadings).")
+      stop("Length of 'uniquenesses' must match the number of items
+           \n(rows in loadings)")
     }
   }
 
   tol <- 1e-8
   if (any(communalities > 1 + tol)) {
-    warning("Some item communalities exceed 1, indicating invalid loadings or non-standardized items.")
+    warning("Some item communalities exceed 1,
+            \nindicating invalid loadings or non-standardized items.")
   }
   if (any(uniquenesses < 0 - tol)) {
-    warning("Some uniquenesses are negative, indicating invalid loadings or non-standardized items.")
+    warning("Some uniquenesses are negative,
+            \nindicating invalid loadings or non-standardized items.")
   }
 
   Psi <- diag(uniquenesses, nrow = p, ncol = p)
