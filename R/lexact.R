@@ -18,9 +18,9 @@
 #' @param n (positive, int) number of observations to generate
 #' @param mean (real) target mean
 #' @param sd  (real) target standard deviation
-#' @param lowerbound (positive, int) lower bound (e.g. '1' for a 1-5 rating scale)
-#' @param upperbound (positive, int) upper bound (e.g. '5' for a 1-5 rating scale)
-#' @param items (positive, int) number of items in the rating scale. Default = 1
+#' @param lowerbound (positive, int) lower bound
+#' @param upperbound (positive, int) upper bound
+#' @param items (positive, int) number of items in the rating scale.
 #'
 #' @return a vector of simulated data approximating user-specified conditions.
 #'
@@ -42,7 +42,8 @@
 #' x <- lexact(256, 2, 1.8, 0, 10)
 #'
 lexact <- function(n, mean, sd, lowerbound, upperbound, items = 1) {
-  message("lexact() function is deprecated. \nUsing the more efficient lfast() function instead")
+  message("lexact() function is deprecated.
+          \nUsing the more efficient lfast() function instead")
   lfast(
     n = n, mean = mean, sd = sd,
     lowerbound = lowerbound, upperbound = upperbound, items = items

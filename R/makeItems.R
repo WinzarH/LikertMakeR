@@ -85,7 +85,7 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
   ## round correlation values to sensible values
   cormatrix <- cormatrix |> round(5)
 
-  { ## BEGIN input parameters integrity
+  parameter_integrity <- function() { ## BEGIN input parameters integrity
     if (length(upperbound) != length(lowerbound) ||
       length(upperbound) != ncol(cormatrix) ||
       length(lowerbound) != ncol(cormatrix) ||
@@ -98,8 +98,9 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
       return(NULL)
     }
   } ## END input parameters integrity
+
   ####
-  { ## BEGIN check positive definite matrix
+  check_PD_matrix <- function() { ## BEGIN check positive definite matrix
     if (min(eigen(cormatrix)$values) < 0) {
       stop("ERROR:\ncormatrix is not Positive Definite.
          \nRequested correlations are not possible \n")
@@ -108,6 +109,9 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
   } ## END check positive definite matrix
   ## end integrity checks
   ####
+
+  parameter_integrity
+  check_PD_matrix
 
   ###   combine lfast() and lcor()
   ####

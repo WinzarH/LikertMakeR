@@ -18,7 +18,9 @@
 #' @param lowerbound (int) lower bound (e.g. '1' for a 1-5 rating scale)
 #' @param upperbound (int) upper bound (e.g. '5' for a 1-5 rating scale)
 #' @param items (positive, int) number of items in the rating scale. Default = 1
-#' @param precision (positive, real) can relax the level of accuracy required. (e.g. '1' generally generates a vector with moments correct within '0.025', '2' generally within '0.05') Default = 0
+#' @param precision (positive, real) can relax the level of accuracy required.
+#' (e.g. '1' generally generates a vector with moments correct within '0.025',
+#' '2' generally within '0.05') Default = 0
 #'
 #'
 #' @return a vector approximating user-specified conditions.
@@ -63,13 +65,13 @@
 #' ## eleven-point 'likelihood of purchase' scale
 #' x <- lfast(256, 3, 3.0, 0, 10)
 #'
-lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0) {
+lfast <- function(n, mean, sd,
+                  lowerbound, upperbound,
+                  items = 1, precision = 0) {
   tolerance <- 0.0025 * 2^precision
-
   range <- upperbound - lowerbound
   m <- (mean - lowerbound) / range ## rescale mean
   s <- sd / range ## rescale sd
-
   ## idiot checks
   if (mean <= lowerbound || mean >= upperbound) {
     stop("ERROR: mean is out of range")
@@ -79,12 +81,9 @@ lfast <- function(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0)
             \nDerived SD may be less than specified
             \nOr the solution is not feasible, producing 'NA' values")
   }
-
-
   ## Beta distribution shape parameters
   a <- (m^2 - m^3 - m * s^2) / s^2 ## alpha shape parameter
   b <- (m - 2 * m^2 + m^3 - s^2 + m * s^2) / s^2 ## beta shape parameter
-
 
   best_value <- 1e+5 ## set high value to start
   best_vector <- rep(1e+5, n) ## set high value to start

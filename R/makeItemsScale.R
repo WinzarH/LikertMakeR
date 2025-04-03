@@ -1,4 +1,4 @@
-#' From a summated scale, generate individual scale items with desired Cronbach's Alpha
+#' Generate scale items from a summated scale, with desired Cronbach's Alpha
 #'
 #' @name makeItemsScale
 #'
@@ -138,22 +138,8 @@
 #' )
 #'
 #' ### test new items
-#' str(newItems)
-#' alpha(data = newItems) |> round(2)
-#'
-#'
-#' ## create items with higher Alpha but same summated scale
-#' newItems <- makeItemsScale(
-#'   scale = summatedScale,
-#'   lowerbound = lower, upperbound = upper,
-#'   items = k,
-#'   alpha = 0.9,
-#'   variance = 0.5
-#' )
-#'
-#' ### test new items
-#' str(newItems)
-#' alpha(data = newItems) |> round(2)
+#' # str(newItems)
+#' # alpha(data = newItems) |> round(2)
 #'
 #'
 #' ## very low variance usually gives higher Cronbach's Alpha
@@ -164,17 +150,17 @@
 #' )
 #'
 #' ### test new data frame
-#' str(mydat_20)
+#' # str(mydat_20)
 #'
-#' moments <- data.frame(
-#'   means = apply(mydat_20, MARGIN = 2, FUN = mean) |> round(3),
-#'   sds = apply(mydat_20, MARGIN = 2, FUN = sd) |> round(3)
-#' ) |> t()
+#' # moments <- data.frame(
+#' #   means = apply(mydat_20, MARGIN = 2, FUN = mean) |> round(3),
+#' #   sds = apply(mydat_20, MARGIN = 2, FUN = sd) |> round(3)
+#' # ) |> t()
 #'
-#' moments
+#' # moments
 #'
-#' cor(mydat_20) |> round(2)
-#' alpha(data = mydat_20) |> round(2)
+#' # cor(mydat_20) |> round(2)
+#' # alpha(data = mydat_20) |> round(2)
 #'
 #'
 #' ## default alpha (0.8) and higher variance (0.8)
@@ -185,17 +171,17 @@
 #' )
 #'
 #' ### test new dataframe
-#' str(mydat_80)
+#' # str(mydat_80)
 #'
-#' moments <- data.frame(
-#'   means = apply(mydat_80, MARGIN = 2, FUN = mean) |> round(3),
-#'   sds = apply(mydat_80, MARGIN = 2, FUN = sd) |> round(3)
-#' ) |> t()
+#' # moments <- data.frame(
+#' #   means = apply(mydat_80, MARGIN = 2, FUN = mean) |> round(3),
+#' #   sds = apply(mydat_80, MARGIN = 2, FUN = sd) |> round(3)
+#' # ) |> t()
 #'
-#' moments
+#' # moments
 #'
-#' cor(mydat_80) |> round(2)
-#' alpha(data = mydat_80) |> round(2)
+#' # cor(mydat_80) |> round(2)
+#' # alpha(data = mydat_80) |> round(2)
 #'
 makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, variance = 0.5) {
   ###
@@ -265,7 +251,7 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
       slice_sample(n = 1) |>
       subset(select = -c(sums, sds))
 
-    return(vec)
+    # return(vec)
   }
 
   ###

@@ -8,7 +8,8 @@
 #' Such a correlation matrix can be applied to the \code{makeItems()}
 #' function to generate synthetic data with the predefined alpha.
 #'
-#' @param items (positive, int) matrix dimensions: number of rows & columns to generate
+#' @param items (positive, int) matrix dimensions:
+#'  number of rows & columns to generate
 #' @param alpha (real) target Cronbach's Alpha
 #'  (usually positive, must be between about -0.3 and +1)
 #' @param variance (positive, real) Default = 0.5.
@@ -90,7 +91,7 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
   ## formula: y = log((1 + x) / (1 - x))
   log_transform <- function(x) {
     result <- log((1 + x) / (1 - x))
-    return(result)
+    # return(result)
   } ## end log_transform function
 
   ###
@@ -101,7 +102,7 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
   ## formula: x = (e^y - 1) / (e^y + 1)
   exp_transform <- function(y) {
     x <- (exp(y) - 1) / (exp(y) + 1)
-    return(x)
+    # return(x)
   } ## END exp_transform function
 
 
@@ -238,7 +239,10 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
     }
     # Check if the current mean is close to the target mean
     if (abs(current_mean_cors - mean_r) < tolerance) {
-      cat(paste0("correlation values consistent with desired alpha in ", iteration, " iterations\n"))
+      cat(paste0(
+        "correlation values consistent with desired alpha in ",
+        iteration, " iterations\n"
+      ))
       break
     }
   } ## END find means loop
