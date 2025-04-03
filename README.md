@@ -468,11 +468,11 @@ ____
 
 ###### Note
 
-"Censored" loadings (for example, where loadings less than '0.30' are
-removed for ease-of-communication) tend to severely reduce the accuracy of the
-`makeCorrLoadings()` function. 
-For a detailed demonstration, see [makeCorrLoadings validation](https://github.com/WinzarH/LikertMakeR/tree/main/inst/articles/makeCorrLoadings_Validate.pdf) 
-on the package website on GitHub.
+"Censored" loadings (for example, where loadings less than some small value 
+(often '0.30'), are removed for ease-of-communication) tend to severely reduce 
+the accuracy of the `makeCorrLoadings()` function. 
+For a detailed demonstration, see the file, **makeCorrLoadings_Validate.pdf** 
+in the package website on GitHub.
 
 
 ### makeCorrLoadings() examples
