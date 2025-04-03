@@ -10,7 +10,7 @@
 
 # LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 1.0.1  March 2025)
+(V 1.1.0  April 2025)
 
 Synthesise and correlate Likert scale and similar rating-scale data with 
 predefined first & second moments (mean and standard deviation), 
@@ -31,7 +31,7 @@ The package is intended for:
   _etc._ ...  
  
   3. checking the feasibility of scale moments with given scale and 
-  correlation properties 
+  correlation properties. 
 
  
 ## Functions
@@ -51,16 +51,16 @@ Functions in this version of **_LikertMakeR_** are:
   constructs a random item correlation matrix of given 
   dimensions and predefined _Cronbach's Alpha_.
   
-  - [**_makeCorrLoadings_**](#makeCorrLoadings)
-  constructs a item correlation matrix based on factor loadings and 
-  factor correlations as might be reported in _Exploratory Factor Analysis_
-  (**EFA**) or _Structural Equation Modelling_ (**SEM**).
-  
   - [**_makeItems()_**](#makeitems) 
   is a wrapper function for _lfast()_ and _lcor()_ 
   to generate synthetic rating-scale data with predefined first and 
   second moments and a predefined correlation matrix.
   
+  - [**_makeCorrLoadings_**](#makeCorrLoadings)
+  constructs a item correlation matrix based on factor loadings and 
+  factor correlations as might be reported in _Exploratory Factor Analysis_
+  (**EFA**) or _Structural Equation Modelling_ (**SEM**).
+ 
   - [**_makeItemsScale()_**](#makeitemsscale) 
   Generate a dataframe of rating scale items from a summative scale 
   and desired Cronbach's Alpha.
