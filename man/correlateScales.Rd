@@ -2,7 +2,7 @@
 % Please edit documentation in R/correlateScales.R
 \name{correlateScales}
 \alias{correlateScales}
-\title{Create a dataframe of correlated scales  from different dataframes of scale items}
+\title{Create a dataframe of correlated scales from different dataframes of scale items}
 \usage{
 correlateScales(dataframes, scalecors)
 }
@@ -23,7 +23,8 @@ scale items representing correlated constructs,
 as one might find in a completed questionnaire.
 }
 \details{
-Correlated rating-scale items generally are summed or averaged to create a measure of an "unobservable", or "latent", construct.
+Correlated rating-scale items generally are summed or
+averaged to create a measure of an "unobservable", or "latent", construct.
 \code{correlateScales()} takes several such dataframes of rating-scale
 items and rearranges their rows so that the scales are correlated according
 to a predefined correlation matrix. Univariate statistics for each dataframe

@@ -20,7 +20,8 @@ if present.
 @note
 "Censored" loadings (for example, where loadings less than '0.30' are
 removed for clarity) tend to severely reduce the accuracy of the
-\code{makeCorrLoadings()} function. For a detailed demonstration, see \href{https://github.com/WinzarH/LikertMakeR/tree/main/inst/articles/makeCorrLoadings_Validate.html}{makeCorrLoadings validation} on the package website on GitHub.}
+\code{makeCorrLoadings()} function. For a detailed demonstration, see the file
+\strong{makeCorrLoadings_Validate.pdf} in the package website on GitHub.}
 
 \item{factorCor}{(numeric matrix) \strong{f} x \strong{f} factor correlation matrix}
 

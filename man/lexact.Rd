@@ -13,11 +13,11 @@ lexact(n, mean, sd, lowerbound, upperbound, items = 1)
 
 \item{sd}{(real) target standard deviation}
 
-\item{lowerbound}{(positive, int) lower bound (e.g. '1' for a 1-5 rating scale)}
+\item{lowerbound}{(positive, int) lower bound}
 
-\item{upperbound}{(positive, int) upper bound (e.g. '5' for a 1-5 rating scale)}
+\item{upperbound}{(positive, int) upper bound}
 
-\item{items}{(positive, int) number of items in the rating scale. Default = 1}
+\item{items}{(positive, int) number of items in the rating scale.}
 }
 \value{
 a vector of simulated data approximating user-specified conditions.

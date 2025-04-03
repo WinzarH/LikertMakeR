@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeItemsScale.R
 \name{makeItemsScale}
 \alias{makeItemsScale}
-\title{From a summated scale, generate individual scale items with desired Cronbach's Alpha}
+\title{Generate scale items from a summated scale, with desired Cronbach's Alpha}
 \usage{
 makeItemsScale(
   scale,
@@ -149,22 +149,8 @@ newItems <- makeItemsScale(
 )
 
 ### test new items
-str(newItems)
-alpha(data = newItems) |> round(2)
-
-
-## create items with higher Alpha but same summated scale
-newItems <- makeItemsScale(
-  scale = summatedScale,
-  lowerbound = lower, upperbound = upper,
-  items = k,
-  alpha = 0.9,
-  variance = 0.5
-)
-
-### test new items
-str(newItems)
-alpha(data = newItems) |> round(2)
+# str(newItems)
+# alpha(data = newItems) |> round(2)
 
 
 ## very low variance usually gives higher Cronbach's Alpha
@@ -175,17 +161,17 @@ mydat_20 <- makeItemsScale(
 )
 
 ### test new data frame
-str(mydat_20)
+# str(mydat_20)
 
-moments <- data.frame(
-  means = apply(mydat_20, MARGIN = 2, FUN = mean) |> round(3),
-  sds = apply(mydat_20, MARGIN = 2, FUN = sd) |> round(3)
-) |> t()
+# moments <- data.frame(
+#   means = apply(mydat_20, MARGIN = 2, FUN = mean) |> round(3),
+#   sds = apply(mydat_20, MARGIN = 2, FUN = sd) |> round(3)
+# ) |> t()
 
-moments
+# moments
 
-cor(mydat_20) |> round(2)
-alpha(data = mydat_20) |> round(2)
+# cor(mydat_20) |> round(2)
+# alpha(data = mydat_20) |> round(2)
 
 
 ## default alpha (0.8) and higher variance (0.8)
@@ -196,16 +182,16 @@ mydat_80 <- makeItemsScale(
 )
 
 ### test new dataframe
-str(mydat_80)
+# str(mydat_80)
 
-moments <- data.frame(
-  means = apply(mydat_80, MARGIN = 2, FUN = mean) |> round(3),
-  sds = apply(mydat_80, MARGIN = 2, FUN = sd) |> round(3)
-) |> t()
+# moments <- data.frame(
+#   means = apply(mydat_80, MARGIN = 2, FUN = mean) |> round(3),
+#   sds = apply(mydat_80, MARGIN = 2, FUN = sd) |> round(3)
+# ) |> t()
 
-moments
+# moments
 
-cor(mydat_80) |> round(2)
-alpha(data = mydat_80) |> round(2)
+# cor(mydat_80) |> round(2)
+# alpha(data = mydat_80) |> round(2)
 
 }

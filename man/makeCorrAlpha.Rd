@@ -7,7 +7,8 @@
 makeCorrAlpha(items, alpha, variance = 0.5, precision = 0)
 }
 \arguments{
-\item{items}{(positive, int) matrix dimensions: number of rows & columns to generate}
+\item{items}{(positive, int) matrix dimensions:
+number of rows & columns to generate}
 
 \item{alpha}{(real) target Cronbach's Alpha
 (usually positive, must be between about -0.3 and +1)}

@@ -19,7 +19,9 @@ lfast(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0)
 
 \item{items}{(positive, int) number of items in the rating scale. Default = 1}
 
-\item{precision}{(positive, real) can relax the level of accuracy required. (e.g. '1' generally generates a vector with moments correct within '0.025', '2' generally within '0.05') Default = 0}
+\item{precision}{(positive, real) can relax the level of accuracy required.
+(e.g. '1' generally generates a vector with moments correct within '0.025',
+'2' generally within '0.05') Default = 0}
 }
 \value{
 a vector approximating user-specified conditions.
