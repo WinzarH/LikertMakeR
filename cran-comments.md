@@ -4,8 +4,6 @@
 
 * This is a new release.
 
-* changed Version numbering to conform to recommended format
+* I have no idea what the "1 note" is about
 
-* Update from Version 0.4.5 to Version 1.1.0
-
-* And I cannot work out what the 1 note is for!
+* Changing Version number to comply with standard version-number protocol
