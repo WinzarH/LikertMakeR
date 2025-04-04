@@ -1,3 +1,5 @@
+# LikertMakeR (development version)
+
 # LikertMakeR 1.0.0 (2025-04-03)
 
 ## makeCorrLoadings() function added
