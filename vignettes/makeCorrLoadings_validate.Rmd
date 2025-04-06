@@ -6,8 +6,8 @@ vignette: >
   %\VignetteIndexEntry{makeCorrLoadings() validation}
   %\VignetteEngine{rmarkdown::html_vignette}
   %\VignetteEncoding{UTF-8}
-bibliography: references.bib
 ---
+
 
 ## LikertMakeR package
 
