@@ -30,8 +30,7 @@ Suggests:
 LinkingTo: 
     Rcpp,
     RcppArmadillo
-VignetteBuilder: 
-    knitr
+VignetteBuilder: rmarkdown
 Config/Needs/website: rmarkdown
 Config/testthat/edition: 3
 Encoding: UTF-8
