@@ -2,11 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-/vignettes/
-/Meta/
 /extras/
 .o
 .so
 .dll
 
-/doc/
