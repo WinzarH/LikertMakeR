@@ -7,8 +7,10 @@ Authors@R:
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0001-7475-2641"))
 Description: Generate and correlate synthetic Likert and rating-scale data
-    with predefined means, standard deviations, _Cronbach's Alpha_,
-    _Factor Loading table_, and other summary statistics.
+    with predefined means, standard deviations, Cronbach's Alpha,
+    Factor Loading table, and other summary statistics.
+    See the package vignettes for worked examples and documentation via
+    browseVignettes("LikertMakeR")
 License: MIT + file LICENSE
 URL: https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
@@ -30,7 +32,7 @@ Suggests:
 LinkingTo: 
     Rcpp,
     RcppArmadillo
-VignetteBuilder: rmarkdown
+VignetteBuilder: knitr
 Config/Needs/website: rmarkdown
 Config/testthat/edition: 3
 Encoding: UTF-8
