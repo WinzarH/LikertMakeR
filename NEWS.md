@@ -1,5 +1,19 @@
 # LikertMakeR (development version)
 
+# LikertMakeR 1.0.1 (2025-04-07)
+
+## Improvements
+
+- Vignettes are now properly registered and included in the build.
+- Improved documentation: two vignettes now illustrate package usage:
+  - `LikertMakeR vignette`
+  - `makeCorrLoadings validation`
+- Updated `DESCRIPTION` metadata to comply with CRAN requirements.
+
+## Maintenance
+
+- Switched vignette engine to `knitr::rmarkdown` for better compatibility with CRAN and development tools.
+
 # LikertMakeR 1.0.0 (2025-04-03)
 
 ## makeCorrLoadings() function added
