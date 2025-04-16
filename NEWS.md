@@ -1,5 +1,15 @@
 # LikertMakeR (development version)
 
+# LikertMakeR 1.0.2 (2025-04-25)
+
+## Improvements
+
+- Some examples updated.
+
+## Maintenance
+
+- Vignettes updated.
+
 # LikertMakeR 1.0.1 (2025-04-07)
 
 ## Improvements
