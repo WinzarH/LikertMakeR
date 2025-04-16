@@ -12,7 +12,7 @@ Description: Generate and correlate synthetic Likert and rating-scale data
     Worked examples and documentation are available in the package vignettes,
     accessible via browseVignettes("LikertMakeR").
 License: MIT + file LICENSE
-URL: https://github.com/WinzarH/LikertMakeR
+URL: https://github.com/WinzarH/LikertMakeR, https://winzarh.github.io/LikertMakeR/
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
 Depends: 
     R (>= 4.2.0)
