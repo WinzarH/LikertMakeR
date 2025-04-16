@@ -9,36 +9,4 @@ template:
   bootswatch: materia
   logo: man/figures/logo.png
   favicon: man/figures/logo.png
-navbar:
-  structure:
-    left:
-    - home
-    - reference
-    - articles
-    right: github
-  components:
-    home:
-      text: Home
-      href: index.html
-    reference:
-      text: Functions
-      href: reference/index.html
-    articles:
-      text: Vignettes
-      menu:
-      - text: Using LikertMakeR
-        href: articles/LikertMakeR_vignette.html
-      - text: makeCorrLoadings Validation
-        href: articles/makeCorrLoadings_validate.html
-    github:
-      icon: fa-github
-      href: https://github.com/WinzarH/LikertMakeR
-footer:
-  structure:
-    left: license
-    right: built
-  components:
-    license:
-      text: MIT License
-      href: LICENSE.html
 
