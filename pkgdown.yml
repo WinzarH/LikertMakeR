@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   LikertMakeR_vignette: LikertMakeR_vignette.html
   makeCorrLoadings_validate: makeCorrLoadings_validate.html
-last_built: 2025-04-16T10:14Z
+last_built: 2025-04-16T10:25Z
 urls:
   reference: https://winzarh.github.io/LikertMakeR/reference
   article: https://winzarh.github.io/LikertMakeR/articles
