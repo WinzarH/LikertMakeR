@@ -120,7 +120,7 @@ interval scale measure.
 Likert-scale items, such as responses to a single 1-to-5 agree-disagree 
 question, should not be analysed by professional or responsible researchers. 
 There is too much random error in a single item. 
-Rensis Likert (1932)[https://archive.org/details/likert-1932/mode/2up] 
+[Rensis Likert (1932)](https://archive.org/details/likert-1932/mode/2up) 
 designed the scale with the logic that a random overstatement on one item 
 is likely to be compensated by a random understatement on another 
 item, so that, when multiple items are combined, we get a reasonably 
