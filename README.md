@@ -18,6 +18,43 @@ _Cronbach's Alpha_, _Factor Loadings_, and other summary statistics.
  
 **_LikertMakeR_** synthesises rating-scale data. 
 Such scales are constrained by upper and lower bounds and discrete increments. 
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Purpose](#purpose)
+- [Functions](#functions)
+- [Rating scale properties](#rating-scale-properties)
+- [Install LikertMakeR](#install-likertmaker)
+- [Generate synthetic rating scales](#generate-synthetic-rating-scales)
+- [Correlating vectors](#correlating-vectors-of-synthetic-rating-scales)
+- [Correlation from Cronbach's Alpha](#generate-a-correlation-matrix-from-cronbachs-alpha)
+- [Correlation from Factor Loadings](#generate-a-correlation-matrix-from-factor-loadings)
+- [Generate full dataset](#generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments)
+- [Summated scale to item data](#generate-a-dataframe-of-rating-scale-items-from-a-summated-rating-scale)
+- [Paired-sample data](#create-a-dataframe-for-paired-sample-t-test)
+- [Multiscale correlation](#create-a-multidimensional-dataframe-of-scale-items-as-we-might-see-from-a-questionnaire)
+- [Helper functions](#helper-functions)
+- [Citation](#to-cite-likertmaker)
+
+## Quick Start
+
+    library(LikertMakeR)
+
+### Generate a 4-item Likert-scale data frame with target moments
+
+     my_items <- makeItems(
+      n = 100,
+      means = c(3.5, 4.0, 3.8, 3.2),
+      sds = c(0.8, 1.0, 0.9, 0.7),
+      lowerbound = rep(1, 4),
+      upperbound = rep(5, 4),
+      cormatrix = makeCorrAlpha(4, alpha = 0.85)
+     )
+
+    head(my_items)
+    cor(my_items)
+
  
 ## Purpose
  
@@ -48,16 +85,16 @@ Functions in this version of **_LikertMakeR_** are:
   they are correlated to match a predefined correlation matrix.
 
   - [**_makeCorrAlpha_**](#makecorralpha)
-  constructs a random item correlation matrix of given 
+  constructs a random item Correlation Matrix of given 
   dimensions and predefined _Cronbach's Alpha_.
   
   - [**_makeItems()_**](#makeitems) 
   is a wrapper function for _lfast()_ and _lcor()_ 
   to generate synthetic rating-scale data with predefined first and 
-  second moments and a predefined correlation matrix.
+  second moments and a predefined Correlation Matrix.
   
   - [**_makeCorrLoadings_**](#makeCorrLoadings)
-  constructs a item correlation matrix based on factor loadings and 
+  generates an item Correlation Matrix based on factor loadings and 
   factor correlations as might be reported in _Exploratory Factor Analysis_
   (**EFA**) or _Structural Equation Modelling_ (**SEM**).
  
@@ -71,15 +108,15 @@ Functions in this version of **_LikertMakeR_** are:
   - [_**correlateScales()**_](#correlatescales) generates a 
   multidimensional dataframe by combining several dataframes of 
   rating-scale items so that their summated scales are correlated 
-  according to a predefined correlation matrix.
+  according to a predefined Correlation Matrix.
 
 ##### Helper functions
 
   - [**_alpha()_**](#alpha) calculates Cronbach's Alpha from a given 
-  correlation matrix or a given dataframe
+  Correlation Matrix or a given dataframe
   
   - [**_eigenvalues()_**](#eigenvalues) 
-  calculates eigenvalues of a correlation matrix, 
+  calculates eigenvalues of a Correlation Matrix, 
   reports on positive-definite status of the matrix and, optionally, 
   displays a scree plot to visualise the eigenvalues
 
@@ -145,20 +182,20 @@ univariate statistics as they might ordinarily be reported.
 `lcor()` will take multiple scales created with `lfast()` and rearrange 
 values so that the vectors are correlated.
 
-`makeCorrAlpha()` generates a correlation matrix from a predefined 
+`makeCorrAlpha()` generates a Correlation Matrix from a predefined 
 _Cronbach's Alpha()_, enabling the user to apply `makeItems()` 
 to generate scale items that produce an exact _Cronbach's Alpha_. 
-`makeCorrLoadings()` generates a correlation matrix from factor loadings data, 
+`makeCorrLoadings()` generates a Correlation Matrix from factor loadings data, 
 enabling the user to apply `makeItems()` to generate multidimensional data.
 
 `makeItems()` will generate synthetic rating-scale data with predefined 
-first and second moments and a predefined correlation matrix. 
+first and second moments and a predefined Correlation Matrix. 
 
 `makeItemsScale()` generate a dataframe of rating scale items from a 
 summative scale and desired _Cronbach's Alpha_. 
 `correlateScales()` generates a multidimensional dataframe by combining several
 dataframes of rating-scale items so that their summated scales are correlated 
-according to a predefined correlation matrix.
+according to a predefined Correlation Matrix.
 
 ## Install _LikertMakeR_
 
@@ -249,11 +286,11 @@ author's _GitHub_ repository.
  
      x <- lfast(256, 2.5, 2.5, 0, 10)
      
-____
+----
 
 ## Correlating vectors of synthetic rating scales
 
-### lcor() 
+### lcor()
 
 The function, **_lcor()_**, applies a simple _evolutionary algorithm_ to 
 rearrange the values in the columns of a data set so that they are correlated 
@@ -270,7 +307,7 @@ but their correlations with other columns do.
 
   -  **_data_**: a starter data set of rating-scales 
   
-  -  **_target_**: the target correlation matrix 
+  -  **_target_**: the target Correlation Matrix 
 
 
 ### **_lcor()_**  Example #1
@@ -290,7 +327,7 @@ but their correlations with other columns do.
      cor(mydat4) |> round(3)
      
 
-####  Define a target correlation matrix
+####  Define a target Correlation Matrix
 
      tgt4 <- matrix(
      c(
@@ -313,7 +350,7 @@ but their correlations with other columns do.
 ### _lcor()_ example #2
 
 
-#####  three starting columns and a different target correlation matrix
+#####  three starting columns and a different target Correlation Matrix
 
      mydat3 <- data.frame(x1, x2, x3) 
     
@@ -334,9 +371,9 @@ but their correlations with other columns do.
      
      cor(new3) |> round(3)
 
-____
+----
 
-## Generate a correlation matrix from Cronbach's Alpha
+## Generate a Correlation Matrix from Cronbach's Alpha
 
 ### makeCorrAlpha()
 
@@ -441,7 +478,7 @@ The user is encouraged to try again, possibly several times, to find one.
     alpha(cor_matrix_8a)
     eigenvalues(cor_matrix_8a, 1)
 
-____
+----
 
 ## Generate a correlation matrix from factor loadings
 
@@ -535,7 +572,7 @@ in the package website on GitHub.
 
     round(itemCors, 3)
  
-____
+----
 
 ## Generate a dataframe of rating scales from a correlation matrix and predefined moments
 
@@ -622,7 +659,7 @@ _makeItems()_ is a wrapper function for:
     cor(df) |> round(3)
 
 
-___
+----
 
 ## Generate a dataframe of rating-scale items from a summated rating scale
 
@@ -718,7 +755,7 @@ ___
     alpha(data = newItems_3)
     eigenvalues(cor(newItems_3), 1)
 
-___
+----
 
 ## Create a dataframe for paired-sample t-test
 
@@ -767,7 +804,7 @@ Paired t-tests apply to observations that are associated with each other. For ex
     
     t.test(pairedDat$V1, pairedDat$V2, paired = TRUE)
 
-___
+----
 
 
 ## Create a multidimensional dataframe of scale items as we might see from a questionnaire
@@ -879,11 +916,11 @@ k*k positive-semi-definite matrix, where 'k' is the number of dataframes
     eigenvalues(cormatrix = cor(my_correlated_scales), scree = TRUE) |> 
     round(2)
 
-___
+----
 
 ## Helper functions
 
-_likertMakeR()_ includes two additional functions that may be of help 
+_LikertMakeR()_ includes two additional functions that may be of help 
  when examining parameters and output.
 
   - **_alpha()_** calculates _Cronbach's Alpha_ from a given correlation 
@@ -985,18 +1022,19 @@ _eigenvalues()_ calculates eigenvalues of a correlation
     print(evals)
 
 
-____
+----
 
 
 ### To cite _LikertMakeR_
 
 #### APA:
 
-     Winzar, H. (2022). LikertMakeR: Synthesise and correlate Likert-scale 
-     and related rating-scale data with predefined first & second moments, 
-     Version 1.0.1 (2025),
-     The Comprehensive R Archive Network (CRAN),
-    <https://CRAN.R-project.org/package=LikertMakeR>
+     Winzar, H. (2025). LikertMakeR: Synthesise and correlate 
+     Likert-scale and related rating-scale data with predefined first & 
+     second moments 
+     (Version 1.0.2) [R package]. 
+     The Comprehensive R Archive Network (CRAN).
+     <https://CRAN.R-project.org/package=LikertMakeR>
         
 #### BIB:    
 
@@ -1008,6 +1046,6 @@ ____
     journal = {The Comprehensive R Archive Network (CRAN)},
     month = {12},
     year = {2022},
-    version = {1.0.1 (2025)}
+    version = {1.0.2 (2025)}
     url = {https://CRAN.R-project.org/package=LikertMakeR},
     }
