@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Synthesise and Correlate Likert Scale and Rating-Scale Data Based on Summary Statistics • LikertMakeR</title>
+<title>LikertMakeR • LikertMakeR</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -16,9 +16,11 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Synthesise and Correlate Likert Scale and Rating-Scale Data Based on Summary Statistics">
-<meta name="description" content="Generate and correlate synthetic Likert and rating-scale data with predefined means, standard deviations, Cronbach's Alpha, Factor Loading table, and other summary statistics. Worked examples and documentation are available in the package vignettes, accessible via browseVignettes(&quot;LikertMakeR&quot;).">
-<meta property="og:description" content="Generate and correlate synthetic Likert and rating-scale data with predefined means, standard deviations, Cronbach's Alpha, Factor Loading table, and other summary statistics. Worked examples and documentation are available in the package vignettes, accessible via browseVignettes(&quot;LikertMakeR&quot;).">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="LikertMakeR">
+<meta name="description" content="Generate and correlate synthetic Likert-scale data from published summary statistics.
+">
+<meta property="og:description" content="Generate and correlate synthetic Likert-scale data from published summary statistics.
+">
 <meta property="og:image" content="https://winzarh.github.io/LikertMakeR/logo.png">
 </head>
 <body>
@@ -38,29 +40,18 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="active nav-item"><a class="nav-link" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="reference/index.html">Functions</a></li>
 <li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
-    <li><a class="dropdown-item" href="articles/makeCorrLoadings_validate.html">makeCorrLoadings validation</a></li>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+<li><a class="dropdown-item" href="articles/LikertMakeR_vignette.html">Using LikertMakeR</a></li>
+    <li><a class="dropdown-item" href="articles/makeCorrLoadings_validate.html">makeCorrLoadings Validation</a></li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><form class="form-inline" role="search">
- <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
-</form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -81,6 +72,47 @@
 <p>Synthesise and correlate Likert scales, and similar rating-scale data, with predefined first &amp; second moments (mean and standard deviation), <em>Cronbach’s Alpha</em>, <em>Factor Loadings</em>, and other summary statistics.</p>
 <p><strong><em>LikertMakeR</em></strong> synthesises rating-scale data. Such scales are constrained by upper and lower bounds and discrete increments.</p>
 <div class="section level2">
+<h2 id="table-of-contents">Table of Contents<a class="anchor" aria-label="anchor" href="#table-of-contents"></a>
+</h2>
+<ul>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#functions">Functions</a></li>
+<li><a href="#rating-scale-properties">Rating scale properties</a></li>
+<li><a href="#install-likertmaker">Install LikertMakeR</a></li>
+<li><a href="#generate-synthetic-rating-scales">Generate synthetic rating scales</a></li>
+<li><a href="#correlating-vectors-of-synthetic-rating-scales">Correlating vectors</a></li>
+<li><a href="#generate-a-correlation-matrix-from-cronbachs-alpha">Correlation from Cronbach’s Alpha</a></li>
+<li><a href="#generate-a-correlation-matrix-from-factor-loadings">Correlation from Factor Loadings</a></li>
+<li><a href="#generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments">Generate full dataset</a></li>
+<li><a href="#generate-a-dataframe-of-rating-scale-items-from-a-summated-rating-scale">Summated scale to item data</a></li>
+<li><a href="#create-a-dataframe-for-paired-sample-t-test">Paired-sample data</a></li>
+<li><a href="#create-a-multidimensional-dataframe-of-scale-items-as-we-might-see-from-a-questionnaire">Multiscale correlation</a></li>
+<li><a href="#helper-functions">Helper functions</a></li>
+<li><a href="#to-cite-likertmaker">Citation</a></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(LikertMakeR)</span></code></pre></div>
+<div class="section level3">
+<h3 id="generate-a-4-item-likert-scale-data-frame-with-target-moments">Generate a 4-item Likert-scale data frame with target moments<a class="anchor" aria-label="anchor" href="#generate-a-4-item-likert-scale-data-frame-with-target-moments"></a>
+</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a> my_items <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">100</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">means =</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="fl">4.0</span>, <span class="fl">3.8</span>, <span class="fl">3.2</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">sds =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">1.0</span>, <span class="fl">0.9</span>, <span class="fl">0.7</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">lowerbound =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">upperbound =</span> <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">4</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">cormatrix =</span> <span class="fu">makeCorrAlpha</span>(<span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a> )</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="fu">head</span>(my_items)</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="fu">cor</span>(my_items)</span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
 <h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h2>
 <p>The package is intended for:</p>
@@ -97,19 +129,19 @@
 <ul>
 <li><p><a href="#lfast"><strong><em>lfast()</em></strong></a> applies a simple <em>Evolutionary Algorithm</em>, based on repeated random samples from a scaled <em>Beta</em> distribution, to approximate predefined first and second moments.</p></li>
 <li><p><a href="#lcor"><strong><em>lcor()</em></strong></a> rearranges the values in the columns of a dataframe so that they are correlated to match a predefined correlation matrix.</p></li>
-<li><p><a href="#makecorralpha"><strong><em>makeCorrAlpha</em></strong></a> constructs a random item correlation matrix of given dimensions and predefined <em>Cronbach’s Alpha</em>.</p></li>
-<li><p><a href="#makeitems"><strong><em>makeItems()</em></strong></a> is a wrapper function for <em>lfast()</em> and <em>lcor()</em> to generate synthetic rating-scale data with predefined first and second moments and a predefined correlation matrix.</p></li>
-<li><p><a href="#makeCorrLoadings"><strong><em>makeCorrLoadings</em></strong></a> constructs a item correlation matrix based on factor loadings and factor correlations as might be reported in <em>Exploratory Factor Analysis</em> (<strong>EFA</strong>) or <em>Structural Equation Modelling</em> (<strong>SEM</strong>).</p></li>
+<li><p><a href="#makecorralpha"><strong><em>makeCorrAlpha</em></strong></a> constructs a random item Correlation Matrix of given dimensions and predefined <em>Cronbach’s Alpha</em>.</p></li>
+<li><p><a href="#makeitems"><strong><em>makeItems()</em></strong></a> is a wrapper function for <em>lfast()</em> and <em>lcor()</em> to generate synthetic rating-scale data with predefined first and second moments and a predefined Correlation Matrix.</p></li>
+<li><p><a href="#makeCorrLoadings"><strong><em>makeCorrLoadings</em></strong></a> generates an item Correlation Matrix based on factor loadings and factor correlations as might be reported in <em>Exploratory Factor Analysis</em> (<strong>EFA</strong>) or <em>Structural Equation Modelling</em> (<strong>SEM</strong>).</p></li>
 <li><p><a href="#makeitemsscale"><strong><em>makeItemsScale()</em></strong></a> Generate a dataframe of rating scale items from a summative scale and desired Cronbach’s Alpha.</p></li>
 <li><p><a href="#makePaired"><strong><em>makePaired()</em></strong></a> Generate a dataset from paired-sample t-test summary statistics.</p></li>
-<li><p><a href="#correlatescales"><em><strong>correlateScales()</strong></em></a> generates a multidimensional dataframe by combining several dataframes of rating-scale items so that their summated scales are correlated according to a predefined correlation matrix.</p></li>
+<li><p><a href="#correlatescales"><em><strong>correlateScales()</strong></em></a> generates a multidimensional dataframe by combining several dataframes of rating-scale items so that their summated scales are correlated according to a predefined Correlation Matrix.</p></li>
 </ul>
 <div class="section level5">
 <h5 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a>
 </h5>
 <ul>
-<li><p><a href="#alpha"><strong><em>alpha()</em></strong></a> calculates Cronbach’s Alpha from a given correlation matrix or a given dataframe</p></li>
-<li><p><a href="#eigenvalues"><strong><em>eigenvalues()</em></strong></a> calculates eigenvalues of a correlation matrix, reports on positive-definite status of the matrix and, optionally, displays a scree plot to visualise the eigenvalues</p></li>
+<li><p><a href="#alpha"><strong><em>alpha()</em></strong></a> calculates Cronbach’s Alpha from a given Correlation Matrix or a given dataframe</p></li>
+<li><p><a href="#eigenvalues"><strong><em>eigenvalues()</em></strong></a> calculates eigenvalues of a Correlation Matrix, reports on positive-definite status of the matrix and, optionally, displays a scree plot to visualise the eigenvalues</p></li>
 </ul>
 </div>
 </div>
@@ -129,15 +161,15 @@
 <h4 id="alternative-approaches-to-synthesising-scales">Alternative approaches to synthesising scales<a class="anchor" aria-label="anchor" href="#alternative-approaches-to-synthesising-scales"></a>
 </h4>
 <p>Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. <br> For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>      n <span class="ot">&lt;-</span> <span class="dv">128</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>      <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>        <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      )</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>      n <span class="ot">&lt;-</span> <span class="dv">128</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>      <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>        <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>      )</span></code></pre></div>
 <p>This approach is good for testing Likert items but it does not help when working on complete Likert scales, or for when we want to specify means and standard deviations as they might be reported in published research.</p>
 <p>The function <code><a href="reference/lfast.html">lfast()</a></code> allows the user to specify exact univariate statistics as they might ordinarily be reported. <code><a href="reference/lcor.html">lcor()</a></code> will take multiple scales created with <code><a href="reference/lfast.html">lfast()</a></code> and rearrange values so that the vectors are correlated.</p>
-<p><code><a href="reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> generates a correlation matrix from a predefined <em>Cronbach’s Alpha()</em>, enabling the user to apply <code><a href="reference/makeItems.html">makeItems()</a></code> to generate scale items that produce an exact <em>Cronbach’s Alpha</em>. <code><a href="reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> generates a correlation matrix from factor loadings data, enabling the user to apply <code><a href="reference/makeItems.html">makeItems()</a></code> to generate multidimensional data.</p>
-<p><code><a href="reference/makeItems.html">makeItems()</a></code> will generate synthetic rating-scale data with predefined first and second moments and a predefined correlation matrix.</p>
-<p><code><a href="reference/makeItemsScale.html">makeItemsScale()</a></code> generate a dataframe of rating scale items from a summative scale and desired <em>Cronbach’s Alpha</em>. <code><a href="reference/correlateScales.html">correlateScales()</a></code> generates a multidimensional dataframe by combining several dataframes of rating-scale items so that their summated scales are correlated according to a predefined correlation matrix.</p>
+<p><code><a href="reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> generates a Correlation Matrix from a predefined <em>Cronbach’s Alpha()</em>, enabling the user to apply <code><a href="reference/makeItems.html">makeItems()</a></code> to generate scale items that produce an exact <em>Cronbach’s Alpha</em>. <code><a href="reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> generates a Correlation Matrix from factor loadings data, enabling the user to apply <code><a href="reference/makeItems.html">makeItems()</a></code> to generate multidimensional data.</p>
+<p><code><a href="reference/makeItems.html">makeItems()</a></code> will generate synthetic rating-scale data with predefined first and second moments and a predefined Correlation Matrix.</p>
+<p><code><a href="reference/makeItemsScale.html">makeItemsScale()</a></code> generate a dataframe of rating scale items from a summative scale and desired <em>Cronbach’s Alpha</em>. <code><a href="reference/correlateScales.html">correlateScales()</a></code> generates a multidimensional dataframe by combining several dataframes of rating-scale items so that their summated scales are correlated according to a predefined Correlation Matrix.</p>
 </div>
 </div>
 <div class="section level2">
@@ -146,13 +178,13 @@
 </h2>
 <p>To download and install the package, run the following code from your R console.</p>
 <p>From <strong>CRAN</strong>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a> <span class="fu">install.packages</span>(<span class="st">'LikertMakeR'</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a> </span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a> <span class="fu">install.packages</span>(<span class="st">'LikertMakeR'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a> </span></code></pre></div>
 <p>The latest development version is available from the author’s <em>GitHub</em> repository.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a> <span class="fu">library</span>(devtools)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a> <span class="fu">install_github</span>(<span class="st">"WinzarH/LikertMakeR"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a> </span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a> </span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a> <span class="fu">library</span>(devtools)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a> <span class="fu">install_github</span>(<span class="st">"WinzarH/LikertMakeR"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a> </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a> </span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="generate-synthetic-rating-scales">Generate synthetic rating scales<a class="anchor" aria-label="anchor" href="#generate-synthetic-rating-scales"></a>
@@ -167,7 +199,7 @@
 <div class="section level4">
 <h4 id="lfast-usage">lfast() usage<a class="anchor" aria-label="anchor" href="#lfast-usage"></a>
 </h4>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">lfast</span>(n, mean, sd, lowerbound, upperbound, <span class="at">items =</span> <span class="dv">1</span>, <span class="at">precision =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">lfast</span>(n, mean, sd, lowerbound, upperbound, <span class="at">items =</span> <span class="dv">1</span>, <span class="at">precision =</span> <span class="dv">0</span>)</span></code></pre></div>
 <div class="section level5">
 <h5 id="lfast-arguments">lfast arguments<a class="anchor" aria-label="anchor" href="#lfast-arguments"></a>
 </h5>
@@ -186,49 +218,49 @@
 <h4 id="lfast-example-a-five-item-seven-point-likert-scale">
 <em>lfast()</em> Example: a five-item, seven-point Likert scale<a class="anchor" aria-label="anchor" href="#lfast-example-a-five-item-seven-point-likert-scale"></a>
 </h4>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">lfast</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>   <span class="at">n =</span> <span class="dv">128</span>, </span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>   <span class="at">mean =</span> <span class="fl">4.5</span>, </span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>   <span class="at">sd =</span> <span class="fl">1.0</span>, </span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>   <span class="at">lowerbound =</span> <span class="dv">1</span>, </span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>   <span class="at">upperbound =</span> <span class="dv">7</span>, </span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>   <span class="at">items =</span> <span class="dv">5</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>   )</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">lfast</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>   <span class="at">n =</span> <span class="dv">128</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>   <span class="at">mean =</span> <span class="fl">4.5</span>, </span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>   <span class="at">sd =</span> <span class="fl">1.0</span>, </span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>   <span class="at">lowerbound =</span> <span class="dv">1</span>, </span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>   <span class="at">upperbound =</span> <span class="dv">7</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>   <span class="at">items =</span> <span class="dv">5</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>   )</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="lfast-example-a-four-item-seven-point-likert-scale-with-negative-to-positive-scores">
 <em>lfast()</em> Example: a four-item, seven-point Likert scale with negative-to-positive scores<a class="anchor" aria-label="anchor" href="#lfast-example-a-four-item-seven-point-likert-scale-with-negative-to-positive-scores"></a>
 </h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">lfast</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>   <span class="at">n =</span> <span class="dv">128</span>, </span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>   <span class="at">mean =</span> <span class="fl">1.0</span>, </span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>   <span class="at">sd =</span> <span class="fl">1.0</span>, </span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>   <span class="at">lowerbound =</span> <span class="sc">-</span><span class="dv">3</span>, </span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>   <span class="at">upperbound =</span> <span class="dv">3</span>, </span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>   <span class="at">items =</span> <span class="dv">4</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>   )</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">lfast</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>   <span class="at">n =</span> <span class="dv">128</span>, </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>   <span class="at">mean =</span> <span class="fl">1.0</span>, </span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>   <span class="at">sd =</span> <span class="fl">1.0</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>   <span class="at">lowerbound =</span> <span class="sc">-</span><span class="dv">3</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>   <span class="at">upperbound =</span> <span class="dv">3</span>, </span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>   <span class="at">items =</span> <span class="dv">4</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>   )</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="lfast-example-a-four-item-five-point-likert-scale-with-moderate-precision">
 <em>lfast()</em> Example: a four-item, five-point Likert scale with moderate precision<a class="anchor" aria-label="anchor" href="#lfast-example-a-four-item-five-point-likert-scale-with-moderate-precision"></a>
 </h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">lfast</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>   <span class="at">n =</span> <span class="dv">256</span>, </span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>   <span class="at">mean =</span> <span class="fl">3.25</span>, </span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>   <span class="at">sd =</span> <span class="fl">1.0</span>, </span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>   <span class="at">lowerbound =</span> <span class="dv">1</span>, </span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>   <span class="at">upperbound =</span> <span class="dv">5</span>, </span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>   <span class="at">items =</span> <span class="dv">5</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>   <span class="at">precision =</span> <span class="dv">4</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>   )</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  </span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">lfast</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>   <span class="at">n =</span> <span class="dv">256</span>, </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>   <span class="at">mean =</span> <span class="fl">3.25</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>   <span class="at">sd =</span> <span class="fl">1.0</span>, </span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>   <span class="at">lowerbound =</span> <span class="dv">1</span>, </span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>   <span class="at">upperbound =</span> <span class="dv">5</span>, </span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>   <span class="at">items =</span> <span class="dv">5</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>   <span class="at">precision =</span> <span class="dv">4</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>   )</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  </span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="lfast-example-an-11-point-likelihood-of-purchase-scale">
 <em>lfast()</em> Example: an 11-point <em>likelihood-of-purchase</em> scale<a class="anchor" aria-label="anchor" href="#lfast-example-an-11-point-likelihood-of-purchase-scale"></a>
 </h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">lfast</span>(<span class="dv">256</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a> </span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">lfast</span>(<span class="dv">256</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a> </span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -243,13 +275,13 @@
 <div class="section level4">
 <h4 id="lcor-usage">lcor() usage<a class="anchor" aria-label="anchor" href="#lcor-usage"></a>
 </h4>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>  <span class="fu">lcor</span>(data, target)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>  <span class="fu">lcor</span>(data, target)</span></code></pre></div>
 <div class="section level5">
 <h5 id="lcor-arguments">lcor() arguments<a class="anchor" aria-label="anchor" href="#lcor-arguments"></a>
 </h5>
 <ul>
 <li><p><strong><em>data</em></strong>: a starter data set of rating-scales</p></li>
-<li><p><strong><em>target</em></strong>: the target correlation matrix</p></li>
+<li><p><strong><em>target</em></strong>: the target Correlation Matrix</p></li>
 </ul>
 </div>
 </div>
@@ -261,39 +293,39 @@
 <div class="section level4">
 <h4 id="generate-synthetic-data">generate synthetic data<a class="anchor" aria-label="anchor" href="#generate-synthetic-data"></a>
 </h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="dv">64</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a> x1 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">3.5</span>, <span class="fl">1.00</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a> x2 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">1.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a> x3 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">3.0</span>, <span class="fl">1.70</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a> x4 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">2.5</span>, <span class="fl">1.50</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>)   </span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a> </span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a> mydat4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x1, x2, x3, x4) </span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a> </span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a> <span class="fu">head</span>(mydat4)</span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a> <span class="fu">cor</span>(mydat4) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a> </span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="dv">64</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a> x1 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">3.5</span>, <span class="fl">1.00</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a> x2 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">1.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a> x3 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">3.0</span>, <span class="fl">1.70</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a> x4 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">2.5</span>, <span class="fl">1.50</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>)   </span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a> </span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a> mydat4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x1, x2, x3, x4) </span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a> </span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a> <span class="fu">head</span>(mydat4)</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a> <span class="fu">cor</span>(mydat4) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a> </span></code></pre></div>
 </div>
 <div class="section level4">
-<h4 id="define-a-target-correlation-matrix">Define a target correlation matrix<a class="anchor" aria-label="anchor" href="#define-a-target-correlation-matrix"></a>
+<h4 id="define-a-target-correlation-matrix">Define a target Correlation Matrix<a class="anchor" aria-label="anchor" href="#define-a-target-correlation-matrix"></a>
 </h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a> tgt4 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a> <span class="fu">c</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>   <span class="fl">1.00</span>, <span class="fl">0.55</span>, <span class="fl">0.60</span>, <span class="fl">0.75</span>,</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>   <span class="fl">0.55</span>, <span class="fl">1.00</span>, <span class="fl">0.25</span>, <span class="fl">0.65</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>   <span class="fl">0.60</span>, <span class="fl">0.25</span>, <span class="fl">1.00</span>, <span class="fl">0.80</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>   <span class="fl">0.75</span>, <span class="fl">0.65</span>, <span class="fl">0.80</span>, <span class="fl">1.00</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a> ),</span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a> <span class="at">nrow =</span> <span class="dv">4</span></span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a> )</span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a> </span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a> tgt4 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a> <span class="fu">c</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>   <span class="fl">1.00</span>, <span class="fl">0.55</span>, <span class="fl">0.60</span>, <span class="fl">0.75</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>   <span class="fl">0.55</span>, <span class="fl">1.00</span>, <span class="fl">0.25</span>, <span class="fl">0.65</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>   <span class="fl">0.60</span>, <span class="fl">0.25</span>, <span class="fl">1.00</span>, <span class="fl">0.80</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>   <span class="fl">0.75</span>, <span class="fl">0.65</span>, <span class="fl">0.80</span>, <span class="fl">1.00</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a> ),</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a> <span class="at">nrow =</span> <span class="dv">4</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a> )</span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a> </span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="lcor-application">
 <em>lcor()</em> application<a class="anchor" aria-label="anchor" href="#lcor-application"></a>
 </h4>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a> new4 <span class="ot">&lt;-</span> <span class="fu">lcor</span>(<span class="at">data =</span> mydat4, <span class="at">target =</span> tgt4)</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a> </span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a> <span class="fu">cor</span>(new4) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a> new4 <span class="ot">&lt;-</span> <span class="fu">lcor</span>(<span class="at">data =</span> mydat4, <span class="at">target =</span> tgt4)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a> </span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a> <span class="fu">cor</span>(new4) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -301,33 +333,33 @@
 <em>lcor()</em> example #2<a class="anchor" aria-label="anchor" href="#lcor-example-2"></a>
 </h3>
 <div class="section level5">
-<h5 id="three-starting-columns-and-a-different-target-correlation-matrix">three starting columns and a different target correlation matrix<a class="anchor" aria-label="anchor" href="#three-starting-columns-and-a-different-target-correlation-matrix"></a>
+<h5 id="three-starting-columns-and-a-different-target-correlation-matrix">three starting columns and a different target Correlation Matrix<a class="anchor" aria-label="anchor" href="#three-starting-columns-and-a-different-target-correlation-matrix"></a>
 </h5>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a> mydat3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x1, x2, x3) </span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a> tgt3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>   <span class="fu">c</span>(</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>      <span class="fl">1.00</span>, <span class="sc">-</span><span class="fl">0.50</span>, <span class="sc">-</span><span class="fl">0.85</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>     <span class="sc">-</span><span class="fl">0.50</span>,  <span class="fl">1.00</span>,  <span class="fl">0.60</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>     <span class="sc">-</span><span class="fl">0.85</span>,  <span class="fl">0.60</span>,  <span class="fl">1.00</span></span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>   ),</span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>   <span class="at">nrow =</span> <span class="dv">3</span></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a> )</span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a> </span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a> mydat3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x1, x2, x3) </span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a> tgt3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>   <span class="fu">c</span>(</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>      <span class="fl">1.00</span>, <span class="sc">-</span><span class="fl">0.50</span>, <span class="sc">-</span><span class="fl">0.85</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>     <span class="sc">-</span><span class="fl">0.50</span>,  <span class="fl">1.00</span>,  <span class="fl">0.60</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>     <span class="sc">-</span><span class="fl">0.85</span>,  <span class="fl">0.60</span>,  <span class="fl">1.00</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>   ),</span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>   <span class="at">nrow =</span> <span class="dv">3</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a> )</span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a> </span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="apply-lcor">Apply <em>lcor()</em>
 <a class="anchor" aria-label="anchor" href="#apply-lcor"></a>
 </h5>
-<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a> new3 <span class="ot">&lt;-</span> <span class="fu">lcor</span>(mydat3, tgt3) </span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a> </span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a> <span class="fu">cor</span>(new3) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a> new3 <span class="ot">&lt;-</span> <span class="fu">lcor</span>(mydat3, tgt3) </span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a> </span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a> <span class="fu">cor</span>(new3) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
 <hr>
 </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="generate-a-correlation-matrix-from-cronbachs-alpha">Generate a correlation matrix from Cronbach’s Alpha<a class="anchor" aria-label="anchor" href="#generate-a-correlation-matrix-from-cronbachs-alpha"></a>
+<h2 id="generate-a-correlation-matrix-from-cronbachs-alpha">Generate a Correlation Matrix from Cronbach’s Alpha<a class="anchor" aria-label="anchor" href="#generate-a-correlation-matrix-from-cronbachs-alpha"></a>
 </h2>
 <div class="section level3">
 <h3 id="makecorralpha">makeCorrAlpha()<a class="anchor" aria-label="anchor" href="#makecorralpha"></a>
@@ -336,7 +368,7 @@
 <div class="section level4">
 <h4 id="makecorralpha-usage">makeCorrAlpha() usage<a class="anchor" aria-label="anchor" href="#makecorralpha-usage"></a>
 </h4>
-<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>  <span class="fu">makeCorrAlpha</span>(items, alpha, <span class="at">variance =</span> <span class="fl">0.5</span>, <span class="at">precision =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>  <span class="fu">makeCorrAlpha</span>(items, alpha, <span class="at">variance =</span> <span class="fl">0.5</span>, <span class="at">precision =</span> <span class="dv">0</span>)</span></code></pre></div>
 <div class="section level5">
 <h5 id="makecorralpha-arguments">makeCorrAlpha() arguments<a class="anchor" aria-label="anchor" href="#makecorralpha-arguments"></a>
 </h5>
@@ -371,13 +403,13 @@
 <div class="section level5">
 <h5 id="define-parameters">define parameters<a class="anchor" aria-label="anchor" href="#define-parameters"></a>
 </h5>
-<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.85</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.85</span></span></code></pre></div>
 <p><strong>apply makeCorrAlpha() function</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>cor_matrix_4 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(items, alpha, variance)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>cor_matrix_4 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(items, alpha, variance)</span></code></pre></div>
 <p><strong>test output with Helper functions</strong></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">alpha</span>(cor_matrix_4)</span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">eigenvalues</span>(cor_matrix_4, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">alpha</span>(cor_matrix_4)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">eigenvalues</span>(cor_matrix_4, <span class="dv">1</span>)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="eight-variables-alpha--095-larger-variance">eight variables, Alpha = 0.95, larger variance<a class="anchor" aria-label="anchor" href="#eight-variables-alpha--095-larger-variance"></a>
@@ -385,14 +417,14 @@
 <div class="section level5">
 <h5 id="define-parameters-1">define parameters<a class="anchor" aria-label="anchor" href="#define-parameters-1"></a>
 </h5>
-<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">8</span></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.95</span></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>variance <span class="ot">&lt;-</span> <span class="fl">1.0</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.95</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>variance <span class="ot">&lt;-</span> <span class="fl">1.0</span></span></code></pre></div>
 <p><strong>apply makeCorrAlpha() function</strong></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>cor_matrix_8 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(items, alpha, variance)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>cor_matrix_8 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(items, alpha, variance)</span></code></pre></div>
 <p><strong>test output</strong></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">alpha</span>(cor_matrix_8)</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="fu">eigenvalues</span>(cor_matrix_8, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">alpha</span>(cor_matrix_8)</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">eigenvalues</span>(cor_matrix_8, <span class="dv">1</span>)</span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
@@ -401,12 +433,12 @@
 <div class="section level5">
 <h5 id="define-parameters-2">define parameters<a class="anchor" aria-label="anchor" href="#define-parameters-2"></a>
 </h5>
-<div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>precision <span class="ot">&lt;-</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>precision <span class="ot">&lt;-</span> <span class="dv">2</span></span></code></pre></div>
 <p><strong>apply makeCorrAlpha() function</strong></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>cor_matrix_8a <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(items, alpha, variance, precision)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>cor_matrix_8a <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(items, alpha, variance, precision)</span></code></pre></div>
 <p><strong>test output</strong></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">alpha</span>(cor_matrix_8a)</span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">eigenvalues</span>(cor_matrix_8a, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">alpha</span>(cor_matrix_8a)</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="fu">eigenvalues</span>(cor_matrix_8a, <span class="dv">1</span>)</span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -422,7 +454,7 @@
 <div class="section level4">
 <h4 id="makecorrloadings-usage">makeCorrLoadings() usage<a class="anchor" aria-label="anchor" href="#makecorrloadings-usage"></a>
 </h4>
-<div class="sourceCode" id="cb25"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>  <span class="fu">makeCorrLoadings</span>(loadings, <span class="at">factorCor =</span> <span class="cn">NULL</span>, <span class="at">uniquenesses =</span> <span class="cn">NULL</span>, <span class="at">nearPD =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>  <span class="fu">makeCorrLoadings</span>(loadings, <span class="at">factorCor =</span> <span class="cn">NULL</span>, <span class="at">uniquenesses =</span> <span class="cn">NULL</span>, <span class="at">nearPD =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <div class="section level5">
 <h5 id="makecorrloadings-arguments">makeCorrLoadings() arguments<a class="anchor" aria-label="anchor" href="#makecorrloadings-arguments"></a>
 </h5>
@@ -450,46 +482,46 @@
 <h5 id="define-parameters-3">define parameters<a class="anchor" aria-label="anchor" href="#define-parameters-3"></a>
 </h5>
 <p><strong>Example loadings</strong></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>factorLoadings <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>      <span class="fl">0.05</span>, <span class="fl">0.20</span>, <span class="fl">0.70</span>,</span>
-<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>      <span class="fl">0.10</span>, <span class="fl">0.05</span>, <span class="fl">0.80</span>,</span>
-<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>      <span class="fl">0.05</span>, <span class="fl">0.15</span>, <span class="fl">0.85</span>,</span>
-<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>      <span class="fl">0.20</span>, <span class="fl">0.85</span>, <span class="fl">0.15</span>,</span>
-<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>      <span class="fl">0.05</span>, <span class="fl">0.85</span>, <span class="fl">0.10</span>,</span>
-<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a>      <span class="fl">0.10</span>, <span class="fl">0.90</span>, <span class="fl">0.05</span>,</span>
-<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a>      <span class="fl">0.90</span>, <span class="fl">0.15</span>, <span class="fl">0.05</span>,</span>
-<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a>      <span class="fl">0.80</span>, <span class="fl">0.10</span>, <span class="fl">0.10</span></span>
-<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a>   ),</span>
-<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a>   <span class="at">nrow =</span> <span class="dv">8</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
-<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>factorLoadings <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>      <span class="fl">0.05</span>, <span class="fl">0.20</span>, <span class="fl">0.70</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>      <span class="fl">0.10</span>, <span class="fl">0.05</span>, <span class="fl">0.80</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>      <span class="fl">0.05</span>, <span class="fl">0.15</span>, <span class="fl">0.85</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a>      <span class="fl">0.20</span>, <span class="fl">0.85</span>, <span class="fl">0.15</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a>      <span class="fl">0.05</span>, <span class="fl">0.85</span>, <span class="fl">0.10</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a>      <span class="fl">0.10</span>, <span class="fl">0.90</span>, <span class="fl">0.05</span>,</span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a>      <span class="fl">0.90</span>, <span class="fl">0.15</span>, <span class="fl">0.05</span>,</span>
+<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a>      <span class="fl">0.80</span>, <span class="fl">0.10</span>, <span class="fl">0.10</span></span>
+<span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a>   ),</span>
+<span id="cb28-12"><a href="#cb28-12" tabindex="-1"></a>   <span class="at">nrow =</span> <span class="dv">8</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
+<span id="cb28-13"><a href="#cb28-13" tabindex="-1"></a>)</span></code></pre></div>
 <p><strong>row and column names</strong></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">rownames</span>(factorLoadings) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Q1"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4"</span>, <span class="st">"Q5"</span>, <span class="st">"Q6"</span>, <span class="st">"Q7"</span>, <span class="st">"Q8"</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="fu">colnames</span>(factorLoadings) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Factor1"</span>, <span class="st">"Factor2"</span>, <span class="st">"Factor3"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">rownames</span>(factorLoadings) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Q1"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4"</span>, <span class="st">"Q5"</span>, <span class="st">"Q6"</span>, <span class="st">"Q7"</span>, <span class="st">"Q8"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="fu">colnames</span>(factorLoadings) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Factor1"</span>, <span class="st">"Factor2"</span>, <span class="st">"Factor3"</span>)</span></code></pre></div>
 <p><strong>Factor correlation matrix</strong></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>factorCor <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="fu">c</span>(</span>
-<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="fl">1.0</span>,  <span class="fl">0.5</span>, <span class="fl">0.4</span>,</span>
-<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>  <span class="fl">0.5</span>,  <span class="fl">1.0</span>, <span class="fl">0.3</span>,</span>
-<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>  <span class="fl">0.4</span>,  <span class="fl">0.3</span>, <span class="fl">1.0</span></span>
-<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a> ),</span>
-<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a><span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
-<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>factorCor <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  <span class="fl">1.0</span>,  <span class="fl">0.5</span>, <span class="fl">0.4</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>  <span class="fl">0.5</span>,  <span class="fl">1.0</span>, <span class="fl">0.3</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>  <span class="fl">0.4</span>,  <span class="fl">0.3</span>, <span class="fl">1.0</span></span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a> ),</span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a><span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="apply-the-function">Apply the function<a class="anchor" aria-label="anchor" href="#apply-the-function"></a>
 </h5>
-<div class="sourceCode" id="cb29"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>itemCorrelations <span class="ot">&lt;-</span> <span class="fu">makeCorrLoadings</span>(factorLoadings, factorCor)</span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="fu">round</span>(itemCorrelations, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>itemCorrelations <span class="ot">&lt;-</span> <span class="fu">makeCorrLoadings</span>(factorLoadings, factorCor)</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a><span class="fu">round</span>(itemCorrelations, <span class="dv">3</span>)</span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
 <h4 id="assuming-orthogonal-factors">Assuming orthogonal factors<a class="anchor" aria-label="anchor" href="#assuming-orthogonal-factors"></a>
 </h4>
-<div class="sourceCode" id="cb30"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>itemCors <span class="ot">&lt;-</span> <span class="fu">makeCorrLoadings</span>(factorLoadings)</span>
-<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="fu">round</span>(itemCors, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>itemCors <span class="ot">&lt;-</span> <span class="fu">makeCorrLoadings</span>(factorLoadings)</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="fu">round</span>(itemCors, <span class="dv">3</span>)</span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -510,7 +542,7 @@
 <h4 id="makeitems-usage">
 <em>makeItems()</em> usage<a class="anchor" aria-label="anchor" href="#makeitems-usage"></a>
 </h4>
-<div class="sourceCode" id="cb31"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">makeItems</span>(n, means, sds, lowerbound, upperbound, cormatrix)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">makeItems</span>(n, means, sds, lowerbound, upperbound, cormatrix)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="makeitems-arguments">
@@ -533,44 +565,44 @@
 <div class="section level4">
 <h4 id="define-parameters-4">define parameters<a class="anchor" aria-label="anchor" href="#define-parameters-4"></a>
 </h4>
-<div class="sourceCode" id="cb32"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">16</span></span>
-<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>dfMeans <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>dfSds <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">0.75</span>)</span>
-<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a>lowerbound <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span>
-<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a>upperbound <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">4</span>)</span>
-<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a>corMat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a><span class="fu">c</span>(</span>
-<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a> <span class="fl">1.00</span>, <span class="fl">0.25</span>, <span class="fl">0.35</span>, <span class="fl">0.40</span>,</span>
-<span id="cb32-10"><a href="#cb32-10" tabindex="-1"></a> <span class="fl">0.25</span>, <span class="fl">1.00</span>, <span class="fl">0.70</span>, <span class="fl">0.75</span>,</span>
-<span id="cb32-11"><a href="#cb32-11" tabindex="-1"></a> <span class="fl">0.35</span>, <span class="fl">0.70</span>, <span class="fl">1.00</span>, <span class="fl">0.80</span>,</span>
-<span id="cb32-12"><a href="#cb32-12" tabindex="-1"></a> <span class="fl">0.40</span>, <span class="fl">0.75</span>, <span class="fl">0.80</span>, <span class="fl">1.00</span></span>
-<span id="cb32-13"><a href="#cb32-13" tabindex="-1"></a> ),</span>
-<span id="cb32-14"><a href="#cb32-14" tabindex="-1"></a> <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span></span>
-<span id="cb32-15"><a href="#cb32-15" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>dfMeans <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>dfSds <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">0.75</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>lowerbound <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>upperbound <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">4</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a>corMat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a> <span class="fl">1.00</span>, <span class="fl">0.25</span>, <span class="fl">0.35</span>, <span class="fl">0.40</span>,</span>
+<span id="cb34-10"><a href="#cb34-10" tabindex="-1"></a> <span class="fl">0.25</span>, <span class="fl">1.00</span>, <span class="fl">0.70</span>, <span class="fl">0.75</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" tabindex="-1"></a> <span class="fl">0.35</span>, <span class="fl">0.70</span>, <span class="fl">1.00</span>, <span class="fl">0.80</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" tabindex="-1"></a> <span class="fl">0.40</span>, <span class="fl">0.75</span>, <span class="fl">0.80</span>, <span class="fl">1.00</span></span>
+<span id="cb34-13"><a href="#cb34-13" tabindex="-1"></a> ),</span>
+<span id="cb34-14"><a href="#cb34-14" tabindex="-1"></a> <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span></span>
+<span id="cb34-15"><a href="#cb34-15" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="apply-function">apply function<a class="anchor" aria-label="anchor" href="#apply-function"></a>
 </h4>
-<div class="sourceCode" id="cb33"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
-<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>   <span class="at">n =</span> n,</span>
-<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>   <span class="at">means =</span> dfMeans,</span>
-<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>   <span class="at">sds =</span> dfSds,</span>
-<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>   <span class="at">lowerbound =</span> lowerbound,</span>
-<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>   <span class="at">upperbound =</span> upperbound,</span>
-<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>   <span class="at">cormatrix =</span> corMat</span>
-<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a> )</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>   <span class="at">n =</span> n,</span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a>   <span class="at">means =</span> dfMeans,</span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a>   <span class="at">sds =</span> dfSds,</span>
+<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a>   <span class="at">lowerbound =</span> lowerbound,</span>
+<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a>   <span class="at">upperbound =</span> upperbound,</span>
+<span id="cb35-7"><a href="#cb35-7" tabindex="-1"></a>   <span class="at">cormatrix =</span> corMat</span>
+<span id="cb35-8"><a href="#cb35-8" tabindex="-1"></a> )</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="test-function">test function<a class="anchor" aria-label="anchor" href="#test-function"></a>
 </h4>
-<div class="sourceCode" id="cb34"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">print</span>(df)</span>
-<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="fu">apply</span>(df, <span class="dv">2</span>, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a><span class="fu">apply</span>(df, <span class="dv">2</span>, sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a><span class="fu">cor</span>(df) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">print</span>(df)</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a><span class="fu">apply</span>(df, <span class="dv">2</span>, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a><span class="fu">apply</span>(df, <span class="dv">2</span>, sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a><span class="fu">cor</span>(df) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -589,8 +621,8 @@
 <h4 id="makeitemsscale-usage">
 <em>makeItemsScale()</em> usage<a class="anchor" aria-label="anchor" href="#makeitemsscale-usage"></a>
 </h4>
-<div class="sourceCode" id="cb35"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">makeItemsScale</span>(scale, lowerbound, upperbound, items, </span>
-<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">variance =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="fu">makeItemsScale</span>(scale, lowerbound, upperbound, items, </span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">variance =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="makeitemsscale-arguments">
@@ -612,70 +644,70 @@
 <div class="section level5">
 <h5 id="generate-a-summated-scale">generate a summated scale<a class="anchor" aria-label="anchor" href="#generate-a-summated-scale"></a>
 </h5>
-<div class="sourceCode" id="cb36"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">64</span></span>
-<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="fl">3.5</span></span>
-<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fl">1.00</span></span>
-<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>lowerbound <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a>upperbound <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a></span>
-<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a>meanScale <span class="ot">&lt;-</span> <span class="fu">lfast</span>(</span>
-<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a>  <span class="at">n =</span> n, <span class="at">mean =</span> mean, <span class="at">sd =</span> sd,</span>
-<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a>  <span class="at">lowerbound =</span> lowerbound, <span class="at">upperbound =</span> upperbound,</span>
-<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a>  <span class="at">items =</span> items </span>
-<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a>)</span>
-<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a></span>
-<span id="cb36-14"><a href="#cb36-14" tabindex="-1"></a>summatedScale <span class="ot">&lt;-</span> meanScale <span class="sc">*</span> items</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">64</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="fl">3.5</span></span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fl">1.00</span></span>
+<span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a>lowerbound <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a>upperbound <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb38-6"><a href="#cb38-6" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb38-7"><a href="#cb38-7" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" tabindex="-1"></a>meanScale <span class="ot">&lt;-</span> <span class="fu">lfast</span>(</span>
+<span id="cb38-9"><a href="#cb38-9" tabindex="-1"></a>  <span class="at">n =</span> n, <span class="at">mean =</span> mean, <span class="at">sd =</span> sd,</span>
+<span id="cb38-10"><a href="#cb38-10" tabindex="-1"></a>  <span class="at">lowerbound =</span> lowerbound, <span class="at">upperbound =</span> upperbound,</span>
+<span id="cb38-11"><a href="#cb38-11" tabindex="-1"></a>  <span class="at">items =</span> items </span>
+<span id="cb38-12"><a href="#cb38-12" tabindex="-1"></a>)</span>
+<span id="cb38-13"><a href="#cb38-13" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" tabindex="-1"></a>summatedScale <span class="ot">&lt;-</span> meanScale <span class="sc">*</span> items</span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
 <h4 id="create-items-with-makeitemsscale">create items with <em>makeItemsScale()</em>
 <a class="anchor" aria-label="anchor" href="#create-items-with-makeitemsscale"></a>
 </h4>
-<div class="sourceCode" id="cb37"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>newItems_1 <span class="ot">&lt;-</span> <span class="fu">makeItemsScale</span>(</span>
-<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>  <span class="at">scale =</span> summatedScale,</span>
-<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>  <span class="at">lowerbound =</span> lowerbound, </span>
-<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>  <span class="at">upperbound =</span> upperbound,</span>
-<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a>  <span class="at">items =</span> items</span>
-<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a>)</span>
-<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a></span>
-<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a><span class="fu">cor</span>(newItems_1) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">data =</span> newItems_1)</span>
-<span id="cb37-10"><a href="#cb37-10" tabindex="-1"></a><span class="fu">eigenvalues</span>(<span class="fu">cor</span>(newItems_1), <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>newItems_1 <span class="ot">&lt;-</span> <span class="fu">makeItemsScale</span>(</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  <span class="at">scale =</span> summatedScale,</span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>  <span class="at">lowerbound =</span> lowerbound, </span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a>  <span class="at">upperbound =</span> upperbound,</span>
+<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a>  <span class="at">items =</span> items</span>
+<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a>)</span>
+<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a><span class="fu">cor</span>(newItems_1) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">data =</span> newItems_1)</span>
+<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a><span class="fu">eigenvalues</span>(<span class="fu">cor</span>(newItems_1), <span class="dv">1</span>)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="makeitemsscale-with-same-summated-values-and-higher-alpha">
 <em>makeItemsScale()</em> with same summated values and higher <em>alpha</em>
 <a class="anchor" aria-label="anchor" href="#makeitemsscale-with-same-summated-values-and-higher-alpha"></a>
 </h4>
-<div class="sourceCode" id="cb38"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>newItems_2 <span class="ot">&lt;-</span> <span class="fu">makeItemsScale</span>(</span>
-<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>  <span class="at">scale =</span> summatedScale,</span>
-<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>  <span class="at">lowerbound =</span> lowerbound, </span>
-<span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a>  <span class="at">upperbound =</span> upperbound,</span>
-<span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a>  <span class="at">items =</span> items,</span>
-<span id="cb38-6"><a href="#cb38-6" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.9</span></span>
-<span id="cb38-7"><a href="#cb38-7" tabindex="-1"></a>)</span>
-<span id="cb38-8"><a href="#cb38-8" tabindex="-1"></a></span>
-<span id="cb38-9"><a href="#cb38-9" tabindex="-1"></a><span class="fu">cor</span>(newItems_2) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb38-10"><a href="#cb38-10" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">data =</span> newItems_2)</span>
-<span id="cb38-11"><a href="#cb38-11" tabindex="-1"></a><span class="fu">eigenvalues</span>(<span class="fu">cor</span>(newItems_2), <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>newItems_2 <span class="ot">&lt;-</span> <span class="fu">makeItemsScale</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>  <span class="at">scale =</span> summatedScale,</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>  <span class="at">lowerbound =</span> lowerbound, </span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a>  <span class="at">upperbound =</span> upperbound,</span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a>  <span class="at">items =</span> items,</span>
+<span id="cb40-6"><a href="#cb40-6" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.9</span></span>
+<span id="cb40-7"><a href="#cb40-7" tabindex="-1"></a>)</span>
+<span id="cb40-8"><a href="#cb40-8" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="#cb40-9" tabindex="-1"></a><span class="fu">cor</span>(newItems_2) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb40-10"><a href="#cb40-10" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">data =</span> newItems_2)</span>
+<span id="cb40-11"><a href="#cb40-11" tabindex="-1"></a><span class="fu">eigenvalues</span>(<span class="fu">cor</span>(newItems_2), <span class="dv">1</span>)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="same-summated-values-with-lower-alpha-that-may-require-higher-variance">same summated values with lower <em>alpha</em> that may require higher <em>variance</em>
 <a class="anchor" aria-label="anchor" href="#same-summated-values-with-lower-alpha-that-may-require-higher-variance"></a>
 </h4>
-<div class="sourceCode" id="cb39"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>newItems_3 <span class="ot">&lt;-</span> <span class="fu">makeItemsScale</span>(</span>
-<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  <span class="at">scale =</span> summatedScale,</span>
-<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>  <span class="at">lowerbound =</span> lowerbound, </span>
-<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a>  <span class="at">upperbound =</span> upperbound,</span>
-<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a>  <span class="at">items =</span> items,</span>
-<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.6</span>,</span>
-<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a>  <span class="at">variance =</span> <span class="fl">0.7</span></span>
-<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a>)   </span>
-<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a></span>
-<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a><span class="fu">cor</span>(newItems_3) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb39-11"><a href="#cb39-11" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">data =</span> newItems_3)</span>
-<span id="cb39-12"><a href="#cb39-12" tabindex="-1"></a><span class="fu">eigenvalues</span>(<span class="fu">cor</span>(newItems_3), <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>newItems_3 <span class="ot">&lt;-</span> <span class="fu">makeItemsScale</span>(</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>  <span class="at">scale =</span> summatedScale,</span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>  <span class="at">lowerbound =</span> lowerbound, </span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>  <span class="at">upperbound =</span> upperbound,</span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>  <span class="at">items =</span> items,</span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.6</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a>  <span class="at">variance =</span> <span class="fl">0.7</span></span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a>)   </span>
+<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a><span class="fu">cor</span>(newItems_3) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb41-11"><a href="#cb41-11" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">data =</span> newItems_3)</span>
+<span id="cb41-12"><a href="#cb41-12" tabindex="-1"></a><span class="fu">eigenvalues</span>(<span class="fu">cor</span>(newItems_3), <span class="dv">1</span>)</span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -692,7 +724,7 @@
 <div class="section level4">
 <h4 id="makepaired-usage">makePaired() usage<a class="anchor" aria-label="anchor" href="#makepaired-usage"></a>
 </h4>
-<div class="sourceCode" id="cb40"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">makePaired</span>(n, means, sds, t_value, lowerbound, upperbound, <span class="at">items =</span> <span class="dv">1</span>, <span class="at">precision =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">makePaired</span>(n, means, sds, t_value, lowerbound, upperbound, <span class="at">items =</span> <span class="dv">1</span>, <span class="at">precision =</span> <span class="dv">0</span>)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="makepaired-arguments">makePaired() arguments<a class="anchor" aria-label="anchor" href="#makepaired-arguments"></a>
@@ -719,25 +751,25 @@
 <div class="section level4">
 <h4 id="makepaired-examples">makePaired() examples<a class="anchor" aria-label="anchor" href="#makepaired-examples"></a>
 </h4>
-<div class="sourceCode" id="cb41"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>)</span>
-<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>sds <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>)</span>
-<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>lowerbound <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>upperbound <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">6</span></span>
-<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">2.5</span></span>
-<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a></span>
-<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a>pairedDat <span class="ot">&lt;-</span> <span class="fu">makePaired</span>(<span class="at">n =</span> n, <span class="at">means =</span> means, <span class="at">sds =</span> sds, <span class="at">t_value =</span> t, <span class="at">lowerbound =</span> lowerbound, <span class="at">upperbound =</span> upperbound, <span class="at">items =</span> items)</span>
-<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a></span>
-<span id="cb41-11"><a href="#cb41-11" tabindex="-1"></a><span class="fu">str</span>(pairedDat)</span>
-<span id="cb41-12"><a href="#cb41-12" tabindex="-1"></a><span class="fu">cor</span>(pairedDat) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb41-13"><a href="#cb41-13" tabindex="-1"></a>pairedMoments <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb41-14"><a href="#cb41-14" tabindex="-1"></a>  <span class="at">mean =</span> <span class="fu">apply</span>(newDat, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>),</span>
-<span id="cb41-15"><a href="#cb41-15" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">apply</span>(newDat, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb41-16"><a href="#cb41-16" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
-<span id="cb41-17"><a href="#cb41-17" tabindex="-1"></a>pairedMoments</span>
-<span id="cb41-18"><a href="#cb41-18" tabindex="-1"></a></span>
-<span id="cb41-19"><a href="#cb41-19" tabindex="-1"></a><span class="fu">t.test</span>(pairedDat<span class="sc">$</span>V1, pairedDat<span class="sc">$</span>V2, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>sds <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a>lowerbound <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a>upperbound <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">2.5</span></span>
+<span id="cb43-8"><a href="#cb43-8" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a>pairedDat <span class="ot">&lt;-</span> <span class="fu">makePaired</span>(<span class="at">n =</span> n, <span class="at">means =</span> means, <span class="at">sds =</span> sds, <span class="at">t_value =</span> t, <span class="at">lowerbound =</span> lowerbound, <span class="at">upperbound =</span> upperbound, <span class="at">items =</span> items)</span>
+<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="#cb43-11" tabindex="-1"></a><span class="fu">str</span>(pairedDat)</span>
+<span id="cb43-12"><a href="#cb43-12" tabindex="-1"></a><span class="fu">cor</span>(pairedDat) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb43-13"><a href="#cb43-13" tabindex="-1"></a>pairedMoments <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb43-14"><a href="#cb43-14" tabindex="-1"></a>  <span class="at">mean =</span> <span class="fu">apply</span>(newDat, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>),</span>
+<span id="cb43-15"><a href="#cb43-15" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">apply</span>(newDat, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb43-16"><a href="#cb43-16" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
+<span id="cb43-17"><a href="#cb43-17" tabindex="-1"></a>pairedMoments</span>
+<span id="cb43-18"><a href="#cb43-18" tabindex="-1"></a></span>
+<span id="cb43-19"><a href="#cb43-19" tabindex="-1"></a><span class="fu">t.test</span>(pairedDat<span class="sc">$</span>V1, pairedDat<span class="sc">$</span>V2, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -752,7 +784,7 @@
 <div class="section level4">
 <h4 id="correlatescales-usage">correlateScales() usage<a class="anchor" aria-label="anchor" href="#correlatescales-usage"></a>
 </h4>
-<div class="sourceCode" id="cb42"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">correlateScales</span>(dataframes, scalecors)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">correlateScales</span>(dataframes, scalecors)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="correlatescales-arguments">correlateScales() arguments<a class="anchor" aria-label="anchor" href="#correlatescales-arguments"></a>
@@ -768,45 +800,45 @@
 <div class="section level5">
 <h5 id="three-attitude-scales-each-of-three-items">three attitude scales, each of three items<a class="anchor" aria-label="anchor" href="#three-attitude-scales-each-of-three-items"></a>
 </h5>
-<div class="sourceCode" id="cb43"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">64</span></span>
-<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>lower <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>upper <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">64</span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>lower <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>upper <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div>
 <div class="section level6">
 <h6 id="attitude-1">attitude #1<a class="anchor" aria-label="anchor" href="#attitude-1"></a>
 </h6>
-<div class="sourceCode" id="cb44"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>cor_1 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(<span class="at">items =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>means_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>)</span>
-<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>sds_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
-<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>Att_1 <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
-<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a>  n, means_1, sds_1,</span>
-<span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a>  <span class="fu">rep</span>(lower, <span class="dv">4</span>), <span class="fu">rep</span>(upper, <span class="dv">4</span>),</span>
-<span id="cb44-7"><a href="#cb44-7" tabindex="-1"></a>  cor_1</span>
-<span id="cb44-8"><a href="#cb44-8" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>cor_1 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(<span class="at">items =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>means_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a>sds_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a>Att_1 <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
+<span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a>  n, means_1, sds_1,</span>
+<span id="cb46-6"><a href="#cb46-6" tabindex="-1"></a>  <span class="fu">rep</span>(lower, <span class="dv">4</span>), <span class="fu">rep</span>(upper, <span class="dv">4</span>),</span>
+<span id="cb46-7"><a href="#cb46-7" tabindex="-1"></a>  cor_1</span>
+<span id="cb46-8"><a href="#cb46-8" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level6">
 <h6 id="attitude-2">attitude #2<a class="anchor" aria-label="anchor" href="#attitude-2"></a>
 </h6>
-<div class="sourceCode" id="cb45"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>cor_2 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(<span class="at">items =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.80</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>means_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>sds_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">1.0</span>)</span>
-<span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a>Att_2 <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
-<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a>  n, means_2, sds_2,</span>
-<span id="cb45-6"><a href="#cb45-6" tabindex="-1"></a>  <span class="fu">rep</span>(lower, <span class="dv">5</span>), <span class="fu">rep</span>(upper, <span class="dv">5</span>),</span>
-<span id="cb45-7"><a href="#cb45-7" tabindex="-1"></a>  cor_2</span>
-<span id="cb45-8"><a href="#cb45-8" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>cor_2 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(<span class="at">items =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.80</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a>means_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a>sds_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">1.0</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" tabindex="-1"></a>Att_2 <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
+<span id="cb47-5"><a href="#cb47-5" tabindex="-1"></a>  n, means_2, sds_2,</span>
+<span id="cb47-6"><a href="#cb47-6" tabindex="-1"></a>  <span class="fu">rep</span>(lower, <span class="dv">5</span>), <span class="fu">rep</span>(upper, <span class="dv">5</span>),</span>
+<span id="cb47-7"><a href="#cb47-7" tabindex="-1"></a>  cor_2</span>
+<span id="cb47-8"><a href="#cb47-8" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level6">
 <h6 id="attitude-3">attitude #3<a class="anchor" aria-label="anchor" href="#attitude-3"></a>
 </h6>
-<div class="sourceCode" id="cb46"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>cor_3 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(<span class="at">items =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>)</span>
-<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>means_3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a>sds_3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">1.0</span>)</span>
-<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a></span>
-<span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a>Att_3 <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
-<span id="cb46-6"><a href="#cb46-6" tabindex="-1"></a>  n, means_3, sds_3,</span>
-<span id="cb46-7"><a href="#cb46-7" tabindex="-1"></a>  <span class="fu">rep</span>(lower, <span class="dv">6</span>), <span class="fu">rep</span>(upper, <span class="dv">6</span>),</span>
-<span id="cb46-8"><a href="#cb46-8" tabindex="-1"></a>  cor_3</span>
-<span id="cb46-9"><a href="#cb46-9" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a>cor_3 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(<span class="at">items =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a>means_3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a>sds_3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">1.0</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" tabindex="-1"></a>Att_3 <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
+<span id="cb48-6"><a href="#cb48-6" tabindex="-1"></a>  n, means_3, sds_3,</span>
+<span id="cb48-7"><a href="#cb48-7" tabindex="-1"></a>  <span class="fu">rep</span>(lower, <span class="dv">6</span>), <span class="fu">rep</span>(upper, <span class="dv">6</span>),</span>
+<span id="cb48-8"><a href="#cb48-8" tabindex="-1"></a>  cor_3</span>
+<span id="cb48-9"><a href="#cb48-9" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 <div class="section level5">
@@ -815,28 +847,28 @@
 <div class="section level6">
 <h6 id="target-scale-correlation-matrix">target scale correlation matrix<a class="anchor" aria-label="anchor" href="#target-scale-correlation-matrix"></a>
 </h6>
-<div class="sourceCode" id="cb47"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>scale_cors <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a>    <span class="fl">1.0</span>, <span class="fl">0.6</span>, <span class="fl">0.5</span>,</span>
-<span id="cb47-4"><a href="#cb47-4" tabindex="-1"></a>    <span class="fl">0.6</span>, <span class="fl">1.0</span>, <span class="fl">0.4</span>, </span>
-<span id="cb47-5"><a href="#cb47-5" tabindex="-1"></a>    <span class="fl">0.5</span>, <span class="fl">0.4</span>, <span class="fl">1.0</span></span>
-<span id="cb47-6"><a href="#cb47-6" tabindex="-1"></a>  ),</span>
-<span id="cb47-7"><a href="#cb47-7" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span></span>
-<span id="cb47-8"><a href="#cb47-8" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>scale_cors <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>    <span class="fl">1.0</span>, <span class="fl">0.6</span>, <span class="fl">0.5</span>,</span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a>    <span class="fl">0.6</span>, <span class="fl">1.0</span>, <span class="fl">0.4</span>, </span>
+<span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a>    <span class="fl">0.5</span>, <span class="fl">0.4</span>, <span class="fl">1.0</span></span>
+<span id="cb49-6"><a href="#cb49-6" tabindex="-1"></a>  ),</span>
+<span id="cb49-7"><a href="#cb49-7" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span></span>
+<span id="cb49-8"><a href="#cb49-8" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level6">
 <h6 id="initial-data-frames">initial data frames<a class="anchor" aria-label="anchor" href="#initial-data-frames"></a>
 </h6>
-<div class="sourceCode" id="cb48"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a>data_frames <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"A1"</span> <span class="ot">=</span> Att_1, <span class="st">"A2"</span> <span class="ot">=</span> Att_2, <span class="st">"A3"</span> <span class="ot">=</span> Att_3)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a>data_frames <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"A1"</span> <span class="ot">=</span> Att_1, <span class="st">"A2"</span> <span class="ot">=</span> Att_2, <span class="st">"A3"</span> <span class="ot">=</span> Att_3)</span></code></pre></div>
 </div>
 </div>
 <div class="section level5">
 <h5 id="apply-the-correlatescales-function">apply the correlateScales() function<a class="anchor" aria-label="anchor" href="#apply-the-correlatescales-function"></a>
 </h5>
-<div class="sourceCode" id="cb49"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>my_correlated_scales <span class="ot">&lt;-</span> <span class="fu">correlateScales</span>(</span>
-<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>  <span class="at">dataframes =</span> data_frames,</span>
-<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>  <span class="at">scalecors =</span> scale_cors</span>
-<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a>my_correlated_scales <span class="ot">&lt;-</span> <span class="fu">correlateScales</span>(</span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a>  <span class="at">dataframes =</span> data_frames,</span>
+<span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a>  <span class="at">scalecors =</span> scale_cors</span>
+<span id="cb51-4"><a href="#cb51-4" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="check-the-properties-of-our-derived-dataframe">Check the properties of our derived dataframe<a class="anchor" aria-label="anchor" href="#check-the-properties-of-our-derived-dataframe"></a>
@@ -844,18 +876,18 @@
 <div class="section level6">
 <h6 id="data-structure">data structure<a class="anchor" aria-label="anchor" href="#data-structure"></a>
 </h6>
-<div class="sourceCode" id="cb50"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">str</span>(my_correlated_scales)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">str</span>(my_correlated_scales)</span></code></pre></div>
 </div>
 <div class="section level6">
 <h6 id="inter-item-correlations">inter-item correlations<a class="anchor" aria-label="anchor" href="#inter-item-correlations"></a>
 </h6>
-<div class="sourceCode" id="cb51"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">cor</span>(my_correlated_scales) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">cor</span>(my_correlated_scales) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div>
 </div>
 <div class="section level6">
 <h6 id="eigenvalues-of-dataframe-correlations">eigenvalues of dataframe correlations<a class="anchor" aria-label="anchor" href="#eigenvalues-of-dataframe-correlations"></a>
 </h6>
-<div class="sourceCode" id="cb52"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">eigenvalues</span>(<span class="at">cormatrix =</span> <span class="fu">cor</span>(my_correlated_scales), <span class="at">scree =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="fu">eigenvalues</span>(<span class="at">cormatrix =</span> <span class="fu">cor</span>(my_correlated_scales), <span class="at">scree =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -865,7 +897,7 @@
 <div class="section level2">
 <h2 id="helper-functions-1">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions-1"></a>
 </h2>
-<p><em>likertMakeR()</em> includes two additional functions that may be of help when examining parameters and output.</p>
+<p><em>LikertMakeR()</em> includes two additional functions that may be of help when examining parameters and output.</p>
 <ul>
 <li><p><strong><em>alpha()</em></strong> calculates <em>Cronbach’s Alpha</em> from a given correlation matrix or a given dataframe</p></li>
 <li><p><strong><em>eigenvalues()</em></strong> calculates eigenvalues of a correlation matrix, and reports on whether the correlation matrix is positive definite and an optional scree plot</p></li>
@@ -877,7 +909,7 @@
 <div class="section level4">
 <h4 id="alpha-usage">alpha() usage<a class="anchor" aria-label="anchor" href="#alpha-usage"></a>
 </h4>
-<div class="sourceCode" id="cb53"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">cormatrix =</span> <span class="cn">NULL</span>, <span class="at">data =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">cormatrix =</span> <span class="cn">NULL</span>, <span class="at">data =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="alpha-arguments">alpha() arguments<a class="anchor" aria-label="anchor" href="#alpha-arguments"></a>
@@ -893,37 +925,37 @@
 <div class="section level5">
 <h5 id="sample-data-frame">Sample data frame<a class="anchor" aria-label="anchor" href="#sample-data-frame"></a>
 </h5>
-<div class="sourceCode" id="cb54"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a> <span class="at">V1  =</span>  <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
-<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a> <span class="at">V2  =</span>  <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb54-4"><a href="#cb54-4" tabindex="-1"></a> <span class="at">V3  =</span>  <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>),</span>
-<span id="cb54-5"><a href="#cb54-5" tabindex="-1"></a> <span class="at">V4  =</span>  <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
-<span id="cb54-6"><a href="#cb54-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a> <span class="at">V1  =</span>  <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a> <span class="at">V2  =</span>  <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb56-4"><a href="#cb56-4" tabindex="-1"></a> <span class="at">V3  =</span>  <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>),</span>
+<span id="cb56-5"><a href="#cb56-5" tabindex="-1"></a> <span class="at">V4  =</span>  <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb56-6"><a href="#cb56-6" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="example-correlation-matrix">example correlation matrix<a class="anchor" aria-label="anchor" href="#example-correlation-matrix"></a>
 </h5>
-<div class="sourceCode" id="cb55"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a>corMat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a> <span class="fu">c</span>(</span>
-<span id="cb55-3"><a href="#cb55-3" tabindex="-1"></a>  <span class="fl">1.00</span>, <span class="fl">0.35</span>, <span class="fl">0.45</span>, <span class="fl">0.70</span>,</span>
-<span id="cb55-4"><a href="#cb55-4" tabindex="-1"></a>  <span class="fl">0.35</span>, <span class="fl">1.00</span>, <span class="fl">0.60</span>, <span class="fl">0.55</span>,</span>
-<span id="cb55-5"><a href="#cb55-5" tabindex="-1"></a>  <span class="fl">0.45</span>, <span class="fl">0.60</span>, <span class="fl">1.00</span>, <span class="fl">0.65</span>,</span>
-<span id="cb55-6"><a href="#cb55-6" tabindex="-1"></a>  <span class="fl">0.70</span>, <span class="fl">0.55</span>, <span class="fl">0.65</span>, <span class="fl">1.00</span></span>
-<span id="cb55-7"><a href="#cb55-7" tabindex="-1"></a> ),</span>
-<span id="cb55-8"><a href="#cb55-8" tabindex="-1"></a> <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span></span>
-<span id="cb55-9"><a href="#cb55-9" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a>corMat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a> <span class="fu">c</span>(</span>
+<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a>  <span class="fl">1.00</span>, <span class="fl">0.35</span>, <span class="fl">0.45</span>, <span class="fl">0.70</span>,</span>
+<span id="cb57-4"><a href="#cb57-4" tabindex="-1"></a>  <span class="fl">0.35</span>, <span class="fl">1.00</span>, <span class="fl">0.60</span>, <span class="fl">0.55</span>,</span>
+<span id="cb57-5"><a href="#cb57-5" tabindex="-1"></a>  <span class="fl">0.45</span>, <span class="fl">0.60</span>, <span class="fl">1.00</span>, <span class="fl">0.65</span>,</span>
+<span id="cb57-6"><a href="#cb57-6" tabindex="-1"></a>  <span class="fl">0.70</span>, <span class="fl">0.55</span>, <span class="fl">0.65</span>, <span class="fl">1.00</span></span>
+<span id="cb57-7"><a href="#cb57-7" tabindex="-1"></a> ),</span>
+<span id="cb57-8"><a href="#cb57-8" tabindex="-1"></a> <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span></span>
+<span id="cb57-9"><a href="#cb57-9" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
 <h4 id="apply-function-examples">apply function examples<a class="anchor" aria-label="anchor" href="#apply-function-examples"></a>
 </h4>
-<div class="sourceCode" id="cb56"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">cormatrix =</span> corMat)</span>
-<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a></span>
-<span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">data =</span> df)</span>
-<span id="cb56-4"><a href="#cb56-4" tabindex="-1"></a></span>
-<span id="cb56-5"><a href="#cb56-5" tabindex="-1"></a><span class="fu">alpha</span>(<span class="cn">NULL</span>, df)</span>
-<span id="cb56-6"><a href="#cb56-6" tabindex="-1"></a></span>
-<span id="cb56-7"><a href="#cb56-7" tabindex="-1"></a><span class="fu">alpha</span>(corMat, df)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">cormatrix =</span> corMat)</span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">data =</span> df)</span>
+<span id="cb58-4"><a href="#cb58-4" tabindex="-1"></a></span>
+<span id="cb58-5"><a href="#cb58-5" tabindex="-1"></a><span class="fu">alpha</span>(<span class="cn">NULL</span>, df)</span>
+<span id="cb58-6"><a href="#cb58-6" tabindex="-1"></a></span>
+<span id="cb58-7"><a href="#cb58-7" tabindex="-1"></a><span class="fu">alpha</span>(corMat, df)</span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -933,7 +965,7 @@
 <div class="section level4">
 <h4 id="eigenvalues-usage">eigenvalues() usage<a class="anchor" aria-label="anchor" href="#eigenvalues-usage"></a>
 </h4>
-<div class="sourceCode" id="cb57"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="fu">eigenvalues</span>(cormatrix, <span class="at">scree =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="fu">eigenvalues</span>(cormatrix, <span class="at">scree =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="eigenvalues-arguments">eigenvalues() arguments<a class="anchor" aria-label="anchor" href="#eigenvalues-arguments"></a>
@@ -950,26 +982,26 @@
 <div class="section level4">
 <h4 id="define-parameters-5">define parameters<a class="anchor" aria-label="anchor" href="#define-parameters-5"></a>
 </h4>
-<div class="sourceCode" id="cb58"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>correlationMatrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a> <span class="fu">c</span>(</span>
-<span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a>  <span class="fl">1.00</span>, <span class="fl">0.25</span>, <span class="fl">0.35</span>, <span class="fl">0.40</span>,</span>
-<span id="cb58-4"><a href="#cb58-4" tabindex="-1"></a>  <span class="fl">0.25</span>, <span class="fl">1.00</span>, <span class="fl">0.70</span>, <span class="fl">0.75</span>,</span>
-<span id="cb58-5"><a href="#cb58-5" tabindex="-1"></a>  <span class="fl">0.35</span>, <span class="fl">0.70</span>, <span class="fl">1.00</span>, <span class="fl">0.80</span>,</span>
-<span id="cb58-6"><a href="#cb58-6" tabindex="-1"></a>  <span class="fl">0.40</span>, <span class="fl">0.75</span>, <span class="fl">0.80</span>, <span class="fl">1.00</span></span>
-<span id="cb58-7"><a href="#cb58-7" tabindex="-1"></a> ),</span>
-<span id="cb58-8"><a href="#cb58-8" tabindex="-1"></a> <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span></span>
-<span id="cb58-9"><a href="#cb58-9" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a>correlationMatrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a> <span class="fu">c</span>(</span>
+<span id="cb60-3"><a href="#cb60-3" tabindex="-1"></a>  <span class="fl">1.00</span>, <span class="fl">0.25</span>, <span class="fl">0.35</span>, <span class="fl">0.40</span>,</span>
+<span id="cb60-4"><a href="#cb60-4" tabindex="-1"></a>  <span class="fl">0.25</span>, <span class="fl">1.00</span>, <span class="fl">0.70</span>, <span class="fl">0.75</span>,</span>
+<span id="cb60-5"><a href="#cb60-5" tabindex="-1"></a>  <span class="fl">0.35</span>, <span class="fl">0.70</span>, <span class="fl">1.00</span>, <span class="fl">0.80</span>,</span>
+<span id="cb60-6"><a href="#cb60-6" tabindex="-1"></a>  <span class="fl">0.40</span>, <span class="fl">0.75</span>, <span class="fl">0.80</span>, <span class="fl">1.00</span></span>
+<span id="cb60-7"><a href="#cb60-7" tabindex="-1"></a> ),</span>
+<span id="cb60-8"><a href="#cb60-8" tabindex="-1"></a> <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span></span>
+<span id="cb60-9"><a href="#cb60-9" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="apply-function-1">apply function<a class="anchor" aria-label="anchor" href="#apply-function-1"></a>
 </h4>
-<div class="sourceCode" id="cb59"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a>evals <span class="ot">&lt;-</span> <span class="fu">eigenvalues</span>(<span class="at">cormatrix =</span> correlationMatrix)</span>
-<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a><span class="fu">print</span>(evals)</span>
-<span id="cb59-4"><a href="#cb59-4" tabindex="-1"></a></span>
-<span id="cb59-5"><a href="#cb59-5" tabindex="-1"></a>evals <span class="ot">&lt;-</span> <span class="fu">eigenvalues</span>(correlationMatrix, <span class="dv">1</span>)</span>
-<span id="cb59-6"><a href="#cb59-6" tabindex="-1"></a></span>
-<span id="cb59-7"><a href="#cb59-7" tabindex="-1"></a><span class="fu">print</span>(evals)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a>evals <span class="ot">&lt;-</span> <span class="fu">eigenvalues</span>(<span class="at">cormatrix =</span> correlationMatrix)</span>
+<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a><span class="fu">print</span>(evals)</span>
+<span id="cb61-4"><a href="#cb61-4" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="#cb61-5" tabindex="-1"></a>evals <span class="ot">&lt;-</span> <span class="fu">eigenvalues</span>(correlationMatrix, <span class="dv">1</span>)</span>
+<span id="cb61-6"><a href="#cb61-6" tabindex="-1"></a></span>
+<span id="cb61-7"><a href="#cb61-7" tabindex="-1"></a><span class="fu">print</span>(evals)</span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -980,27 +1012,28 @@
 <div class="section level4">
 <h4 id="apa">APA:<a class="anchor" aria-label="anchor" href="#apa"></a>
 </h4>
-<div class="sourceCode" id="cb60"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a> Winzar, <span class="fu">H.</span> (<span class="dv">2022</span>). LikertMakeR<span class="sc">:</span> Synthesise and correlate Likert<span class="sc">-</span>scale </span>
-<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a> and related rating<span class="sc">-</span>scale data with predefined first <span class="sc">&amp;</span> second moments, </span>
-<span id="cb60-3"><a href="#cb60-3" tabindex="-1"></a> Version <span class="dv">1</span>.<span class="fl">0.1</span> (<span class="dv">2025</span>),</span>
-<span id="cb60-4"><a href="#cb60-4" tabindex="-1"></a> The Comprehensive R Archive <span class="fu">Network</span> (CRAN),</span>
-<span id="cb60-5"><a href="#cb60-5" tabindex="-1"></a><span class="sc">&lt;</span>https<span class="sc">:</span><span class="er">//</span>CRAN.R<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>LikertMakeR<span class="sc">&gt;</span></span>
-<span id="cb60-6"><a href="#cb60-6" tabindex="-1"></a>    </span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a> Winzar, <span class="fu">H.</span> (<span class="dv">2025</span>). LikertMakeR<span class="sc">:</span> Synthesise and correlate </span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a> Likert<span class="sc">-</span>scale and related rating<span class="sc">-</span>scale data with predefined first <span class="sc">&amp;</span> </span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a> second moments </span>
+<span id="cb62-4"><a href="#cb62-4" tabindex="-1"></a> (Version <span class="dv">1</span>.<span class="fl">0.2</span>) [R package]. </span>
+<span id="cb62-5"><a href="#cb62-5" tabindex="-1"></a> The Comprehensive R Archive <span class="fu">Network</span> (CRAN).</span>
+<span id="cb62-6"><a href="#cb62-6" tabindex="-1"></a> <span class="sc">&lt;</span>https<span class="sc">:</span><span class="er">//</span>CRAN.R<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>LikertMakeR<span class="sc">&gt;</span></span>
+<span id="cb62-7"><a href="#cb62-7" tabindex="-1"></a>    </span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="bib">BIB:<a class="anchor" aria-label="anchor" href="#bib"></a>
 </h4>
-<div class="sourceCode" id="cb61"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a><span class="sc">@</span>software{winzar2022,</span>
-<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a>title <span class="ot">=</span> {LikertMakeR<span class="sc">:</span> Synthesise and correlate Likert<span class="sc">-</span>scale </span>
-<span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a>and related rating<span class="sc">-</span>scale data with predefined first <span class="sc">&amp;</span> second moments},</span>
-<span id="cb61-4"><a href="#cb61-4" tabindex="-1"></a>author <span class="ot">=</span> {Hume Winzar},</span>
-<span id="cb61-5"><a href="#cb61-5" tabindex="-1"></a>abstract <span class="ot">=</span> {LikertMakeR synthesises Likert scale and related rating<span class="sc">-</span>scale data with predefined means and standard deviations, and optionally correlates these vectors to fit a predefined correlation matrix or Cronbach<span class="st">'s Alpha.},</span></span>
-<span id="cb61-6"><a href="#cb61-6" tabindex="-1"></a><span class="st">journal = {The Comprehensive R Archive Network (CRAN)},</span></span>
-<span id="cb61-7"><a href="#cb61-7" tabindex="-1"></a><span class="st">month = {12},</span></span>
-<span id="cb61-8"><a href="#cb61-8" tabindex="-1"></a><span class="st">year = {2022},</span></span>
-<span id="cb61-9"><a href="#cb61-9" tabindex="-1"></a><span class="st">version = {1.0.1 (2025)}</span></span>
-<span id="cb61-10"><a href="#cb61-10" tabindex="-1"></a><span class="st">url = {https://CRAN.R-project.org/package=LikertMakeR},</span></span>
-<span id="cb61-11"><a href="#cb61-11" tabindex="-1"></a><span class="st">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="sc">@</span>software{winzar2022,</span>
+<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a>title <span class="ot">=</span> {LikertMakeR<span class="sc">:</span> Synthesise and correlate Likert<span class="sc">-</span>scale </span>
+<span id="cb63-3"><a href="#cb63-3" tabindex="-1"></a>and related rating<span class="sc">-</span>scale data with predefined first <span class="sc">&amp;</span> second moments},</span>
+<span id="cb63-4"><a href="#cb63-4" tabindex="-1"></a>author <span class="ot">=</span> {Hume Winzar},</span>
+<span id="cb63-5"><a href="#cb63-5" tabindex="-1"></a>abstract <span class="ot">=</span> {LikertMakeR synthesises Likert scale and related rating<span class="sc">-</span>scale data with predefined means and standard deviations, and optionally correlates these vectors to fit a predefined correlation matrix or Cronbach<span class="st">'s Alpha.},</span></span>
+<span id="cb63-6"><a href="#cb63-6" tabindex="-1"></a><span class="st">journal = {The Comprehensive R Archive Network (CRAN)},</span></span>
+<span id="cb63-7"><a href="#cb63-7" tabindex="-1"></a><span class="st">month = {12},</span></span>
+<span id="cb63-8"><a href="#cb63-8" tabindex="-1"></a><span class="st">year = {2022},</span></span>
+<span id="cb63-9"><a href="#cb63-9" tabindex="-1"></a><span class="st">version = {1.0.2 (2025)}</span></span>
+<span id="cb63-10"><a href="#cb63-10" tabindex="-1"></a><span class="st">url = {https://CRAN.R-project.org/package=LikertMakeR},</span></span>
+<span id="cb63-11"><a href="#cb63-11" tabindex="-1"></a><span class="st">}</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -1052,11 +1085,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Hume Winzar.</p>
+  <p>list(text = “MIT License”, href = “LICENSE.html”)</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>NULL</p>
 </div>
 
     </footer>
