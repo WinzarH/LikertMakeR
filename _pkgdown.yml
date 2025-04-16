@@ -1,45 +1,44 @@
 url: https://winzarh.github.io/LikertMakeR/
-
-
 home:
-  title: "LikertMakeR"
-  description: >
+  title: LikertMakeR
+  description: |
     Generate and correlate synthetic Likert-scale data from published summary statistics.
-
 template:
   bootstrap: 5
   light-switch: yes
   bootswatch: materia
   logo: man/figures/logo.png
   favicon: man/figures/logo.png
-
 navbar:
   structure:
-    left:  [home, reference, articles]
-    right: [github]
+    left:
+    - home
+    - reference
+    - articles
+    right: github
   components:
     home:
-      text: "Home"
+      text: Home
       href: index.html
     reference:
-      text: "Functions"
+      text: Functions
       href: reference/index.html
     articles:
-      text: "Vignettes"
+      text: Vignettes
       menu:
-        - text: "Using LikertMakeR"
-          href: articles/LikertMakeR_vignette.html
-        - text: "makeCorrLoadings Validation"
-          href: articles/makeCorrLoadings_validate.html
+      - text: Using LikertMakeR
+        href: articles/LikertMakeR_vignette.html
+      - text: makeCorrLoadings Validation
+        href: articles/makeCorrLoadings_validate.html
     github:
       icon: fa-github
       href: https://github.com/WinzarH/LikertMakeR
-
 footer:
   structure:
-    left: [license]
-    right: [built]
+    left: license
+    right: built
   components:
     license:
-      text: "MIT License"
+      text: MIT License
       href: LICENSE.html
+
