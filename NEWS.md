@@ -4,7 +4,7 @@
 
 ## Improvements
 
-- Some examples updated.
+- Some test examples updated.
 
 ## Maintenance
 
