@@ -125,7 +125,7 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
 
   for (i in 1:k) {
     # cat(paste0("Variable ", i))
-    cat("Variable ", i)
+    cat("Variable ", i, ": ")
     df[, i] <- lfast(n, means[i], sds[i], lowerbound[i], upperbound[i])
   }
 
