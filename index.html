@@ -40,29 +40,18 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="active nav-item"><a class="nav-link" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="reference/index.html">Functions</a></li>
 <li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
-    <li><a class="dropdown-item" href="articles/makeCorrLoadings_validate.html">makeCorrLoadings validation</a></li>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+<li><a class="dropdown-item" href="articles/LikertMakeR_vignette.html">LikertMakeR examples</a></li>
+    <li><a class="dropdown-item" href="articles/makeCorrLoadings_validate.html">makeCorrLoadings Validation</a></li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><form class="form-inline" role="search">
- <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
-</form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR" aria-label="GitHub repository for LikertMakeR"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -95,10 +84,10 @@
 <li><a href="#correlating-vectors-of-synthetic-rating-scales">Correlating vectors</a></li>
 <li><a href="#generate-a-correlation-matrix-from-cronbachs-alpha">Correlation from Cronbach’s Alpha</a></li>
 <li><a href="#generate-a-correlation-matrix-from-factor-loadings">Correlation from Factor Loadings</a></li>
-<li><a href="#generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments">Generate full dataset</a></li>
+<li><a href="#generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments">Generate dataframe from Moments and Correlation Matrix</a></li>
 <li><a href="#generate-a-dataframe-of-rating-scale-items-from-a-summated-rating-scale">Summated scale to item data</a></li>
 <li><a href="#create-a-dataframe-for-paired-sample-t-test">Paired-sample data</a></li>
-<li><a href="#create-a-multidimensional-dataframe-of-scale-items-as-we-might-see-from-a-questionnaire">Multiscale correlation</a></li>
+<li><a href="#create-a-multidimensional-dataframe-of-scale-items-as-we-might-see-from-a-questionnaire">Multidimensional dataframe</a></li>
 <li><a href="#helper-functions">Helper functions</a></li>
 <li><a href="#to-cite-likertmaker">Citation</a></li>
 </ul>
@@ -108,19 +97,31 @@
 </h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(LikertMakeR)</span></code></pre></div>
 <div class="section level3">
-<h3 id="generate-a-4-item-likert-scale-data-frame-with-target-moments">Generate a 4-item Likert-scale data frame with target moments<a class="anchor" aria-label="anchor" href="#generate-a-4-item-likert-scale-data-frame-with-target-moments"></a>
+<h3 id="generate-a-4-item-likert-scale-dataframe-with-target-moments-and-cronbachs-alpha">Generate a 4-item Likert-scale dataframe with target moments and Cronbach’s Alpha<a class="anchor" aria-label="anchor" href="#generate-a-4-item-likert-scale-dataframe-with-target-moments-and-cronbachs-alpha"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a> my_items <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">100</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">means =</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="fl">4.0</span>, <span class="fl">3.8</span>, <span class="fl">3.2</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">sds =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">1.0</span>, <span class="fl">0.9</span>, <span class="fl">0.7</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">lowerbound =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>),</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">upperbound =</span> <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">4</span>),</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">cormatrix =</span> <span class="fu">makeCorrAlpha</span>(<span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a> )</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="fu">head</span>(my_items)</span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="fu">cor</span>(my_items)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a> <span class="fu">library</span>(LikertMakeR)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>my_items <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">64</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">means =</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="fl">4.0</span>, <span class="fl">3.8</span>, <span class="fl">3.2</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">sds =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">1.0</span>, <span class="fl">0.9</span>, <span class="fl">0.7</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">lowerbound =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">upperbound =</span> <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">4</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">cormatrix =</span> <span class="fu">makeCorrAlpha</span>(<span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>)</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="fu">colnames</span>(my_items) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"v1"</span>, <span class="st">"v2"</span>, <span class="st">"v3"</span>, <span class="st">"v4"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="fu">str</span>(my_items)</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>moments <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  <span class="at">means =</span> <span class="fu">apply</span>(my_items, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> mean),</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>  <span class="at">sds =</span> <span class="fu">apply</span>(my_items, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> sd)</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>moments <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="fu">cor</span>(my_items) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="fu">alpha</span>(<span class="at">data =</span> my_items)</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -128,9 +129,9 @@
 </h2>
 <p>The package is intended for:</p>
 <ol style="list-style-type: decimal">
-<li><p>“reproducing” or “reverse-engineering” rating-scale data for further analysis and visualisation when only summary statistics have been reported,</p></li>
-<li><p>teaching. Helping researchers and students to better understand the relationships among scale properties, sample size, number of items, <em>etc.</em> …</p></li>
-<li><p>checking the feasibility of scale moments with given scale and correlation properties.</p></li>
+<li><p>“Reproducing” or “reverse-engineering” rating-scale data for further analysis and visualisation when only summary statistics have been reported,</p></li>
+<li><p>Teaching. Help researchers and students to better understand the relationships among scale properties, correlation, sample size, number of items, <em>etc.</em> …</p></li>
+<li><p>Checking the feasibility of scale moments with given scale and correlation properties.</p></li>
 </ol>
 </div>
 <div class="section level2">
@@ -1096,11 +1097,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Hume Winzar.</p>
+  <p>list(text = “MIT License”, href = “LICENSE.html”)</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>NULL</p>
 </div>
 
     </footer>

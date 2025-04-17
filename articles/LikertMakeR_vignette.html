@@ -35,29 +35,18 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Functions</a></li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
-    <li><a class="dropdown-item" href="../articles/makeCorrLoadings_validate.html">makeCorrLoadings validation</a></li>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+<li><a class="dropdown-item" href="../articles/LikertMakeR_vignette.html">LikertMakeR examples</a></li>
+    <li><a class="dropdown-item" href="../articles/makeCorrLoadings_validate.html">makeCorrLoadings Validation</a></li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><form class="form-inline" role="search">
- <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
-</form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR" aria-label="GitHub repository for LikertMakeR"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -84,7 +73,7 @@ Winzar</h4>
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/WinzarH/LikertMakeR" class="external-link">LikertMakeR</a></span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_3.png" width="25%" style="display: block; margin: auto;"></p>
+<p><code>{r logo, fig.align='center', echo=FALSE, out.width = '25%',    fig.alt="LikertMakeR Logo"} knitr::include_graphics("LikertMakeR_3.png")</code></p>
 <!-- ![LikertMakeR](LikertMakeR_hex.png){#id .class width=25%} -->
 <p><em><strong>LikertMakeR</strong></em> <a href="https://cran.r-project.org/package=LikertMakeR" class="external-link">(Winzar, 2022)</a>
 lets you create synthetic Likert-scale, or related rating-scale,
@@ -151,12 +140,7 @@ values. If the mean is close to one boundary then data points will
 gather more closely to that boundary. <br> If the mean is not in the
 middle of a scale, then the data will be always skewed, as shown in the
 following plots.</p>
-<div class="figure" style="text-align: center">
-<img src="skew_chart.png" alt="Off-centre means always give skewed distribution in bounded rating scales" width="85%"><p class="caption">
-Off-centre means always give skewed distribution in bounded rating
-scales
-</p>
-</div>
+<p><code>{r skew, fig.align='center', echo=FALSE, out.width = '85%',     fig.cap="Off-centre means always give skewed distribution in bounded rating scales",    fig.alt="Bounded rating-scale data with non-central means always produce skewed distributions"} knitr::include_graphics("skew_chart.png")</code></p>
 <hr>
 </div>
 <div class="section level3">
@@ -281,7 +265,7 @@ deprecated.</p>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; best solution in 256 iterations</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="LikertMakeR_vignette_files/figure-html/fig1-1.png" alt="Example: 4-item, 1-5 Likert scale" width="480"><p class="caption">
+<img src="LikertMakeR_vignette_files/figure-html/fig1-1.png" alt="Histogram of 4-item, 1-5 Likert scale" width="480"><p class="caption">
 Example: 4-item, 1-5 Likert scale
 </p>
 </div>
@@ -297,7 +281,7 @@ Example: 4-item, 1-5 Likert scale
 <code class="sourceCode R"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lfast.html">lfast</a></span><span class="op">(</span><span class="fl">256</span>, <span class="fl">3</span>, <span class="fl">2.5</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; best solution in 7723 iterations</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="LikertMakeR_vignette_files/figure-html/fig2-1.png" alt="Example: likelihood-of-purchase scale" width="480"><p class="caption">
+<img src="LikertMakeR_vignette_files/figure-html/fig2-1.png" alt="Histogram of likelihood-of-purchase scale" width="480"><p class="caption">
 Example: likelihood-of-purchase scale
 </p>
 </div>
@@ -498,7 +482,7 @@ encouraged to try again, possibly several times, to find one.</p>
 <code class="sourceCode R"><span><span class="co">## using helper function eigenvalues()</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">cor_matrix_4</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/fig3-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/fig3-1.png" alt="Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor_matrix_4  is positive-definite</span></span>
 <span><span class="co">#&gt; [1] 2.7842025 0.6581071 0.3291732 0.2285172</span></span></code></pre>
 </div>
@@ -580,7 +564,7 @@ encouraged to try again, possibly several times, to find one.</p>
 <span></span>
 <span><span class="co">## calculate eigenvalues of the correlation matrix</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">cor_matrix_12</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/fig4-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/fig4-1.png" alt="Cronbach's Alpha and Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor_matrix_12  is positive-definite</span></span>
 <span><span class="co">#&gt;  [1] 6.964 1.743 1.087 0.658 0.567 0.377 0.254 0.159 0.127 0.051 0.014 0.001</span></span></code></pre>
 <hr>
@@ -811,13 +795,13 @@ with ‘k’ rows and ‘k’ columns.</p></li>
 <span>  upperbound <span class="op">=</span> <span class="va">upperbound</span>,</span>
 <span>  cormatrix <span class="op">=</span> <span class="va">corMat</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Variable  1</span></span>
+<span><span class="co">#&gt; Variable  1 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
-<span><span class="co">#&gt; Variable  2</span></span>
+<span><span class="co">#&gt; Variable  2 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
-<span><span class="co">#&gt; Variable  3</span></span>
+<span><span class="co">#&gt; Variable  3 :</span></span>
 <span><span class="co">#&gt; best solution in 2371 iterations</span></span>
-<span><span class="co">#&gt; Variable  4</span></span>
+<span><span class="co">#&gt; Variable  4 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arranging data to match correlations</span></span>
@@ -935,17 +919,17 @@ standard deviations of each variable</p></li>
 <span>  lowerbound <span class="op">=</span> <span class="va">lowerbound</span>, upperbound <span class="op">=</span> <span class="va">upperbound</span>,</span>
 <span>  cormatrix <span class="op">=</span> <span class="va">myCorr</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Variable  1</span></span>
+<span><span class="co">#&gt; Variable  1 :</span></span>
 <span><span class="co">#&gt; best solution in 972 iterations</span></span>
-<span><span class="co">#&gt; Variable  2</span></span>
+<span><span class="co">#&gt; Variable  2 :</span></span>
 <span><span class="co">#&gt; best solution in 17 iterations</span></span>
-<span><span class="co">#&gt; Variable  3</span></span>
+<span><span class="co">#&gt; Variable  3 :</span></span>
 <span><span class="co">#&gt; best solution in 973 iterations</span></span>
-<span><span class="co">#&gt; Variable  4</span></span>
+<span><span class="co">#&gt; Variable  4 :</span></span>
 <span><span class="co">#&gt; best solution in 4866 iterations</span></span>
-<span><span class="co">#&gt; Variable  5</span></span>
+<span><span class="co">#&gt; Variable  5 :</span></span>
 <span><span class="co">#&gt; best solution in 336 iterations</span></span>
-<span><span class="co">#&gt; Variable  6</span></span>
+<span><span class="co">#&gt; Variable  6 :</span></span>
 <span><span class="co">#&gt; best solution in 16769 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arranging data to match correlations</span></span>
@@ -987,7 +971,7 @@ standard deviations of each variable</p></li>
 <h5 id="summary-plots-of-new-data-frame">Summary plots of new data frame<a class="anchor" aria-label="anchor" href="#summary-plots-of-new-data-frame"></a>
 </h5>
 <div class="figure" style="text-align: center">
-<img src="LikertMakeR_vignette_files/figure-html/fig5-1.png" alt="Summary of dataframe from makeItems() function" width="480"><p class="caption">
+<img src="LikertMakeR_vignette_files/figure-html/fig5-1.png" alt="Correlation matrix" width="480"><p class="caption">
 Summary of dataframe from makeItems() function
 </p>
 </div>
@@ -1053,7 +1037,7 @@ combination of items that give summated scores. Must lie between ‘0’
 <span><span class="co">## sum over all items</span></span>
 <span><span class="va">summatedScale</span> <span class="op">&lt;-</span> <span class="va">meanScale</span> <span class="op">*</span> <span class="va">items</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="LikertMakeR_vignette_files/figure-html/summatedScale_histogram-1.png" alt="Summated scale distribution" width="480"><p class="caption">
+<img src="LikertMakeR_vignette_files/figure-html/summatedScale_histogram-1.png" alt="Histogram of summated scale" width="480"><p class="caption">
 Summated scale distribution
 </p>
 </div>
@@ -1103,7 +1087,7 @@ Summated scale distribution
 <span></span>
 <span><span class="co">### calculate eigenvalues and print scree plot</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_1-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_1-1.png" alt="Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor(newItems_1)  is positive-definite</span></span>
 <span><span class="co">#&gt; [1] 2.517 0.717 0.403 0.364</span></span></code></pre>
 </div>
@@ -1154,7 +1138,7 @@ Summated scale distribution
 <span></span>
 <span><span class="co">### calculate eigenvalues and print scree plot</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_2</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_2-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_2-1.png" alt="Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor(newItems_2)  is positive-definite</span></span>
 <span><span class="co">#&gt; [1] 2.929 0.457 0.366 0.248</span></span></code></pre>
 </div>
@@ -1205,7 +1189,7 @@ higher <em>variance</em><a class="anchor" aria-label="anchor" href="#same-summat
 <span></span>
 <span><span class="co">### calculate eigenvalues and print scree plot</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_3-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_3-1.png" alt="Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor(newItems_3)  is positive-definite</span></span>
 <span><span class="co">#&gt; [1] 1.862 0.946 0.742 0.450</span></span></code></pre>
 <hr>
@@ -1423,13 +1407,13 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span>  lowerbound <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">lower</span>, <span class="fl">4</span><span class="op">)</span>, upperbound <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">upper</span>, <span class="fl">4</span><span class="op">)</span>,</span>
 <span>  cormatrix <span class="op">=</span> <span class="va">cor_1</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Variable  1</span></span>
+<span><span class="co">#&gt; Variable  1 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
-<span><span class="co">#&gt; Variable  2</span></span>
+<span><span class="co">#&gt; Variable  2 :</span></span>
 <span><span class="co">#&gt; best solution in 2787 iterations</span></span>
-<span><span class="co">#&gt; Variable  3</span></span>
+<span><span class="co">#&gt; Variable  3 :</span></span>
 <span><span class="co">#&gt; best solution in 56 iterations</span></span>
-<span><span class="co">#&gt; Variable  4</span></span>
+<span><span class="co">#&gt; Variable  4 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arranging data to match correlations</span></span>
@@ -1453,15 +1437,15 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">lower</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">upper</span>, <span class="fl">5</span><span class="op">)</span>,</span>
 <span>  <span class="va">cor_2</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Variable  1</span></span>
+<span><span class="co">#&gt; Variable  1 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
-<span><span class="co">#&gt; Variable  2</span></span>
+<span><span class="co">#&gt; Variable  2 :</span></span>
 <span><span class="co">#&gt; best solution in 1284 iterations</span></span>
-<span><span class="co">#&gt; Variable  3</span></span>
+<span><span class="co">#&gt; Variable  3 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
-<span><span class="co">#&gt; Variable  4</span></span>
+<span><span class="co">#&gt; Variable  4 :</span></span>
 <span><span class="co">#&gt; best solution in 334 iterations</span></span>
-<span><span class="co">#&gt; Variable  5</span></span>
+<span><span class="co">#&gt; Variable  5 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arranging data to match correlations</span></span>
@@ -1485,17 +1469,17 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">lower</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">upper</span>, <span class="fl">6</span><span class="op">)</span>,</span>
 <span>  <span class="va">cor_3</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Variable  1</span></span>
+<span><span class="co">#&gt; Variable  1 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
-<span><span class="co">#&gt; Variable  2</span></span>
+<span><span class="co">#&gt; Variable  2 :</span></span>
 <span><span class="co">#&gt; best solution in 461 iterations</span></span>
-<span><span class="co">#&gt; Variable  3</span></span>
+<span><span class="co">#&gt; Variable  3 :</span></span>
 <span><span class="co">#&gt; best solution in 149 iterations</span></span>
-<span><span class="co">#&gt; Variable  4</span></span>
+<span><span class="co">#&gt; Variable  4 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
-<span><span class="co">#&gt; Variable  5</span></span>
+<span><span class="co">#&gt; Variable  5 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
-<span><span class="co">#&gt; Variable  6</span></span>
+<span><span class="co">#&gt; Variable  6 :</span></span>
 <span><span class="co">#&gt; best solution in 1779 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arranging data to match correlations</span></span>
@@ -1635,7 +1619,7 @@ modelling, then I recommend the <em>sim.item()</em> and
 <div class="section level5">
 <h5 id="plot-the-new-correlated-scale-items">plot the new correlated scale items<a class="anchor" aria-label="anchor" href="#plot-the-new-correlated-scale-items"></a>
 </h5>
-<p><img src="LikertMakeR_vignette_files/figure-html/fig6-1.png" width="864" style="display: block; margin: auto;"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/fig6-1.png" alt="Correlation Matrix" width="864" style="display: block; margin: auto;"></p>
 <div class="section level7">
 <h6 id="check-the-properties-of-our-derived-dataframe">Check the properties of our derived dataframe<a class="anchor" aria-label="anchor" href="#check-the-properties-of-our-derived-dataframe"></a>
 </h6>
@@ -1663,7 +1647,7 @@ modelling, then I recommend the <em>sim.item()</em> and
 <code class="sourceCode R"><span><span class="co">## eigenvalues of dataframe correlations</span></span>
 <span><span class="va">Cor_Correlated_Scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">Cor_Correlated_Scales</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/fig7-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/fig7-1.png" alt="Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; Cor_Correlated_Scales  is positive-definite</span></span>
 <span><span class="co">#&gt;  [1] 7.05 2.30 1.13 0.89 0.77 0.71 0.60 0.49 0.43 0.37 0.31 0.25 0.21 0.20 0.18</span></span>
 <span><span class="co">#&gt; [16] 0.11</span></span></code></pre>
@@ -1671,7 +1655,7 @@ modelling, then I recommend the <em>sim.item()</em> and
 <code class="sourceCode R"><span><span class="co">#### Eigenvalues of predictor variable items only</span></span>
 <span><span class="va">Cor_Attitude_items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">[</span>, <span class="op">-</span><span class="fl">16</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">Cor_Attitude_items</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/fig7a-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/fig7a-1.png" alt="Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; Cor_Attitude_items  is positive-definite</span></span>
 <span><span class="co">#&gt;  [1] 6.89 2.27 0.91 0.86 0.74 0.66 0.59 0.44 0.37 0.31 0.25 0.22 0.20 0.18 0.11</span></span></code></pre>
 <hr>
@@ -1767,7 +1751,7 @@ optionally produces a scree plot.</p>
 </h6>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">evals</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">correlationMatrix</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/fig8-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/fig8-1.png" alt="Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; correlationMatrix  is positive-definite</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">evals</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2.7484991 0.8122627 0.3048151 0.1344231</span></span></code></pre>
@@ -1917,11 +1901,11 @@ CRAN: &lt;doi: 10.32614/CRAN.package.LikertMakeR&gt;</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Hume Winzar.</p>
+  <p>list(text = “MIT License”, href = “LICENSE.html”)</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>NULL</p>
 </div>
 
     </footer>
