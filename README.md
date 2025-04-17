@@ -30,10 +30,10 @@ Such scales are constrained by upper and lower bounds and discrete increments.
 - [Correlating vectors](#correlating-vectors-of-synthetic-rating-scales)
 - [Correlation from Cronbach's Alpha](#generate-a-correlation-matrix-from-cronbachs-alpha)
 - [Correlation from Factor Loadings](#generate-a-correlation-matrix-from-factor-loadings)
-- [Generate full dataset](#generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments)
+- [Generate dataframe from Moments and Correlation Matrix](#generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments)
 - [Summated scale to item data](#generate-a-dataframe-of-rating-scale-items-from-a-summated-rating-scale)
 - [Paired-sample data](#create-a-dataframe-for-paired-sample-t-test)
-- [Multiscale correlation](#create-a-multidimensional-dataframe-of-scale-items-as-we-might-see-from-a-questionnaire)
+- [Multidimensional dataframe](#create-a-multidimensional-dataframe-of-scale-items-as-we-might-see-from-a-questionnaire)
 - [Helper functions](#helper-functions)
 - [Citation](#to-cite-likertmaker)
 
@@ -41,33 +41,48 @@ Such scales are constrained by upper and lower bounds and discrete increments.
 
     library(LikertMakeR)
 
-### Generate a 4-item Likert-scale data frame with target moments
+### Generate a 4-item Likert-scale dataframe with target moments and Cronbach's Alpha
 
-     my_items <- makeItems(
-      n = 100,
+     library(LikertMakeR)
+
+    my_items <- makeItems(
+      n = 64,
       means = c(3.5, 4.0, 3.8, 3.2),
       sds = c(0.8, 1.0, 0.9, 0.7),
       lowerbound = rep(1, 4),
       upperbound = rep(5, 4),
       cormatrix = makeCorrAlpha(4, alpha = 0.85)
-     )
+    )
 
-    head(my_items)
-    cor(my_items)
+    colnames(my_items) <- c("v1", "v2", "v3", "v4")
+
+    str(my_items)
+
+    moments <- data.frame(
+      means = apply(my_items, MARGIN = 2, FUN = mean),
+      sds = apply(my_items, MARGIN = 2, FUN = sd)
+    ) |> t()
+
+    moments |> round(3)
+    cor(my_items) |> round(2)
+    alpha(data = my_items)
+
+
+
 
  
 ## Purpose
  
 The package is intended for: 
  
-  1. "reproducing" or "reverse-engineering" rating-scale data for further 
+  1. "Reproducing" or "reverse-engineering" rating-scale data for further 
   analysis and visualisation when only summary statistics have been reported, 
     
-  2. teaching. Helping researchers and students to better understand the 
-  relationships among scale properties, sample size, number of items, 
-  _etc._ ...  
+  2. Teaching. Help researchers and students to better understand the 
+  relationships among scale properties, correlation, sample size, 
+  number of items, _etc._ ...  
  
-  3. checking the feasibility of scale moments with given scale and 
+  3. Checking the feasibility of scale moments with given scale and 
   correlation properties. 
 
  
