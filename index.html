@@ -771,17 +771,21 @@
 <span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">6</span></span>
 <span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">2.5</span></span>
 <span id="cb43-8"><a href="#cb43-8" tabindex="-1"></a></span>
-<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a>pairedDat <span class="ot">&lt;-</span> <span class="fu">makePaired</span>(<span class="at">n =</span> n, <span class="at">means =</span> means, <span class="at">sds =</span> sds, <span class="at">t_value =</span> t, <span class="at">lowerbound =</span> lowerbound, <span class="at">upperbound =</span> upperbound, <span class="at">items =</span> items)</span>
-<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a></span>
-<span id="cb43-11"><a href="#cb43-11" tabindex="-1"></a><span class="fu">str</span>(pairedDat)</span>
-<span id="cb43-12"><a href="#cb43-12" tabindex="-1"></a><span class="fu">cor</span>(pairedDat) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb43-13"><a href="#cb43-13" tabindex="-1"></a>pairedMoments <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb43-14"><a href="#cb43-14" tabindex="-1"></a>  <span class="at">mean =</span> <span class="fu">apply</span>(newDat, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>),</span>
-<span id="cb43-15"><a href="#cb43-15" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">apply</span>(newDat, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb43-16"><a href="#cb43-16" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
-<span id="cb43-17"><a href="#cb43-17" tabindex="-1"></a>pairedMoments</span>
-<span id="cb43-18"><a href="#cb43-18" tabindex="-1"></a></span>
-<span id="cb43-19"><a href="#cb43-19" tabindex="-1"></a><span class="fu">t.test</span>(pairedDat<span class="sc">$</span>V1, pairedDat<span class="sc">$</span>V2, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a>pairedDat <span class="ot">&lt;-</span> <span class="fu">makePaired</span>(<span class="at">n =</span> n, <span class="at">means =</span> means, <span class="at">sds =</span> sds, </span>
+<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a> <span class="at">t_value =</span> t, <span class="at">lowerbound =</span> lowerbound, <span class="at">upperbound =</span> upperbound, </span>
+<span id="cb43-11"><a href="#cb43-11" tabindex="-1"></a> <span class="at">items =</span> items)</span>
+<span id="cb43-12"><a href="#cb43-12" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="#cb43-13" tabindex="-1"></a><span class="fu">str</span>(pairedDat)</span>
+<span id="cb43-14"><a href="#cb43-14" tabindex="-1"></a><span class="fu">cor</span>(pairedDat) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb43-15"><a href="#cb43-15" tabindex="-1"></a>pairedMoments <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb43-16"><a href="#cb43-16" tabindex="-1"></a>  <span class="at">mean =</span> <span class="fu">apply</span>(pairedDat, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> mean) <span class="sc">|&gt;</span> </span>
+<span id="cb43-17"><a href="#cb43-17" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">3</span>),</span>
+<span id="cb43-18"><a href="#cb43-18" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">apply</span>(pairedDat, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> sd) <span class="sc">|&gt;</span> </span>
+<span id="cb43-19"><a href="#cb43-19" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb43-20"><a href="#cb43-20" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
+<span id="cb43-21"><a href="#cb43-21" tabindex="-1"></a>pairedMoments</span>
+<span id="cb43-22"><a href="#cb43-22" tabindex="-1"></a></span>
+<span id="cb43-23"><a href="#cb43-23" tabindex="-1"></a><span class="fu">t.test</span>(pairedDat<span class="sc">$</span>V1, pairedDat<span class="sc">$</span>V2, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <hr>
 </div>
 </div>
