@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup-packages, message=FALSE, warning=FALSE}
+```{r setup-packages, message = FALSE, warning = FALSE}
 # Load required packages only if installed
 if (requireNamespace("rosetta", quietly = TRUE)) library(rosetta)
 if (requireNamespace("dplyr", quietly = TRUE)) library(dplyr)
@@ -82,9 +82,7 @@ question scored in the range *-3* to *+3*.
 
 The questions and the item labels are presented as follows:
 
-```{r}
-#| echo: false
-
+```{r itemQuestions, echo=FALSE}
 itemQuestions <- c(
   "Expectation that a high dose results in a longer trip",
   "Expectation that a high dose results in a more intense trip",
@@ -116,6 +114,7 @@ labels <- data.frame(
 
 kable(labels) |>
   kable_classic(full_width = F)
+
 ```
 
 #### Extract and clean the original data file
