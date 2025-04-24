@@ -776,11 +776,19 @@ _makeItems()_ is a wrapper function for:
 
 ### makePaired()
 
-_makePaired()_ generates a dataset from paired-sample t-test summary statistics.
+_makePaired()_ generates a dataset from paired-sample t-test 
+summary statistics.
 
-_makePaired()_ generates correlated values so the data replicate rating scales taken, for example, in a before and after experimental design. The function is effectively a wrapper function for _lfast()_ and _lcor()_ with the addition of a t-statistic from which the between-column correlation is inferred.
+_makePaired()_ generates correlated values so the data replicate rating 
+scales taken, for example, in a before and after experimental design. 
+The function is effectively a wrapper function for _lfast()_ and _lcor()_ 
+with the addition of a t-statistic from which the between-column correlation 
+is inferred.
 
-Paired t-tests apply to observations that are associated with each other. For example: the same people before and after a treatment; the same people rating two different objects; ratings by husband & wife; _etc._
+Paired t-tests apply to observations that are associated with each other. 
+For example: the same people before and after a treatment; 
+the same people rating two different objects; 
+ratings by husband & wife; _etc._
 
 #### makePaired() usage
 
@@ -807,13 +815,17 @@ Paired t-tests apply to observations that are associated with each other. For ex
     items <- 6
     t <- -2.5
     
-    pairedDat <- makePaired(n = n, means = means, sds = sds, t_value = t, lowerbound = lowerbound, upperbound = upperbound, items = items)
+    pairedDat <- makePaired(n = n, means = means, sds = sds, 
+     t_value = t, lowerbound = lowerbound, upperbound = upperbound, 
+     items = items)
     
     str(pairedDat)
     cor(pairedDat) |> round(2)
     pairedMoments <- data.frame(
-      mean = apply(newDat, MARGIN = 2, FUN = mean) |> round(3),
-      sd = apply(newDat, MARGIN = 2, FUN = sd) |> round(3)
+      mean = apply(pairedDat, MARGIN = 2, FUN = mean) |> 
+      round(3),
+      sd = apply(pairedDat, MARGIN = 2, FUN = sd) |> 
+      round(3)
     ) |> t()
     pairedMoments
     
