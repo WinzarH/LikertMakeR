@@ -46,26 +46,26 @@ footer:
       text: MIT License
       href: LICENSE-text.html
     developed_by:
-      text: "Hume Winzar"
+      text: Hume Winzar
       href: authors.html
 reference:
-  - title: "LikertMakeR functions"
-    desc:  "Define dataframe properties and correlations."
-  - contents:
-    - "lfast"
-    - "lcor"
-    - "makeItems"
-    - "makeCorrAlpha"
-    - "makeCorrLoadings"
-    - "makeItemsScale"
-    - "makePaired"
-    - "correlateScales"
-  - title: "Helper functions"
-    desc: "Check dataframe and correlation properties"
-  - contents:
-    - "alpha"
-    - "eigenvalues"
-  - title: Deprecated
-    desc: "legacy functions"
-  - contents:
-    - "lexact"
+- title: LikertMakeR functions
+  desc: Define dataframe properties and correlations.
+- contents:
+  - lfast
+  - lcor
+  - makeItems
+  - makeCorrAlpha
+  - makeCorrLoadings
+  - makeItemsScale
+  - makePaired
+  - correlateScales
+- title: Helper functions
+  desc: Check dataframe and correlation properties
+- contents:
+  - alpha
+  - eigenvalues
+- title: Deprecated
+  desc: legacy functions
+- contents: lexact
+
