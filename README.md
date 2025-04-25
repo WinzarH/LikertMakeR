@@ -39,11 +39,9 @@ Such scales are constrained by upper and lower bounds and discrete increments.
 
 ## Quick Start
 
-    library(LikertMakeR)
-
 ### Generate a 4-item Likert-scale dataframe with target moments and Cronbach's Alpha
 
-     library(LikertMakeR)
+    library(LikertMakeR)
 
     my_items <- makeItems(
       n = 64,
@@ -76,7 +74,7 @@ Such scales are constrained by upper and lower bounds and discrete increments.
 The package is intended for: 
  
   1. "Reproducing" or "reverse-engineering" rating-scale data for further 
-  analysis and visualisation when only summary statistics have been reported, 
+  analysis and visualisation when only summary statistics have been reported. 
     
   2. Teaching. Help researchers and students to better understand the 
   relationships among scale properties, correlation, sample size, 
@@ -165,9 +163,9 @@ social sciences because:
   2. results and conclusions drawn from technically-correct non-parametric 
   statistics are _(almost)_ always the same as for parametric statistics for 
   such data. <br /> 
-[D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) 
-argue that a summated scale, made with multiple items, "approaches" an 
-interval scale measure.
+  [D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) 
+  argue that a summated scale, made with multiple items, "approaches" an 
+  interval scale measure.
 
 Likert-scale items, such as responses to a single 1-to-5 agree-disagree 
 question, should not be analysed by professional or responsible researchers. 
@@ -327,7 +325,6 @@ but their correlations with other columns do.
 
 ### **_lcor()_**  Example #1
 
-
 ####  generate synthetic data
      
       n <- 64
@@ -341,7 +338,6 @@ but their correlations with other columns do.
      head(mydat4)
      cor(mydat4) |> round(3)
      
-
 ####  Define a target Correlation Matrix
 
      tgt4 <- matrix(
@@ -364,7 +360,6 @@ but their correlations with other columns do.
 
 ### _lcor()_ example #2
 
-
 #####  three starting columns and a different target Correlation Matrix
 
      mydat3 <- data.frame(x1, x2, x3) 
@@ -380,7 +375,6 @@ but their correlations with other columns do.
      
 
 ##### Apply _lcor()_      
-
 
      new3 <- lcor(mydat3, tgt3) 
      
@@ -533,8 +527,8 @@ The user is encouraged to try again, possibly several times, to find one.
 "Censored" loadings (for example, where loadings less than some small value 
 (often '0.30'), are removed for ease-of-communication) tend to severely reduce 
 the accuracy of the `makeCorrLoadings()` function. 
-For a detailed demonstration, see the file, **makeCorrLoadings_Validate.pdf** 
-in the package website on GitHub.
+For a detailed demonstration, see the **makeCorrLoadings_Validation** vignette
+in the package website at <https://winzarh.github.io/LikertMakeR/>.
 
 
 ### makeCorrLoadings() examples
