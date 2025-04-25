@@ -10,23 +10,28 @@
 #' Such a correlation matrix can be applied to the \code{makeItems()}
 #' function to generate synthetic data with those predefined factor structures.
 #'
-#' @param loadings (numeric matrix) **k** (items) by **f** (factors)
-#'  matrix of **standardised** factor loadings. Item names and Factor names
-#'  are taken from the row_names (items) and the column_names (factors),
-#'  if present.
+#' @param loadings (numeric matrix) **k** (items/ rows)
+#'  by **f** (factors/ columns) matrix of **standardised** factor loadings.
+#'  Item names and Factor names are taken from the row_names (items)
+#'  and the column_names (factors), if present.
 #'
-#'  @note
-#'  "Censored" loadings (for example, where loadings less than '0.30' are
-#'  removed for clarity) tend to severely reduce the accuracy of the
-#'  `makeCorrLoadings()` function. For a detailed demonstration, see the file
-#'  **makeCorrLoadings_Validate.pdf** in the package website on GitHub.
+#' @note
+#'  "Censored" loadings
+#'  (for example, where loadings less than '0.30' are removed for clarity)
+#'  tend to severely reduce the accuracy of the `makeCorrLoadings()` function.
+#'  For a detailed demonstration, see the
+#'  **makeCorrLoadings_Validation** vignette in the package
+#'  website at <winzarh.github.io/LikertMakeR/>.
 #'
 #'
 #'
-#' @param factorCor (numeric matrix) **f** x **f** factor correlation matrix
+#' @param factorCor (numeric matrix) **f** x **f** factor correlation matrix.
+#'  If missing (NULL), then an identity matrix is substituted,
+#'  which assumes that the factors are orthogonal (uncorrelated),
+#'  which is rarely true in practice.
 #'
 #' @param uniquenesses (numeric vector) length **k** vector of uniquenesses.
-#' If _NULL_, the default, compute from the calculated communalities.
+#' If _NULL_, the default, compute from the calculated Communalities.
 #'
 #' @param nearPD (logical) If TRUE, project factorCor and the final
 #' correlation matrix onto nearest Positive Definite matrix, if needed.
@@ -167,7 +172,7 @@ makeCorrLoadings <- function(loadings,
   # Sigma = Lambda * Phi * Lambda^T + Psi
   Sigma <- loadings %*% factorCor %*% t(loadings) + Psi
 
-  # Convert to correlation matrix
+  # Convert to correlation matrix and our desired correlation matrix
   R <- cov2cor(Sigma)
 
   ## function to replace upper triangle of a matrix with the
