@@ -46,7 +46,18 @@
 </li>
       </ul>
 <ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR" aria-label="GitHub repository for LikertMakeR"><span class="fa fa-github"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -687,7 +698,7 @@ function. For a detailed demonstration, see the vignette file,
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## correlated factors mean that eigenvalues should suggest two or three factors</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">itemCorrelations</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/test_makeCorrLoadings-1.png" width="700"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/test_makeCorrLoadings-1.png" alt="Scree plot of item-correlation matrix" width="700"></p>
 <pre><code><span><span class="co">#&gt; itemCorrelations  is positive-definite</span></span>
 <span><span class="co">#&gt; [1] 4.7679427 1.2254239 0.7641967 0.3799863 0.2668158 0.2237851 0.2073574</span></span>
 <span><span class="co">#&gt; [8] 0.1644922</span></span></code></pre>
@@ -717,7 +728,7 @@ function. For a detailed demonstration, see the vignette file,
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## eigenvalues should suggest exactly  three factors</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">orthogonalItemCors</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/test_orthogonal-1.png" width="700"></p>
+<p><img src="LikertMakeR_vignette_files/figure-html/test_orthogonal-1.png" alt="Scree plot of orthogonal-items correlation matrix" width="700"></p>
 <pre><code><span><span class="co">#&gt; orthogonalItemCors  is positive-definite</span></span>
 <span><span class="co">#&gt; [1] 3.2769426 1.8091128 1.4966064 0.4244753 0.2966222 0.2605233 0.2402622</span></span>
 <span><span class="co">#&gt; [8] 0.1954553</span></span></code></pre>
@@ -1901,11 +1912,11 @@ CRAN: &lt;doi: 10.32614/CRAN.package.LikertMakeR&gt;</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>list(text = “MIT License”, href = “LICENSE.html”)</p>
+  <p>list(text = “MIT License”, href = “LICENSE-text.html”)</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>NULL</p>
+  <p>list(text = “Hume Winzar”, href = “authors.html”)</p>
 </div>
 
     </footer>
