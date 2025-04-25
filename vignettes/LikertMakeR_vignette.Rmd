@@ -582,7 +582,7 @@ round(itemCorrelations, 2)
 
 ##### Test makeCorrLoadings() output
 
-```{r test_makeCorrLoadings, echo=TRUE}
+```{r test_makeCorrLoadings, echo=TRUE, fig.alt="Scree plot of item-correlation matrix"}
 ## correlated factors mean that eigenvalues should suggest two or three factors
 eigenvalues(cormatrix = itemCorrelations, scree = TRUE)
 ```
@@ -600,7 +600,7 @@ round(orthogonalItemCors, 2)
 
 ##### Test orthogonal output
 
-```{r test_orthogonal, echo=TRUE}
+```{r test_orthogonal, echo=TRUE, fig.alt="Scree plot of orthogonal-items correlation matrix"}
 ## eigenvalues should suggest exactly  three factors
 eigenvalues(cormatrix = orthogonalItemCors, scree = TRUE)
 ```
