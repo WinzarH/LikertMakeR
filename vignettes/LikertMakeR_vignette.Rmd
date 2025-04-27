@@ -17,21 +17,25 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include=FALSE}
 library(LikertMakeR)
 ```
 
 
-```{r logo, fig.align='center', echo=FALSE, out.width = '25%',
-   fig.alt="LikertMakeR Logo"}
-knitr::include_graphics("LikertMakeR_3.png")
-```
+<!-- ```{r LikertmakeR_logo,  -->
+<!--    echo=FALSE, fig.align='center', out.width = '25%', -->
+<!--    fig.alt="LikertMakeR Logo"} -->
+<!-- knitr::include_graphics("LikertMakeR_3.png") -->
+<!-- ``` -->
+
+<div style="text-align: center;">
+  
+![LikertMakeR_Logo](LikertMakeR_3.png){width=25%}
+
+</div>
 
 
-<!-- ![LikertMakeR](LikertMakeR_hex.png){#id .class width=25%} -->
-
-
-_**LikertMakeR**_ [(Winzar, 2022)](https://cran.r-project.org/package=LikertMakeR) 
+_**LikertMakeR**_ [(Winzar, 2025)](https://cran.r-project.org/package=LikertMakeR) 
 lets you create synthetic Likert-scale, or related rating-scale, data.  
 Set the mean, standard deviation, and correlations, and the package 
 generates data matching those properties. 
@@ -84,11 +88,11 @@ Technically, because they are bounded and not continuous, parametric statistics,
 
   1. they are in common usage and easily understood,
   
-  2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost)_ always the same as for parametric statistics for such data. <br /> 
+  2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost)_ always exactly the same as for parametric statistics for such data. <br /> 
 For example, [D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) 
 argue that a summated scale, made with multiple items, 
-"approaches" an interval scale measure. 
-This implies that parametric statistics are acceptable. 
+"approaches" an interval scale measure, 
+implying that parametric statistics are acceptable. 
 
 Rating-scale boundaries define minima and maxima for any scale values. 
 If the mean is close to one boundary then data points will gather more 
@@ -97,11 +101,17 @@ If the mean is not in the middle of a scale,
 then the data will be always skewed, as shown in the following plots.
 
 
-```{r skew, fig.align='center', echo=FALSE, out.width = '85%', 
-   fig.cap="Off-centre means always give skewed distribution in bounded rating scales",
-   fig.alt="Bounded rating-scale data with non-central means always produce skewed distributions"}
-knitr::include_graphics("skew_chart.png")
-```
+<!-- ```{r skew, fig.align='center', echo=FALSE, out.width = '85%',  -->
+<!--    fig.cap="Off-centre means always give skewed distribution in bounded rating scales", -->
+<!--    fig.alt="Bounded rating-scale data with non-central means always produce skewed distributions"} -->
+<!-- knitr::include_graphics("skew_chart.png") -->
+<!-- ``` -->
+
+<div style="text-align: center;">
+  
+![Bounded rating-scale data with non-central means always produce skewed distributions](skew_chart.png){width=75%}
+
+</div>
 
 _____
 
@@ -222,7 +232,7 @@ x1 <- lfast(
 
 
 
-```{r fig1, fig.height=3, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: 4-item, 1-5 Likert scale", fig.alt="Histogram of 4-item, 1-5 Likert scale"}
+```{r fig1, fig.height=5, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: 4-item, 1-5 Likert scale", fig.alt="Histogram of 4-item, 1-5 Likert scale"}
 ## distribution of x
 hist(x1,
   cex.axis = 0.5, cex.main = 0.75,
@@ -242,7 +252,7 @@ x2 <- lfast(256, 3, 2.5, 0, 10)
 ```
 
 
-```{r fig2, fig.height=3, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: likelihood-of-purchase scale", fig.alt="Histogram of likelihood-of-purchase scale"}
+```{r fig2, fig.height=5, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: likelihood-of-purchase scale", fig.alt="Histogram of likelihood-of-purchase scale"}
 ## generate histogram
 hist(x2,
   cex.axis = 0.5, cex.main = 0.75,
@@ -443,7 +453,7 @@ alpha(cor_matrix_4)
 
 
 
-```{r fig3, fig.height=3, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE, fig.alt="Scree plot of eigenvalues"}
+```{r fig3, fig.height=5, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE, fig.alt="Scree plot of eigenvalues"}
 ## using helper function eigenvalues()
 
 eigenvalues(cor_matrix_4, 1)
@@ -462,9 +472,13 @@ variance <- 1.0
 set.seed(42)
 
 cor_matrix_12 <- makeCorrAlpha(items = items, alpha = alpha, variance = variance)
+
+var_names <- sprintf("v%01d", 1:12)
+colnames(cor_matrix_12) <- var_names
+rownames(cor_matrix_12) <- var_names
 ```
 
-######  -
+<!-- ######  - -->
 
 _makeCorrAlpha()_ produced the following correlation matrix 
 (to two decimal places):
@@ -476,7 +490,7 @@ cor_matrix_12 |> round(2)
 
 ##### test output
 
-```{r fig4, fig.height=3, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE, fig.alt="Cronbach's Alpha and Scree plot of eigenvalues"}
+```{r fig4, fig.height=5, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE, fig.alt="Cronbach's Alpha and Scree plot of eigenvalues"}
 ## calculate Cronbach's Alpha
 alpha(cor_matrix_12)
 
@@ -666,6 +680,10 @@ corMat <- matrix(
   nrow = 4, ncol = 4
 )
 
+var_names <- sprintf("v%01d", 1:4)
+colnames(corMat) <- var_names
+rownames(corMat) <- var_names
+
 ## apply makeItems() function
 df <- makeItems(
   n = n,
@@ -777,7 +795,11 @@ alpha(NULL, myItems)
 
 #### Summary plots of new data frame
 
-```{r fig5, fig.height=5, fig.width=5, fig.align='center', echo=FALSE, warning=FALSE, crop = TRUE, fig.cap="Summary of dataframe from makeItems() function", fig.alt="Correlation matrix"}
+```{r fig5, echo=FALSE, warning=FALSE, 
+fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
+fig.cap="Summary of dataframe from makeItems() function", 
+fig.alt="Correlation matrix"}
+
 # Correlation panel
 panel.cor <- function(x, y) {
   usr <- par("usr")
@@ -788,10 +810,12 @@ panel.cor <- function(x, y) {
   cex.cor <- 0.8 / strwidth(txt)
   text(0.5, 0.5, txt, cex = 1.25)
 }
+
 # Customize upper panel
 upper.panel <- function(x, y) {
   points(x, y, pch = 19, col = "#0000ff11")
 }
+
 # diagonals
 panel.hist <- function(x, ...) {
   usr <- par("usr")
@@ -804,6 +828,7 @@ panel.hist <- function(x, ...) {
   y <- y / max(y)
   rect(breaks[-nB], 0, breaks[-1], y, col = "#87ceeb66")
 }
+
 # Create the plots
 pairs(myItems,
   lower.panel = panel.cor,
@@ -868,7 +893,11 @@ meanScale <- lfast(
 summatedScale <- meanScale * items
 ```
 
-```{r summatedScale_histogram, echo=FALSE, fig.height=3, fig.width=5, fig.align='center', crop = TRUE, fig.cap="Summated scale distribution", fig.alt="Histogram of summated scale"}
+```{r summatedScale_histogram, echo=FALSE, 
+fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
+fig.cap="Summated scale distribution", 
+fig.alt="Histogram of summated scale"}
+
 ## Histogram of summated scale
 hist(summatedScale,
   cex.axis = 0.5, cex.main = 0.75,
@@ -887,7 +916,7 @@ hist(summatedScale,
 
 #### create items with _makeItemsScale()_
 
-```{r makeItemsScale_example_1, fig.height=3, fig.width=5, fig.align='center', crop = TRUE, fig.alt="Scree plot of eigenvalues"}
+```{r makeItemsScale_example_1, fig.height=5, fig.width=5, fig.align='center', crop = TRUE, fig.alt="Scree plot of eigenvalues"}
 ## apply makeItemsScale() function
 newItems_1 <- makeItemsScale(
   scale = summatedScale,
@@ -911,7 +940,11 @@ eigenvalues(cor(newItems_1), 1) |> round(3)
 
 
 ####  _makeItemsScale()_ with same summated values and higher _alpha_
-```{r makeItemsScale_example_2, fig.height=3, fig.width=5, fig.align='center', crop = TRUE, fig.alt="Scree plot of eigenvalues"}
+
+```{r makeItemsScale_example_2, 
+fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
+fig.alt="Scree plot of eigenvalues"}
+
 ## apply makeItemsScale() function
 newItems_2 <- makeItemsScale(
   scale = summatedScale,
@@ -936,7 +969,10 @@ eigenvalues(cor(newItems_2), 1) |> round(3)
 
 ####  same summated values with lower _alpha_ that may require higher _variance_
 
-```{r makeItemsScale_example_3, fig.height=3, fig.width=5, fig.align='center', crop = TRUE, fig.alt="Scree plot of eigenvalues"}
+```{r makeItemsScale_example_3, 
+fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
+fig.alt="Scree plot of eigenvalues"}
+
 ## apply makeItemsScale() function
 newItems_3 <- makeItemsScale(
   scale = summatedScale,
@@ -971,6 +1007,7 @@ Generating a data for an **independent-samples t-test** is trivial with _LikertM
 Note that such tests don't even require the same sample-size.
 
 ```{r independent-samples_t-test, echo = TRUE}
+
 ## define parameters
 lower <- 1
 upper <- 5
@@ -1017,6 +1054,7 @@ _**makePaired()**_ has similar parameters as for the _lfast()_ function with the
 ### makePaired() examples
 
 ```{r paired-sample_t-test_data, , echo = TRUE}
+
 ## define parameters
 n <- 20
 means <- c(2.5, 3.0)
@@ -1037,6 +1075,7 @@ pairedDat <- makePaired(
 ###### check properties of new data
 
 ```{r makePaired_output_properties, echo=TRUE}
+
 ## test function output
 str(pairedDat)
 
@@ -1054,6 +1093,7 @@ pairedMoments
 ###### run a paired-sample t-test with the new data
 
 ```{r paired-sample_t-test, echo=TRUE}
+
 ## run a paired-sample t-test
 paired_t <- t.test(pairedDat$V1, pairedDat$V2, paired = TRUE)
 
@@ -1092,6 +1132,7 @@ If you wish to simulate data for teaching or experimenting with Structural Equat
 ##### create dataframes of Likert-scale items
  
 ```{r correlateScales_dataframes, echo = TRUE}
+
 n <- 128
 lower <- 1
 upper <- 5
@@ -1215,6 +1256,7 @@ intent_moments
 ##### correlateScales parameters
 
 ```{r correlateScales_parameters}
+
 ### target scale correlation matrix
 scale_cors <- matrix(
   c(
@@ -1234,6 +1276,7 @@ data_frames <- list("A1" = Att_1, "A2" = Att_2, "A3" = Att_3, "Int" = intent)
 #### apply the correlateScales() function
 
 ```{r my_correlated_scales}
+
 ### apply correlateScales() function
 my_correlated_scales <- correlateScales(
   dataframes = data_frames,
@@ -1243,7 +1286,10 @@ my_correlated_scales <- correlateScales(
 
 #### plot the new correlated scale items
 
-```{r fig6, fig.height=9, fig.width=9, fig.align='center', echo=FALSE, warning=FALSE,  crop = TRUE, fig.alt="Correlation Matrix"}
+```{r fig6, echo=FALSE, warning=FALSE,  
+fig.height=9, fig.width=9, fig.align='center',crop = TRUE, 
+fig.alt="Correlation Matrix"}
+
 # Correlation panel
 panel.cor <- function(x, y) {
   usr <- par("usr")
@@ -1254,10 +1300,12 @@ panel.cor <- function(x, y) {
   cex.cor <- 0.8 / strwidth(txt)
   text(0.5, 0.5, txt, cex = 1.25)
 }
+
 # Customize upper panel
 upper.panel <- function(x, y) {
   points(x, y, pch = 19, col = "#0000ff11")
 }
+
 # diagonals
 panel.hist <- function(x, ...) {
   usr <- par("usr")
@@ -1270,6 +1318,7 @@ panel.hist <- function(x, ...) {
   y <- y / max(y)
   rect(breaks[-nB], 0, breaks[-1], y, col = "#0000ff50")
 }
+
 # Create the plots
 pairs(my_correlated_scales,
   lower.panel = panel.cor,
@@ -1287,19 +1336,23 @@ str(my_correlated_scales)
 ```
 
 
-```{r fig7, fig.height=3, fig.width=5, fig.align='center', echo = TRUE,  crop = TRUE, fig.alt="Scree plot of eigenvalues"}
+```{r fig7, echo = TRUE, 
+fig.height=5, fig.width=5, fig.align='center',  crop = TRUE, 
+fig.alt="Scree plot of eigenvalues"}
+
 ## eigenvalues of dataframe correlations
 Cor_Correlated_Scales <- cor(my_correlated_scales)
 eigenvalues(cormatrix = Cor_Correlated_Scales, scree = TRUE) |> round(2)
 ```
 
-```{r fig7a, fig.height=3, fig.width=5, fig.align='center', echo = TRUE,  crop = TRUE, fig.alt="Scree plot of eigenvalues"}
-#### Eigenvalues of predictor variable items only
+```{r fig7a, echo = TRUE,  
+fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
+fig.alt="Scree plot of eigenvalues"}
+
+### Eigenvalues of predictor variable items only
 Cor_Attitude_items <- cor(my_correlated_scales[, -16])
 eigenvalues(cormatrix = Cor_Attitude_items, scree = TRUE) |> round(2)
 ```
-
-
 
 ____
 
@@ -1324,6 +1377,7 @@ with a message to that effect.
 ### alpha() examples
 
 ```{r alphaExample}
+
 ## define parameters
 df <- data.frame(
   V1 = c(4, 2, 4, 3, 2, 2, 2, 1),
@@ -1348,8 +1402,6 @@ alpha(data = df)
 alpha(NULL, df)
 alpha(corMat, df)
 ```
-
-
 
 ### eigenvalues()
 
@@ -1380,8 +1432,12 @@ print(evals)
 
 ##### eigenvalues() function with optional scree plot
 
-```{r fig8, fig.height=3, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE, fig.alt="Scree plot of eigenvalues"}
+```{r fig8, echo = TRUE, 
+fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
+fig.alt="Scree plot of eigenvalues"}
+
 evals <- eigenvalues(correlationMatrix, 1)
+
 print(evals)
 ```
 
@@ -1520,7 +1576,5 @@ under Marginal Model Specification: The SimCorMultRes Package,
 _The R Journal_ 8:2, 79-91. 
 <doi:10.32614/RJ-2016-034>
 
-Winzar, H. (2020). LikertMakeR: Synthesise and correlate Likert scale and 
-related rating-scale data with predefined first and second moments. CRAN: 
+Winzar, H. (2025). LikertMakeR: Synthesise and Correlate Likert Scale and Rating-Scale Data Based on Summary Statistics Only. CRAN: 
 <doi: 10.32614/CRAN.package.LikertMakeR>
-
