@@ -34,17 +34,28 @@
 #' evals <- eigenvalues(correlationMatrix, 1)
 #'
 eigenvalues <- function(cormatrix, scree = FALSE) {
+  matrix_name <- deparse(substitute(cormatrix))
   e_vals <- eigen(cormatrix)$values
+  # generate scree plot
   if (scree == TRUE) {
-    plot(e_vals,
+    par(mar = c(2.5, 4, 2, 1)) # (bottom, left, top, right)
+    # Set up x as the index
+    x <- seq_along(e_vals) # x = 1, 2, 3, ..., length(e_vals)
+    plot(x, e_vals,
       pch = 19, col = "black", cex = 1.0,
+      xlab = "",
       ylab = "Eigenvalues",
+      xaxt = "n", # suppress default x-axis
       ylim = c(min(0, min(e_vals)), max(e_vals)),
-      main = paste0("Scree Plot: ", deparse(substitute(cormatrix))),
+      main = paste0("Scree Plot: ", matrix_name),
       cex.main = 1, col.main = "black",
       type = "b"
     )
-    abline(h = c(0, 1), col = "skyblue", lty = 2)
+    # integer x-axis
+    axis(1, at = x)
+    # line plot
+    abline(h = c(0, 1), col = "steelblue", lty = 2)
+    # Highlight eigenvalues that are below zero
     rect(
       xleft = 0.8, xright = length(e_vals) * 1.1,
       ytop = 0, ybottom = min(0, min(e_vals) * 1.25),
@@ -52,9 +63,9 @@ eigenvalues <- function(cormatrix, scree = FALSE) {
     )
   }
   if (min(e_vals) >= 0) {
-    cat(deparse(substitute(cormatrix)), " is positive-definite\n\n")
+    cat(matrix_name, " is positive-definite\n\n")
   } else {
-    cat(deparse(substitute(cormatrix)), " is NOT positive-definite\n\n")
+    cat(matrix_name, " is NOT positive-definite\n\n")
   }
   # cat("Eigenvalues:\n", e_vals, "\n")
   return(e_vals)
