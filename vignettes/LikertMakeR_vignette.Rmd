@@ -30,10 +30,11 @@ library(LikertMakeR)
 
 <div style="text-align: center;">
   
-![LikertMakeR_Logo](LikertMakeR_3.png){width=25%}
+![...](LikertMakeR_3.png){width=15%}
 
 </div>
 
+# LikertMakeR
 
 _**LikertMakeR**_ [(Winzar, 2025)](https://cran.r-project.org/package=LikertMakeR) 
 lets you create synthetic Likert-scale, or related rating-scale, data.  
@@ -219,24 +220,40 @@ which was slow and no more accurate than the latest version of _lfast()_.
 nItems <- 4
 mean <- 2.5
 sd <- 0.75
+lower <- 1
+upper <- 5
 
 x1 <- lfast(
   n = 512,
   mean = mean,
   sd = sd,
-  lowerbound = 1,
-  upperbound = 5,
+  lowerbound = lower,
+  upperbound = upper,
   items = nItems
 )
 ```
 
 
 
-```{r fig1, fig.height=5, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: 4-item, 1-5 Likert scale", fig.alt="Histogram of 4-item, 1-5 Likert scale"}
+```{r fig1}
+#| echo: FALSE
+#| fig-height: 5
+#| fig-width: 5
+#| fit-align: center
+#| crop: TRUE
+#| fig-cap: "Example: 4-item, 1-5 Likert scale"
+#| fig-alt: "Histogram of 4-item, 1-5 Likert scale"
+
+nItems <- 4
+lowerbound <- 1
+upperbound <- 5
+
 ## distribution of x
 hist(x1,
   cex.axis = 0.5, cex.main = 0.75,
-  breaks = seq(from = (1 - (1 / 8)), to = (5 + (1 / 8)), by = (1 / 4)),
+  breaks = seq(from = (lowerbound - (1 / nItems) / 2), 
+               to = (upperbound + (1 / nItems) / 2), 
+               by = (1 / nItems)),
   col = "skyblue", xlab = NULL, ylab = NULL,
   main = paste0("mu=", round(mean(x1), 2), ", sd=", round(sd(x1), 2))
 )
@@ -248,11 +265,21 @@ hist(x1,
 ###### _lfast()_
 
 ```{r lfastx2}
+#|echo: TRUE
+
 x2 <- lfast(256, 3, 2.5, 0, 10)
 ```
 
 
-```{r fig2, fig.height=5, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: likelihood-of-purchase scale", fig.alt="Histogram of likelihood-of-purchase scale"}
+```{r fig2}
+#| echo: FALSE
+#| fig-height: 5
+#| fig-width: 5
+#| fit-align: center
+#| crop: TRUE
+#| fig-cap: "Example: likelihood-of-purchase scale"
+#| fig-alt: "Histogram of likelihood-of-purchase scale"
+
 ## generate histogram
 hist(x2,
   cex.axis = 0.5, cex.main = 0.75,
@@ -274,9 +301,9 @@ but their correlations with other vectors do.
 
 ### _lcor()_
 
-**_lcor()_** systematically selects pairs of values in a column 
-and swaps their places, and checks to see if this swap improves 
-the correlation matrix. 
+**_lcor()_** systematically selects pairs of values in a column of 
+the dataframe and swaps their places, and checks to see if this swap 
+improves the correlation matrix. 
 If the revised dataframe produces a correlation matrix closer to the 
 target correlation matrix, then the swap is retained. 
 Otherwise, the values are returned to their original places. 
@@ -311,6 +338,54 @@ mydat3 <- data.frame(
 )
 ```
 
+The resulting data look like this:
+
+```{r density_mydat3}
+#| echo: FALSE
+#| fig-height: 5
+#| fig-width: 7
+#| fit-align: center
+#| crop: TRUE
+#| fig-cap: "Note that off-centre means cause skewed data, and large variances cause bimodal distributions"
+#| fig-alt: "Density plots show that off-centre means cause skewed data, and large variances cause bimodal distributions"
+
+# Set break interval and breaks
+break_interval <- 1 / items
+breaks_seq <- seq(lowerbound, upperbound, by = break_interval)
+
+# Calculate limits
+xmin <- lowerbound - break_interval / 2
+xmax <- upperbound + break_interval / 2
+
+# Estimate densities
+d1 <- density(mydat3$x1, from = xmin, to = xmax)
+d2 <- density(mydat3$x2, from = xmin, to = xmax)
+d3 <- density(mydat3$x3, from = xmin, to = xmax)
+
+# Setup plot range
+xrange <- range(d1$x, d2$x, d3$x)
+yrange <- range(d1$y, d2$y, d3$y)
+
+plot(xrange, yrange,
+  type = "n",
+  xlab = "Scale Value", ylab = "Density",
+  main = "Sample data density curves"
+)
+
+# Add density curves
+lines(d1, col = "#b4af46", lwd = 2)
+lines(d2, col = "#4682b4", lwd = 2)
+lines(d3, col = "#b4464b", lwd = 2)
+
+# Add legend
+legend("topright",
+  legend = c("x1", "x2", "x3"),
+  col = c("#b4af46", "#4682b4", "#b4464b"), lwd = 2, bg = "#ffffff40",
+  bty = "n"
+)
+```
+
+
 The first six observations from this dataframe are:
 
 ```{r mydat3Head, echo = FALSE}
@@ -319,7 +394,9 @@ head(mydat3, 6)
 
 And the first and second moments (to 3 decimal places) are:
 
-```{r mydat3Moments, echo = FALSE}
+```{r mydat3Moments}
+#| echo: FALSE
+
 moments <- data.frame(
   mean = apply(mydat3, 2, mean) |> round(3),
   sd = apply(mydat3, 2, sd) |> round(3)
@@ -333,13 +410,17 @@ to what is expected.
 
 As we should expect, randomly-generated synthetic data have low correlations:
 
-```{r mydat3Cor, echo = FALSE}
+```{r mydat3Cor}
+#| echo: FALSE
+
 cor(mydat3) |> round(2)
 ```
 
 Now, let's define a target correlation matrix:
 
 ```{r tgt3}
+#| echo: TRUE
+
 ## describe a target correlation matrix
 tgt3 <- matrix(
   c(
@@ -355,6 +436,8 @@ So now we have a dataframe with desired first and second moments,
 and a target correlation matrix.
 
 ```{r new3}
+#| echo: TRUE
+
 ## apply lcor() function
 new3 <- lcor(data = mydat3, target = tgt3)
 ```
@@ -363,13 +446,17 @@ Values in each column of the new dataframe do not change from the original;  the
 
 The first ten observations from this dataframe are:
 
-```{r new3Head, echo = FALSE}
+```{r new3Head}
+#| echo: FALSE
+
 head(new3, 10)
 ```
 
 And the new data frame is correlated close to our desired correlation matrix; here presented to 3 decimal places:
 
-```{r new3Cor, echo = FALSE}
+```{r new3Cor}
+#| echo: FALSE
+
 cor(new3) |> round(3)
 ```
 
@@ -437,7 +524,9 @@ cor_matrix_4 <- makeCorrAlpha(items, alpha)
 _makeCorrAlpha()_ produced the following correlation matrix 
 (to three decimal places):
 
-```{r cor_matrix_4Print, echo = FALSE}
+```{r cor_matrix_4Print}
+#| echo: FALSE
+
 cor_matrix_4 |> round(3)
 ```
 
@@ -446,14 +535,23 @@ cor_matrix_4 |> round(3)
 ##### test output with Helper functions
 
 ```{r cor_matrix_4Alpha}
-## using helper function alpha()
+#| echo: TRUE
 
+## using helper function alpha()
 alpha(cor_matrix_4)
 ```
 
 
 
-```{r fig3, fig.height=5, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE, fig.alt="Scree plot of eigenvalues"}
+```{r fig3}
+#| echo: TRUE
+#| fig-height: 5
+#| fig-width: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Scree plot from makeCorrAlpha() example"
+#| fig-alt: "Scree plot of eigenvalues"
+
 ## using helper function eigenvalues()
 
 eigenvalues(cor_matrix_4, 1)
@@ -473,28 +571,46 @@ set.seed(42)
 
 cor_matrix_12 <- makeCorrAlpha(items = items, alpha = alpha, variance = variance)
 
-var_names <- sprintf("v%01d", 1:12)
+var_names <- sprintf("v%02d", 1:12)
 colnames(cor_matrix_12) <- var_names
 rownames(cor_matrix_12) <- var_names
 ```
 
-<!-- ######  - -->
 
 _makeCorrAlpha()_ produced the following correlation matrix 
 (to two decimal places):
 
-```{r cor_matrix_12Print, echo = FALSE}
+```{r cor_matrix_12Print}
+#| echo: FALSE
+
 cor_matrix_12 |> round(2)
 ```
 
 
 ##### test output
 
-```{r fig4, fig.height=5, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE, fig.alt="Cronbach's Alpha and Scree plot of eigenvalues"}
+Calculate Cronbach's Alpha
+
+```{r alpha_4}
+#| echo: TRUE
+
 ## calculate Cronbach's Alpha
 alpha(cor_matrix_12)
+```
 
-## calculate eigenvalues of the correlation matrix
+Eigenvalues and Scree plot of the Correlation Matrix
+
+```{r fig4}
+#| echo: TRUE
+#| fig-height: 5
+#| fig-width: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Scree plot from makeCorrAlpha() example"
+#| fig-alt: "Cronbach's Alpha and Scree plot of eigenvalues"
+#| 
+
+## calculate eigenvalues 
 eigenvalues(cor_matrix_12, 1) |> round(3)
 ```
 
@@ -567,9 +683,9 @@ factorLoadings <- matrix(
 )
 
 ## row and column names
-
 rownames(factorLoadings) <- c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8")
-colnames(factorLoadings) <- c("Factor1", "Factor2", "Factor3")
+factor_names <- c("Factor1", "Factor2", "Factor3")
+colnames(factorLoadings) <- factor_names
 
 ## Factor correlation matrix**
 
@@ -581,12 +697,35 @@ factorCor <- matrix(
   ),
   nrow = 3, byrow = TRUE
 )
+
+rownames(factorCor) <- factor_names
+colnames(factorCor) <- factor_names
 ```
   
+The factor loadings matrix looks like this: 
+  
+```{r print_factor_loadings}
+#| echo: FALSE
+
+
+print(factorLoadings)
+```
+
+And the factor correlation matrix looks like this:
+
+```{r print_factor_cors}
+#| echo: FALSE
+
+print(factorCor)
+```
+
+
 
 ##### Apply the function
 
-```{r apply_makeCorrLoadings, echo=TRUE}
+```{r apply_makeCorrLoadings}
+#| echo: TRUE
+
 ## apply makeCorrLoadings() function
 itemCorrelations <- makeCorrLoadings(factorLoadings, factorCor)
 
@@ -596,7 +735,16 @@ round(itemCorrelations, 2)
 
 ##### Test makeCorrLoadings() output
 
-```{r test_makeCorrLoadings, echo=TRUE, fig.alt="Scree plot of item-correlation matrix"}
+```{r test_makeCorrLoadings}
+#| echo: TRUE
+#| warning: false
+#| fig-height: 5
+#| fig-width: 5
+#| fig-align: center
+#| crop: true
+#| fig-cap: "Scree plot of item-correlation matrix"
+#| fig-alt: "Scree plot of item-correlation matrix"
+
 ## correlated factors mean that eigenvalues should suggest two or three factors
 eigenvalues(cormatrix = itemCorrelations, scree = TRUE)
 ```
@@ -604,7 +752,9 @@ eigenvalues(cormatrix = itemCorrelations, scree = TRUE)
 
 #####  Assuming orthogonal factors
 
-```{r orthogonal_makeCorrLoadings, echo=TRUE}
+```{r orthogonal_makeCorrLoadings}
+#| echo: TRUE
+
 ## orthogonal factors are assumed when factor correlation matrix is not included
 orthogonalItemCors <- makeCorrLoadings(factorLoadings)
 
@@ -614,7 +764,16 @@ round(orthogonalItemCors, 2)
 
 ##### Test orthogonal output
 
-```{r test_orthogonal, echo=TRUE, fig.alt="Scree plot of orthogonal-items correlation matrix"}
+```{r test_orthogonal}
+#| echo: TRUE
+#| warning: false
+#| fig-height: 5
+#| fig-width: 5
+#| fig-align: center
+#| crop: true
+#| fig-cap: "Scree plot of orthogonal-items correlation matrix"
+#| fig-alt: "Scree plot of orthogonal-items correlation matrix"
+#| 
 ## eigenvalues should suggest exactly  three factors
 eigenvalues(cormatrix = orthogonalItemCors, scree = TRUE)
 ```
@@ -663,6 +822,8 @@ following parameters:
 ### _makeItems()_ examples
 
 ```{r makeItemsExample}
+#| echo: TRUE
+
 ## define parameters
 n <- 128
 dfMeans <- c(2.5, 3.0, 3.0, 3.5)
@@ -745,6 +906,8 @@ Required parameters are:
 ### Step 1: Generate a correlation matrix
 
 ```{r genCorrelation}
+#| echo: TRUE
+
 ## define parameters
 k <- 6
 myAlpha <- 0.85
@@ -764,6 +927,8 @@ alpha(cormatrix = myCorr)
 ### Step 2: Generate dataframe
 
 ```{r gendataframe}
+#| echo: TRUE
+
 ## define parameters
 n <- 256
 myMeans <- c(2.75, 3.00, 3.00, 3.25, 3.50, 3.5)
@@ -787,6 +952,7 @@ myMoments <- data.frame(
   means = apply(myItems, 2, mean) |> round(3),
   sds = apply(myItems, 2, sd) |> round(3)
 ) |> t()
+
 myMoments
 
 ## Cronbach's Alpha of data frame
@@ -795,10 +961,15 @@ alpha(NULL, myItems)
 
 #### Summary plots of new data frame
 
-```{r fig5, echo=FALSE, warning=FALSE, 
-fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
-fig.cap="Summary of dataframe from makeItems() function", 
-fig.alt="Correlation matrix"}
+```{r fig5}
+#| echo: false
+#| warning: false
+#| fig-height: 5
+#| fig-width: 5
+#| fig-align: center
+#| crop: true
+#| fig-cap: "Summary of dataframe from makeItems() function"
+#| fig-alt: "Correlation matrix"
 
 # Correlation panel
 panel.cor <- function(x, y) {
@@ -811,9 +982,12 @@ panel.cor <- function(x, y) {
   text(0.5, 0.5, txt, cex = 1.25)
 }
 
-# Customize upper panel
+# Upper panel with regression line
 upper.panel <- function(x, y) {
-  points(x, y, pch = 19, col = "#0000ff11")
+  points(x, y, pch = 19, col = "#4682b410")
+  # Fit a linear model
+  fit <- lm(y ~ x)
+  abline(fit, col = "#ff8000", lwd = 2)
 }
 
 # diagonals
@@ -821,8 +995,10 @@ panel.hist <- function(x, ...) {
   usr <- par("usr")
   on.exit(par(usr))
   par(usr = c(usr[1:2], 0, 1.5))
-  h <- hist(x, plot = FALSE)
-  breaks <- h$breaks
+  # Define custom breaks: make bins around each integer
+  breaks <- seq(floor(min(x)) - 0.5, ceiling(max(x)) + 0.5, by = 1)
+  #   breaks <- h$breaks
+  h <- hist(x, breaks = breaks, plot = FALSE)
   nB <- length(breaks)
   y <- h$counts
   y <- y / max(y)
@@ -874,6 +1050,8 @@ following parameters:
 ##### generate a summated scale
 
 ```{r generate_summated_scale}
+#| echo: TRUE
+
 ## define parameters
 n <- 256
 mean <- 3.00
@@ -893,10 +1071,14 @@ meanScale <- lfast(
 summatedScale <- meanScale * items
 ```
 
-```{r summatedScale_histogram, echo=FALSE, 
-fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
-fig.cap="Summated scale distribution", 
-fig.alt="Histogram of summated scale"}
+```{r summatedScale_histogram}
+#| echo: FALSE
+#| fig-height: 5
+#| fig-width: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Summated scale distribution"
+#| fig-alt: "Histogram of summated scale"
 
 ## Histogram of summated scale
 hist(summatedScale,
@@ -916,7 +1098,9 @@ hist(summatedScale,
 
 #### create items with _makeItemsScale()_
 
-```{r makeItemsScale_example_1, fig.height=5, fig.width=5, fig.align='center', crop = TRUE, fig.alt="Scree plot of eigenvalues"}
+```{r makeItemsScale_example_1}
+#| echo: TRUE
+
 ## apply makeItemsScale() function
 newItems_1 <- makeItemsScale(
   scale = summatedScale,
@@ -933,17 +1117,28 @@ cor(newItems_1) |> round(2)
 
 ### default Cronbach's alpha = 0.80
 alpha(data = newItems_1) |> round(4)
+```
+
+
+```{r scree_newItems_1}
+#| echo: FALSE
+#| fig-width: 5
+#| fig-height: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Scree plot of new items 1"
+#| fig-alt: "Scree plot of eigenvalues"
 
 ### calculate eigenvalues and print scree plot
 eigenvalues(cor(newItems_1), 1) |> round(3)
 ```
 
 
+
 ####  _makeItemsScale()_ with same summated values and higher _alpha_
 
-```{r makeItemsScale_example_2, 
-fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
-fig.alt="Scree plot of eigenvalues"}
+```{r makeItemsScale_example_2}
+#| echo: TRUE
 
 ## apply makeItemsScale() function
 newItems_2 <- makeItemsScale(
@@ -962,16 +1157,28 @@ cor(newItems_2) |> round(2)
 
 ### requested Cronbach's alpha = 0.90
 alpha(data = newItems_2) |> round(4)
+```
+
+
+```{r scree_newItems_2}
+#| echo: FALSE
+#| fig-width: 5
+#| fig-height: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Scree plot of new items 2"
+#| fig-alt: "Scree plot of eigenvalues"
 
 ### calculate eigenvalues and print scree plot
 eigenvalues(cor(newItems_2), 1) |> round(3)
 ```
 
+
+
 ####  same summated values with lower _alpha_ that may require higher _variance_
 
-```{r makeItemsScale_example_3, 
-fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
-fig.alt="Scree plot of eigenvalues"}
+```{r makeItemsScale_example_3}
+#| echo: TRUE
 
 ## apply makeItemsScale() function
 newItems_3 <- makeItemsScale(
@@ -991,10 +1198,23 @@ cor(newItems_3) |> round(2)
 
 ### requested Cronbach's alpha = 0.70
 alpha(data = newItems_3) |> round(4)
+```
+
+
+```{r scree_newItems_3}
+#| echo: FALSE
+#| fig-width: 5
+#| fig-height: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Scree plot of new items 3"
+#| fig-alt: "Scree plot of eigenvalues"
 
 ### calculate eigenvalues and print scree plot
 eigenvalues(cor(newItems_3), 1) |> round(3)
 ```
+
+
 
 ----
 
@@ -1006,7 +1226,8 @@ Generating a data for an **independent-samples t-test** is trivial with _LikertM
 
 Note that such tests don't even require the same sample-size.
 
-```{r independent-samples_t-test, echo = TRUE}
+```{r independent-samples_t-test}
+#| echo: TRUE
 
 ## define parameters
 lower <- 1
@@ -1022,16 +1243,58 @@ x2 <- lfast(
   n = 30, mean = 3.0, sd = 0.85,
   lowerbound = lower, upperbound = upper, items = items
 )
+```
+
+
+```{r run_t-test}
+#| echo: TRUE
 
 ## run independent-samples t-test
-t.test(x1, x2)
+t_result <- t.test(x1, x2)
+
+t_result
 ```
+
+Visualising the t-test:
+
+```{r boxplot_t-test}
+#| echo: TRUE
+#| fig-width: 5
+#| fig-height: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Visualising data after t-test"
+#| fig-alt: "boxplot of two data sets"
+
+df <- data.frame(
+  group = c(rep("x1", length(x1)), rep("x2", length(x2))) |>
+    as.factor(),
+  values = c(x1, x2)
+)
+
+boxplot(values ~ group,
+  data = df,
+  main = paste0(
+    "Boxplot: x1 & x2\nt = ", t_result$statistic |> round(2),
+    ", p = ", t_result$p.value |> round(2)
+  ),
+  xlab = paste0("n(x1) = ", length(x1), ", n(x2) = ", length(x2)),
+  ylab = "Scale Values",
+  col = c("lightblue", "skyblue")
+)
+```
+
+
+
 
 ### makePaired() paired-sample t-test
 
 _**makePaired()**_ generates correlated values so the data replicate rating scales taken, for example, in a before and after experimental design. The function is effectively a wrapper function for _lfast()_ and _lcor()_ with the addition of a _t-statistic_ from which the between-column correlation is inferred.
 
-Paired t-tests apply to observations that are associated with each other. For example: the same people rating the same object before and after a treatment, the same people rating two different objects, ratings by husband & wife, _etc._
+Paired t-tests apply to observations that we expect to be associated with each other. 
+For example: the same people rating an object before and after a treatment; 
+the same people rating two different objects; 
+ratings by husband & wife; _etc._
 
 _**makePaired()**_ has similar parameters as for the _lfast()_ function with the addition of a value for the desired t-statistic.
 
@@ -1053,7 +1316,8 @@ _**makePaired()**_ has similar parameters as for the _lfast()_ function with the
 
 ### makePaired() examples
 
-```{r paired-sample_t-test_data, , echo = TRUE}
+```{r paired-sample_t-test_data}
+#| echo: TRUE
 
 ## define parameters
 n <- 20
@@ -1074,7 +1338,8 @@ pairedDat <- makePaired(
 
 ###### check properties of new data
 
-```{r makePaired_output_properties, echo=TRUE}
+```{r makePaired_output_properties}
+#| echo: TRUE
 
 ## test function output
 str(pairedDat)
@@ -1092,13 +1357,74 @@ pairedMoments
 
 ###### run a paired-sample t-test with the new data
 
-```{r paired-sample_t-test, echo=TRUE}
+```{r paired-sample_t-test}
+#| echo: TRUE
 
 ## run a paired-sample t-test
 paired_t <- t.test(pairedDat$V1, pairedDat$V2, paired = TRUE)
 
 paired_t
 ```
+
+The data can be visualised like the following chart. 
+See, in this example, how most responses rise over time, 
+with some falling or staying the same, 
+so that the average rise is about 0.5.
+
+```{r plot_paired}
+#| echo: FALSE
+#| fig-width: 5
+#| fig-height: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Visualising paired-sample t-test data"
+#| fig-alt: "boxplot of paired-sample t-test data"
+
+
+# Set up plot
+plot(c(1, 2), range(pairedDat),
+  type = "n",
+  xlab = "", ylab = "Score",
+  xaxt = "n",
+  frame.plot = FALSE,
+  main = paste0(
+    "Change Over Time with Boxplots",
+    "\npaired-t = ", paired_t$statistic |> round(2),
+    ", p = ", paired_t$p.value |> round(2),
+    ", n = ", nrow(pairedDat)
+  )
+)
+
+axis(1, at = c(1.05, 1.95), labels = c("Time 1", "Time 2"))
+
+# Overlay boxplots
+boxplot(list(Time1 = pairedDat$V1),
+  at = 1.05,
+  add = TRUE,
+  boxwex = 0.2,
+  # col = "#4682b430",
+  col = "#add8e630",
+  axes = FALSE
+)
+
+boxplot(list(Time2 = pairedDat$V2),
+  at = 1.95,
+  add = TRUE,
+  boxwex = 0.2,
+  # col = "#4682b430",
+  col = "#add8e630",
+  axes = FALSE
+)
+
+# Draw individual lines
+for (i in 1:nrow(pairedDat)) {
+  lines(c(1.05, 1.95), c(pairedDat$V1[i], pairedDat$V2[i]),
+    type = "b", pch = 16, col = "#a9a9a9"
+  )
+}
+```
+
+
 
 
 ----
@@ -1131,7 +1457,13 @@ If you wish to simulate data for teaching or experimenting with Structural Equat
 
 ##### create dataframes of Likert-scale items
  
-```{r correlateScales_dataframes, echo = TRUE}
+We generate three attitude scales, each with different numbers of items, 
+and different _Cronbach's Alpha_ values. 
+Then we generate a "behavioural intention" scale: an 11-point scale similar 
+to a _Juster scale_.
+ 
+```{r correlateScales_dataframes}
+#| echo: TRUE
 
 n <- 128
 lower <- 1
@@ -1193,7 +1525,11 @@ names(intent) <- "int"
 
 ###### check properties of item dataframes
 
+Here we calculate means, standard deviations and correlations among items within each attitude scale, to compare with the predefined parameters.
+
 ```{r dataframe_properties}
+#| echo: TRUE
+
 ## Attitude #1
 A1_moments <- data.frame(
   means = apply(Att_1, 2, mean) |> round(2),
@@ -1255,7 +1591,11 @@ intent_moments
 
 ##### correlateScales parameters
 
+Define a correlation matrix for the scales: four scales means a 4x4 correlation matrix.
+And gather our example scale dataframes into a list.
+
 ```{r correlateScales_parameters}
+#| echo: TRUE
 
 ### target scale correlation matrix
 scale_cors <- matrix(
@@ -1275,7 +1615,10 @@ data_frames <- list("A1" = Att_1, "A2" = Att_2, "A3" = Att_3, "Int" = intent)
 
 #### apply the correlateScales() function
 
+Note that the `dataframes` parameter refers to a list of named dataframes.
+
 ```{r my_correlated_scales}
+#| echo: TRUE
 
 ### apply correlateScales() function
 my_correlated_scales <- correlateScales(
@@ -1286,9 +1629,16 @@ my_correlated_scales <- correlateScales(
 
 #### plot the new correlated scale items
 
-```{r fig6, echo=FALSE, warning=FALSE,  
-fig.height=9, fig.width=9, fig.align='center',crop = TRUE, 
-fig.alt="Correlation Matrix"}
+```{r fig6}
+#| echo: FALSE
+#| warning: FALSE
+#| fig-width: 9
+#| fig-height: 9
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Correlations of new scale items"
+#| fig-alt: "Correlation Matrix"
+
 
 # Correlation panel
 panel.cor <- function(x, y) {
@@ -1301,9 +1651,12 @@ panel.cor <- function(x, y) {
   text(0.5, 0.5, txt, cex = 1.25)
 }
 
-# Customize upper panel
+# Upper panel with regression line
 upper.panel <- function(x, y) {
   points(x, y, pch = 19, col = "#0000ff11")
+  # Fit a linear model
+  fit <- lm(y ~ x)
+  abline(fit, col = "#ff8000", lwd = 2)
 }
 
 # diagonals
@@ -1311,8 +1664,9 @@ panel.hist <- function(x, ...) {
   usr <- par("usr")
   on.exit(par(usr))
   par(usr = c(usr[1:2], 0, 1.5))
-  h <- hist(x, plot = FALSE)
-  breaks <- h$breaks
+  # Define custom breaks: make bins around each integer
+  breaks <- seq(floor(min(x)) - 0.5, ceiling(max(x)) + 0.5, by = 1)
+  h <- hist(x, breaks = breaks, plot = FALSE) # << specify breaks manually
   nB <- length(breaks)
   y <- h$counts
   y <- y / max(y)
@@ -1331,27 +1685,46 @@ pairs(my_correlated_scales,
 ###### Check the properties of our derived dataframe
 
 ```{r newdata_check}
+#| echo: TRUE
+
 ## data structure
 str(my_correlated_scales)
 ```
 
+Eigenvalues of all generated data
 
-```{r fig7, echo = TRUE, 
-fig.height=5, fig.width=5, fig.align='center',  crop = TRUE, 
-fig.alt="Scree plot of eigenvalues"}
+```{r fig7}
+#| echo: TRUE
+#| fig-height: 5
+#| fig-width: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "All variables"
+#| fig-alt: "Scree plot of eigenvalues"
+
 
 ## eigenvalues of dataframe correlations
-Cor_Correlated_Scales <- cor(my_correlated_scales)
-eigenvalues(cormatrix = Cor_Correlated_Scales, scree = TRUE) |> round(2)
+cor_correlated_scales <- cor(my_correlated_scales)
+eigenvalues(cormatrix = cor_correlated_scales, scree = TRUE) |> 
+  round(2)
 ```
 
-```{r fig7a, echo = TRUE,  
-fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
-fig.alt="Scree plot of eigenvalues"}
+Eigenvalues of Predictor variables (Attitude items) only
+
+```{r fig7a}
+#| echo: TRUE
+#| fig-height: 5
+#| fig-width: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Predictor variable items only"
+#| fig-alt: "Scree plot of eigenvalues"
+
 
 ### Eigenvalues of predictor variable items only
-Cor_Attitude_items <- cor(my_correlated_scales[, -16])
-eigenvalues(cormatrix = Cor_Attitude_items, scree = TRUE) |> round(2)
+predictor_cors <- cor(my_correlated_scales[, -16])
+eigenvalues(cormatrix = predictor_cors, scree = TRUE) |> 
+  round(2)
 ```
 
 ____
@@ -1377,6 +1750,7 @@ with a message to that effect.
 ### alpha() examples
 
 ```{r alphaExample}
+#| echo: TRUE
 
 ## define parameters
 df <- data.frame(
@@ -1398,8 +1772,11 @@ corMat <- matrix(
 
 ## apply function examples
 alpha(cormatrix = corMat)
+
 alpha(data = df)
+
 alpha(NULL, df)
+
 alpha(corMat, df)
 ```
 
@@ -1413,6 +1790,8 @@ _eigenvalues()_ calculates eigenvalues of a correlation
 
 
 ```{r eigenExample}
+#| echo: TRUE
+
 ## define parameters
 correlationMatrix <- matrix(
   c(
@@ -1432,9 +1811,14 @@ print(evals)
 
 ##### eigenvalues() function with optional scree plot
 
-```{r fig8, echo = TRUE, 
-fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
-fig.alt="Scree plot of eigenvalues"}
+```{r fig8}
+#| echo: TRUE
+#| fig-height: 5
+#| fig-width: 5
+#| fig-align: center
+#| crop: TRUE
+#| fig-cap: "Scree plot example"
+#| fig-alt: "Scree plot of eigenvalues"
 
 evals <- eigenvalues(correlationMatrix, 1)
 
