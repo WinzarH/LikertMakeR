@@ -89,9 +89,12 @@ Winzar</h4>
 <!-- ``` -->
 <div style="text-align: center;">
 <div class="float">
-<img src="LikertMakeR_3.png" style="width:25.0%" alt="LikertMakeR_Logo"><div class="figcaption">LikertMakeR_Logo</div>
+<img src="LikertMakeR_3.png" style="width:15.0%" alt="…"><div class="figcaption">…</div>
 </div>
 </div>
+<div class="section level2">
+<h2 id="likertmaker">LikertMakeR<a class="anchor" aria-label="anchor" href="#likertmaker"></a>
+</h2>
 <p><em><strong>LikertMakeR</strong></em> <a href="https://cran.r-project.org/package=LikertMakeR" class="external-link">(Winzar, 2025)</a>
 lets you create synthetic Likert-scale, or related rating-scale,
 data.<br>
@@ -210,6 +213,7 @@ optionally, displays a scree plot to visualise the eigenvalues.</p></li>
 </ul>
 <hr>
 </div>
+</div>
 <div class="section level2">
 <h2 id="using-likertmaker">Using <em>LikertMakeR</em><a class="anchor" aria-label="anchor" href="#using-likertmaker"></a>
 </h2>
@@ -281,17 +285,19 @@ deprecated.</p>
 <code class="sourceCode R"><span><span class="va">nItems</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span><span class="va">mean</span> <span class="op">&lt;-</span> <span class="fl">2.5</span></span>
 <span><span class="va">sd</span> <span class="op">&lt;-</span> <span class="fl">0.75</span></span>
+<span><span class="va">lower</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="va">upper</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
 <span></span>
 <span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lfast.html">lfast</a></span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">512</span>,</span>
 <span>  mean <span class="op">=</span> <span class="va">mean</span>,</span>
 <span>  sd <span class="op">=</span> <span class="va">sd</span>,</span>
-<span>  lowerbound <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  upperbound <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  lowerbound <span class="op">=</span> <span class="va">lower</span>,</span>
+<span>  upperbound <span class="op">=</span> <span class="va">upper</span>,</span>
 <span>  items <span class="op">=</span> <span class="va">nItems</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; best solution in 256 iterations</span></span></code></pre></div>
-<div class="figure" style="text-align: center">
+<div class="figure">
 <img src="LikertMakeR_vignette_files/figure-html/fig1-1.png" alt="Histogram of 4-item, 1-5 Likert scale" width="480"><p class="caption">
 Example: 4-item, 1-5 Likert scale
 </p>
@@ -305,9 +311,11 @@ Example: 4-item, 1-5 Likert scale
 <em>lfast()</em><a class="anchor" aria-label="anchor" href="#lfast-1"></a>
 </h6>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lfast.html">lfast</a></span><span class="op">(</span><span class="fl">256</span>, <span class="fl">3</span>, <span class="fl">2.5</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">#|echo: TRUE</span></span>
+<span></span>
+<span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lfast.html">lfast</a></span><span class="op">(</span><span class="fl">256</span>, <span class="fl">3</span>, <span class="fl">2.5</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; best solution in 7723 iterations</span></span></code></pre></div>
-<div class="figure" style="text-align: center">
+<div class="figure">
 <img src="LikertMakeR_vignette_files/figure-html/fig2-1.png" alt="Histogram of likelihood-of-purchase scale" width="480"><p class="caption">
 Example: likelihood-of-purchase scale
 </p>
@@ -331,11 +339,11 @@ correlations with other vectors do.</p>
 <em>lcor()</em><a class="anchor" aria-label="anchor" href="#lcor"></a>
 </h4>
 <p><strong><em>lcor()</em></strong> systematically selects pairs of
-values in a column and swaps their places, and checks to see if this
-swap improves the correlation matrix. If the revised dataframe produces
-a correlation matrix closer to the target correlation matrix, then the
-swap is retained. Otherwise, the values are returned to their original
-places. This process is iterated across each column.</p>
+values in a column of the dataframe and swaps their places, and checks
+to see if this swap improves the correlation matrix. If the revised
+dataframe produces a correlation matrix closer to the target correlation
+matrix, then the swap is retained. Otherwise, the values are returned to
+their original places. This process is iterated across each column.</p>
 <p>To create the desired correlated data, the user must define the
 following parameters:</p>
 <ul>
@@ -367,6 +375,13 @@ items.</p>
 <span><span class="co">#&gt; best solution in 812 iterations</span></span>
 <span><span class="co">#&gt; best solution in 7553 iterations</span></span>
 <span><span class="co">#&gt; best solution in 385 iterations</span></span></code></pre></div>
+<p>The resulting data look like this:</p>
+<div class="figure">
+<img src="LikertMakeR_vignette_files/figure-html/density_mydat3-1.png" alt="Density plots show that off-centre means cause skewed data, and large variances cause bimodal distributions" width="672"><p class="caption">
+Note that off-centre means cause skewed data, and large variances cause
+bimodal distributions
+</p>
+</div>
 <p>The first six observations from this dataframe are:</p>
 <pre><code><span><span class="co">#&gt;    x1  x2  x3</span></span>
 <span><span class="co">#&gt; 1 1.4 1.0 5.0</span></span>
@@ -502,14 +517,17 @@ encouraged to try again, possibly several times, to find one.</p>
 </h6>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## using helper function alpha()</span></span>
-<span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="va">cor_matrix_4</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.8500063</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## using helper function eigenvalues()</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">cor_matrix_4</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/fig3-1.png" alt="Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/fig3-1.png" alt="Scree plot of eigenvalues" width="480"><p class="caption">
+Scree plot from makeCorrAlpha() example
+</p>
+</div>
 <pre><code><span><span class="co">#&gt; cor_matrix_4  is positive-definite</span></span>
 <span><span class="co">#&gt; [1] 2.7842025 0.6581071 0.3291732 0.2285172</span></span></code></pre>
 </div>
@@ -563,36 +581,41 @@ encouraged to try again, possibly several times, to find one.</p>
 <span><span class="co">#&gt; stopped at swap - 542</span></span>
 <span><span class="co">#&gt; The correlation matrix is positive definite</span></span>
 <span></span>
-<span><span class="va">var_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"v%01d"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span></span>
+<span><span class="va">var_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"v%02d"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">cor_matrix_12</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">var_names</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cor_matrix_12</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">var_names</span></span></code></pre></div>
-<!-- ######  - -->
 <p><em>makeCorrAlpha()</em> produced the following correlation matrix
 (to two decimal places):</p>
-<pre><code><span><span class="co">#&gt;        v1    v2    v3    v4    v5    v6    v7    v8    v9   v10   v11  v12</span></span>
-<span><span class="co">#&gt; v1   1.00 -0.51 -0.67 -0.32 -0.30 -0.29 -0.27 -0.14 -0.07 -0.04 -0.03 0.00</span></span>
-<span><span class="co">#&gt; v2  -0.51  1.00  0.06  0.31  0.43  0.26  0.28  0.20  0.26  0.06  0.25 0.34</span></span>
-<span><span class="co">#&gt; v3  -0.67  0.06  1.00  0.61  0.36  0.62  0.57  0.47  0.45  0.46  0.47 0.33</span></span>
-<span><span class="co">#&gt; v4  -0.32  0.31  0.61  1.00  0.48  0.50  0.60  0.36  0.39  0.53  0.64 0.59</span></span>
-<span><span class="co">#&gt; v5  -0.30  0.43  0.36  0.48  1.00  0.42  0.56  0.62  0.62  0.62  0.56 0.63</span></span>
-<span><span class="co">#&gt; v6  -0.29  0.26  0.62  0.50  0.42  1.00  0.81  0.66  0.70  0.70  0.70 0.70</span></span>
-<span><span class="co">#&gt; v7  -0.27  0.28  0.57  0.60  0.56  0.81  1.00  0.57  0.71  0.72  0.72 0.73</span></span>
-<span><span class="co">#&gt; v8  -0.14  0.20  0.47  0.36  0.62  0.66  0.57  1.00  0.71  0.79  0.79 0.78</span></span>
-<span><span class="co">#&gt; v9  -0.07  0.26  0.45  0.39  0.62  0.70  0.71  0.71  1.00  0.80  0.83 0.84</span></span>
+<pre><code><span><span class="co">#&gt;       v01   v02   v03   v04   v05   v06   v07   v08   v09   v10   v11  v12</span></span>
+<span><span class="co">#&gt; v01  1.00 -0.51 -0.67 -0.32 -0.30 -0.29 -0.27 -0.14 -0.07 -0.04 -0.03 0.00</span></span>
+<span><span class="co">#&gt; v02 -0.51  1.00  0.06  0.31  0.43  0.26  0.28  0.20  0.26  0.06  0.25 0.34</span></span>
+<span><span class="co">#&gt; v03 -0.67  0.06  1.00  0.61  0.36  0.62  0.57  0.47  0.45  0.46  0.47 0.33</span></span>
+<span><span class="co">#&gt; v04 -0.32  0.31  0.61  1.00  0.48  0.50  0.60  0.36  0.39  0.53  0.64 0.59</span></span>
+<span><span class="co">#&gt; v05 -0.30  0.43  0.36  0.48  1.00  0.42  0.56  0.62  0.62  0.62  0.56 0.63</span></span>
+<span><span class="co">#&gt; v06 -0.29  0.26  0.62  0.50  0.42  1.00  0.81  0.66  0.70  0.70  0.70 0.70</span></span>
+<span><span class="co">#&gt; v07 -0.27  0.28  0.57  0.60  0.56  0.81  1.00  0.57  0.71  0.72  0.72 0.73</span></span>
+<span><span class="co">#&gt; v08 -0.14  0.20  0.47  0.36  0.62  0.66  0.57  1.00  0.71  0.79  0.79 0.78</span></span>
+<span><span class="co">#&gt; v09 -0.07  0.26  0.45  0.39  0.62  0.70  0.71  0.71  1.00  0.80  0.83 0.84</span></span>
 <span><span class="co">#&gt; v10 -0.04  0.06  0.46  0.53  0.62  0.70  0.72  0.79  0.80  1.00  0.88 0.89</span></span>
 <span><span class="co">#&gt; v11 -0.03  0.25  0.47  0.64  0.56  0.70  0.72  0.79  0.83  0.88  1.00 0.97</span></span>
 <span><span class="co">#&gt; v12  0.00  0.34  0.33  0.59  0.63  0.70  0.73  0.78  0.84  0.89  0.97 1.00</span></span></code></pre>
 <div class="section level6">
 <h6 id="test-output">test output<a class="anchor" aria-label="anchor" href="#test-output"></a>
 </h6>
+<p>Calculate Cronbach’s Alpha</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## calculate Cronbach's Alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="va">cor_matrix_12</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.9000045</span></span>
-<span></span>
-<span><span class="co">## calculate eigenvalues of the correlation matrix</span></span>
+<span><span class="co">#&gt; [1] 0.9000045</span></span></code></pre></div>
+<p>Eigenvalues and Scree plot of the Correlation Matrix</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## calculate eigenvalues </span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">cor_matrix_12</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/fig4-1.png" alt="Cronbach's Alpha and Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/fig4-1.png" alt="Cronbach's Alpha and Scree plot of eigenvalues" width="480"><p class="caption">
+Scree plot from makeCorrAlpha() example
+</p>
+</div>
 <pre><code><span><span class="co">#&gt; cor_matrix_12  is positive-definite</span></span>
 <span><span class="co">#&gt;  [1] 6.964 1.743 1.087 0.658 0.567 0.377 0.254 0.159 0.127 0.051 0.014 0.001</span></span></code></pre>
 <hr>
@@ -657,7 +680,7 @@ function. For a detailed demonstration, see the vignette file,
 <div class="section level6">
 <h6 id="define-parameters">define parameters<a class="anchor" aria-label="anchor" href="#define-parameters"></a>
 </h6>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Example loadings</span></span>
 <span></span>
 <span><span class="va">factorLoadings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
@@ -675,9 +698,9 @@ function. For a detailed demonstration, see the vignette file,
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## row and column names</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">factorLoadings</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Q1"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4"</span>, <span class="st">"Q5"</span>, <span class="st">"Q6"</span>, <span class="st">"Q7"</span>, <span class="st">"Q8"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">factorLoadings</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Factor1"</span>, <span class="st">"Factor2"</span>, <span class="st">"Factor3"</span><span class="op">)</span></span>
+<span><span class="va">factor_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Factor1"</span>, <span class="st">"Factor2"</span>, <span class="st">"Factor3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">factorLoadings</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">factor_names</span></span>
 <span></span>
 <span><span class="co">## Factor correlation matrix**</span></span>
 <span></span>
@@ -688,12 +711,30 @@ function. For a detailed demonstration, see the vignette file,
 <span>    <span class="fl">0.4</span>,  <span class="fl">0.3</span>, <span class="fl">1.0</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  nrow <span class="op">=</span> <span class="fl">3</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">factorCor</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">factor_names</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">factorCor</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">factor_names</span></span></code></pre></div>
+<p>The factor loadings matrix looks like this:</p>
+<pre><code><span><span class="co">#&gt;    Factor1 Factor2 Factor3</span></span>
+<span><span class="co">#&gt; Q1    0.05    0.20    0.70</span></span>
+<span><span class="co">#&gt; Q2    0.10    0.05    0.80</span></span>
+<span><span class="co">#&gt; Q3    0.05    0.15    0.85</span></span>
+<span><span class="co">#&gt; Q4    0.20    0.85    0.15</span></span>
+<span><span class="co">#&gt; Q5    0.05    0.85    0.10</span></span>
+<span><span class="co">#&gt; Q6    0.10    0.90    0.05</span></span>
+<span><span class="co">#&gt; Q7    0.90    0.15    0.05</span></span>
+<span><span class="co">#&gt; Q8    0.80    0.10    0.10</span></span></code></pre>
+<p>And the factor correlation matrix looks like this:</p>
+<pre><code><span><span class="co">#&gt;         Factor1 Factor2 Factor3</span></span>
+<span><span class="co">#&gt; Factor1     1.0     0.5     0.4</span></span>
+<span><span class="co">#&gt; Factor2     0.5     1.0     0.3</span></span>
+<span><span class="co">#&gt; Factor3     0.4     0.3     1.0</span></span></code></pre>
 </div>
 <div class="section level6">
 <h6 id="apply-the-function">Apply the function<a class="anchor" aria-label="anchor" href="#apply-the-function"></a>
 </h6>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## apply makeCorrLoadings() function</span></span>
 <span><span class="va">itemCorrelations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrLoadings.html">makeCorrLoadings</a></span><span class="op">(</span><span class="va">factorLoadings</span>, <span class="va">factorCor</span><span class="op">)</span></span>
 <span></span>
@@ -712,10 +753,14 @@ function. For a detailed demonstration, see the vignette file,
 <div class="section level6">
 <h6 id="test-makecorrloadings-output">Test makeCorrLoadings() output<a class="anchor" aria-label="anchor" href="#test-makecorrloadings-output"></a>
 </h6>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## correlated factors mean that eigenvalues should suggest two or three factors</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">itemCorrelations</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/test_makeCorrLoadings-1.png" alt="Scree plot of item-correlation matrix" width="700"></p>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/test_makeCorrLoadings-1.png" alt="Scree plot of item-correlation matrix" width="480"><p class="caption">
+Scree plot of item-correlation matrix
+</p>
+</div>
 <pre><code><span><span class="co">#&gt; itemCorrelations  is positive-definite</span></span>
 <span><span class="co">#&gt; [1] 4.7679427 1.2254239 0.7641967 0.3799863 0.2668158 0.2237851 0.2073574</span></span>
 <span><span class="co">#&gt; [8] 0.1644922</span></span></code></pre>
@@ -723,7 +768,7 @@ function. For a detailed demonstration, see the vignette file,
 <div class="section level6">
 <h6 id="assuming-orthogonal-factors">Assuming orthogonal factors<a class="anchor" aria-label="anchor" href="#assuming-orthogonal-factors"></a>
 </h6>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## orthogonal factors are assumed when factor correlation matrix is not included</span></span>
 <span><span class="va">orthogonalItemCors</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrLoadings.html">makeCorrLoadings</a></span><span class="op">(</span><span class="va">factorLoadings</span><span class="op">)</span></span>
 <span></span>
@@ -742,10 +787,14 @@ function. For a detailed demonstration, see the vignette file,
 <div class="section level6">
 <h6 id="test-orthogonal-output">Test orthogonal output<a class="anchor" aria-label="anchor" href="#test-orthogonal-output"></a>
 </h6>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## eigenvalues should suggest exactly  three factors</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">orthogonalItemCors</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="LikertMakeR_vignette_files/figure-html/test_orthogonal-1.png" alt="Scree plot of orthogonal-items correlation matrix" width="700"></p>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/test_orthogonal-1.png" alt="Scree plot of orthogonal-items correlation matrix" width="480"><p class="caption">
+Scree plot of orthogonal-items correlation matrix
+</p>
+</div>
 <pre><code><span><span class="co">#&gt; orthogonalItemCors  is positive-definite</span></span>
 <span><span class="co">#&gt; [1] 3.2769426 1.8091128 1.4966064 0.4244753 0.2966222 0.2605233 0.2402622</span></span>
 <span><span class="co">#&gt; [8] 0.1954553</span></span></code></pre>
@@ -796,7 +845,7 @@ with ‘k’ rows and ‘k’ columns.</p></li>
 <h4 id="makeitems-examples">
 <em>makeItems()</em> examples<a class="anchor" aria-label="anchor" href="#makeitems-examples"></a>
 </h4>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define parameters</span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">128</span></span>
 <span><span class="va">dfMeans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span><span class="op">)</span></span>
@@ -909,7 +958,7 @@ standard deviations of each variable</p></li>
 <div class="section level4">
 <h4 id="step-1-generate-a-correlation-matrix">Step 1: Generate a correlation matrix<a class="anchor" aria-label="anchor" href="#step-1-generate-a-correlation-matrix"></a>
 </h4>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define parameters</span></span>
 <span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fl">6</span></span>
 <span><span class="va">myAlpha</span> <span class="op">&lt;-</span> <span class="fl">0.85</span></span>
@@ -937,7 +986,7 @@ standard deviations of each variable</p></li>
 <div class="section level4">
 <h4 id="step-2-generate-dataframe">Step 2: Generate dataframe<a class="anchor" aria-label="anchor" href="#step-2-generate-dataframe"></a>
 </h4>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define parameters</span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">256</span></span>
 <span><span class="va">myMeans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.75</span>, <span class="fl">3.00</span>, <span class="fl">3.00</span>, <span class="fl">3.25</span>, <span class="fl">3.50</span>, <span class="fl">3.5</span><span class="op">)</span></span>
@@ -991,6 +1040,7 @@ standard deviations of each variable</p></li>
 <span>  means <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">myItems</span>, <span class="fl">2</span>, <span class="va">mean</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span>
 <span>  sds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">myItems</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">myMoments</span></span>
 <span><span class="co">#&gt;        [,1]  [,2]  [,3]  [,4]  [,5]  [,6]</span></span>
 <span><span class="co">#&gt; means 2.750 3.000 3.000 3.250 3.500 3.500</span></span>
@@ -1002,223 +1052,233 @@ standard deviations of each variable</p></li>
 <div class="section level5">
 <h5 id="summary-plots-of-new-data-frame">Summary plots of new data frame<a class="anchor" aria-label="anchor" href="#summary-plots-of-new-data-frame"></a>
 </h5>
-<p>```{r fig5, echo=FALSE, warning=FALSE, fig.height=5, fig.width=5,
-fig.align=‘center’, crop = TRUE, fig.cap=“Summary of dataframe from
-makeItems() function”, fig.alt=“Correlation matrix”}</p>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/fig5-1.png" alt="Correlation matrix" width="480"><p class="caption">
+Summary of dataframe from makeItems() function
+</p>
+</div>
+<hr>
 </div>
 </div>
 </div>
-</div>
-<div class="section level2">
-<h2 id="correlation-panel">Correlation panel<a class="anchor" aria-label="anchor" href="#correlation-panel"></a>
-</h2>
-<p>panel.cor &lt;- function(x, y) { usr &lt;- par(“usr”)
-on.exit(par(usr)) par(usr = c(0, 1, 0, 1)) r &lt;- round(cor(x, y),
-digits = 2) txt &lt;- paste0(r) cex.cor &lt;- 0.8 / strwidth(txt)
-text(0.5, 0.5, txt, cex = 1.25) }</p>
-</div>
-<div class="section level2">
-<h2 id="customize-upper-panel">Customize upper panel<a class="anchor" aria-label="anchor" href="#customize-upper-panel"></a>
-</h2>
-<p>upper.panel &lt;- function(x, y) { points(x, y, pch = 19, col =
-“#0000ff11”) }</p>
-</div>
-<div class="section level2">
-<h2 id="diagonals">diagonals<a class="anchor" aria-label="anchor" href="#diagonals"></a>
-</h2>
-<p>panel.hist &lt;- function(x, …) { usr &lt;- par(“usr”)
-on.exit(par(usr)) par(usr = c(usr[1:2], 0, 1.5)) h &lt;- hist(x, plot =
-FALSE) breaks &lt;-
-h<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mi>r</mi><mi>e</mi><mi>a</mi><mi>k</mi><mi>s</mi><mi>n</mi><mi>B</mi><mo>&lt;</mo><mo>−</mo><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>b</mi><mi>r</mi><mi>e</mi><mi>a</mi><mi>k</mi><mi>s</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>y</mi><mo>&lt;</mo><mo>−</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">breaks
-  nB &lt;- length(breaks)
-  y &lt;- h</annotation></semantics></math>counts y &lt;- y / max(y)
-rect(breaks[-nB], 0, breaks[-1], y, col = “#87ceeb66”) }</p>
-</div>
-<div class="section level2">
-<h2 id="create-the-plots">Create the plots<a class="anchor" aria-label="anchor" href="#create-the-plots"></a>
-</h2>
-<p>pairs(myItems, lower.panel = panel.cor, upper.panel = upper.panel,
-diag.panel = panel.hist )</p>
-<pre><code>
-____
-
-
-## Generate a dataframe of rating-scale items from a summated rating scale
-
-### makeItemsScale()
-
-  -  **_makeItemsScale()_** generates a dataframe of rating-scale items from a summated rating scale and desired _Cronbach's Alpha_.
-
-
-To create the desired dataframe, the user must define the 
-following parameters:
-
-  - **_scale_**: a vector or dataframe of the summated rating scale.
-   Should range from ('lowerbound' * 'items') to ('upperbound' * 'items') 
- 
-  - **_lowerbound_**: lower bound of the scale item
-   (example: '1' in a '1' to '5' rating) 
- 
-  - **_upperbound_**:  upper bound of the scale item
-   (example: '5' in a '1' to '5' rating) 
- 
-  - **_items_**: k, or number of columns to generate
-  
-  - **_alpha_**: desired Cronbach's Alpha. Default = '0.8'
-  
-  - **_variance_**: quantile for selecting the combination of items that 
-  give summated scores. 
-  Must lie between '0' (minimum variance) and '1' (maximum variance). 
-  Default = '0.5'.
-  
- 
-#### _makeItemsScale()_ Example:
-
-##### generate a summated scale
-
-
-``` r
-## define parameters
-n &lt;- 256
-mean &lt;- 3.00
-sd &lt;- 0.85
-lowerbound &lt;- 1
-upperbound &lt;- 5
-items &lt;- 4
-
-## apply lfast() function
-meanScale &lt;- lfast(
-  n = n, mean = mean, sd = sd,
-  lowerbound = lowerbound, upperbound = upperbound,
-  items = items
-)
-#&gt; best solution in 900 iterations
-
-## sum over all items
-summatedScale &lt;- meanScale * items</code></pre>
-<p>```{r summatedScale_histogram, echo=FALSE, fig.height=5, fig.width=5,
-fig.align=‘center’, crop = TRUE, fig.cap=“Summated scale distribution”,
-fig.alt=“Histogram of summated scale”}</p>
 <div class="section level3">
-<h3 id="histogram-of-summated-scale">Histogram of summated scale<a class="anchor" aria-label="anchor" href="#histogram-of-summated-scale"></a>
+<h3 id="generate-a-dataframe-of-rating-scale-items-from-a-summated-rating-scale">Generate a dataframe of rating-scale items from a summated rating
+scale<a class="anchor" aria-label="anchor" href="#generate-a-dataframe-of-rating-scale-items-from-a-summated-rating-scale"></a>
 </h3>
-<p>hist(summatedScale, cex.axis = 0.5, cex.main = 0.75, breaks = seq(
-from = ((lowerbound * items) - 0.5), to = ((upperbound * items) + 0.5),
-by = 1 ), col = “skyblue”, xlab = NULL, ylab = NULL, main = paste0(
-“mu=”, round(mean * items, 2), “, sd=”, round(sd * items, 2), “,
-range:”, (lowerbound * items), “:”, (upperbound * items) ) )</p>
-<pre><code>
-
-#### create items with _makeItemsScale()_
-
-
-``` r
-## apply makeItemsScale() function
-newItems_1 &lt;- makeItemsScale(
-  scale = summatedScale,
-  lowerbound = lowerbound,
-  upperbound = upperbound,
-  items = items
-)
-#&gt; generate 256 rows
-#&gt; rearrange 4 values within each of 256 rows
-#&gt; Complete!
-#&gt; desired Cronbach's alpha = 0.8 (achieved alpha = 0.8004)
-
-### First 10 observations and summated scale
-head(cbind(newItems_1, summatedScale), 10)
-#&gt;    V1 V2 V3 V4 summatedScale
-#&gt; 1   4  1  1  3             9
-#&gt; 2   2  2  2  2             8
-#&gt; 3   5  1  2  4            12
-#&gt; 4   5  4  4  4            17
-#&gt; 5   5  2  3  3            13
-#&gt; 6   5  5  5  4            19
-#&gt; 7   4  1  2  4            11
-#&gt; 8   5  4  4  5            18
-#&gt; 9   5  3  4  5            17
-#&gt; 10  4  1  4  3            12
-
-### correlation matrix
-cor(newItems_1) |&gt; round(2)
-#&gt;      V1   V2   V3   V4
-#&gt; V1 1.00 0.56 0.61 0.51
-#&gt; V2 0.56 1.00 0.60 0.33
-#&gt; V3 0.61 0.60 1.00 0.39
-#&gt; V4 0.51 0.33 0.39 1.00
-
-### default Cronbach's alpha = 0.80
-alpha(data = newItems_1) |&gt; round(4)
-#&gt; [1] 0.8004
-
-### calculate eigenvalues and print scree plot
-eigenvalues(cor(newItems_1), 1) |&gt; round(3)</code></pre>
-<p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_1-1.png" alt="Scree plot of eigenvalues" width="480" style="display: block; margin: auto;"></p>
+<div class="section level4">
+<h4 id="makeitemsscale">makeItemsScale()<a class="anchor" aria-label="anchor" href="#makeitemsscale"></a>
+</h4>
+<ul>
+<li>
+<strong><em>makeItemsScale()</em></strong> generates a dataframe of
+rating-scale items from a summated rating scale and desired
+<em>Cronbach’s Alpha</em>.</li>
+</ul>
+<p>To create the desired dataframe, the user must define the following
+parameters:</p>
+<ul>
+<li><p><strong><em>scale</em></strong>: a vector or dataframe of the
+summated rating scale. Should range from (‘lowerbound’ * ‘items’) to
+(‘upperbound’ * ‘items’)</p></li>
+<li><p><strong><em>lowerbound</em></strong>: lower bound of the scale
+item (example: ‘1’ in a ‘1’ to ‘5’ rating)</p></li>
+<li><p><strong><em>upperbound</em></strong>: upper bound of the scale
+item (example: ‘5’ in a ‘1’ to ‘5’ rating)</p></li>
+<li><p><strong><em>items</em></strong>: k, or number of columns to
+generate</p></li>
+<li><p><strong><em>alpha</em></strong>: desired Cronbach’s Alpha.
+Default = ‘0.8’</p></li>
+<li><p><strong><em>variance</em></strong>: quantile for selecting the
+combination of items that give summated scores. Must lie between ‘0’
+(minimum variance) and ‘1’ (maximum variance). Default = ‘0.5’.</p></li>
+</ul>
+<div class="section level5">
+<h5 id="makeitemsscale-example">
+<em>makeItemsScale()</em> Example:<a class="anchor" aria-label="anchor" href="#makeitemsscale-example"></a>
+</h5>
+<div class="section level6">
+<h6 id="generate-a-summated-scale">generate a summated scale<a class="anchor" aria-label="anchor" href="#generate-a-summated-scale"></a>
+</h6>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## define parameters</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">256</span></span>
+<span><span class="va">mean</span> <span class="op">&lt;-</span> <span class="fl">3.00</span></span>
+<span><span class="va">sd</span> <span class="op">&lt;-</span> <span class="fl">0.85</span></span>
+<span><span class="va">lowerbound</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="va">upperbound</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
+<span></span>
+<span><span class="co">## apply lfast() function</span></span>
+<span><span class="va">meanScale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lfast.html">lfast</a></span><span class="op">(</span></span>
+<span>  n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="va">mean</span>, sd <span class="op">=</span> <span class="va">sd</span>,</span>
+<span>  lowerbound <span class="op">=</span> <span class="va">lowerbound</span>, upperbound <span class="op">=</span> <span class="va">upperbound</span>,</span>
+<span>  items <span class="op">=</span> <span class="va">items</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; best solution in 900 iterations</span></span>
+<span></span>
+<span><span class="co">## sum over all items</span></span>
+<span><span class="va">summatedScale</span> <span class="op">&lt;-</span> <span class="va">meanScale</span> <span class="op">*</span> <span class="va">items</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/summatedScale_histogram-1.png" alt="Histogram of summated scale" width="480"><p class="caption">
+Summated scale distribution
+</p>
+</div>
+</div>
+</div>
+<div class="section level5">
+<h5 id="create-items-with-makeitemsscale">create items with <em>makeItemsScale()</em><a class="anchor" aria-label="anchor" href="#create-items-with-makeitemsscale"></a>
+</h5>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## apply makeItemsScale() function</span></span>
+<span><span class="va">newItems_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeItemsScale.html">makeItemsScale</a></span><span class="op">(</span></span>
+<span>  scale <span class="op">=</span> <span class="va">summatedScale</span>,</span>
+<span>  lowerbound <span class="op">=</span> <span class="va">lowerbound</span>,</span>
+<span>  upperbound <span class="op">=</span> <span class="va">upperbound</span>,</span>
+<span>  items <span class="op">=</span> <span class="va">items</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; generate 256 rows</span></span>
+<span><span class="co">#&gt; rearrange 4 values within each of 256 rows</span></span>
+<span><span class="co">#&gt; Complete!</span></span>
+<span><span class="co">#&gt; desired Cronbach's alpha = 0.8 (achieved alpha = 0.8004)</span></span>
+<span></span>
+<span><span class="co">### First 10 observations and summated scale</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">newItems_1</span>, <span class="va">summatedScale</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    V1 V2 V3 V4 summatedScale</span></span>
+<span><span class="co">#&gt; 1   4  1  1  3             9</span></span>
+<span><span class="co">#&gt; 2   2  2  2  2             8</span></span>
+<span><span class="co">#&gt; 3   5  1  2  4            12</span></span>
+<span><span class="co">#&gt; 4   5  4  4  4            17</span></span>
+<span><span class="co">#&gt; 5   5  2  3  3            13</span></span>
+<span><span class="co">#&gt; 6   5  5  5  4            19</span></span>
+<span><span class="co">#&gt; 7   4  1  2  4            11</span></span>
+<span><span class="co">#&gt; 8   5  4  4  5            18</span></span>
+<span><span class="co">#&gt; 9   5  3  4  5            17</span></span>
+<span><span class="co">#&gt; 10  4  1  4  3            12</span></span>
+<span></span>
+<span><span class="co">### correlation matrix</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      V1   V2   V3   V4</span></span>
+<span><span class="co">#&gt; V1 1.00 0.56 0.61 0.51</span></span>
+<span><span class="co">#&gt; V2 0.56 1.00 0.60 0.33</span></span>
+<span><span class="co">#&gt; V3 0.61 0.60 1.00 0.39</span></span>
+<span><span class="co">#&gt; V4 0.51 0.33 0.39 1.00</span></span>
+<span></span>
+<span><span class="co">### default Cronbach's alpha = 0.80</span></span>
+<span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">newItems_1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.8004</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/scree_newItems_1-1.png" alt="Scree plot of eigenvalues" width="480"><p class="caption">
+Scree plot of new items 1
+</p>
+</div>
 <pre><code><span><span class="co">#&gt; cor(newItems_1)  is positive-definite</span></span>
 <span><span class="co">#&gt; [1] 2.517 0.717 0.403 0.364</span></span></code></pre>
+</div>
 <div class="section level5">
 <h5 id="makeitemsscale-with-same-summated-values-and-higher-alpha">
 <em>makeItemsScale()</em> with same summated values and higher
 <em>alpha</em><a class="anchor" aria-label="anchor" href="#makeitemsscale-with-same-summated-values-and-higher-alpha"></a>
 </h5>
-<p>```{r makeItemsScale_example_2, fig.height=5, fig.width=5,
-fig.align=‘center’, crop = TRUE, fig.alt=“Scree plot of
-eigenvalues”}</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## apply makeItemsScale() function</span></span>
+<span><span class="va">newItems_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeItemsScale.html">makeItemsScale</a></span><span class="op">(</span></span>
+<span>  scale <span class="op">=</span> <span class="va">summatedScale</span>,</span>
+<span>  lowerbound <span class="op">=</span> <span class="va">lowerbound</span>,</span>
+<span>  upperbound <span class="op">=</span> <span class="va">upperbound</span>,</span>
+<span>  items <span class="op">=</span> <span class="va">items</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.9</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; generate 256 rows</span></span>
+<span><span class="co">#&gt; rearrange 4 values within each of 256 rows</span></span>
+<span><span class="co">#&gt; Complete!</span></span>
+<span><span class="co">#&gt; desired Cronbach's alpha = 0.9 (achieved alpha = 0.8778)</span></span>
+<span></span>
+<span><span class="co">### First 10 observations and summated scale</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">newItems_2</span>, <span class="va">summatedScale</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    V1 V2 V3 V4 summatedScale</span></span>
+<span><span class="co">#&gt; 1   4  1  2  2             9</span></span>
+<span><span class="co">#&gt; 2   3  1  2  2             8</span></span>
+<span><span class="co">#&gt; 3   3  3  3  3            12</span></span>
+<span><span class="co">#&gt; 4   5  3  5  4            17</span></span>
+<span><span class="co">#&gt; 5   4  2  4  3            13</span></span>
+<span><span class="co">#&gt; 6   5  4  5  5            19</span></span>
+<span><span class="co">#&gt; 7   4  1  4  2            11</span></span>
+<span><span class="co">#&gt; 8   5  4  5  4            18</span></span>
+<span><span class="co">#&gt; 9   5  4  4  4            17</span></span>
+<span><span class="co">#&gt; 10  4  1  4  3            12</span></span>
+<span></span>
+<span><span class="co">### correlation matrix</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      V1   V2   V3   V4</span></span>
+<span><span class="co">#&gt; V1 1.00 0.58 0.68 0.64</span></span>
+<span><span class="co">#&gt; V2 0.58 1.00 0.58 0.66</span></span>
+<span><span class="co">#&gt; V3 0.68 0.58 1.00 0.73</span></span>
+<span><span class="co">#&gt; V4 0.64 0.66 0.73 1.00</span></span>
+<span></span>
+<span><span class="co">### requested Cronbach's alpha = 0.90</span></span>
+<span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">newItems_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.8778</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/scree_newItems_2-1.png" alt="Scree plot of eigenvalues" width="480"><p class="caption">
+Scree plot of new items 2
+</p>
 </div>
+<pre><code><span><span class="co">#&gt; cor(newItems_2)  is positive-definite</span></span>
+<span><span class="co">#&gt; [1] 2.929 0.457 0.366 0.248</span></span></code></pre>
 </div>
-<div class="section level3">
-<h3 id="apply-makeitemsscale-function">apply makeItemsScale() function<a class="anchor" aria-label="anchor" href="#apply-makeitemsscale-function"></a>
-</h3>
-<p>newItems_2 &lt;- makeItemsScale( scale = summatedScale, lowerbound =
-lowerbound, upperbound = upperbound, items = items, alpha = 0.9 )</p>
-<div class="section level4">
-<h4 id="first-10-observations-and-summated-scale">First 10 observations and summated scale<a class="anchor" aria-label="anchor" href="#first-10-observations-and-summated-scale"></a>
-</h4>
-<p>head(cbind(newItems_2, summatedScale), 10)</p>
+<div class="section level5">
+<h5 id="same-summated-values-with-lower-alpha-that-may-require-higher-variance">same summated values with lower <em>alpha</em> that may require
+higher <em>variance</em><a class="anchor" aria-label="anchor" href="#same-summated-values-with-lower-alpha-that-may-require-higher-variance"></a>
+</h5>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## apply makeItemsScale() function</span></span>
+<span><span class="va">newItems_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeItemsScale.html">makeItemsScale</a></span><span class="op">(</span></span>
+<span>  scale <span class="op">=</span> <span class="va">summatedScale</span>,</span>
+<span>  lowerbound <span class="op">=</span> <span class="va">lowerbound</span>,</span>
+<span>  upperbound <span class="op">=</span> <span class="va">upperbound</span>,</span>
+<span>  items <span class="op">=</span> <span class="va">items</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>  variance <span class="op">=</span> <span class="fl">0.7</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; generate 256 rows</span></span>
+<span><span class="co">#&gt; rearrange 4 values within each of 256 rows</span></span>
+<span><span class="co">#&gt; Complete!</span></span>
+<span><span class="co">#&gt; desired Cronbach's alpha = 0.6 (achieved alpha = 0.5989)</span></span>
+<span></span>
+<span><span class="co">### First 10 observations and summated scale</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">newItems_3</span>, <span class="va">summatedScale</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    V1 V2 V3 V4 summatedScale</span></span>
+<span><span class="co">#&gt; 1   1  1  3  4             9</span></span>
+<span><span class="co">#&gt; 2   1  4  2  1             8</span></span>
+<span><span class="co">#&gt; 3   2  4  4  2            12</span></span>
+<span><span class="co">#&gt; 4   3  5  4  5            17</span></span>
+<span><span class="co">#&gt; 5   2  5  2  4            13</span></span>
+<span><span class="co">#&gt; 6   4  5  5  5            19</span></span>
+<span><span class="co">#&gt; 7   1  4  3  3            11</span></span>
+<span><span class="co">#&gt; 8   5  5  5  3            18</span></span>
+<span><span class="co">#&gt; 9   4  5  5  3            17</span></span>
+<span><span class="co">#&gt; 10  2  3  2  5            12</span></span>
+<span></span>
+<span><span class="co">### correlation matrix</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      V1   V2   V3   V4</span></span>
+<span><span class="co">#&gt; V1 1.00 0.45 0.45 0.09</span></span>
+<span><span class="co">#&gt; V2 0.45 1.00 0.25 0.17</span></span>
+<span><span class="co">#&gt; V3 0.45 0.25 1.00 0.22</span></span>
+<span><span class="co">#&gt; V4 0.09 0.17 0.22 1.00</span></span>
+<span></span>
+<span><span class="co">### requested Cronbach's alpha = 0.70</span></span>
+<span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">newItems_3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.5989</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/scree_newItems_3-1.png" alt="Scree plot of eigenvalues" width="480"><p class="caption">
+Scree plot of new items 3
+</p>
 </div>
-<div class="section level4">
-<h4 id="correlation-matrix">correlation matrix<a class="anchor" aria-label="anchor" href="#correlation-matrix"></a>
-</h4>
-<p>cor(newItems_2) |&gt; round(2)</p>
-</div>
-<div class="section level4">
-<h4 id="requested-cronbachs-alpha-0-90">requested Cronbach’s alpha = 0.90<a class="anchor" aria-label="anchor" href="#requested-cronbachs-alpha-0-90"></a>
-</h4>
-<p>alpha(data = newItems_2) |&gt; round(4)</p>
-</div>
-<div class="section level4">
-<h4 id="calculate-eigenvalues-and-print-scree-plot">calculate eigenvalues and print scree plot<a class="anchor" aria-label="anchor" href="#calculate-eigenvalues-and-print-scree-plot"></a>
-</h4>
-<p>eigenvalues(cor(newItems_2), 1) |&gt; round(3)</p>
-<pre><code>
-####  same summated values with lower _alpha_ that may require higher _variance_
-
-```{r makeItemsScale_example_3, 
-fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
-fig.alt="Scree plot of eigenvalues"}
-
-## apply makeItemsScale() function
-newItems_3 &lt;- makeItemsScale(
-  scale = summatedScale,
-  lowerbound = lowerbound,
-  upperbound = upperbound,
-  items = items,
-  alpha = 0.6,
-  variance = 0.7
-)
-
-### First 10 observations and summated scale
-head(cbind(newItems_3, summatedScale), 10)
-
-### correlation matrix
-cor(newItems_3) |&gt; round(2)
-
-### requested Cronbach's alpha = 0.70
-alpha(data = newItems_3) |&gt; round(4)
-
-### calculate eigenvalues and print scree plot
-eigenvalues(cor(newItems_3), 1) |&gt; round(3)</code></pre>
+<pre><code><span><span class="co">#&gt; cor(newItems_3)  is positive-definite</span></span>
+<span><span class="co">#&gt; [1] 1.862 0.946 0.742 0.450</span></span></code></pre>
 <hr>
+</div>
 </div>
 </div>
 <div class="section level3">
@@ -1233,9 +1293,8 @@ correlated observations.</p>
 <h4 id="independent-samples-t-test">Independent-samples t-test<a class="anchor" aria-label="anchor" href="#independent-samples-t-test"></a>
 </h4>
 <p>Note that such tests don’t even require the same sample-size.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co">## define parameters</span></span>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## define parameters</span></span>
 <span><span class="va">lower</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="va">upper</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
 <span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fl">6</span></span>
@@ -1245,26 +1304,51 @@ correlated observations.</p>
 <span>  n <span class="op">=</span> <span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">2.5</span>, sd <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>  lowerbound <span class="op">=</span> <span class="va">lower</span>, upperbound <span class="op">=</span> <span class="va">upper</span>, items <span class="op">=</span> <span class="va">items</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; best solution in 546 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lfast.html">lfast</a></span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">30</span>, mean <span class="op">=</span> <span class="fl">3.0</span>, sd <span class="op">=</span> <span class="fl">0.85</span>,</span>
 <span>  lowerbound <span class="op">=</span> <span class="va">lower</span>, upperbound <span class="op">=</span> <span class="va">upper</span>, items <span class="op">=</span> <span class="va">items</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## run independent-samples t-test</span></span>
+<span><span class="va">t_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## run independent-samples t-test</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span></span>
+<span><span class="va">t_result</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Welch Two Sample t-test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  x1 and x2</span></span>
-<span><span class="co">#&gt; t = -2.1643, df = 44.132, p-value = 0.0359</span></span>
+<span><span class="co">#&gt; t = -2.1599, df = 44.101, p-value = 0.03626</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0</span></span>
 <span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -0.95483477 -0.03405412</span></span>
+<span><span class="co">#&gt;  -0.95576930 -0.03311959</span></span>
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt; mean of x mean of y </span></span>
 <span><span class="co">#&gt;  2.500000  2.994444</span></span></code></pre></div>
+<p>Visualising the t-test:</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"x2"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">values</span> <span class="op">~</span> <span class="va">group</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Boxplot: x1 &amp; x2\nt = "</span>, <span class="va">t_result</span><span class="op">$</span><span class="va">statistic</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="st">", p = "</span>, <span class="va">t_result</span><span class="op">$</span><span class="va">p.value</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"n(x1) = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span>, <span class="st">", n(x2) = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"Scale Values"</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lightblue"</span>, <span class="st">"skyblue"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/boxplot_t-test-1.png" alt="boxplot of two data sets" width="480"><p class="caption">
+Visualising data after t-test
+</p>
+</div>
 </div>
 <div class="section level4">
 <h4 id="makepaired-paired-sample-t-test">makePaired() paired-sample t-test<a class="anchor" aria-label="anchor" href="#makepaired-paired-sample-t-test"></a>
@@ -1275,10 +1359,10 @@ after experimental design. The function is effectively a wrapper
 function for <em>lfast()</em> and <em>lcor()</em> with the addition of a
 <em>t-statistic</em> from which the between-column correlation is
 inferred.</p>
-<p>Paired t-tests apply to observations that are associated with each
-other. For example: the same people rating the same object before and
-after a treatment, the same people rating two different objects, ratings
-by husband &amp; wife, <em>etc.</em></p>
+<p>Paired t-tests apply to observations that we expect to be associated
+with each other. For example: the same people rating an object before
+and after a treatment; the same people rating two different objects;
+ratings by husband &amp; wife; <em>etc.</em></p>
 <p><em><strong>makePaired()</strong></em> has similar parameters as for
 the <em>lfast()</em> function with the addition of a value for the
 desired t-statistic.</p>
@@ -1303,9 +1387,8 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <div class="section level4">
 <h4 id="makepaired-examples">makePaired() examples<a class="anchor" aria-label="anchor" href="#makepaired-examples"></a>
 </h4>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co">## define parameters</span></span>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## define parameters</span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
 <span><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">3.0</span><span class="op">)</span></span>
 <span><span class="va">sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.75</span>, <span class="fl">0.85</span><span class="op">)</span></span>
@@ -1321,20 +1404,19 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <span>  lowerbound <span class="op">=</span> <span class="va">lower</span>, upperbound <span class="op">=</span> <span class="va">upper</span>, items <span class="op">=</span> <span class="va">items</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Initial data vectors</span></span>
-<span><span class="co">#&gt; best solution in 132 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span><span class="co">#&gt; Rearrange values to conform with desired t-value</span></span>
 <span><span class="co">#&gt; Complete!</span></span></code></pre></div>
 <div class="section level7">
 <h6 id="check-properties-of-new-data">check properties of new data<a class="anchor" aria-label="anchor" href="#check-properties-of-new-data"></a>
 </h6>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co">## test function output</span></span>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## test function output</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    20 obs. of  2 variables:</span></span>
-<span><span class="co">#&gt;  $ V1: num  2 2.17 1.83 2.83 3.67 ...</span></span>
-<span><span class="co">#&gt;  $ V2: num  2.83 2.83 3.5 3.5 2 ...</span></span>
+<span><span class="co">#&gt;  $ V1: num  1.17 2.33 3.5 3 3.67 ...</span></span>
+<span><span class="co">#&gt;  $ V2: num  2.5 3.67 2.83 1.67 4 ...</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      V1   V2</span></span>
@@ -1348,15 +1430,14 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <span></span>
 <span><span class="va">pairedMoments</span></span>
 <span><span class="co">#&gt;         V1    V2</span></span>
-<span><span class="co">#&gt; mean 2.500 3.000</span></span>
-<span><span class="co">#&gt; sd   0.751 0.857</span></span></code></pre></div>
+<span><span class="co">#&gt; mean 2.500 2.992</span></span>
+<span><span class="co">#&gt; sd   0.759 0.851</span></span></code></pre></div>
 </div>
 <div class="section level7">
 <h6 id="run-a-paired-sample-t-test-with-the-new-data">run a paired-sample t-test with the new data<a class="anchor" aria-label="anchor" href="#run-a-paired-sample-t-test-with-the-new-data"></a>
 </h6>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co">## run a paired-sample t-test</span></span>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## run a paired-sample t-test</span></span>
 <span><span class="va">paired_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">$</span><span class="va">V1</span>, <span class="va">pairedDat</span><span class="op">$</span><span class="va">V2</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">paired_t</span></span>
@@ -1364,13 +1445,21 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <span><span class="co">#&gt;  Paired t-test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  pairedDat$V1 and pairedDat$V2</span></span>
-<span><span class="co">#&gt; t = -2.4846, df = 19, p-value = 0.02246</span></span>
+<span><span class="co">#&gt; t = -2.4455, df = 19, p-value = 0.02438</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true mean difference is not equal to 0</span></span>
 <span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -0.92119776 -0.07880224</span></span>
+<span><span class="co">#&gt;  -0.91246509 -0.07086825</span></span>
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt; mean difference </span></span>
-<span><span class="co">#&gt;            -0.5</span></span></code></pre></div>
+<span><span class="co">#&gt;      -0.4916667</span></span></code></pre></div>
+<p>The data can be visualised like the following chart. See, in this
+example, how most responses rise over time, with some falling or staying
+the same, so that the average rise is about 0.5.</p>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/plot_paired-1.png" alt="boxplot of paired-sample t-test data" width="480"><p class="caption">
+Visualising paired-sample t-test data
+</p>
+</div>
 <hr>
 </div>
 </div>
@@ -1414,9 +1503,12 @@ modelling, then I recommend the <em>sim.item()</em> and
 <div class="section level6">
 <h6 id="create-dataframes-of-likert-scale-items">create dataframes of Likert-scale items<a class="anchor" aria-label="anchor" href="#create-dataframes-of-likert-scale-items"></a>
 </h6>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">128</span></span>
+<p>We generate three attitude scales, each with different numbers of
+items, and different <em>Cronbach’s Alpha</em> values. Then we generate
+a “behavioural intention” scale: an 11-point scale similar to a
+<em>Juster scale</em>.</p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">128</span></span>
 <span><span class="va">lower</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="va">upper</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
 <span></span>
@@ -1424,7 +1516,7 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span></span>
 <span><span class="co">#### generate a correlation matrix</span></span>
 <span><span class="va">cor_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrAlpha.html">makeCorrAlpha</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fl">4</span>, alpha <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span>
-<span><span class="co">#&gt; correlation values consistent with desired alpha in 2132 iterations</span></span>
+<span><span class="co">#&gt; correlation values consistent with desired alpha in 8915 iterations</span></span>
 <span><span class="co">#&gt; The correlation matrix is positive definite</span></span>
 <span></span>
 <span><span class="co">#### specify moments as vectors</span></span>
@@ -1440,9 +1532,9 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">#&gt; Variable  1 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  2 :</span></span>
-<span><span class="co">#&gt; best solution in 571 iterations</span></span>
+<span><span class="co">#&gt; best solution in 2787 iterations</span></span>
 <span><span class="co">#&gt; Variable  3 :</span></span>
-<span><span class="co">#&gt; best solution in 209 iterations</span></span>
+<span><span class="co">#&gt; best solution in 56 iterations</span></span>
 <span><span class="co">#&gt; Variable  4 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1454,7 +1546,7 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span></span>
 <span><span class="co">#### generate a correlation matrix</span></span>
 <span><span class="va">cor_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrAlpha.html">makeCorrAlpha</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fl">5</span>, alpha <span class="op">=</span> <span class="fl">0.85</span><span class="op">)</span></span>
-<span><span class="co">#&gt; correlation values consistent with desired alpha in 724 iterations</span></span>
+<span><span class="co">#&gt; correlation values consistent with desired alpha in 9433 iterations</span></span>
 <span><span class="co">#&gt; The correlation matrix is positive definite</span></span>
 <span></span>
 <span><span class="co">#### specify moments as vectors</span></span>
@@ -1470,11 +1562,11 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">#&gt; Variable  1 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  2 :</span></span>
-<span><span class="co">#&gt; best solution in 675 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1284 iterations</span></span>
 <span><span class="co">#&gt; Variable  3 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  4 :</span></span>
-<span><span class="co">#&gt; best solution in 56 iterations</span></span>
+<span><span class="co">#&gt; best solution in 334 iterations</span></span>
 <span><span class="co">#&gt; Variable  5 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1486,7 +1578,7 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span></span>
 <span><span class="co">#### generate a correlation matrix</span></span>
 <span><span class="va">cor_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrAlpha.html">makeCorrAlpha</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fl">6</span>, alpha <span class="op">=</span> <span class="fl">0.90</span><span class="op">)</span></span>
-<span><span class="co">#&gt; correlation values consistent with desired alpha in 608 iterations</span></span>
+<span><span class="co">#&gt; correlation values consistent with desired alpha in 37872 iterations</span></span>
 <span><span class="co">#&gt; The correlation matrix is positive definite</span></span>
 <span></span>
 <span><span class="co">#### specify moments as vectors</span></span>
@@ -1502,15 +1594,15 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">#&gt; Variable  1 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  2 :</span></span>
-<span><span class="co">#&gt; best solution in 491 iterations</span></span>
+<span><span class="co">#&gt; best solution in 461 iterations</span></span>
 <span><span class="co">#&gt; Variable  3 :</span></span>
-<span><span class="co">#&gt; best solution in 1119 iterations</span></span>
+<span><span class="co">#&gt; best solution in 149 iterations</span></span>
 <span><span class="co">#&gt; Variable  4 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  5 :</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  6 :</span></span>
-<span><span class="co">#&gt; best solution in 455 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1779 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arranging data to match correlations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1519,12 +1611,15 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### behavioural intention</span></span>
 <span><span class="va">intent</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lfast.html">lfast</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">4.0</span>, sd <span class="op">=</span> <span class="fl">3</span>, lowerbound <span class="op">=</span> <span class="fl">0</span>, upperbound <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; best solution in 13006 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">intent</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"int"</span></span></code></pre></div>
 <div class="section level7">
 <h6 id="check-properties-of-item-dataframes">check properties of item dataframes<a class="anchor" aria-label="anchor" href="#check-properties-of-item-dataframes"></a>
 </h6>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<p>Here we calculate means, standard deviations and correlations among
+items within each attitude scale, to compare with the predefined
+parameters.</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Attitude #1</span></span>
 <span><span class="va">A1_moments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  means <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">Att_1</span>, <span class="fl">2</span>, <span class="va">mean</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>,</span>
@@ -1540,14 +1635,14 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### Attitude #1 correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span><span class="co">#&gt; [1,] 1.00 0.18 0.23 0.60</span></span>
-<span><span class="co">#&gt; [2,] 0.18 1.00 0.60 0.66</span></span>
-<span><span class="co">#&gt; [3,] 0.23 0.60 1.00 0.71</span></span>
-<span><span class="co">#&gt; [4,] 0.60 0.66 0.71 1.00</span></span>
+<span><span class="co">#&gt; [1,] 1.00 0.20 0.42 0.49</span></span>
+<span><span class="co">#&gt; [2,] 0.20 1.00 0.55 0.57</span></span>
+<span><span class="co">#&gt; [3,] 0.42 0.55 1.00 0.79</span></span>
+<span><span class="co">#&gt; [4,] 0.49 0.57 0.79 1.00</span></span>
 <span></span>
 <span><span class="co">### Attitude #1 cronbach's alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_1</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.799</span></span>
+<span><span class="co">#&gt; [1] 0.801</span></span>
 <span></span>
 <span><span class="co">## Attitude #2</span></span>
 <span><span class="va">A2_moments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -1564,15 +1659,15 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### Attitude #2 correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span></span>
-<span><span class="co">#&gt; [1,] 1.00 0.23 0.24 0.48 0.56</span></span>
-<span><span class="co">#&gt; [2,] 0.23 1.00 0.57 0.61 0.63</span></span>
-<span><span class="co">#&gt; [3,] 0.24 0.57 1.00 0.63 0.67</span></span>
-<span><span class="co">#&gt; [4,] 0.48 0.61 0.63 1.00 0.74</span></span>
-<span><span class="co">#&gt; [5,] 0.56 0.63 0.67 0.74 1.00</span></span>
+<span><span class="co">#&gt; [1,] 1.00 0.31 0.32 0.33 0.50</span></span>
+<span><span class="co">#&gt; [2,] 0.31 1.00 0.53 0.54 0.58</span></span>
+<span><span class="co">#&gt; [3,] 0.32 0.53 1.00 0.71 0.72</span></span>
+<span><span class="co">#&gt; [4,] 0.33 0.54 0.71 1.00 0.77</span></span>
+<span><span class="co">#&gt; [5,] 0.50 0.58 0.72 0.77 1.00</span></span>
 <span></span>
 <span><span class="co">### Attitude #2 cronbach's alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.851</span></span>
+<span><span class="co">#&gt; [1] 0.85</span></span>
 <span></span>
 <span><span class="co">## Attitude #3</span></span>
 <span><span class="va">A3_moments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -1589,16 +1684,16 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### Attitude #3 correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]</span></span>
-<span><span class="co">#&gt; [1,] 1.00 0.43 0.44 0.46 0.46 0.49</span></span>
-<span><span class="co">#&gt; [2,] 0.43 1.00 0.52 0.60 0.63 0.65</span></span>
-<span><span class="co">#&gt; [3,] 0.44 0.52 1.00 0.68 0.69 0.73</span></span>
-<span><span class="co">#&gt; [4,] 0.46 0.60 0.68 1.00 0.73 0.75</span></span>
-<span><span class="co">#&gt; [5,] 0.46 0.63 0.69 0.73 1.00 0.76</span></span>
-<span><span class="co">#&gt; [6,] 0.49 0.65 0.73 0.75 0.76 1.00</span></span>
+<span><span class="co">#&gt; [1,] 1.00 0.31 0.37 0.40 0.43 0.43</span></span>
+<span><span class="co">#&gt; [2,] 0.31 1.00 0.53 0.61 0.63 0.71</span></span>
+<span><span class="co">#&gt; [3,] 0.37 0.53 1.00 0.72 0.72 0.74</span></span>
+<span><span class="co">#&gt; [4,] 0.40 0.61 0.72 1.00 0.75 0.80</span></span>
+<span><span class="co">#&gt; [5,] 0.43 0.63 0.72 0.75 1.00 0.84</span></span>
+<span><span class="co">#&gt; [6,] 0.43 0.71 0.74 0.80 0.84 1.00</span></span>
 <span></span>
 <span><span class="co">### Attitude #2 cronbach's alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_3</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.9</span></span>
+<span><span class="co">#&gt; [1] 0.899</span></span>
 <span></span>
 <span></span>
 <span><span class="co">## Behavioural Intention</span></span>
@@ -1612,15 +1707,17 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="va">intent_moments</span></span>
 <span><span class="co">#&gt;        int</span></span>
 <span><span class="co">#&gt; mean 4.000</span></span>
-<span><span class="co">#&gt; sd   3.001</span></span></code></pre></div>
+<span><span class="co">#&gt; sd   3.004</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level6">
 <h6 id="correlatescales-parameters">correlateScales parameters<a class="anchor" aria-label="anchor" href="#correlatescales-parameters"></a>
 </h6>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co">### target scale correlation matrix</span></span>
+<p>Define a correlation matrix for the scales: four scales means a 4x4
+correlation matrix. And gather our example scale dataframes into a
+list.</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">### target scale correlation matrix</span></span>
 <span><span class="va">scale_cors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="fl">1.0</span>, <span class="fl">0.7</span>, <span class="fl">0.6</span>, <span class="fl">0.5</span>,</span>
@@ -1638,9 +1735,10 @@ modelling, then I recommend the <em>sim.item()</em> and
 <div class="section level5">
 <h5 id="apply-the-correlatescales-function">apply the correlateScales() function<a class="anchor" aria-label="anchor" href="#apply-the-correlatescales-function"></a>
 </h5>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co">### apply correlateScales() function</span></span>
+<p>Note that the <code>dataframes</code> parameter refers to a list of
+named dataframes.</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">### apply correlateScales() function</span></span>
 <span><span class="va">my_correlated_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/correlateScales.html">correlateScales</a></span><span class="op">(</span></span>
 <span>  dataframes <span class="op">=</span> <span class="va">data_frames</span>,</span>
 <span>  scalecors <span class="op">=</span> <span class="va">scale_cors</span></span>
@@ -1651,86 +1749,67 @@ modelling, then I recommend the <em>sim.item()</em> and
 <div class="section level5">
 <h5 id="plot-the-new-correlated-scale-items">plot the new correlated scale items<a class="anchor" aria-label="anchor" href="#plot-the-new-correlated-scale-items"></a>
 </h5>
-<p>```{r fig6, echo=FALSE, warning=FALSE,<br>
-fig.height=9, fig.width=9, fig.align=‘center’,crop = TRUE,
-fig.alt=“Correlation Matrix”}</p>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/fig6-1.png" alt="Correlation Matrix" width="864"><p class="caption">
+Correlations of new scale items
+</p>
 </div>
+<div class="section level7">
+<h6 id="check-the-properties-of-our-derived-dataframe">Check the properties of our derived dataframe<a class="anchor" aria-label="anchor" href="#check-the-properties-of-our-derived-dataframe"></a>
+</h6>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## data structure</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    128 obs. of  16 variables:</span></span>
+<span><span class="co">#&gt;  $ A1_1 : num  1 4 4 4 4 1 3 2 1 3 ...</span></span>
+<span><span class="co">#&gt;  $ A1_2 : num  1 5 4 4 4 1 1 1 2 1 ...</span></span>
+<span><span class="co">#&gt;  $ A1_3 : num  2 5 4 5 4 2 2 1 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ A1_4 : num  2 5 5 5 5 2 3 3 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ A2_1 : num  1 4 4 4 4 1 3 3 3 2 ...</span></span>
+<span><span class="co">#&gt;  $ A2_2 : num  1 5 4 4 4 1 1 1 1 2 ...</span></span>
+<span><span class="co">#&gt;  $ A2_3 : num  2 5 5 5 4 2 2 2 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ A2_4 : num  1 5 5 5 4 2 1 1 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ A2_5 : num  2 5 5 5 5 2 2 2 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ A3_1 : num  1 3 4 4 4 1 3 1 1 2 ...</span></span>
+<span><span class="co">#&gt;  $ A3_2 : num  1 4 4 4 4 1 1 1 1 2 ...</span></span>
+<span><span class="co">#&gt;  $ A3_3 : num  2 4 4 5 4 2 2 2 2 3 ...</span></span>
+<span><span class="co">#&gt;  $ A3_4 : num  1 5 5 5 5 1 1 1 1 3 ...</span></span>
+<span><span class="co">#&gt;  $ A3_5 : num  2 5 5 5 5 2 2 2 2 4 ...</span></span>
+<span><span class="co">#&gt;  $ A3_6 : num  2 5 5 5 5 2 2 2 2 4 ...</span></span>
+<span><span class="co">#&gt;  $ Int_1: num  1 10 9 10 10 0 2 0 0 7 ...</span></span></code></pre></div>
+<p>Eigenvalues of all generated data</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">## eigenvalues of dataframe correlations</span></span>
+<span><span class="va">cor_correlated_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">cor_correlated_scales</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/fig7-1.png" alt="Scree plot of eigenvalues" width="480"><p class="caption">
+All variables
+</p>
 </div>
+<pre><code><span><span class="co">#&gt; cor_correlated_scales  is positive-definite</span></span>
+<span><span class="co">#&gt;  [1] 7.05 2.30 1.13 0.89 0.77 0.71 0.60 0.49 0.43 0.37 0.31 0.25 0.21 0.20 0.18</span></span>
+<span><span class="co">#&gt; [16] 0.11</span></span></code></pre>
+<p>Eigenvalues of Predictor variables (Attitude items) only</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">### Eigenvalues of predictor variable items only</span></span>
+<span><span class="va">predictor_cors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">[</span>, <span class="op">-</span><span class="fl">16</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">predictor_cors</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/fig7a-1.png" alt="Scree plot of eigenvalues" width="480"><p class="caption">
+Predictor variable items only
+</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="correlation-panel-1">Correlation panel<a class="anchor" aria-label="anchor" href="#correlation-panel-1"></a>
-</h2>
-<p>panel.cor &lt;- function(x, y) { usr &lt;- par(“usr”)
-on.exit(par(usr)) par(usr = c(0, 1, 0, 1)) r &lt;- round(cor(x, y),
-digits = 2) txt &lt;- paste0(r) cex.cor &lt;- 0.8 / strwidth(txt)
-text(0.5, 0.5, txt, cex = 1.25) }</p>
-</div>
-<div class="section level2">
-<h2 id="customize-upper-panel-1">Customize upper panel<a class="anchor" aria-label="anchor" href="#customize-upper-panel-1"></a>
-</h2>
-<p>upper.panel &lt;- function(x, y) { points(x, y, pch = 19, col =
-“#0000ff11”) }</p>
-</div>
-<div class="section level2">
-<h2 id="diagonals-1">diagonals<a class="anchor" aria-label="anchor" href="#diagonals-1"></a>
-</h2>
-<p>panel.hist &lt;- function(x, …) { usr &lt;- par(“usr”)
-on.exit(par(usr)) par(usr = c(usr[1:2], 0, 1.5)) h &lt;- hist(x, plot =
-FALSE) breaks &lt;-
-h<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mi>r</mi><mi>e</mi><mi>a</mi><mi>k</mi><mi>s</mi><mi>n</mi><mi>B</mi><mo>&lt;</mo><mo>−</mo><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>b</mi><mi>r</mi><mi>e</mi><mi>a</mi><mi>k</mi><mi>s</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>y</mi><mo>&lt;</mo><mo>−</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">breaks
-  nB &lt;- length(breaks)
-  y &lt;- h</annotation></semantics></math>counts y &lt;- y / max(y)
-rect(breaks[-nB], 0, breaks[-1], y, col = “#0000ff50”) }</p>
-</div>
-<div class="section level2">
-<h2 id="create-the-plots-1">Create the plots<a class="anchor" aria-label="anchor" href="#create-the-plots-1"></a>
-</h2>
-<p>pairs(my_correlated_scales, lower.panel = panel.cor, upper.panel =
-upper.panel, diag.panel = panel.hist )</p>
-<pre><code>
-
-###### Check the properties of our derived dataframe
-
-
-``` r
-## data structure
-str(my_correlated_scales)
-#&gt; 'data.frame':    128 obs. of  16 variables:
-#&gt;  $ A1_1 : num  4 2 4 2 1 2 2 4 1 4 ...
-#&gt;  $ A1_2 : num  4 1 4 5 1 2 1 4 1 4 ...
-#&gt;  $ A1_3 : num  5 1 5 5 2 1 1 4 2 4 ...
-#&gt;  $ A1_4 : num  5 2 5 5 2 2 2 5 2 5 ...
-#&gt;  $ A2_1 : num  4 1 4 4 1 2 1 4 1 3 ...
-#&gt;  $ A2_2 : num  4 1 4 4 1 1 1 4 1 4 ...
-#&gt;  $ A2_3 : num  5 2 5 4 2 2 1 4 2 4 ...
-#&gt;  $ A2_4 : num  5 2 5 5 2 2 1 4 1 4 ...
-#&gt;  $ A2_5 : num  5 2 5 5 2 2 2 5 2 5 ...
-#&gt;  $ A3_1 : num  2 1 4 4 1 2 2 4 2 4 ...
-#&gt;  $ A3_2 : num  4 1 4 4 1 2 1 4 2 4 ...
-#&gt;  $ A3_3 : num  4 1 5 5 1 2 2 4 2 4 ...
-#&gt;  $ A3_4 : num  4 1 5 5 1 2 2 5 2 5 ...
-#&gt;  $ A3_5 : num  4 2 5 5 2 2 2 5 3 5 ...
-#&gt;  $ A3_6 : num  4 2 5 5 2 2 2 5 3 5 ...
-#&gt;  $ Int_1: num  10 0 10 9 0 4 0 9 1 8 ...</code></pre>
-<p>```{r fig7, echo = TRUE, fig.height=5, fig.width=5,
-fig.align=‘center’, crop = TRUE, fig.alt=“Scree plot of
-eigenvalues”}</p>
-<div class="section level3">
-<h3 id="eigenvalues-of-dataframe-correlations">eigenvalues of dataframe correlations<a class="anchor" aria-label="anchor" href="#eigenvalues-of-dataframe-correlations"></a>
-</h3>
-<p>Cor_Correlated_Scales &lt;- cor(my_correlated_scales)
-eigenvalues(cormatrix = Cor_Correlated_Scales, scree = TRUE) |&gt;
-round(2)</p>
-<pre><code>
-```{r fig7a, echo = TRUE,  
-fig.height=5, fig.width=5, fig.align='center', crop = TRUE, 
-fig.alt="Scree plot of eigenvalues"}
-
-### Eigenvalues of predictor variable items only
-Cor_Attitude_items &lt;- cor(my_correlated_scales[, -16])
-eigenvalues(cormatrix = Cor_Attitude_items, scree = TRUE) |&gt; round(2)</code></pre>
+<pre><code><span><span class="co">#&gt; predictor_cors  is positive-definite</span></span>
+<span><span class="co">#&gt;  [1] 6.89 2.27 0.91 0.86 0.74 0.66 0.59 0.44 0.37 0.31 0.25 0.22 0.20 0.18 0.11</span></span></code></pre>
 <hr>
+</div>
+</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a>
@@ -1754,9 +1833,8 @@ default, with a message to that effect.</p>
 <div class="section level4">
 <h4 id="alpha-examples">alpha() examples<a class="anchor" aria-label="anchor" href="#alpha-examples"></a>
 </h4>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co">## define parameters</span></span>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## define parameters</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  V1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  V2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
@@ -1777,10 +1855,13 @@ default, with a message to that effect.</p>
 <span><span class="co">## apply function examples</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">corMat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.8395062</span></span>
+<span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.8026658</span></span>
+<span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.8026658</span></span>
+<span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="va">corMat</span>, <span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Alert: </span></span>
 <span><span class="co">#&gt; Both cormatrix and data present.</span></span>
@@ -1798,7 +1879,7 @@ optionally produces a scree plot.</p>
 <div class="section level4">
 <h4 id="eigenvalues-examples">eigenvalues() examples<a class="anchor" aria-label="anchor" href="#eigenvalues-examples"></a>
 </h4>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## define parameters</span></span>
 <span><span class="va">correlationMatrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -1819,67 +1900,70 @@ optionally produces a scree plot.</p>
 <div class="section level6">
 <h6 id="eigenvalues-function-with-optional-scree-plot">eigenvalues() function with optional scree plot<a class="anchor" aria-label="anchor" href="#eigenvalues-function-with-optional-scree-plot"></a>
 </h6>
-<p>```{r fig8, echo = TRUE, fig.height=5, fig.width=5,
-fig.align=‘center’, crop = TRUE, fig.alt=“Scree plot of
-eigenvalues”}</p>
-<p>evals &lt;- eigenvalues(correlationMatrix, 1)</p>
-<p>print(evals)</p>
-<pre><code>
-
-____
-
-
-# Alternative methods &amp; packages
-
-_LikertMakeR_ is intended for synthesising &amp; correlating 
-rating-scale data with means, standard deviations, and 
-correlations as close as possible to predefined parameters. 
-If you don't need your data to be close to exact, then other 
-options may be faster or more flexible. 
-
-Different approaches include:
-
-- sampling from a _truncated normal_ distribution
- 
-- sampling with a predetermined probability distribution
- 
-- marginal model specification
- 
-
-### sampling from a _truncated normal_ distribution 
-
-Data are sampled from a normal distribution, and then truncated to suit 
-the rating-scale boundaries, and rounded to set discrete values as we see 
-in rating scales. 
-
-See [Heinz (2021)](https://glaswasser.github.io/simulating-correlated-likert-scale-data/) 
-for an excellent and short example using the following packages:
-
-- [truncnorm](https://cran.r-project.org/package=truncnorm)
- 
-- [faux](https://cran.r-project.org/package=faux) 
- 
-- See also the _rLikert()_ function from the excellent
- [latent2likert](https://github.com/markolalovic/latent2likert) package, 
- [Lalovic (2024)](https://latent2likert.lalovic.io/), for an 
- approach using optimal discretization and skew-normal distribution. 
- _latent2likert()_ converts continuous latent variables into ordinal 
- categories to generate Likert scale item responses.
- 
-### sampling with a predetermined probability distribution
-
-- the following code will generate a vector of values with approximately 
- the given probabilities. 
- Good for simulating a single item.
- 
-
-``` r
-n &lt;- 128
-sample(1:5, n,
-  replace = TRUE,
-  prob = c(0.1, 0.2, 0.4, 0.2, 0.1)
-)</code></pre>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">evals</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">correlationMatrix</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="LikertMakeR_vignette_files/figure-html/fig8-1.png" alt="Scree plot of eigenvalues" width="480"><p class="caption">
+Scree plot example
+</p>
 </div>
+<pre><code><span><span class="co">#&gt; correlationMatrix  is positive-definite</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">evals</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2.7484991 0.8122627 0.3048151 0.1344231</span></span></code></pre>
+<hr>
+</div>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="alternative-methods-packages">Alternative methods &amp; packages<a class="anchor" aria-label="anchor" href="#alternative-methods-packages"></a>
+</h2>
+<p><em>LikertMakeR</em> is intended for synthesising &amp; correlating
+rating-scale data with means, standard deviations, and correlations as
+close as possible to predefined parameters. If you don’t need your data
+to be close to exact, then other options may be faster or more
+flexible.</p>
+<p>Different approaches include:</p>
+<ul>
+<li><p>sampling from a <em>truncated normal</em> distribution</p></li>
+<li><p>sampling with a predetermined probability distribution</p></li>
+<li><p>marginal model specification</p></li>
+</ul>
+<div class="section level4">
+<h4 id="sampling-from-a-truncated-normal-distribution">sampling from a <em>truncated normal</em> distribution<a class="anchor" aria-label="anchor" href="#sampling-from-a-truncated-normal-distribution"></a>
+</h4>
+<p>Data are sampled from a normal distribution, and then truncated to
+suit the rating-scale boundaries, and rounded to set discrete values as
+we see in rating scales.</p>
+<p>See <a href="https://glaswasser.github.io/simulating-correlated-likert-scale-data/" class="external-link">Heinz
+(2021)</a> for an excellent and short example using the following
+packages:</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/package=truncnorm" class="external-link">truncnorm</a></p></li>
+<li><p><a href="https://cran.r-project.org/package=faux" class="external-link">faux</a></p></li>
+<li><p>See also the <em>rLikert()</em> function from the excellent <a href="https://github.com/markolalovic/latent2likert" class="external-link">latent2likert</a>
+package, <a href="https://latent2likert.lalovic.io/" class="external-link">Lalovic (2024)</a>,
+for an approach using optimal discretization and skew-normal
+distribution. <em>latent2likert()</em> converts continuous latent
+variables into ordinal categories to generate Likert scale item
+responses.</p></li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="sampling-with-a-predetermined-probability-distribution">sampling with a predetermined probability distribution<a class="anchor" aria-label="anchor" href="#sampling-with-a-predetermined-probability-distribution"></a>
+</h4>
+<ul>
+<li>the following code will generate a vector of values with
+approximately the given probabilities. Good for simulating a single
+item.</li>
+</ul>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">128</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">n</span>,</span>
+<span>  replace <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="marginal-model-specification">marginal model specification<a class="anchor" aria-label="anchor" href="#marginal-model-specification"></a>
@@ -1937,7 +2021,6 @@ provides a general, simple, and tidyverse-friendly framework for
 generating simulated data, fitting models on simulations, and tidying
 model results.</p>
 <hr>
-</div>
 </div>
 </div>
 <div class="section level2">
