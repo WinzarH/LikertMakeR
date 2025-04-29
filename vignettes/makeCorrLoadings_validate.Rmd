@@ -2,11 +2,15 @@
 title: "makeCorrLoadings validation"
 author: "Hume Winzar"
 date: "April 2025"
-output: rmarkdown::html_document
+output: 
+  rmarkdown::html_document:
+    toc: true
+    toc_depth: 2
 vignette: >
   %\VignetteIndexEntry{makeCorrLoadings validation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: references.bib
 ---
 
 ```{r, include = FALSE}
@@ -16,7 +20,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup-packages, message = FALSE, warning = FALSE}
+```{r setup-packages}
+#| echo: TRUE
+#| message: FALSE
+#| warning: FALSE
+
 # Load required packages only if installed
 if (requireNamespace("rosetta", quietly = TRUE)) library(rosetta)
 if (requireNamespace("dplyr", quietly = TRUE)) library(dplyr)
