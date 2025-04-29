@@ -1050,10 +1050,10 @@ _eigenvalues()_ calculates eigenvalues of a correlation
 
 #### APA:
 
-     Winzar, H. (2025). LikertMakeR: Synthesise and correlate 
+     Winzar, H. (2022). LikertMakeR: Synthesise and correlate 
      Likert-scale and related rating-scale data with predefined first & 
      second moments 
-     (Version 1.0.2) [R package]. 
+     (Version 1.0.2, 2005) [R package]. 
      The Comprehensive R Archive Network (CRAN).
      <https://CRAN.R-project.org/package=LikertMakeR>
         
@@ -1063,7 +1063,7 @@ _eigenvalues()_ calculates eigenvalues of a correlation
     title = {LikertMakeR: Synthesise and correlate Likert-scale 
     and related rating-scale data with predefined first & second moments},
     author = {Hume Winzar},
-    abstract = {LikertMakeR synthesises Likert scale and related rating-scale data with predefined means and standard deviations, and optionally correlates these vectors to fit a predefined correlation matrix or Cronbach's Alpha.},
+    abstract = {LikertMakeR synthesises Likert scale and related rating-scale data with predefined means and standard deviations, and optionally correlates these vectors to fit a predefined correlation matrix or Cronbach Alpha.},
     journal = {The Comprehensive R Archive Network (CRAN)},
     month = {12},
     year = {2022},
