@@ -262,7 +262,7 @@ hist(x1,
 
 ##### an 11-point likelihood-of-purchase scale
 
-###### _lfast()_
+##### _lfast()_
 
 ```{r lfastx2}
 #|echo: TRUE
@@ -326,6 +326,7 @@ each with five items.
 
 ```{r lcorExample}
 ## generate uncorrelated synthetic data
+set.seed(42)
 n <- 128
 lowerbound <- 1
 upperbound <- 5
@@ -338,7 +339,7 @@ mydat3 <- data.frame(
 )
 ```
 
-The resulting data look like this:
+The resulting data look like this. Note that off-centre means cause skewed data, and large variances cause bimodal distributions.
 
 ```{r density_mydat3}
 #| echo: FALSE
@@ -346,7 +347,7 @@ The resulting data look like this:
 #| fig-width: 7
 #| fit-align: center
 #| crop: TRUE
-#| fig-cap: "Note that off-centre means cause skewed data, and large variances cause bimodal distributions"
+#| fig-cap: "Mean and variance affect the shape of scale distributions"
 #| fig-alt: "Density plots show that off-centre means cause skewed data, and large variances cause bimodal distributions"
 
 # Set break interval and breaks
@@ -386,6 +387,91 @@ legend("topright",
 ```
 
 
+```{r three_plots}
+#| echo: FALSE
+#| fig-height: 5
+#| fig-width: 10
+#| fit-align: center
+#| crop: TRUE
+#| fig-cap: "Histograms highlight the distribution range of variables"
+#| fig-alt: "Histograms illustrate effect of mean and variance"
+
+moments <- data.frame(
+  mean = apply(mydat3, 2, mean) |> round(3),
+  sd = apply(mydat3, 2, sd) |> round(3)
+) |> t()
+
+# Set break interval and breaks
+break_interval <- 1 / items
+breaks_seq <- seq(lowerbound, upperbound, by = break_interval)
+
+# Calculate limits
+xmin <- lowerbound - break_interval/2
+xmax <- upperbound + break_interval/2
+
+# Estimate densities
+d1 <- density(mydat3$x1, from = xmin, to = xmax)
+d2 <- density(mydat3$x2, from = xmin, to = xmax)
+d3 <- density(mydat3$x3, from = xmin, to = xmax)
+
+# Setup plot range
+xrange <- range(d1$x, d2$x, d3$x)
+yrange <- range(d1$y, d2$y, d3$y)
+
+# Set 3 plots side-by-side
+par(mfrow = c(1, 3))
+##
+## begin plot x1
+mean_x1 <- moments[1,1]
+sd_x1 <- moments[2,1]
+title1 <- bquote(mu == .(round(mean_x1, 2)) * "," ~ sigma == .(round(sd_x1, 2)))
+plot(xrange, yrange,
+     type = "n",
+     xlab = "x1", ylab = "Density",
+     main = title1
+)
+hist(mydat3$x1,
+     breaks = breaks_seq, freq = FALSE, add = TRUE,
+     col = "#b4af4620", border = "#b4af46"
+)
+lines(d1, col = "#b4af46", lwd = 2)
+## end plot x1
+##
+## begin plot x2
+mean_x2 <- moments[1,2]
+sd_x2 <- moments[2,2]
+title2 <- bquote(mu == .(round(mean_x2, 2)) * "," ~ sigma == .(round(sd_x2, 2)))
+plot(xrange, yrange,
+     type = "n",
+     xlab = "x2", ylab = "Density",
+     main = title2
+)
+hist(mydat3$x2,
+     breaks = breaks_seq, freq = FALSE, add = TRUE,
+     col = "#4682b420", border = "#4682b4"
+)
+lines(d2, col = "#4682b4", lwd = 2)
+## end plot x2
+##
+## begin plot x3
+mean_x3 <- moments[1,3]
+sd_x3 <- moments[2,3]
+title3 <- bquote(mu == .(round(mean_x3, 2)) * "," ~ sigma == .(round(sd_x3, 2)))
+plot(xrange, yrange,
+     type = "n",
+     xlab = "x3", ylab = "Density",
+     main = title3
+)
+hist(mydat3$x3,
+     breaks = breaks_seq, freq = FALSE, add = TRUE,
+     col = "#b4464b20", border = "#b4464b"
+)
+lines(d3, col = "#b4464b", lwd = 2)
+## end plot x3
+
+```
+
+
 The first six observations from this dataframe are:
 
 ```{r mydat3Head, echo = FALSE}
@@ -397,10 +483,10 @@ And the first and second moments (to 3 decimal places) are:
 ```{r mydat3Moments}
 #| echo: FALSE
 
-moments <- data.frame(
-  mean = apply(mydat3, 2, mean) |> round(3),
-  sd = apply(mydat3, 2, sd) |> round(3)
-) |> t()
+# moments <- data.frame(
+#   mean = apply(mydat3, 2, mean) |> round(3),
+#   sd = apply(mydat3, 2, sd) |> round(3)
+# ) |> t()
 
 moments
 ```
@@ -1336,7 +1422,7 @@ pairedDat <- makePaired(
 )
 ```
 
-###### check properties of new data
+##### check properties of new data
 
 ```{r makePaired_output_properties}
 #| echo: TRUE
@@ -1355,7 +1441,7 @@ pairedMoments
 ```
 
 
-###### run a paired-sample t-test with the new data
+##### run a paired-sample t-test with the new data
 
 ```{r paired-sample_t-test}
 #| echo: TRUE
@@ -1379,7 +1465,6 @@ so that the average rise is about 0.5.
 #| crop: TRUE
 #| fig-cap: "Visualising paired-sample t-test data"
 #| fig-alt: "boxplot of paired-sample t-test data"
-
 
 # Set up plot
 plot(c(1, 2), range(pairedDat),
@@ -1423,8 +1508,6 @@ for (i in 1:nrow(pairedDat)) {
   )
 }
 ```
-
-
 
 
 ----
@@ -1523,7 +1606,7 @@ intent <- lfast(n, mean = 4.0, sd = 3, lowerbound = 0, upperbound = 10) |>
 names(intent) <- "int"
 ```
 
-###### check properties of item dataframes
+##### check properties of item dataframes
 
 Here we calculate means, standard deviations and correlations among items within each attitude scale, to compare with the predefined parameters.
 
@@ -1588,7 +1671,6 @@ intent_moments
 ```
 
 
-
 ##### correlateScales parameters
 
 Define a correlation matrix for the scales: four scales means a 4x4 correlation matrix.
@@ -1639,7 +1721,6 @@ my_correlated_scales <- correlateScales(
 #| fig-cap: "Correlations of new scale items"
 #| fig-alt: "Correlation Matrix"
 
-
 # Correlation panel
 panel.cor <- function(x, y) {
   usr <- par("usr")
@@ -1682,7 +1763,7 @@ pairs(my_correlated_scales,
 ```
 
 
-###### Check the properties of our derived dataframe
+##### Check the properties of our derived dataframe
 
 ```{r newdata_check}
 #| echo: TRUE
@@ -1691,23 +1772,23 @@ pairs(my_correlated_scales,
 str(my_correlated_scales)
 ```
 
-Eigenvalues of all generated data
+<!-- Eigenvalues of all generated data -->
 
-```{r fig7}
-#| echo: TRUE
-#| fig-height: 5
-#| fig-width: 5
-#| fig-align: center
-#| crop: TRUE
-#| fig-cap: "All variables"
-#| fig-alt: "Scree plot of eigenvalues"
+<!-- ```{r fig7} -->
+<!-- #| echo: TRUE -->
+<!-- #| fig-height: 5 -->
+<!-- #| fig-width: 5 -->
+<!-- #| fig-align: center -->
+<!-- #| crop: TRUE -->
+<!-- #| fig-cap: "All variables" -->
+<!-- #| fig-alt: "Scree plot of eigenvalues" -->
 
 
-## eigenvalues of dataframe correlations
-cor_correlated_scales <- cor(my_correlated_scales)
-eigenvalues(cormatrix = cor_correlated_scales, scree = TRUE) |> 
-  round(2)
-```
+<!-- ## eigenvalues of dataframe correlations -->
+<!-- cor_correlated_scales <- cor(my_correlated_scales) -->
+<!-- eigenvalues(cormatrix = cor_correlated_scales, scree = TRUE) |>  -->
+<!--   round(2) -->
+<!-- ``` -->
 
 Eigenvalues of Predictor variables (Attitude items) only
 
