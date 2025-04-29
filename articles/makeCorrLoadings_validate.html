@@ -96,7 +96,7 @@ Winzar</h4>
 <h3 id="likertmaker-package">LikertMakeR package<a class="anchor" aria-label="anchor" href="#likertmaker-package"></a>
 </h3>
 <p><em>LikertMakeR</em> is a package for the R statistical programming
-language <span class="citation">[@winzar2022]</span>. It’s purpose is to
+language <span class="citation">(Winzar 2022)</span>. It’s purpose is to
 synthesise and correlate Likert-scale and similar rating-scale data with
 predefined first &amp; second moments (mean and standard deviation),
 <em>Cronbach’s Alpha</em>, <em>Factor Loadings</em>, and other summary
@@ -134,11 +134,12 @@ dataframes to ensure that results are generalisable.</p>
 <div class="section level4">
 <h4 id="original-data">Original data<a class="anchor" aria-label="anchor" href="#original-data"></a>
 </h4>
-<p>We use the pp15 dataset from the <code>rosetta</code> package <span class="citation">[@rosetta]</span>. This is a subset of the Party Panel
-2015 dataset. Party Panel is an annual semi-panel study among Dutch
-nightlife patrons, where every year, the determinants of another
-nightlife-related risk behavior is mapped. In 2015, determinants were
-measured of behaviours related to using highly dosed ecstasy pills.</p>
+<p>We use the pp15 dataset from the <code>rosetta</code> package <span class="citation">(Peters and Verboon 2023)</span>. This is a subset of
+the Party Panel 2015 dataset. Party Panel is an annual semi-panel study
+among Dutch nightlife patrons, where every year, the determinants of
+another nightlife-related risk behavior is mapped. In 2015, determinants
+were measured of behaviours related to using highly dosed ecstasy
+pills.</p>
 <p>Nine items are relevant to this study. Each is a 7-point likert-style
 question scored in the range <em>-3</em> to <em>+3</em>.</p>
 <p>The questions and the item labels are presented as follows:</p>
@@ -620,8 +621,8 @@ non-orthogonal rotation.</p></li>
 </h5>
 <p>To compare the <em>True</em> correlation matrix with a
 <em>Synthetic</em> matrix, we employ the <code><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich()</a></code>
-function from the <code>psych</code> package <span class="citation">[@psych]</span>. This is a <em>Chi-square</em> test of
-whether a pair of matrices are equal <span class="citation">[@Jennrich1970]</span>. We report the raw
+function from the <code>psych</code> package <span class="citation">(William Revelle 2024a)</span>. This is a
+<em>Chi-square</em> test of whether a pair of matrices are equal <span class="citation">(Jennrich 1970)</span>. We report the raw
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>χ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\chi^2</annotation></semantics></math>
 statistic and corresponding p-value for each test.</p>
 </div>
@@ -1580,7 +1581,8 @@ has information on factor loadings, but much less well when “summary”
 (ipip.ori.org)</a> were included as part of the <em>Synthetic Aperture
 Personality Assessment</em> <em>(SAPA)</em> web based personality
 assessment project. The data are available through the
-<code>psychTools</code> package <span class="citation">[@psychTools]</span>.</p>
+<code>psychTools</code> package <span class="citation">(William Revelle
+2024b)</span>.</p>
 <p>2800 subjects are included as a demonstration set for scale
 construction, factor analysis, and Item Response Theory analysis. Three
 additional demographic variables (sex, education, and age) are also
@@ -2896,8 +2898,35 @@ item-factor loadings.</p>
 <hr>
 </div>
 <div class="section level3">
-<h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h3 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-Jennrich1970" class="csl-entry">
+Jennrich, Robert I. 1970. <span>“An Asymptotic Χ2 Test for the Equality
+of Two Correlation Matrices.”</span> <em>Journal of the American
+Statistical Association</em> 65 (330): 904–12. <a href="https://doi.org/10.1080/01621459.1970.10481133" class="external-link">https://doi.org/10.1080/01621459.1970.10481133</a>.
+</div>
+<div id="ref-rosetta" class="csl-entry">
+Peters, Gjalt-Jorn, and Peter Verboon. 2023. <em>Rosetta: Parallel Use
+of Statistical Packages in Teaching</em>. <a href="https://r-packages.gitlab.io/rosetta/" class="external-link">https://r-packages.gitlab.io/rosetta/</a>.
+</div>
+<div id="ref-psych" class="csl-entry">
+William Revelle. 2024a. <em>Psych: Procedures for Psychological,
+Psychometric, and Personality Research</em>. Evanston, Illinois:
+Northwestern University. <a href="https://CRAN.R-project.org/package=psych" class="external-link">https://CRAN.R-project.org/package=psych</a>.
+</div>
+<div id="ref-psychTools" class="csl-entry">
+———. 2024b. <em>psychTools: Tools to Accompany the ’Psych’ Package for
+Psychological Research</em>. Evanston, Illinois: Northwestern
+University. <a href="https://CRAN.R-project.org/package=psychTools" class="external-link">https://CRAN.R-project.org/package=psychTools</a>.
+</div>
+<div id="ref-winzar2022" class="csl-entry">
+Winzar, Hume. 2022. <em>LikertMakeR: Synthesise and Correlate
+Likert-Scale and Related Rating-Scale Data with Predefined First &amp;
+Second Moments</em> (version 1.0.0 (2025)). <em>The Comprehensive R
+Archive Network (CRAN)</em>. <a href="https://CRAN.R-project.org/package=LikertMakeR" class="external-link">https://CRAN.R-project.org/package=LikertMakeR</a>.
+</div>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
