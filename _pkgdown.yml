@@ -43,10 +43,12 @@ navbar:
 footer:
   structure:
     left: license
+    center: last_updated
     right: developed_by
   components:
     license: '<a href="LICENSE-text.html"><i class="fa fa-balance-scale"></i> MIT License</a>'
     developed_by: '<a href="authors.html"><i class="fa fa-id-card-o"></i> Hume Winzar</a>'
+    last_updated: !expr format(Sys.Date(), "Last updated: %Y-%m-%d")
 
 reference:
 - title: LikertMakeR functions
