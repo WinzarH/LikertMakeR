@@ -3,12 +3,14 @@ home:
   title: LikertMakeR
   description: |
     Generate and correlate synthetic Likert-scale data from published summary statistics.
+
 template:
   bootstrap: 5
   bootswatch: materia
   light-switch: yes
   logo: man/figures/logo.png
   favicon: man/figures/logo.png
+
 navbar:
   structure:
     left:
@@ -43,14 +45,8 @@ footer:
     left: license
     right: developed_by
   components:
-    license:
-      text: MIT License
-      href: LICENSE-text.html
-      icon: fa-balance-scale
-    developed_by:
-      text: Hume Winzar
-      href: authors.html
-      icon: fa-id-card-o
+    license: '<a href="LICENSE-text.html"><i class="fa fa-balance-scale"></i> MIT License</a>'
+    developed_by: '<a href="authors.html"><i class="fa fa-id-card-o"></i> Hume Winzar</a>'
 
 reference:
 - title: LikertMakeR functions
