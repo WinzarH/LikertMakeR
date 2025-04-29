@@ -37,6 +37,7 @@ navbar:
       icon: fa-github
       href: https://github.com/WinzarH/LikertMakeR
       aria-label: GitHub repository for LikertMakeR
+
 footer:
   structure:
     left: license
@@ -45,9 +46,12 @@ footer:
     license:
       text: MIT License
       href: LICENSE-text.html
+      icon: fa-balance-scale
     developed_by:
       text: Hume Winzar
       href: authors.html
+      icon: fa-id-card-o
+
 reference:
 - title: LikertMakeR functions
   desc: Define dataframe properties and correlations.
