@@ -1,7 +1,9 @@
+url: https://winzarh.github.io/LikertMakeR
+
 template:
   bootstrap: 5
   params:
-    bootswatch: Spacelab
+    bootswatch: spacelab
   favicon: pkgdown/favicon.ico
   logo: pkgdown/logo.png
 
@@ -42,5 +44,8 @@ reference:
     contents:
       - alpha
       - eigenvalues
+  - title: Deprecated functions
+    contents:
+      - lexact
 
 

@@ -16,10 +16,14 @@
 #'
 #' @param data data-frame that is to be rearranged
 #'
-#' @param target target correlation matrix - should be a symmetric
-#' k*k positive-semi-definite matrix
+#' @param target target correlation matrix.
+#' Must have same dimensions as number of columns in data-frame.
 #'
-#' @return Returns a dataframe whose column-wise correlations
+#' @param passes number of passes when searching for suitable permutation.
+#' Default = 10.
+#' You _may_ get a better result if dealing with a large number of columns.
+#'
+#' @return Returns a data frame whose column-wise correlations
 #' approximate a user-specified correlation matrix
 #'
 #' @examples
@@ -57,7 +61,7 @@
 #' @importFrom stats rbeta
 #'
 #' @export
-lcor <- function(data, target) {
-  .Call("_LikertMakeR_lcor_C_randomised", data, target, PACKAGE = "LikertMakeR") |>
+lcor <- function(data, target, passes = 10L) {
+  .Call("_LikertMakeR_lcor_C_randomised", data, target, passes, PACKAGE = "LikertMakeR") |>
     data.frame()
 }
