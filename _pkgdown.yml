@@ -1,0 +1,46 @@
+template:
+  bootstrap: 5
+  params:
+    bootswatch: Spacelab
+  favicon: pkgdown/favicon.ico
+  logo: pkgdown/logo.png
+
+navbar:
+  title: LikertMakeR
+  type: default
+  structure:
+    left:
+      - home
+      - reference
+      - articles
+      - news
+    right:
+      - github
+
+home:
+  title: LikertMakeR
+  sidebar:
+    structure:
+      - links
+      - license
+      - community
+      - citation
+reference:
+  - title: Data Generators
+    contents:
+      - lfast
+      - lcor
+      - makeItems
+      - correlateScales
+      - makeItemsScale
+      - makePaired
+  - title: Correlation matrices
+    contents:
+      - makeCorrAlpha
+      - makeCorrLoadings
+  - title: Helper functions
+    contents:
+      - alpha
+      - eigenvalues
+
+

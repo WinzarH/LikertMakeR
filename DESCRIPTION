@@ -1,0 +1,41 @@
+Type: Package
+Package: LikertMakeR
+Title: Synthesise and Correlate Likert Scale and Rating-Scale Data Based
+    on Summary Statistics
+Version: 1.1.0
+Authors@R: 
+    person("Hume", "Winzar", , "winzar@gmail.com", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0001-7475-2641"))
+Description: Generate and correlate synthetic Likert and rating-scale data
+    with predefined means, standard deviations, Cronbach's Alpha,
+    Factor Loading table, and other summary statistics.
+    Worked examples and documentation are available in the package vignettes,
+    accessible via browseVignettes("LikertMakeR").
+License: MIT + file LICENSE
+URL: https://github.com/WinzarH/LikertMakeR, https://winzarh.github.io/LikertMakeR/
+BugReports: https://github.com/WinzarH/LikertMakeR/issues
+Depends: 
+    R (>= 4.2.0)
+Imports: 
+    dplyr,
+    gtools,
+    Matrix,
+    Rcpp
+Suggests: 
+    kableExtra,
+    knitr,
+    psych,
+    psychTools,
+    rmarkdown,
+    rosetta,
+    testthat (>= 3.0.0)
+LinkingTo: 
+    Rcpp,
+    RcppArmadillo
+VignetteBuilder: knitr
+Config/Needs/website: rmarkdown
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-GB
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
