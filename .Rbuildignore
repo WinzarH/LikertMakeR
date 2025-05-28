@@ -4,3 +4,5 @@
 ^docs$
 ^pkgdown$
 ^extras$
+^doc$
+^Meta$

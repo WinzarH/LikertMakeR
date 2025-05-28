@@ -5,3 +5,5 @@
 .DS_Store
 .quarto
 /extras/
+/doc/
+/Meta/
