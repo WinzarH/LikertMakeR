@@ -92,7 +92,7 @@ NULL
 #' str(pairedDat)
 #' cor(pairedDat) |> round(2)
 #'
-#' t.test(pairedDat$V1, pairedDat$V2, paired = TRUE)
+#' t.test(pairedDat$X1, pairedDat$X2, paired = TRUE)
 #'
 makePaired <- function(n, means, sds, t_value,
                        lowerbound, upperbound,
