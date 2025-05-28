@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>LikertMakeR vignette • LikertMakeR</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -53,8 +58,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>LikertMakeR vignette</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>LikertMakeR vignette</h1>
                         <h4 data-toc-skip class="author">Hume
 Winzar</h4>
             
@@ -380,16 +384,16 @@ a target correlation matrix.</p>
 original; the values are rearranged.</p>
 <p>The first ten observations from this dataframe are:</p>
 <pre><code><span><span class="co">#&gt;     X1  X2  X3</span></span>
-<span><span class="co">#&gt; 1  3.6 4.8 5.0</span></span>
-<span><span class="co">#&gt; 2  3.2 5.0 4.2</span></span>
-<span><span class="co">#&gt; 3  2.2 1.8 2.2</span></span>
-<span><span class="co">#&gt; 4  2.8 4.4 3.8</span></span>
-<span><span class="co">#&gt; 5  3.4 5.0 4.4</span></span>
-<span><span class="co">#&gt; 6  2.2 4.8 2.8</span></span>
-<span><span class="co">#&gt; 7  2.6 4.0 3.8</span></span>
-<span><span class="co">#&gt; 8  1.6 2.0 2.6</span></span>
-<span><span class="co">#&gt; 9  2.2 4.0 3.4</span></span>
-<span><span class="co">#&gt; 10 2.4 4.2 4.0</span></span></code></pre>
+<span><span class="co">#&gt; 1  2.4 2.2 2.6</span></span>
+<span><span class="co">#&gt; 2  2.8 3.8 4.2</span></span>
+<span><span class="co">#&gt; 3  1.4 1.0 2.0</span></span>
+<span><span class="co">#&gt; 4  2.6 2.8 4.4</span></span>
+<span><span class="co">#&gt; 5  1.6 2.0 2.6</span></span>
+<span><span class="co">#&gt; 6  2.2 2.8 3.2</span></span>
+<span><span class="co">#&gt; 7  2.0 1.6 3.4</span></span>
+<span><span class="co">#&gt; 8  3.4 4.8 4.8</span></span>
+<span><span class="co">#&gt; 9  2.2 1.6 4.0</span></span>
+<span><span class="co">#&gt; 10 1.8 1.2 1.8</span></span></code></pre>
 <p>And the new data frame is correlated close to our desired correlation
 matrix; here presented to 3 decimal places:</p>
 <pre><code><span><span class="co">#&gt;      X1   X2   X3</span></span>
@@ -811,20 +815,20 @@ with ‘k’ rows and ‘k’ columns.</p></li>
 <span><span class="co">## test the function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          </span></span>
-<span><span class="co">#&gt; 1 3 3 4 4</span></span>
-<span><span class="co">#&gt; 2 2 2 4 4</span></span>
-<span><span class="co">#&gt; 3 4 4 5 5</span></span>
-<span><span class="co">#&gt; 4 4 2 2 3</span></span>
-<span><span class="co">#&gt; 5 2 3 2 3</span></span>
-<span><span class="co">#&gt; 6 1 5 4 4</span></span>
+<span><span class="co">#&gt; 1 4 3 5 4</span></span>
+<span><span class="co">#&gt; 2 3 3 4 4</span></span>
+<span><span class="co">#&gt; 3 3 3 4 4</span></span>
+<span><span class="co">#&gt; 4 3 4 3 4</span></span>
+<span><span class="co">#&gt; 5 2 2 2 3</span></span>
+<span><span class="co">#&gt; 6 3 5 5 5</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;            </span></span>
-<span><span class="co">#&gt; 123 3 2 1 3</span></span>
-<span><span class="co">#&gt; 124 4 3 4 4</span></span>
-<span><span class="co">#&gt; 125 3 4 5 4</span></span>
-<span><span class="co">#&gt; 126 3 3 1 3</span></span>
-<span><span class="co">#&gt; 127 2 2 1 3</span></span>
-<span><span class="co">#&gt; 128 3 4 5 4</span></span>
+<span><span class="co">#&gt; 123 1 4 2 3</span></span>
+<span><span class="co">#&gt; 124 1 3 3 3</span></span>
+<span><span class="co">#&gt; 125 3 5 5 5</span></span>
+<span><span class="co">#&gt; 126 1 3 1 3</span></span>
+<span><span class="co">#&gt; 127 3 2 2 3</span></span>
+<span><span class="co">#&gt; 128 2 3 3 3</span></span>
 <span></span>
 <span><span class="co">### means should be correct to two decimal places</span></span>
 <span><span class="va">dfmoments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -842,8 +846,8 @@ with ‘k’ rows and ‘k’ columns.</p></li>
 <span><span class="co">#&gt;       [,1] [,2]  [,3]  [,4]</span></span>
 <span><span class="co">#&gt; [1,] 1.000 0.25 0.350 0.448</span></span>
 <span><span class="co">#&gt; [2,] 0.250 1.00 0.700 0.750</span></span>
-<span><span class="co">#&gt; [3,] 0.350 0.70 1.000 0.829</span></span>
-<span><span class="co">#&gt; [4,] 0.448 0.75 0.829 1.000</span></span></code></pre></div>
+<span><span class="co">#&gt; [3,] 0.350 0.70 1.000 0.836</span></span>
+<span><span class="co">#&gt; [4,] 0.448 0.75 0.836 1.000</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -939,20 +943,20 @@ standard deviations of each variable</p></li>
 <span><span class="co">## resulting data frame</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">myItems</span><span class="op">)</span></span>
 <span><span class="co">#&gt;              </span></span>
-<span><span class="co">#&gt; 1 3 3 2 3 3 3</span></span>
-<span><span class="co">#&gt; 2 2 2 2 2 2 1</span></span>
-<span><span class="co">#&gt; 3 1 4 4 3 5 5</span></span>
-<span><span class="co">#&gt; 4 3 3 4 5 4 5</span></span>
-<span><span class="co">#&gt; 5 2 2 4 3 3 2</span></span>
-<span><span class="co">#&gt; 6 1 4 3 2 3 1</span></span>
+<span><span class="co">#&gt; 1 2 3 2 3 3 3</span></span>
+<span><span class="co">#&gt; 2 3 2 2 3 2 1</span></span>
+<span><span class="co">#&gt; 3 3 3 3 3 2 4</span></span>
+<span><span class="co">#&gt; 4 3 4 3 4 4 5</span></span>
+<span><span class="co">#&gt; 5 4 3 3 4 4 5</span></span>
+<span><span class="co">#&gt; 6 4 3 3 4 4 5</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">myItems</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                </span></span>
-<span><span class="co">#&gt; 251 1 3 3 2 3 1</span></span>
-<span><span class="co">#&gt; 252 3 2 1 2 2 1</span></span>
-<span><span class="co">#&gt; 253 2 2 2 2 2 2</span></span>
-<span><span class="co">#&gt; 254 4 4 4 5 5 5</span></span>
-<span><span class="co">#&gt; 255 3 3 2 2 3 4</span></span>
-<span><span class="co">#&gt; 256 3 4 4 5 5 4</span></span>
+<span><span class="co">#&gt; 251 2 3 3 3 3 2</span></span>
+<span><span class="co">#&gt; 252 2 3 2 2 4 1</span></span>
+<span><span class="co">#&gt; 253 3 2 2 3 2 2</span></span>
+<span><span class="co">#&gt; 254 2 4 3 3 5 3</span></span>
+<span><span class="co">#&gt; 255 3 2 2 2 4 3</span></span>
+<span><span class="co">#&gt; 256 4 4 4 5 5 5</span></span>
 <span></span>
 <span><span class="co">## means and standard deviations</span></span>
 <span><span class="va">myMoments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -966,7 +970,7 @@ standard deviations of each variable</p></li>
 <span></span>
 <span><span class="co">## Cronbach's Alpha of data frame</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">myItems</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8498248</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.8499588</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="summary-plots-of-new-data-frame">Summary plots of new data frame<a class="anchor" aria-label="anchor" href="#summary-plots-of-new-data-frame"></a>
 </h5>
@@ -1305,8 +1309,8 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <code class="sourceCode R"><span><span class="co">## test function output</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    20 obs. of  2 variables:</span></span>
-<span><span class="co">#&gt;  $ X1: num  3 3.33 2.33 2.83 3.17 ...</span></span>
-<span><span class="co">#&gt;  $ X2: num  2.5 3.67 2.83 1.67 4 ...</span></span>
+<span><span class="co">#&gt;  $ X1: num  2.33 3.67 3.5 3.17 3.17 ...</span></span>
+<span><span class="co">#&gt;  $ X2: num  2.5 3.5 2.83 1.67 3.67 ...</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      X1   X2</span></span>
@@ -1335,10 +1339,10 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <span><span class="co">#&gt;  Paired t-test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  pairedDat$X1 and pairedDat$X2</span></span>
-<span><span class="co">#&gt; t = -2.4455, df = 19, p-value = 0.02438</span></span>
+<span><span class="co">#&gt; t = -2.4411, df = 19, p-value = 0.0246</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true mean difference is not equal to 0</span></span>
 <span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -0.91246509 -0.07086825</span></span>
+<span><span class="co">#&gt;  -0.91322541 -0.07010793</span></span>
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt; mean difference </span></span>
 <span><span class="co">#&gt;      -0.4916667</span></span></code></pre></div>
@@ -1627,37 +1631,37 @@ modelling, then I recommend the <em>sim.item()</em> and
 <code class="sourceCode R"><span><span class="co">## data structure</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    128 obs. of  16 variables:</span></span>
-<span><span class="co">#&gt;  $ A1_1 : num  2 3 3 2 4 3 3 2 2 3 ...</span></span>
-<span><span class="co">#&gt;  $ A1_2 : num  2 4 2 4 3 3 2 2 1 3 ...</span></span>
-<span><span class="co">#&gt;  $ A1_3 : num  3 4 3 3 3 3 2 4 1 4 ...</span></span>
-<span><span class="co">#&gt;  $ A1_4 : num  3 4 4 3 4 4 3 4 2 4 ...</span></span>
-<span><span class="co">#&gt;  $ A2_1 : num  2 4 2 3 3 3 2 2 2 2 ...</span></span>
-<span><span class="co">#&gt;  $ A2_2 : num  2 2 3 2 3 3 2 3 2 4 ...</span></span>
-<span><span class="co">#&gt;  $ A2_3 : num  3 3 4 2 3 4 2 4 3 4 ...</span></span>
-<span><span class="co">#&gt;  $ A2_4 : num  2 4 4 3 3 3 2 3 2 4 ...</span></span>
-<span><span class="co">#&gt;  $ A2_5 : num  3 4 4 3 4 4 3 4 3 4 ...</span></span>
-<span><span class="co">#&gt;  $ A3_1 : num  2 2 2 3 4 2 2 3 2 2 ...</span></span>
-<span><span class="co">#&gt;  $ A3_2 : num  3 2 3 2 4 4 2 3 2 4 ...</span></span>
-<span><span class="co">#&gt;  $ A3_3 : num  3 3 3 4 4 3 3 4 2 3 ...</span></span>
-<span><span class="co">#&gt;  $ A3_4 : num  3 4 4 3 3 4 3 5 3 4 ...</span></span>
-<span><span class="co">#&gt;  $ A3_5 : num  4 4 4 4 4 4 3 4 3 4 ...</span></span>
-<span><span class="co">#&gt;  $ A3_6 : num  4 4 4 4 4 4 3 4 3 4 ...</span></span>
-<span><span class="co">#&gt;  $ Int_1: num  1 10 2 2 9 2 5 2 6 5 ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ A1_1 : num  4 4 2 3 2 2 3 2 3 2 ...</span></span>
+<span><span class="co">#&gt;  $ A1_2 : num  2 3 2 3 3 2 2 4 3 4 ...</span></span>
+<span><span class="co">#&gt;  $ A1_3 : num  4 4 3 4 4 2 4 4 5 4 ...</span></span>
+<span><span class="co">#&gt;  $ A1_4 : num  4 5 4 4 4 3 4 4 5 4 ...</span></span>
+<span><span class="co">#&gt;  $ A2_1 : num  3 3 3 3 3 2 2 2 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ A2_2 : num  4 3 4 2 2 3 2 3 3 4 ...</span></span>
+<span><span class="co">#&gt;  $ A2_3 : num  3 3 4 3 3 3 2 4 3 4 ...</span></span>
+<span><span class="co">#&gt;  $ A2_4 : num  3 3 4 3 3 3 2 4 3 4 ...</span></span>
+<span><span class="co">#&gt;  $ A2_5 : num  4 4 4 4 4 3 3 4 4 4 ...</span></span>
+<span><span class="co">#&gt;  $ A3_1 : num  2 3 3 2 2 2 4 4 2 3 ...</span></span>
+<span><span class="co">#&gt;  $ A3_2 : num  1 3 2 4 3 2 3 3 3 2 ...</span></span>
+<span><span class="co">#&gt;  $ A3_3 : num  3 4 3 3 3 2 4 3 4 4 ...</span></span>
+<span><span class="co">#&gt;  $ A3_4 : num  3 4 3 4 3 2 3 5 4 4 ...</span></span>
+<span><span class="co">#&gt;  $ A3_5 : num  3 4 3 4 3 3 4 4 4 4 ...</span></span>
+<span><span class="co">#&gt;  $ A3_6 : num  3 4 3 4 4 3 4 4 4 4 ...</span></span>
+<span><span class="co">#&gt;  $ Int_1: num  9 10 2 9 9 4 4 2 10 9 ...</span></span></code></pre></div>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## eigenvalues of dataframe correlations</span></span>
 <span><span class="va">Cor_Correlated_Scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">Cor_Correlated_Scales</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/fig7-1.png" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; Cor_Correlated_Scales  is positive-definite</span></span>
-<span><span class="co">#&gt;  [1] 7.07 2.28 1.16 0.91 0.78 0.76 0.54 0.50 0.39 0.36 0.30 0.25 0.23 0.20 0.16</span></span>
-<span><span class="co">#&gt; [16] 0.11</span></span></code></pre>
+<span><span class="co">#&gt;  [1] 7.08 2.27 1.10 0.97 0.80 0.73 0.55 0.52 0.46 0.32 0.27 0.25 0.21 0.19 0.17</span></span>
+<span><span class="co">#&gt; [16] 0.12</span></span></code></pre>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#### Eigenvalues of predictor variable items only</span></span>
 <span><span class="va">Cor_Attitude_items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">[</span>, <span class="op">-</span><span class="fl">16</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">Cor_Attitude_items</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/fig7a-1.png" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; Cor_Attitude_items  is positive-definite</span></span>
-<span><span class="co">#&gt;  [1] 6.91 2.25 1.03 0.83 0.76 0.61 0.51 0.45 0.36 0.32 0.26 0.25 0.20 0.16 0.11</span></span></code></pre>
+<span><span class="co">#&gt;  [1] 6.92 2.23 1.00 0.87 0.73 0.68 0.54 0.47 0.35 0.27 0.26 0.21 0.19 0.17 0.12</span></span></code></pre>
 <hr>
 </div>
 </div>
