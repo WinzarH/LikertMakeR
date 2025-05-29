@@ -1,30 +1,17 @@
 
 ## 10.32614/CRAN.package.LikertMakeR
 
-# library(pkgdown)
+usethis::use_build_ignore(c(
+  ".github",
+  "cran-comments.md",
+  "_pkgdown.yml",
+  "docs",
+  "pkgdown",
+  "extras",
+  "CRAN-SUBMISSION",
+  "Meta"
+))
 
-
-# pkgdown::build_articles()
-#
-#
-# pkgdown::build_articles_index()
-
-
-# debug(pkgdown:::build_articles_index)
-#
-# pkgdown::build_articles_index()
-
-
-# pkgdown::build_site(preview = FALSE)
-#
-# pkgdown::build_site()
-
-# list.files("vignettes")
-
-# list.files("vignettes")
-# list.files("articles")
-
-# as_pkgdown()
 
 
 Rcpp::compileAttributes()
