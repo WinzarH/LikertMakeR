@@ -4,3 +4,9 @@
 .httr-oauth
 .DS_Store
 .quarto
+.RData
+docs
+*.tar.gz
+src/*.o
+src/*.so
+*.dll
