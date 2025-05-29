@@ -99,13 +99,13 @@ devtools::check_win_devel()
 
 rhub::rhub_setup()
 
-rhub::rhub_doctor() # set up correct?
+rhub::rhub_doctor()
 
-rhub::rhub_platforms()
+# rhub::rhub_platforms()
 
-rhub::rhub_check() # to run R-hub checks.
+rhub::rhub_check()
 
-rhub::rhub_check(gh_url = "https://github.com/winzarh/LikertMakeR")
+# rhub::rhub_check(gh_url = "https://github.com/winzarh/LikertMakeR")
 
 
 # rhub::check_for_cran()
