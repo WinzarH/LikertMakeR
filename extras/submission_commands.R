@@ -12,10 +12,30 @@ usethis::use_build_ignore(c(
   "Meta"
 ))
 
+usethis::use_git_ignore(c(
+  ".Rproj.user",
+  ".Rhistory",
+  ".RData",
+  ".DS_Store"
+))
+
+usethis::use_git_ignore(c(
+  "docs",
+  "*.tar.gz",
+  "src/*.o",
+  "src/*.so",
+  "*.dll"
+), directory = ".")
 
 
 Rcpp::compileAttributes()
+
 devtools::document()
+devtools::clean_dll()
+devtools::check()
+devtools::build()
+
+
 
 Sys.which("Rcmd.exe")
 
