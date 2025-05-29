@@ -10,3 +10,4 @@ docs
 src/*.o
 src/*.so
 *.dll
+extras
