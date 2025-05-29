@@ -19,6 +19,10 @@
 #' @param target target correlation matrix - should be a symmetric
 #' k*k positive-semi-definite matrix
 #'
+#' @param passes Number of optimization passes (default = 10)
+#' Increasing this value *MAY* improve results if n-columns
+#' (target correlation matrix dimensions) are many.
+#'
 #' @return Returns a dataframe whose column-wise correlations
 #' approximate a user-specified correlation matrix
 #'
@@ -57,7 +61,7 @@
 #' @importFrom stats rbeta
 #'
 #' @export
-lcor <- function(data, target) {
-  .Call("_LikertMakeR_lcor_C_randomised", data, target, PACKAGE = "LikertMakeR") |>
+lcor <- function(data, target, passes = 10) {
+  .Call("_LikertMakeR_lcor_C_randomised", data, target, passes, PACKAGE = "LikertMakeR") |>
     data.frame()
 }
