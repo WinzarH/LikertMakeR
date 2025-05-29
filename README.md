@@ -765,7 +765,7 @@ Paired t-tests apply to observations that are associated with each other. For ex
     ) |> t()
     pairedMoments
     
-    t.test(pairedDat$V1, pairedDat$V2, paired = TRUE)
+    t.test(pairedDat$X1, pairedDat$X2, paired = TRUE)
 
 ___
 
