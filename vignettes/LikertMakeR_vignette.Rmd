@@ -1052,7 +1052,7 @@ pairedMoments
 
 ```{r paired-sample_t-test, echo=TRUE}
 ## run a paired-sample t-test
-paired_t <- t.test(pairedDat$V1, pairedDat$V2, paired = TRUE)
+paired_t <- t.test(pairedDat$X1, pairedDat$X2, paired = TRUE)
 
 paired_t
 ```
