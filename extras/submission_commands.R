@@ -65,22 +65,25 @@ devtools::spell_check()
 devtools::check(clean = TRUE)
 
 
+# devtools::clean_dll()
+# devtools::document()
+# devtools::build(clean = TRUE)
+# devtools::check()
+
 devtools::clean_dll()
 devtools::document()
-devtools::build(clean = TRUE)
+devtools::build()
 devtools::check()
-
-
 
 
 # usethis::use_release_issue()
 
 usethis::use_cran_comments(open = rlang::is_interactive())
 
-# Clean all artifacts
-devtools::clean_vignettes()
-unlink("inst/doc", recursive = TRUE)
-unlink("Meta", recursive = TRUE)
+## Clean all artifacts
+# devtools::clean_vignettes()
+# unlink("inst/doc", recursive = TRUE)
+# unlink("Meta", recursive = TRUE)
 
 
 devtools::clean_vignettes()
@@ -101,9 +104,11 @@ rhub::rhub_setup()
 
 rhub::rhub_doctor()
 
-# rhub::rhub_platforms()
+rhub::rhub_platforms()
 
 rhub::rhub_check()
+
+rhub::check(platforms = "debian-clang-devel")
 
 # rhub::rhub_check(gh_url = "https://github.com/winzarh/LikertMakeR")
 
