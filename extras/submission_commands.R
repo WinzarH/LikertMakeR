@@ -108,7 +108,7 @@ rhub::rhub_platforms()
 
 rhub::rhub_check()
 
-rhub::check(platforms = "debian-clang-devel")
+# rhub::check(platforms = "debian-clang-devel")
 
 # rhub::rhub_check(gh_url = "https://github.com/winzarh/LikertMakeR")
 
