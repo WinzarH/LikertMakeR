@@ -131,7 +131,7 @@ devtools::release()
 
 usethis::git_default_branch_rename()
 usethis::use_tidy_description()
-usethis::use_github_action("check-standard")
+usethis::use_github_action()
 
 usethis::use_tidy_contributing()
 # usethis::use_coc(contact = "winzar@gmail.com")
@@ -149,19 +149,3 @@ spelling::spell_check_package()
 
 
 
-
-fileNames <- list.files(pattern="*.R")
-for (f in fileNames) {
-  con <- file(f, "r")
-  text <- readLines(con)
-  close(con)
-  if (length(grep("useDynLib", text)) > 0) {
-    print(f)
-  }
-}
-
-warnings()
-
-# library(LikertMakeR)
-# ls("package:LikertMakeR")
-# lfast(5, 3, 1, 1, 5)
