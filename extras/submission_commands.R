@@ -72,7 +72,7 @@ devtools::check(clean = TRUE)
 
 devtools::clean_dll()
 devtools::document()
-devtools::build()
+devtools::build(clean = TRUE)
 devtools::check()
 
 
@@ -86,13 +86,13 @@ usethis::use_cran_comments(open = rlang::is_interactive())
 # unlink("Meta", recursive = TRUE)
 
 
-devtools::clean_vignettes()
-devtools::build_vignettes()
+# devtools::clean_vignettes()
+# devtools::build_vignettes()
 
 
-vignette(package = "LikertMakeR")
-
-usethis::use_build_ignore(c("_pkgdown.yml", "docs", "pkgdown", "extras"))
+# vignette(package = "LikertMakeR")
+#
+# usethis::use_build_ignore(c("_pkgdown.yml", "docs", "pkgdown", "extras"))
 
 
 devtools::check_win_devel()
