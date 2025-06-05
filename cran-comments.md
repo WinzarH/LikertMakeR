@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-## CRAN submission: LikertMakeR 1.1.0
+
+## CRAN submission: LikertMakeR 1.2.0
 
 ### Changes in this version
 
@@ -22,12 +22,11 @@ All checks passed with no ERRORs, WARNINGs, or unaddressed NOTEs.
 
 - The package includes a `_pkgdown.yml` and a `docs/` folder, which are excluded from the CRAN build via `.Rbuildignore`.
 - The NOTE about “future file timestamps” on Windows is spurious and can be safely ignored.
-=======
+
 ## R CMD check results
 
 0 errors | 0 warnings | 1 note
 
 * update with one new function and some code tweaks for efficiency
 
->>>>>>> 3d74fa4cd51d231e275d7d13e6348f51946f84d7
 
