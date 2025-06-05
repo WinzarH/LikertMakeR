@@ -85,7 +85,7 @@ Set \code{return_corr_only = TRUE} to extract only the estimated correlation mat
 
 set.seed(123)
 out1 <- makeRepeated(
-  n = 128, 
+  n = 128,
   k = 3,
   means = c(3.1, 3.5, 3.9),
   sds = c(1.0, 1.1, 1.0),

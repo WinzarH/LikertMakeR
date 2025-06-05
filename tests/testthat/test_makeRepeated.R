@@ -8,7 +8,7 @@ test_that("makeRepeated returns expected structure", {
     k = 3,
     means = c(3.1, 3.5, 3.9),
     sds = c(1.0, 1.1, 1.0),
-    f_stat = 5.21,
+    f_stat = 15,
     structure = "cs",
     diagnostics = TRUE
   )
@@ -43,7 +43,7 @@ test_that("makeRepeated returns only correlation matrix when requested", {
     k = 4,
     means = c(2.5, 3.0, 3.2, 3.6),
     sds = c(0.9, 1.0, 1.0, 0.95),
-    f_stat = 4.0,
+    f_stat = 14.0,
     structure = "ar1",
     return_corr_only = TRUE
   )
