@@ -54,7 +54,6 @@
 #'
 #' @importFrom stats rbeta
 #' @importFrom Rcpp sourceCpp
-NULL
 #'
 #' @export makePaired
 #'
