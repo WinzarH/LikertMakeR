@@ -65,10 +65,10 @@
 #' )
 #'
 #' # View outputs
-#' round(result_adj$R, 3)                  # correlation matrix
-#' round(result_adj$Omega, 3)              # adjusted Omega
-#' round(result_adj$OmegaTotal, 3)         # total Omega
-#' print(result_adj$Diagnostics)           # communality and uniqueness per item
+#' round(result_adj$R, 3) # correlation matrix
+#' round(result_adj$Omega, 3) # adjusted Omega
+#' round(result_adj$OmegaTotal, 3) # total Omega
+#' print(result_adj$Diagnostics) # communality and uniqueness per item
 #'
 #' # --------------------------------------------------------
 #' # Example 3: Diagnostics assuming orthogonal factors (Per-Factor Omega)
@@ -79,9 +79,11 @@
 #'   diagnostics = TRUE
 #' )
 #'
-#' round(result_orth$Omega, 3)             # per-factor Omega
-#' round(result_orth$OmegaTotal, 3)        # total Omega
+#' round(result_orth$Omega, 3) # per-factor Omega
+#' round(result_orth$OmegaTotal, 3) # total Omega
 #' print(result_orth$Diagnostics)
+#'
+#' @importFrom stats cov2cor
 #'
 #' @export
 makeCorrLoadings <- function(loadings,
@@ -169,7 +171,9 @@ makeCorrLoadings <- function(loadings,
   }
 
   # Return early if no diagnostics requested
-  if (!diagnostics) return(R)
+  if (!diagnostics) {
+    return(R)
+  }
 
   #### DIAGNOSTICS SECTION ####
 

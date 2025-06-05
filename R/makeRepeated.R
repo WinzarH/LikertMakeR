@@ -46,7 +46,7 @@
 #'
 #' set.seed(123)
 #' out1 <- makeRepeated(
-#'   n = 128, 
+#'   n = 128,
 #'   k = 3,
 #'   means = c(3.1, 3.5, 3.9),
 #'   sds = c(1.0, 1.1, 1.0),
@@ -55,7 +55,7 @@
 #'   structure = "cs",
 #'   diagnostics = FALSE
 #' )
-#' 
+#'
 #' head(out1$data)
 #' out1$correlation_matrix
 #'
@@ -88,7 +88,10 @@
 #' str(out3)
 #'
 #' @seealso \code{\link{lfast}}, \code{\link{lcor}}
-#' 
+#'
+#'
+#' @importFrom stats median optimize
+#'
 #' @export
 
 makeRepeated <- function(n, k, means, sds,
@@ -462,4 +465,3 @@ makeRepeated <- function(n, k, means, sds,
 
   return(result)
 }
-
