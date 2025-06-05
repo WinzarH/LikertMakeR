@@ -62,8 +62,7 @@
 #' ## test output
 #' cor(new3) |> round(3)
 #'
-#' @importFrom stats cor
-#' @importFrom stats rbeta
+#' @importFrom stats cor rbeta
 #'
 #' @export
 #'
