@@ -29,12 +29,12 @@ getNamespaceExports("LikertMakeR")
 
 pkgdown::build_favicons(overwrite = TRUE)
 
-pkgdown::build_site()
+pkgdown::build_site(lazy = TRUE)
 
 # Replace with your real details
-system('git config --global user.name "Hume Winzar"')
-system('git config --global user.email "winzar@gmail.com"')
-
-system("git config --global --list")
+# system('git config --global user.name "Hume Winzar"')
+# system('git config --global user.email "winzar@gmail.com"')
+#
+# system("git config --global --list")
 
 pkgdown::deploy_to_branch()
