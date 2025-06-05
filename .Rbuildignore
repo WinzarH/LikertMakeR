@@ -1,5 +1,9 @@
-^LikertMakeRClean\.Rproj$
+^LikertMake_1-2-0.Rproj$
 ^\.Rproj\.user$
+^\.github$
+^\.git$
+^\.Rhistory$
+^\.gitignore$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
@@ -7,3 +11,5 @@
 ^doc$
 ^Meta$
 ^CRAN-SUBMISSION$
+^cran-comments.md$
+^.*\.Rproj$
