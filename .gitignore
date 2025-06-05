@@ -4,6 +4,18 @@
 .httr-oauth
 .DS_Store
 .quarto
+<<<<<<< HEAD
 /extras/
 /doc/
 /Meta/
+=======
+.RData
+.wordlist
+docs
+*.tar.gz
+src/*.o
+src/*.so
+*.dll
+extras
+>>>>>>> 3d74fa4cd51d231e275d7d13e6348f51946f84d7
+.Rbuildignore

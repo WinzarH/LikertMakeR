@@ -19,11 +19,19 @@
 #' @param target target correlation matrix.
 #' Must have same dimensions as number of columns in data-frame.
 #'
+<<<<<<< HEAD
 #' @param passes number of passes when searching for suitable permutation.
 #' Default = 10.
 #' You _may_ get a better result if dealing with a large number of columns.
 #'
 #' @return Returns a data frame whose column-wise correlations
+=======
+#' @param passes Number of optimization passes (default = 10)
+#' Increasing this value *MAY* improve results if n-columns
+#' (target correlation matrix dimensions) are many.
+#'
+#' @return Returns a dataframe whose column-wise correlations
+>>>>>>> 3d74fa4cd51d231e275d7d13e6348f51946f84d7
 #' approximate a user-specified correlation matrix
 #'
 #' @examples
@@ -61,7 +69,11 @@
 #' @importFrom stats rbeta
 #'
 #' @export
+<<<<<<< HEAD
 lcor <- function(data, target, passes = 10L) {
+=======
+lcor <- function(data, target, passes = 10) {
+>>>>>>> 3d74fa4cd51d231e275d7d13e6348f51946f84d7
   .Call("_LikertMakeR_lcor_C_randomised", data, target, passes, PACKAGE = "LikertMakeR") |>
     data.frame()
 }

@@ -6,6 +6,7 @@
 [![metacran downloads total](https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR)](https://cran.r-project.org/package=LikertMakeR)
 [![metacran downloads last month](https://cranlogs.r-pkg.org/badges/last-month/LikertMakeR)](https://cran.r-project.org/package=LikertMakeR)
 [![R-CMD-check](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml)
+[![Pkgdown](https://github.com/WinzarH/LikertMakeR/actions/workflows/pkgdown.yaml/badge.svg)](https://winzarh.github.io/LikertMakeR/)
   <!-- badges: end -->
 
 # LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
@@ -765,7 +766,7 @@ Paired t-tests apply to observations that are associated with each other. For ex
     ) |> t()
     pairedMoments
     
-    t.test(pairedDat$V1, pairedDat$V2, paired = TRUE)
+    t.test(pairedDat$X1, pairedDat$X2, paired = TRUE)
 
 
 ___

@@ -1,15 +1,27 @@
 ^LikertMake_1-2-0.Rproj$
 ^\.Rproj\.user$
 ^\.github$
+<<<<<<< HEAD
 ^\.git$
 ^\.Rhistory$
 ^\.gitignore$
+=======
+^cran-comments\.md$
+>>>>>>> 3d74fa4cd51d231e275d7d13e6348f51946f84d7
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
 ^extras$
+<<<<<<< HEAD
 ^doc$
 ^Meta$
 ^CRAN-SUBMISSION$
 ^cran-comments.md$
 ^.*\.Rproj$
+=======
+^CRAN-SUBMISSION$
+^Meta$
+^extras$
+^doc$
+^\.wordlist$
+>>>>>>> 3d74fa4cd51d231e275d7d13e6348f51946f84d7

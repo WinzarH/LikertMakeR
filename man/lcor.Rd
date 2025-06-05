@@ -5,17 +5,30 @@
 \title{Rearrange elements in each column of a data-frame to fit a
 predefined correlation matrix}
 \usage{
+<<<<<<< HEAD
 lcor(data, target, passes = 10L)
+=======
+lcor(data, target, passes = 10)
+>>>>>>> 3d74fa4cd51d231e275d7d13e6348f51946f84d7
 }
 \arguments{
 \item{data}{data-frame that is to be rearranged}
 
+<<<<<<< HEAD
 \item{target}{target correlation matrix.
 Must have same dimensions as number of columns in data-frame.}
 
 \item{passes}{number of passes when searching for suitable permutation.
 Default = 10.
 You \emph{may} get a better result if dealing with a large number of columns.}
+=======
+\item{target}{target correlation matrix - should be a symmetric
+k*k positive-semi-definite matrix}
+
+\item{passes}{Number of optimization passes (default = 10)
+Increasing this value \emph{MAY} improve results if n-columns
+(target correlation matrix dimensions) are many.}
+>>>>>>> 3d74fa4cd51d231e275d7d13e6348f51946f84d7
 }
 \value{
 Returns a data frame whose column-wise correlations
