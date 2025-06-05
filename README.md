@@ -265,13 +265,15 @@ but their correlations with other columns do.
 
 #### lcor() usage
 
-      lcor(data, target)
+      lcor(data, target, passes = 10)
 
 ##### lcor() arguments
 
   -  **_data_**: a starter data set of rating-scales 
   
   -  **_target_**: the target correlation matrix 
+  
+  -  **_passes_**: number of value swap passes to apply when creating correlated data. This _MAY_ help if the number of columns is large. 
 
 
 ### **_lcor()_**  Example #1
