@@ -2,57 +2,47 @@
 % Please edit documentation in R/makeCorrLoadings.R
 \name{makeCorrLoadings}
 \alias{makeCorrLoadings}
-\title{Correlation matrix from item factor loadings}
+\title{Generate Inter-Item Correlation Matrix from Factor Loadings}
 \usage{
 makeCorrLoadings(
   loadings,
   factorCor = NULL,
   uniquenesses = NULL,
-  nearPD = FALSE
+  nearPD = FALSE,
+  diagnostics = FALSE
 )
 }
 \arguments{
-\item{loadings}{(numeric matrix) \strong{k} (items) by \strong{f} (factors)
-matrix of \strong{standardised} factor loadings. Item names and Factor names
-are taken from the row_names (items) and the column_names (factors),
-if present.
+\item{loadings}{Numeric matrix. A k × f matrix of standardized factor loadings
+(items × factors). Row names and column names are used for diagnostics if present.}
 
-@note
-"Censored" loadings (for example, where loadings less than '0.30' are
-removed for clarity) tend to severely reduce the accuracy of the
-\code{makeCorrLoadings()} function. For a detailed demonstration, see the file
-\strong{makeCorrLoadings_Validate.pdf} in the package website on GitHub.}
+\item{factorCor}{Optional f × f matrix of factor correlations (Φ).
+If NULL, assumes orthogonal factors.}
 
-\item{factorCor}{(numeric matrix) \strong{f} x \strong{f} factor correlation matrix}
+\item{uniquenesses}{Optional vector of length k. If NULL, calculated as 1 - rowSums(loadings^2).}
 
-\item{uniquenesses}{(numeric vector) length \strong{k} vector of uniquenesses.
-If \emph{NULL}, the default, compute from the calculated communalities.}
+\item{nearPD}{Logical. If TRUE, attempts to coerce non–positive-definite matrices using Matrix::nearPD().}
 
-\item{nearPD}{(logical) If TRUE, project factorCor and the final
-correlation matrix onto nearest Positive Definite matrix, if needed.}
+\item{diagnostics}{Logical. If TRUE, returns diagnostics including McDonald's Omega and item-level summaries.}
 }
 \value{
-Correlation matrix of inter-item correlations
+If diagnostics = FALSE, returns a correlation matrix (class: matrix).
+If diagnostics = TRUE, returns a list with:
+- R: correlation matrix
+- Omega: per-factor Omega or adjusted Omega
+- OmegaTotal: total Omega across all factors
+- Diagnostics: data.frame of communalities, uniquenesses, and primary factor
 }
 \description{
-\code{makeCorrLoadings()} generates a correlation matrix of
-inter-item correlations based on item factor loadings as might be seen in
-\emph{Exploratory Factor Analysis} (\strong{EFA}) or a \emph{Structural Equation Model}
-(\strong{SEM}).
-
-Such a correlation matrix can be applied to the \code{makeItems()}
-function to generate synthetic data with those predefined factor structures.
-}
-\note{
-The \emph{nearPD} option applies the \emph{Matrix::nearPD()} function to force
-a non-positive-definite matrix to be positive-definite.
-It should be used only when a matrix is "nearly" PD.
-In most cases, a non-PD matrix that appears in the makeCorrLoadings()
-function means that there is a problem with the input parameters.
+Constructs an inter-item correlation matrix based on a user-supplied matrix
+of standardized factor loadings and (optionally) a factor correlation matrix.
 }
 \examples{
 
-# Example loadings
+# --------------------------------------------------------
+# Example 1: Basic use without diagnostics
+# --------------------------------------------------------
+
 factorLoadings <- matrix(
   c(
     0.05, 0.20, 0.70,
@@ -67,11 +57,9 @@ factorLoadings <- matrix(
   nrow = 8, ncol = 3, byrow = TRUE
 )
 
-# row and column names
-rownames(factorLoadings) <- c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8")
+rownames(factorLoadings) <- paste0("Q", 1:8)
 colnames(factorLoadings) <- c("Factor1", "Factor2", "Factor3")
 
-# Factor correlation matrix
 factorCor <- matrix(
   c(
     1.0,  0.7, 0.6,
@@ -81,9 +69,36 @@ factorCor <- matrix(
   nrow = 3, byrow = TRUE
 )
 
-# Apply the function
-itemCorrelations <- makeCorrLoadings(factorLoadings, factorCor)
+itemCor <- makeCorrLoadings(factorLoadings, factorCor)
+round(itemCor, 3)
 
-round(itemCorrelations, 3)
+# --------------------------------------------------------
+# Example 2: Diagnostics with factor correlations (Adjusted Omega)
+# --------------------------------------------------------
+
+result_adj <- makeCorrLoadings(
+  loadings = factorLoadings,
+  factorCor = factorCor,
+  diagnostics = TRUE
+)
+
+# View outputs
+round(result_adj$R, 3)                  # correlation matrix
+round(result_adj$Omega, 3)              # adjusted Omega
+round(result_adj$OmegaTotal, 3)         # total Omega
+print(result_adj$Diagnostics)           # communality and uniqueness per item
+
+# --------------------------------------------------------
+# Example 3: Diagnostics assuming orthogonal factors (Per-Factor Omega)
+# --------------------------------------------------------
+
+result_orth <- makeCorrLoadings(
+  loadings = factorLoadings,
+  diagnostics = TRUE
+)
+
+round(result_orth$Omega, 3)             # per-factor Omega
+round(result_orth$OmegaTotal, 3)        # total Omega
+print(result_orth$Diagnostics)
 
 }
