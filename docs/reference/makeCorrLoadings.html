@@ -146,7 +146,7 @@ If diagnostics = TRUE, returns a list with:
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Diagnostics returned with Adjusted Omega (accounting for factor correlations).</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># View outputs</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">result_adj</span><span class="op">$</span><span class="va">R</span>, <span class="fl">3</span><span class="op">)</span>                  <span class="co"># correlation matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">result_adj</span><span class="op">$</span><span class="va">R</span>, <span class="fl">3</span><span class="op">)</span> <span class="co"># correlation matrix</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Q1    Q2    Q3    Q4    Q5    Q6    Q7    Q8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q1 1.000 0.638 0.683 0.537 0.477 0.484 0.552 0.521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q2 0.638 1.000 0.735 0.503 0.434 0.436 0.557 0.531</span>
@@ -156,12 +156,12 @@ If diagnostics = TRUE, returns a list with:
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q6 0.484 0.436 0.503 0.839 0.805 1.000 0.709 0.633</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q7 0.552 0.557 0.601 0.751 0.670 0.709 1.000 0.790</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q8 0.521 0.531 0.570 0.676 0.599 0.633 0.790 1.000</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">result_adj</span><span class="op">$</span><span class="va">Omega</span>, <span class="fl">3</span><span class="op">)</span>              <span class="co"># adjusted Omega</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">result_adj</span><span class="op">$</span><span class="va">Omega</span>, <span class="fl">3</span><span class="op">)</span> <span class="co"># adjusted Omega</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Factor1 Factor2 Factor3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   0.691   0.683   0.638 </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">result_adj</span><span class="op">$</span><span class="va">OmegaTotal</span>, <span class="fl">3</span><span class="op">)</span>         <span class="co"># total Omega</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">result_adj</span><span class="op">$</span><span class="va">OmegaTotal</span>, <span class="fl">3</span><span class="op">)</span> <span class="co"># total Omega</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.768</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_adj</span><span class="op">$</span><span class="va">Diagnostics</span><span class="op">)</span>           <span class="co"># communality and uniqueness per item</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_adj</span><span class="op">$</span><span class="va">Diagnostics</span><span class="op">)</span> <span class="co"># communality and uniqueness per item</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Item Communality Uniqueness PrimaryFactor</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q1   Q1      0.5325     0.4675       Factor3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q2   Q2      0.6525     0.3475       Factor3</span>
@@ -182,10 +182,10 @@ If diagnostics = TRUE, returns a list with:
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Diagnostics returned with Per-Factor Omega (assuming orthogonal factors).</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">result_orth</span><span class="op">$</span><span class="va">Omega</span>, <span class="fl">3</span><span class="op">)</span>             <span class="co"># per-factor Omega</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">result_orth</span><span class="op">$</span><span class="va">Omega</span>, <span class="fl">3</span><span class="op">)</span> <span class="co"># per-factor Omega</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Factor1 Factor2 Factor3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   0.405   0.513   0.460 </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">result_orth</span><span class="op">$</span><span class="va">OmegaTotal</span>, <span class="fl">3</span><span class="op">)</span>        <span class="co"># total Omega</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">result_orth</span><span class="op">$</span><span class="va">OmegaTotal</span>, <span class="fl">3</span><span class="op">)</span> <span class="co"># total Omega</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.721</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_orth</span><span class="op">$</span><span class="va">Diagnostics</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Item Communality Uniqueness PrimaryFactor</span>
