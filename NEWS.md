@@ -1,5 +1,26 @@
 # LikertMakeR (development version)
 
+# LikertMakeR 1.2.0 (2025-06-05)
+
+## Improvements
+
+- New `makeRepeated()` function : 
+   takes summary statistics that are reported in a typical repeated-measures ANOVA study, and then returns 
+   
+   1. a correlation matrix of the vectors of repeated measures and
+   
+   2. a data frame based on the correlation matrix and summary moments, plus
+   
+   - diagnostic statistics, including possible F-statistics based on information provided. 
+   
+
+## Maintenance
+
+- Vignettes minor updates.
+
+
+
+
 # LikertMakeR 1.1.0 (2025-05-26)
 
 ## Improvements

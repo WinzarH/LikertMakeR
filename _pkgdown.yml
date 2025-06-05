@@ -36,6 +36,7 @@ reference:
       - correlateScales
       - makeItemsScale
       - makePaired
+      - makeRepeated
   - title: Correlation matrices
     contents:
       - makeCorrAlpha
