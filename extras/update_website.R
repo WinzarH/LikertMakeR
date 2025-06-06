@@ -16,7 +16,7 @@ unlink("R/RcppExports.R")
 Rcpp::compileAttributes()
 
 # Then rebuild from scratch
-# devtools::install(upgrade = "never")
+# devtools::install(upgrade = "always")
 
 devtools::install()
 
@@ -35,7 +35,7 @@ pkgdown::build_favicons()
 
 
 
-pkgdown::build_site(lazy = TRUE)
+pkgdown::build_site(lazy = FALSE)
 
 # Replace with your real details
 # system('git config --global user.name "Hume Winzar"')

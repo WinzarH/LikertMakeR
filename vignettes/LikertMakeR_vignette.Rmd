@@ -219,7 +219,7 @@ x1 <- lfast(
 
 
 
-```{r fig1, fig.height=3, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: 4-item, 1-5 Likert scale"}
+```{r fig1, fig.height=4, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: 4-item, 1-5 Likert scale"}
 ## distribution of x
 hist(x1,
   cex.axis = 0.5, cex.main = 0.75,
@@ -239,7 +239,7 @@ x2 <- lfast(256, 3, 2.5, 0, 10)
 ```
 
 
-```{r fig2, fig.height=3, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: likelihood-of-purchase scale"}
+```{r fig2, fig.height=4, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: likelihood-of-purchase scale"}
 ## generate histogram
 hist(x2,
   cex.axis = 0.5, cex.main = 0.75,
@@ -440,7 +440,7 @@ alpha(cor_matrix_4)
 
 
 
-```{r fig3, fig.height=3, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE}
+```{r fig3, fig.height=4, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE}
 ## using helper function eigenvalues()
 
 eigenvalues(cor_matrix_4, 1)
@@ -473,7 +473,7 @@ cor_matrix_12 |> round(2)
 
 ##### test output
 
-```{r fig4, fig.height=3, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE}
+```{r fig4, fig.height=4, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE}
 ## calculate Cronbach's Alpha
 alpha(cor_matrix_12)
 
@@ -865,7 +865,7 @@ meanScale <- lfast(
 summatedScale <- meanScale * items
 ```
 
-```{r summatedScale_histogram, echo=FALSE, fig.height=3, fig.width=5, fig.align='center', crop = TRUE, fig.cap="Summated scale distribution"}
+```{r summatedScale_histogram, echo=FALSE, fig.height=4, fig.width=5, fig.align='center', crop = TRUE, fig.cap="Summated scale distribution"}
 ## Histogram of summated scale
 hist(summatedScale,
   cex.axis = 0.5, cex.main = 0.75,
@@ -884,7 +884,7 @@ hist(summatedScale,
 
 #### create items with _makeItemsScale()_
 
-```{r makeItemsScale_example_1, fig.height=3, fig.width=5, fig.align='center', crop = TRUE}
+```{r makeItemsScale_example_1, fig.height=4, fig.width=5, fig.align='center', crop = TRUE}
 ## apply makeItemsScale() function
 newItems_1 <- makeItemsScale(
   scale = summatedScale,
@@ -908,7 +908,7 @@ eigenvalues(cor(newItems_1), 1) |> round(3)
 
 
 ####  _makeItemsScale()_ with same summated values and higher _alpha_
-```{r makeItemsScale_example_2, fig.height=3, fig.width=5, fig.align='center', crop = TRUE}
+```{r makeItemsScale_example_2, fig.height=4, fig.width=5, fig.align='center', crop = TRUE}
 ## apply makeItemsScale() function
 newItems_2 <- makeItemsScale(
   scale = summatedScale,
@@ -933,7 +933,7 @@ eigenvalues(cor(newItems_2), 1) |> round(3)
 
 ####  same summated values with lower _alpha_ that may require higher _variance_
 
-```{r makeItemsScale_example_3, fig.height=3, fig.width=5, fig.align='center', crop = TRUE}
+```{r makeItemsScale_example_3, fig.height=4, fig.width=5, fig.align='center', crop = TRUE}
 ## apply makeItemsScale() function
 newItems_3 <- makeItemsScale(
   scale = summatedScale,
@@ -1106,7 +1106,7 @@ This function estimates the average correlation between repeated measures by mat
 
   -  _**n**_ Integer. Sample size used in the original study.
   -  _**k**_ Integer. Number of repeated measures (timepoints).
-  -  _**means Numeric vector of length \code{k}. Mean values reported for each timepoint.
+  -  _**means**_ Numeric vector of length \code{k}. Mean values reported for each timepoint.
   -  _**sds**_ Numeric vector of length \code{k}. Standard deviations reported for each timepoint.
   -  _**f_stat**_ Numeric. The reported repeated-measures ANOVA F-statistic for the within-subjects factor.
   -  _**df_between**_, Degrees of freedom between conditions (default: \code{k - 1}).
@@ -1399,13 +1399,13 @@ str(my_correlated_scales)
 ```
 
 
-```{r fig7, fig.height=3, fig.width=5, fig.align='center', echo = TRUE,  crop = TRUE}
+```{r fig7, fig.height=4, fig.width=5, fig.align='center', echo = TRUE,  crop = TRUE}
 ## eigenvalues of dataframe correlations
 Cor_Correlated_Scales <- cor(my_correlated_scales)
 eigenvalues(cormatrix = Cor_Correlated_Scales, scree = TRUE) |> round(2)
 ```
 
-```{r fig7a, fig.height=3, fig.width=5, fig.align='center', echo = TRUE,  crop = TRUE}
+```{r fig7a, fig.height=4, fig.width=5, fig.align='center', echo = TRUE,  crop = TRUE}
 #### Eigenvalues of predictor variable items only
 Cor_Attitude_items <- cor(my_correlated_scales[, -16])
 eigenvalues(cormatrix = Cor_Attitude_items, scree = TRUE) |> round(2)
@@ -1492,7 +1492,7 @@ print(evals)
 
 ##### eigenvalues() function with optional scree plot
 
-```{r fig8, fig.height=3, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE}
+```{r fig8, fig.height=4, fig.width=5, fig.align='center', echo = TRUE, crop = TRUE}
 evals <- eigenvalues(correlationMatrix, 1)
 print(evals)
 ```
