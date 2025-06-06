@@ -4,8 +4,8 @@ template:
   bootstrap: 5
   params:
     bootswatch: spacelab
-  favicon: pkgdown/favicon.ico
-  logo: pkgdown/logo.png
+  favicon: pkgdown/favicon/favicon.ico
+  logo: pkgdown/favicon/web-app-manifest-512x512.png
 
 navbar:
   title: LikertMakeR
