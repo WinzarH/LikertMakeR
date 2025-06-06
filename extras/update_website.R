@@ -16,7 +16,9 @@ unlink("R/RcppExports.R")
 Rcpp::compileAttributes()
 
 # Then rebuild from scratch
-devtools::install(upgrade = "never")
+# devtools::install(upgrade = "never")
+
+devtools::install()
 
 # clear any stale namespace bindings
 .rs.restartR()
@@ -27,7 +29,11 @@ getNamespaceExports("LikertMakeR")
 
 # pkgdown::clean_site(force = TRUE)
 
-pkgdown::build_favicons(overwrite = TRUE)
+# pkgdown::build_favicons(overwrite = TRUE)
+
+pkgdown::build_favicons()
+
+
 
 pkgdown::build_site(lazy = TRUE)
 
