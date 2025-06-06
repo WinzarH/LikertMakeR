@@ -87,9 +87,10 @@
 <li><p><a href="#lcor"><strong><em>lcor()</em></strong></a> rearranges the values in the columns of a dataframe so that they are correlated to match a predefined correlation matrix.</p></li>
 <li><p><a href="#makecorralpha"><strong><em>makeCorrAlpha</em></strong></a> constructs a random item correlation matrix of given dimensions and predefined <em>Cronbach’s Alpha</em>.</p></li>
 <li><p><a href="#makeitems"><strong><em>makeItems()</em></strong></a> is a wrapper function for <em>lfast()</em> and <em>lcor()</em> to generate synthetic rating-scale data with predefined first and second moments and a predefined correlation matrix.</p></li>
-<li><p><a href="#makeCorrLoadings"><strong><em>makeCorrLoadings</em></strong></a> constructs a item correlation matrix based on factor loadings and factor correlations as might be reported in <em>Exploratory Factor Analysis</em> (<strong>EFA</strong>) or <em>Structural Equation Modelling</em> (<strong>SEM</strong>).</p></li>
+<li><p><a href="#makecorrloadings"><strong><em>makeCorrLoadings</em></strong></a> constructs a item correlation matrix based on factor loadings and factor correlations as might be reported in <em>Exploratory Factor Analysis</em> (<strong>EFA</strong>) or <em>Structural Equation Modelling</em> (<strong>SEM</strong>).</p></li>
 <li><p><a href="#makeitemsscale"><strong><em>makeItemsScale()</em></strong></a> Generate a dataframe of rating scale items from a summative scale and desired Cronbach’s Alpha.</p></li>
-<li><p><a href="#makePaired"><strong><em>makePaired()</em></strong></a> Generate a dataset from paired-sample t-test summary statistics.</p></li>
+<li><p><a href="#makepaired"><strong><em>makePaired()</em></strong></a> Generate a dataset from <em>paired-sample t-test</em> summary statistics.</p></li>
+<li><p><a href="#makerepeated"><strong><em>makeRepeated()</em></strong></a> Generate a dataset from summary statistics for <em>repeated-measures ANOVA</em>, with options for correlation structure and diagnostics.</p></li>
 <li><p><a href="#correlatescales"><em><strong>correlateScales()</strong></em></a> generates a multidimensional dataframe by combining several dataframes of rating-scale items so that their summated scales are correlated according to a predefined correlation matrix.</p></li>
 </ul>
 <div class="section level5">
@@ -231,13 +232,14 @@
 <div class="section level4">
 <h4 id="lcor-usage">lcor() usage<a class="anchor" aria-label="anchor" href="#lcor-usage"></a>
 </h4>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>  <span class="fu">lcor</span>(data, target)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>  <span class="fu">lcor</span>(data, target, <span class="at">passes =</span> <span class="dv">10</span>)</span></code></pre></div>
 <div class="section level5">
 <h5 id="lcor-arguments">lcor() arguments<a class="anchor" aria-label="anchor" href="#lcor-arguments"></a>
 </h5>
 <ul>
 <li><p><strong><em>data</em></strong>: a starter data set of rating-scales</p></li>
 <li><p><strong><em>target</em></strong>: the target correlation matrix</p></li>
+<li><p><strong><em>passes</em></strong>: number of value swap passes to apply when creating correlated data. This <em>MAY</em> help if the number of columns is large.</p></li>
 </ul>
 </div>
 </div>
