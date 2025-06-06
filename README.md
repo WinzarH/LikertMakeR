@@ -817,7 +817,7 @@ This function estimates the average correlation between repeated measures by mat
 
   -  _**n**_ Integer. Sample size used in the original study.
   -  _**k**_ Integer. Number of repeated measures (timepoints).
-  -  _**means Numeric vector of length \code{k}. Mean values reported for each timepoint.
+  -  _**means**_ Numeric vector of length \code{k}. Mean values reported for each timepoint.
   -  _**sds**_ Numeric vector of length \code{k}. Standard deviations reported for each timepoint.
   -  _**f_stat**_ Numeric. The reported repeated-measures ANOVA F-statistic for the within-subjects factor.
   -  _**df_between**_, Degrees of freedom between conditions (default: \code{k - 1}).
