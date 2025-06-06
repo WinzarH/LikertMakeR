@@ -4,6 +4,7 @@
 <url><loc>https://winzarh.github.io/LikertMakeR/articles/LikertMakeR_vignette.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/authors.html</loc></url>
+<url><loc>https://winzarh.github.io/LikertMakeR/CONTRIBUTING.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/index.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/LICENSE-text.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/news/index.html</loc></url>
@@ -19,5 +20,6 @@
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/makeItems.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/makePaired.html</loc></url>
+<url><loc>https://winzarh.github.io/LikertMakeR/reference/makeRepeated.html</loc></url>
 </urlset>
 

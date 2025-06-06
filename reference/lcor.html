@@ -3,7 +3,7 @@
 data-frame so that columns are correlated to match a predefined
 correlation matrix."><meta property="og:description" content="lcor() rearranges values in each column of a
 data-frame so that columns are correlated to match a predefined
-correlation matrix."><meta property="og:image" content="https://winzarh.github.io/LikertMakeR/logo.png"></head><body>
+correlation matrix."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -11,7 +11,7 @@ correlation matrix."><meta property="og:image" content="https://winzarh.github.i
 
     <a class="navbar-brand me-2" href="../index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,8 @@ correlation matrix."><meta property="og:image" content="https://winzarh.github.i
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Rearrange elements in each column of a data-frame to fit a predefined correlation matrix</h1>
+
+      <h1>Rearrange elements in each column of a data-frame to fit a predefined correlation matrix</h1>
       <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/R/lcor.R" class="external-link"><code>R/lcor.R</code></a></small>
       <div class="d-none name"><code>lcor.Rd</code></div>
     </div>
@@ -47,7 +48,7 @@ correlation matrix.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">lcor</span><span class="op">(</span><span class="va">data</span>, <span class="va">target</span>, passes <span class="op">=</span> <span class="fl">10L</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">lcor</span><span class="op">(</span><span class="va">data</span>, <span class="va">target</span>, passes <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -64,14 +65,15 @@ Must have same dimensions as number of columns in data-frame.</p></dd>
 
 
 <dt id="arg-passes">passes<a class="anchor" aria-label="anchor" href="#arg-passes"></a></dt>
-<dd><p>number of passes when searching for suitable permutation.
-Default = 10.
-You <em>may</em> get a better result if dealing with a large number of columns.</p></dd>
+<dd><p>Number of optimization passes (default = 10)
+Increasing this value <em>MAY</em> improve results if n-columns
+(target correlation matrix dimensions) are many.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Returns a data frame whose column-wise correlations
+    <p>Returns a data frame whose column-wise correlations</p>
+<p>Returns a dataframe whose column-wise correlations
 approximate a user-specified correlation matrix</p>
     </div>
     <div class="section level2">
@@ -120,8 +122,8 @@ statistics remain the same.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">new3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       X1    X2    X3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.000 0.500 0.749</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.500 1.000 0.248</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.749 0.248 1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.500 1.000 0.252</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.749 0.252 1.000</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
