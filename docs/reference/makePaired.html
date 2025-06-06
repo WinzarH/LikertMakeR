@@ -51,7 +51,7 @@ sd(D)^2 = sd(X_before)^2 + sd(X_after)^2 - 2 * cov(X_before, X_after)
 A paired-sample t-test thus requires an estimate of the covariance between
 the two sets of observations.
 makePaired() rearranges these formulae so that the covariance is
-inferred from the t-statistic."><meta property="og:image" content="https://winzarh.github.io/LikertMakeR/logo.png"></head><body>
+inferred from the t-statistic."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -82,7 +82,8 @@ inferred from the t-statistic."><meta property="og:image" content="https://winza
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Synthesise a dataset from paired-sample t-test summary statistics</h1>
+
+      <h1>Synthesise a dataset from paired-sample t-test summary statistics</h1>
       <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/R/makePaired.R" class="external-link"><code>R/makePaired.R</code></a></small>
       <div class="d-none name"><code>makePaired.Rd</code></div>
     </div>
@@ -202,8 +203,8 @@ The user should review the input parameters and insert more realistic values.</p
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	20 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X1: num  2.17 4.33 2.17 1.33 1.33 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X2: num  1.5 4.5 3.17 2.17 1.17 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X1: num  1.17 3.17 3.67 2 1.5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X2: num  1 4.83 3.17 2.33 1.17 ...</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      X1   X2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.00 0.82</span>
