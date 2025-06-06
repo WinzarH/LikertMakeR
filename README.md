@@ -8,8 +8,10 @@
 [![R-CMD-check](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml)
 [![Pkgdown](https://github.com/WinzarH/LikertMakeR/actions/workflows/pkgdown.yaml/badge.svg)](https://winzarh.github.io/LikertMakeR/)
   <!-- badges: end -->
+  
 
-# LikertMakeR <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
+
+# LikertMakeR  <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
 (V 1.2.0  June 2025)
 
@@ -57,7 +59,7 @@ Functions in this version of **_LikertMakeR_** are:
   to generate synthetic rating-scale data with predefined first and 
   second moments and a predefined correlation matrix.
   
-  - [**_makeCorrLoadings_**](#makeCorrLoadings)
+  - [**_makeCorrLoadings_**](#makecorrloadings)
   constructs a item correlation matrix based on factor loadings and 
   factor correlations as might be reported in _Exploratory Factor Analysis_
   (**EFA**) or _Structural Equation Modelling_ (**SEM**).
@@ -66,8 +68,11 @@ Functions in this version of **_LikertMakeR_** are:
   Generate a dataframe of rating scale items from a summative scale 
   and desired Cronbach's Alpha.
   
-  - [**_makePaired()_**](#makePaired) 
-  Generate a dataset from paired-sample t-test summary statistics.
+  - [**_makePaired()_**](#makepaired) 
+  Generate a dataset from _paired-sample t-test_ summary statistics.
+  
+  - [**_makeRepeated()_**](#makerepeated) 
+  Generate a dataset from summary statistics for _repeated-measures ANOVA_, with options for correlation structure and diagnostics.
   
   - [_**correlateScales()**_](#correlatescales) generates a 
   multidimensional dataframe by combining several dataframes of 
