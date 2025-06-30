@@ -1074,11 +1074,11 @@ _makeRepeated()_ Reconstructs a synthetic dataset and inter-timepoint correlatio
 
 This function estimates the average correlation between repeated measures by matching the reported F-statistic, under one of three assumed correlation structures:
 
- - `"cs"` (*Compound Symmetry*): Compound Symmetry assumes that all repeated measures are equally correlated with each other. That is, the correlation between time 1 and time 2 is the same as between time 1 and time 3, and so on. This structure is commonly used in repeated-measures ANOVA by default. It's mathematically simple and reflects the idea that all timepoints are equally related. However, it may not be realistic for data where correlations decrease as time intervals increase (e.g., memory decay or learning effects). Use this if you assume stable relationships between all repeated measures.
+ - `"cs"` (*Compound Symmetry*): Compound Symmetry assumes that all repeated measures are equally correlated with each other. That is, the correlation between time 1 and time 2 is the same as between time 1 and time 3, and so on. This structure is commonly used in repeated-measures ANOVA by default. It's mathematically simple and reflects the idea that all timepoints are equally related. However, it may not be realistic for data where correlations decrease as time intervals increase (e.g., memory decay or learning effects).
  
- - `"ar1"` (*First-Order Autoregressive*): first-order autoregressive, assumes that measurements closer together in time are more highly correlated than those further apart. For example, the correlation between time 1 and time 2 is stronger than between time 1 and time 3. This pattern is often realistic in longitudinal or time-series studies where change is gradual. The correlation drops off exponentially with each time step. Use this structure if you believe the relationship between repeated measures weakens steadily over time.
+ - `"ar1"` (*First-Order Autoregressive*): first-order autoregressive, assumes that measurements closer together in time are more highly correlated than those further apart. For example, the correlation between time 1 and time 2 is stronger than between time 1 and time 3. This pattern is often realistic in longitudinal or time-series studies where change is gradual. The correlation drops off exponentially with each time step. 
  
- - `"toeplitz"` (*Linearly Decreasing*): Toeplitz structure is a more flexible option that allows the correlation between measurements to decrease linearly as the time gap increases. Unlike AR(1), where the decline is exponential, the Toeplitz structure assumes a straight-line drop in correlation — a gentle fade over time. This may be useful in studies where changes across time are more gradual or irregular, but not strictly exponential. It’s a good middle ground when neither compound symmetry nor AR(1) seems quite right.
+ - `"toeplitz"` (*Linearly Decreasing*): Toeplitz structure is a more flexible option that allows the correlation between measurements to decrease linearly as the time gap increases. Unlike AR(1), where the decline is exponential, the Toeplitz structure assumes a straight-line drop in correlation.
 
 
 
@@ -1106,18 +1106,18 @@ This function estimates the average correlation between repeated measures by mat
 
   -  _**n**_ Integer. Sample size used in the original study.
   -  _**k**_ Integer. Number of repeated measures (timepoints).
-  -  _**means**_ Numeric vector of length \code{k}. Mean values reported for each timepoint.
-  -  _**sds**_ Numeric vector of length \code{k}. Standard deviations reported for each timepoint.
+  -  _**means**_ Numeric vector of length `k`. Mean values reported for each timepoint.
+  -  _**sds**_ Numeric vector of length `k`. Standard deviations reported for each timepoint.
   -  _**f_stat**_ Numeric. The reported repeated-measures ANOVA F-statistic for the within-subjects factor.
-  -  _**df_between**_, Degrees of freedom between conditions (default: \code{k - 1}).
-  -  _**df_within**_, Degrees of freedom within-subjects (default: \code{(n - 1) * (k - 1)}).
+  -  _**df_between**_, Degrees of freedom between conditions (default: `k - 1`).
+  -  _**df_within**_, Degrees of freedom within-subjects (default: `(n - 1) * (k - 1)`).
   -  _**structure**_ Character. Correlation structure to assume: `"cs"`, `"ar1"`, or `"toeplitz"` (default).
-  -  _**names**_ Character vector of length \code{k}. Variable names for each timepoint (default: `"time_1"` to `"time_k"`).
-  -  _**items**_ Integer. Number of items used to generate each scale score (passed to \code{\link{lfast}}).
-  -  _**lowerbound**_, Integer. Lower bounds for Likert-type response scales (default: 1).
-  -  _**upperbound**_, Integer. upper bounds for Likert-type response scales (default: 5).
-  -  _**return_corr_only**_ Logical. If \code{TRUE}, return only the estimated correlation matrix.
-  -  _**diagnostics**_ Logical. If \code{TRUE}, include diagnostic summaries such as feasible F-statistic range and effect sizes.
+  -  _**names**_ Character vector of length `k`. Variable names for each timepoint (default: `"time_1"` to `"time_k"`).
+  -  _**items**_ Integer. Number of items used to generate each scale score (passed to `link{lfast}`).
+  -  _**lowerbound**_, Integer. Lower bounds for Likert-type response scales (default: `1`).
+  -  _**upperbound**_, Integer. upper bounds for Likert-type response scales (default: `5`).
+  -  _**return_corr_only**_ Logical. If `TRUE`, return only the estimated correlation matrix.
+  -  _**diagnostics**_ Logical. If `TRUE`, include diagnostic summaries such as feasible F-statistic range and effect sizes.
 
 
 #### makeRepeated() examples
@@ -1604,7 +1604,7 @@ ____
 
 # References
 
-D'Alessandro, S., H. Winzar, B. Lowe, Ba.J. Babin, W. Zikmund (2020). 
+D'Alessandro, S., H. Winzar, B. Lowe, B.J. Babin, W. Zikmund (2020). 
 _Marketing Research_ 5<sup>ed</sup>, Cengage Australia.  <https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund> 
 
 Grønneberg, S., Foldnes, N., & Marcoulides, K. M. (2022).
@@ -1632,7 +1632,7 @@ under Marginal Model Specification: The SimCorMultRes Package,
 _The R Journal_ 8:2, 79-91. 
 <doi:10.32614/RJ-2016-034>
 
-Winzar, H. (2020). LikertMakeR: Synthesise and correlate Likert scale and 
+Winzar, H. (2022). LikertMakeR: Synthesise and correlate Likert scale and 
 related rating-scale data with predefined first and second moments. CRAN: 
-<doi: 10.32614/CRAN.package.LikertMakeR>
+<doi:10.32614/CRAN.package.LikertMakeR>
 
