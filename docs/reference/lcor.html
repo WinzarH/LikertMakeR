@@ -95,15 +95,15 @@ statistics remain the same.</p>
 <span class="r-in"><span>  x2 <span class="op">=</span> <span class="fu"><a href="lfast.html">lfast</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">3.0</span>, <span class="fl">1.50</span>, <span class="va">lowerbound</span>, <span class="va">upperbound</span>, <span class="va">items</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  x3 <span class="op">=</span> <span class="fu"><a href="lfast.html">lfast</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">3.5</span>, <span class="fl">1.00</span>, <span class="va">lowerbound</span>, <span class="va">upperbound</span>, <span class="va">items</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> reached maximum of 1024 iterations</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 40 iterations</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> reached maximum of 1024 iterations</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> reached maximum of 1024 iterations</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">mydat3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        x1     x2     x3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x1  1.000  0.006 -0.122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x2  0.006  1.000 -0.164</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x3 -0.122 -0.164  1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       x1     x2     x3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x1 1.000  0.014  0.052</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x2 0.014  1.000 -0.110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x3 0.052 -0.110  1.000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">tgt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
@@ -119,10 +119,10 @@ statistics remain the same.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## test output</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">new3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       X1   X2    X3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.000 0.50 0.749</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.500 1.00 0.250</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.749 0.25 1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       X1    X2    X3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.000 0.499 0.749</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.499 1.000 0.250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.749 0.250 1.000</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
