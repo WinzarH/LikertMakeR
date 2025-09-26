@@ -22,8 +22,9 @@ correlation matrix."><meta property="og:image" content="https://winzarh.github.i
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
-    <li><a class="dropdown-item" href="../articles/makeCorrLoadings_validate.html">makeCorrLoadings validation</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/lfast_validation.html">LikertMakeR Scale Reproduction Validation</a></li>
+    <li><a class="dropdown-item" href="../articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
+    <li><a class="dropdown-item" href="../articles/makeCorrLoadings_validate.html">makeCorrLoadings() validation</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -64,15 +65,15 @@ Must have same dimensions as number of columns in data-frame.</p></dd>
 
 
 <dt id="arg-passes">passes<a class="anchor" aria-label="anchor" href="#arg-passes"></a></dt>
-<dd><p>Number of optimization passes (default = 10)
+<dd><p>Number of optimization passes (default = 10).
 Increasing this value <em>MAY</em> improve results if n-columns
-(target correlation matrix dimensions) are many.</p></dd>
+(target correlation matrix dimensions) are many.
+Decreasing the value for 'passes' is faster but may decrease accuracy.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Returns a data frame whose column-wise correlations</p>
-<p>Returns a dataframe whose column-wise correlations
+    <p>Returns a dataframe whose column-wise correlations
 approximate a user-specified correlation matrix</p>
     </div>
     <div class="section level2">
@@ -120,9 +121,9 @@ statistics remain the same.</p>
 <span class="r-in"><span><span class="co">## test output</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">new3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       X1    X2    X3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.000 0.502 0.751</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.502 1.000 0.249</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.751 0.249 1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.000 0.499 0.749</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.499 1.000 0.251</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.749 0.251 1.000</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -22,8 +22,9 @@ as one might find in a completed questionnaire."><meta property="og:image" conte
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
-    <li><a class="dropdown-item" href="../articles/makeCorrLoadings_validate.html">makeCorrLoadings validation</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/lfast_validation.html">LikertMakeR Scale Reproduction Validation</a></li>
+    <li><a class="dropdown-item" href="../articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
+    <li><a class="dropdown-item" href="../articles/makeCorrLoadings_validate.html">makeCorrLoadings() validation</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -212,18 +213,18 @@ but their correlations with rating-scale items in other dataframes do.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> New dataframe successfully created</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   A1_1 A1_2 A1_3 A1_4 A2_1 A2_2 A2_3 A2_4 A2_5 A3_1 A3_2 A3_3 A3_4 A3_5 A3_6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    3    3    4    4    3    1    2    2    2    1    4    3    1    3    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    3    4    3    4    4    2    5    5    5    3    4    3    1    1    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    2    2    3    3    3    2    3    2    1    2    1    4    2    4    3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    4    2    2    4    1    4    2    3    3    2    4    4    5    5    5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    2    3    4    4    1    1    2    2    3    4    2    4    4    4    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1    1    2    1    1    2    2    1    1    3    2    3    4    2    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    4    4    4    5    3    2    3    3    5    3    4    4    5    4    5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    2    3    3    4    4    1    2    3    3    2    1    3    4    2    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3    2    1    2    2    1    4    2    1    2    2    2    1    2    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    2    3    4    4    3    2    3    2    3    3    2    1    2    3    4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    3    3    3    4    1    3    2    2    1    4    4    3    5    5    5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1    2    2    2    2    1    2    1    1    1    1    4    2    4    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Int_1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6     1</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

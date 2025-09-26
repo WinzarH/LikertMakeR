@@ -70,8 +70,9 @@ inferred from the t-statistic."><meta property="og:image" content="https://winza
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
-    <li><a class="dropdown-item" href="../articles/makeCorrLoadings_validate.html">makeCorrLoadings validation</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/lfast_validation.html">LikertMakeR Scale Reproduction Validation</a></li>
+    <li><a class="dropdown-item" href="../articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
+    <li><a class="dropdown-item" href="../articles/makeCorrLoadings_validate.html">makeCorrLoadings() validation</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -197,13 +198,13 @@ The user should review the input parameters and insert more realistic values.</p
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Initial data vectors</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> reached maximum of 1024 iterations</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> reached maximum of 1024 iterations</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Rearrange values to conform with desired t-value</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Arranging values to conform with desired t-value</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Complete!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	20 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X1: num  3.67 4.17 1.83 1.83 2.33 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X2: num  3.67 4.83 1 1 2.33 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X1: num  2.5 3.83 1.33 1.5 1.33 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X2: num  4.5 3.67 1 1.17 1 ...</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      X1   X2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.00 0.82</span>
