@@ -233,7 +233,7 @@
 <div class="section level3">
 <h3 id="lcor">lcor()<a class="anchor" aria-label="anchor" href="#lcor"></a>
 </h3>
-<p>The function, <strong><em>lcor()</em></strong>, applies a simple <em>evolutionary algorithm</em> to rearrange the values in the columns of a data set so that they are correlated at a specified level.</p>
+<p>The function, <strong><em>lcor()</em></strong>, rearranges the values in the columns of a data set so that they are correlated at a specified level.</p>
 <div class="section level5">
 <h5 id="note">NOTE<a class="anchor" aria-label="anchor" href="#note"></a>
 </h5>
@@ -247,9 +247,9 @@
 <h5 id="lcor-arguments">lcor() arguments<a class="anchor" aria-label="anchor" href="#lcor-arguments"></a>
 </h5>
 <ul>
-<li><p><strong><em>data</em></strong>: a starter data set of rating-scales</p></li>
-<li><p><strong><em>target</em></strong>: the target correlation matrix</p></li>
-<li><p><strong><em>passes</em></strong>: number of value swap passes to apply when creating correlated data. Increasing this number <em>MAY</em> improve accuracy if the number of columns is large. Decreasing this number will be faster but <em>MAY</em> be less accurate.</p></li>
+<li><p><strong><em>data</em></strong>: a starter data set of ‘k’ rating-scales presented in ‘k’ columns</p></li>
+<li><p><strong><em>target</em></strong>: the target correlation matrix: a ‘k’*‘k’ correlation matrix</p></li>
+<li><p><strong><em>passes</em></strong>: number of value swap passes to apply when creating correlated data. Increasing this number <em>MAY</em> improve accuracy if the number of columns is large. Decreasing this number will be faster, but <em>MAY</em> be less accurate.</p></li>
 </ul>
 </div>
 </div>
@@ -263,7 +263,7 @@
 </h4>
 <div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="dv">64</span></span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a> x1 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">3.5</span>, <span class="fl">1.00</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a> x2 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">1.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a> x2 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">2.0</span>, <span class="fl">0.85</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
 <span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a> x3 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">3.0</span>, <span class="fl">1.70</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a> x4 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">2.5</span>, <span class="fl">1.50</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>)   </span>
 <span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a> </span>
