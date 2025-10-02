@@ -7,26 +7,22 @@
 #'
 #' @importFrom Rcpp sourceCpp
 #'
-#' @description \code{lcor()} rearranges values in each column of a
+#' @description `lcor()` rearranges values in each column of a
 #' data-frame so that columns are correlated to match a predefined
 #' correlation matrix.
 #'
 #' @details Values in a column do not change, so univariate
 #' statistics remain the same.
 #'
-#' @param data data-frame that is to be rearranged
+#' @param data dataframe that is to be rearranged
 #'
 #' @param target target correlation matrix.
 #' Must have same dimensions as number of columns in data-frame.
 #'
-#' @param passes number of passes when searching for suitable permutation.
-#' Default = 10.
-#' You _may_ get a better result if dealing with a large number of columns.
-#'
-#' @return Returns a data frame whose column-wise correlations
-#' @param passes Number of optimization passes (default = 10)
+#' @param passes Number of optimization passes (default = 10).
 #' Increasing this value *MAY* improve results if n-columns
 #' (target correlation matrix dimensions) are many.
+#' Decreasing the value for 'passes' is faster but may decrease accuracy.
 #'
 #' @return Returns a dataframe whose column-wise correlations
 #' approximate a user-specified correlation matrix

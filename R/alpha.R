@@ -1,6 +1,6 @@
 #' Calculate Cronbach's Alpha from a correlation matrix or dataframe
 #' @name alpha
-#' @description \code{alpha()} calculate Cronbach's Alpha from a given
+#' @description `alpha()` calculates Cronbach's Alpha from a given
 #'   correlation matrix or a given dataframe.
 #'
 #' @param cormatrix (real) a square symmetrical matrix with values

@@ -2,15 +2,17 @@
 #'
 #' @description
 #' Constructs an inter-item correlation matrix based on a user-supplied matrix
-#' of standardized factor loadings and (optionally) a factor correlation matrix.
+#' of standardised factor loadings and (optionally) a factor correlation matrix.
 #'
-#' @param loadings Numeric matrix. A k × f matrix of standardized factor loadings
-#'   (items × factors). Row names and column names are used for diagnostics if present.
-#' @param factorCor Optional f × f matrix of factor correlations (Φ).
+#' @param loadings Numeric matrix. A \eqn{k \times f} matrix of standardized
+#' factor loadings \eqn{items \times factors}.
+#' Row names and column names are used for diagnostics if present.
+#' @param factorCor Optional \eqn{f \times f} matrix of factor correlations (\eqn{\Phi}).
 #' If NULL, assumes orthogonal factors.
-#' @param uniquenesses Optional vector of length k. If NULL, calculated as 1 - rowSums(loadings^2).
-#' @param nearPD Logical. If TRUE, attempts to coerce non–positive-definite matrices using Matrix::nearPD().
-#' @param diagnostics Logical. If TRUE, returns diagnostics including McDonald's Omega and item-level summaries.
+#' @param uniquenesses Optional vector of length k. If NULL, calculated
+#' as \eqn{1 - rowSums(loadings^2)}.
+#' @param nearPD Logical. If `TRUE`, attempts to coerce non–positive-definite matrices using [Matrix::nearPD()].
+#' @param diagnostics Logical. If `TRUE`, returns diagnostics including McDonald's Omega and item-level summaries.
 #'
 #' @return If diagnostics = FALSE, returns a correlation matrix (class: matrix).
 #'         If diagnostics = TRUE, returns a list with:
@@ -106,7 +108,7 @@ makeCorrLoadings <- function(loadings,
     loadings[!is.finite(loadings)] <- 0
   }
 
-  # Default: assume orthogonal factors (Φ = I)
+  # Default: assume orthogonal factors phi = I
   if (is.null(factorCor)) {
     factorCor <- diag(f)
   }
@@ -206,7 +208,7 @@ makeCorrLoadings <- function(loadings,
   use_adjusted <- !is.null(factorCor) && !isTRUE(all.equal(factorCor, diag(f)))
 
   if (use_adjusted) {
-    # Omega adjusted: reliability per factor incorporating Φ
+    # Omega adjusted: reliability per factor incorporating \eqn{\Phi}
     omega_adj <- numeric(f)
     for (j in 1:f) {
       # Extract all loadings on factor j and their cross-factor effects

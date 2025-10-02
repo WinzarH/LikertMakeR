@@ -2,46 +2,45 @@
 #'
 #' @name makePaired
 #'
-#' @description \code{makePaired()} generates a dataset from
-#' paired-sample t-test summary statistics.
+#' @description The function `makePaired()` generates a dataset from
+#' paired-sample *t*-test summary statistics.
 #'
-#' \code{makePaired()} generates correlated values so the data replicate
+#' `makePaired()` generates correlated values so the data replicate
 #' rating scales taken, for example, in a before and after experimental design.
 #'
 #' The function is effectively a wrapper function for
-#' \code{lfast()} and \code{lcor()} with the addition of a
+#' `lfast()` and `lcor()` with the addition of a
 #' t-statistic from which the between-column correlation is inferred.
 #'
-#' Paired t-tests apply to observations that are associated with each other.
+#' Paired *t*-tests apply to observations that are associated with each other.
 #' For example: the same people before and after a treatment;
 #' the same people rating two different objects; ratings by husband & wife;
 #' _etc._
 #'
-#' The t-test for paired data is given by:
+#' The paired-samples *t*-test is defined as:
 #'
-#'   - t = mean(D) / (sd(D) / sqrt(n))
+#' \deqn{ t = \frac{\mathrm{mean}(D)}{\mathrm{sd}(D) / \sqrt{n}} }
 #'
 #' where:
 #'
-#'   - D = differences in values,
+#' - \eqn{D} = differences in values
+#' - \eqn{\mathrm{mean}(D)} = mean of the differences
+#' - \eqn{\mathrm{sd}(D)} = standard deviation of the differences, where
 #'
-#'   - mean(D) = mean of the differences,
+#' \deqn{ \mathrm{sd}(D)^2 = \mathrm{sd}(X_{\text{before}})^2 +
+#'                           \mathrm{sd}(X_{\text{after}})^2 -
+#'                           2\,\mathrm{cov}(X_{\text{before}}, X_{\text{after}}) }
 #'
-#'   - sd(D) = standard deviation of the differences, where
-#'
-#'       - sd(D)^2 = sd(X_before)^2 + sd(X_after)^2 - 2 * cov(X_before, X_after)
-#'
-#' A paired-sample t-test thus requires an estimate of the covariance between
+#' A paired-sample *t*-test thus requires an estimate of the covariance between
 #' the two sets of observations.
-#' \code{makePaired()} rearranges these formulae so that the covariance is
+#' `makePaired()` rearranges these formulae so that the covariance is
 #' inferred from the t-statistic.
-#'
 #'
 #'
 #' @param n (positive, integer) sample size
 #' @param means (real) 1:2 vector of target means for two before/after measures
 #' @param sds (real) 1:2 vector of target standard deviations
-#' @param t_value (real) desired paired t-statistic
+#' @param t_value (real) desired paired *t*-statistic
 #' @param lowerbound (integer) lower bound (e.g. '1' for a 1-5 rating scale)
 #' @param upperbound (integer) upper bound (e.g. '5' for a 1-5 rating scale)
 #' @param items (positive, integer) number of items in the rating scale.
@@ -49,14 +48,12 @@
 #' @param precision (positive, real) relaxes the level of accuracy required.
 #' Default = 0
 #'
-#'
 #' @return a dataframe approximating user-specified conditions.
 #'
 #' @importFrom stats rbeta
 #' @importFrom Rcpp sourceCpp
 #'
 #' @export makePaired
-#'
 #'
 #' @note
 #'
@@ -66,7 +63,7 @@
 #' Small sample sizes with relatively large standard deviations and
 #' relatively high t-statistics can result in impossible correlation values.
 #'
-#' Similarly, large sample sizes with low t-statistics can result in
+#' Similarly, large sample sizes with low *t*-statistics can result in
 #' impossible correlations. That is, a correlation outside of the -1:+1 range.
 #'
 #' If this happens, the function will fail with an _ERROR_ message.
@@ -210,7 +207,7 @@ makePaired <- function(n, means, sds, t_value,
     )
   )
 
-  message("Rearrange values to conform with desired t-value")
+  message("Arranging values to conform with desired t-value")
   correlatedDat <- lcor(data = startDat, target = t_cor)
   message("Complete!")
 

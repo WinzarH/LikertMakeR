@@ -1,12 +1,12 @@
 #' calculate eigenvalues of a correlation matrix with optional scree plot
 #'
 #' @name eigenvalues
-#' @description \code{eigenvalues()} calculate eigenvalues of a correlation
+#' @description `eigenvalues()` calculates eigenvalues of a correlation
 #'  matrix and optionally produces a scree plot.
 #'
 #' @param cormatrix (real, matrix) a correlation matrix
 #' @param scree (logical) default = `FALSE`. If `TRUE` (or `1`), then
-#'  \code{eigenvalues()} produces a scree plot to illustrate the eigenvalues
+#'  `eigenvalues()` produces a scree plot to illustrate the eigenvalues
 #'
 #' @importFrom graphics abline rect
 #'

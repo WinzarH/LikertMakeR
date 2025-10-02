@@ -2,8 +2,8 @@
 #'
 #' @name lexact
 #'
-#' @description \code{lexact} is DEPRECATED. Replaced by new version of
-#'  \code{lfast}.
+#' @description \code{lexact} is DEPRECATED.
+#' Replaced in LikertMakeR Version 0.4.0 by new version of \code{lfast}.
 #'
 #' \code{lexact} remains as a legacy for earlier package users.
 #' It is now just a wrapper for \code{lfast}

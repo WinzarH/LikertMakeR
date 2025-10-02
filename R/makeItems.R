@@ -3,15 +3,15 @@
 #'
 #' @name makeItems
 #'
-#' @description \code{makeItems()} generates a dataframe of random discrete
+#' @description `makeItems()` generates a dataframe of random discrete
 #'  values so the data replicate a rating scale,
 #'  and are correlated close to a predefined correlation matrix.
 #'
-#'  \code{makeItems()} is wrapper function for:
+#'  `makeItems()` is wrapper function for:
 #'
-#'   * \code{lfast()}, generates a dataframe that best fits the desired
+#'   * [lfast()], generates a dataframe that best fits the desired
 #'    moments, and
-#'   * \code{lcor()}, which rearranges values in each column of the dataframe
+#'   * [lcor()], which rearranges values in each column of the dataframe
 #'    so they closely match the desired correlation matrix.
 #'
 #' @param n (positive, int) sample-size - number of observations

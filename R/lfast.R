@@ -2,10 +2,10 @@
 #'
 #' @name lfast
 #'
-#' @description \code{lfast()} applies a simple Evolutionary Algorithm to
+#' @description `lfast()` applies a simple Evolutionary Algorithm to
 #' find a vector that best fits the desired moments.
 #'
-#' \code{lfast()} generates random discrete values from a
+#' `lfast()` generates random discrete values from a
 #' scaled Beta distribution so the data replicate a rating scale -
 #' for example, a 1-5 Likert scale made from 5 items (questions) or 0-10
 #' likelihood-of-purchase scale.
@@ -21,7 +21,6 @@
 #' @param precision (positive, real) can relax the level of accuracy required.
 #' (e.g. '1' generally generates a vector with moments correct within '0.025',
 #' '2' generally within '0.05') Default = 0
-#'
 #'
 #' @return a vector approximating user-specified conditions.
 #'

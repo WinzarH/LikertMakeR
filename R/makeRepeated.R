@@ -1,52 +1,60 @@
 #' @title Reproduce Repeated-Measures Data from ANOVA Summary Statistics
 #'
 #' @description
-#' Reconstructs a synthetic dataset and inter-timepoint correlation matrix from a repeated-measures ANOVA result, based on reported means, standard deviations, and an F-statistic. This is useful when only summary statistics are available from published studies.
+#' Constructs a synthetic dataset and inter-timepoint correlation matrix from a repeated-measures ANOVA result, based on reported means, standard deviations, and an F-statistic. This is useful when only summary statistics are available from published studies.
 #'
 #' @details
 #' This function estimates the average correlation between repeated measures by matching the reported F-statistic, under one of three assumed correlation structures:
 #'
-#' - `"cs"` (*Compound Symmetry*): Assumes all timepoints are equally correlated. Common in standard RM-ANOVA settings.
+#' - `"cs"` (*Compound Symmetry*): The Default. Assumes all timepoints are equally correlated. Common in standard RM-ANOVA settings.
 #' - `"ar1"` (*First-Order Autoregressive*): Assumes correlations decay exponentially with time lag — higher correlation for closer timepoints.
 #' - `"toeplitz"` (*Linearly Decreasing*): Assumes correlation declines linearly with time lag, offering a middle ground between `"cs"` and `"ar1"`.
 #'
-#' The function then generates a data frame of synthetic item-scale ratings using \code{\link{lfast}}, and adjusts them to match the estimated correlation structure using \code{\link{lcor}}.
+#' The function then generates a data frame of synthetic item-scale ratings
+#' using [lfast], and adjusts them to match the estimated correlation
+#' structure using [lcor].
 #'
-#' Set \code{return_corr_only = TRUE} to extract only the estimated correlation matrix.
+#' Set `return_corr_only = TRUE` to extract only the estimated correlation matrix.
 #'
 #' @param n Integer. Sample size used in the original study.
 #' @param k Integer. Number of repeated measures (timepoints).
-#' @param means Numeric vector of length \code{k}. Mean values reported for each timepoint.
-#' @param sds Numeric vector of length \code{k}. Standard deviations reported for each timepoint.
+#' @param means Numeric vector of length `k`. Mean values reported for each timepoint.
+#' @param sds Numeric vector of length `k`. Standard deviations reported for each timepoint.
 #' @param f_stat Numeric. The reported repeated-measures ANOVA F-statistic for the within-subjects factor.
-#' @param df_between Degrees of freedom between conditions (default: \code{k - 1}).
-#' @param df_within Degrees of freedom within-subjects (default: \code{(n - 1) * (k - 1)}).
-#' @param structure Character. Correlation structure to assume: `"cs"`, `"ar1"`, or `"toeplitz"` (default).
-#' @param names Character vector of length \code{k}. Variable names for each timepoint (default: `"time_1"` to `"time_k"`).
-#' @param items Integer. Number of items used to generate each scale score (passed to \code{\link{lfast}}).
+#' @param df_between Degrees of freedom between conditions (default: `k - 1`.
+#' @param df_within Degrees of freedom within-subjects (default: `(n - 1) * (k - 1)`).
+#' @param structure Character. Correlation structure to assume: `"cs"`, `"ar1"`, or `"toeplitz"` (default = `"cs"`).
+#' @param names Character vector of length `k`. Variable names for each timepoint (default: `"time_1"` to `"time_k"`).
+#' @param items Integer. Number of items used to generate each scale score (passed to [lfast]).
 #' @param lowerbound, Integer. Lower bounds for Likert-type response scales (default: 1).
 #' @param upperbound, Integer. upper bounds for Likert-type response scales (default: 5).
-#' @param return_corr_only Logical. If \code{TRUE}, return only the estimated correlation matrix.
-#' @param diagnostics Logical. If \code{TRUE}, include diagnostic summaries such as feasible F-statistic range and effect sizes.
+#' @param return_corr_only Logical. If `TRUE`, return only the estimated correlation matrix.
+#' @param diagnostics Logical. If `TRUE`, include diagnostic summaries such as feasible F-statistic range and effect sizes.
 #' @param ... Reserved for future use.
 #'
-#' @return A named list with:
+#' @return A named list with components:
+#'
 #' \describe{
-#'   \item{\code{data}}{A data frame of simulated repeated-measures responses (unless \code{return_corr_only = TRUE}).}
-#'   \item{\code{correlation_matrix}}{The estimated inter-timepoint correlation matrix.}
-#'   \item{\code{structure}}{The correlation structure assumed.}
-#'   \item{\code{achieved_f}}{The F-statistic produced by the estimated rho value (if \code{diagnostics = TRUE}).}
-#'   \item{\code{feasible_f_range}}{Minimum and maximum achievable F-values under the structure (if diagnostics requested).}
-#'   \item{\code{recommended_f}}{Conservative, moderate, and strong F-statistic suggestions for similar designs.}
-#'   \item{\code{effect_size_raw}}{Unstandardized effect size across timepoints.}
-#'   \item{\code{effect_size_standardised}}{Effect size standardized by average variance.}
+#'   \item{`data`}{A data frame of simulated repeated-measures responses
+#'     (unless `return_corr_only = TRUE`).}
+#'   \item{`correlation_matrix`}{The estimated inter-timepoint correlation matrix.}
+#'   \item{`structure`}{The correlation structure assumed.}
+#'   \item{`achieved_f`}{The F-statistic produced by the estimated `rho` value
+#'     (if `diagnostics = TRUE`).}
+#'   \item{`feasible_f_range`}{Minimum and maximum achievable F-values under the
+#'     chosen structure (shown if diagnostics are requested).}
+#'   \item{`recommended_f`}{Conservative, moderate, and strong F-statistic
+#'     suggestions for similar designs.}
+#'   \item{`effect_size_raw`}{Unstandardised effect size across timepoints.}
+#'   \item{`effect_size_standardised`}{Effect size standardised by average variance.}
 #' }
 #'
 #' @examples
 #'
-#' set.seed(123)
+#' set.seed(42)
+#'
 #' out1 <- makeRepeated(
-#'   n = 128,
+#'   n = 64,
 #'   k = 3,
 #'   means = c(3.1, 3.5, 3.9),
 #'   sds = c(1.0, 1.1, 1.0),
@@ -58,7 +66,6 @@
 #'
 #' head(out1$data)
 #' out1$correlation_matrix
-#'
 #'
 #' out2 <- makeRepeated(
 #'   n = 32, k = 4,
@@ -76,19 +83,18 @@
 #'
 #'
 #' out3 <- makeRepeated(
-#'   n = 32, k = 4,
-#'   means = c(2.0, 2.5, 3.0, 2.8),
+#'   n = 64, k = 4,
+#'   means = c(2.0, 2.25, 2.75, 3.0),
 #'   sds = c(0.8, 0.9, 1.0, 0.9),
 #'   items = 4,
 #'   f_stat = 24,
-#'   structure = "toeplitz",
+#'   # structure = "toeplitz",
 #'   diagnostics = TRUE
 #' )
 #'
 #' str(out3)
 #'
 #' @seealso \code{\link{lfast}}, \code{\link{lcor}}
-#'
 #'
 #' @importFrom stats median optimize
 #'
