@@ -15,7 +15,8 @@ makeItemsScale(
 }
 \arguments{
 \item{scale}{(int) a vector or dataframe of the summated rating scale.
-Should range from ('lowerbound' * 'items') to ('upperbound' * 'items')}
+Should range from \eqn{lowerbound \times items} to
+\eqn{upperbound \times items}}
 
 \item{lowerbound}{(int) lower bound of the scale item
 (example: '1' in a '1' to '5' rating)}
@@ -44,7 +45,7 @@ a dataframe with 'items' columns and 'length(scale)' rows
 \description{
 \code{makeItemsScale()} generates a random dataframe
 of scale items based on a predefined summated scale
-(such as created by the \code{lfast()} function),
+(such as created by the \code{\link[=lfast]{lfast()}} function),
 and a desired \emph{Cronbach's Alpha}.
 
 scale, lowerbound, upperbound, items, alpha, variance

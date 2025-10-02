@@ -38,9 +38,9 @@ and are correlated close to a predefined correlation matrix.
 
 \code{makeItems()} is wrapper function for:
 \itemize{
-\item \code{lfast()}, generates a dataframe that best fits the desired
+\item \code{\link[=lfast]{lfast()}}, generates a dataframe that best fits the desired
 moments, and
-\item \code{lcor()}, which rearranges values in each column of the dataframe
+\item \code{\link[=lcor]{lcor()}}, which rearranges values in each column of the dataframe
 so they closely match the desired correlation matrix.
 }
 }

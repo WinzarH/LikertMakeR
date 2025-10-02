@@ -1,0 +1,1252 @@
+---
+title: "LikertMakeR Scale Reproduction Validation"
+author: "Hume Winzar"
+date: "September 2025"
+output: rmarkdown::html_vignette
+bibliography: references.bib  
+vignette: >
+  %\VignetteIndexEntry{LikertMakeR Scale Reproduction Validation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<!-- BEGIN Setup chunks -->
+
+```{r}
+#| label: setup
+#| include: FALSE
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+#| label: load_packages
+#| echo: false
+#| warning: false
+#| message: false
+
+library(dplyr)
+library(tibble)
+library(kableExtra)
+library(tidyr)
+```
+
+<!-- END setup chunks -->
+
+<!-- BEGIN Functions and templates for later use -->
+
+```{r}
+#| label: colour_my_text_function
+#| echo: false
+#| warning: false
+#| message: false
+
+
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf(
+      "<span style='color: %s;'>%s</span>", color,
+      x
+    )
+  } else {
+    x
+  }
+}
+```
+
+
+```{r}
+#| label: three-images
+#| echo: false
+#| eval: false
+#| results: asis
+#| fig.show: "hold"
+#| out.width: "0.3\\linewidth"
+
+# Define image filenames and optional alt-text
+img_files <- c("image1.png", "image2.png", "image3.png")
+alt_texts <- c("First image description", "Second image description", "Third image description")
+
+# Conditional rendering
+if (knitr::is_html_output()) {
+  cat('<div style="display: flex; justify-content: space-around; align-items: flex-start; margin-bottom: 1em;">\n')
+  for (i in seq_along(img_files)) {
+    cat(sprintf(
+      '<img src="%s" width="30%%" alt="%s" style="margin-right: 10px;">\n',
+      img_files[i],
+      alt_texts[i]
+    ))
+  }
+  cat("</div>\n")
+} else if (knitr::is_latex_output()) {
+  # For PDF: automatically scales using out.width in chunk header
+  knitr::include_graphics(img_files)
+}
+```
+
+
+```{r}
+#| label: white_space
+#| echo: false
+
+add_white_space <- function(lines = 2) {
+  # Convert line spacing to em units or LaTeX equivalent
+  if (knitr::is_html_output()) {
+    height <- paste0(lines, "em")
+    cat(sprintf('<div style="height: %s;"></div>\n', height))
+  } else if (knitr::is_latex_output()) {
+    cat(sprintf("\\vspace{%sem}\n", lines))
+  }
+}
+```
+
+<!-- END of functions and templates for later use -->
+
+
+# LikertMakeR Validation {#sec-likertmaker}
+
+This paper reports on a study that compares data produced using
+*LikertMakeR* with original data from a published and publicly-available
+source.
+
+# Abstract {#abstract}
+
+The `LikertMakeR::lfast()` function generally produces surprisingly good 
+replications of existing data. 
+
+Data distributions usually are unimodal, so multimodal (or wiggly) data are 
+poorly represented.
+
+Highly leptokurtic data (pointy with wide tails) also may be poorly represented.
+
+These exceptions are likely to occur when more than one utility function is 
+included in the original sample data. 
+That is, when different groups of respondents are joined together.  
+
+# Validation against real data {#sec-validation-against-real-data}
+
+One objective of the ***LikertMakeR*** package [@winzar2022] is to 
+"reproduce" or "reverse engineer" rating-scale data for further analysis and 
+visualization when only summary statistics are available. 
+In such a role, the synthetic data should accurately represent the original 
+data, meaning both should plausibly originate from the same population.
+
+To validate synthetic data, we choose a data set that is readily
+available, and which can be filtered to represent rating-scale data that
+may be commonly seen in published reports.
+
+We should compare data with variations in:
+
+-   sample sizes,
+-   number of increments in a scale. Number of increments may be defined
+    by:
+    -   number of items in the scale
+    -   length of the scale item (1 to 5; 0 to 10; *etc.*)
+- modality: the extent that a distribution shows bumps or something other than a smooth hill.
+
+## SPI (SAPA Personality Inventory) {#sec-spi}
+
+For convenience and reproducibility, I chose a subsample of the *SAPA
+Personality Inventory* [@sapaproject] data available from the **psych**
+[@psych] and **psychtools** [@psychTools] packages for **R**. 
+The data set holds 4000 observations of 145 variables.
+
+### Variable/ scale selection {#variable_selection}
+
+The *SPI* is based on a hierarchical framework for assessing personality
+at two levels. 
+The higher level has the familiar **_"Big Five"_** factors that
+have been studied in personality research since the 1980s.
+
+In the *SPI*, each of these five dimensions is represented by the
+average of *fourteen* 6-point agree-disagree items. 
+That is, scale values have a scale with `14 * 6 = 84` possible values.
+
+
+```{r big5-table}
+#| echo: false
+#| results: asis
+
+# Create the vector of dimensions
+traits <- c(
+  "Conscientiousness",
+  "Agreeableness",
+  "Neuroticism",
+  "Openness",
+  "Extraversion"
+)
+
+# Convert to a one-column dataframe
+dim_df <- data.frame(Dimension = traits)
+
+colnames(dim_df) <- "Big Five Personality Dimensions"
+my_caption <- NULL
+
+# Conditional rendering
+if (knitr::is_latex_output()) {
+  kbl(dim_df,
+    format = "latex",
+    caption = my_caption
+  ) |>
+    kable_styling(
+      latex_options = c("hold_position", "scale_down") # ,
+      # font_size = 10
+    )
+} else if (knitr::is_html_output()) {
+  kbl(dim_df,
+    # format = "html",
+    caption = paste0("<div style='width:100%'>", my_caption, "</div>")
+  ) |>
+    kable_styling(
+      full_width = FALSE,
+      position = "center" # ,
+      # font_size = 12
+    )
+}
+```
+
+
+The lower level has 27 factors, made by averaging *five* 6-point items,
+most of which are sub-scales of the Big Five. 
+These give scales with `5 * 6 = 30` possible values.
+
+
+```{r facet-table2}
+#| echo: false
+#| results: asis
+
+# Create the vector of facets
+facets <- c(
+  "Adaptability",
+  "Anxiety",
+  "ArtAppreciation",
+  "AttentionSeeking",
+  "Authoritarianism",
+  "Charisma",
+  "Compassion",
+  "Conformity",
+  "Conservatism",
+  "Creativity",
+  "EasyGoingness",
+  "EmotionalExpressiveness",
+  "EmotionalStability",
+  "Honesty",
+  "Humor",
+  "Impulsivity",
+  "Industry",
+  "Intellect",
+  "Introspection",
+  "Irritability",
+  "Order",
+  "Perfectionism",
+  "SelfControl",
+  "SensationSeeking",
+  "Sociability",
+  "Trust",
+  "WellBeing"
+)
+
+n_cols <- 3
+
+# Pad with NAs if needed to make it a multiple of n_cols
+n_items <- length(facets)
+n_rows <- ceiling(n_items / n_cols)
+padded_facets <- c(facets, rep(NA, n_rows * n_cols - n_items))
+
+# Convert to matrix, then dataframe
+facet_matrix <- matrix(padded_facets, ncol = n_cols, byrow = TRUE)
+facet_df <- as.data.frame(facet_matrix)
+
+# Optional: Set column names
+# colnames(facet_df) <- paste("Facet", 1:n_cols)
+colnames(facet_df) <- NULL
+
+# Display with kable
+kable(facet_df, caption = "List of SPI Facets") |>
+  kable_styling(full_width = FALSE, position = "center") |>
+  column_spec(1, width = "12em") |>
+  column_spec(2, width = "12em") |>
+  column_spec(3, width = "12em")
+```
+
+
+Finally, these dimensions and facets are made by averaging subsets of
+135 items (individual questions). 
+Each item then is a scale with `1 * 6 = 6` possible values.
+
+
+```{r show_scale_properties}
+#| echo: false
+
+scale_properties <- tribble(
+  ~Property, ~Dimensions, ~Facets, ~Items,
+  "Number of scales", 5, 27, 135,
+  "Items per scale", 14, 5, 1,
+  "Discrete values per scale", 84, 30, 6
+)
+
+# Display the table
+kable(scale_properties,
+  caption = "Scale properties under consideration", escape = FALSE
+) |>
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+
+## Measures of Difference {#sec-measures-of-difference}
+
+The function `LikertMakeR::lfast()` produces a vector of values with 
+predefined first and second moments usually correct to two decimal places. 
+Vectors also have exact minima & maxima, and scale intervals.
+
+To determine whether synthetic data are no different from the data that
+produced the original summary statistics, we need something more than
+just equal mean and standard deviation. 
+We need measures that can accommodate third and fourth moments 
+(_skewness_ and _kurtosis_) as well. 
+Further, a comparison should accommodate occasional bimodal distributions 
+that may occur.
+
+### Choice of Test for Equal Distributions {#sec-choice_of_test}
+
+To assess the similarity between synthetic data generated by
+**LikertMakeR** and real survey data, we evaluate the agreement between
+their empirical distributions using *nonparametric two-sample tests*.
+
+Several tests are available for comparing continuous distributions:
+
+-   The **Kolmogorov–Smirnov (KS)** test focuses on the maximum vertical
+    distance between the empirical cumulative distribution functions
+    (ECDFs) of the two samples. 
+    The _KS_ test has reduced sensitivity near the centre of the distribution 
+    and excessive sensitivity to extreme values [@Lilliefors1967].
+
+-   The **Baumgartner–Weiß–Schindler (BWS)** test [@Baumgartner1998]  
+    improves upon the _KS_ test by incorporating differences across the entire 
+    distribution, using a rank-based test statistic derived from integrated 
+    spacing differences. 
+    The *BWS* test is more powerful than either the *Kolmogorov-Smirnov* test 
+    or the *Wilcoxon* test [@BWStest-Manual], as shown in @Baumgartner1998.
+    It is sensitive to both *location and shape* differences and generally 
+    has greater power across a variety of alternatives 
+    [@Neuhäuser2001; @Neuhauser2009].
+
+-   The **Neuhäuser modification** of the _BWS_ test introduces a
+    *weighting function* that emphasizes differences in the *central
+    region* of the distribution while reducing the influence of the
+    tails [@Neuhäuser2001]. 
+    This makes it more robust to small discrepancies in the extremes — a 
+    desirable property in large samples where minor tail mismatches can lead 
+    to false positives [@Neuh_user_2005].
+
+Overall, The researcher might want to use the _BWS_ test to see if 
+`LikertMakeR::lfast()` gives an *exact replication* of a scale, and use the 
+_Neuhäuser_ test option to see if the function produces a "pretty good" 
+dataframe.
+So, we present summary results for both tests in this study.
+
+
+```{r compare-methods-table}
+#| echo: FALSE
+#| results: asis
+
+# Define the table as a matrix or dataframe
+method_table <- tribble(
+  ~Feature, ~`method = "BWS"`, ~`method = "Neuhäuser"`,
+  "Test Statistic", "Based on comparing quantiles", "Based on comparing ranks.",
+  "Sensitivity", "More sensitive to shape differences.", "Less sensitive to shape differences.",
+  "Robustness to Outliers", "Less robust to outliers.", "More robust to outliers.",
+  "Focus", "Sensitive to general differences across the ranks", "Less sensitive to tail differences.",
+  "Type of Differences", "More likely to pick up on subtle differences", "Less likely to pick up on subtle differences"
+)
+
+kbl(
+  method_table,
+  caption = "Comparison of BWS and Neuhäuser Methods",
+  booktabs = TRUE,
+  escape = FALSE
+) |>
+  kable_styling(full_width = FALSE, position = "center")
+```
+
+
+```{=latex}
+\newpage
+```
+
+
+# Research Design {#research_design}
+
+We suspect that the accuracy of data created by `LikertMakeR::lfast()` will be
+affected by:
+
+-   the shape of the true distribution
+-   sample-size
+-   number of discrete intervals in a scale
+
+That is, highly skewed and multimodal distributions, and smaller sample
+sizes, are likely to be less well replicated by synthetic data generated
+by `LikertMakeR::lfast()`.
+
+## Data selection {#sec-data_selection}
+
+The *SPI* dataset includes demographic information on which we can
+filter the 4000 observations down to sample-sizes that we are more
+likely to find in normal social research. Somewhat arbitrarily, I
+decided to use Age, Gender, and Education as filters.
+
+### Small sample {#small_sample}
+
+Young highly-educated men
+
+```{r}
+#| eval: false
+
+young_highly_educated_men <- spi |>
+  filter(age < 24 & sex == 1 & education == 7)
+
+## where, sex==1 = 'male'
+##        education == 7 = 'postgraduate degree'
+```
+
+This filtering produced a sample of 19 observations.
+
+### Medium sample {#medium_sample}
+
+Young educated women
+
+```{r}
+#| eval: false
+
+young_educated_women <- spi |>
+  filter(age < 24 & sex == 2 & education >= 5)
+
+## where, "sex==2" = 'female'
+##        "education >= 5" = 'undergraduate degree or higher'
+```
+
+This filtering produced a sample of 99 observations.
+
+### Large sample {#large_sample}
+
+Young school-leavers
+
+```{r}
+#| eval: false
+
+under_18_highschool <- spi |>
+  filter(age < 18 & education == 1)
+
+## where, "education == 1" = 'Less than 12 years schooling'
+```
+
+
+This filtering produced a sample of 314 observations.
+
+## Procedure
+
+We have three samples with small, medium and large sample-sizes.
+
+ - small, 19 observations
+ - medium, 99 observations
+ - large, 314 observations
+
+And we have three levels of data aggregation: 
+
+ - 5 dimensions, each of 14 items
+ - 27 factors, each of 5 items
+ - 135 individual items
+
+This gives us `(3 * (5 + 27 + 135) = 501)` data subsets.
+
+For each combination of sample and data-level we find the mean and standard 
+deviation of the data subset, then apply the `LikertMakeR::lfast` function to 
+produce `2^10 = 1024` simulated dataframes to compare with the true 
+original dataframes from the SPI data.
+
+We compare the _Empirical Cumulative Density Function_ (_ECDF_) of each 
+simulated dataframe with the _ECDF_ of the original dataframe using both the 
+_BWS_ and _Neuhäuser_ methods. 
+With more than 1000 tests on each of 501 original dataframes we should be 
+able to see how accurate our simulations are.   
+
+
+## Original Data
+
+We present charts as summary information about the three levels of data under consideration. 
+These are bar-charts for each measurement level combined with _kernel density_ estimates.
+
+### SPI Big Five Dimensions
+
+Each of the Big Five measures is the average of 14 six-point items. 
+So there are `14 * 6 = 84` potential values in each scale. 
+Note then, how a small sample size has much more sparse values than a larger sample.  
+
+Otherwise, the distributions tend to be unimodal, with fairly smooth _kernel density_ curves.
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 45%
+#| fig.show: hold
+#| fig.cap: "Big 5 Dimensions for three samples"
+#| fig.cap-location: bottom
+#| fig.alt: "Bar and kernel density plots of Big 5 for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/young_highly_educated_men_dims_histograms.png",
+  "vignette_files/young_educated_women_dims_histograms.png",
+  "vignette_files/under_18_highschool_dims_histograms.png"
+))
+```
+
+
+### SPI 27 Facets
+
+Each of the SPI facets is the average of five six-point items, giving `5 * 6 = 30` potential values in each facet measure.
+
+Again, the distributions tend to be unimodal, with smooth _kernel density_ curves. 
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 45%
+#| fig.show: hold
+#| fig.cap: "SPI facets for three samples"
+#| fig.cap-location: bottom
+#| fig.alt: "Bar and density plots of 27 facets for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/young_highly_educated_men_facets_histograms.png",
+  "vignette_files/young_educated_women_facets_histograms.png",
+  "vignette_files/under_18_highschool_facets_histograms.png"
+))
+```
+
+
+### Selected SPI items
+
+We simulated data for 135 individual items - too many to show meaningfully. 
+We present here a sample of those few that showed unusual results in the 
+simulations.
+
+In these cases data were either highly skewed, or bimodal (or at least flat in parts).
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 45%
+#| fig.show: hold
+#| fig.cap: "Selected SPI items for three samples"
+#| fig.cap-location: bottom
+#| fig.alt: "Bar and density plots for selected SPI items for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/selected_items_youngmen.png",
+  "vignette_files/selected_items_youngwomen.png",
+  "vignette_files/selected_items_highschool.png"
+))
+```
+
+
+# Results
+
+The following tables list the dimension under consideration and the proportion of cases in each of the three samples that were _'statistically significant'_ ($\rho$\ <\ 0.05). 
+
+Tables show the _BWS_ test / _Neuhäuser_ test.
+
+## Big Five Dimensions validity
+
+Fourteen six-point items (84 levels in scale)
+
+```{r display-dim-table}
+#| echo: false
+#| results: asis
+#| warning: false
+#| message: false
+
+sample_col_header <- c(
+  "young men<br>postgrad<br>n=19",
+  "young women<br>graduates<br>n=99",
+  "under-18<br>highschool<br>n=314"
+)
+
+dim_BWS <- readRDS("vignette_files/sig_table_dimensions_BWS.rds")
+dim_N <- readRDS("vignette_files/sig_table_dimensions_Neuhauser.rds")
+
+# my_col_names <- colnames(dim_BWS)
+my_row_names <- dim_BWS$dimension
+
+dim_BWS <- dim_BWS |> select(!(dimension))
+dim_N <- dim_N |> select(!(dimension))
+
+# check same dimensions
+stopifnot(all(dim(dim_BWS) == dim(dim_N)))
+
+# Combine element-by-element into a matrix of strings
+combined <- matrix(
+  mapply(function(bws, neu) {
+    paste0(formatC(bws, format = "f", digits = 2), " / ", formatC(neu, format = "f", digits = 2))
+  }, dim_BWS, dim_N),
+  ncol = ncol(dim_BWS),
+  byrow = FALSE
+)
+
+colnames(combined) <- sample_col_header
+rownames(combined) <- my_row_names
+
+my_caption <- "Proportion of statistically-significant simulations (BWS/Neuhäuser)"
+
+# Conditional rendering
+if (knitr::is_latex_output()) {
+  kbl(combined,
+    format = "latex",
+    caption = my_caption
+  ) |>
+    kable_styling(
+      latex_options = c("hold_position", "scale_down"),
+      font_size = 10
+    )
+} else if (knitr::is_html_output()) {
+  kbl(combined,
+    format = "html",
+    caption = my_caption, escape = FALSE
+  ) |>
+    kable_styling(
+      full_width = FALSE,
+      position = "center" # ,
+      # font_size = 12
+    ) |>
+    column_spec(1, width = "10em") |>
+    column_spec(2, width = "10em") |>
+    column_spec(3, width = "10em")
+}
+```
+
+
+With smooth _kernel density estimates_, as we saw above, all cases were 
+non-significant, suggesting that such data are well-reproduced by the 
+`LikertMakeR::lfast()` function.
+
+
+## SPI Facets (Subscale) validity
+
+Five six-point items (30 potential values in scale)
+
+
+```{r new_facet_table}
+#| echo: false
+#| results: asis
+#| warning: false
+#| message: false
+
+sample_col_header <- c(
+  "young men<br>postgrad<br>n=19",
+  "young women<br>graduates<br>n=99",
+  "under-18<br>highschool<br>n=314"
+)
+
+dim_BWS <- readRDS("vignette_files/sig_table_facets_BWS.rds")
+dim_N <- readRDS("vignette_files/sig_table_facets_Neuhauser.rds")
+
+my_row_names <- dim_BWS$facet
+
+dim_BWS <- dim_BWS |> select(!(facet))
+dim_N <- dim_N |> select(!(facet))
+
+stopifnot(all(dim(dim_BWS) == dim(dim_N)))
+
+threshold <- 0.06
+is_html <- knitr::is_html_output()
+is_pdf <- knitr::is_latex_output()
+
+# Prepare empty character matrix
+combined <- matrix("", nrow = nrow(dim_BWS), ncol = ncol(dim_BWS))
+
+for (i in seq_len(nrow(dim_BWS))) {
+  for (j in seq_len(ncol(dim_BWS))) {
+    bws <- dim_BWS[i, j]
+    neu <- dim_N[i, j]
+
+    # Format each number
+    bws_str <- sprintf("%.2f", bws)
+    neu_str <- sprintf("%.2f", neu)
+
+    # Bold individually if over threshold
+    if (bws > threshold) {
+      bws_str <- if (is_html) paste0("<strong>", bws_str, "</strong>") else paste0("**", bws_str, "**")
+    }
+    if (neu > threshold) {
+      neu_str <- if (is_html) paste0("<strong>", neu_str, "</strong>") else paste0("**", neu_str, "**")
+    }
+
+    # Combine
+    combined[i, j] <- paste0(bws_str, " / ", neu_str)
+  }
+}
+
+colnames(combined) <- sample_col_header
+rownames(combined) <- my_row_names
+
+my_caption <- "Proportion of statistically-significant simulations (BWS/Neuhäuser)"
+
+if (is_pdf) {
+  kbl(combined,
+    format = "latex",
+    caption = my_caption,
+    escape = FALSE
+  ) |>
+    kable_styling(
+      latex_options = c("hold_position", "scale_down"),
+      font_size = 10
+    )
+} else if (is_html) {
+  kbl(combined,
+    format = "html",
+    caption = my_caption,
+    escape = FALSE
+  ) |>
+    kable_styling(
+      full_width = FALSE,
+      position = "center"
+    ) |>
+    column_spec(1, width = "10em") |>
+    column_spec(2, width = "10em") |>
+    column_spec(3, width = "10em")
+}
+```
+
+
+When the _BWS_ test is applied to the larger sample, all simulations are significantly different from the original data. 
+This is probably due to the smaller standard error produced by a larger sample.
+
+Interestingly, the _Neuhäuser_ test, which is less sensitive to outliers, suggested that all simulations are good representations of the original.
+
+The facet, _Introspection_, stands out as one that is rarely accurately reproduced by the `LikertMakeR::lfast()` function, using the _BWS_ test, regardless of sample size. 
+
+Other facets that are worth exploring in more detail are:
+_Compassion_, _Humor_, _Intellect_, _SelfControl_, _EasyGoingness_, 
+and _Perfectionism_.
+These facets have high rates of significance in the mid-sample-size condition.
+
+
+### Focus on "Introspection" facet
+
+The following chart shows _kernel density_ plots for facet _Introspection_ in the three samples. 
+
+Each of the 1024 synthetic dataframes is represented by a `r colorize("grey/black line", "#999999")`, and the original _"true"_ dataframe is represented by a `r colorize("blue/cyan line", "#00BFFF")`.
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 45%
+#| fig.show: hold
+#| fig.cap: "Introspection facet: Density plot for small, medium and large samples"
+#| fig.cap-location: top
+#| fig.alt: "density plots for 'Introspection' facet for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/Introspection_Density_young_highly_educated_men.png",
+  "vignette_files/Introspection_Density_young_educated_women.png",
+  "vignette_files/Introspection_Density_under_18_highschool.png"
+))
+```
+
+
+```{r}
+#| label: whitespace_1
+#| echo: false
+#| results: asis
+
+add_white_space(2)
+```
+
+We see that the synthetic data never match the true data, especially in the middle and large sample sizes. 
+
+The original, true, data are highly left-skewed, and this has been nicely captured by the synthetic data. 
+Note, however, that the true dataframe is not unimodal. 
+The _kernel density_ estimate appears rough and slightly multimodal. 
+It's more wobbly.
+
+
+### focus on "Compassion" facet
+
+The following chart shows _kernel density_ plots for facet _Compassion_ in the three samples. 
+
+Again, each of the 1024 synthetic dataframes is represented by a `r colorize("grey/black line", "#999999")`, and the original _"true"_ dataframe is represented by a `r colorize("blue/cyan line", "#00BFFF")`.
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 30%
+#| fig.show: hold
+#| fig.cap: "Compassion facet: Kernel Density plots for small, medium and large samples"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for 'Compassion' facet for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/Compassion_Density_young_highly_educated_men.png",
+  "vignette_files/Compassion_Density_young_educated_women.png",
+  "vignette_files/Compassion_Density_under_18_highschool.png"
+))
+```
+
+
+```{r}
+#| label: whitespace_2
+#| echo: false
+#| results: asis
+
+add_white_space(2)
+```
+
+
+For this factor the _BWS test_ showed no cases where the synthetic data were significantly different from the original data for the smaller sample.
+But for the medium and large samples, the original data are not unimodal, and the _BWS test_ suggests that all synthetic replications are different from the original.
+
+#### Other notable facets
+
+##### Humor
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 30%
+#| fig.show: hold
+#| fig.cap: "Humor facet: Kernel Density plots for small, medium and large samples"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for 'Humor' facet for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/Humor_Density_young_highly_educated_men.png",
+  "vignette_files/Humor_Density_young_educated_women.png",
+  "vignette_files/Humor_Density_under_18_highschool.png"
+))
+```
+
+
+##### Intellect
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 30%
+#| fig.show: hold
+#| fig.cap: "Intellect facet: Kernel Density plots for small, medium and large samples"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for 'Intellect' facet for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/Intellect_Density_young_highly_educated_men.png",
+  "vignette_files/Intellect_Density_young_educated_women.png",
+  "vignette_files/Intellect_Density_under_18_highschool.png"
+))
+```
+
+  
+#####  SelfControl
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 30%
+#| fig.show: hold
+#| fig.cap: "SelfControl facet: Kernel Density plots for small, medium and large samples"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for 'SelfControl' facet for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/SelfControl_Density_young_highly_educated_men.png",
+  "vignette_files/SelfControl_Density_young_educated_women.png",
+  "vignette_files/SelfControl_Density_under_18_highschool.png"
+))
+```
+
+
+##### EasyGoingness
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 30%
+#| fig.show: hold
+#| fig.cap: "EasyGoingness facet: Kernel Density plots for small, medium and large samples"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for 'EasyGoingness' facet for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/EasyGoingness_Density_young_highly_educated_men.png",
+  "vignette_files/EasyGoingness_Density_young_educated_women.png",
+  "vignette_files/EasyGoingness_Density_under_18_highschool.png"
+))
+```
+
+
+##### Perfectionism
+
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 30%
+#| fig.show: hold
+#| fig.cap: "Perfectionism facet: Kernel Density plots for small, medium and large samples"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for 'Perfectionism' facet for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/Perfectionism_Density_young_highly_educated_men.png",
+  "vignette_files/Perfectionism_Density_young_educated_women.png",
+  "vignette_files/Perfectionism_Density_under_18_highschool.png"
+))
+```
+
+
+
+## SPI Item validity
+
+Each scale is a single six-point item.
+
+In almost all cases, the _Baumgartner–Weiß–Schindler_ (BWS) test showed a statistically significant difference between actual data and synthetic data. In most cases, however, the _Neuhäuser_ test, which is more robust to outliers, was not statistically significant. 
+
+The appendix table shows summary results for the three data sets for all 135 items, indicating the proportion of cases where distribution comparison tests were  _'statistically significant'_ ($\rho$\ <\ 0.05).
+
+In about 37 of the 135 items (27%) did the BWS test show proportion of significant simulations less than 80%.
+
+The following are some sample item results for each of the three samples
+
+## Original data histograms
+
+<!-- ### Young highly-educated men N=19 -->
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 90%
+#| fig.show: hold
+#| fig.cap: "Selected items"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for young highly-educated men"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/young_highly_educated_men_histograms.png"
+))
+```
+
+<!-- ### Young educated women N=99 -->
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 90%
+#| fig.show: hold
+#| fig.cap: "Selected items"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for young educated women"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/young_educated_women_histograms.png"
+))
+```
+
+
+<!-- ### Under-18 high-school education N=314 -->
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 90%
+#| fig.show: hold
+#| fig.cap: "Selected items"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for under-18 high-school education"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/under_18_highschool_histograms.png"
+))
+```
+
+
+
+
+## Synthetic data density plots
+
+### q_1685 'Seldom joke around'
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 30%
+#| fig.show: hold
+#| fig.cap: "q_1685 'Seldom joke around': Kernel Density plots for small, medium and large samples"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for 'q_1685 Seldom joke around' item for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/q_1685_Density_young_highly_educated_men.png",
+  "vignette_files/q_1685_Density_young_educated_women.png",
+  "vignette_files/q_1685_Density_under_18_highschool.png"
+))
+```
+
+
+### q_1896 'Use others for my own ends'
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 30%
+#| fig.show: hold
+#| fig.cap: "q_1058 'Use others for my own ends': Kernel Density plots for small, medium and large samples"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for 'q_1058 Use others for my own ends' item for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/q_1896_Density_young_highly_educated_men.png",
+  "vignette_files/q_1896_Density_young_educated_women.png",
+  "vignette_files/q_1896_Density_under_18_highschool.png"
+))
+```
+
+
+### q_1989 'Worry about things'
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 30%
+#| fig.show: hold
+#| fig.cap: "q_1989 'Worry about things': Kernel Density plots for small, medium and large samples"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for 'q_1058 Use others for my own ends' item for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/q_1989_Density_young_highly_educated_men.png",
+  "vignette_files/q_1989_Density_young_educated_women.png",
+  "vignette_files/q_1989_Density_under_18_highschool.png"
+))
+```
+
+
+### q_755 'Enjoy examining myself and my life'
+
+```{r}
+#| echo: false
+#| results: asis
+#| out.width: 30%
+#| fig.show: hold
+#| fig.cap: "q_755 'Enjoy examining myself and my life': Kernel Density plots for small, medium and large samples"
+#| fig.cap-location: bottom
+#| fig.alt: "kernel density plots for 'q_755 Enjoy examining myself and my life' item for three samples"
+#| fig.keep: all
+#| dpi: 300
+#| warning: false
+#| message: false
+
+knitr::include_graphics(c(
+  "vignette_files/q_755_Density_young_highly_educated_men.png",
+  "vignette_files/q_755_Density_young_educated_women.png",
+  "vignette_files/q_755_Density_under_18_highschool.png"
+))
+```
+
+
+
+```{r}
+#| label: whitespace_3
+#| echo: false
+#| results: asis
+
+add_white_space(8)
+```
+
+
+```{=latex}
+\newpage
+```
+
+
+# Summary Results {#summary_results}
+
+Results are much as we might expect:
+
+## Unimodal data are good, multimodal less so
+
+Multimodal data are not well-represented by the `LikertMakeR::lfast()` 
+function, which consistently generates unimodal data. 
+
+## Larger sample sizes produce smoother unimodal data distributions
+
+Original data in the very small sample size in the 19-subjects group 
+frequently were multimodal, whereas original data from the medium-sized 
+and large-sized groups were more often unimodal.
+
+## Sample size alone does not affect accuracy of data synthisis.
+
+There did not seem to be much difference in results for different sample sizes.
+
+## Third and Fourth moments can affect accurcy
+
+Leptokurtic (pointy) distributions and platykurtic (flatter) distributions seem to affect results. We shouldn't be surprised since the generating algorithm focuses on first (mean) and second (standard deviation) moments.
+
+
+```{r}
+#| label: whitespace_appendix
+#| echo: false
+#| results: asis
+
+add_white_space(8)
+```
+
+
+
+# Appendix
+
+## Summary results for individual items
+
+Rating scale items ranging from '1' to '6' from the SPI data set, for three samples of different sizes.
+
+```{r display_item_table}
+#| echo: false
+#| results: asis
+#| warning: false
+#| message: false
+
+sample_col_header <- c(
+  "young men<br>postgrad<br>n=19",
+  "young women<br>graduates<br>n=99",
+  "under-18<br>highschool<br>n=314"
+)
+
+dim_BWS <- readRDS("vignette_files/sig_table_items_BWS.rds")
+dim_N <- readRDS("vignette_files/sig_table_items_Neuhauser.rds")
+
+my_row_names <- dim_BWS$item
+
+dim_BWS <- dim_BWS |> select(!(item))
+dim_N <- dim_N |> select(!(item))
+
+# check same dimensions
+stopifnot(all(dim(dim_BWS) == dim(dim_N)))
+
+# Combine element-by-element into a matrix of strings
+combined <- matrix(
+  mapply(function(bws, neu) {
+    paste0(formatC(bws, format = "f", digits = 3), " / ", formatC(neu, format = "f", digits = 3))
+  }, dim_BWS, dim_N),
+  ncol = ncol(dim_BWS),
+  byrow = FALSE
+)
+
+colnames(combined) <- sample_col_header
+rownames(combined) <- my_row_names
+
+my_caption <- "Proportion of statistically-significant simulations (BWS/Neuhauser)"
+
+# Conditional rendering
+if (knitr::is_latex_output()) {
+  kbl(combined,
+    format = "latex",
+    caption = my_caption
+  ) |>
+    kable_styling(
+      latex_options = c("hold_position", "scale_down"),
+      font_size = 10
+    )
+} else if (knitr::is_html_output()) {
+  kbl(combined,
+    format = "html",
+    caption = my_caption, escape = FALSE
+  ) |>
+    kable_styling(
+      full_width = FALSE,
+      position = "center" # ,
+      # font_size = 12
+    ) |>
+    column_spec(1, width = "10em") |>
+    column_spec(2, width = "10em") |>
+    column_spec(3, width = "10em")
+}
+
+add_white_space(8)
+```
+
+
+
+
+# References

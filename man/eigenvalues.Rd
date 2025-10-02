@@ -18,7 +18,7 @@ a vector of eigenvalues
 report on positive-definite status of cormatrix
 }
 \description{
-\code{eigenvalues()} calculate eigenvalues of a correlation
+\code{eigenvalues()} calculates eigenvalues of a correlation
 matrix and optionally produces a scree plot.
 }
 \examples{

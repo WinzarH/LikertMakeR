@@ -15,13 +15,24 @@ unlink("R/RcppExports.R")
 
 Rcpp::compileAttributes()
 
-# Then rebuild from scratch
+# .rs.restartR()
+#
+# unlink(file.path(.libPaths()[1], "00LOCK-LikertMakeR"), recursive = TRUE, force = TRUE)
+
+# devtools::install(upgrade = "never")
+
+## Then rebuild from scratch
 # devtools::install(upgrade = "always")
 
-devtools::install()
+# devtools::install()
 
-# clear any stale namespace bindings
+## clear any stale namespace bindings
 .rs.restartR()
+
+"LikertMakeR" %in% loadedNamespaces()   # should be FALSE
+
+unlink(file.path(.libPaths()[1], "00LOCK-LikertMakeR"), recursive = TRUE, force = TRUE)
+unlink(file.path(.libPaths()[1], "LikertMakeR"),          recursive = TRUE, force = TRUE)
 
 
 getNamespaceExports("LikertMakeR")
@@ -29,18 +40,24 @@ getNamespaceExports("LikertMakeR")
 
 # pkgdown::clean_site(force = TRUE)
 
-# pkgdown::build_favicons(overwrite = TRUE)
+pkgdown::build_favicons(overwrite = TRUE)
 
-pkgdown::build_favicons()
-
-
+# pkgdown::build_favicons()
 
 pkgdown::build_site(lazy = FALSE)
 
-# Replace with your real details
-# system('git config --global user.name "Hume Winzar"')
-# system('git config --global user.email "winzar@gmail.com"')
-#
-# system("git config --global --list")
+pkgdown::build_site()
 
+
+# 1) Make sure it's not loaded
+"LikertMakeR" %in% loadedNamespaces()   # should be FALSE
+
+# 2) Install to your user library (once, so deploy can load it)
+devtools::install(upgrade = "never")
+
+# sanity check:
+system.file(package = "LikertMakeR")    # should print a path
+
+# 3) Deploy
 pkgdown::deploy_to_branch()
+

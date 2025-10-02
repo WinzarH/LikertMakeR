@@ -35,6 +35,12 @@ devtools::clean_dll()
 devtools::check()
 devtools::build()
 
+# devtools::check()
+devtools::check_win_devel()
+rhub::rhub_check()
+
+
+
 
 
 Sys.which("Rcmd.exe")
@@ -52,6 +58,10 @@ styler::style_pkg()
 
 # Run a spell check
 devtools::spell_check()
+
+# auto-adds current false positives to inst/WORDLIST
+spelling::update_wordlist()
+
 #
 # spelling::spell_check_package(vignettes = FALSE)
 
@@ -64,6 +74,8 @@ devtools::spell_check()
 # Run a full package check
 devtools::check(clean = TRUE)
 
+tar <- pkgbuild::build()
+rcmdcheck::rcmdcheck(tar, args = "--as-cran")
 
 # devtools::clean_dll()
 # devtools::document()
@@ -73,7 +85,7 @@ devtools::check(clean = TRUE)
 devtools::clean_dll()
 devtools::document()
 devtools::build(clean = TRUE)
-devtools::check()
+# devtools::check()
 
 
 # usethis::use_release_issue()
@@ -113,14 +125,12 @@ rhub::rhub_check()
 # rhub::rhub_check(gh_url = "https://github.com/winzarh/LikertMakeR")
 
 
-# rhub::check_for_cran()
 
 devtools::install()
 
 devtools::load_all()
 
 
-# goodpractice::gp()
 
 
 
@@ -129,28 +139,6 @@ devtools::load_all()
 #-------------
 devtools::release()
 
-
-
-
-# spring-clean
-
-usethis::git_default_branch_rename()
-usethis::use_tidy_description()
-usethis::use_github_action()
-
-usethis::use_tidy_contributing()
-# usethis::use_coc(contact = "winzar@gmail.com")
-
-usethis::use_github_release(publish = TRUE)
-
-# usethis::use_logo("vignettes/LikertMakeR_3.png")
-
-
-
-
-
-
-spelling::spell_check_package()
 
 
 

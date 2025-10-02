@@ -41,14 +41,18 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
-    <li><a class="dropdown-item" href="articles/makeCorrLoadings_validate.html">makeCorrLoadings validation</a></li>
+<li><a class="dropdown-item" href="articles/lfast_validation.html">LikertMakeR Scale Reproduction Validation</a></li>
+    <li><a class="dropdown-item" href="articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
+    <li><a class="dropdown-item" href="articles/makeCorrLoadings_validate.html">makeCorrLoadings() validation</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+</form></li>
       </ul>
 </div>
 
@@ -65,7 +69,7 @@
 <div class="section level1">
 <h1 id="likertmaker-">LikertMakeR <a class="anchor" aria-label="anchor" href="#likertmaker-"></a>
 </h1>
-<p>(V 1.2.0 June 2025)</p>
+<p>(V 1.2.0 September 2025)</p>
 <p>Synthesise and correlate Likert scales, and similar rating-scale data, with predefined first &amp; second moments (mean and standard deviation), <em>Cronbach’s Alpha</em>, <em>Factor Loadings</em>, and other summary statistics.</p>
 <p><strong><em>LikertMakeR</em></strong> synthesises rating-scale data. Such scales are constrained by upper and lower bounds and discrete increments.</p>
 <div class="section level2">
@@ -73,8 +77,8 @@
 </h2>
 <p>The package is intended for:</p>
 <ol style="list-style-type: decimal">
-<li><p>“reproducing” or “reverse-engineering” rating-scale data for further analysis and visualisation when only summary statistics have been reported,</p></li>
-<li><p>teaching. Helping researchers and students to better understand the relationships among scale properties, sample size, number of items, <em>etc.</em> …</p></li>
+<li><p>“Reproducing” or “Reverse-engineering” rating-scale data for further analysis and visualisation when only summary statistics have been reported,</p></li>
+<li><p>Teaching. Helping researchers and students to better understand the relationships among scale properties, sample size, number of items, <em>etc.</em> …</p></li>
 <li><p>checking the feasibility of scale moments with given scale and correlation properties.</p></li>
 </ol>
 </div>
@@ -108,16 +112,17 @@
 <p>A Likert scale is the mean, or sum, of several ordinal rating scales. They are bipolar (usually “agree-disagree”) responses to propositions that are determined to be moderately-to-highly correlated among each other, and capturing various facets of a theoretical construct.</p>
 <p>Summated rating scales are not continuous or unbounded.</p>
 <p>For example, a 5-point Likert scale that is constructed with, say, five items (questions) will have a summed range of between 5 (all rated ‘1’) and 25 (all rated ‘5’) with all integers in between, and the mean range will be ‘1’ to ‘5’ with intervals of 1/5=0.20. A 7-point Likert scale constructed from eight items will have a summed range between 8 (all rated ‘1’) and 56 (all rated ‘7’) with all integers in between, and the mean range will be ‘1’ to ‘7’ with intervals of 1/8=0.125.</p>
-<p>Technically, because Likert scales, and similar rating scales are bounded with discrete intervals, parametric statistics <em>(such as mean, standard deviation, and correlation)</em> should not be applied to summated rating scales. In practice, however, such parametric statistics are commonly used in the social sciences because:</p>
+<p>Technically, because Likert scales, and similar rating scales have upper and lower bounds and measured with discrete intervals, parametric statistics <em>(such as mean, standard deviation, and correlation)</em> should not be applied to summated rating scales. In practice, however, such parametric statistics are commonly used in the social sciences because:</p>
 <ol style="list-style-type: decimal">
 <li><p>they are in common usage and easily understood,</p></li>
+<li><p>In practice, all measures are bounded by the constraints of the measurement device, meaning that they also have upper and lower boundaries and discrete units of measurement, which means that:</p></li>
 <li><p>results and conclusions drawn from technically-correct non-parametric statistics are <em>(almost)</em> always the same as for parametric statistics for such data. <br><a href="https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund" class="external-link">D’Alessandro <em>et al.</em> (2020)</a> argue that a summated scale, made with multiple items, “approaches” an interval scale measure.</p></li>
 </ol>
 <p>Likert-scale items, such as responses to a single 1-to-5 agree-disagree question, should not be analysed by professional or responsible researchers. There is too much random error in a single item. <a href="https://archive.org/details/likert-1932/mode/2up" class="external-link">Rensis Likert (1932)</a> designed the scale with the logic that a random overstatement on one item is likely to be compensated by a random understatement on another item, so that, when multiple items are combined, we get a reasonably consistent, internally reliable, measure of the target construct.</p>
 <div class="section level4">
 <h4 id="alternative-approaches-to-synthesising-scales">Alternative approaches to synthesising scales<a class="anchor" aria-label="anchor" href="#alternative-approaches-to-synthesising-scales"></a>
 </h4>
-<p>Typically, a researcher will synthesise rating-scale data by sampling with a predetermined probability distribution. <br> For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities.</p>
+<p>Typically, a researcher will synthesise simple rating-scale data by sampling with a predetermined probability distribution. <br> For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>      n <span class="ot">&lt;-</span> <span class="dv">128</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>      <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>        <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>)</span>
@@ -167,7 +172,7 @@
 <li><p><strong><em>lowerbound</em></strong>: desired lower bound (e.g. ‘1’ for a 1-5 rating scale)</p></li>
 <li><p><strong><em>upperbound</em></strong>: desired upper bound (e.g. ‘5’ for a 1-5 rating scale)</p></li>
 <li><p><strong><em>items</em></strong>: number of items making the scale. Default = ‘1’</p></li>
-<li><p><strong><em>precision</em></strong>: can relax the level of accuracy of moments. Default = ‘0’</p></li>
+<li><p><strong><em>precision</em></strong>: can relax the level of accuracy of moments. Default = ‘0’ which typically gives accuracy to two decimal places.</p></li>
 </ul>
 </div>
 </div>
@@ -228,7 +233,12 @@
 <div class="section level3">
 <h3 id="lcor">lcor()<a class="anchor" aria-label="anchor" href="#lcor"></a>
 </h3>
-<p>The function, <strong><em>lcor()</em></strong>, applies a simple <em>evolutionary algorithm</em> to rearrange the values in the columns of a data set so that they are correlated at a specified level. <strong><em>lcor()</em></strong> does not change the values - it swaps their positions in each column so that univariate statistics do not change, but their correlations with other columns do.</p>
+<p>The function, <strong><em>lcor()</em></strong>, rearranges the values in the columns of a data set so that they are correlated at a specified level.</p>
+<div class="section level5">
+<h5 id="note">NOTE<a class="anchor" aria-label="anchor" href="#note"></a>
+</h5>
+<p><strong><em>lcor()</em></strong> does not change the values of a data frame - it swaps their positions in each column so that univariate statistics do not change, but their correlations with other columns do.</p>
+</div>
 <div class="section level4">
 <h4 id="lcor-usage">lcor() usage<a class="anchor" aria-label="anchor" href="#lcor-usage"></a>
 </h4>
@@ -237,9 +247,9 @@
 <h5 id="lcor-arguments">lcor() arguments<a class="anchor" aria-label="anchor" href="#lcor-arguments"></a>
 </h5>
 <ul>
-<li><p><strong><em>data</em></strong>: a starter data set of rating-scales</p></li>
-<li><p><strong><em>target</em></strong>: the target correlation matrix</p></li>
-<li><p><strong><em>passes</em></strong>: number of value swap passes to apply when creating correlated data. This <em>MAY</em> help if the number of columns is large.</p></li>
+<li><p><strong><em>data</em></strong>: a starter data set of ‘k’ rating-scales presented in ‘k’ columns</p></li>
+<li><p><strong><em>target</em></strong>: the target correlation matrix: a ‘k’*‘k’ correlation matrix</p></li>
+<li><p><strong><em>passes</em></strong>: number of value swap passes to apply when creating correlated data. Increasing this number <em>MAY</em> improve accuracy if the number of columns is large. Decreasing this number will be faster, but <em>MAY</em> be less accurate.</p></li>
 </ul>
 </div>
 </div>
@@ -253,14 +263,14 @@
 </h4>
 <div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="dv">64</span></span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a> x1 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">3.5</span>, <span class="fl">1.00</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a> x2 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">1.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a> x2 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">2.0</span>, <span class="fl">0.85</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
 <span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a> x3 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">3.0</span>, <span class="fl">1.70</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>) </span>
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a> x4 <span class="ot">&lt;-</span> <span class="fu">lfast</span>(n, <span class="fl">2.5</span>, <span class="fl">1.50</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>)   </span>
 <span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a> </span>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a> mydat4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x1, x2, x3, x4) </span>
 <span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a> </span>
 <span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a> <span class="fu">head</span>(mydat4)</span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a> <span class="fu">cor</span>(mydat4) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a> <span class="fu">cor</span>(mydat4) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>) <span class="do">## random independent data with low correlations</span></span>
 <span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a> </span></code></pre></div>
 </div>
 <div class="section level4">
@@ -283,7 +293,7 @@
 </h4>
 <div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a> new4 <span class="ot">&lt;-</span> <span class="fu">lcor</span>(<span class="at">data =</span> mydat4, <span class="at">target =</span> tgt4)</span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a> </span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a> <span class="fu">cor</span>(new4) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a> <span class="fu">cor</span>(new4) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)  <span class="do">## same data rearranged to be close to target</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -339,9 +349,9 @@
 </div>
 </div>
 <div class="section level4">
-<h4 id="note">NOTE<a class="anchor" aria-label="anchor" href="#note"></a>
+<h4 id="note-1">NOTE<a class="anchor" aria-label="anchor" href="#note-1"></a>
 </h4>
-<p>Random values generated by <em>makeCorrAlpha()</em> are volatile. <em>makeCorrAlpha()</em> may not generate a feasible (positive-definite) correlation matrix, especially when variance is high relative to</p>
+<p>Random values generated by <em>makeCorrAlpha()</em> are volatile. In some cases, <em>makeCorrAlpha()</em> may not generate a feasible (positive-definite) correlation matrix, especially when variance is high relative to</p>
 <ul>
 <li>desired Alpha, and</li>
 <li>desired correlation dimensions (number of items)</li>
@@ -418,15 +428,15 @@
 </h5>
 <ul>
 <li><p><strong><em>loadings</em></strong>: ‘k’ (items) by ‘f’ (factors) matrix of <em>standardised</em> factor loadings. Item names and Factor names can be taken from the row_names (items) and the column_names (factors), if present.</p></li>
-<li><p><strong><em>factorCor</em></strong>: ‘f’ x ‘f’ factor correlation matrix. If not present, then we assume that the factors are uncorrelated (orthogonal), which is rare in practice, and the function applies an identity matrix for <em>factor_cor</em>.</p></li>
+<li><p><strong><em>factorCor</em></strong>: ‘f’ x ‘f’ factor correlation matrix. If not present, then we assume that the factors are uncorrelated (orthogonal), which is rare in practice, and the function applies an identity matrix for <em>factorCor</em>.</p></li>
 <li><p><strong><em>uniquenesses</em></strong>: length ‘k’ vector of uniquenesses. If NULL, the default, compute from the calculated communalities.</p></li>
-<li><p><strong><em>nearPD</em></strong>: (logical) If TRUE, then the function calls the <em>nearPD</em> function from the <em><strong>Matrix</strong></em> package to transform the resulting correlation matrix onto the nearest Positive Definite matrix. Obviously, this only applies if the resulting correlation matrix is not positive definite. (It should never be needed.)</p></li>
+<li><p><strong><em>nearPD</em></strong>: (logical) If TRUE, then the function calls the <code>nearPD()</code> function from the <strong><em>Matrix</em></strong> package to transform the resulting correlation matrix onto the nearest Positive Definite matrix. Obviously, this only applies if the resulting correlation matrix is not positive definite. (It should never be needed.)</p></li>
 </ul>
-<div class="section level6">
-<h6 id="note-1">Note<a class="anchor" aria-label="anchor" href="#note-1"></a>
-</h6>
-<p>“Censored” loadings (for example, where loadings less than some small value (often ‘0.30’), are removed for ease-of-communication) tend to severely reduce the accuracy of the <code><a href="reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> function. For a detailed demonstration, see the file, <strong>makeCorrLoadings_Validate.pdf</strong> in the package website on GitHub.</p>
 </div>
+<div class="section level5">
+<h5 id="note-2">Note<a class="anchor" aria-label="anchor" href="#note-2"></a>
+</h5>
+<p>“Censored” loadings, such as when loadings less than some small value (often ‘<em>0.30</em>’) are removed for ease-of-communication, tend to severely reduce the accuracy of the <code><a href="reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> function. For a detailed demonstration, see the file, <strong>makeCorrLoadings_Validate.pdf</strong> in the package website on GitHub.</p>
 </div>
 </div>
 </div>
@@ -738,12 +748,12 @@
 <div class="section level3">
 <h3 id="makerepeated">makeRepeated()<a class="anchor" aria-label="anchor" href="#makerepeated"></a>
 </h3>
-<p><em>makeRepeated()</em> Reconstructs a synthetic dataset and inter-timepoint correlation matrix from a repeated-measures ANOVA result, based on reported means, standard deviations, and an F-statistic.</p>
+<p><strong><em>makeRepeated()</em></strong> constructs a synthetic dataset and inter-timepoint correlation matrix from a repeated-measures ANOVA result, based on reported means, standard deviations, and an F-statistic.</p>
 <p>This function estimates the average correlation between repeated measures by matching the reported F-statistic, under one of three assumed correlation structures:</p>
 <ul>
-<li><p><code>"cs"</code> (<em>Compound Symmetry</em>): Compound Symmetry assumes that all repeated measures are equally correlated with each other. That is, the correlation between time 1 and time 2 is the same as between time 1 and time 3, and so on. This structure is commonly used in repeated-measures ANOVA by default. It’s mathematically simple and reflects the idea that all timepoints are equally related. However, it may not be realistic for data where correlations decrease as time intervals increase (e.g., memory decay or learning effects). Use this if you assume stable relationships between all repeated measures.</p></li>
+<li><p><code>"cs"</code> (<em>Compound Symmetry</em>): Compound Symmetry assumes that all repeated measures are equally correlated with each other. That is, the correlation between time 1 and time 2 is the same as between time 1 and time 3, and so on. This structure is commonly used in repeated-measures ANOVA by default. It’s mathematically simple and reflects the idea that all timepoints are equally related. However, it may not be realistic for data where correlations decrease as time intervals increase (e.g., memory decay or learning effects).</p></li>
 <li><p><code>"ar1"</code> (<em>First-Order Autoregressive</em>): first-order autoregressive, assumes that measurements closer together in time are more highly correlated than those further apart. For example, the correlation between time 1 and time 2 is stronger than between time 1 and time 3. This pattern is often realistic in longitudinal or time-series studies where change is gradual. The correlation drops off exponentially with each time step. Use this structure if you believe the relationship between repeated measures weakens steadily over time.</p></li>
-<li><p><code>"toeplitz"</code> (<em>Linearly Decreasing</em>): Toeplitz structure is a more flexible option that allows the correlation between measurements to decrease linearly as the time gap increases. Unlike AR(1), where the decline is exponential, the Toeplitz structure assumes a straight-line drop in correlation — a gentle fade over time. This may be useful in studies where changes across time are more gradual or irregular, but not strictly exponential. It’s a good middle ground when neither compound symmetry nor AR(1) seems quite right.</p></li>
+<li><p><code>"toeplitz"</code> (<em>Linearly Decreasing</em>): Toeplitz structure is a more flexible option that allows the correlation between measurements to decrease linearly as the time gap increases. Unlike AR(1), where the decline is exponential, the Toeplitz structure assumes a straight-line drop in correlation. This may be useful in studies where changes across time are gradual or irregular, but not strictly exponential. It’s a good middle ground when neither compound symmetry nor AR(1) seems quite right.</p></li>
 </ul>
 <div class="section level4">
 <h4 id="makerepeated-usage">makeRepeated() usage<a class="anchor" aria-label="anchor" href="#makerepeated-usage"></a>
@@ -774,29 +784,29 @@
 <li>
 <em><strong>k</strong></em> Integer. Number of repeated measures (timepoints).</li>
 <li>
-<em><strong>means</strong></em> Numeric vector of length . Mean values reported for each timepoint.</li>
+<em><strong>means</strong></em> Numeric vector of length <code>k</code>. Mean values reported for each timepoint.</li>
 <li>
-<em><strong>sds</strong></em> Numeric vector of length . Standard deviations reported for each timepoint.</li>
+<em><strong>sds</strong></em> Numeric vector of length <code>k</code>. Standard deviations reported for each timepoint.</li>
 <li>
 <em><strong>f_stat</strong></em> Numeric. The reported repeated-measures ANOVA F-statistic for the within-subjects factor.</li>
 <li>
-<em><strong>df_between</strong></em>, Degrees of freedom between conditions (default: ).</li>
+<em><strong>df_between</strong></em>, Degrees of freedom between conditions (default: <code>k - 1</code>).</li>
 <li>
-<em><strong>df_within</strong></em>, Degrees of freedom within-subjects (default: ).</li>
+<em><strong>df_within</strong></em>, Degrees of freedom within-subjects (default: <code>(n - 1) * (k - 1)</code>).</li>
 <li>
 <em><strong>structure</strong></em> Character. Correlation structure to assume: <code>"cs"</code>, <code>"ar1"</code>, or <code>"toeplitz"</code> (default).</li>
 <li>
-<em><strong>names</strong></em> Character vector of length . Variable names for each timepoint (default: <code>"time_1"</code> to <code>"time_k"</code>).</li>
+<em><strong>names</strong></em> Character vector of length <code>k</code>. Variable names for each timepoint (default: <code>"time_1"</code> to <code>"time_k"</code>).</li>
 <li>
-<em><strong>items</strong></em> Integer. Number of items used to generate each scale score (passed to ).</li>
+<em><strong>items</strong></em> Integer. Number of items used to generate each scale score (passed to <code><a href="reference/lfast.html">lfast()</a></code>).</li>
 <li>
 <em><strong>lowerbound</strong></em>, Integer. Lower bounds for Likert-type response scales (default: 1).</li>
 <li>
 <em><strong>upperbound</strong></em>, Integer. upper bounds for Likert-type response scales (default: 5).</li>
 <li>
-<em><strong>return_corr_only</strong></em> Logical. If , return only the estimated correlation matrix.</li>
+<em><strong>return_corr_only</strong></em> Logical. If <code>TRUE</code>, return only the estimated correlation matrix.</li>
 <li>
-<em><strong>diagnostics</strong></em> Logical. If , include diagnostic summaries such as feasible F-statistic range and effect sizes.</li>
+<em><strong>diagnostics</strong></em> Logical. If <code>TRUE</code>, include diagnostic summaries such as feasible F-statistic range and effect sizes.</li>
 </ul>
 </div>
 <div class="section level4">
@@ -978,7 +988,7 @@
 <div class="section level3">
 <h3 id="alpha">alpha()<a class="anchor" aria-label="anchor" href="#alpha"></a>
 </h3>
-<p><em>alpha()</em> accepts, as input, either a correlation matrix or a dataframe. If both are submitted, then the correlation matrix is used by default, with a message to that effect.</p>
+<p><strong><em>alpha()</em></strong> accepts, as input, either a correlation matrix or a data frame. If both are submitted, then the correlation matrix is used by default, with a message to that effect.</p>
 <div class="section level4">
 <h4 id="alpha-usage">alpha() usage<a class="anchor" aria-label="anchor" href="#alpha-usage"></a>
 </h4>

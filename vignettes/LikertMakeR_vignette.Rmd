@@ -23,7 +23,7 @@ library(LikertMakeR)
 
 
 ```{r logo, fig.align='center', echo=FALSE, out.width = '25%'}
-knitr::include_graphics("LikertMakeR_3.png")
+knitr::include_graphics("vignette_files/LikertMakeR_3.png")
 ```
 
 
@@ -59,7 +59,6 @@ and the effects of variance, scale boundaries,
 and number of items in a scale. 
 Researchers can also use _LikertMakeR_ to prepare analyses ahead of a 
 formal survey.
-
 
 ## Rating scale properties
 
@@ -97,7 +96,7 @@ then the data will be always skewed, as shown in the following plots.
 
 
 ```{r skew, fig.align='center', echo=FALSE, out.width = '85%', fig.cap="Off-centre means always give skewed distribution in bounded rating scales"}
-knitr::include_graphics("skew_chart.png")
+knitr::include_graphics("vignette_files/skew_chart.png")
 ```
 
 _____
@@ -126,6 +125,9 @@ _____
  
  * *makePaired()* generates a dataframe of two correlated columns based 
  on summary data from a paired-sample t-test.
+ 
+ * *makeRepeated()* generates a dataframe of 'k' correlated columns based 
+ on summary data from a repeated-samples ANOVA.
  
  * *correlateScales()* creates a dataframe of correlated summated scales 
  as one might find in completed survey questionnaire and possibly used 
@@ -354,7 +356,7 @@ The first ten observations from this dataframe are:
 head(new3, 10)
 ```
 
-And the new data frame is correlated close to our desired correlation matrix; here presented to 3 decimal places:
+And the new dataframe is correlated close to our desired correlation matrix; here presented to 3 decimal places:
 
 ```{r new3Cor, echo = FALSE}
 cor(new3) |> round(3)
@@ -757,7 +759,7 @@ myItems <- makeItems(
   cormatrix = myCorr
 )
 
-## resulting data frame
+## resulting dataframe
 head(myItems)
 tail(myItems)
 
@@ -768,11 +770,11 @@ myMoments <- data.frame(
 ) |> t()
 myMoments
 
-## Cronbach's Alpha of data frame
+## Cronbach's Alpha of dataframe
 alpha(NULL, myItems)
 ```
 
-#### Summary plots of new data frame
+#### Summary plots of new dataframe
 
 ```{r fig5, fig.height=5, fig.width=5, fig.align='center', echo=FALSE, warning=FALSE, crop = TRUE, fig.cap="Summary of dataframe from makeItems() function"}
 # Correlation panel

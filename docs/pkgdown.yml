@@ -1,10 +1,11 @@
-pandoc: '3.4'
+pandoc: 3.6.3
 pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
+  lfast_validation: lfast_validation.html
   LikertMakeR_vignette: LikertMakeR_vignette.html
   makeCorrLoadings_validate: makeCorrLoadings_validate.html
-last_built: 2025-06-30T13:45Z
+last_built: 2025-10-01T12:44Z
 urls:
   reference: https://winzarh.github.io/LikertMakeR/reference
   article: https://winzarh.github.io/LikertMakeR/articles

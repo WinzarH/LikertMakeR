@@ -13,17 +13,19 @@ makeCorrLoadings(
 )
 }
 \arguments{
-\item{loadings}{Numeric matrix. A k × f matrix of standardized factor loadings
-(items × factors). Row names and column names are used for diagnostics if present.}
+\item{loadings}{Numeric matrix. A \eqn{k \times f} matrix of standardized
+factor loadings \eqn{items \times factors}.
+Row names and column names are used for diagnostics if present.}
 
-\item{factorCor}{Optional f × f matrix of factor correlations (Φ).
+\item{factorCor}{Optional \eqn{f \times f} matrix of factor correlations (\eqn{\Phi}).
 If NULL, assumes orthogonal factors.}
 
-\item{uniquenesses}{Optional vector of length k. If NULL, calculated as 1 - rowSums(loadings^2).}
+\item{uniquenesses}{Optional vector of length k. If NULL, calculated
+as \eqn{1 - rowSums(loadings^2)}.}
 
-\item{nearPD}{Logical. If TRUE, attempts to coerce non–positive-definite matrices using Matrix::nearPD().}
+\item{nearPD}{Logical. If \code{TRUE}, attempts to coerce non–positive-definite matrices using \code{\link[Matrix:nearPD]{Matrix::nearPD()}}.}
 
-\item{diagnostics}{Logical. If TRUE, returns diagnostics including McDonald's Omega and item-level summaries.}
+\item{diagnostics}{Logical. If \code{TRUE}, returns diagnostics including McDonald's Omega and item-level summaries.}
 }
 \value{
 If diagnostics = FALSE, returns a correlation matrix (class: matrix).
@@ -35,7 +37,7 @@ If diagnostics = TRUE, returns a list with:
 }
 \description{
 Constructs an inter-item correlation matrix based on a user-supplied matrix
-of standardized factor loadings and (optionally) a factor correlation matrix.
+of standardised factor loadings and (optionally) a factor correlation matrix.
 }
 \examples{
 

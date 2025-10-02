@@ -16,7 +16,7 @@ ranging from -1 to +1 and '1' in the diagonal}
 a single value
 }
 \description{
-\code{alpha()} calculate Cronbach's Alpha from a given
+\code{alpha()} calculates Cronbach's Alpha from a given
 correlation matrix or a given dataframe.
 }
 \examples{

@@ -10,7 +10,7 @@ correlateScales(dataframes, scalecors)
 \item{dataframes}{a list of 'k' dataframes to be rearranged and combined}
 
 \item{scalecors}{target correlation matrix - should be a symmetric
-k*k positive-semi-definite matrix, where 'k' is the number of dataframes}
+\eqn{k \times k} positive-semi-definite matrix, where 'k' is the number of dataframes}
 }
 \value{
 Returns a dataframe whose columns are taken from the starter

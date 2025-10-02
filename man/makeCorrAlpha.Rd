@@ -10,7 +10,7 @@ makeCorrAlpha(items, alpha, variance = 0.5, precision = 0)
 \item{items}{(positive, int) matrix dimensions:
 number of rows & columns to generate}
 
-\item{alpha}{(real) target Cronbach's Alpha
+\item{alpha}{(real) target \emph{Cronbach's Alpha}
 (usually positive, must be between about -0.3 and +1)}
 
 \item{variance}{(positive, real) Default = 0.5.
@@ -29,7 +29,7 @@ a correlation matrix
 \code{makeCorrAlpha()} generates a random correlation
 matrix of given dimensions and predefined \emph{Cronbach's Alpha}.
 
-Such a correlation matrix can be applied to the \code{makeItems()}
+Such a correlation matrix can be applied to the \code{\link[=makeItems]{makeItems()}}
 function to generate synthetic data with the predefined alpha.
 }
 \note{

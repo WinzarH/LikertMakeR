@@ -1,10 +1,10 @@
 ---
-title: "makeCorrLoadings validation"
+title: "makeCorrLoadings() validation"
 author: "Hume Winzar"
 date: "April 2025"
 output: rmarkdown::html_document
 vignette: >
-  %\VignetteIndexEntry{makeCorrLoadings validation}
+  %\VignetteIndexEntry{makeCorrLoadings() validation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
