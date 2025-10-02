@@ -33,15 +33,15 @@ makeRepeated(
 
 \item{f_stat}{Numeric. The reported repeated-measures ANOVA F-statistic for the within-subjects factor.}
 
-\item{df_between}{Degrees of freedom between conditions (default: \code{k - 1}).}
+\item{df_between}{Degrees of freedom between conditions (default: \code{k - 1}.}
 
 \item{df_within}{Degrees of freedom within-subjects (default: \code{(n - 1) * (k - 1)}).}
 
-\item{structure}{Character. Correlation structure to assume: \code{"cs"}, \code{"ar1"}, or \code{"toeplitz"} (default).}
+\item{structure}{Character. Correlation structure to assume: \code{"cs"}, \code{"ar1"}, or \code{"toeplitz"} (default = \code{"cs"}).}
 
 \item{names}{Character vector of length \code{k}. Variable names for each timepoint (default: \code{"time_1"} to \code{"time_k"}).}
 
-\item{items}{Integer. Number of items used to generate each scale score (passed to \code{\link{lfast}}).}
+\item{items}{Integer. Number of items used to generate each scale score (passed to \link{lfast}).}
 
 \item{lowerbound, }{Integer. Lower bounds for Likert-type response scales (default: 1).}
 
@@ -54,38 +54,46 @@ makeRepeated(
 \item{...}{Reserved for future use.}
 }
 \value{
-A named list with:
+A named list with components:
+
 \describe{
-\item{\code{data}}{A data frame of simulated repeated-measures responses (unless \code{return_corr_only = TRUE}).}
+\item{\code{data}}{A data frame of simulated repeated-measures responses
+(unless \code{return_corr_only = TRUE}).}
 \item{\code{correlation_matrix}}{The estimated inter-timepoint correlation matrix.}
 \item{\code{structure}}{The correlation structure assumed.}
-\item{\code{achieved_f}}{The F-statistic produced by the estimated rho value (if \code{diagnostics = TRUE}).}
-\item{\code{feasible_f_range}}{Minimum and maximum achievable F-values under the structure (if diagnostics requested).}
-\item{\code{recommended_f}}{Conservative, moderate, and strong F-statistic suggestions for similar designs.}
-\item{\code{effect_size_raw}}{Unstandardized effect size across timepoints.}
-\item{\code{effect_size_standardised}}{Effect size standardized by average variance.}
+\item{\code{achieved_f}}{The F-statistic produced by the estimated \code{rho} value
+(if \code{diagnostics = TRUE}).}
+\item{\code{feasible_f_range}}{Minimum and maximum achievable F-values under the
+chosen structure (shown if diagnostics are requested).}
+\item{\code{recommended_f}}{Conservative, moderate, and strong F-statistic
+suggestions for similar designs.}
+\item{\code{effect_size_raw}}{Unstandardised effect size across timepoints.}
+\item{\code{effect_size_standardised}}{Effect size standardised by average variance.}
 }
 }
 \description{
-Reconstructs a synthetic dataset and inter-timepoint correlation matrix from a repeated-measures ANOVA result, based on reported means, standard deviations, and an F-statistic. This is useful when only summary statistics are available from published studies.
+Constructs a synthetic dataset and inter-timepoint correlation matrix from a repeated-measures ANOVA result, based on reported means, standard deviations, and an F-statistic. This is useful when only summary statistics are available from published studies.
 }
 \details{
 This function estimates the average correlation between repeated measures by matching the reported F-statistic, under one of three assumed correlation structures:
 \itemize{
-\item \code{"cs"} (\emph{Compound Symmetry}): Assumes all timepoints are equally correlated. Common in standard RM-ANOVA settings.
+\item \code{"cs"} (\emph{Compound Symmetry}): The Default. Assumes all timepoints are equally correlated. Common in standard RM-ANOVA settings.
 \item \code{"ar1"} (\emph{First-Order Autoregressive}): Assumes correlations decay exponentially with time lag — higher correlation for closer timepoints.
 \item \code{"toeplitz"} (\emph{Linearly Decreasing}): Assumes correlation declines linearly with time lag, offering a middle ground between \code{"cs"} and \code{"ar1"}.
 }
 
-The function then generates a data frame of synthetic item-scale ratings using \code{\link{lfast}}, and adjusts them to match the estimated correlation structure using \code{\link{lcor}}.
+The function then generates a data frame of synthetic item-scale ratings
+using \link{lfast}, and adjusts them to match the estimated correlation
+structure using \link{lcor}.
 
 Set \code{return_corr_only = TRUE} to extract only the estimated correlation matrix.
 }
 \examples{
 
-set.seed(123)
+set.seed(42)
+
 out1 <- makeRepeated(
-  n = 128,
+  n = 64,
   k = 3,
   means = c(3.1, 3.5, 3.9),
   sds = c(1.0, 1.1, 1.0),
@@ -97,7 +105,6 @@ out1 <- makeRepeated(
 
 head(out1$data)
 out1$correlation_matrix
-
 
 out2 <- makeRepeated(
   n = 32, k = 4,
@@ -115,12 +122,12 @@ print(out2)
 
 
 out3 <- makeRepeated(
-  n = 32, k = 4,
-  means = c(2.0, 2.5, 3.0, 2.8),
+  n = 64, k = 4,
+  means = c(2.0, 2.25, 2.75, 3.0),
   sds = c(0.8, 0.9, 1.0, 0.9),
   items = 4,
   f_stat = 24,
-  structure = "toeplitz",
+  # structure = "toeplitz",
   diagnostics = TRUE
 )
 
