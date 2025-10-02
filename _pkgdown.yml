@@ -18,6 +18,7 @@ navbar:
       - news
     right:
       - github
+      - search
 
 home:
   title: LikertMakeR
@@ -27,6 +28,7 @@ home:
       - license
       - community
       - citation
+
 reference:
   - title: Data Generators
     contents:

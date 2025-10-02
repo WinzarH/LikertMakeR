@@ -1,6 +1,6 @@
 # LikertMakeR (development version)
 
-# LikertMakeR 1.2.0 (2025-06-05)
+# LikertMakeR 1.2.0 (2025-09-025)
 
 ## Improvements
 
@@ -11,7 +11,7 @@
    
    2. a data frame based on the correlation matrix and summary moments, plus
    
-   - diagnostic statistics, including possible F-statistics based on information provided. 
+   3. diagnostic statistics, including possible F-statistics based on information provided. 
    
 
 ## Maintenance
@@ -24,6 +24,9 @@
 # LikertMakeR 1.1.0 (2025-05-26)
 
 ## Improvements
+
+- new `makePaired()` function:
+  takes summary statistics from a paired-sample t-test and produces a data frame of rating-scale data that would deliver such summary statistics
 
 - `lcor()` function rewrite: 
     previous version used a very systematic swapping of values in each column to minimise the difference between data correlation and a target correlation matrix. This algorithm had the effect of causing extreme values in each column to be highly-correlated (or lowly correlated as applicable), and leaving middle-values relatively uncorrelated. This property was probably not noticeable in most cases but was apparent when the range of scale values was great.
