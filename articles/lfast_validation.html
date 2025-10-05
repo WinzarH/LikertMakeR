@@ -102,11 +102,12 @@ different groups of respondents are joined together.</p>
 <h2 id="sec-validation-against-real-data">Validation against real data<a class="anchor" aria-label="anchor" href="#sec-validation-against-real-data"></a>
 </h2>
 <p>One objective of the <strong><em>LikertMakeR</em></strong> package
-<span class="citation">(Winzar 2022)</span> is to “reproduce” or
-“reverse engineer” rating-scale data for further analysis and
-visualization when only summary statistics are available. In such a
-role, the synthetic data should accurately represent the original data,
-meaning both should plausibly originate from the same population.</p>
+<span class="citation">(<a href="#ref-winzar2022">Winzar
+2022</a>)</span> is to “reproduce” or “reverse engineer” rating-scale
+data for further analysis and visualization when only summary statistics
+are available. In such a role, the synthetic data should accurately
+represent the original data, meaning both should plausibly originate
+from the same population.</p>
 <p>To validate synthetic data, we choose a data set that is readily
 available, and which can be filtered to represent rating-scale data that
 may be commonly seen in published reports.</p>
@@ -127,9 +128,9 @@ other than a smooth hill.</li>
 <h3 id="sec-spi">SPI (SAPA Personality Inventory)<a class="anchor" aria-label="anchor" href="#sec-spi"></a>
 </h3>
 <p>For convenience and reproducibility, I chose a subsample of the
-<em>SAPA Personality Inventory</em> <span class="citation">(Condon
-2023)</span> data available from the <strong>psych</strong> <span class="citation">(Revelle 2024)</span> and <strong>psychtools</strong>
-<span class="citation">(William Revelle 2024)</span> packages for
+<em>SAPA Personality Inventory</em> <span class="citation">(<a href="#ref-sapaproject">Condon 2023</a>)</span> data available from the
+<strong>psych</strong> <span class="citation">(<a href="#ref-psych">Revelle 2024</a>)</span> and
+<strong>psychtools</strong> <span class="citation">(<a href="#ref-psychTools">William Revelle 2024</a>)</span> packages for
 <strong>R</strong>. The data set holds 4000 observations of 145
 variables.</p>
 <div class="section level4">
@@ -394,27 +395,24 @@ distributions:</p>
 maximum vertical distance between the empirical cumulative distribution
 functions (ECDFs) of the two samples. The <em>KS</em> test has reduced
 sensitivity near the centre of the distribution and excessive
-sensitivity to extreme values <span class="citation">(Lilliefors
-1967)</span>.</p></li>
-<li><p>The <strong>Baumgartner–Weiß–Schindler (BWS)</strong> test <span class="citation">(Baumgartner, Weiß, and Schindler 1998)</span><br>
+sensitivity to extreme values <span class="citation">(<a href="#ref-Lilliefors1967">Lilliefors 1967</a>)</span>.</p></li>
+<li><p>The <strong>Baumgartner–Weiß–Schindler (BWS)</strong> test <span class="citation">(<a href="#ref-Baumgartner1998">Baumgartner, Weiß, and
+Schindler 1998</a>)</span><br>
 improves upon the <em>KS</em> test by incorporating differences across
 the entire distribution, using a rank-based test statistic derived from
 integrated spacing differences. The <em>BWS</em> test is more powerful
 than either the <em>Kolmogorov-Smirnov</em> test or the
-<em>Wilcoxon</em> test <span class="citation">(Pav 2023)</span>, as
-shown in <span class="citation">Baumgartner, Weiß, and Schindler
-(1998)</span>. It is sensitive to both <em>location and shape</em>
-differences and generally has greater power across a variety of
-alternatives <span class="citation">(Neuhäuser 2001; Neuhäuser and
-Ruxton 2009)</span>.</p></li>
+<em>Wilcoxon</em> test <span class="citation">(<a href="#ref-BWStest-Manual">Pav 2023</a>)</span>, as shown in <span class="citation">Baumgartner, Weiß, and Schindler (<a href="#ref-Baumgartner1998">1998</a>)</span>. It is sensitive to both
+<em>location and shape</em> differences and generally has greater power
+across a variety of alternatives <span class="citation">(<a href="#ref-Neuh%C3%A4user2001">Neuhäuser 2001</a>; <a href="#ref-Neuhauser2009">Neuhäuser and Ruxton
+2009</a>)</span>.</p></li>
 <li><p>The <strong>Neuhäuser modification</strong> of the <em>BWS</em>
 test introduces a <em>weighting function</em> that emphasizes
 differences in the <em>central region</em> of the distribution while
-reducing the influence of the tails <span class="citation">(Neuhäuser
-2001)</span>. This makes it more robust to small discrepancies in the
-extremes — a desirable property in large samples where minor tail
-mismatches can lead to false positives <span class="citation">(Neuhäuser
-2005)</span>.</p></li>
+reducing the influence of the tails <span class="citation">(<a href="#ref-Neuh%C3%A4user2001">Neuhäuser 2001</a>)</span>. This makes it
+more robust to small discrepancies in the extremes — a desirable
+property in large samples where minor tail mismatches can lead to false
+positives <span class="citation">(<a href="#ref-Neuh_user_2005">Neuhäuser 2005</a>)</span>.</p></li>
 </ul>
 <p>Overall, The researcher might want to use the <em>BWS</em> test to
 see if <code><a href="../reference/lfast.html">LikertMakeR::lfast()</a></code> gives an <em>exact

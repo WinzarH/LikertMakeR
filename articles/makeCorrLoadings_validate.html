@@ -74,25 +74,16 @@ Winzar</h4>
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load required packages only if installed</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rosetta"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-packages.gitlab.io/rosetta/" class="external-link">rosetta</a></span><span class="op">)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"psych"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/" class="external-link">psych</a></span><span class="op">)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"psychTools"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/" class="external-link">psychTools</a></span><span class="op">)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"knitr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"kableExtra"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/WinzarH/LikertMakeR" class="external-link">LikertMakeR</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="likertmaker-package">LikertMakeR package<a class="anchor" aria-label="anchor" href="#likertmaker-package"></a>
+<h3 id="abstract">Abstract<a class="anchor" aria-label="anchor" href="#abstract"></a>
 </h3>
-<p><em>LikertMakeR</em> is a package for the R statistical programming
-language <span class="citation">[@winzar2022]</span>. It’s purpose is to
-synthesise and correlate Likert-scale and similar rating-scale data with
-predefined first &amp; second moments (mean and standard deviation),
-<em>Cronbach’s Alpha</em>, <em>Factor Loadings</em>, and other summary
-statistics.</p>
+<p>The <code><a href="../reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> function accurately reconstructs
+an item correlation matrix from item-factor loadings and factor
+correlations, similar to those produced in <em>EFA</em> or
+<em>SEM</em>.</p>
+<p>The function is robust even without explicit uniqueness or factor
+correlation inputs, although loadings greater than 0.05 are needed for
+best results.</p>
 </div>
 <div class="section level3">
 <h3 id="the-makecorrloadings-function">The makeCorrLoadings() function<a class="anchor" aria-label="anchor" href="#the-makecorrloadings-function"></a>
@@ -120,17 +111,18 @@ from the same population as the original sample.</p>
 function. Preferably, we should have several different original
 dataframes to ensure that results are generalisable.</p>
 </div>
-<div class="section level2">
-<h2 id="study-1-party-panel-2015">Study #1: Party Panel 2015<a class="anchor" aria-label="anchor" href="#study-1-party-panel-2015"></a>
-</h2>
+<div class="section level3">
+<h3 id="study-1-party-panel-2015">Study #1: Party Panel 2015<a class="anchor" aria-label="anchor" href="#study-1-party-panel-2015"></a>
+</h3>
 <div class="section level4">
 <h4 id="original-data">Original data<a class="anchor" aria-label="anchor" href="#original-data"></a>
 </h4>
-<p>We use the pp15 dataset from the <code>rosetta</code> package <span class="citation">[@rosetta]</span>. This is a subset of the Party Panel
-2015 dataset. Party Panel is an annual semi-panel study among Dutch
-nightlife patrons, where every year, the determinants of another
-nightlife-related risk behavior is mapped. In 2015, determinants were
-measured of behaviours related to using highly dosed ecstasy pills.</p>
+<p>We use the pp15 dataset from the <code>rosetta</code> package <span class="citation">(<a href="#ref-rosetta">Peters and Verboon
+2023</a>)</span>. This is a subset of the Party Panel 2015 dataset.
+Party Panel is an annual semi-panel study among Dutch nightlife patrons,
+where every year, the determinants of another nightlife-related risk
+behaviour is mapped. In 2015, determinants were measured of behaviours
+related to using highly dosed ecstasy pills.</p>
 <p>Nine items are relevant to this study. Each is a 7-point likert-style
 question scored in the range <em>-3</em> to <em>+3</em>.</p>
 <p>The questions and the item labels are presented as follows:</p>
@@ -221,7 +213,7 @@ sex
 <div class="section level5">
 <h5 id="extract-and-clean-the-original-data-file">Extract and clean the original data file<a class="anchor" aria-label="anchor" href="#extract-and-clean-the-original-data-file"></a>
 </h5>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## variable names</span></span>
 <span><span class="va">item_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"highDose_AttBeliefs_long"</span>,</span>
@@ -237,7 +229,7 @@ sex
 <span></span>
 <span><span class="co">## read the data/ select desired variables/ remove obs with missing values</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv2</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/pp15.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">item_list</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="fu">all_of</span><span class="op">(</span><span class="va">item_list</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## give variables shorter names</span></span>
@@ -251,7 +243,7 @@ sex
 </h4>
 <p>The correlations among these nine items should be reproducable by the
 <code><a href="../reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> function.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## correlation matrix</span></span>
 <span><span class="va">pp15_cor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></code></pre></div>
 <table class="table  lightable-classic" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
@@ -611,9 +603,10 @@ non-orthogonal rotation.</p></li>
 <h5 id="evaluation">Evaluation<a class="anchor" aria-label="anchor" href="#evaluation"></a>
 </h5>
 <p>To compare the <em>True</em> correlation matrix with a
-<em>Synthetic</em> matrix, we employ the <code><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich()</a></code>
-function from the <code>psych</code> package <span class="citation">[@psych]</span>. This is a <em>Chi-square</em> test of
-whether a pair of matrices are equal <span class="citation">[@Jennrich1970]</span>. We report the raw
+<em>Synthetic</em> matrix, we employ the <code>cortest.jennrich()</code>
+function from the <code>psych</code> package <span class="citation">(<a href="#ref-psych">Revelle 2024</a>)</span>. This is a
+<em>Chi-square</em> test of whether a pair of matrices are equal <span class="citation">(<a href="#ref-Jennrich1970">Jennrich 1970</a>)</span>.
+We report the raw
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>χ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\chi^2</annotation></semantics></math>
 statistic and corresponding p-value for each test.</p>
 </div>
@@ -624,7 +617,7 @@ statistic and corresponding p-value for each test.</p>
 <p>Some pretesting suggest that two factors are appropriate for this
 sample. And we’re confident that the factors will be correlated, so we
 use promax rotation.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## factor analysis from `rosetta` package</span></span>
 <span><span class="va">rfaDose</span> <span class="op">&lt;-</span> <span class="fu">rosetta</span><span class="fu">::</span><span class="fu"><a href="https://r-packages.gitlab.io/rosetta/reference/dataReduction.html" class="external-link">factorAnalysis</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">dat</span>,</span>
@@ -840,7 +833,7 @@ Factor 2
 <div class="section level4">
 <h4 id="test-case-1-full-information">Test Case #1: Full information<a class="anchor" aria-label="anchor" href="#test-case-1-full-information"></a>
 </h4>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## round input values to 5 decimal places</span></span>
 <span><span class="co"># factor loadings</span></span>
 <span><span class="va">fl1</span> <span class="op">&lt;-</span> <span class="va">factorLoadings</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">|&gt;</span></span>
@@ -857,7 +850,7 @@ Factor 2
 <span>  uniquenesses <span class="op">=</span> <span class="va">un1</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_1</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_1</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -867,7 +860,7 @@ Factor 2
 </h4>
 <p>factor loadings and factor correlations to 5 decimal places but
 without uniquenesses</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## round input values to 2 decimal places</span></span>
 <span><span class="co"># factor loadings</span></span>
 <span><span class="va">fl2</span> <span class="op">&lt;-</span> <span class="va">factorLoadings</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">|&gt;</span></span>
@@ -883,7 +876,7 @@ without uniquenesses</p>
 <span>  uniquenesses <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_2</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_2</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -892,7 +885,7 @@ without uniquenesses</p>
 <h4 id="test-case-3-rounded-loadings">Test case #3: Rounded loadings<a class="anchor" aria-label="anchor" href="#test-case-3-rounded-loadings"></a>
 </h4>
 <p>factor loadings and factor correlations to two decimal places.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## round input values to 2 decimal places</span></span>
 <span><span class="co"># factor loadings</span></span>
 <span><span class="va">fl3</span> <span class="op">&lt;-</span> <span class="va">factorLoadings</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">|&gt;</span></span>
@@ -912,7 +905,7 @@ without uniquenesses</p>
 <span>  uniquenesses <span class="op">=</span> <span class="va">un3</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_3</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_3</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -922,7 +915,7 @@ without uniquenesses</p>
 </h4>
 <p>Factor loadings and factor correlations to two decimal places, and no
 uniquenesses</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## round input values to 2 decimal places</span></span>
 <span><span class="co"># factor loadings</span></span>
 <span><span class="va">fl4</span> <span class="op">&lt;-</span> <span class="va">factorLoadings</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">|&gt;</span></span>
@@ -939,7 +932,7 @@ uniquenesses</p>
 <span>  uniquenesses <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_4</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_4</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -1262,7 +1255,7 @@ sex
 </h4>
 <p>Factor loadings less than ‘0.1’, ‘0.2’, ‘0.3’ are removed for
 clarity, presented to two decimal places.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## round input values to 2 decimal places</span></span>
 <span><span class="co"># factor loadings</span></span>
 <span><span class="va">fl5a</span> <span class="op">&lt;-</span> <span class="va">factorLoadings</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">|&gt;</span></span>
@@ -1284,7 +1277,7 @@ clarity, presented to two decimal places.</p>
 <span>  uniquenesses <span class="op">=</span> <span class="va">un5</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_5a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_5a</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_5a</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span>
@@ -1302,7 +1295,7 @@ clarity, presented to two decimal places.</p>
 <span>  uniquenesses <span class="op">=</span> <span class="va">un5</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_5b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_5b</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_5b</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span>
@@ -1320,7 +1313,7 @@ clarity, presented to two decimal places.</p>
 <span>  uniquenesses <span class="op">=</span> <span class="va">un5</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_5c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_5c</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_5c</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span>
@@ -1331,14 +1324,14 @@ clarity, presented to two decimal places.</p>
 </h4>
 <p>With no declared uniquenesses, they are inferred from estimated
 communalities.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">itemCors_6a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrLoadings.html">makeCorrLoadings</a></span><span class="op">(</span></span>
 <span>  loadings <span class="op">=</span> <span class="va">fl5a</span>,</span>
 <span>  factorCor <span class="op">=</span> <span class="va">fc5</span>,</span>
 <span>  uniquenesses <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_6a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_6a</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_6a</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span>
@@ -1349,7 +1342,7 @@ communalities.</p>
 <span>  uniquenesses <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_6b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_6b</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_6b</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span>
@@ -1360,7 +1353,7 @@ communalities.</p>
 <span>  uniquenesses <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_6c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_6c</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_6c</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -1372,14 +1365,14 @@ correlations<a class="anchor" aria-label="anchor" href="#test-case-7-censored-lo
 <p>No uniquenesses. That is, Uniquenesses are estimated from
 1-communalities, where communalities = sum(factor-loadings^2). And no
 factor correlations. That is, we assume orthogonal factors.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">itemCors_7a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrLoadings.html">makeCorrLoadings</a></span><span class="op">(</span></span>
 <span>  loadings <span class="op">=</span> <span class="va">fl5a</span>,</span>
 <span>  factorCor <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  uniquenesses <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_7a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_7a</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_7a</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span>
@@ -1390,7 +1383,7 @@ factor correlations. That is, we assume orthogonal factors.</p>
 <span>  uniquenesses <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_7b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_7b</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_7b</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span>
@@ -1401,10 +1394,11 @@ factor correlations. That is, we assume orthogonal factors.</p>
 <span>  uniquenesses <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_7c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_7c</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">pp15_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_7c</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="summary-results">Summary results<a class="anchor" aria-label="anchor" href="#summary-results"></a>
@@ -1576,10 +1570,9 @@ has information on factor loadings, but much less well when “summary”
 (censored) factor loadings are given.</p>
 <hr>
 </div>
-</div>
-<div class="section level2">
-<h2 id="study-2-big-five-bfi-personality-items">Study #2: Big Five (bfi personality items)<a class="anchor" aria-label="anchor" href="#study-2-big-five-bfi-personality-items"></a>
-</h2>
+<div class="section level3">
+<h3 id="study-2-big-five-bfi-personality-items">Study #2: Big Five (bfi personality items)<a class="anchor" aria-label="anchor" href="#study-2-big-five-bfi-personality-items"></a>
+</h3>
 <div class="section level4">
 <h4 id="original-data-bfi-25-personality-items-representing-5-factors">Original data: bfi 25 Personality items representing 5 factors<a class="anchor" aria-label="anchor" href="#original-data-bfi-25-personality-items-representing-5-factors"></a>
 </h4>
@@ -1587,7 +1580,7 @@ has information on factor loadings, but much less well when “summary”
 (ipip.ori.org)</a> were included as part of the <em>Synthetic Aperture
 Personality Assessment</em> <em>(SAPA)</em> web based personality
 assessment project. The data are available through the
-<code>psychTools</code> package <span class="citation">[@psychTools]</span>.</p>
+<code>psychTools</code> package <span class="citation">(<a href="#ref-psychTools">William Revelle 2024</a>)</span>.</p>
 <p>2800 subjects are included as a demonstration set for scale
 construction, factor analysis, and Item Response Theory analysis. Three
 additional demographic variables (sex, education, and age) are also
@@ -1634,12 +1627,12 @@ the SAPA item numbers).</p>
 </h4>
 <p>The correlations among these 25 items should be reproducable by the
 <code><a href="../reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> function.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## download data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">bfi</span><span class="op">)</span></span>
 <span><span class="co">## filter for highly-educated women</span></span>
 <span><span class="va">bfi_short</span> <span class="op">&lt;-</span> <span class="va">bfi</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">education</span> <span class="op">==</span> <span class="fl">5</span> <span class="op">&amp;</span> <span class="va">gender</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">education</span> <span class="op">==</span> <span class="fl">5</span> <span class="op">&amp;</span> <span class="va">gender</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## keep just the 25 items</span></span>
 <span><span class="va">bfi_short</span> <span class="op">&lt;-</span> <span class="va">bfi_short</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">25</span><span class="op">]</span></span>
@@ -1670,7 +1663,7 @@ test</em>.</p>
 </h4>
 <p>Five correlated factors are appropriate for this sample, so we use
 promax rotation.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## factor analysis from `rosetta` package is a less messy version of the `psych::fa()` function</span></span>
 <span></span>
 <span><span class="va">fa_bfi</span> <span class="op">&lt;-</span> <span class="fu">rosetta</span><span class="fu">::</span><span class="fu"><a href="https://r-packages.gitlab.io/rosetta/reference/dataReduction.html" class="external-link">factorAnalysis</a></span><span class="op">(</span></span>
@@ -2417,7 +2410,7 @@ Factor 5
 <div class="section level4">
 <h4 id="test-case-1-full-information-1">Test Case #1: Full information<a class="anchor" aria-label="anchor" href="#test-case-1-full-information-1"></a>
 </h4>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## round input values to 5 decimal places</span></span>
 <span><span class="co"># factor loadings</span></span>
 <span><span class="va">fl1</span> <span class="op">&lt;-</span> <span class="va">bfiLoadings</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="op">|&gt;</span></span>
@@ -2434,7 +2427,7 @@ Factor 5
 <span>  uniquenesses <span class="op">=</span> <span class="va">un1</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">## Compare the two matrices</span></span>
-<span><span class="va">chiSq_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/cortest.mat.html" class="external-link">cortest.jennrich</a></span><span class="op">(</span></span>
+<span><span class="va">chiSq_1</span> <span class="op">&lt;-</span> <span class="fu">cortest.jennrich</span><span class="op">(</span></span>
 <span>  R1 <span class="op">=</span> <span class="va">bfi_cor</span>, R2 <span class="op">=</span> <span class="va">itemCors_1</span>,</span>
 <span>  n1 <span class="op">=</span> <span class="va">sampleSize</span>, n2 <span class="op">=</span> <span class="va">sampleSize</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -2458,6 +2451,7 @@ level of item-factor loading that is included.</p>
 <!-- Factor loadings less than '0.1', '0.2', '0.3' are removed for clarity, presented to two decimal places. -->
 <!-- ### Test case #7 Censored loadings, no uniqueness, no factor correlations -->
 <!-- Factor loadings less than '0.2' are removed for clarity, but no uniquenesses. That is, Uniquenesses are estimated from 1-communalities, where communalities = sum(factor-loadings\^2). -->
+</div>
 </div>
 <div class="section level3">
 <h3 id="study-2-summary-results">Study #2 Summary results<a class="anchor" aria-label="anchor" href="#study-2-summary-results"></a>
@@ -2620,7 +2614,6 @@ Censored loadings &lt;0.3 - no uniqueness, no factor cors
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 <div class="section level2">
 <h2 id="overall-results">Overall Results<a class="anchor" aria-label="anchor" href="#overall-results"></a>
@@ -2903,8 +2896,29 @@ item-factor loadings.</p>
 <hr>
 </div>
 <div class="section level3">
-<h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h3 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-Jennrich1970" class="csl-entry">
+Jennrich, Robert I. 1970. <span>“An Asymptotic Χ2 Test for the Equality
+of Two Correlation Matrices.”</span> <em>Journal of the American
+Statistical Association</em> 65 (330): 904–12. <a href="https://doi.org/10.1080/01621459.1970.10481133" class="external-link">https://doi.org/10.1080/01621459.1970.10481133</a>.
+</div>
+<div id="ref-rosetta" class="csl-entry">
+Peters, Gjalt-Jorn, and Peter Verboon. 2023. <em>Rosetta: Parallel Use
+of Statistical Packages in Teaching</em>. <a href="https://doi.org/10.32614/CRAN.package.rosetta" class="external-link">https://doi.org/10.32614/CRAN.package.rosetta</a>.
+</div>
+<div id="ref-psych" class="csl-entry">
+Revelle, William. 2024. <em>Psych: Procedures for Psychological,
+Psychometric, and Personality Research</em>. Evanston, Illinois:
+Northwestern University. <a href="https://CRAN.R-project.org/package=psych" class="external-link">https://CRAN.R-project.org/package=psych</a>.
+</div>
+<div id="ref-psychTools" class="csl-entry">
+William Revelle. 2024. <em>psychTools: Tools to Accompany the ’Psych’
+Package for Psychological Research</em>. Evanston, Illinois:
+Northwestern University. <a href="https://CRAN.R-project.org/package=psychTools" class="external-link">https://CRAN.R-project.org/package=psychTools</a>.
+</div>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
