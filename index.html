@@ -38,14 +38,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/lfast_validation.html">LikertMakeR Scale Reproduction Validation</a></li>
-    <li><a class="dropdown-item" href="articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
-    <li><a class="dropdown-item" href="articles/makeCorrLoadings_validate.html">makeCorrLoadings() validation</a></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="nav-link" href="articles/index.html">Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -69,9 +62,8 @@
 <div class="section level1">
 <h1 id="likertmaker-">LikertMakeR <a class="anchor" aria-label="anchor" href="#likertmaker-"></a>
 </h1>
-<p>(V 1.2.0 September 2025)</p>
+<p>(V 1.2.0 October 2025)</p>
 <p>Synthesise and correlate Likert scales, and similar rating-scale data, with predefined first &amp; second moments (mean and standard deviation), <em>Cronbach’s Alpha</em>, <em>Factor Loadings</em>, and other summary statistics.</p>
-<p><strong><em>LikertMakeR</em></strong> synthesises rating-scale data. Such scales are constrained by upper and lower bounds and discrete increments.</p>
 <div class="section level2">
 <h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h2>
@@ -122,7 +114,8 @@
 <div class="section level4">
 <h4 id="alternative-approaches-to-synthesising-scales">Alternative approaches to synthesising scales<a class="anchor" aria-label="anchor" href="#alternative-approaches-to-synthesising-scales"></a>
 </h4>
-<p>Typically, a researcher will synthesise simple rating-scale data by sampling with a predetermined probability distribution. <br> For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities.</p>
+<p>Typically, a researcher will synthesise simple rating-scale data by sampling with a predetermined probability distribution.</p>
+<p>For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>      n <span class="ot">&lt;-</span> <span class="dv">128</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>      <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>        <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>)</span>
@@ -687,7 +680,7 @@
 <h3 id="makepaired">makePaired()<a class="anchor" aria-label="anchor" href="#makepaired"></a>
 </h3>
 <p><em>makePaired()</em> generates a dataset from paired-sample t-test summary statistics.</p>
-<p><em>makePaired()</em> generates correlated values so the data replicate rating scales taken, for example, in a before and after experimental design. The function is effectively a wrapper function for <em>lfast()</em> and <em>lcor()</em> with the addition of a t-statistic from which the between-column correlation is inferred.</p>
+<p><em>makePaired()</em> generates correlated values so the data replicate rating scales taken from a <em>paired-samples t-test</em> - for example, in a before and after experimental design. The function is effectively a wrapper function for <em>lfast()</em> and <em>lcor()</em> with the addition of a t-statistic from which the between-column correlation is inferred.</p>
 <p>Paired t-tests apply to observations that are associated with each other. For example: the same people before and after a treatment; the same people rating two different objects; ratings by husband &amp; wife; <em>etc.</em></p>
 <div class="section level4">
 <h4 id="makepaired-usage">makePaired() usage<a class="anchor" aria-label="anchor" href="#makepaired-usage"></a>
@@ -980,7 +973,7 @@
 <div class="section level2">
 <h2 id="helper-functions-1">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions-1"></a>
 </h2>
-<p><em>likertMakeR()</em> includes two additional functions that may be of help when examining parameters and output.</p>
+<p><em>likertMakeR</em> includes two additional functions that may be of help when examining parameters and output.</p>
 <ul>
 <li><p><strong><em>alpha()</em></strong> calculates <em>Cronbach’s Alpha</em> from a given correlation matrix or a given dataframe</p></li>
 <li><p><strong><em>eigenvalues()</em></strong> calculates eigenvalues of a correlation matrix, and reports on whether the correlation matrix is positive definite and an optional scree plot</p></li>
@@ -1097,7 +1090,7 @@
 </h4>
 <div class="sourceCode" id="cb62"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a> Winzar, <span class="fu">H.</span> (<span class="dv">2022</span>). LikertMakeR<span class="sc">:</span> Synthesise and correlate Likert<span class="sc">-</span>scale </span>
 <span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a> and related rating<span class="sc">-</span>scale data with predefined first <span class="sc">&amp;</span> second moments, </span>
-<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a> Version <span class="dv">1</span>.<span class="fl">0.1</span> (<span class="dv">2025</span>),</span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a> Version <span class="dv">1</span>.<span class="fl">2.0</span> (<span class="dv">2025</span>),</span>
 <span id="cb62-4"><a href="#cb62-4" tabindex="-1"></a> The Comprehensive R Archive <span class="fu">Network</span> (CRAN),</span>
 <span id="cb62-5"><a href="#cb62-5" tabindex="-1"></a><span class="sc">&lt;</span>https<span class="sc">:</span><span class="er">//</span>CRAN.R<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>LikertMakeR<span class="sc">&gt;</span></span>
 <span id="cb62-6"><a href="#cb62-6" tabindex="-1"></a>    </span></code></pre></div>
@@ -1113,7 +1106,7 @@
 <span id="cb63-6"><a href="#cb63-6" tabindex="-1"></a><span class="st">journal = {The Comprehensive R Archive Network (CRAN)},</span></span>
 <span id="cb63-7"><a href="#cb63-7" tabindex="-1"></a><span class="st">month = {12},</span></span>
 <span id="cb63-8"><a href="#cb63-8" tabindex="-1"></a><span class="st">year = {2022},</span></span>
-<span id="cb63-9"><a href="#cb63-9" tabindex="-1"></a><span class="st">version = {1.0.1 (2025)}</span></span>
+<span id="cb63-9"><a href="#cb63-9" tabindex="-1"></a><span class="st">version = {1.2.0 (2025)}</span></span>
 <span id="cb63-10"><a href="#cb63-10" tabindex="-1"></a><span class="st">url = {https://CRAN.R-project.org/package=LikertMakeR},</span></span>
 <span id="cb63-11"><a href="#cb63-11" tabindex="-1"></a><span class="st">}</span></span></code></pre></div>
 </div>

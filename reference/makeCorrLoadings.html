@@ -26,12 +26,7 @@ are present, as shown in the makeCorrLoadings() validation article."><meta prope
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/lfast_validation.html">LikertMakeR Scale Reproduction Validation</a></li>
-    <li><a class="dropdown-item" href="../articles/LikertMakeR_vignette.html">LikertMakeR vignette</a></li>
-    <li><a class="dropdown-item" href="../articles/makeCorrLoadings_validate.html">makeCorrLoadings() validation</a></li>
-  </ul></li>
+<li class="nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/WinzarH/LikertMakeR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item"><form class="form-inline" role="search">
@@ -79,7 +74,8 @@ Row names and column names are used for diagnostics if present.</p></dd>
 
 
 <dt id="arg-factorcor">factorCor<a class="anchor" aria-label="anchor" href="#arg-factorcor"></a></dt>
-<dd><p>Optional \(f \times f\) matrix of factor correlations (\(\Phi\)).
+<dd><p>Optional \(f \times f\) matrix of factor
+correlations (\(\Phi\)).
 If NULL, assumes orthogonal factors.</p></dd>
 
 
@@ -89,11 +85,15 @@ as \(1 - rowSums(loadings^2)\).</p></dd>
 
 
 <dt id="arg-nearpd">nearPD<a class="anchor" aria-label="anchor" href="#arg-nearpd"></a></dt>
-<dd><p>Logical. If <code>TRUE</code>, attempts to coerce non–positive-definite matrices using <code><a href="https://rdrr.io/pkg/Matrix/man/nearPD.html" class="external-link">Matrix::nearPD()</a></code>.</p></dd>
+<dd><p>Logical.
+If <code>TRUE</code>, attempts to coerce non–positive-definite matrices
+using <code><a href="https://rdrr.io/pkg/Matrix/man/nearPD.html" class="external-link">Matrix::nearPD()</a></code>.</p></dd>
 
 
 <dt id="arg-diagnostics">diagnostics<a class="anchor" aria-label="anchor" href="#arg-diagnostics"></a></dt>
-<dd><p>Logical. If <code>TRUE</code>, returns diagnostics including McDonald's Omega and item-level summaries.</p></dd>
+<dd><p>Logical.
+If <code>TRUE</code>, returns diagnostics including McDonald's Omega and
+item-level summaries.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -103,12 +103,13 @@ If diagnostics = TRUE, returns a list with:
 - R: correlation matrix
 - Omega: per-factor Omega or adjusted Omega
 - OmegaTotal: total Omega across all factors
-- Diagnostics: data.frame of communalities, uniquenesses, and primary factor</p>
+- Diagnostics: dataframe of communalities, uniquenesses, and primary factor</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index">
-<ul><li><p>makeCorrLoadings() validation article: <a href="https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.html">https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.html</a></p></li>
+<ul><li><p>makeCorrLoadings() validation article:
+<a href="https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.html">https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.html</a></p></li>
 <li><p>Package website: <a href="https://winzarh.github.io/LikertMakeR/">https://winzarh.github.io/LikertMakeR/</a></p></li>
 </ul></div>
     </div>
