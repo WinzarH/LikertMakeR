@@ -27,29 +27,40 @@ makeRepeated(
 
 \item{k}{Integer. Number of repeated measures (timepoints).}
 
-\item{means}{Numeric vector of length \code{k}. Mean values reported for each timepoint.}
+\item{means}{Numeric vector of length \code{k}.
+Mean values reported for each timepoint.}
 
-\item{sds}{Numeric vector of length \code{k}. Standard deviations reported for each timepoint.}
+\item{sds}{Numeric vector of length \code{k}.
+Standard deviations reported for each timepoint.}
 
-\item{f_stat}{Numeric. The reported repeated-measures ANOVA F-statistic for the within-subjects factor.}
+\item{f_stat}{Numeric. The reported repeated-measures ANOVA
+F-statistic for the within-subjects factor.}
 
 \item{df_between}{Degrees of freedom between conditions (default: \code{k - 1}.}
 
-\item{df_within}{Degrees of freedom within-subjects (default: \code{(n - 1) * (k - 1)}).}
+\item{df_within}{Degrees of freedom within-subjects
+(default: \code{(n - 1) * (k - 1)}).}
 
-\item{structure}{Character. Correlation structure to assume: \code{"cs"}, \code{"ar1"}, or \code{"toeplitz"} (default = \code{"cs"}).}
+\item{structure}{Character. Correlation structure to assume:
+\code{"cs"}, \code{"ar1"}, or \code{"toeplitz"} (default = \code{"cs"}).}
 
-\item{names}{Character vector of length \code{k}. Variable names for each timepoint (default: \code{"time_1"} to \code{"time_k"}).}
+\item{names}{Character vector of length \code{k}. Variable names for each
+timepoint (default: \code{"time_1"} to \code{"time_k"}).}
 
-\item{items}{Integer. Number of items used to generate each scale score (passed to \link{lfast}).}
+\item{items}{Integer. Number of items used to generate each scale score
+(passed to \link{lfast}).}
 
-\item{lowerbound, }{Integer. Lower bounds for Likert-type response scales (default: 1).}
+\item{lowerbound, }{Integer. Lower bounds for Likert-type response
+scales (default: 1).}
 
-\item{upperbound, }{Integer. upper bounds for Likert-type response scales (default: 5).}
+\item{upperbound, }{Integer. upper bounds for Likert-type response
+scales (default: 5).}
 
-\item{return_corr_only}{Logical. If \code{TRUE}, return only the estimated correlation matrix.}
+\item{return_corr_only}{Logical. If \code{TRUE}, return only the
+estimated correlation matrix.}
 
-\item{diagnostics}{Logical. If \code{TRUE}, include diagnostic summaries such as feasible F-statistic range and effect sizes.}
+\item{diagnostics}{Logical. If \code{TRUE}, include diagnostic summaries
+such as feasible F-statistic range and effect sizes.}
 
 \item{...}{Reserved for future use.}
 }
@@ -72,21 +83,30 @@ suggestions for similar designs.}
 }
 }
 \description{
-Constructs a synthetic dataset and inter-timepoint correlation matrix from a repeated-measures ANOVA result, based on reported means, standard deviations, and an F-statistic. This is useful when only summary statistics are available from published studies.
+Constructs a synthetic dataset and inter-timepoint correlation matrix
+from a repeated-measures ANOVA result, based on reported means, standard
+deviations, and an F-statistic. This is useful when only summary statistics
+are available from published studies.
 }
 \details{
-This function estimates the average correlation between repeated measures by matching the reported F-statistic, under one of three assumed correlation structures:
+This function estimates the average correlation between repeated measures
+by matching the reported F-statistic, under one of three assumed
+correlation structures:
 \itemize{
-\item \code{"cs"} (\emph{Compound Symmetry}): The Default. Assumes all timepoints are equally correlated. Common in standard RM-ANOVA settings.
-\item \code{"ar1"} (\emph{First-Order Autoregressive}): Assumes correlations decay exponentially with time lag — higher correlation for closer timepoints.
-\item \code{"toeplitz"} (\emph{Linearly Decreasing}): Assumes correlation declines linearly with time lag, offering a middle ground between \code{"cs"} and \code{"ar1"}.
+\item \code{"cs"} (\emph{Compound Symmetry}): The Default. Assumes all timepoints are
+equally correlated. Common in standard RM-ANOVA settings.
+\item \code{"ar1"} (\emph{First-Order Autoregressive}): Assumes correlations decay
+exponentially with time lag.
+\item \code{"toeplitz"} (\emph{Linearly Decreasing}): Assumes correlation declines
+linearly with time lag - a middle ground between \code{"cs"} and \code{"ar1"}.
 }
 
 The function then generates a data frame of synthetic item-scale ratings
 using \link{lfast}, and adjusts them to match the estimated correlation
 structure using \link{lcor}.
 
-Set \code{return_corr_only = TRUE} to extract only the estimated correlation matrix.
+Set \code{return_corr_only = TRUE} to extract only the estimated
+correlation matrix.
 }
 \examples{
 

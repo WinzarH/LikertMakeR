@@ -40,11 +40,16 @@ getNamespaceExports("LikertMakeR")
 
 # pkgdown::clean_site(force = TRUE)
 
-pkgdown::build_favicons(overwrite = TRUE)
+# pkgdown::build_favicons(overwrite = TRUE)
 
 # pkgdown::build_favicons()
+# optional but helpful if you have compiled code
 
-pkgdown::build_site(lazy = FALSE)
+devtools::clean_dll()
+
+# install into your active library
+devtools::install(upgrade = "never", force = TRUE)
+
 
 pkgdown::build_site()
 
@@ -53,7 +58,8 @@ pkgdown::build_site()
 "LikertMakeR" %in% loadedNamespaces()   # should be FALSE
 
 # 2) Install to your user library (once, so deploy can load it)
-devtools::install(upgrade = "never")
+# devtools::install(upgrade = "never")
+devtools::install()
 
 # sanity check:
 system.file(package = "LikertMakeR")    # should print a path

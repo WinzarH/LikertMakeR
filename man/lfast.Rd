@@ -17,7 +17,8 @@ lfast(n, mean, sd, lowerbound, upperbound, items = 1, precision = 0)
 
 \item{upperbound}{(int) upper bound (e.g. '5' for a 1-5 rating scale)}
 
-\item{items}{(positive, int) number of items in the rating scale. Default = 1}
+\item{items}{(positive, int) number of items in the rating scale.
+Default = 1}
 
 \item{precision}{(positive, real) can relax the level of accuracy required.
 (e.g. '1' generally generates a vector with moments correct within '0.025',
@@ -31,9 +32,10 @@ a vector approximating user-specified conditions.
 find a vector that best fits the desired moments.
 
 \code{lfast()} generates random discrete values from a
-scaled Beta distribution so the data replicate a rating scale -
-for example, a 1-5 Likert scale made from 5 items (questions) or 0-10
-likelihood-of-purchase scale.
+scaled Beta distribution so the data replicate an ordinal rating scale -
+for example, a Likert scale made from multiple items (questions) or 0-10
+likelihood-of-purchase scale. Data generated are generally consistent with
+real data, as shown in the \emph{lfast() validation article}.
 }
 \examples{
 
@@ -71,4 +73,12 @@ x <- lfast(
 ## eleven-point 'likelihood of purchase' scale
 x <- lfast(256, 3, 3.0, 0, 10)
 
+}
+\seealso{
+\itemize{
+\item lfast validation article:
+\url{https://winzarh.github.io/LikertMakeR/articles/lfast_validation.html}
+\item Package website:
+\url{https://winzarh.github.io/LikertMakeR/}
+}
 }

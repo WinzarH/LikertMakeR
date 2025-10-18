@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeItems.R
 \name{makeItems}
 \alias{makeItems}
-\title{Synthesise rating-scale data with given first and second moments and a
+\title{Synthesise rating-scale item data with given first and second moments and a
 predefined correlation matrix}
 \usage{
 makeItems(n, means, sds, lowerbound, upperbound, cormatrix)

@@ -66,7 +66,8 @@ where:
 
 \deqn{ \mathrm{sd}(D)^2 = \mathrm{sd}(X_{\text{before}})^2 +
                           \mathrm{sd}(X_{\text{after}})^2 -
-                          2\,\mathrm{cov}(X_{\text{before}}, X_{\text{after}}) }
+                          2\,\mathrm{cov}(X_{\text{before}},
+                          X_{\text{after}}) }
 
 A paired-sample \emph{t}-test thus requires an estimate of the covariance between
 the two sets of observations.

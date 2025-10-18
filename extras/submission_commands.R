@@ -1,43 +1,31 @@
 
-## 10.32614/CRAN.package.LikertMakeR
 
-usethis::use_build_ignore(c(
-  ".github",
-  "cran-comments.md",
-  "_pkgdown.yml",
-  "docs",
-  "pkgdown",
-  "extras",
-  "CRAN-SUBMISSION",
-  "Meta"
-))
-
-usethis::use_git_ignore(c(
-  ".Rproj.user",
-  ".Rhistory",
-  ".RData",
-  ".DS_Store"
-))
-
-usethis::use_git_ignore(c(
-  "docs",
-  "*.tar.gz",
-  "src/*.o",
-  "src/*.so",
-  "*.dll"
-), directory = ".")
-
+# devtools::lint()
 
 Rcpp::compileAttributes()
 
 devtools::document()
-devtools::clean_dll()
+# devtools::clean_dll()
+
+# Sys.setenv(R_MARKDOWN_QUARTO = 0)
 devtools::check()
+
 devtools::build()
 
 # devtools::check()
 devtools::check_win_devel()
 rhub::rhub_check()
+
+
+
+
+
+
+unlink("LikertMakeR.Rcheck", recursive = TRUE)
+devtools::document()
+devtools::check()
+devtools::check_win_devel()
+
 
 
 
@@ -71,21 +59,18 @@ spelling::update_wordlist()
 
 
 
-# Run a full package check
-devtools::check(clean = TRUE)
-
-tar <- pkgbuild::build()
-rcmdcheck::rcmdcheck(tar, args = "--as-cran")
+# tar <- pkgbuild::build()
+# rcmdcheck::rcmdcheck(tar, args = "--as-cran")
 
 # devtools::clean_dll()
 # devtools::document()
-# devtools::build(clean = TRUE)
+# devtools::build()
 # devtools::check()
 
-devtools::clean_dll()
+# devtools::clean_dll()
 devtools::document()
-devtools::build(clean = TRUE)
-# devtools::check()
+devtools::build()
+devtools::check()
 
 
 # usethis::use_release_issue()

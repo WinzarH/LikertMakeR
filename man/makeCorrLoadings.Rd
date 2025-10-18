@@ -17,15 +17,20 @@ makeCorrLoadings(
 factor loadings \eqn{items \times factors}.
 Row names and column names are used for diagnostics if present.}
 
-\item{factorCor}{Optional \eqn{f \times f} matrix of factor correlations (\eqn{\Phi}).
+\item{factorCor}{Optional \eqn{f \times f} matrix of factor
+correlations (\eqn{\Phi}).
 If NULL, assumes orthogonal factors.}
 
 \item{uniquenesses}{Optional vector of length k. If NULL, calculated
 as \eqn{1 - rowSums(loadings^2)}.}
 
-\item{nearPD}{Logical. If \code{TRUE}, attempts to coerce non–positive-definite matrices using \code{\link[Matrix:nearPD]{Matrix::nearPD()}}.}
+\item{nearPD}{Logical.
+If \code{TRUE}, attempts to coerce non–positive-definite matrices
+using \code{\link[Matrix:nearPD]{Matrix::nearPD()}}.}
 
-\item{diagnostics}{Logical. If \code{TRUE}, returns diagnostics including McDonald's Omega and item-level summaries.}
+\item{diagnostics}{Logical.
+If \code{TRUE}, returns diagnostics including McDonald's Omega and
+item-level summaries.}
 }
 \value{
 If diagnostics = FALSE, returns a correlation matrix (class: matrix).
@@ -33,11 +38,15 @@ If diagnostics = TRUE, returns a list with:
 - R: correlation matrix
 - Omega: per-factor Omega or adjusted Omega
 - OmegaTotal: total Omega across all factors
-- Diagnostics: data.frame of communalities, uniquenesses, and primary factor
+- Diagnostics: dataframe of communalities, uniquenesses, and primary factor
 }
 \description{
-Constructs an inter-item correlation matrix based on a user-supplied matrix
-of standardised factor loadings and (optionally) a factor correlation matrix.
+Constructs an inter-item correlation matrix based on a user-supplied
+matrix of standardised factor loadings and (optionally) a factor
+correlation matrix.
+The \code{makeCorrLoadings()} function does a surprisingly good job of
+reproducing a target correlation matrix when all item-factor loadings
+are present, as shown in the \emph{makeCorrLoadings() validation article}.
 }
 \examples{
 
@@ -103,4 +112,11 @@ round(result_orth$Omega, 3) # per-factor Omega
 round(result_orth$OmegaTotal, 3) # total Omega
 print(result_orth$Diagnostics)
 
+}
+\seealso{
+\itemize{
+\item makeCorrLoadings() validation article:
+\url{https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.html}
+\item Package website: \url{https://winzarh.github.io/LikertMakeR/}
+}
 }

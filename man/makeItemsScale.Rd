@@ -53,7 +53,9 @@ scale, lowerbound, upperbound, items, alpha, variance
 \details{
 \subsection{alpha}{
 
-\code{makeItemsScale()} rearranges the item values within each row,
+\code{makeItemsScale()} takes each value of a vector of Likert scales and
+produces a row of 'k' values that average the given scale value, and
+then rearranges the item values within each row,
 attempting to give a dataframe of Likert-scale items that produce a
 predefined \emph{Cronbach's Alpha}.
 

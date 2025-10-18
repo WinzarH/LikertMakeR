@@ -2,7 +2,7 @@
 % Please edit documentation in R/correlateScales.R
 \name{correlateScales}
 \alias{correlateScales}
-\title{Create a dataframe of correlated scales from different dataframes of scale items}
+\title{Dataframe of correlated scales from different dataframes of scale items}
 \usage{
 correlateScales(dataframes, scalecors)
 }
@@ -10,7 +10,8 @@ correlateScales(dataframes, scalecors)
 \item{dataframes}{a list of 'k' dataframes to be rearranged and combined}
 
 \item{scalecors}{target correlation matrix - should be a symmetric
-\eqn{k \times k} positive-semi-definite matrix, where 'k' is the number of dataframes}
+\eqn{k \times k} positive-semi-definite matrix,
+where 'k' is the number of dataframes}
 }
 \value{
 Returns a dataframe whose columns are taken from the starter
