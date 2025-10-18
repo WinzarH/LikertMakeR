@@ -3,6 +3,8 @@ title: "makeCorrLoadings() validation"
 author: "Hume Winzar"
 date: "April 2025"
 output: rmarkdown::html_document
+bibliography: references.bib 
+link-citations: true
 vignette: >
   %\VignetteIndexEntry{makeCorrLoadings() validation}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup-packages, message=FALSE, warning=FALSE}
+```{r setup-packages, include = FALSE, message=FALSE, warning=FALSE}
 # Load required packages only if installed
 if (requireNamespace("rosetta", quietly = TRUE)) library(rosetta)
 if (requireNamespace("dplyr", quietly = TRUE)) library(dplyr)
@@ -30,14 +32,14 @@ library(LikertMakeR)
 
 
 
-## LikertMakeR package
+## Abstract
 
-*LikertMakeR* is a package for the R statistical programming language
-[@winzar2022]. 
-It's purpose is to synthesise and correlate Likert-scale
-and similar rating-scale data with predefined first & second moments
-(mean and standard deviation), *Cronbach's Alpha*, *Factor Loadings*,
-and other summary statistics.
+The `makeCorrLoadings()` function accurately reconstructs an item correlation 
+matrix from item-factor loadings and factor correlations, similar to those 
+produced in _EFA_ or _SEM_. 
+
+The function is robust even without explicit uniqueness or factor correlation 
+inputs, although loadings greater than 0.05 are needed for best results.
 
 ## The makeCorrLoadings() function
 
@@ -66,14 +68,14 @@ that results are generalisable.
 
 
 
-# Study #1: Party Panel 2015
+## Study #1: Party Panel 2015
 
 ### Original data
 
 We use the pp15 dataset from the `rosetta` package [@rosetta]. This is a
 subset of the Party Panel 2015 dataset. Party Panel is an annual
 semi-panel study among Dutch nightlife patrons, where every year, the
-determinants of another nightlife-related risk behavior is mapped. In
+determinants of another nightlife-related risk behaviour is mapped. In
 2015, determinants were measured of behaviours related to using highly
 dosed ecstasy pills.
 
@@ -115,7 +117,7 @@ labels <- data.frame(
 )
 
 kable(labels) |>
-  kable_classic(full_width = F)
+  kable_classic(full_width = FALSE)
 ```
 
 #### Extract and clean the original data file
@@ -159,7 +161,7 @@ pp15_cor <- cor(dat)
 #| echo: false
 
 kable(pp15_cor, digits = 2) |>
-  kable_classic(full_width = F)
+  kable_classic(full_width = FALSE)
 ```
 
 #### Test cases
@@ -225,7 +227,7 @@ factorCorrs <- rfaDose$output$correlations
 #| echo: false
 
 kable(factorLoadings, digits = 2) |>
-  kable_classic(full_width = F)
+  kable_classic(full_width = FALSE)
 ```
 
 #### Factor Correlations
@@ -234,7 +236,7 @@ kable(factorLoadings, digits = 2) |>
 #| echo: false
 
 kable(factorCorrs, digits = 2) |>
-  kable_classic(full_width = F)
+  kable_classic(full_width = FALSE)
 ```
 
 ### Test Case #1: Full information
@@ -388,7 +390,7 @@ colnames(fl) <- c("f1", "f2", "f1", "f2", "f1", "f2", "f1", "f2")
 header_text <- c("Item" = 1, "all values" = 2, "< 0.1 out" = 2, "< 0.2 out" = 2, "<0.3 out" = 2)
 # print summary factor loadings
 kable(fl, digits = 2, align = rep("c", 8)) |>
-  column_spec(1:9, border_left = T, border_right = T) |>
+  column_spec(1:9, border_left = TRUE, border_right = TRUE) |>
   kable_styling() |>
   add_header_above(
     header = header_text,
@@ -607,7 +609,7 @@ summary_results_1 <- data.frame(
 )
 
 kable(summary_results_1) |>
-  kable_classic(full_width = F)
+  kable_classic(full_width = FALSE)
 ```
 
 ## Conclusion
@@ -618,7 +620,7 @@ loadings are given.
 
 ------------------------------------------------------------------------
 
-# Study #2: Big Five (bfi personality items)
+## Study #2: Big Five (bfi personality items)
 
 ### Original data: bfi 25 Personality items representing 5 factors
 
@@ -729,7 +731,7 @@ bfiCorrs <- fa_bfi$output$correlations
 #| echo: false
 
 kable(bfiLoadings, digits = 2) |>
-  kable_classic(full_width = F)
+  kable_classic(full_width = FALSE)
 ```
 
 #### factor correlations
@@ -738,7 +740,7 @@ kable(bfiLoadings, digits = 2) |>
 #| echo: false
 
 kable(bfiCorrs, digits = 2) |>
-  kable_classic(full_width = F)
+  kable_classic(full_width = FALSE)
 ```
 
 ### Test Case #1: Full information
@@ -1085,7 +1087,7 @@ summary_results_2 <- data.frame(
 
 # summary_results_2
 kable(summary_results_2, digits = c(0, 1, 5)) |>
-  kable_classic(full_width = F)
+  kable_classic(full_width = FALSE)
 ```
 
 # Overall Results
@@ -1106,8 +1108,8 @@ overall_summary <- data.frame(
 names(overall_summary) <- c("treatment", "chi2", "p", "chi2", "p")
 
 kable(overall_summary, digits = c(0, 1, 3, 1, 3)) |>
-  column_spec(4, border_left = T) |>
-  kable_classic(full_width = F) |>
+  column_spec(4, border_left = TRUE) |>
+  kable_classic(full_width = FALSE) |>
   add_header_above(c(" " = 1, "Party panel" = 2, "Big 5 (bfi)" = 2))
 ```
 

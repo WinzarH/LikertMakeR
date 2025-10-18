@@ -36,28 +36,3 @@ test_that("makeCorrLoadings returns a valid correlation matrix by default", {
   # Correlation matrix should be symmetric
   expect_true(isSymmetric(R))
 })
-
-
-#
-# test_that("makeCorrLoadings warns on invalid inputs", {
-#   # 1) Non-finite loadings
-#   badLoadings <- matrix(c(NA, Inf, 0.2, 0.1), nrow = 2)
-#
-#   # 2) Non-positive-definite factorCor (2x2, but second row is repeated, guaranteeing rank deficiency)
-#   badPhi <- matrix(c(1, 1, 1, 1), nrow = 2)
-#
-#   expect_warning(
-#     makeCorrLoadings(badLoadings, factorCor = diag(2)),
-#     regexp = "Some loadings were non-finite" # or partial text from your warning message
-#   )
-#
-#   # Replacing with zeros, now the loadings are effectively c(0, 0, 0.2, 0.1).
-#   # Next, we also expect a warning from a non-PD factorCor.
-#
-#   expect_warning(
-#     makeCorrLoadings(matrix(c(0.2, 0.1, 0.3, 0.4), nrow = 2),
-#       factorCor = badPhi
-#     ),
-#     regexp = "is not positive definite"
-#   )
-# })

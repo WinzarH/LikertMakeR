@@ -2,7 +2,7 @@
 title: "LikertMakeR vignette"
 author: "Hume Winzar"
 date: "April 2025"
-output: rmarkdown::html_document
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{LikertMakeR vignette}
   %\VignetteEngine{knitr::rmarkdown}
@@ -17,13 +17,14 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 ```{r setup}
 library(LikertMakeR)
 ```
 
 
 ```{r logo, fig.align='center', echo=FALSE, out.width = '25%'}
-knitr::include_graphics("vignette_files/LikertMakeR_3.png")
+knitr::include_graphics("img/LikertMakeR_3.png")
 ```
 
 
@@ -57,17 +58,17 @@ Hopefully, this tool will help researchers, teachers & students,
 and other reviewers, to better think about rating-scale distributions, 
 and the effects of variance, scale boundaries, 
 and number of items in a scale. 
-Researchers can also use _LikertMakeR_ to prepare analyses ahead of a 
-formal survey.
+Researchers can also use _LikertMakeR_ to create dummy data to prepare 
+analyses ahead of a formal survey.
 
 ## Rating scale properties
 
-A Likert scale is the mean, or sum, of several ordinal rating scales. 
+A _Likert_ scale is the mean, or sum, of several ordinal rating scales. 
 Typically, they are bipolar (usually "agree-disagree") responses to 
 propositions that are determined to be moderately-to-highly correlated 
 and that capture some facet of a theoretical construct.
 
-Rating scales, such as Likert scales, are not continuous or unbounded.
+Rating scales, such as _Likert_ scales, are not continuous or unbounded.
 
 For example, a 5-point Likert scale that is constructed with, 
 say, five items (questions) will have a summed range of between 5 
@@ -78,15 +79,19 @@ range between 8 (all rated '1') and 56 (all rated '7') with all integers
 in between, 
 and the mean range will be '1' to '7' with intervals of 1/8=0.125.
 
-Technically, because they are bounded and not continuous, parametric statistics, such as mean, standard deviation, and correlation, should not be applied to summated rating scales. In practice, however, parametric statistics are commonly used in the social sciences because:
+Technically, because they are bounded and not continuous, parametric 
+statistics, such as mean, standard deviation, and correlation, should not be 
+applied to summated rating scales. 
+In practice, however, parametric statistics are commonly used in the social 
+sciences because:
 
   1. they are in common usage and easily understood,
   
   2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost)_ always the same as for parametric statistics for such data. <br /> 
 For example, [D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) 
 argue that a summated scale, made with multiple items, 
-"approaches" an interval scale measure. 
-This implies that parametric statistics are acceptable. 
+"approaches" an interval scale measure, implying that parametric statistics 
+are quite acceptable. 
 
 Rating-scale boundaries define minima and maxima for any scale values. 
 If the mean is close to one boundary then data points will gather more 
@@ -96,7 +101,7 @@ then the data will be always skewed, as shown in the following plots.
 
 
 ```{r skew, fig.align='center', echo=FALSE, out.width = '85%', fig.cap="Off-centre means always give skewed distribution in bounded rating scales"}
-knitr::include_graphics("vignette_files/skew_chart.png")
+knitr::include_graphics("img/skew_chart.png")
 ```
 
 _____
@@ -128,6 +133,10 @@ _____
  
  * *makeRepeated()* generates a dataframe of 'k' correlated columns based 
  on summary data from a repeated-samples ANOVA.
+ 
+ * *makeScalesRegression()* generates a dataframe based on results of 
+ output from multiple-regression - R^2^, standardised betas, and IV 
+ correlations (if available).
  
  * *correlateScales()* creates a dataframe of correlated summated scales 
  as one might find in completed survey questionnaire and possibly used 
@@ -223,6 +232,7 @@ x1 <- lfast(
 
 ```{r fig1, fig.height=4, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: 4-item, 1-5 Likert scale"}
 ## distribution of x
+
 hist(x1,
   cex.axis = 0.5, cex.main = 0.75,
   breaks = seq(from = (1 - (1 / 8)), to = (5 + (1 / 8)), by = (1 / 4)),
@@ -243,6 +253,7 @@ x2 <- lfast(256, 3, 2.5, 0, 10)
 
 ```{r fig2, fig.height=4, fig.width=5, fig.align='center', echo = FALSE, crop = TRUE, fig.cap="Example: likelihood-of-purchase scale"}
 ## generate histogram
+
 hist(x2,
   cex.axis = 0.5, cex.main = 0.75,
   breaks = seq(from = -0.5, to = 10.5, by = 1),
@@ -356,7 +367,8 @@ The first ten observations from this dataframe are:
 head(new3, 10)
 ```
 
-And the new dataframe is correlated close to our desired correlation matrix; here presented to 3 decimal places:
+And the new dataframe is correlated close to our desired correlation matrix; 
+here presented to 3 decimal places:
 
 ```{r new3Cor, echo = FALSE}
 cor(new3) |> round(3)
@@ -778,6 +790,7 @@ alpha(NULL, myItems)
 
 ```{r fig5, fig.height=5, fig.width=5, fig.align='center', echo=FALSE, warning=FALSE, crop = TRUE, fig.cap="Summary of dataframe from makeItems() function"}
 # Correlation panel
+
 panel.cor <- function(x, y) {
   usr <- par("usr")
   on.exit(par(usr))
@@ -787,11 +800,15 @@ panel.cor <- function(x, y) {
   cex.cor <- 0.8 / strwidth(txt)
   text(0.5, 0.5, txt, cex = 1.25)
 }
+
 # Customize upper panel
+
 upper.panel <- function(x, y) {
   points(x, y, pch = 19, col = "#0000ff11")
 }
+
 # diagonals
+
 panel.hist <- function(x, ...) {
   usr <- par("usr")
   on.exit(par(usr))
@@ -803,7 +820,9 @@ panel.hist <- function(x, ...) {
   y <- y / max(y)
   rect(breaks[-nB], 0, breaks[-1], y, col = "#87ceeb66")
 }
+
 # Create the plots
+
 pairs(myItems,
   lower.panel = panel.cor,
   upper.panel = upper.panel,
@@ -869,6 +888,7 @@ summatedScale <- meanScale * items
 
 ```{r summatedScale_histogram, echo=FALSE, fig.height=4, fig.width=5, fig.align='center', crop = TRUE, fig.cap="Summated scale distribution"}
 ## Histogram of summated scale
+
 hist(summatedScale,
   cex.axis = 0.5, cex.main = 0.75,
   breaks = seq(
@@ -888,6 +908,7 @@ hist(summatedScale,
 
 ```{r makeItemsScale_example_1, fig.height=4, fig.width=5, fig.align='center', crop = TRUE}
 ## apply makeItemsScale() function
+
 newItems_1 <- makeItemsScale(
   scale = summatedScale,
   lowerbound = lowerbound,
@@ -910,6 +931,7 @@ eigenvalues(cor(newItems_1), 1) |> round(3)
 
 
 ####  _makeItemsScale()_ with same summated values and higher _alpha_
+
 ```{r makeItemsScale_example_2, fig.height=4, fig.width=5, fig.align='center', crop = TRUE}
 ## apply makeItemsScale() function
 newItems_2 <- makeItemsScale(
@@ -933,7 +955,7 @@ alpha(data = newItems_2) |> round(4)
 eigenvalues(cor(newItems_2), 1) |> round(3)
 ```
 
-####  same summated values with lower _alpha_ that may require higher _variance_
+####  same summated values with lower _alpha_ may require higher _variance_
 
 ```{r makeItemsScale_example_3, fig.height=4, fig.width=5, fig.align='center', crop = TRUE}
 ## apply makeItemsScale() function

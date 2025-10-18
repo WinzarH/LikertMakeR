@@ -60,7 +60,11 @@ variance <- 0.5
 
 # apply function
 set.seed(42)
-cor_matrix <- makeCorrAlpha(items = items, alpha = alpha, variance = variance)
+cor_matrix <- makeCorrAlpha(
+  items = items,
+  alpha = alpha,
+  variance = variance
+)
 
 # test function output
 print(cor_matrix)

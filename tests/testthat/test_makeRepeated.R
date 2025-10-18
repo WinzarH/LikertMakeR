@@ -15,7 +15,8 @@ test_that("makeRepeated returns expected structure", {
 
   # Test class and structure of output
   expect_type(result, "list")
-  expect_true(all(c("data", "correlation_matrix", "structure") %in% names(result)))
+  expect_true(all(c("data", "correlation_matrix", "structure") %in%
+    names(result)))
 
   # Check data frame shape and column names
   expect_s3_class(result$data, "data.frame")
@@ -32,7 +33,8 @@ test_that("makeRepeated returns expected structure", {
   expect_equal(result$structure, "cs")
 
   # Check diagnostics elements exist
-  expect_true(all(c("feasible_f_range", "recommended_f", "achieved_f") %in% names(result)))
+  expect_true(all(c("feasible_f_range", "recommended_f", "achieved_f") %in%
+    names(result)))
   expect_type(result$feasible_f_range, "double")
   expect_type(result$recommended_f, "list")
 })
@@ -56,22 +58,38 @@ test_that("makeRepeated returns only correlation matrix when requested", {
 
 test_that("makeRepeated catches invalid input", {
   expect_error(
-    makeRepeated(n = 100, k = 3, means = c(3.1, 3.5), sds = c(1, 1, 1), f_stat = 4.5),
+    makeRepeated(
+      n = 100, k = 3,
+      means = c(3.1, 3.5), sds = c(1, 1, 1),
+      f_stat = 4.5
+    ),
     "Length of 'means' must equal k"
   )
 
   expect_error(
-    makeRepeated(n = 100, k = 3, means = c(3.1, 3.5, 3.9), sds = c(1, 1), f_stat = 4.5),
+    makeRepeated(
+      n = 100, k = 3,
+      means = c(3.1, 3.5, 3.9), sds = c(1, 1),
+      f_stat = 4.5
+    ),
     "Length of 'sds' must equal k"
   )
 
   expect_error(
-    makeRepeated(n = 100, k = 3, means = c(3.1, 3.5, 3.9), sds = c(1, 1, 1), f_stat = -2),
+    makeRepeated(
+      n = 100, k = 3,
+      means = c(3.1, 3.5, 3.9), sds = c(1, 1, 1),
+      f_stat = -2
+    ),
     "F-statistic must be positive"
   )
 
   expect_error(
-    makeRepeated(n = 1, k = 3, means = c(3.1, 3.5, 3.9), sds = c(1, 1, 1), f_stat = 4.5),
+    makeRepeated(
+      n = 1, k = 3,
+      means = c(3.1, 3.5, 3.9), sds = c(1, 1, 1),
+      f_stat = 4.5
+    ),
     "Sample size.*must be > 1"
   )
 })

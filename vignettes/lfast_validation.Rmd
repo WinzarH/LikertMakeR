@@ -4,6 +4,7 @@ author: "Hume Winzar"
 date: "September 2025"
 output: rmarkdown::html_vignette
 bibliography: references.bib  
+link-citations: true
 vignette: >
   %\VignetteIndexEntry{LikertMakeR Scale Reproduction Validation}
   %\VignetteEngine{knitr::rmarkdown}
@@ -70,11 +71,16 @@ colorize <- function(x, color) {
 
 # Define image filenames and optional alt-text
 img_files <- c("image1.png", "image2.png", "image3.png")
-alt_texts <- c("First image description", "Second image description", "Third image description")
+alt_texts <- c(
+  "First image description",
+  "Second image description",
+  "Third image description"
+)
 
 # Conditional rendering
 if (knitr::is_html_output()) {
-  cat('<div style="display: flex; justify-content: space-around; align-items: flex-start; margin-bottom: 1em;">\n')
+  cat('<div style="display: flex; justify-content: space-around;
+      align-items: flex-start; margin-bottom: 1em;">\n')
   for (i in seq_along(img_files)) {
     cat(sprintf(
       '<img src="%s" width="30%%" alt="%s" style="margin-right: 10px;">\n',
@@ -194,18 +200,15 @@ if (knitr::is_latex_output()) {
     caption = my_caption
   ) |>
     kable_styling(
-      latex_options = c("hold_position", "scale_down") # ,
-      # font_size = 10
+      latex_options = c("hold_position", "scale_down")
     )
 } else if (knitr::is_html_output()) {
   kbl(dim_df,
-    # format = "html",
     caption = paste0("<div style='width:100%'>", my_caption, "</div>")
   ) |>
     kable_styling(
       full_width = FALSE,
-      position = "center" # ,
-      # font_size = 12
+      position = "center"
     )
 }
 ```
@@ -262,8 +265,6 @@ padded_facets <- c(facets, rep(NA, n_rows * n_cols - n_items))
 facet_matrix <- matrix(padded_facets, ncol = n_cols, byrow = TRUE)
 facet_df <- as.data.frame(facet_matrix)
 
-# Optional: Set column names
-# colnames(facet_df) <- paste("Facet", 1:n_cols)
 colnames(facet_df) <- NULL
 
 # Display with kable
@@ -358,11 +359,16 @@ So, we present summary results for both tests in this study.
 # Define the table as a matrix or dataframe
 method_table <- tribble(
   ~Feature, ~`method = "BWS"`, ~`method = "Neuhäuser"`,
-  "Test Statistic", "Based on comparing quantiles", "Based on comparing ranks.",
-  "Sensitivity", "More sensitive to shape differences.", "Less sensitive to shape differences.",
-  "Robustness to Outliers", "Less robust to outliers.", "More robust to outliers.",
-  "Focus", "Sensitive to general differences across the ranks", "Less sensitive to tail differences.",
-  "Type of Differences", "More likely to pick up on subtle differences", "Less likely to pick up on subtle differences"
+  "Test Statistic", "Based on comparing quantiles",
+  "Based on comparing ranks.",
+  "Sensitivity", "More sensitive to shape differences.",
+  "Less sensitive to shape differences.",
+  "Robustness to Outliers", "Less robust to outliers.",
+  "More robust to outliers.",
+  "Focus", "Sensitive to general differences across the ranks",
+  "Less sensitive to tail differences.",
+  "Type of Differences", "More likely to pick up on subtle differences",
+  "Less likely to pick up on subtle differences"
 )
 
 kbl(
@@ -503,9 +509,9 @@ Otherwise, the distributions tend to be unimodal, with fairly smooth _kernel den
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/young_highly_educated_men_dims_histograms.png",
-  "vignette_files/young_educated_women_dims_histograms.png",
-  "vignette_files/under_18_highschool_dims_histograms.png"
+  "heavy_img/young_highly_educated_men_dims_histograms.png",
+  "heavy_img/young_educated_women_dims_histograms.png",
+  "heavy_img/under_18_highschool_dims_histograms.png"
 ))
 ```
 
@@ -530,9 +536,9 @@ Again, the distributions tend to be unimodal, with smooth _kernel density_ curve
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/young_highly_educated_men_facets_histograms.png",
-  "vignette_files/young_educated_women_facets_histograms.png",
-  "vignette_files/under_18_highschool_facets_histograms.png"
+  "heavy_img/young_highly_educated_men_facets_histograms.png",
+  "heavy_img/young_educated_women_facets_histograms.png",
+  "heavy_img/under_18_highschool_facets_histograms.png"
 ))
 ```
 
@@ -543,7 +549,8 @@ We simulated data for 135 individual items - too many to show meaningfully.
 We present here a sample of those few that showed unusual results in the 
 simulations.
 
-In these cases data were either highly skewed, or bimodal (or at least flat in parts).
+In these cases data were either highly skewed, or bimodal 
+(or at least flat in parts).
 
 
 ```{r}
@@ -560,16 +567,18 @@ In these cases data were either highly skewed, or bimodal (or at least flat in p
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/selected_items_youngmen.png",
-  "vignette_files/selected_items_youngwomen.png",
-  "vignette_files/selected_items_highschool.png"
+  "heavy_img/selected_items_youngmen.png",
+  "heavy_img/selected_items_youngwomen.png",
+  "heavy_img/selected_items_highschool.png"
 ))
 ```
 
 
 # Results
 
-The following tables list the dimension under consideration and the proportion of cases in each of the three samples that were _'statistically significant'_ ($\rho$\ <\ 0.05). 
+The following tables list the dimension under consideration and the 
+proportion of cases in each of the three samples that 
+ere _'statistically significant'_ ($\rho$\ <\ 0.05). 
 
 Tables show the _BWS_ test / _Neuhäuser_ test.
 
@@ -589,8 +598,8 @@ sample_col_header <- c(
   "under-18<br>highschool<br>n=314"
 )
 
-dim_BWS <- readRDS("vignette_files/sig_table_dimensions_BWS.rds")
-dim_N <- readRDS("vignette_files/sig_table_dimensions_Neuhauser.rds")
+dim_BWS <- readRDS("heavy_img/sig_table_dimensions_BWS.rds")
+dim_N <- readRDS("heavy_img/sig_table_dimensions_Neuhauser.rds")
 
 # my_col_names <- colnames(dim_BWS)
 my_row_names <- dim_BWS$dimension
@@ -613,7 +622,8 @@ combined <- matrix(
 colnames(combined) <- sample_col_header
 rownames(combined) <- my_row_names
 
-my_caption <- "Proportion of statistically-significant simulations (BWS/Neuhäuser)"
+my_caption <-
+  "Proportion of statistically-significant simulations (BWS/Neuhäuser)"
 
 # Conditional rendering
 if (knitr::is_latex_output()) {
@@ -664,8 +674,8 @@ sample_col_header <- c(
   "under-18<br>highschool<br>n=314"
 )
 
-dim_BWS <- readRDS("vignette_files/sig_table_facets_BWS.rds")
-dim_N <- readRDS("vignette_files/sig_table_facets_Neuhauser.rds")
+dim_BWS <- readRDS("heavy_img/sig_table_facets_BWS.rds")
+dim_N <- readRDS("heavy_img/sig_table_facets_Neuhauser.rds")
 
 my_row_names <- dim_BWS$facet
 
@@ -692,10 +702,18 @@ for (i in seq_len(nrow(dim_BWS))) {
 
     # Bold individually if over threshold
     if (bws > threshold) {
-      bws_str <- if (is_html) paste0("<strong>", bws_str, "</strong>") else paste0("**", bws_str, "**")
+      bws_str <- if (is_html) {
+        paste0("<strong>", bws_str, "</strong>")
+      } else {
+        paste0("**", bws_str, "**")
+      }
     }
     if (neu > threshold) {
-      neu_str <- if (is_html) paste0("<strong>", neu_str, "</strong>") else paste0("**", neu_str, "**")
+      neu_str <- if (is_html) {
+        paste0("<strong>", neu_str, "</strong>")
+      } else {
+        paste0("**", neu_str, "**")
+      }
     }
 
     # Combine
@@ -735,12 +753,17 @@ if (is_pdf) {
 ```
 
 
-When the _BWS_ test is applied to the larger sample, all simulations are significantly different from the original data. 
-This is probably due to the smaller standard error produced by a larger sample.
+When the _BWS_ test is applied to the larger sample, 
+all simulations are significantly different from the original data. 
+This is probably due to the smaller standard error produced by a 
+larger sample.
 
-Interestingly, the _Neuhäuser_ test, which is less sensitive to outliers, suggested that all simulations are good representations of the original.
+Interestingly, the _Neuhäuser_ test, which is less sensitive to outliers, 
+suggested that all simulations are good representations of the original.
 
-The facet, _Introspection_, stands out as one that is rarely accurately reproduced by the `LikertMakeR::lfast()` function, using the _BWS_ test, regardless of sample size. 
+The facet, _Introspection_, stands out as one that is rarely accurately 
+reproduced by the `LikertMakeR::lfast()` function, using the _BWS_ test, 
+regardless of sample size. 
 
 Other facets that are worth exploring in more detail are:
 _Compassion_, _Humor_, _Intellect_, _SelfControl_, _EasyGoingness_, 
@@ -750,9 +773,13 @@ These facets have high rates of significance in the mid-sample-size condition.
 
 ### Focus on "Introspection" facet
 
-The following chart shows _kernel density_ plots for facet _Introspection_ in the three samples. 
+The following chart shows _kernel density_ plots for facet _Introspection_ in 
+the three samples. 
 
-Each of the 1024 synthetic dataframes is represented by a `r colorize("grey/black line", "#999999")`, and the original _"true"_ dataframe is represented by a `r colorize("blue/cyan line", "#00BFFF")`.
+Each of the 1024 synthetic dataframes is represented by 
+a `r colorize("grey/black line", "#999999")`, and the 
+original _"true"_ dataframe is represented by 
+a `r colorize("blue/cyan line", "#00BFFF")`.
 
 
 ```{r}
@@ -769,9 +796,9 @@ Each of the 1024 synthetic dataframes is represented by a `r colorize("grey/blac
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/Introspection_Density_young_highly_educated_men.png",
-  "vignette_files/Introspection_Density_young_educated_women.png",
-  "vignette_files/Introspection_Density_under_18_highschool.png"
+  "heavy_img/Introspection_Density_young_highly_educated_men.png",
+  "heavy_img/Introspection_Density_young_educated_women.png",
+  "heavy_img/Introspection_Density_under_18_highschool.png"
 ))
 ```
 
@@ -784,9 +811,11 @@ knitr::include_graphics(c(
 add_white_space(2)
 ```
 
-We see that the synthetic data never match the true data, especially in the middle and large sample sizes. 
+We see that the synthetic data never match the true data, 
+especially in the middle and large sample sizes. 
 
-The original, true, data are highly left-skewed, and this has been nicely captured by the synthetic data. 
+The original, true, data are highly left-skewed, 
+and this has been nicely captured by the synthetic data. 
 Note, however, that the true dataframe is not unimodal. 
 The _kernel density_ estimate appears rough and slightly multimodal. 
 It's more wobbly.
@@ -794,9 +823,13 @@ It's more wobbly.
 
 ### focus on "Compassion" facet
 
-The following chart shows _kernel density_ plots for facet _Compassion_ in the three samples. 
+The following chart shows _kernel density_ plots for facet _Compassion_ 
+in the three samples. 
 
-Again, each of the 1024 synthetic dataframes is represented by a `r colorize("grey/black line", "#999999")`, and the original _"true"_ dataframe is represented by a `r colorize("blue/cyan line", "#00BFFF")`.
+Again, each of the 1024 synthetic dataframes is represented by 
+a `r colorize("grey/black line", "#999999")`, and the 
+original _"true"_ dataframe is represented by 
+a `r colorize("blue/cyan line", "#00BFFF")`.
 
 
 ```{r}
@@ -813,9 +846,9 @@ Again, each of the 1024 synthetic dataframes is represented by a `r colorize("gr
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/Compassion_Density_young_highly_educated_men.png",
-  "vignette_files/Compassion_Density_young_educated_women.png",
-  "vignette_files/Compassion_Density_under_18_highschool.png"
+  "heavy_img/Compassion_Density_young_highly_educated_men.png",
+  "heavy_img/Compassion_Density_young_educated_women.png",
+  "heavy_img/Compassion_Density_under_18_highschool.png"
 ))
 ```
 
@@ -829,8 +862,11 @@ add_white_space(2)
 ```
 
 
-For this factor the _BWS test_ showed no cases where the synthetic data were significantly different from the original data for the smaller sample.
-But for the medium and large samples, the original data are not unimodal, and the _BWS test_ suggests that all synthetic replications are different from the original.
+For this factor the _BWS test_ showed no cases where the synthetic data were 
+significantly different from the original data for the smaller sample.
+But for the medium and large samples, the original data are not unimodal, 
+and the _BWS test_ suggests that all synthetic replications are different 
+from the original.
 
 #### Other notable facets
 
@@ -850,9 +886,9 @@ But for the medium and large samples, the original data are not unimodal, and th
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/Humor_Density_young_highly_educated_men.png",
-  "vignette_files/Humor_Density_young_educated_women.png",
-  "vignette_files/Humor_Density_under_18_highschool.png"
+  "heavy_img/Humor_Density_young_highly_educated_men.png",
+  "heavy_img/Humor_Density_young_educated_women.png",
+  "heavy_img/Humor_Density_under_18_highschool.png"
 ))
 ```
 
@@ -874,9 +910,9 @@ knitr::include_graphics(c(
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/Intellect_Density_young_highly_educated_men.png",
-  "vignette_files/Intellect_Density_young_educated_women.png",
-  "vignette_files/Intellect_Density_under_18_highschool.png"
+  "heavy_img/Intellect_Density_young_highly_educated_men.png",
+  "heavy_img/Intellect_Density_young_educated_women.png",
+  "heavy_img/Intellect_Density_under_18_highschool.png"
 ))
 ```
 
@@ -898,9 +934,9 @@ knitr::include_graphics(c(
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/SelfControl_Density_young_highly_educated_men.png",
-  "vignette_files/SelfControl_Density_young_educated_women.png",
-  "vignette_files/SelfControl_Density_under_18_highschool.png"
+  "heavy_img/SelfControl_Density_young_highly_educated_men.png",
+  "heavy_img/SelfControl_Density_young_educated_women.png",
+  "heavy_img/SelfControl_Density_under_18_highschool.png"
 ))
 ```
 
@@ -922,9 +958,9 @@ knitr::include_graphics(c(
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/EasyGoingness_Density_young_highly_educated_men.png",
-  "vignette_files/EasyGoingness_Density_young_educated_women.png",
-  "vignette_files/EasyGoingness_Density_under_18_highschool.png"
+  "heavy_img/EasyGoingness_Density_young_highly_educated_men.png",
+  "heavy_img/EasyGoingness_Density_young_educated_women.png",
+  "heavy_img/EasyGoingness_Density_under_18_highschool.png"
 ))
 ```
 
@@ -946,9 +982,9 @@ knitr::include_graphics(c(
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/Perfectionism_Density_young_highly_educated_men.png",
-  "vignette_files/Perfectionism_Density_young_educated_women.png",
-  "vignette_files/Perfectionism_Density_under_18_highschool.png"
+  "heavy_img/Perfectionism_Density_young_highly_educated_men.png",
+  "heavy_img/Perfectionism_Density_young_educated_women.png",
+  "heavy_img/Perfectionism_Density_under_18_highschool.png"
 ))
 ```
 
@@ -958,11 +994,17 @@ knitr::include_graphics(c(
 
 Each scale is a single six-point item.
 
-In almost all cases, the _Baumgartner–Weiß–Schindler_ (BWS) test showed a statistically significant difference between actual data and synthetic data. In most cases, however, the _Neuhäuser_ test, which is more robust to outliers, was not statistically significant. 
+In almost all cases, the _Baumgartner–Weiß–Schindler_ (BWS) test showed a 
+statistically significant difference between actual data and synthetic data. 
+In most cases, however, the _Neuhäuser_ test, which is more robust to 
+outliers, was not statistically significant. 
 
-The appendix table shows summary results for the three data sets for all 135 items, indicating the proportion of cases where distribution comparison tests were  _'statistically significant'_ ($\rho$\ <\ 0.05).
+The appendix table shows summary results for the three data sets for all 135 
+items, indicating the proportion of cases where distribution comparison tests 
+were  _'statistically significant'_ ($\rho$\ <\ 0.05).
 
-In about 37 of the 135 items (27%) did the BWS test show proportion of significant simulations less than 80%.
+In about 37 of the 135 items (27%) did the BWS test show proportion of 
+significant simulations less than 80%.
 
 The following are some sample item results for each of the three samples
 
@@ -984,7 +1026,7 @@ The following are some sample item results for each of the three samples
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/young_highly_educated_men_histograms.png"
+  "heavy_img/young_highly_educated_men_histograms.png"
 ))
 ```
 
@@ -1004,7 +1046,7 @@ knitr::include_graphics(c(
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/young_educated_women_histograms.png"
+  "heavy_img/young_educated_women_histograms.png"
 ))
 ```
 
@@ -1025,7 +1067,7 @@ knitr::include_graphics(c(
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/under_18_highschool_histograms.png"
+  "heavy_img/under_18_highschool_histograms.png"
 ))
 ```
 
@@ -1050,9 +1092,9 @@ knitr::include_graphics(c(
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/q_1685_Density_young_highly_educated_men.png",
-  "vignette_files/q_1685_Density_young_educated_women.png",
-  "vignette_files/q_1685_Density_under_18_highschool.png"
+  "heavy_img/q_1685_Density_young_highly_educated_men.png",
+  "heavy_img/q_1685_Density_young_educated_women.png",
+  "heavy_img/q_1685_Density_under_18_highschool.png"
 ))
 ```
 
@@ -1073,9 +1115,9 @@ knitr::include_graphics(c(
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/q_1896_Density_young_highly_educated_men.png",
-  "vignette_files/q_1896_Density_young_educated_women.png",
-  "vignette_files/q_1896_Density_under_18_highschool.png"
+  "heavy_img/q_1896_Density_young_highly_educated_men.png",
+  "heavy_img/q_1896_Density_young_educated_women.png",
+  "heavy_img/q_1896_Density_under_18_highschool.png"
 ))
 ```
 
@@ -1096,9 +1138,9 @@ knitr::include_graphics(c(
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/q_1989_Density_young_highly_educated_men.png",
-  "vignette_files/q_1989_Density_young_educated_women.png",
-  "vignette_files/q_1989_Density_under_18_highschool.png"
+  "heavy_img/q_1989_Density_young_highly_educated_men.png",
+  "heavy_img/q_1989_Density_young_educated_women.png",
+  "heavy_img/q_1989_Density_under_18_highschool.png"
 ))
 ```
 
@@ -1119,9 +1161,9 @@ knitr::include_graphics(c(
 #| message: false
 
 knitr::include_graphics(c(
-  "vignette_files/q_755_Density_young_highly_educated_men.png",
-  "vignette_files/q_755_Density_young_educated_women.png",
-  "vignette_files/q_755_Density_under_18_highschool.png"
+  "heavy_img/q_755_Density_young_highly_educated_men.png",
+  "heavy_img/q_755_Density_young_educated_women.png",
+  "heavy_img/q_755_Density_under_18_highschool.png"
 ))
 ```
 
@@ -1162,7 +1204,9 @@ There did not seem to be much difference in results for different sample sizes.
 
 ## Third and Fourth moments can affect accurcy
 
-Leptokurtic (pointy) distributions and platykurtic (flatter) distributions seem to affect results. We shouldn't be surprised since the generating algorithm focuses on first (mean) and second (standard deviation) moments.
+Leptokurtic (pointy) distributions and platykurtic (flatter) distributions 
+seem to affect results. We shouldn't be surprised since the generating 
+algorithm focuses on first (mean) and second (standard deviation) moments.
 
 
 ```{r}
@@ -1179,7 +1223,8 @@ add_white_space(8)
 
 ## Summary results for individual items
 
-Rating scale items ranging from '1' to '6' from the SPI data set, for three samples of different sizes.
+Rating scale items ranging from '1' to '6' from the SPI data set, for 
+three samples of different sizes.
 
 ```{r display_item_table}
 #| echo: false
@@ -1193,8 +1238,8 @@ sample_col_header <- c(
   "under-18<br>highschool<br>n=314"
 )
 
-dim_BWS <- readRDS("vignette_files/sig_table_items_BWS.rds")
-dim_N <- readRDS("vignette_files/sig_table_items_Neuhauser.rds")
+dim_BWS <- readRDS("heavy_img/sig_table_items_BWS.rds")
+dim_N <- readRDS("heavy_img/sig_table_items_Neuhauser.rds")
 
 my_row_names <- dim_BWS$item
 
@@ -1245,8 +1290,6 @@ if (knitr::is_latex_output()) {
 
 add_white_space(8)
 ```
-
-
 
 
 # References

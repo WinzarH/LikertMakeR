@@ -10,7 +10,15 @@ test_that("makePaired runs without error with valid inputs", {
   t <- -2.5
 
   expect_no_error(
-    pairedDat <- makePaired(n = n, means = means, sds = sds, lowerbound = lowerbound, upperbound = upperbound, items = items, t_value = t)
+    pairedDat <- makePaired(
+      n = n,
+      means = means,
+      sds = sds,
+      lowerbound = lowerbound,
+      upperbound = upperbound,
+      items = items,
+      t_value = t
+    )
   )
 })
 
@@ -25,6 +33,14 @@ test_that("makePaired runs with errors with unrealistic inputs", {
   t <- 0.5
 
   expect_error(
-    pairedDat <- makePaired(n = n, means = means, sds = sds, lowerbound = lowerbound, upperbound = upperbound, items = items, t_value = t)
+    pairedDat <- makePaired(
+      n = n,
+      means = means,
+      sds = sds,
+      lowerbound = lowerbound,
+      upperbound = upperbound,
+      items = items,
+      t_value = t
+    )
   )
 })
