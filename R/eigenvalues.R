@@ -56,6 +56,6 @@ eigenvalues <- function(cormatrix, scree = FALSE) {
   } else {
     cat(deparse(substitute(cormatrix)), " is NOT positive-definite\n\n")
   }
-  # cat("Eigenvalues:\n", e_vals, "\n")
+
   return(e_vals)
 } ## end eigenvalues function

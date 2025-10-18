@@ -35,7 +35,9 @@
 #'
 #' ## alpha
 #'
-#' `makeItemsScale()` rearranges the item values within each row,
+#' `makeItemsScale()` takes each value of a vector of Likert scales and
+#' produces a row of 'k' values that average the given scale value, and
+#' then rearranges the item values within each row,
 #' attempting to give a dataframe of Likert-scale items that produce a
 #' predefined _Cronbach's Alpha_.
 #'
@@ -184,7 +186,13 @@
 #' # cor(mydat_80) |> round(2)
 #' # alpha(data = mydat_80) |> round(2)
 #'
-makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, variance = 0.5) {
+makeItemsScale <- function(
+    scale,
+    lowerbound,
+    upperbound,
+    items,
+    alpha = 0.80,
+    variance = 0.5) {
   ###
   ##  makeCombinations produces a dataframe of all combinations of item values
   ###
@@ -205,8 +213,6 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
       n = length(c(lowerbound:upperbound)),
       repeats.allowed = TRUE
     )
-    # sums <- apply(mycombinations, MARGIN = 1, FUN = sum)
-    # mycombinations <- cbind(mycombinations, sums) |> data.frame()
 
     return(mycombinations)
   }
@@ -251,8 +257,6 @@ makeItemsScale <- function(scale, lowerbound, upperbound, items, alpha = 0.80, v
       filter(sds == target_sd) |>
       slice_sample(n = 1) |>
       subset(select = -c(sums, sds))
-
-    # return(vec)
   }
 
   ###

@@ -1,35 +1,55 @@
 #' @title Reproduce Repeated-Measures Data from ANOVA Summary Statistics
 #'
 #' @description
-#' Constructs a synthetic dataset and inter-timepoint correlation matrix from a repeated-measures ANOVA result, based on reported means, standard deviations, and an F-statistic. This is useful when only summary statistics are available from published studies.
+#' Constructs a synthetic dataset and inter-timepoint correlation matrix
+#' from a repeated-measures ANOVA result, based on reported means, standard
+#' deviations, and an F-statistic. This is useful when only summary statistics
+#' are available from published studies.
 #'
 #' @details
-#' This function estimates the average correlation between repeated measures by matching the reported F-statistic, under one of three assumed correlation structures:
+#' This function estimates the average correlation between repeated measures
+#' by matching the reported F-statistic, under one of three assumed
+#' correlation structures:
 #'
-#' - `"cs"` (*Compound Symmetry*): The Default. Assumes all timepoints are equally correlated. Common in standard RM-ANOVA settings.
-#' - `"ar1"` (*First-Order Autoregressive*): Assumes correlations decay exponentially with time lag — higher correlation for closer timepoints.
-#' - `"toeplitz"` (*Linearly Decreasing*): Assumes correlation declines linearly with time lag, offering a middle ground between `"cs"` and `"ar1"`.
+#' - `"cs"` (*Compound Symmetry*): The Default. Assumes all timepoints are
+#' equally correlated. Common in standard RM-ANOVA settings.
+#' - `"ar1"` (*First-Order Autoregressive*): Assumes correlations decay
+#' exponentially with time lag.
+#' - `"toeplitz"` (*Linearly Decreasing*): Assumes correlation declines
+#' linearly with time lag - a middle ground between `"cs"` and `"ar1"`.
 #'
 #' The function then generates a data frame of synthetic item-scale ratings
 #' using [lfast], and adjusts them to match the estimated correlation
 #' structure using [lcor].
 #'
-#' Set `return_corr_only = TRUE` to extract only the estimated correlation matrix.
+#' Set `return_corr_only = TRUE` to extract only the estimated
+#' correlation matrix.
 #'
 #' @param n Integer. Sample size used in the original study.
 #' @param k Integer. Number of repeated measures (timepoints).
-#' @param means Numeric vector of length `k`. Mean values reported for each timepoint.
-#' @param sds Numeric vector of length `k`. Standard deviations reported for each timepoint.
-#' @param f_stat Numeric. The reported repeated-measures ANOVA F-statistic for the within-subjects factor.
+#' @param means Numeric vector of length `k`.
+#' Mean values reported for each timepoint.
+#' @param sds Numeric vector of length `k`.
+#' Standard deviations reported for each timepoint.
+#' @param f_stat Numeric. The reported repeated-measures ANOVA
+#' F-statistic for the within-subjects factor.
 #' @param df_between Degrees of freedom between conditions (default: `k - 1`.
-#' @param df_within Degrees of freedom within-subjects (default: `(n - 1) * (k - 1)`).
-#' @param structure Character. Correlation structure to assume: `"cs"`, `"ar1"`, or `"toeplitz"` (default = `"cs"`).
-#' @param names Character vector of length `k`. Variable names for each timepoint (default: `"time_1"` to `"time_k"`).
-#' @param items Integer. Number of items used to generate each scale score (passed to [lfast]).
-#' @param lowerbound, Integer. Lower bounds for Likert-type response scales (default: 1).
-#' @param upperbound, Integer. upper bounds for Likert-type response scales (default: 5).
-#' @param return_corr_only Logical. If `TRUE`, return only the estimated correlation matrix.
-#' @param diagnostics Logical. If `TRUE`, include diagnostic summaries such as feasible F-statistic range and effect sizes.
+#' @param df_within Degrees of freedom within-subjects
+#' (default: `(n - 1) * (k - 1)`).
+#' @param structure Character. Correlation structure to assume:
+#' `"cs"`, `"ar1"`, or `"toeplitz"` (default = `"cs"`).
+#' @param names Character vector of length `k`. Variable names for each
+#' timepoint (default: `"time_1"` to `"time_k"`).
+#' @param items Integer. Number of items used to generate each scale score
+#' (passed to [lfast]).
+#' @param lowerbound, Integer. Lower bounds for Likert-type response
+#' scales (default: 1).
+#' @param upperbound, Integer. upper bounds for Likert-type response
+#' scales (default: 5).
+#' @param return_corr_only Logical. If `TRUE`, return only the
+#' estimated correlation matrix.
+#' @param diagnostics Logical. If `TRUE`, include diagnostic summaries
+#' such as feasible F-statistic range and effect sizes.
 #' @param ... Reserved for future use.
 #'
 #' @return A named list with components:
@@ -131,9 +151,7 @@ makeRepeated <- function(n, k, means, sds,
   }
 
   #####
-  ##
   ##  Helper functions
-  ##
   ####
 
   ##

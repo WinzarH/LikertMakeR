@@ -6,18 +6,24 @@
 #' find a vector that best fits the desired moments.
 #'
 #' `lfast()` generates random discrete values from a
-#' scaled Beta distribution so the data replicate a rating scale -
-#' for example, a 1-5 Likert scale made from 5 items (questions) or 0-10
-#' likelihood-of-purchase scale.
+#' scaled Beta distribution so the data replicate an ordinal rating scale -
+#' for example, a Likert scale made from multiple items (questions) or 0-10
+#' likelihood-of-purchase scale. Data generated are generally consistent with
+#' real data, as shown in the _lfast() validation article_.
 #'
-#'
+#' @seealso
+#' - lfast validation article:
+#' <https://winzarh.github.io/LikertMakeR/articles/lfast_validation.html>
+#' - Package website:
+#' <https://winzarh.github.io/LikertMakeR/>
 #'
 #' @param n (positive, int) number of observations to generate
 #' @param mean (real) target mean, between upper and lower bounds
 #' @param sd  (positive, real) target standard deviation
 #' @param lowerbound (int) lower bound (e.g. '1' for a 1-5 rating scale)
 #' @param upperbound (int) upper bound (e.g. '5' for a 1-5 rating scale)
-#' @param items (positive, int) number of items in the rating scale. Default = 1
+#' @param items (positive, int) number of items in the rating scale.
+#'   Default = 1
 #' @param precision (positive, real) can relax the level of accuracy required.
 #' (e.g. '1' generally generates a vector with moments correct within '0.025',
 #' '2' generally within '0.05') Default = 0

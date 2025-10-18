@@ -1,4 +1,4 @@
-#' Synthesise rating-scale data with given first and second moments and a
+#' Synthesise rating-scale item data with given first and second moments and a
 #' predefined correlation matrix
 #'
 #' @name makeItems
@@ -94,7 +94,8 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
       length(sds) != nrow(cormatrix)
     ) {
       message("ERROR:\nParameters have unequal length & dimensions
-              \nlowerbound, upperbound, means, sds must all be vectors of equal length (k) \nand cormatrix must be of k dimensions")
+              \nlowerbound, upperbound, means, sds must be equal length (k)
+              \nand cormatrix must be of k dimensions")
       return(NULL)
     }
   } ## END input parameters integrity
@@ -124,7 +125,6 @@ makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
   df <- as.data.frame(matrix(nrow = n, ncol = k))
 
   for (i in 1:k) {
-    # cat(paste0("Variable ", i))
     cat("Variable ", i)
     df[, i] <- lfast(n, means[i], sds[i], lowerbound[i], upperbound[i])
   }

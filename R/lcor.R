@@ -63,6 +63,8 @@
 #' @export
 #'
 lcor <- function(data, target, passes = 10) {
-  .Call("_LikertMakeR_lcor_C_randomised", data, target, passes, PACKAGE = "LikertMakeR") |>
+  .Call("_LikertMakeR_lcor_C_randomised", data, target, passes,
+    PACKAGE = "LikertMakeR"
+  ) |>
     data.frame()
 }

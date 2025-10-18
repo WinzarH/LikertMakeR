@@ -61,7 +61,7 @@ alpha <- function(cormatrix = NULL, data = NULL) {
 
   k <- ncol(cormatrix)
   # calculate alpha
-  cronbachAlpha <- (k * mean_r) / (1 + (k - 1) * mean_r)
+  cronbach_alpha <- (k * mean_r) / (1 + (k - 1) * mean_r)
 
-  return(cronbachAlpha)
+  return(cronbach_alpha)
 }

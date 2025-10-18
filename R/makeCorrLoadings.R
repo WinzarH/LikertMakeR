@@ -1,25 +1,39 @@
 #' Generate Inter-Item Correlation Matrix from Factor Loadings
 #'
 #' @description
-#' Constructs an inter-item correlation matrix based on a user-supplied matrix
-#' of standardised factor loadings and (optionally) a factor correlation matrix.
+#' Constructs an inter-item correlation matrix based on a user-supplied
+#' matrix of standardised factor loadings and (optionally) a factor
+#' correlation matrix.
+#' The `makeCorrLoadings()` function does a surprisingly good job of
+#' reproducing a target correlation matrix when all item-factor loadings
+#' are present, as shown in the _makeCorrLoadings() validation article_.
+#'
+#' @seealso
+#' - makeCorrLoadings() validation article:
+#' <https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.html>
+#' - Package website: <https://winzarh.github.io/LikertMakeR/>
 #'
 #' @param loadings Numeric matrix. A \eqn{k \times f} matrix of standardized
 #' factor loadings \eqn{items \times factors}.
 #' Row names and column names are used for diagnostics if present.
-#' @param factorCor Optional \eqn{f \times f} matrix of factor correlations (\eqn{\Phi}).
+#' @param factorCor Optional \eqn{f \times f} matrix of factor
+#' correlations (\eqn{\Phi}).
 #' If NULL, assumes orthogonal factors.
 #' @param uniquenesses Optional vector of length k. If NULL, calculated
 #' as \eqn{1 - rowSums(loadings^2)}.
-#' @param nearPD Logical. If `TRUE`, attempts to coerce non–positive-definite matrices using [Matrix::nearPD()].
-#' @param diagnostics Logical. If `TRUE`, returns diagnostics including McDonald's Omega and item-level summaries.
+#' @param nearPD Logical.
+#' If `TRUE`, attempts to coerce non–positive-definite matrices
+#' using [Matrix::nearPD()].
+#' @param diagnostics Logical.
+#' If `TRUE`, returns diagnostics including McDonald's Omega and
+#' item-level summaries.
 #'
 #' @return If diagnostics = FALSE, returns a correlation matrix (class: matrix).
 #'         If diagnostics = TRUE, returns a list with:
 #'         - R: correlation matrix
 #'         - Omega: per-factor Omega or adjusted Omega
 #'         - OmegaTotal: total Omega across all factors
-#'         - Diagnostics: data.frame of communalities, uniquenesses, and primary factor
+#'         - Diagnostics: dataframe of communalities, uniquenesses, and primary factor
 #'
 #' @examples
 #'

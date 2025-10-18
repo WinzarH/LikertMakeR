@@ -29,7 +29,8 @@
 #'
 #' \deqn{ \mathrm{sd}(D)^2 = \mathrm{sd}(X_{\text{before}})^2 +
 #'                           \mathrm{sd}(X_{\text{after}})^2 -
-#'                           2\,\mathrm{cov}(X_{\text{before}}, X_{\text{after}}) }
+#'                           2\,\mathrm{cov}(X_{\text{before}},
+#'                           X_{\text{after}}) }
 #'
 #' A paired-sample *t*-test thus requires an estimate of the covariance between
 #' the two sets of observations.
@@ -146,11 +147,9 @@ makePaired <- function(n, means, sds, t_value,
 
     ## Calculate the mean of the differences
     mean_diff <- mean_before - mean_after
-    # print(mean_diff)
 
     ## Calculate the standard deviation of the differences
     sd_diff <- mean_diff / (t_statistic / sqrt(n))
-    # print(sd_diff)
 
     ## Check if sd_diff is complex
     if (is.complex(sd_diff)) {
@@ -164,12 +163,11 @@ makePaired <- function(n, means, sds, t_value,
 
     ## Calculate the correlation
     correlation <- covariance / (sd_before * sd_after)
-    # print(correlation)
 
     ## Validate correlation
     if (correlation > 1 || correlation < -1) {
-      stop(paste0("Inputs are inconsistent.
-                  \nSmaller (larger) sample size usually means lower (higher) t-value."))
+      stop(paste0("Inputs are inconsistent. \nSmaller (larger) sample size
+                  usually means lower (higher) t-value."))
     }
 
     return(correlation)

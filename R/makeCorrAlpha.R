@@ -52,7 +52,11 @@
 #'
 #' # apply function
 #' set.seed(42)
-#' cor_matrix <- makeCorrAlpha(items = items, alpha = alpha, variance = variance)
+#' cor_matrix <- makeCorrAlpha(
+#'   items = items,
+#'   alpha = alpha,
+#'   variance = variance
+#' )
 #'
 #' # test function output
 #' print(cor_matrix)
@@ -82,13 +86,13 @@ makeCorrAlpha <- function(items, alpha, variance = 0.5, precision = 0) {
   ###  Helper functions
 
   ###
-  ### log_transform function
+  ### Fisher's z-transformation function
   ###
   ## logarithmic transformation of 'x' maps the desired correlation coefficient
   ## (ranging from -1 to +1) to a real number theoretically
   ## ranging from -infinity to +infinity
   ## In practice, 'y' typically will range from -3 to +3.
-  ## formula: y = log((1 + x) / (1 - x))
+  ## formula: 'y = log((1 + x) / (1 - x))'
   ##
   log_transform <- function(x) {
     result <- log((1 + x) / (1 - x))

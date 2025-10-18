@@ -1,4 +1,4 @@
-#' Create a dataframe of correlated scales from different dataframes of scale items
+#' Dataframe of correlated scales from different dataframes of scale items
 #'
 #' @name correlateScales
 #'
@@ -16,7 +16,8 @@
 #'
 #' @param dataframes  a list of 'k' dataframes to be rearranged and combined
 #' @param scalecors target correlation matrix - should be a symmetric
-#' \eqn{k \times k} positive-semi-definite matrix, where 'k' is the number of dataframes
+#' \eqn{k \times k} positive-semi-definite matrix,
+#' where 'k' is the number of dataframes
 #'
 #' @importFrom dplyr bind_cols
 #'
@@ -236,7 +237,6 @@ correlateScales <- function(dataframes, scalecors) {
   if (!is.null(new_df) && nrow(new_df) > 0) {
     message("New dataframe successfully created")
   }
-
 
   return(new_df)
 }
