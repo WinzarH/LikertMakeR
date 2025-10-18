@@ -1,11 +1,34 @@
 # LikertMakeR (development version)
 
-# LikertMakeR 1.2.0 (2025-09-025)
+# LikertMakeR 1.3.0 (2025-10-18)
+
+## Improvements
+
+- New `makeScalesRegression()` function : 
+   Generates synthetic rating-scale data that replicates reported regression
+   results, and then returns 
+   
+   1. a data frame that provides the requested statistical properties and
+   
+   2. a correlation matrix and summary moments of the data frame, plus
+   
+   3. diagnostic statistics, including comparison of target values against 
+      achieved values. 
+  
+## Maintenance
+
+- new vignette for the new function `makeScalesRegression()`.
+
+
+
+
+# LikertMakeR 1.2.0 (2025-10-10)
 
 ## Improvements
 
 - New `makeRepeated()` function : 
-   takes summary statistics that are reported in a typical repeated-measures ANOVA study, and then returns 
+   takes summary statistics that are reported in a typical repeated-measures 
+   ANOVA study, and then returns 
    
    1. a correlation matrix of the vectors of repeated measures and
    
@@ -13,10 +36,15 @@
    
    3. diagnostic statistics, including possible F-statistics based on information provided. 
    
+- #lfast_validation# vignette shows that #LikertMaker# does a remarkably good 
+   job of replicating real rating-scale data.
+
 
 ## Maintenance
 
-- Vignettes minor updates.
+- Vignettes are too large with so many images, so CRAN files include only 
+the #LikertMakeR_vignette# file. Two vignettes that validate `lfast()` 
+and `makeCorrLoadings()` appear only in the package website.
 
 
 

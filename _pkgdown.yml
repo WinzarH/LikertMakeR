@@ -39,10 +39,12 @@ reference:
       - makeItemsScale
       - makePaired
       - makeRepeated
+      - makeScalesRegression
   - title: Correlation matrices
     contents:
       - makeCorrAlpha
       - makeCorrLoadings
+      - print.makeScalesRegression
   - title: Helper functions
     contents:
       - alpha
@@ -51,4 +53,15 @@ reference:
     contents:
       - lexact
 
+articles:
+  - title: Getting started
+    desc: Intro to the package and key workflows.
+    contents:
+      - LikertMakeR_vignette
+
+  - title: Validation studies
+    desc: Deeper dives.
+    contents:
+      - lfast_validation
+      - makeCorrLoadings_validate
 

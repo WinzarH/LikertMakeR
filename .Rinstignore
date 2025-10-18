@@ -1,0 +1,12 @@
+^\.github$
+^\.git$
+^\.gitignore$
+^\.wordlist$
+^.*\.Rproj$
+^README\.Rmd$
+^cran-comments\.md$
+^revdep$
+^_pkgdown\.yml$
+^pkgdown$
+^docs$
+^extras$

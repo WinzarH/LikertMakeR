@@ -1,21 +1,24 @@
-^LikertMake_1-2-0.Rproj$
-^\.Rproj\.user$
+## --- .Rbuildignore ---
 ^\.github$
 ^\.git$
-^\.Rhistory$
 ^\.gitignore$
+^\.wordlist$
+^\.Rhistory$
+^CRAN-SUBMISSION$
+^.*\.Rproj$
+^README\.Rmd$
 ^cran-comments\.md$
 ^_pkgdown\.yml$
-^docs$
 ^pkgdown$
+^docs$
+^revdep$
 ^extras$
-^doc$
-^Meta$
-^CRAN-SUBMISSION$
-^cran-comments.md$
-^.*\.Rproj$
-^CRAN-SUBMISSION$
-^Meta$
-^extras$
-^doc$
-^\.wordlist$
+
+# Exclude website-only vignettes from CRAN tarball:
+^vignettes/(lfast_validation|makeCorrLoadings_validate)\.Rmd$
+
+# If those vignettes create auxiliary files/dirs, exclude them too:
+^vignettes/(lfast_validation|makeCorrLoadings_validate)_files/
+^vignettes/heavy_img/
+^vignettes/data/
+^\.Rproj\.user$

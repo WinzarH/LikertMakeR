@@ -13,14 +13,11 @@
 
 # LikertMakeR  <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 1.2.0  September 2025)
+(V 1.3.0  October 2025)
 
 Synthesise and correlate Likert scales, and similar rating-scale data, with 
 predefined first & second moments (mean and standard deviation), 
 _Cronbach's Alpha_, _Factor Loadings_, and other summary statistics. 
- 
-**_LikertMakeR_** synthesises rating-scale data. 
-Such scales are constrained by upper and lower bounds and discrete increments. 
  
 ## Purpose
  
@@ -29,11 +26,14 @@ The package is intended for:
   1. "Reproducing" or "Reverse-engineering" rating-scale data for further 
   analysis and visualisation when only summary statistics have been reported, 
     
-  2. Teaching. Helping researchers and students to better understand the 
+  2. Teaching. Create data with known properties without the 
+  need to find or gather original data.
+  
+  3. Helping researchers and students to better understand the 
   relationships among scale properties, sample size, number of items, 
   _etc._ ...  
  
-  3. checking the feasibility of scale moments with given scale and 
+  4. checking the feasibility of scale moments with given scale and 
   correlation properties. 
 
  
@@ -54,7 +54,7 @@ Functions in this version of **_LikertMakeR_** are:
   constructs a random item correlation matrix of given 
   dimensions and predefined _Cronbach's Alpha_.
   
-  - [**_makeItems()_**](#makeitems) 
+  - [**_makeItems()_**](#makeItems() 
   is a wrapper function for _lfast()_ and _lcor()_ 
   to generate synthetic rating-scale data with predefined first and 
   second moments and a predefined correlation matrix.
@@ -72,7 +72,12 @@ Functions in this version of **_LikertMakeR_** are:
   Generate a dataset from _paired-sample t-test_ summary statistics.
   
   - [**_makeRepeated()_**](#makerepeated) 
-  Generate a dataset from summary statistics for _repeated-measures ANOVA_, with options for correlation structure and diagnostics.
+  Generate a dataset from summary statistics for _repeated-measures ANOVA_, 
+  with options for correlation structure and diagnostics.
+  
+  - [**_makeScalesRegression()_**](#makeScalesRegression)
+  Generate synthetic rating-scale data that replicate reported 
+  regression results.
   
   - [_**correlateScales()**_](#correlatescales) generates a 
   multidimensional dataframe by combining several dataframes of 
@@ -116,7 +121,9 @@ social sciences because:
 
   1. they are in common usage and easily understood,
   
-  2. In practice, all measures are bounded by the constraints of the measurement device, meaning that they also have upper and lower boundaries and discrete units of measurement, which means that: 
+  2. In practice, all measures are bounded by the constraints of the 
+  measurement tool, meaning that they also have upper and lower boundaries 
+  and discrete units of measurement, which means that: 
   
   3. results and conclusions drawn from technically-correct non-parametric 
   statistics are _(almost)_ always the same as for parametric statistics for 
@@ -137,8 +144,10 @@ consistent, internally reliable, measure of the target construct.
 #### Alternative approaches to synthesising scales
 
 Typically, a researcher will synthesise simple rating-scale data by sampling 
-with a predetermined probability distribution. <br />
-For example, the following code will generate a vector of values for a single Likert-scale item, with approximately the given probabilities. 
+with a predetermined probability distribution. 
+
+For example, the following code will generate a vector of values for a single 
+Likert-scale item, with approximately the given probabilities. 
 
           n <- 128
           sample(1:5, n, replace = TRUE,
@@ -157,21 +166,23 @@ values so that the vectors are correlated.
 `makeCorrAlpha()` generates a correlation matrix from a predefined 
 _Cronbach's Alpha()_, enabling the user to apply `makeItems()` 
 to generate scale items that produce an exact _Cronbach's Alpha_. 
-`makeCorrLoadings()` generates a correlation matrix from factor loadings data, 
-enabling the user to apply `makeItems()` to generate multidimensional data.
+`makeCorrLoadings()` generates a correlation matrix from factor loadings 
+data, enabling the user to apply `makeItems()` to generate 
+multidimensional data.
 
-`makeItems()` will generate synthetic rating-scale data with predefined 
+`makeItems()` will generate synthetic rating-scale items with predefined 
 first and second moments and a predefined correlation matrix. 
 
 `makeItemsScale()` generate a dataframe of rating scale items from a 
 summative scale and desired _Cronbach's Alpha_. 
-`correlateScales()` generates a multidimensional dataframe by combining several
-dataframes of rating-scale items so that their summated scales are correlated 
-according to a predefined correlation matrix.
+`correlateScales()` generates a multidimensional dataframe by 
+combining several dataframes of rating-scale items so that their summated 
+scales are correlated according to a predefined correlation matrix.
 
 ## Install _LikertMakeR_
 
-To download and install the package, run the following code from your R console.
+To download and install the package, run the following code from 
+your R console.
 
 From __CRAN__:
      
@@ -280,11 +291,15 @@ but their correlations with other columns do.
 
 ##### lcor() arguments
 
-  -  **_data_**: a starter data set of 'k' rating-scales presented in 'k' columns
+  -  **_data_**: a starter data set of 'k' rating-scales presented 
+  in 'k' columns
   
   -  **_target_**: the target correlation matrix: a 'k'*'k' correlation matrix
   
-  -  **_passes_**: number of value swap passes to apply when creating correlated data. Increasing this number _MAY_ improve accuracy if the number of columns is large. Decreasing this number will be faster, but _MAY_ be less accurate.
+  -  **_passes_**: number of value swap passes to apply when creating 
+  correlated data. Increasing this number _MAY_ improve accuracy if the number 
+  of columns is large. 
+  Decreasing this number will be faster, but _MAY_ be less accurate.
 
 
 ### **_lcor()_**  Example #1
@@ -555,13 +570,13 @@ ____
 
 ### makeItems()
 
-**_makeItems()_** generates a dataframe of random discrete
-values from a _scaled Beta distribution_ so the data replicate a rating
-scale, and are correlated close to a predefined correlation matrix.
+**_makeItems()_** generates a dataframe of two or more rating-scale items, 
+that are correlated close to a predefined correlation matrix.
 
 _makeItems()_ is a wrapper function for:
 
-  - _lfast()_, which generates a vector that best fits the desired moments, and
+  - _lfast()_, which generates a vector random discrete values from 
+  a _scaled Beta distribution_ that best fits the desired moments, and
   
   - _lcor()_, which rearranges values in each column of the dataframe
   so they closely match the desired correlation matrix.
@@ -740,7 +755,12 @@ ___
 
 _makePaired()_ generates a dataset from paired-sample t-test summary statistics.
 
-_makePaired()_ generates correlated values so the data replicate rating scales taken, for example, in a before and after experimental design. The function is effectively a wrapper function for _lfast()_ and _lcor()_ with the addition of a t-statistic from which the between-column correlation is inferred.
+_makePaired()_ generates correlated values so the data replicate rating scales 
+taken from a _paired-samples t-test_ - for example, in a before and after 
+experimental design. 
+The function is effectively a wrapper function for _lfast()_ and _lcor()_ with 
+the addition of a t-statistic from which the between-column correlation is 
+inferred.
 
 Paired t-tests apply to observations that are associated with each other. For example: the same people before and after a treatment; the same people rating two different objects; ratings by husband & wife; _etc._
 
@@ -884,7 +904,93 @@ structures:
      )
     
      str(out3)
+
+___
+
+## Generate rating-scale data that replicate reported regression results    
+
+### makeScalesRegression()
+
+Generates synthetic rating-scale data that replicates reported regression
+results: standardised betas, R^2^, and correlation matrix of independent 
+variables (if available).  
+
+#### makeScalesRegression() usage
+
+    makeScalesRegression <- (
+       n,  # sample size
+       beta_std,  # a vector of standardised betas
+       r_squared, # R-squared
+       iv_cormatrix = NULL,  # independent variables correlation matrix
+       iv_cor_mean = 0.3,  # if no iv_cormatrix average IV correlations 
+       iv_cor_variance = 0.01, # if no iv_cormatrix, variation in iv_cormatrix
+       iv_cor_range = c(-0.7, 0.7), # if no iv_cormatrix, range in iv_cormatrix
+       iv_means, # a vector of IV mean values
+       iv_sds,  # a vector of IV sd's
+       dv_mean,  # mean of DV
+       dv_sd,  # sd of DV
+       lowerbound_iv,  # a vector of lowerbounds for IV's
+       upperbound_iv,  # a vector of upperbounds for IV's
+       lowerbound_dv,  # lowerbound for DV
+       upperbound_dv,  # upperbound for DV
+       items_iv = 1,  # a vector of number of items in the IV's
+       items_dv = 1,  # number of items in DV
+       var_names = NULL,  # a vector of variable names
+       tolerance = 0.005  # close to target R-squared
+    )
+
+
+#### makeScalesRegression() examples
+
+    # Example 1: With provided IV correlation matrix
+    set.seed(123)
+    iv_corr <- matrix(c(1.0, 0.3, 0.3, 1.0), nrow = 2)
     
+    result1 <- makeScalesRegression(
+      n = 64,
+      beta_std = c(0.4, 0.3),
+      r_squared = 0.35,
+      iv_cormatrix = iv_corr,
+      iv_means = c(3.0, 3.5),
+      iv_sds = c(1.0, 0.9),
+      dv_mean = 3.8,
+      dv_sd = 1.1,
+      lowerbound_iv = 1,
+      upperbound_iv = 5,
+      lowerbound_dv = 1,
+      upperbound_dv = 5,
+      items_iv = 4,
+      items_dv = 4,
+      var_names = c("Attitude", "Intention", "Behaviour")
+    )
+    
+    print(result1)
+    head(result1$data)
+    
+    # Example 2: With optimisation (no IV correlation matrix)
+    set.seed(456)
+    result2 <- makeScalesRegression(
+      n = 64,
+      beta_std = c(0.3, 0.25, 0.2),
+      r_squared = 0.40,
+      iv_cormatrix = NULL, # Will be optimised
+      iv_cor_mean = 0.3,
+      iv_cor_variance = 0.02,
+      iv_means = c(3.0, 3.2, 2.8),
+      iv_sds = c(1.0, 0.9, 1.1),
+      dv_mean = 3.5,
+      dv_sd = 1.0,
+      lowerbound_iv = 1,
+      upperbound_iv = 5,
+      lowerbound_dv = 1,
+      upperbound_dv = 5,
+      items_iv = 4,
+      items_dv = 5
+    )
+    
+    # View optimised correlation matrix
+    print(result2$target_stats$iv_cormatrix)
+    print(result2$optimisation_info)
 
 
 ___
@@ -1005,7 +1111,7 @@ ___
 
 ## Helper functions
 
-_likertMakeR()_ includes two additional functions that may be of help 
+_likertMakeR_ includes two additional functions that may be of help 
  when examining parameters and output.
 
   - **_alpha()_** calculates _Cronbach's Alpha_ from a given correlation 
@@ -1117,7 +1223,7 @@ ____
 
      Winzar, H. (2022). LikertMakeR: Synthesise and correlate Likert-scale 
      and related rating-scale data with predefined first & second moments, 
-     Version 1.0.1 (2025),
+     Version 1.2.0 (2025),
      The Comprehensive R Archive Network (CRAN),
     <https://CRAN.R-project.org/package=LikertMakeR>
         
@@ -1131,6 +1237,6 @@ ____
     journal = {The Comprehensive R Archive Network (CRAN)},
     month = {12},
     year = {2022},
-    version = {1.0.1 (2025)}
+    version = {1.2.0 (2025)}
     url = {https://CRAN.R-project.org/package=LikertMakeR},
     }
