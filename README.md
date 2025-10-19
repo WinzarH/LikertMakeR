@@ -54,7 +54,7 @@ Functions in this version of **_LikertMakeR_** are:
   constructs a random item correlation matrix of given 
   dimensions and predefined _Cronbach's Alpha_.
   
-  - [**_makeItems()_**](#makeItems() 
+  - [**_makeItems()_**](#makeItems) 
   is a wrapper function for _lfast()_ and _lcor()_ 
   to generate synthetic rating-scale data with predefined first and 
   second moments and a predefined correlation matrix.
