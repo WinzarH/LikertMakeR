@@ -172,8 +172,6 @@ print(result2$optimisation_info)
 
 }
 \seealso{
-\code{\link{makeScales}} for generating correlated rating scales with specified moments and correlations.
-
 \code{\link{lfast}} for generating individual rating-scale vectors with exact moments.
 
 \code{\link{lcor}} for rearranging values to achieve target correlations.

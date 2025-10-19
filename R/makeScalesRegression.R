@@ -12,6 +12,9 @@
 #' research where only summary statistics (standardised regression
 #' coefficients and R-squared) are reported.
 #'
+#' @importFrom stats as.formula coef lm model.frame
+#' @importFrom Matrix nearPD
+#'
 #' @details
 #' The function can operate in two modes:
 #'
@@ -130,8 +133,6 @@
 #' print(result2$optimisation_info)
 #'
 #' @seealso
-#' \code{\link{makeScales}} for generating correlated rating scales with specified moments and correlations.
-#'
 #' \code{\link{lfast}} for generating individual rating-scale vectors with exact moments.
 #'
 #' \code{\link{lcor}} for rearranging values to achieve target correlations.
@@ -193,7 +194,7 @@ makeScalesRegression <- function(
 
     message(sprintf(
       "Optimisation %s after %d iterations
-      \n(R² target: %.4f, achieved in optimisation: %.4f)",
+      \n(R-sq target: %.4f, achieved in optimisation: %.4f)",
       ifelse(opt_result$converged, "converged", "completed"),
       opt_result$iterations,
       r_squared,
@@ -432,7 +433,7 @@ std_beta <- function(model) {
   b <- coef(model)[-1] # unstandardised coefficients (exclude intercept)
   sx <- apply(model.frame(model)[, -1], 2, sd) # SD of predictors
   sy <- sd(model.frame(model)[, 1]) # SD of outcome
-  return(b * sx / sy) # standardise: β_std = β * (SD_x / SD_y)
+  return(b * sx / sy) # standardise: st-beta = beta * (SD_x / SD_y)
 }
 
 # Helper function to generate IV correlation matrix via optimisation
@@ -470,7 +471,7 @@ optimise_iv_cormatrix <- function(k, beta_std, r_squared,
     cor_matrix <- as.matrix(Matrix::nearPD(cor_matrix, corr = TRUE)$mat)
   }
 
-  # Calculate implied R² from this correlation matrix
+  # Calculate implied R-sq from this correlation matrix
   calc_r_squared <- function(cor_mat) {
     iv_dv_cors <- as.vector(cor_mat %*% beta_std)
     return(sum(beta_std * iv_dv_cors))
@@ -488,8 +489,8 @@ optimise_iv_cormatrix <- function(k, beta_std, r_squared,
     ))
   }
 
-  # Optimisation: adjust correlations to match target R²
-  # Strategy: scale all correlations by a factor to adjust R²
+  # Optimisation: adjust correlations to match target R-sq
+  # Strategy: scale all correlations by a factor to adjust R-sq
 
   max_iterations <- 100
   best_matrix <- cor_matrix
@@ -497,7 +498,8 @@ optimise_iv_cormatrix <- function(k, beta_std, r_squared,
 
   for (iter in 1:max_iterations) {
     # Calculate scaling factor needed
-    # If current R² is too low, increase correlations; if too high, decrease
+    # If current R-sq is too low, increase correlations;
+    # if too high, decrease
     if (current_r_squared < r_squared) {
       scale_factor <- 1.1 # Increase correlations
     } else {
@@ -521,7 +523,7 @@ optimise_iv_cormatrix <- function(k, beta_std, r_squared,
       new_matrix <- as.matrix(Matrix::nearPD(new_matrix, corr = TRUE)$mat)
     }
 
-    # Calculate new R²
+    # Calculate new R-sq
     new_r_squared <- calc_r_squared(new_matrix)
     new_diff <- abs(new_r_squared - r_squared)
 
@@ -550,7 +552,7 @@ optimise_iv_cormatrix <- function(k, beta_std, r_squared,
   # Return best solution found, even if not converged
   warning(sprintf(
     "Optimisation did not fully converge.
-    \nBest R² achieved: %.4f (target: %.4f, diff: %.4f)",
+    \nBest R-sq achieved: %.4f (target: %.4f, diff: %.4f)",
     calc_r_squared(best_matrix), r_squared, best_diff
   ))
 

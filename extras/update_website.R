@@ -47,8 +47,11 @@ getNamespaceExports("LikertMakeR")
 
 devtools::clean_dll()
 
+# tools::showNonASCIIfile("R/makeScalesRegression.R")
+
+devtools::check()
 # install into your active library
-devtools::install(upgrade = "never", force = TRUE)
+# devtools::install(upgrade = "never", force = TRUE)
 
 
 pkgdown::build_site()
