@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 
-```{r setup}
+```{r setup, echo=FALSE}
 library(LikertMakeR)
 ```
 
@@ -33,11 +33,11 @@ knitr::include_graphics("img/LikertMakeR_3.png")
 
 _**LikertMakeR**_ [(Winzar, 2022)](https://cran.r-project.org/package=LikertMakeR) 
 lets you create synthetic Likert-scale, or related rating-scale, data.  
-Set the mean, standard deviation, and correlations, and the package 
-generates data matching those properties. 
+Set the mean, standard deviation, and correlations or model coefficients, 
+and the package generates data matching those properties. 
 It can also rearrange existing data columns to achieve a desired 
 correlation structure or generate data based on 
-_Cronbach's Alpha_, _factor correlations_ or other summary statistics.
+_Cronbach's Alpha_, _factor correlations_, _regression_ or _ANOVA coefficients_, or other summary statistics.
 
 ## Purpose
 
@@ -48,7 +48,7 @@ summary statistics have been reported.
 
 ## Motivation
 
-I was prompted to write the functions in _LikertMakeR_ after reviewing 
+I was prompted to write the core functions in _LikertMakeR_ after reviewing 
 too many journal article submissions where authors presented questionnaire 
 results with only means and standard deviations (often only the means), 
 with no apparent understanding of scale distributions, 
@@ -121,9 +121,14 @@ _____
  * *makeCorrLoadings* constructs a random correlation matrix from a given 
  _factor loadings_ matrix, and _factor-correlations_ matrix.
  
- * *makeItems()* is a wrapper function for _lfast()_ 
- and _lcor()_ to generate synthetic rating-scale data with predefined 
- first and second moments and a predefined correlation matrix.
+ <!-- * *makeItems()* is a wrapper function for _lfast()_  -->
+ <!-- and _lcor()_ to generate synthetic rating-scale items with predefined  -->
+ <!-- first and second moments and a predefined correlation matrix. -->
+ 
+  * *makeScales()* is a wrapper function for _lfast()_ 
+ and _lcor()_ to generate items or summated scales with predefined 
+ first and second moments and a predefined correlation matrix. 
+ This function replaces _makeItems()_ and now includes multi-item measures. 
  
  * *makeItemsScale()* generates a random dataframe of scale items based 
  on a predefined summated scale with a desired Cronbach's Alpha.
@@ -135,7 +140,7 @@ _____
  on summary data from a repeated-samples ANOVA.
  
  * *makeScalesRegression()* generates a dataframe based on results of 
- output from multiple-regression - R^2^, standardised betas, and IV 
+ output from multiple-regression - R<sup>2</sup>, standardised betas, and IV 
  correlations (if available).
  
  * *correlateScales()* creates a dataframe of correlated summated scales 
@@ -620,16 +625,16 @@ ____
 
 ## Generate a dataframe of rating scales from a correlation matrix and predefined moments
 
-### makeItems()
+### makeScales()
 
-**_makeItems()_** generates a dataframe of random discrete
-values from a _scaled Beta distribution_ so the data replicate a rating
-scale, and are correlated close to a predefined correlation matrix. 
+**_makeScales()_** generates a dataframe of random discrete
+values so the data replicate a set of scale items or summated rating
+scales, and are correlated close to a predefined correlation matrix. 
 
 Generally, means, standard deviations, and correlations are correct to 
 two decimal places.
 
-_makeItems()_ is a wrapper function for 
+_makeScales()_ is a wrapper function for 
 
  * _lfast()_, which takes repeated samples selecting a vector that
  best fits the desired moments, and
@@ -649,17 +654,22 @@ following parameters:
  each variable
  
  - **_lowerbound_**: a vector of length 'k' of values for the lower bound 
- of each variable (For example, '1' for a 1-5 rating scale)
+ of each variable. default = '1'
 
 - **_upperbound_**: a vector of length 'k' of values for the upper bound 
- of each variable (For example, '5' for a 1-5 rating scale)
-
+ of each variable. Default = '5'
+ 
+- **_items_**: a vector of length 'k' of the number of items in each 
+variable. Default = '1'.
+ 
 - **_cormatrix_**: a target correlation matrix with 'k' rows and 'k' columns. 
 
 
-### _makeItems()_ examples
+### _makeScales()_ examples
 
-```{r makeItemsExample}
+#### four correlated items
+
+```{r makeScalesExample1}
 ## define parameters
 n <- 128
 dfMeans <- c(2.5, 3.0, 3.0, 3.5)
@@ -677,13 +687,74 @@ corMat <- matrix(
   nrow = 4, ncol = 4
 )
 
-## apply makeItems() function
-df <- makeItems(
+var_names <- c("var1", "var2", "var3", "var4")
+colnames(corMat) <- var_names
+rownames(corMat) <- var_names
+
+## apply makeScales() function
+df <- makeScales(
   n = n,
   means = dfMeans,
   sds = dfSds,
   lowerbound = lowerbound,
   upperbound = upperbound,
+  cormatrix = corMat
+)
+
+## test the function
+str(df)
+
+### means should be correct to two decimal places
+dfmoments <- data.frame(
+  mean = apply(df, 2, mean) |> round(3),
+  sd = apply(df, 2, sd) |> round(3)
+) |> t()
+
+dfmoments
+
+### correlations should be correct to two decimal places
+cor(df) |> round(3)
+```
+
+#### four Likert scales
+
+**Brand Trust (BT)**  - The confidence a consumer has in a brand’s reliability and honesty.
+**Brand Satisfaction (BS)** - Overall affective evaluation of the brand experience. 
+**Brand Love (BL)** - Deep emotional attachment toward the brand. 
+**Brand Loyalty (BLY)**  - Intention to repurchase and recommend the brand. 
+
+
+```{r makeScalesExample2}
+## define parameters
+n <- 256
+dfMeans <- c(3.9, 4.1, 3.6, 4.0)
+dfSds <-   c(0.6, 0.5, 0.8, 0.7)
+lowerbound <- rep(1, 4)
+upperbound <- rep(5, 4)
+items <- c(4, 3, 4, 3)
+
+corMat <- matrix(
+  c(
+     1.00, 0.75, 0.60, 0.70,
+     0.75, 1.00, 0.65, 0.72,
+     0.60, 0.65, 1.00, 0.68,
+     0.70, 0.72, 0.68, 1.00
+  ),
+  nrow = 4, ncol = 4
+)
+
+scale_names <- c("BT", "BS", "BL", "BLY")
+rownames(corMat) <- scale_names
+colnames(corMat) <- scale_names
+
+## apply makeScales() function
+df <- makeScales(
+  n = n,
+  means = dfMeans,
+  sds = dfSds,
+  lowerbound = lowerbound,
+  upperbound = upperbound,
+  items = items,
   cormatrix = corMat
 )
 
@@ -702,6 +773,7 @@ dfmoments
 ### correlations should be correct to two decimal places
 cor(df) |> round(3)
 ```
+
 
 ____
 
@@ -1130,11 +1202,14 @@ This function estimates the average correlation between repeated measures by mat
 
   -  _**n**_ Integer. Sample size used in the original study.
   -  _**k**_ Integer. Number of repeated measures (timepoints).
-  -  _**means**_ Numeric vector of length `k`. Mean values reported for each timepoint.
-  -  _**sds**_ Numeric vector of length `k`. Standard deviations reported for each timepoint.
+  -  _**means**_ Numeric vector of length `k`. 
+  Mean values reported for each timepoint.
+  -  _**sds**_ Numeric vector of length `k`. 
+  Standard deviations reported for each timepoint.
   -  _**f_stat**_ Numeric. The reported repeated-measures ANOVA F-statistic for the within-subjects factor.
   -  _**df_between**_, Degrees of freedom between conditions (default: `k - 1`).
-  -  _**df_within**_, Degrees of freedom within-subjects (default: `(n - 1) * (k - 1)`).
+  -  _**df_within**_, Degrees of freedom within-subjects 
+  (default: `(n - 1) * (k - 1)`).
   -  _**structure**_ Character. Correlation structure to assume: `"cs"`, `"ar1"`, or `"toeplitz"` (default).
   -  _**names**_ Character vector of length `k`. Variable names for each timepoint (default: `"time_1"` to `"time_k"`).
   -  _**items**_ Integer. Number of items used to generate each scale score (passed to `link{lfast}`).
@@ -1191,10 +1266,123 @@ str(out3)
 ```
 
 
+----
 
 
+## Generate rating-scale data from multiple regression results    
+
+### makeScalesRegression()
+
+Generates synthetic rating-scale data that replicates reported regression
+results: standardised betas, `R^2`, and correlation matrix of 
+independent variables (if available).  
+
+#### makeScalesRegression() usage
+
+    makeScalesRegression <- (
+       n, 
+       beta_std, 
+       r_squared, 
+       iv_cormatrix = NULL, 
+       iv_cor_mean = 0.3,  
+       iv_cor_variance = 0.01, 
+       iv_cor_range = c(-0.7, 0.7), 
+       iv_means, 
+       iv_sds,  
+       dv_mean,  
+       dv_sd, 
+       lowerbound_iv,  
+       upperbound_iv,  
+       lowerbound_dv, 
+       upperbound_dv,  
+       items_iv = 1,  
+       items_dv = 1,  
+       var_names = NULL,  
+       tolerance = 0.005 
+    )
+
+#### makeScalesRegression() arguments
+
+  -  _**n**_ sample size.
+  -  _**beta_std**_  a vector of length `k` 
+   (number of independent variables) of standardised betas.
+  -  _**r_squared**_ model `R^2`
+  -  _**iv_cormatrix**_ independent variables correlation matrix. 
+   Default= `NULL`
+  -  _**iv_cor_mean**_ if no iv_cormatrix, average IV correlations. 
+   Default = `0.3`
+  -  _**iv_cor_variance**_ if no iv_cormatrix, variation in iv_cormatrix. 
+   Default = `0.01`
+  -  _**iv_cor_range**_ if no iv_cormatrix, range in iv_cormatrix. 
+   Default = `c(-0.7, 0.7)`
+  -  _**iv_means**_ a vector of length `k` of IV mean values
+  -  _**iv_sds**_  a vector of length `k` of IV standard deviations
+  -  _**dv_mean**_  mean of Dependent Variable (DV)
+  -  _**dv_sd**_  standard deviation of DV
+  -  _**lowerbound_iv**_  a vector of length `k` of lowerbounds for IV's
+  -  _**upperbound_iv**_  a vector of length `k` of upperbounds for IV's
+  -  _**lowerbound_dv**_  lowerbound for DV
+  -  _**upperbound_dv**_  upperbound for DV
+  -  _**items_iv**_ a vector of length `k` of number of items in the IV's. 
+  Default = `1`.
+  -  _**items_dv**_ number of items in DV. Default = `1`.
+  -  _**var_names**_ a vector of variable names 
+   (Independent Variables first then the Dependent Variable). Default = `NULL`
+  -  _**tolerance**_ close to target R-squared. Default = `0.005`
 
 
+#### makeScalesRegression() examples
+
+##### Example 1: With provided IV correlation matrix
+    set.seed(123)
+    iv_corr <- matrix(c(1.0, 0.3, 0.3, 1.0), nrow = 2)
+    
+    result1 <- makeScalesRegression(
+      n = 64,
+      beta_std = c(0.4, 0.3),
+      r_squared = 0.35,
+      iv_cormatrix = iv_corr,
+      iv_means = c(3.0, 3.5),
+      iv_sds = c(1.0, 0.9),
+      dv_mean = 3.8,
+      dv_sd = 1.1,
+      lowerbound_iv = 1,
+      upperbound_iv = 5,
+      lowerbound_dv = 1,
+      upperbound_dv = 5,
+      items_iv = 4,
+      items_dv = 4,
+      var_names = c("Attitude", "Intention", "Behaviour")
+    )
+    
+    print(result1)
+    head(result1$data)
+    
+##### Example 2: With optimisation (no IV correlation matrix)
+
+    set.seed(456)
+    result2 <- makeScalesRegression(
+      n = 64,
+      beta_std = c(0.3, 0.25, 0.2),
+      r_squared = 0.40,
+      iv_cormatrix = NULL, # Will be optimised
+      iv_cor_mean = 0.3,
+      iv_cor_variance = 0.02,
+      iv_means = c(3.0, 3.2, 2.8),
+      iv_sds = c(1.0, 0.9, 1.1),
+      dv_mean = 3.5,
+      dv_sd = 1.0,
+      lowerbound_iv = 1,
+      upperbound_iv = 5,
+      lowerbound_dv = 1,
+      upperbound_dv = 5,
+      items_iv = 4,
+      items_dv = 5
+    )
+    
+    # View optimised correlation matrix
+    print(result2$target_stats$iv_cormatrix)
+    print(result2$optimisation_info)
 
 
 ----
