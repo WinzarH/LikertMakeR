@@ -32,10 +32,10 @@ makeScalesRegression(
 \item{beta_std}{Numeric vector of standardised regression coefficients
 (length k)}
 
-\item{r_squared}{Numeric. R-squared from regression (0 to 1)}
+\item{r_squared}{Numeric. R-squared from regression (-1 to 1)}
 
 \item{iv_cormatrix}{k x k correlation matrix of independent variables.
-If NULL, will be optimised.}
+If missing (NULL), will be optimised.}
 
 \item{iv_cor_mean}{Numeric. Mean correlation among IVs when optimising
 (ignored if iv_cormatrix provided). Default = 0.3}
@@ -120,6 +120,7 @@ Generated data is verified by running a regression and comparing achieved
 statistics with targets.
 }
 \examples{
+
 # Example 1: With provided IV correlation matrix
 set.seed(123)
 iv_corr <- matrix(c(1.0, 0.3, 0.3, 1.0), nrow = 2)
@@ -145,6 +146,7 @@ result1 <- makeScalesRegression(
 print(result1)
 head(result1$data)
 
+
 # Example 2: With optimisation (no IV correlation matrix)
 set.seed(456)
 result2 <- makeScalesRegression(
@@ -169,6 +171,7 @@ result2 <- makeScalesRegression(
 # View optimised correlation matrix
 print(result2$target_stats$iv_cormatrix)
 print(result2$optimisation_info)
+
 
 }
 \seealso{

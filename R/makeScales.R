@@ -83,12 +83,12 @@
 #'
 #' ## Example 2: five correlated Likert scales
 #'
-#' a study on employee engagement and organizational climate:
-#' Job Satisfaction (JS)
-#' Organizational Commitment (OC)
-#' Perceived Supervisor Support (PSS)
-#' Work Engagement (WE)
-#' Turnover Intention (TI) (reverse-related to others).
+#' ### a study on employee engagement and organizational climate:
+#'  # Job Satisfaction (JS)
+#'  # Organizational Commitment (OC)
+#'  # Perceived Supervisor Support (PSS)
+#'  # Work Engagement (WE)
+#'  # Turnover Intention (TI) (reverse-related to others).
 #'
 #' ### define parameters
 #'

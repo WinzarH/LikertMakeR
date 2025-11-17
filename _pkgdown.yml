@@ -34,7 +34,7 @@ reference:
     contents:
       - lfast
       - lcor
-      - makeItems
+      - makeScales
       - correlateScales
       - makeItemsScale
       - makePaired
@@ -52,6 +52,7 @@ reference:
   - title: Deprecated functions
     contents:
       - lexact
+      - makeItems
 
 articles:
   - title: Getting started
