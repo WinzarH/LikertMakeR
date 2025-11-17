@@ -1,0 +1,649 @@
+# LikertMakeR Scale Reproduction Validation
+
+## LikertMakeR Validation
+
+This paper reports on a study that compares data produced using
+*LikertMakeR* with original data from a published and publicly-available
+source.
+
+## Abstract
+
+The
+[`LikertMakeR::lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)
+function generally produces surprisingly good replications of existing
+data.
+
+Data distributions usually are unimodal, so multimodal (or wiggly) data
+are poorly represented.
+
+Highly leptokurtic data (pointy with wide tails) also may be poorly
+represented.
+
+These exceptions are likely to occur when more than one utility function
+is included in the original sample data. That is, when different groups
+of respondents are joined together.
+
+## Validation against real data
+
+One objective of the ***LikertMakeR*** package ([Winzar
+2022](#ref-winzar2022)) is to “reproduce” or “reverse engineer”
+rating-scale data for further analysis and visualization when only
+summary statistics are available. In such a role, the synthetic data
+should accurately represent the original data, meaning both should
+plausibly originate from the same population.
+
+To validate synthetic data, we choose a data set that is readily
+available, and which can be filtered to represent rating-scale data that
+may be commonly seen in published reports.
+
+We should compare data with variations in:
+
+- sample sizes,
+- number of increments in a scale. Number of increments may be defined
+  by:
+  - number of items in the scale
+  - length of the scale item (1 to 5; 0 to 10; *etc.*)
+- modality: the extent that a distribution shows bumps or something
+  other than a smooth hill.
+
+### SPI (SAPA Personality Inventory)
+
+For convenience and reproducibility, I chose a subsample of the *SAPA
+Personality Inventory* ([Condon 2023](#ref-sapaproject)) data available
+from the **psych** ([Revelle 2024](#ref-psych)) and **psychtools**
+([William Revelle 2024](#ref-psychTools)) packages for **R**. The data
+set holds 4000 observations of 145 variables.
+
+#### Variable/ scale selection
+
+The *SPI* is based on a hierarchical framework for assessing personality
+at two levels. The higher level has the familiar ***“Big Five”***
+factors that have been studied in personality research since the 1980s.
+
+In the *SPI*, each of these five dimensions is represented by the
+average of *fourteen* 6-point agree-disagree items. That is, scale
+values have a scale with `14 * 6 = 84` possible values.
+
+| Big Five Personality Dimensions |
+|:--------------------------------|
+| Conscientiousness               |
+| Agreeableness                   |
+| Neuroticism                     |
+| Openness                        |
+| Extraversion                    |
+
+The lower level has 27 factors, made by averaging *five* 6-point items,
+most of which are sub-scales of the Big Five. These give scales with
+`5 * 6 = 30` possible values.
+
+|                    |                  |                         |
+|:-------------------|:-----------------|:------------------------|
+| Adaptability       | Anxiety          | ArtAppreciation         |
+| AttentionSeeking   | Authoritarianism | Charisma                |
+| Compassion         | Conformity       | Conservatism            |
+| Creativity         | EasyGoingness    | EmotionalExpressiveness |
+| EmotionalStability | Honesty          | Humor                   |
+| Impulsivity        | Industry         | Intellect               |
+| Introspection      | Irritability     | Order                   |
+| Perfectionism      | SelfControl      | SensationSeeking        |
+| Sociability        | Trust            | WellBeing               |
+
+List of SPI Facets
+
+Finally, these dimensions and facets are made by averaging subsets of
+135 items (individual questions). Each item then is a scale with
+`1 * 6 = 6` possible values.
+
+| Property                  | Dimensions | Facets | Items |
+|:--------------------------|-----------:|-------:|------:|
+| Number of scales          |          5 |     27 |   135 |
+| Items per scale           |         14 |      5 |     1 |
+| Discrete values per scale |         84 |     30 |     6 |
+
+Scale properties under consideration
+
+### Measures of Difference
+
+The function
+[`LikertMakeR::lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)
+produces a vector of values with predefined first and second moments
+usually correct to two decimal places. Vectors also have exact minima &
+maxima, and scale intervals.
+
+To determine whether synthetic data are no different from the data that
+produced the original summary statistics, we need something more than
+just equal mean and standard deviation. We need measures that can
+accommodate third and fourth moments (*skewness* and *kurtosis*) as
+well. Further, a comparison should accommodate occasional bimodal
+distributions that may occur.
+
+#### Choice of Test for Equal Distributions
+
+To assess the similarity between synthetic data generated by
+**LikertMakeR** and real survey data, we evaluate the agreement between
+their empirical distributions using *nonparametric two-sample tests*.
+
+Several tests are available for comparing continuous distributions:
+
+- The **Kolmogorov–Smirnov (KS)** test focuses on the maximum vertical
+  distance between the empirical cumulative distribution functions
+  (ECDFs) of the two samples. The *KS* test has reduced sensitivity near
+  the centre of the distribution and excessive sensitivity to extreme
+  values ([Lilliefors 1967](#ref-Lilliefors1967)).
+
+- The **Baumgartner–Weiß–Schindler (BWS)** test ([Baumgartner, Weiß, and
+  Schindler 1998](#ref-Baumgartner1998))  
+  improves upon the *KS* test by incorporating differences across the
+  entire distribution, using a rank-based test statistic derived from
+  integrated spacing differences. The *BWS* test is more powerful than
+  either the *Kolmogorov-Smirnov* test or the *Wilcoxon* test ([Pav
+  2023](#ref-BWStest-Manual)), as shown in Baumgartner, Weiß, and
+  Schindler ([1998](#ref-Baumgartner1998)). It is sensitive to both
+  *location and shape* differences and generally has greater power
+  across a variety of alternatives ([Neuhäuser
+  2001](#ref-Neuh%C3%A4user2001); [Neuhäuser and Ruxton
+  2009](#ref-Neuhauser2009)).
+
+- The **Neuhäuser modification** of the *BWS* test introduces a
+  *weighting function* that emphasizes differences in the *central
+  region* of the distribution while reducing the influence of the tails
+  ([Neuhäuser 2001](#ref-Neuh%C3%A4user2001)). This makes it more robust
+  to small discrepancies in the extremes — a desirable property in large
+  samples where minor tail mismatches can lead to false positives
+  ([Neuhäuser 2005](#ref-Neuh_user_2005)).
+
+Overall, The researcher might want to use the *BWS* test to see if
+[`LikertMakeR::lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)
+gives an *exact replication* of a scale, and use the *Neuhäuser* test
+option to see if the function produces a “pretty good” dataframe. So, we
+present summary results for both tests in this study.
+
+| Feature | method = “BWS” | method = “Neuhäuser” |
+|:---|:---|:---|
+| Test Statistic | Based on comparing quantiles | Based on comparing ranks. |
+| Sensitivity | More sensitive to shape differences. | Less sensitive to shape differences. |
+| Robustness to Outliers | Less robust to outliers. | More robust to outliers. |
+| Focus | Sensitive to general differences across the ranks | Less sensitive to tail differences. |
+| Type of Differences | More likely to pick up on subtle differences | Less likely to pick up on subtle differences |
+
+Comparison of BWS and Neuhäuser Methods
+
+## Research Design
+
+We suspect that the accuracy of data created by
+[`LikertMakeR::lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)
+will be affected by:
+
+- the shape of the true distribution
+- sample-size
+- number of discrete intervals in a scale
+
+That is, highly skewed and multimodal distributions, and smaller sample
+sizes, are likely to be less well replicated by synthetic data generated
+by
+[`LikertMakeR::lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md).
+
+### Data selection
+
+The *SPI* dataset includes demographic information on which we can
+filter the 4000 observations down to sample-sizes that we are more
+likely to find in normal social research. Somewhat arbitrarily, I
+decided to use Age, Gender, and Education as filters.
+
+#### Small sample
+
+Young highly-educated men
+
+``` r
+young_highly_educated_men <- spi |>
+  filter(age < 24 & sex == 1 & education == 7)
+
+## where, sex==1 = 'male'
+##        education == 7 = 'postgraduate degree'
+```
+
+This filtering produced a sample of 19 observations.
+
+#### Medium sample
+
+Young educated women
+
+``` r
+young_educated_women <- spi |>
+  filter(age < 24 & sex == 2 & education >= 5)
+
+## where, "sex==2" = 'female'
+##        "education >= 5" = 'undergraduate degree or higher'
+```
+
+This filtering produced a sample of 99 observations.
+
+#### Large sample
+
+Young school-leavers
+
+``` r
+under_18_highschool <- spi |>
+  filter(age < 18 & education == 1)
+
+## where, "education == 1" = 'Less than 12 years schooling'
+```
+
+This filtering produced a sample of 314 observations.
+
+### Procedure
+
+We have three samples with small, medium and large sample-sizes.
+
+- small, 19 observations
+- medium, 99 observations
+- large, 314 observations
+
+And we have three levels of data aggregation:
+
+- 5 dimensions, each of 14 items
+- 27 factors, each of 5 items
+- 135 individual items
+
+This gives us `(3 * (5 + 27 + 135) = 501)` data subsets.
+
+For each combination of sample and data-level we find the mean and
+standard deviation of the data subset, then apply the
+[`LikertMakeR::lfast`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)
+function to produce `2^10 = 1024` simulated dataframes to compare with
+the true original dataframes from the SPI data.
+
+We compare the *Empirical Cumulative Density Function* (*ECDF*) of each
+simulated dataframe with the *ECDF* of the original dataframe using both
+the *BWS* and *Neuhäuser* methods. With more than 1000 tests on each of
+501 original dataframes we should be able to see how accurate our
+simulations are.
+
+### Original Data
+
+We present charts as summary information about the three levels of data
+under consideration. These are bar-charts for each measurement level
+combined with *kernel density* estimates.
+
+#### SPI Big Five Dimensions
+
+Each of the Big Five measures is the average of 14 six-point items. So
+there are `14 * 6 = 84` potential values in each scale. Note then, how a
+small sample size has much more sparse values than a larger sample.
+
+Otherwise, the distributions tend to be unimodal, with fairly smooth
+*kernel density* curves.
+
+![Bar and kernel density plots of Big 5 for three
+samples](heavy_img/young_highly_educated_men_dims_histograms.png)![Bar
+and kernel density plots of Big 5 for three
+samples](heavy_img/young_educated_women_dims_histograms.png)![Bar and
+kernel density plots of Big 5 for three
+samples](heavy_img/under_18_highschool_dims_histograms.png)
+
+Big 5 Dimensions for three samples
+
+#### SPI 27 Facets
+
+Each of the SPI facets is the average of five six-point items, giving
+`5 * 6 = 30` potential values in each facet measure.
+
+Again, the distributions tend to be unimodal, with smooth *kernel
+density* curves.
+
+![Bar and density plots of 27 facets for three
+samples](heavy_img/young_highly_educated_men_facets_histograms.png)![Bar
+and density plots of 27 facets for three
+samples](heavy_img/young_educated_women_facets_histograms.png)![Bar and
+density plots of 27 facets for three
+samples](heavy_img/under_18_highschool_facets_histograms.png)
+
+SPI facets for three samples
+
+#### Selected SPI items
+
+We simulated data for 135 individual items - too many to show
+meaningfully. We present here a sample of those few that showed unusual
+results in the simulations.
+
+In these cases data were either highly skewed, or bimodal (or at least
+flat in parts).
+
+![Bar and density plots for selected SPI items for three
+samples](heavy_img/selected_items_youngmen.png)![Bar and density plots
+for selected SPI items for three
+samples](heavy_img/selected_items_youngwomen.png)![Bar and density plots
+for selected SPI items for three
+samples](heavy_img/selected_items_highschool.png)
+
+Selected SPI items for three samples
+
+## Results
+
+The following tables list the dimension under consideration and the
+proportion of cases in each of the three samples that ere
+*‘statistically significant’* ($`\rho`$ \< 0.05).
+
+Tables show the *BWS* test / *Neuhäuser* test.
+
+### Big Five Dimensions validity
+
+Fourteen six-point items (84 levels in scale)
+
+[TABLE]
+
+Proportion of statistically-significant simulations (BWS/Neuhäuser)
+
+With smooth *kernel density estimates*, as we saw above, all cases were
+non-significant, suggesting that such data are well-reproduced by the
+[`LikertMakeR::lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)
+function.
+
+### SPI Facets (Subscale) validity
+
+Five six-point items (30 potential values in scale)
+
+[TABLE]
+
+Proportion of statistically-significant simulations (BWS/Neuhäuser)
+
+When the *BWS* test is applied to the larger sample, all simulations are
+significantly different from the original data. This is probably due to
+the smaller standard error produced by a larger sample.
+
+Interestingly, the *Neuhäuser* test, which is less sensitive to
+outliers, suggested that all simulations are good representations of the
+original.
+
+The facet, *Introspection*, stands out as one that is rarely accurately
+reproduced by the
+[`LikertMakeR::lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)
+function, using the *BWS* test, regardless of sample size.
+
+Other facets that are worth exploring in more detail are: *Compassion*,
+*Humor*, *Intellect*, *SelfControl*, *EasyGoingness*, and
+*Perfectionism*. These facets have high rates of significance in the
+mid-sample-size condition.
+
+#### Focus on “Introspection” facet
+
+The following chart shows *kernel density* plots for facet
+*Introspection* in the three samples.
+
+Each of the 1024 synthetic dataframes is represented by a grey/black
+line, and the original *“true”* dataframe is represented by a blue/cyan
+line.
+
+![density plots for 'Introspection' facet for three
+samples](heavy_img/Introspection_Density_young_highly_educated_men.png)![density
+plots for 'Introspection' facet for three
+samples](heavy_img/Introspection_Density_young_educated_women.png)![density
+plots for 'Introspection' facet for three
+samples](heavy_img/Introspection_Density_under_18_highschool.png)
+
+Introspection facet: Density plot for small, medium and large samples
+
+We see that the synthetic data never match the true data, especially in
+the middle and large sample sizes.
+
+The original, true, data are highly left-skewed, and this has been
+nicely captured by the synthetic data. Note, however, that the true
+dataframe is not unimodal. The *kernel density* estimate appears rough
+and slightly multimodal. It’s more wobbly.
+
+#### focus on “Compassion” facet
+
+The following chart shows *kernel density* plots for facet *Compassion*
+in the three samples.
+
+Again, each of the 1024 synthetic dataframes is represented by a
+grey/black line, and the original *“true”* dataframe is represented by a
+blue/cyan line.
+
+![kernel density plots for 'Compassion' facet for three
+samples](heavy_img/Compassion_Density_young_highly_educated_men.png)![kernel
+density plots for 'Compassion' facet for three
+samples](heavy_img/Compassion_Density_young_educated_women.png)![kernel
+density plots for 'Compassion' facet for three
+samples](heavy_img/Compassion_Density_under_18_highschool.png)
+
+Compassion facet: Kernel Density plots for small, medium and large
+samples
+
+For this factor the *BWS test* showed no cases where the synthetic data
+were significantly different from the original data for the smaller
+sample. But for the medium and large samples, the original data are not
+unimodal, and the *BWS test* suggests that all synthetic replications
+are different from the original.
+
+##### Other notable facets
+
+###### Humor
+
+![kernel density plots for 'Humor' facet for three
+samples](heavy_img/Humor_Density_young_highly_educated_men.png)![kernel
+density plots for 'Humor' facet for three
+samples](heavy_img/Humor_Density_young_educated_women.png)![kernel
+density plots for 'Humor' facet for three
+samples](heavy_img/Humor_Density_under_18_highschool.png)
+
+Humor facet: Kernel Density plots for small, medium and large samples
+
+###### Intellect
+
+![kernel density plots for 'Intellect' facet for three
+samples](heavy_img/Intellect_Density_young_highly_educated_men.png)![kernel
+density plots for 'Intellect' facet for three
+samples](heavy_img/Intellect_Density_young_educated_women.png)![kernel
+density plots for 'Intellect' facet for three
+samples](heavy_img/Intellect_Density_under_18_highschool.png)
+
+Intellect facet: Kernel Density plots for small, medium and large
+samples
+
+###### SelfControl
+
+![kernel density plots for 'SelfControl' facet for three
+samples](heavy_img/SelfControl_Density_young_highly_educated_men.png)![kernel
+density plots for 'SelfControl' facet for three
+samples](heavy_img/SelfControl_Density_young_educated_women.png)![kernel
+density plots for 'SelfControl' facet for three
+samples](heavy_img/SelfControl_Density_under_18_highschool.png)
+
+SelfControl facet: Kernel Density plots for small, medium and large
+samples
+
+###### EasyGoingness
+
+![kernel density plots for 'EasyGoingness' facet for three
+samples](heavy_img/EasyGoingness_Density_young_highly_educated_men.png)![kernel
+density plots for 'EasyGoingness' facet for three
+samples](heavy_img/EasyGoingness_Density_young_educated_women.png)![kernel
+density plots for 'EasyGoingness' facet for three
+samples](heavy_img/EasyGoingness_Density_under_18_highschool.png)
+
+EasyGoingness facet: Kernel Density plots for small, medium and large
+samples
+
+###### Perfectionism
+
+![kernel density plots for 'Perfectionism' facet for three
+samples](heavy_img/Perfectionism_Density_young_highly_educated_men.png)![kernel
+density plots for 'Perfectionism' facet for three
+samples](heavy_img/Perfectionism_Density_young_educated_women.png)![kernel
+density plots for 'Perfectionism' facet for three
+samples](heavy_img/Perfectionism_Density_under_18_highschool.png)
+
+Perfectionism facet: Kernel Density plots for small, medium and large
+samples
+
+### SPI Item validity
+
+Each scale is a single six-point item.
+
+In almost all cases, the *Baumgartner–Weiß–Schindler* (BWS) test showed
+a statistically significant difference between actual data and synthetic
+data. In most cases, however, the *Neuhäuser* test, which is more robust
+to outliers, was not statistically significant.
+
+The appendix table shows summary results for the three data sets for all
+135 items, indicating the proportion of cases where distribution
+comparison tests were *‘statistically significant’* ($`\rho`$ \< 0.05).
+
+In about 37 of the 135 items (27%) did the BWS test show proportion of
+significant simulations less than 80%.
+
+The following are some sample item results for each of the three samples
+
+### Original data histograms
+
+![kernel density plots for young highly-educated
+men](heavy_img/young_highly_educated_men_histograms.png)
+
+Selected items
+
+![kernel density plots for young educated
+women](heavy_img/young_educated_women_histograms.png)
+
+Selected items
+
+![kernel density plots for under-18 high-school
+education](heavy_img/under_18_highschool_histograms.png)
+
+Selected items
+
+### Synthetic data density plots
+
+#### q_1685 ‘Seldom joke around’
+
+![kernel density plots for 'q_1685 Seldom joke around' item for three
+samples](heavy_img/q_1685_Density_young_highly_educated_men.png)![kernel
+density plots for 'q_1685 Seldom joke around' item for three
+samples](heavy_img/q_1685_Density_young_educated_women.png)![kernel
+density plots for 'q_1685 Seldom joke around' item for three
+samples](heavy_img/q_1685_Density_under_18_highschool.png)
+
+q_1685 ‘Seldom joke around’: Kernel Density plots for small, medium and
+large samples
+
+#### q_1896 ‘Use others for my own ends’
+
+![kernel density plots for 'q_1058 Use others for my own ends' item for
+three
+samples](heavy_img/q_1896_Density_young_highly_educated_men.png)![kernel
+density plots for 'q_1058 Use others for my own ends' item for three
+samples](heavy_img/q_1896_Density_young_educated_women.png)![kernel
+density plots for 'q_1058 Use others for my own ends' item for three
+samples](heavy_img/q_1896_Density_under_18_highschool.png)
+
+q_1058 ‘Use others for my own ends’: Kernel Density plots for small,
+medium and large samples
+
+#### q_1989 ‘Worry about things’
+
+![kernel density plots for 'q_1058 Use others for my own ends' item for
+three
+samples](heavy_img/q_1989_Density_young_highly_educated_men.png)![kernel
+density plots for 'q_1058 Use others for my own ends' item for three
+samples](heavy_img/q_1989_Density_young_educated_women.png)![kernel
+density plots for 'q_1058 Use others for my own ends' item for three
+samples](heavy_img/q_1989_Density_under_18_highschool.png)
+
+q_1989 ‘Worry about things’: Kernel Density plots for small, medium and
+large samples
+
+#### q_755 ‘Enjoy examining myself and my life’
+
+![kernel density plots for 'q_755 Enjoy examining myself and my life'
+item for three
+samples](heavy_img/q_755_Density_young_highly_educated_men.png)![kernel
+density plots for 'q_755 Enjoy examining myself and my life' item for
+three samples](heavy_img/q_755_Density_young_educated_women.png)![kernel
+density plots for 'q_755 Enjoy examining myself and my life' item for
+three samples](heavy_img/q_755_Density_under_18_highschool.png)
+
+q_755 ‘Enjoy examining myself and my life’: Kernel Density plots for
+small, medium and large samples
+
+## Summary Results
+
+Results are much as we might expect:
+
+### Unimodal data are good, multimodal less so
+
+Multimodal data are not well-represented by the
+[`LikertMakeR::lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)
+function, which consistently generates unimodal data.
+
+### Larger sample sizes produce smoother unimodal data distributions
+
+Original data in the very small sample size in the 19-subjects group
+frequently were multimodal, whereas original data from the medium-sized
+and large-sized groups were more often unimodal.
+
+### Sample size alone does not affect accuracy of data synthisis.
+
+There did not seem to be much difference in results for different sample
+sizes.
+
+### Third and Fourth moments can affect accurcy
+
+Leptokurtic (pointy) distributions and platykurtic (flatter)
+distributions seem to affect results. We shouldn’t be surprised since
+the generating algorithm focuses on first (mean) and second (standard
+deviation) moments.
+
+## Appendix
+
+### Summary results for individual items
+
+Rating scale items ranging from ‘1’ to ‘6’ from the SPI data set, for
+three samples of different sizes.
+
+[TABLE]
+
+Proportion of statistically-significant simulations (BWS/Neuhauser)
+
+## References
+
+Baumgartner, W., P. Weiß, and H. Schindler. 1998. “A Nonparametric Test
+for the General Two-Sample Problem.” *Biometrics* 54 (3): 1129–35.
+<http://www.jstor.org/stable/2533862>.
+
+Condon, David M. 2023. “SAPA-Project \| Your Customized Personality
+Profile Report — Sapa-Project.org.” <https://www.sapa-project.org/>.
+
+Lilliefors, Hubert W. 1967. “On the Kolmogorov–Smirnov Test for
+Normality with Mean and Variance Unknown.” *Journal of the American
+Statistical Association* 62 (318): 399–402.
+<https://doi.org/10.1080/01621459.1967.10482916>.
+
+Neuhäuser, Markus. 2001. “One-Sided Two-Sample and Trend Tests Based on
+a Modified Baumgartner-Weiss-Schindler Statistic.” *Journal of
+Nonparametric Statistics* 13 (5): 729–39.
+<https://doi.org/10.1080/10485250108832874>.
+
+———. 2005. “Exact Tests Based on the Baumgartner-Weiß-Schindler
+Statistic—a Survey.” *Statistical Papers* 46 (1): 1–29.
+<https://doi.org/10.1007/bf02762032>.
+
+Neuhäuser, Markus, and Graeme D. Ruxton. 2009. “Distribution-Free
+Two-Sample Comparisons in the Presence of Heteroscedasticity.”
+*Behavioral Ecology and Sociobiology* 62 (3): 453–60.
+<https://doi.org/10.1007/s00265-008-0683-4>.
+
+Pav, Steven E. 2023. *BWStest: Baumgartner Weiß Schindler Test of Equal
+Distributions*. <https://github.com/shabbychef/BWStest>.
+
+Revelle, William. 2024. *Psych: Procedures for Psychological,
+Psychometric, and Personality Research*. Evanston, Illinois:
+Northwestern University. <https://CRAN.R-project.org/package=psych>.
+
+William Revelle. 2024. *psychTools: Tools to Accompany the ’Psych’
+Package for Psychological Research*. Evanston, Illinois: Northwestern
+University. <https://CRAN.R-project.org/package=psychTools>.
+
+Winzar, Hume. 2022. *LikertMakeR: Synthesise and Correlate Likert-Scale
+and Related Rating-Scale Data with Predefined First & Second Moments*
+(version 1.1.0 (2025)). *The Comprehensive R Archive Network (CRAN)*.
+<https://CRAN.R-project.org/package=LikertMakeR>.

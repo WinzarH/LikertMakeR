@@ -83,7 +83,7 @@
 <li><p><a href="#lfast"><strong><em>lfast()</em></strong></a> applies a simple <em>Evolutionary Algorithm</em>, based on repeated random samples from a scaled <em>Beta</em> distribution, to approximate predefined first and second moments.</p></li>
 <li><p><a href="#lcor"><strong><em>lcor()</em></strong></a> rearranges the values in the columns of a dataframe so that they are correlated to match a predefined correlation matrix.</p></li>
 <li><p><a href="#makecorralpha"><strong><em>makeCorrAlpha</em></strong></a> constructs a random item correlation matrix of given dimensions and predefined <em>Cronbach’s Alpha</em>.</p></li>
-<li><p><a href="#makeItems"><strong><em>makeItems()</em></strong></a> is a wrapper function for <em>lfast()</em> and <em>lcor()</em> to generate synthetic rating-scale data with predefined first and second moments and a predefined correlation matrix.</p></li>
+<li><p><a href="#makeScales"><strong><em>makeScales()</em></strong></a> is a wrapper function for <em>lfast()</em> and <em>lcor()</em> to generate synthetic rating-scale data with predefined first and second moments and a predefined correlation matrix.</p></li>
 <li><p><a href="#makecorrloadings"><strong><em>makeCorrLoadings</em></strong></a> constructs a item correlation matrix based on factor loadings and factor correlations as might be reported in <em>Exploratory Factor Analysis</em> (<strong>EFA</strong>) or <em>Structural Equation Modelling</em> (<strong>SEM</strong>).</p></li>
 <li><p><a href="#makeitemsscale"><strong><em>makeItemsScale()</em></strong></a> Generate a dataframe of rating scale items from a summative scale and desired Cronbach’s Alpha.</p></li>
 <li><p><a href="#makepaired"><strong><em>makePaired()</em></strong></a> Generate a dataset from <em>paired-sample t-test</em> summary statistics.</p></li>
@@ -124,8 +124,8 @@
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>      )</span></code></pre></div>
 <p>This approach is good for testing Likert items but it does not help when working on complete Likert scales, or for when we want to specify means and standard deviations as they might be reported in published research.</p>
 <p>The function <code><a href="reference/lfast.html">lfast()</a></code> allows the user to specify exact univariate statistics as they might ordinarily be reported. <code><a href="reference/lcor.html">lcor()</a></code> will take multiple scales created with <code><a href="reference/lfast.html">lfast()</a></code> and rearrange values so that the vectors are correlated.</p>
-<p><code><a href="reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> generates a correlation matrix from a predefined <em>Cronbach’s Alpha()</em>, enabling the user to apply <code><a href="reference/makeItems.html">makeItems()</a></code> to generate scale items that produce an exact <em>Cronbach’s Alpha</em>. <code><a href="reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> generates a correlation matrix from factor loadings data, enabling the user to apply <code><a href="reference/makeItems.html">makeItems()</a></code> to generate multidimensional data.</p>
-<p><code><a href="reference/makeItems.html">makeItems()</a></code> will generate synthetic rating-scale items with predefined first and second moments and a predefined correlation matrix.</p>
+<p><code><a href="reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> generates a correlation matrix from a predefined <em>Cronbach’s Alpha()</em>, enabling the user to apply <code><a href="reference/makeScales.html">makeScales()</a></code> to generate scale items or summated scales that produce an exact <em>Cronbach’s Alpha</em>. <code><a href="reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> generates a correlation matrix from factor loadings data, enabling the user to apply <code><a href="reference/makeScales.html">makeScales()</a></code> to generate multidimensional data.</p>
+<p><code><a href="reference/makeScales.html">makeScales()</a></code> will generate synthetic rating-scale items or summated scales with predefined first and second moments and a predefined correlation matrix.</p>
 <p><code><a href="reference/makeItemsScale.html">makeItemsScale()</a></code> generate a dataframe of rating scale items from a summative scale and desired <em>Cronbach’s Alpha</em>. <code><a href="reference/correlateScales.html">correlateScales()</a></code> generates a multidimensional dataframe by combining several dataframes of rating-scale items so that their summated scales are correlated according to a predefined correlation matrix.</p>
 </div>
 </div>
@@ -493,79 +493,85 @@
 <h2 id="generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments">Generate a dataframe of rating scales from a correlation matrix and predefined moments<a class="anchor" aria-label="anchor" href="#generate-a-dataframe-of-rating-scales-from-a-correlation-matrix-and-predefined-moments"></a>
 </h2>
 <div class="section level3">
-<h3 id="makeitems">makeItems()<a class="anchor" aria-label="anchor" href="#makeitems"></a>
+<h3 id="makescales">makeScales()<a class="anchor" aria-label="anchor" href="#makescales"></a>
 </h3>
-<p><strong><em>makeItems()</em></strong> generates a dataframe of two or more rating-scale items, that are correlated close to a predefined correlation matrix.</p>
-<p><em>makeItems()</em> is a wrapper function for:</p>
+<p><strong><em>makeScales()</em></strong> generates a dataframe of two or more rating-scale items, or summated rating scales, that are correlated close to a predefined correlation matrix.</p>
+<p><em>makeScales()</em> is a wrapper function for:</p>
 <ul>
 <li><p><em>lfast()</em>, which generates a vector random discrete values from a <em>scaled Beta distribution</em> that best fits the desired moments, and</p></li>
 <li><p><em>lcor()</em>, which rearranges values in each column of the dataframe so they closely match the desired correlation matrix.</p></li>
 </ul>
 <div class="section level4">
-<h4 id="makeitems-usage">
-<em>makeItems()</em> usage<a class="anchor" aria-label="anchor" href="#makeitems-usage"></a>
+<h4 id="makescales-usage">
+<em>makeScales()</em> usage<a class="anchor" aria-label="anchor" href="#makescales-usage"></a>
 </h4>
-<div class="sourceCode" id="cb31"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">makeItems</span>(n, means, sds, lowerbound, upperbound, cormatrix)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">makeItems</span>(n, means, sds, lowerbound, upperbound, items, cormatrix)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="makeitems-arguments">
 <em>makeItems()</em> arguments<a class="anchor" aria-label="anchor" href="#makeitems-arguments"></a>
 </h4>
 <ul>
-<li><p><strong><em>n</em></strong>: number of observations to generate</p></li>
-<li><p><strong><em>means</em></strong>: target means: a vector of length ‘k’ of mean values for each scale item</p></li>
-<li><p><strong><em>sds</em></strong>: target standard deviations: a vector of length ‘k’ of standard deviation values for each scale item</p></li>
-<li><p><strong><em>lowerbound</em></strong>: vector of length ‘k’ (same as rows &amp; columns of correlation matrix) of values for lower bound of each scale item (e.g. ‘1’ for a 1-5 rating scale)</p></li>
-<li><p><strong><em>upperbound</em></strong>: vector of length ‘k’ (same as rows &amp; columns of correlation matrix) of values for upper bound of each scale item (e.g. ‘5’ for a 1-5 rating scale)</p></li>
+<li><p><strong><em>n</em></strong>: number of observations to generate.</p></li>
+<li><p><strong><em>means</em></strong>: target means: a vector of length ‘k’ of mean values for each scale.</p></li>
+<li><p><strong><em>sds</em></strong>: target standard deviations: a vector of length ‘k’ of standard deviation values for each scale.</p></li>
+<li><p><strong><em>lowerbound</em></strong>: vector of length ‘k’ (same as rows &amp; columns of correlation matrix) of values for lower bound of each scale (e.g. ‘1’ for a 1-5 rating scale). Default = ‘1’.</p></li>
+<li><p><strong><em>upperbound</em></strong>: vector of length ‘k’ of values for upper bound of each scale (e.g. ‘5’ for a 1-5 rating scale). Default = ‘5’.</p></li>
+<li><p><strong><em>items</em></strong>: vector of length ‘k’ of number of items in each scale. Default = ‘1’.</p></li>
 <li><p><strong><em>cormatrix</em></strong>: target correlation matrix: a ‘k’ x ‘k’ square symmetric matrix of values ranging between ‘-1 ’and’+1’, and ‘1’ in the diagonal.</p></li>
 </ul>
 </div>
 </div>
 <div class="section level3">
-<h3 id="makeitems-examples">
-<em>makeItems()</em> examples<a class="anchor" aria-label="anchor" href="#makeitems-examples"></a>
+<h3 id="makescales-examples">
+<em>makeScales()</em> examples<a class="anchor" aria-label="anchor" href="#makescales-examples"></a>
 </h3>
 <div class="section level4">
 <h4 id="define-parameters-4">define parameters<a class="anchor" aria-label="anchor" href="#define-parameters-4"></a>
 </h4>
-<div class="sourceCode" id="cb32"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<div class="sourceCode" id="cb32"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">128</span></span>
 <span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>dfMeans <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>)</span>
 <span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>dfSds <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">0.75</span>)</span>
 <span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a>lowerbound <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span>
 <span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a>upperbound <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">4</span>)</span>
-<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a>corMat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a><span class="fu">c</span>(</span>
-<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a> <span class="fl">1.00</span>, <span class="fl">0.25</span>, <span class="fl">0.35</span>, <span class="fl">0.40</span>,</span>
-<span id="cb32-10"><a href="#cb32-10" tabindex="-1"></a> <span class="fl">0.25</span>, <span class="fl">1.00</span>, <span class="fl">0.70</span>, <span class="fl">0.75</span>,</span>
-<span id="cb32-11"><a href="#cb32-11" tabindex="-1"></a> <span class="fl">0.35</span>, <span class="fl">0.70</span>, <span class="fl">1.00</span>, <span class="fl">0.80</span>,</span>
-<span id="cb32-12"><a href="#cb32-12" tabindex="-1"></a> <span class="fl">0.40</span>, <span class="fl">0.75</span>, <span class="fl">0.80</span>, <span class="fl">1.00</span></span>
-<span id="cb32-13"><a href="#cb32-13" tabindex="-1"></a> ),</span>
-<span id="cb32-14"><a href="#cb32-14" tabindex="-1"></a> <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span></span>
-<span id="cb32-15"><a href="#cb32-15" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a>corMat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb32-10"><a href="#cb32-10" tabindex="-1"></a> <span class="fl">1.00</span>, <span class="fl">0.25</span>, <span class="fl">0.35</span>, <span class="fl">0.40</span>,</span>
+<span id="cb32-11"><a href="#cb32-11" tabindex="-1"></a> <span class="fl">0.25</span>, <span class="fl">1.00</span>, <span class="fl">0.70</span>, <span class="fl">0.75</span>,</span>
+<span id="cb32-12"><a href="#cb32-12" tabindex="-1"></a> <span class="fl">0.35</span>, <span class="fl">0.70</span>, <span class="fl">1.00</span>, <span class="fl">0.80</span>,</span>
+<span id="cb32-13"><a href="#cb32-13" tabindex="-1"></a> <span class="fl">0.40</span>, <span class="fl">0.75</span>, <span class="fl">0.80</span>, <span class="fl">1.00</span></span>
+<span id="cb32-14"><a href="#cb32-14" tabindex="-1"></a> ),</span>
+<span id="cb32-15"><a href="#cb32-15" tabindex="-1"></a> <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span></span>
+<span id="cb32-16"><a href="#cb32-16" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="apply-function">apply function<a class="anchor" aria-label="anchor" href="#apply-function"></a>
 </h4>
-<div class="sourceCode" id="cb33"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
+<div class="sourceCode" id="cb33"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">makeScales</span>(</span>
 <span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>   <span class="at">n =</span> n,</span>
 <span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>   <span class="at">means =</span> dfMeans,</span>
 <span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>   <span class="at">sds =</span> dfSds,</span>
 <span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>   <span class="at">lowerbound =</span> lowerbound,</span>
 <span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>   <span class="at">upperbound =</span> upperbound,</span>
-<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>   <span class="at">cormatrix =</span> corMat</span>
-<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a> )</span></code></pre></div>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>   <span class="at">items =</span> items,</span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a>   <span class="at">cormatrix =</span> corMat</span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a> )</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="test-function">test function<a class="anchor" aria-label="anchor" href="#test-function"></a>
 </h4>
-<div class="sourceCode" id="cb34"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">print</span>(df)</span>
+<div class="sourceCode" id="cb34"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">str</span>(df)</span>
 <span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="fu">apply</span>(df, <span class="dv">2</span>, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a><span class="fu">apply</span>(df, <span class="dv">2</span>, sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a><span class="fu">cor</span>(df) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>dfmoments <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>  <span class="at">mean =</span> <span class="fu">apply</span>(df, <span class="dv">2</span>, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>),</span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">apply</span>(df, <span class="dv">2</span>, sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
+<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a>dfmoments</span>
+<span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" tabindex="-1"></a><span class="fu">cor</span>(df) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -865,7 +871,7 @@
 <div class="sourceCode" id="cb44"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>makeScalesRegression <span class="ot">&lt;-</span> (</span>
 <span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>   n,  <span class="co"># sample size</span></span>
 <span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>   beta_std,  <span class="co"># a vector of standardised betas</span></span>
-<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>   r_squared, <span class="co"># R-squared</span></span>
+<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>   r_squared, <span class="co"># R_squared</span></span>
 <span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a>   <span class="at">iv_cormatrix =</span> <span class="cn">NULL</span>,  <span class="co"># independent variables correlation matrix</span></span>
 <span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a>   <span class="at">iv_cor_mean =</span> <span class="fl">0.3</span>,  <span class="co"># if no iv_cormatrix average IV correlations </span></span>
 <span id="cb44-7"><a href="#cb44-7" tabindex="-1"></a>   <span class="at">iv_cor_variance =</span> <span class="fl">0.01</span>, <span class="co"># if no iv_cormatrix, variation in iv_cormatrix</span></span>
@@ -1245,7 +1251,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

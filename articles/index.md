@@ -1,0 +1,17 @@
+# Articles
+
+### Getting started
+
+Intro to the package and key workflows.
+
+- [LikertMakeR
+  vignette](https://winzarh.github.io/LikertMakeR/articles/LikertMakeR_vignette.md):
+
+### Validation studies
+
+Deeper dives.
+
+- [LikertMakeR Scale Reproduction
+  Validation](https://winzarh.github.io/LikertMakeR/articles/lfast_validation.md):
+- [makeCorrLoadings()
+  validation](https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.md):
