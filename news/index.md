@@ -22,8 +22,11 @@
 - [`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md)
   function replaces
   [`makeItems()`](https://winzarh.github.io/LikertMakeR/reference/makeItems.md)
-  function: I finally worked out how to turn a single value into a
-  vector of length `k`. Embarrassingly straightforward.
+  function:
+
+  - I finally worked out how to turn a single value into a vector of
+    length `k`.
+  - Embarrassingly straightforward.
 
 ### Maintenance
 
