@@ -14,11 +14,21 @@
    
    3. diagnostic statistics, including comparison of target values against 
       achieved values. 
+      
+- `makeScales()` function replaces `makeItems()` function:
+    I finally worked out how to turn a single value into a vector of 
+    length `k`. 
+    Embarrassingly straightforward.
+    
+    
   
 ## Maintenance
 
 - new vignette for the new function `makeScalesRegression()`.
 
+- updated examples for `makeScales()` function.
+
+- updated badges in readme file.
 
 
 

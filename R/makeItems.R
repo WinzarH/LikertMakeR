@@ -78,6 +78,9 @@
 #' cor(df) |> round(3)
 #'
 makeItems <- function(n, means, sds, lowerbound, upperbound, cormatrix) {
+  message("NOTE:\nmakeItems() function is being deprecated
+              \nUse the makeScales() function in future.")
+
   ####
   ###  input parameters integrity checks
   ####
