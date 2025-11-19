@@ -1,19 +1,20 @@
- 
-#  
+
+# 
 
   <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![metacran downloads total](https://cranlogs.r-pkg.org/badges/grand-total/LikertMakeR)](https://cran.r-project.org/package=LikertMakeR)
 [![metacran downloads last month](https://cranlogs.r-pkg.org/badges/last-month/LikertMakeR)](https://cran.r-project.org/package=LikertMakeR)
 [![R-CMD-check](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/WinzarH/LikertMakeR/actions/workflows/R-CMD-check.yaml)
-[![Pkgdown](https://github.com/WinzarH/LikertMakeR/actions/workflows/pkgdown.yaml/badge.svg)](https://winzarh.github.io/LikertMakeR/)
+[![pkgdown](https://github.com/WinzarH/LikertMakeR/actions/workflows/pkgdown.yml/badge.svg?branch=main)](https://winzarh.github.io/LikertMakeR/)
+[![GitHub stars](https://img.shields.io/github/stars/WinzarH/LikertMakeR.svg?style=social&label=Star)](https://github.com/WinzarH/LikertMakeR)
   <!-- badges: end -->
   
 
 
 # LikertMakeR  <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 1.3.0  October 2025)
+(V 1.3.0  November 2025)
 
 Synthesise and correlate Likert scales, and similar rating-scale data, with 
 predefined first & second moments (mean and standard deviation), 
