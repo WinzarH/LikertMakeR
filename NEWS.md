@@ -16,9 +16,10 @@
       achieved values. 
       
 - `makeScales()` function replaces `makeItems()` function:
-    I finally worked out how to turn a single value into a vector of 
+    
+   - I finally worked out how to turn a single value into a vector of 
     length `k`. 
-    Embarrassingly straightforward.
+   - Embarrassingly straightforward.
     
     
   

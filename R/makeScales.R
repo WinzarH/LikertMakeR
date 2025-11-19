@@ -143,9 +143,6 @@ makeScales <- function(n, means, sds, lowerbound = 1, upperbound = 5, items = 1,
   ###  input parameters integrity checks
   ####
 
-  ## round correlation values to sensible values
-  cormatrix <- cormatrix |> round(5)
-
   parameter_integrity <- function() { ## BEGIN input parameters integrity
     if (length(upperbound) != length(lowerbound) ||
       length(upperbound) != ncol(cormatrix) ||
@@ -172,18 +169,40 @@ makeScales <- function(n, means, sds, lowerbound = 1, upperbound = 5, items = 1,
   } ## END check positive definite matrix
 
 
-  check_PD_matrix
+  ## round correlation values to sensible values
+  cormatrix <- cormatrix |> round(5)
 
+  # Number of variables (k)
   k <- ncol(cormatrix)
 
-  scale_names <- rownames(cormatrix)
+  # If row/column names are missing or NULL, assign default names
+  if (is.null(rownames(cormatrix)) || is.null(colnames(cormatrix))) {
+    scale_names <- paste0("V", seq_len(k))
+    rownames(cormatrix) <- scale_names
+    colnames(cormatrix) <- scale_names
+  } else {
+    # Otherwise, use existing names — but ensure they match
+    if (!identical(rownames(cormatrix), colnames(cormatrix))) {
+      warning("Row and column names of 'cormatrix' do not match.
+              \nUsing rownames for both.")
+      scale_names <- rownames(cormatrix)
+      colnames(cormatrix) <- scale_names
+    } else {
+      scale_names <- rownames(cormatrix)
+    }
+  }
 
-  # Recycle single values to vectors if needed
+
+  # Recycle to length k first
+  k <- ncol(cormatrix)
   if (length(lowerbound) == 1) lowerbound <- rep(lowerbound, k)
   if (length(upperbound) == 1) upperbound <- rep(upperbound, k)
-  if (length(items) == 1) items <- rep(items, k)
+  if (length(items)      == 1) items      <- rep(items, k)
 
-  parameter_integrity
+  parameter_integrity()
+  check_PD_matrix()
+
+  scale_names <- rownames(cormatrix)
 
   ## end integrity checks
   ####
