@@ -81,7 +81,7 @@ inferred from the t-statistic."><meta property="og:image" content="https://winza
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Synthesise a dataset from paired-sample t-test summary statistics</h1>
-      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/R/makePaired.R" class="external-link"><code>R/makePaired.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/R/makePaired.R" class="external-link"><code>R/makePaired.R</code></a></small>
       <div class="d-none name"><code>makePaired.Rd</code></div>
     </div>
 
@@ -204,8 +204,8 @@ The user should review the input parameters and insert more realistic values.</p
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	20 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X1: num  3.67 3.83 1.83 1.5 4.33 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X2: num  5 4.5 1.17 1.17 4.83 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X1: num  3.67 4.17 1.5 2.5 1.33 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X2: num  3.83 4.83 1.17 1.17 2.33 ...</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      X1   X2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.00 0.82</span>

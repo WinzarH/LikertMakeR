@@ -57,6 +57,10 @@ Att_1 <- makeItems(
   lowerbound = rep(lower, 4), upperbound = rep(upper, 4),
   cormatrix = cor_1
 )
+#> NOTE:
+#> makeItems() function is being deprecated
+#>               
+#> Use the makeScales() function in future.
 #> Variable  1
 #> reached maximum of 1024 iterations
 #> Variable  2
@@ -86,6 +90,10 @@ Att_2 <- makeItems(
   lowerbound = rep(lower, 5), upperbound = rep(upper, 5),
   cormatrix = cor_2
 )
+#> NOTE:
+#> makeItems() function is being deprecated
+#>               
+#> Use the makeScales() function in future.
 #> Variable  1
 #> reached maximum of 1024 iterations
 #> Variable  2
@@ -117,6 +125,10 @@ Att_3 <- makeItems(
   lowerbound = rep(lower, 6), upperbound = rep(upper, 6),
   cormatrix = cor_3
 )
+#> NOTE:
+#> makeItems() function is being deprecated
+#>               
+#> Use the makeScales() function in future.
 #> Variable  1
 #> reached maximum of 1024 iterations
 #> Variable  2
@@ -168,17 +180,17 @@ my_correlated_scales <- correlateScales(
 #> New dataframe successfully created
 head(my_correlated_scales)
 #>   A1_1 A1_2 A1_3 A1_4 A2_1 A2_2 A2_3 A2_4 A2_5 A3_1 A3_2 A3_3 A3_4 A3_5 A3_6
-#> 1    3    3    3    4    4    3    4    4    5    2    2    2    5    2    2
-#> 2    1    2    2    1    2    1    1    2    2    2    1    2    2    3    1
-#> 3    2    4    4    4    4    2    3    3    5    5    3    4    5    4    4
-#> 4    4    3    4    5    3    3    3    4    5    3    1    4    4    4    5
-#> 5    1    1    1    2    1    2    2    2    1    2    1    2    1    2    1
-#> 6    4    5    4    5    4    4    4    4    5    3    4    5    5    4    5
+#> 1    2    2    2    2    2    3    2    3    3    2    1    1    1    2    2
+#> 2    1    2    2    3    1    2    2    1    1    2    1    2    2    3    1
+#> 3    4    4    4    5    3    4    4    4    5    1    3    3    1    3    4
+#> 4    2    3    3    4    2    2    2    3    4    2    2    3    2    3    1
+#> 5    2    3    4    4    4    2    3    2    4    4    4    2    2    4    4
+#> 6    1    1    2    2    3    1    2    2    1    3    1    2    2    3    1
 #>   Int_1
-#> 1     1
+#> 1     5
 #> 2     5
-#> 3     9
-#> 4     4
+#> 3     2
+#> 4     6
 #> 5     1
 #> 6     0
 ```
