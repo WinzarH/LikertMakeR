@@ -165,15 +165,12 @@ univariate statistics as they might ordinarily be reported.
 values so that the vectors are correlated.
 
 `makeCorrAlpha()` generates a correlation matrix from a predefined 
-_Cronbach's Alpha()_, enabling the user to apply `makeScales()` 
+_Cronbach's Alpha()_, enabling the user to apply `makeScales()` or `lcor()`
 to generate scale items or summated scales that produce an 
 exact _Cronbach's Alpha_. 
 `makeCorrLoadings()` generates a correlation matrix from factor loadings 
 data, enabling the user to apply `makeScales()` to generate 
 multidimensional data.
-
-`makeScales()` will generate synthetic rating-scale items or summated scales 
-with predefined first and second moments and a predefined correlation matrix. 
 
 `makeItemsScale()` generate a dataframe of rating scale items from a 
 summative scale and desired _Cronbach's Alpha_. 
