@@ -170,6 +170,7 @@ and rearrange values so that the vectors are correlated.
 generates a correlation matrix from a predefined *Cronbach’s Alpha()*,
 enabling the user to apply
 [`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md)
+or [`lcor()`](https://winzarh.github.io/LikertMakeR/reference/lcor.md)
 to generate scale items or summated scales that produce an exact
 *Cronbach’s Alpha*.
 [`makeCorrLoadings()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrLoadings.md)
@@ -177,10 +178,6 @@ generates a correlation matrix from factor loadings data, enabling the
 user to apply
 [`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md)
 to generate multidimensional data.
-
-[`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md)
-will generate synthetic rating-scale items or summated scales with
-predefined first and second moments and a predefined correlation matrix.
 
 [`makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md)
 generate a dataframe of rating scale items from a summative scale and
