@@ -97,17 +97,17 @@ cor(df1) |> round(3)
 ## Example 2: five correlated Likert scales
 
 ### a study on employee engagement and organizational climate:
- # Job Satisfaction (JS)
- # Organizational Commitment (OC)
- # Perceived Supervisor Support (PSS)
- # Work Engagement (WE)
- # Turnover Intention (TI) (reverse-related to others).
+# Job Satisfaction (JS)
+# Organizational Commitment (OC)
+# Perceived Supervisor Support (PSS)
+# Work Engagement (WE)
+# Turnover Intention (TI) (reverse-related to others).
 
 ### define parameters
 
 n <- 128
 dfMeans <- c(3.8, 3.6, 3.7, 3.9, 2.2)
-dfSds <-   c(0.7, 0.8, 0.7, 0.6, 0.9)
+dfSds <- c(0.7, 0.8, 0.7, 0.6, 0.9)
 lowerbound <- rep(1, 5)
 upperbound <- rep(5, 5)
 items <- c(4, 4, 3, 3, 3)
@@ -119,8 +119,8 @@ corMat <- matrix(
     0.58, 0.54, 1.00, 0.57, -0.45,
     0.65, 0.60, 0.57, 1.00, -0.50,
     -0.55, -0.60, -0.45, -0.50, 1.00
-   ),
- nrow = 5, ncol = 5
+  ),
+  nrow = 5, ncol = 5
 )
 
 scale_names <- c("JS", "OC", "PSS", "WE", "TI")
@@ -147,7 +147,5 @@ apply(df2, 2, sd) |> round(3)
 
 #### correlations
 cor(df2) |> round(3)
-
-
 
 }

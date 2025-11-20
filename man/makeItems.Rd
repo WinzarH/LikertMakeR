@@ -36,6 +36,9 @@ a dataframe of rating-scale values
 values so the data replicate a rating scale,
 and are correlated close to a predefined correlation matrix.
 
+\code{makeItems()} is being deprecated.
+Use the \code{makeScales()} function instead.
+
 \code{makeItems()} is wrapper function for:
 \itemize{
 \item \code{\link[=lfast]{lfast()}}, generates a dataframe that best fits the desired

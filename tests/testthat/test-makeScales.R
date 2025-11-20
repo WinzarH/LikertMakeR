@@ -1,9 +1,9 @@
 # tests/testthat/test-makeScales.R
 
-testthat::test_that("makeScales: basic generation works and respects shapes, names, bounds", {
+test_that("makeScales: basic generation works and respects shapes, names, bounds", {
   # Ensure testthat is loaded
   if (!requireNamespace("LikertMakeR", quietly = TRUE)) {
-    testthat::skip("LikertMakeR not installed; skipping this test.")
+    skip("LikertMakeR not installed; skipping this test.")
   }
 
   set.seed(123)
@@ -83,49 +83,53 @@ testthat::test_that("makeScales: scalar lower/upper/items recycle correctly", {
   }
 })
 
+
+
 testthat::test_that("makeScales: rejects non-PSD correlation matrices early with a clear error", {
-  testthat::skip("Enable after makeScales() actually calls check_PD_matrix().")
 
   set.seed(99)
   n <- 50L
-  means <- c(3, 3)
-  sds   <- c(1, 1)
-  lb    <- c(1, 1)
-  ub    <- c(5, 5)
+  means <- c(3, 3, 3)
+  sds   <- c(1, 1, 1)
+  lb    <- c(1, 1, 1)
+  ub    <- c(5, 5, 5)
 
-  # Non-PSD: enforce diagonal 1 but off-diagonals > 1 in magnitude
-  badCor <- matrix(c(1, 1.2, 1.2, 1), nrow = 2)
+  badCor <- matrix(c(
+    1,   -0.9, -0.9,
+    -0.9, 1,   -0.9,
+    -0.9, -0.9, 1
+  ), nrow = 3, byrow = TRUE)
 
   testthat::expect_error(
     makeScales(n, means, sds, lb, ub, cormatrix = badCor),
-    regexp = "not Positive Definite|Requested correlations are not possible"
+    regexp = "not Positive Semi-Definite|Requested correlations are not possible"
   )
 })
 
 
 
-testthat::test_that("makeScales: mismatched lengths and dimensions fail fast with a descriptive error", {
-  testthat::skip("Enable after makeScales() validates lengths AFTER recycling and uses stop().")
 
+testthat::test_that("makeScales: mismatched lengths and dimensions fail fast with a descriptive error", {
   set.seed(1)
   n <- 40L
   means <- c(3, 3, 3)  # length 3
   sds   <- c(1, 1)     # length 2 -> mismatch
   lb    <- 1
   ub    <- 5
-  items <- 2L
+  items <- 5L
   corMat <- diag(3)
 
   testthat::expect_error(
     makeScales(n, means, sds, lb, ub, items, cormatrix = corMat),
-    regexp = "Parameters have unequal length"
+    regexp = "sds' must be a numeric vector of positive.*finite values of length 3"
   )
 })
 
 
 
+
 testthat::test_that("makeScales: NA/Inf inputs are rejected", {
-  testthat::skip("Enable after adding explicit NA/Inf/type checks that stop().")
+  # testthat::skip("Enable after adding explicit NA/Inf/type checks that stop().")
 
   n <- 20L
   means <- c(3, NA)
@@ -147,7 +151,7 @@ testthat::test_that("makeScales: NA/Inf inputs are rejected", {
 })
 
 testthat::test_that("makeScales: lowerbound < upperbound and within-range means are enforced", {
-  testthat::skip("Enable after adding bound order and mean-range checks that stop().")
+  # testthat::skip("Enable after adding bound order and mean-range checks that stop().")
 
   n <- 30L
   means <- c(6, 2)       # first mean outside [lb, ub] if lb=1,ub=5
@@ -158,8 +162,11 @@ testthat::test_that("makeScales: lowerbound < upperbound and within-range means 
 
   testthat::expect_error(
     makeScales(n, means, sds, lb, ub, cormatrix = corMat),
-    regexp = "lower.*<.*upper|bounds"
+    regexp = "All 'lowerbound' values must be strictly less than the corresponding 'upperbound' values."
   )
+
+
+
 
   lb2 <- c(1, 1); ub2 <- c(5, 5)
   testthat::expect_error(

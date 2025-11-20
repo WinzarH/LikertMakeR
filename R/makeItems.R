@@ -7,6 +7,9 @@
 #'  values so the data replicate a rating scale,
 #'  and are correlated close to a predefined correlation matrix.
 #'
+#'  `makeItems()` is being deprecated.
+#'  Use the `makeScales()` function instead.
+#'
 #'  `makeItems()` is wrapper function for:
 #'
 #'   * [lfast()], generates a dataframe that best fits the desired
