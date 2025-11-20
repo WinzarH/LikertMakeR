@@ -95,13 +95,13 @@ df1 <- makeScales(
   n = n, means = dfMeans, sds = dfSds,
   lowerbound = lowerbound, upperbound = upperbound, cormatrix = corMat
 )
-#> Variable  1
+#> Variable  1 :  Q1  - 
 #> reached maximum of 1024 iterations
-#> Variable  2
+#> Variable  2 :  Q2  - 
 #> reached maximum of 1024 iterations
-#> Variable  3
+#> Variable  3 :  Q3  - 
 #> reached maximum of 1024 iterations
-#> Variable  4
+#> Variable  4 :  Q4  - 
 #> reached maximum of 1024 iterations
 #> 
 #> Arranging data to match correlations
@@ -113,10 +113,10 @@ df1 <- makeScales(
 
 str(df1)
 #> 'data.frame':    16 obs. of  4 variables:
-#>  $ Q1: num  2 1 3 1 1 4 3 2 3 2 ...
-#>  $ Q2: num  3 4 2 3 2 4 1 2 3 2 ...
-#>  $ Q3: num  3 5 5 2 1 5 2 1 1 3 ...
-#>  $ Q4: num  3 4 4 3 2 5 3 3 3 3 ...
+#>  $ Q1: num  4 3 2 3 2 4 2 1 4 2 ...
+#>  $ Q2: num  2 4 4 2 2 4 3 1 4 2 ...
+#>  $ Q3: num  5 5 4 2 2 5 3 1 2 3 ...
+#>  $ Q4: num  4 4 4 3 3 5 3 2 4 3 ...
 
 #### means
 apply(df1, 2, mean) |> round(3)
@@ -132,8 +132,8 @@ apply(df1, 2, sd) |> round(3)
 cor(df1) |> round(3)
 #>       Q1    Q2    Q3    Q4
 #> Q1 1.000 0.313 0.386 0.619
-#> Q2 0.313 1.000 0.514 0.707
-#> Q3 0.386 0.514 1.000 0.788
+#> Q2 0.313 1.000 0.472 0.707
+#> Q3 0.386 0.472 1.000 0.788
 #> Q4 0.619 0.707 0.788 1.000
 
 
@@ -141,17 +141,17 @@ cor(df1) |> round(3)
 ## Example 2: five correlated Likert scales
 
 ### a study on employee engagement and organizational climate:
- # Job Satisfaction (JS)
- # Organizational Commitment (OC)
- # Perceived Supervisor Support (PSS)
- # Work Engagement (WE)
- # Turnover Intention (TI) (reverse-related to others).
+# Job Satisfaction (JS)
+# Organizational Commitment (OC)
+# Perceived Supervisor Support (PSS)
+# Work Engagement (WE)
+# Turnover Intention (TI) (reverse-related to others).
 
 ### define parameters
 
 n <- 128
 dfMeans <- c(3.8, 3.6, 3.7, 3.9, 2.2)
-dfSds <-   c(0.7, 0.8, 0.7, 0.6, 0.9)
+dfSds <- c(0.7, 0.8, 0.7, 0.6, 0.9)
 lowerbound <- rep(1, 5)
 upperbound <- rep(5, 5)
 items <- c(4, 4, 3, 3, 3)
@@ -163,8 +163,8 @@ corMat <- matrix(
     0.58, 0.54, 1.00, 0.57, -0.45,
     0.65, 0.60, 0.57, 1.00, -0.50,
     -0.55, -0.60, -0.45, -0.50, 1.00
-   ),
- nrow = 5, ncol = 5
+  ),
+  nrow = 5, ncol = 5
 )
 
 scale_names <- c("JS", "OC", "PSS", "WE", "TI")
@@ -178,15 +178,15 @@ df2 <- makeScales(
   lowerbound = lowerbound, upperbound = upperbound,
   items = items, cormatrix = corMat
 )
-#> Variable  1
+#> Variable  1 :  JS  - 
 #> best solution in 88 iterations
-#> Variable  2
+#> Variable  2 :  OC  - 
 #> best solution in 1334 iterations
-#> Variable  3
+#> Variable  3 :  PSS  - 
 #> best solution in 1443 iterations
-#> Variable  4
+#> Variable  4 :  WE  - 
 #> best solution in 623 iterations
-#> Variable  5
+#> Variable  5 :  TI  - 
 #> best solution in 703 iterations
 #> 
 #> Arranging data to match correlations
@@ -198,11 +198,11 @@ df2 <- makeScales(
 
 str(df2)
 #> 'data.frame':    128 obs. of  5 variables:
-#>  $ JS : num  3 4 3.25 3.5 2.75 3 3.5 4.25 3.75 4.75 ...
-#>  $ OC : num  3 3.5 3.75 3.75 2.25 3 3.25 4 4 5 ...
-#>  $ PSS: num  3.33 4.33 3.33 3 2.33 ...
-#>  $ WE : num  3 4.67 4.33 4 3.67 ...
-#>  $ TI : num  2.33 1.67 1 1.33 2.33 ...
+#>  $ JS : num  3.75 4.5 2.5 2.75 3.5 4 3.75 4 4 4.5 ...
+#>  $ OC : num  3 4.5 2 3.5 3.25 4.75 4 4.25 3 4.5 ...
+#>  $ PSS: num  3.33 4 3.67 3 2.33 ...
+#>  $ WE : num  4 4 2.33 3 4 ...
+#>  $ TI : num  1.67 1 4 2.33 4 ...
 
 #### means
 apply(df2, 2, mean) |> round(3)
@@ -217,11 +217,9 @@ apply(df2, 2, sd) |> round(3)
 #### correlations
 cor(df2) |> round(3)
 #>         JS     OC    PSS     WE     TI
-#> JS   1.000  0.720  0.581  0.650 -0.550
-#> OC   0.720  1.000  0.540  0.600 -0.601
-#> PSS  0.581  0.540  1.000  0.570 -0.450
+#> JS   1.000  0.720  0.580  0.650 -0.549
+#> OC   0.720  1.000  0.541  0.600 -0.600
+#> PSS  0.580  0.541  1.000  0.570 -0.450
 #> WE   0.650  0.600  0.570  1.000 -0.501
-#> TI  -0.550 -0.601 -0.450 -0.501  1.000
-
-
+#> TI  -0.549 -0.600 -0.450 -0.501  1.000
 ```

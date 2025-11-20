@@ -4,6 +4,10 @@
 data replicate a rating scale, and are correlated close to a predefined
 correlation matrix.
 
+`makeItems()` is being deprecated. Use the
+[`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md)
+function instead.
+
 `makeItems()` is wrapper function for:
 
 - [`lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md),
@@ -110,10 +114,10 @@ df <- makeItems(
 
 str(df)
 #> 'data.frame':    16 obs. of  4 variables:
-#>  $ Q1: num  3 2 1 3 4 2 2 3 2 3 ...
-#>  $ Q2: num  5 2 2 2 3 2 3 2 2 4 ...
-#>  $ Q3: num  3 4 1 3 2 3 2 2 1 5 ...
-#>  $ Q4: num  4 3 3 3 4 3 3 3 3 4 ...
+#>  $ Q1: num  1 3 3 2 3 4 4 2 1 2 ...
+#>  $ Q2: num  3 2 2 2 5 4 4 2 3 4 ...
+#>  $ Q3: num  2 3 1 1 4 4 3 2 3 5 ...
+#>  $ Q4: num  3 3 3 3 4 4 4 3 3 4 ...
 
 # means
 apply(df, 2, mean) |> round(3)
@@ -130,6 +134,6 @@ cor(df) |> round(3)
 #>       Q1    Q2    Q3    Q4
 #> Q1 1.000 0.313 0.386 0.619
 #> Q2 0.313 1.000 0.514 0.707
-#> Q3 0.386 0.514 1.000 0.667
-#> Q4 0.619 0.707 0.667 1.000
+#> Q3 0.386 0.514 1.000 0.788
+#> Q4 0.619 0.707 0.788 1.000
 ```

@@ -172,7 +172,7 @@ The function generates Likert-scale data (not individual items) using
 [`lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)
 for each variable with specified moments, then correlates them using
 [`lcor()`](https://winzarh.github.io/LikertMakeR/reference/lcor.md).
-Generated data is verified by running a regression and comparing
+Generated data are verified by running a regression and comparing
 achieved statistics with targets.
 
 ## See also
@@ -219,180 +219,35 @@ result1 <- makeScalesRegression(
 #> best solution in 162 iterations
 
 print(result1)
-#> $data
-#>    Attitude Intention Behaviour
-#> 1      2.75      1.75      1.50
-#> 2      3.25      2.25      2.75
-#> 3      3.25      4.50      5.00
-#> 4      3.25      5.00      4.50
-#> 5      2.25      3.50      4.50
-#> 6      3.00      3.50      2.50
-#> 7      3.50      4.75      3.50
-#> 8      2.50      3.75      3.25
-#> 9      2.75      3.50      4.75
-#> 10     2.75      3.00      3.00
-#> 11     3.25      2.25      2.25
-#> 12     3.75      4.50      4.50
-#> 13     1.00      3.75      2.50
-#> 14     4.50      4.75      4.50
-#> 15     1.50      3.25      4.50
-#> 16     3.50      2.75      4.50
-#> 17     4.25      4.25      3.25
-#> 18     1.75      1.75      4.50
-#> 19     3.25      3.25      4.75
-#> 20     2.75      4.00      5.00
-#> 21     2.75      4.75      3.00
-#> 22     4.00      2.75      4.75
-#> 23     2.50      2.50      2.50
-#> 24     2.00      3.25      1.75
-#> 25     4.00      3.00      3.50
-#> 26     4.50      4.00      5.00
-#> 27     3.00      3.25      3.25
-#> 28     2.25      3.75      1.75
-#> 29     1.50      2.25      2.25
-#> 30     2.25      3.00      3.00
-#> 31     2.50      4.50      3.25
-#> 32     1.25      1.75      2.00
-#> 33     1.25      3.00      4.00
-#> 34     4.75      4.50      4.50
-#> 35     4.25      3.25      5.00
-#> 36     2.75      3.50      3.75
-#> 37     4.50      4.75      5.00
-#> 38     4.50      3.75      5.00
-#> 39     3.25      4.75      5.00
-#> 40     2.50      5.00      4.25
-#> 41     4.50      3.50      4.25
-#> 42     2.50      3.75      1.75
-#> 43     3.00      2.00      4.00
-#> 44     4.00      3.00      4.50
-#> 45     4.50      4.75      4.75
-#> 46     4.25      2.75      4.50
-#> 47     2.50      4.00      4.75
-#> 48     4.50      4.00      4.75
-#> 49     1.50      5.00      5.00
-#> 50     2.25      3.25      3.50
-#> 51     2.00      3.00      2.00
-#> 52     3.25      4.00      4.25
-#> 53     2.75      4.75      3.75
-#> 54     1.50      2.75      1.50
-#> 55     4.00      2.50      3.75
-#> 56     3.00      3.25      4.00
-#> 57     4.50      3.00      5.00
-#> 58     3.25      4.00      5.00
-#> 59     3.75      4.00      5.00
-#> 60     1.75      2.50      3.25
-#> 61     3.00      3.00      4.00
-#> 62     1.50      2.50      4.75
-#> 63     2.25      2.75      2.25
-#> 64     3.00      4.75      5.00
+#> Regression Data Generation Results
+#> ===================================
 #> 
-#> $target_stats
-#> $target_stats$beta_std
-#> [1] 0.4 0.3
+#> Sample size: 64 
+#> Number of IVs: 2 
 #> 
-#> $target_stats$r_squared
-#> [1] 0.35
+#> IV Correlation Matrix: PROVIDED
 #> 
-#> $target_stats$iv_dv_cors
-#>  Attitude Intention 
-#>      0.49      0.42 
+#> Key Statistics:
+#> ---------------
+#> Target R-squared:   0.3500
+#> Achieved R-squared: 0.3214
+#> Difference:         -0.0286
 #> 
-#> $target_stats$iv_means
-#> [1] 3.0 3.5
+#> Regression Coefficients (Standardised):
+#>   Variable Target Achieved   Diff
+#>   Attitude    0.4   0.3998 -2e-04
+#>  Intention    0.3   0.2992 -8e-04
 #> 
-#> $target_stats$iv_sds
-#> [1] 1.0 0.9
-#> 
-#> $target_stats$dv_mean
-#> [1] 3.8
-#> 
-#> $target_stats$dv_sd
-#> [1] 1.1
-#> 
-#> $target_stats$iv_cormatrix
-#>      [,1] [,2]
-#> [1,]  1.0  0.3
-#> [2,]  0.3  1.0
-#> 
-#> 
-#> $achieved_stats
-#> $achieved_stats$beta_std
-#>  Attitude Intention 
-#> 0.3997153 0.3006366 
-#> 
-#> $achieved_stats$r_squared
-#> [1] 0.3222518
-#> 
-#> $achieved_stats$iv_dv_cors
-#>  Attitude Intention 
-#> 0.4899008 0.4205440 
-#> 
-#> $achieved_stats$iv_means
-#>  Attitude Intention 
-#>       3.0       3.5 
-#> 
-#> $achieved_stats$iv_sds
-#>  Attitude Intention 
-#> 1.0009916 0.9019379 
-#> 
-#> $achieved_stats$dv_mean
-#> [1] 3.800781
-#> 
-#> $achieved_stats$dv_sd
-#> [1] 1.098502
-#> 
-#> $achieved_stats$full_cormatrix
-#>            Attitude Intention Behaviour
-#> Attitude  1.0000000 0.2999819 0.4899008
-#> Intention 0.2999819 1.0000000 0.4205440
-#> Behaviour 0.4899008 0.4205440 1.0000000
-#> 
-#> 
-#> $diagnostics
-#>         Statistic Target  Achieved    Difference   Pct_Error
-#> 1   Beta_Attitude   0.40 0.3997153 -2.846946e-04 -0.07117364
-#> 2  Beta_Intention   0.30 0.3006366  6.366187e-04  0.21220622
-#> 3       R_squared   0.35 0.3222518 -2.774822e-02 -7.92806184
-#> 4   r_Attitude_DV   0.49 0.4899008 -9.915414e-05 -0.02023554
-#> 5  r_Intention_DV   0.42 0.4205440  5.439706e-04  0.12951681
-#> 6   Mean_Attitude   3.00 3.0000000  0.000000e+00  0.00000000
-#> 7  Mean_Intention   3.50 3.5000000  0.000000e+00  0.00000000
-#> 8  Mean_Behaviour   3.80 3.8007812  7.812500e-04  0.02055921
-#> 9     SD_Attitude   1.00 1.0009916  9.915719e-04  0.09915719
-#> 10   SD_Intention   0.90 0.9019379  1.937949e-03  0.21532764
-#> 11   SD_Behaviour   1.10 1.0985016 -1.498416e-03 -0.13621967
-#> 
-#> $iv_dv_cors
-#>  Attitude Intention 
-#>      0.49      0.42 
-#> 
-#> $full_cormatrix
-#>           Attitude Intention Behaviour
-#> Attitude      1.00      0.30      0.49
-#> Intention     0.30      1.00      0.42
-#> Behaviour     0.49      0.42      1.00
-#> 
-#> $optimisation_info
-#> NULL
-#> 
-#> $call
-#> makeScalesRegression(n = 64, beta_std = c(0.4, 0.3), r_squared = 0.35, 
-#>     iv_cormatrix = iv_corr, iv_means = c(3, 3.5), iv_sds = c(1, 
-#>         0.9), dv_mean = 3.8, dv_sd = 1.1, lowerbound_iv = 1, 
-#>     upperbound_iv = 5, lowerbound_dv = 1, upperbound_dv = 5, 
-#>     items_iv = 4, items_dv = 4, var_names = c("Attitude", "Intention", 
-#>         "Behaviour"))
-#> 
-#> attr(,"class")
-#> [1] "makeScalesRegression" "list"                
+#> For full diagnostics, see $diagnostics
+#> For generated data, see $data
 head(result1$data)
 #>   Attitude Intention Behaviour
-#> 1     2.75      1.75      1.50
-#> 2     3.25      2.25      2.75
-#> 3     3.25      4.50      5.00
-#> 4     3.25      5.00      4.50
-#> 5     2.25      3.50      4.50
-#> 6     3.00      3.50      2.50
+#> 1     1.75      1.75      1.50
+#> 2     2.00      2.50      2.75
+#> 3     2.25      3.00      5.00
+#> 4     2.50      3.25      4.50
+#> 5     2.50      3.75      3.75
+#> 6     3.00      4.75      4.00
 
 
 # Example 2: With optimisation (no IV correlation matrix)
