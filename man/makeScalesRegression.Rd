@@ -116,7 +116,7 @@ R-squared.
 The function generates Likert-scale data (not individual items)
 using \code{lfast()} for each variable with specified moments, then
 correlates them using \code{lcor()}.
-Generated data is verified by running a regression and comparing achieved
+Generated data are verified by running a regression and comparing achieved
 statistics with targets.
 }
 \examples{

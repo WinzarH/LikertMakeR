@@ -36,7 +36,7 @@
 #' The function generates Likert-scale data (not individual items)
 #' using \code{lfast()} for each variable with specified moments, then
 #' correlates them using \code{lcor()}.
-#' Generated data is verified by running a regression and comparing achieved
+#' Generated data are verified by running a regression and comparing achieved
 #' statistics with targets.
 #'
 #' @param n Integer. Sample size
@@ -378,11 +378,13 @@ makeScalesRegression <- function(
   return(result)
 }
 
+
 #' Print method for makeScalesRegression objects
 #'
 #' @param x An object of class "makeScalesRegression"
 #' @param ... Additional arguments (currently unused)
 #'
+#' @export
 print.makeScalesRegression <- function(x, ...) {
   cat("Regression Data Generation Results\n")
   cat("===================================\n\n")
