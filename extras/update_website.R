@@ -47,6 +47,7 @@ getNamespaceExports("LikertMakeR")
 
 devtools::clean_dll()
 
+devtools::document()
 # tools::showNonASCIIfile("R/makeScalesRegression.R")
 
 devtools::check()
