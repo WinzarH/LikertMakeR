@@ -1,6 +1,6 @@
 # LikertMakeR (development version)
 
-# LikertMakeR 1.3.0 (2025-10-18)
+# LikertMakeR 1.3.0 (2025-11-24)
 
 ## Improvements
 
@@ -21,8 +21,23 @@
     length `k`. 
    - Embarrassingly straightforward.
     
-    
-  
+- Updated version of `makeCorrAlpha()` function produces a more 
+  "natural-looking" correlation matrix:
+
+   - previous version sorted correlations in the correlation matrix to improve 
+     likelihood of extracting a positive-definite matrix. 
+     Fast, but unnatural results.
+   - I have applied a slightly faster algorithm for rearranging the correlations 
+     in a draft matrix to produce one that is positive-definite.   
+   - Additional parameter `sort_cors = FALSE`. 
+     If `TRUE`, results are similar to the earlier version of `makeCorrAlpha()`.
+     
+- Updated version of `lfast()` function
+
+   - runs slightly faster
+   
+   
+
 ## Maintenance
 
 - new vignette for the new function `makeScalesRegression()`.

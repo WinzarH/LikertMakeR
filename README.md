@@ -391,12 +391,15 @@ ____
   A value of '2', or more, risks producing a matrix that is not 
   positive-definite, so not feasible.
   
-  - **_precision_**: a value between '0' and '3' to add some random 
+  -  **_precision_**: a value between '0' and '3' to add some random 
   variation around the target _Cronbach's Alpha_.
   Default = '0'.
   A value of '0' produces the desired _Alpha_, generally exact to two 
   decimal places. Higher values produce increasingly random values around 
   the desired _Alpha_.
+  
+  -  **_sort_cors_**: Logical. Default = `FALSE`. If `TRUE`, then runs more 
+  quickly, but produces a less natural correlation matrix. 
 
 #### NOTE
 
