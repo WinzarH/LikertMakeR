@@ -61,7 +61,7 @@ Winzar</h4>
             
             <h4 data-toc-skip class="date">April 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/vignettes/LikertMakeR_vignette.Rmd" class="external-link"><code>vignettes/LikertMakeR_vignette.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/vignettes/LikertMakeR_vignette.Rmd" class="external-link"><code>vignettes/LikertMakeR_vignette.Rmd</code></a></small>
       <div class="d-none name"><code>LikertMakeR_vignette.Rmd</code></div>
     </div>
 
@@ -391,16 +391,16 @@ a target correlation matrix.</p>
 original; the values are rearranged.</p>
 <p>The first ten observations from this dataframe are:</p>
 <pre><code><span><span class="co">#&gt;     X1  X2  X3</span></span>
-<span><span class="co">#&gt; 1  2.8 3.8 4.2</span></span>
-<span><span class="co">#&gt; 2  2.2 4.2 3.6</span></span>
-<span><span class="co">#&gt; 3  2.0 2.2 2.0</span></span>
-<span><span class="co">#&gt; 4  3.4 4.8 4.6</span></span>
-<span><span class="co">#&gt; 5  1.8 1.8 2.8</span></span>
-<span><span class="co">#&gt; 6  2.2 2.8 4.0</span></span>
-<span><span class="co">#&gt; 7  1.8 1.2 2.4</span></span>
-<span><span class="co">#&gt; 8  2.6 1.6 5.0</span></span>
-<span><span class="co">#&gt; 9  2.2 2.6 2.4</span></span>
-<span><span class="co">#&gt; 10 3.2 4.0 3.4</span></span></code></pre>
+<span><span class="co">#&gt; 1  2.8 4.4 3.0</span></span>
+<span><span class="co">#&gt; 2  3.8 5.0 4.4</span></span>
+<span><span class="co">#&gt; 3  1.6 1.0 2.4</span></span>
+<span><span class="co">#&gt; 4  3.4 5.0 4.6</span></span>
+<span><span class="co">#&gt; 5  2.6 2.4 4.2</span></span>
+<span><span class="co">#&gt; 6  3.2 4.4 4.0</span></span>
+<span><span class="co">#&gt; 7  1.2 1.0 2.8</span></span>
+<span><span class="co">#&gt; 8  1.8 1.0 2.6</span></span>
+<span><span class="co">#&gt; 9  2.2 1.8 4.4</span></span>
+<span><span class="co">#&gt; 10 2.2 1.2 3.2</span></span></code></pre>
 <p>And the new dataframe is correlated close to our desired correlation
 matrix; here presented to 3 decimal places:</p>
 <pre><code><span><span class="co">#&gt;      X1   X2   X3</span></span>
@@ -481,14 +481,15 @@ encouraged to try again, possibly several times, to find one.</p>
 <span></span>
 <span><span class="va">cor_matrix_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrAlpha.html">makeCorrAlpha</a></span><span class="op">(</span><span class="va">items</span>, <span class="va">alpha</span><span class="op">)</span></span>
 <span><span class="co">#&gt; correlation values consistent with desired alpha in 59 iterations</span></span>
-<span><span class="co">#&gt; The correlation matrix is positive definite</span></span></code></pre></div>
+<span><span class="co">#&gt; The correlation matrix is positive definite</span></span>
+<span><span class="co">#&gt; Min eigenvalue: 0.23404</span></span></code></pre></div>
 <p><em>makeCorrAlpha()</em> produced the following correlation matrix
 (to three decimal places):</p>
 <pre><code><span><span class="co">#&gt;       [,1]  [,2]  [,3]  [,4]</span></span>
-<span><span class="co">#&gt; [1,] 1.000 0.425 0.433 0.507</span></span>
-<span><span class="co">#&gt; [2,] 0.425 1.000 0.693 0.694</span></span>
-<span><span class="co">#&gt; [3,] 0.433 0.693 1.000 0.766</span></span>
-<span><span class="co">#&gt; [4,] 0.507 0.694 0.766 1.000</span></span></code></pre>
+<span><span class="co">#&gt; [1,] 1.000 0.766 0.693 0.433</span></span>
+<span><span class="co">#&gt; [2,] 0.766 1.000 0.694 0.425</span></span>
+<span><span class="co">#&gt; [3,] 0.693 0.694 1.000 0.507</span></span>
+<span><span class="co">#&gt; [4,] 0.433 0.425 0.507 1.000</span></span></code></pre>
 </div>
 <div class="section level6">
 <h6 id="test-output-with-helper-functions">test output with Helper functions<a class="anchor" aria-label="anchor" href="#test-output-with-helper-functions"></a>
@@ -504,7 +505,7 @@ encouraged to try again, possibly several times, to find one.</p>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">cor_matrix_4</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/fig3-1.png" class="r-plt" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor_matrix_4  is positive-definite</span></span>
-<span><span class="co">#&gt; [1] 2.7842025 0.6581071 0.3291732 0.2285172</span></span></code></pre>
+<span><span class="co">#&gt; [1] 2.7831667 0.6670820 0.3157114 0.2340400</span></span></code></pre>
 </div>
 </div>
 <div class="section level5">
@@ -522,57 +523,196 @@ encouraged to try again, possibly several times, to find one.</p>
 <span><span class="va">cor_matrix_12</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrAlpha.html">makeCorrAlpha</a></span><span class="op">(</span>items <span class="op">=</span> <span class="va">items</span>, alpha <span class="op">=</span> <span class="va">alpha</span>, variance <span class="op">=</span> <span class="va">variance</span><span class="op">)</span></span>
 <span><span class="co">#&gt; correlation values consistent with desired alpha in 4312 iterations</span></span>
 <span><span class="co">#&gt; Correlation matrix is not yet positive definite</span></span>
-<span><span class="co">#&gt;         </span></span>
 <span><span class="co">#&gt; Working on it</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; improved at swap - 12</span></span>
-<span><span class="co">#&gt; improved at swap - 67</span></span>
-<span><span class="co">#&gt; improved at swap - 79</span></span>
-<span><span class="co">#&gt; improved at swap - 80</span></span>
-<span><span class="co">#&gt; improved at swap - 115</span></span>
-<span><span class="co">#&gt; improved at swap - 121</span></span>
-<span><span class="co">#&gt; improved at swap - 128</span></span>
-<span><span class="co">#&gt; improved at swap - 130</span></span>
-<span><span class="co">#&gt; improved at swap - 134</span></span>
-<span><span class="co">#&gt; improved at swap - 137</span></span>
-<span><span class="co">#&gt; improved at swap - 146</span></span>
-<span><span class="co">#&gt; improved at swap - 151</span></span>
-<span><span class="co">#&gt; improved at swap - 160</span></span>
-<span><span class="co">#&gt; improved at swap - 162</span></span>
-<span><span class="co">#&gt; improved at swap - 166</span></span>
-<span><span class="co">#&gt; improved at swap - 174</span></span>
-<span><span class="co">#&gt; improved at swap - 183</span></span>
-<span><span class="co">#&gt; improved at swap - 188</span></span>
-<span><span class="co">#&gt; improved at swap - 191</span></span>
-<span><span class="co">#&gt; improved at swap - 208</span></span>
-<span><span class="co">#&gt; improved at swap - 263</span></span>
-<span><span class="co">#&gt; improved at swap - 304</span></span>
-<span><span class="co">#&gt; improved at swap - 399</span></span>
-<span><span class="co">#&gt; improved at swap - 400</span></span>
-<span><span class="co">#&gt; improved at swap - 402</span></span>
-<span><span class="co">#&gt; improved at swap - 445</span></span>
-<span><span class="co">#&gt; improved at swap - 485</span></span>
-<span><span class="co">#&gt; improved at swap - 542</span></span>
-<span><span class="co">#&gt; stopped at swap - 542</span></span>
-<span><span class="co">#&gt; The correlation matrix is positive definite</span></span></code></pre></div>
+<span><span class="co">#&gt; improved at swap - 1 (min eigenvalue: -0.953206)</span></span>
+<span><span class="co">#&gt; improved at swap - 4 (min eigenvalue: -0.948513)</span></span>
+<span><span class="co">#&gt; improved at swap - 7 (min eigenvalue: -0.885627)</span></span>
+<span><span class="co">#&gt; improved at swap - 11 (min eigenvalue: -0.823701)</span></span>
+<span><span class="co">#&gt; improved at swap - 13 (min eigenvalue: -0.817121)</span></span>
+<span><span class="co">#&gt; improved at swap - 18 (min eigenvalue: -0.795548)</span></span>
+<span><span class="co">#&gt; improved at swap - 19 (min eigenvalue: -0.786689)</span></span>
+<span><span class="co">#&gt; improved at swap - 24 (min eigenvalue: -0.785326)</span></span>
+<span><span class="co">#&gt; improved at swap - 25 (min eigenvalue: -0.783145)</span></span>
+<span><span class="co">#&gt; improved at swap - 30 (min eigenvalue: -0.780524)</span></span>
+<span><span class="co">#&gt; improved at swap - 33 (min eigenvalue: -0.770617)</span></span>
+<span><span class="co">#&gt; improved at swap - 43 (min eigenvalue: -0.769144)</span></span>
+<span><span class="co">#&gt; improved at swap - 47 (min eigenvalue: -0.76871)</span></span>
+<span><span class="co">#&gt; improved at swap - 49 (min eigenvalue: -0.767956)</span></span>
+<span><span class="co">#&gt; improved at swap - 74 (min eigenvalue: -0.75443)</span></span>
+<span><span class="co">#&gt; improved at swap - 84 (min eigenvalue: -0.709321)</span></span>
+<span><span class="co">#&gt; improved at swap - 89 (min eigenvalue: -0.709319)</span></span>
+<span><span class="co">#&gt; improved at swap - 97 (min eigenvalue: -0.709101)</span></span>
+<span><span class="co">#&gt; improved at swap - 105 (min eigenvalue: -0.702808)</span></span>
+<span><span class="co">#&gt; improved at swap - 109 (min eigenvalue: -0.686501)</span></span>
+<span><span class="co">#&gt; improved at swap - 123 (min eigenvalue: -0.675567)</span></span>
+<span><span class="co">#&gt; improved at swap - 149 (min eigenvalue: -0.656166)</span></span>
+<span><span class="co">#&gt; improved at swap - 154 (min eigenvalue: -0.647445)</span></span>
+<span><span class="co">#&gt; improved at swap - 156 (min eigenvalue: -0.639865)</span></span>
+<span><span class="co">#&gt; improved at swap - 162 (min eigenvalue: -0.636826)</span></span>
+<span><span class="co">#&gt; improved at swap - 207 (min eigenvalue: -0.636473)</span></span>
+<span><span class="co">#&gt; improved at swap - 227 (min eigenvalue: -0.631569)</span></span>
+<span><span class="co">#&gt; improved at swap - 239 (min eigenvalue: -0.631529)</span></span>
+<span><span class="co">#&gt; improved at swap - 260 (min eigenvalue: -0.630315)</span></span>
+<span><span class="co">#&gt; improved at swap - 265 (min eigenvalue: -0.630018)</span></span>
+<span><span class="co">#&gt; improved at swap - 277 (min eigenvalue: -0.628351)</span></span>
+<span><span class="co">#&gt; improved at swap - 305 (min eigenvalue: -0.624799)</span></span>
+<span><span class="co">#&gt; improved at swap - 306 (min eigenvalue: -0.620084)</span></span>
+<span><span class="co">#&gt; improved at swap - 330 (min eigenvalue: -0.61767)</span></span>
+<span><span class="co">#&gt; improved at swap - 370 (min eigenvalue: -0.616984)</span></span>
+<span><span class="co">#&gt; improved at swap - 410 (min eigenvalue: -0.615695)</span></span>
+<span><span class="co">#&gt; improved at swap - 413 (min eigenvalue: -0.610777)</span></span>
+<span><span class="co">#&gt; improved at swap - 432 (min eigenvalue: -0.609952)</span></span>
+<span><span class="co">#&gt; improved at swap - 454 (min eigenvalue: -0.609934)</span></span>
+<span><span class="co">#&gt; improved at swap - 464 (min eigenvalue: -0.608802)</span></span>
+<span><span class="co">#&gt; improved at swap - 475 (min eigenvalue: -0.606048)</span></span>
+<span><span class="co">#&gt; improved at swap - 480 (min eigenvalue: -0.604196)</span></span>
+<span><span class="co">#&gt; improved at swap - 481 (min eigenvalue: -0.603605)</span></span>
+<span><span class="co">#&gt; improved at swap - 489 (min eigenvalue: -0.603575)</span></span>
+<span><span class="co">#&gt; improved at swap - 509 (min eigenvalue: -0.557319)</span></span>
+<span><span class="co">#&gt; improved at swap - 517 (min eigenvalue: -0.556993)</span></span>
+<span><span class="co">#&gt; improved at swap - 525 (min eigenvalue: -0.555728)</span></span>
+<span><span class="co">#&gt; improved at swap - 550 (min eigenvalue: -0.550725)</span></span>
+<span><span class="co">#&gt; improved at swap - 584 (min eigenvalue: -0.546519)</span></span>
+<span><span class="co">#&gt; improved at swap - 588 (min eigenvalue: -0.54343)</span></span>
+<span><span class="co">#&gt; improved at swap - 589 (min eigenvalue: -0.525605)</span></span>
+<span><span class="co">#&gt; improved at swap - 609 (min eigenvalue: -0.520762)</span></span>
+<span><span class="co">#&gt; improved at swap - 677 (min eigenvalue: -0.520203)</span></span>
+<span><span class="co">#&gt; improved at swap - 682 (min eigenvalue: -0.517845)</span></span>
+<span><span class="co">#&gt; improved at swap - 735 (min eigenvalue: -0.517013)</span></span>
+<span><span class="co">#&gt; improved at swap - 772 (min eigenvalue: -0.516949)</span></span>
+<span><span class="co">#&gt; improved at swap - 823 (min eigenvalue: -0.516743)</span></span>
+<span><span class="co">#&gt; improved at swap - 840 (min eigenvalue: -0.516391)</span></span>
+<span><span class="co">#&gt; improved at swap - 848 (min eigenvalue: -0.512467)</span></span>
+<span><span class="co">#&gt; improved at swap - 852 (min eigenvalue: -0.512226)</span></span>
+<span><span class="co">#&gt; improved at swap - 896 (min eigenvalue: -0.512095)</span></span>
+<span><span class="co">#&gt; improved at swap - 911 (min eigenvalue: -0.51205)</span></span>
+<span><span class="co">#&gt; improved at swap - 916 (min eigenvalue: -0.51194)</span></span>
+<span><span class="co">#&gt; improved at swap - 917 (min eigenvalue: -0.510744)</span></span>
+<span><span class="co">#&gt; improved at swap - 969 (min eigenvalue: -0.509389)</span></span>
+<span><span class="co">#&gt; improved at swap - 971 (min eigenvalue: -0.508507)</span></span>
+<span><span class="co">#&gt; improved at swap - 974 (min eigenvalue: -0.508265)</span></span>
+<span><span class="co">#&gt; improved at swap - 1000 (min eigenvalue: -0.501376)</span></span>
+<span><span class="co">#&gt; improved at swap - 1006 (min eigenvalue: -0.500307)</span></span>
+<span><span class="co">#&gt; improved at swap - 1024 (min eigenvalue: -0.49485)</span></span>
+<span><span class="co">#&gt; improved at swap - 1084 (min eigenvalue: -0.494849)</span></span>
+<span><span class="co">#&gt; improved at swap - 1114 (min eigenvalue: -0.49467)</span></span>
+<span><span class="co">#&gt; improved at swap - 1127 (min eigenvalue: -0.492862)</span></span>
+<span><span class="co">#&gt; improved at swap - 1138 (min eigenvalue: -0.491828)</span></span>
+<span><span class="co">#&gt; improved at swap - 1146 (min eigenvalue: -0.488759)</span></span>
+<span><span class="co">#&gt; improved at swap - 1220 (min eigenvalue: -0.487876)</span></span>
+<span><span class="co">#&gt; improved at swap - 1230 (min eigenvalue: -0.487867)</span></span>
+<span><span class="co">#&gt; improved at swap - 1235 (min eigenvalue: -0.48684)</span></span>
+<span><span class="co">#&gt; improved at swap - 1299 (min eigenvalue: -0.486493)</span></span>
+<span><span class="co">#&gt; improved at swap - 1413 (min eigenvalue: -0.482833)</span></span>
+<span><span class="co">#&gt; improved at swap - 1434 (min eigenvalue: -0.48144)</span></span>
+<span><span class="co">#&gt; improved at swap - 1534 (min eigenvalue: -0.481217)</span></span>
+<span><span class="co">#&gt; improved at swap - 1538 (min eigenvalue: -0.481094)</span></span>
+<span><span class="co">#&gt; improved at swap - 1637 (min eigenvalue: -0.479178)</span></span>
+<span><span class="co">#&gt; improved at swap - 1647 (min eigenvalue: -0.478561)</span></span>
+<span><span class="co">#&gt; improved at swap - 1704 (min eigenvalue: -0.476757)</span></span>
+<span><span class="co">#&gt; improved at swap - 1780 (min eigenvalue: -0.474676)</span></span>
+<span><span class="co">#&gt; improved at swap - 1806 (min eigenvalue: -0.474662)</span></span>
+<span><span class="co">#&gt; improved at swap - 1953 (min eigenvalue: -0.474644)</span></span>
+<span><span class="co">#&gt; improved at swap - 1956 (min eigenvalue: -0.474581)</span></span>
+<span><span class="co">#&gt; improved at swap - 1984 (min eigenvalue: -0.47448)</span></span>
+<span><span class="co">#&gt; improved at swap - 2006 (min eigenvalue: -0.474466)</span></span>
+<span><span class="co">#&gt; improved at swap - 2016 (min eigenvalue: -0.470122)</span></span>
+<span><span class="co">#&gt; improved at swap - 2034 (min eigenvalue: -0.468171)</span></span>
+<span><span class="co">#&gt; improved at swap - 2326 (min eigenvalue: -0.468064)</span></span>
+<span><span class="co">#&gt; improved at swap - 2338 (min eigenvalue: -0.467538)</span></span>
+<span><span class="co">#&gt; improved at swap - 2350 (min eigenvalue: -0.467353)</span></span>
+<span><span class="co">#&gt; improved at swap - 2435 (min eigenvalue: -0.466742)</span></span>
+<span><span class="co">#&gt; improved at swap - 2487 (min eigenvalue: -0.466487)</span></span>
+<span><span class="co">#&gt; improved at swap - 2516 (min eigenvalue: -0.465717)</span></span>
+<span><span class="co">#&gt; improved at swap - 2522 (min eigenvalue: -0.465611)</span></span>
+<span><span class="co">#&gt; improved at swap - 2535 (min eigenvalue: -0.460623)</span></span>
+<span><span class="co">#&gt; improved at swap - 2576 (min eigenvalue: -0.460212)</span></span>
+<span><span class="co">#&gt; improved at swap - 2678 (min eigenvalue: -0.460061)</span></span>
+<span><span class="co">#&gt; improved at swap - 2761 (min eigenvalue: -0.458568)</span></span>
+<span><span class="co">#&gt; improved at swap - 2795 (min eigenvalue: -0.458554)</span></span>
+<span><span class="co">#&gt; improved at swap - 2827 (min eigenvalue: -0.458226)</span></span>
+<span><span class="co">#&gt; improved at swap - 2832 (min eigenvalue: -0.458215)</span></span>
+<span><span class="co">#&gt; improved at swap - 2838 (min eigenvalue: -0.456188)</span></span>
+<span><span class="co">#&gt; improved at swap - 2934 (min eigenvalue: -0.455385)</span></span>
+<span><span class="co">#&gt; improved at swap - 2948 (min eigenvalue: -0.455052)</span></span>
+<span><span class="co">#&gt; improved at swap - 3114 (min eigenvalue: -0.454904)</span></span>
+<span><span class="co">#&gt; improved at swap - 3171 (min eigenvalue: -0.454781)</span></span>
+<span><span class="co">#&gt; improved at swap - 3175 (min eigenvalue: -0.454779)</span></span>
+<span><span class="co">#&gt; improved at swap - 3384 (min eigenvalue: -0.454773)</span></span>
+<span><span class="co">#&gt; improved at swap - 3425 (min eigenvalue: -0.454728)</span></span>
+<span><span class="co">#&gt; improved at swap - 3768 (min eigenvalue: -0.454533)</span></span>
+<span><span class="co">#&gt; improved at swap - 3994 (min eigenvalue: -0.454355)</span></span>
+<span><span class="co">#&gt; improved at swap - 4095 (min eigenvalue: -0.454326)</span></span>
+<span><span class="co">#&gt; improved at swap - 4123 (min eigenvalue: -0.45431)</span></span>
+<span><span class="co">#&gt; improved at swap - 4141 (min eigenvalue: -0.454307)</span></span>
+<span><span class="co">#&gt; improved at swap - 4202 (min eigenvalue: -0.453472)</span></span>
+<span><span class="co">#&gt; improved at swap - 4241 (min eigenvalue: -0.453251)</span></span>
+<span><span class="co">#&gt; improved at swap - 4396 (min eigenvalue: -0.452216)</span></span>
+<span><span class="co">#&gt; improved at swap - 4584 (min eigenvalue: -0.452049)</span></span>
+<span><span class="co">#&gt; improved at swap - 4598 (min eigenvalue: -0.451984)</span></span>
+<span><span class="co">#&gt; improved at swap - 4811 (min eigenvalue: -0.451936)</span></span>
+<span><span class="co">#&gt; improved at swap - 4887 (min eigenvalue: -0.451751)</span></span>
+<span><span class="co">#&gt; improved at swap - 4900 (min eigenvalue: -0.451602)</span></span>
+<span><span class="co">#&gt; improved at swap - 5158 (min eigenvalue: -0.451459)</span></span>
+<span><span class="co">#&gt; improved at swap - 5182 (min eigenvalue: -0.451271)</span></span>
+<span><span class="co">#&gt; improved at swap - 5225 (min eigenvalue: -0.45124)</span></span>
+<span><span class="co">#&gt; improved at swap - 5660 (min eigenvalue: -0.451226)</span></span>
+<span><span class="co">#&gt; improved at swap - 5947 (min eigenvalue: -0.450989)</span></span>
+<span><span class="co">#&gt; improved at swap - 5955 (min eigenvalue: -0.450651)</span></span>
+<span><span class="co">#&gt; improved at swap - 5981 (min eigenvalue: -0.450623)</span></span>
+<span><span class="co">#&gt; improved at swap - 6020 (min eigenvalue: -0.450603)</span></span>
+<span><span class="co">#&gt; improved at swap - 6486 (min eigenvalue: -0.450145)</span></span>
+<span><span class="co">#&gt; improved at swap - 7033 (min eigenvalue: -0.44951)</span></span>
+<span><span class="co">#&gt; improved at swap - 7251 (min eigenvalue: -0.44897)</span></span>
+<span><span class="co">#&gt; improved at swap - 7284 (min eigenvalue: -0.448929)</span></span>
+<span><span class="co">#&gt; improved at swap - 7422 (min eigenvalue: -0.448928)</span></span>
+<span><span class="co">#&gt; improved at swap - 7491 (min eigenvalue: -0.448854)</span></span>
+<span><span class="co">#&gt; improved at swap - 7804 (min eigenvalue: -0.448834)</span></span>
+<span><span class="co">#&gt; improved at swap - 7830 (min eigenvalue: -0.448833)</span></span>
+<span><span class="co">#&gt; improved at swap - 7996 (min eigenvalue: -0.448577)</span></span>
+<span><span class="co">#&gt; improved at swap - 8059 (min eigenvalue: -0.448564)</span></span>
+<span><span class="co">#&gt; improved at swap - 8082 (min eigenvalue: -0.448492)</span></span>
+<span><span class="co">#&gt; improved at swap - 8300 (min eigenvalue: -0.448205)</span></span>
+<span><span class="co">#&gt; improved at swap - 8360 (min eigenvalue: -0.448158)</span></span>
+<span><span class="co">#&gt; improved at swap - 8384 (min eigenvalue: -0.447955)</span></span>
+<span><span class="co">#&gt; improved at swap - 8538 (min eigenvalue: -0.447952)</span></span>
+<span><span class="co">#&gt; improved at swap - 8672 (min eigenvalue: -0.447944)</span></span>
+<span><span class="co">#&gt; improved at swap - 8803 (min eigenvalue: -0.447936)</span></span>
+<span><span class="co">#&gt; improved at swap - 9042 (min eigenvalue: -0.447897)</span></span>
+<span><span class="co">#&gt; improved at swap - 9100 (min eigenvalue: -0.447875)</span></span>
+<span><span class="co">#&gt; improved at swap - 9335 (min eigenvalue: -0.447862)</span></span>
+<span><span class="co">#&gt; improved at swap - 9436 (min eigenvalue: -0.447824)</span></span>
+<span><span class="co">#&gt; improved at swap - 9585 (min eigenvalue: -0.447823)</span></span>
+<span><span class="co">#&gt; improved at swap - 10072 (min eigenvalue: -0.447799)</span></span>
+<span><span class="co">#&gt; improved at swap - 10797 (min eigenvalue: -0.447797)</span></span>
+<span><span class="co">#&gt; improved at swap - 11139 (min eigenvalue: -0.447796)</span></span>
+<span><span class="co">#&gt; improved at swap - 11305 (min eigenvalue: -0.447777)</span></span>
+<span><span class="co">#&gt; improved at swap - 11878 (min eigenvalue: -0.447767)</span></span>
+<span><span class="co">#&gt; improved at swap - 12608 (min eigenvalue: -0.447766)</span></span>
+<span><span class="co">#&gt; improved at swap - 14464 (min eigenvalue: -0.447756)</span></span>
+<span><span class="co">#&gt; stopped after 158213 swaps (no improvement for 143748 attempts)</span></span>
+<span><span class="co">#&gt; Correlation matrix is NOT positive definite</span></span>
+<span><span class="co">#&gt; Min eigenvalue: -0.447756</span></span>
+<span><span class="co">#&gt; Try running makeCorrAlpha again (or reduce Variance parameter)</span></span></code></pre></div>
 <div class="section level7">
 <h6 id="section">-<a class="anchor" aria-label="anchor" href="#section"></a>
 </h6>
 <p><em>makeCorrAlpha()</em> produced the following correlation matrix
 (to two decimal places):</p>
-<pre><code><span><span class="co">#&gt;        [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9] [,10] [,11] [,12]</span></span>
-<span><span class="co">#&gt;  [1,]  1.00 -0.51 -0.67 -0.32 -0.30 -0.29 -0.27 -0.14 -0.07 -0.04 -0.03  0.00</span></span>
-<span><span class="co">#&gt;  [2,] -0.51  1.00  0.06  0.31  0.43  0.26  0.28  0.20  0.26  0.06  0.25  0.34</span></span>
-<span><span class="co">#&gt;  [3,] -0.67  0.06  1.00  0.61  0.36  0.62  0.57  0.47  0.45  0.46  0.47  0.33</span></span>
-<span><span class="co">#&gt;  [4,] -0.32  0.31  0.61  1.00  0.48  0.50  0.60  0.36  0.39  0.53  0.64  0.59</span></span>
-<span><span class="co">#&gt;  [5,] -0.30  0.43  0.36  0.48  1.00  0.42  0.56  0.62  0.62  0.62  0.56  0.63</span></span>
-<span><span class="co">#&gt;  [6,] -0.29  0.26  0.62  0.50  0.42  1.00  0.81  0.66  0.70  0.70  0.70  0.70</span></span>
-<span><span class="co">#&gt;  [7,] -0.27  0.28  0.57  0.60  0.56  0.81  1.00  0.57  0.71  0.72  0.72  0.73</span></span>
-<span><span class="co">#&gt;  [8,] -0.14  0.20  0.47  0.36  0.62  0.66  0.57  1.00  0.71  0.79  0.79  0.78</span></span>
-<span><span class="co">#&gt;  [9,] -0.07  0.26  0.45  0.39  0.62  0.70  0.71  0.71  1.00  0.80  0.83  0.84</span></span>
-<span><span class="co">#&gt; [10,] -0.04  0.06  0.46  0.53  0.62  0.70  0.72  0.79  0.80  1.00  0.88  0.89</span></span>
-<span><span class="co">#&gt; [11,] -0.03  0.25  0.47  0.64  0.56  0.70  0.72  0.79  0.83  0.88  1.00  0.97</span></span>
-<span><span class="co">#&gt; [12,]  0.00  0.34  0.33  0.59  0.63  0.70  0.73  0.78  0.84  0.89  0.97  1.00</span></span></code></pre>
+<pre><code><span><span class="co">#&gt;        [,1]  [,2] [,3]  [,4] [,5]  [,6]  [,7]  [,8]  [,9] [,10] [,11] [,12]</span></span>
+<span><span class="co">#&gt;  [1,]  1.00 -0.07 0.57 -0.51 0.81  0.56  0.61 -0.27  0.43  0.31  0.66  0.50</span></span>
+<span><span class="co">#&gt;  [2,] -0.07  1.00 0.53  0.88 0.56  0.47 -0.04  0.62  0.70  0.34  0.36 -0.29</span></span>
+<span><span class="co">#&gt;  [3,]  0.57  0.53 1.00  0.33 0.79  0.39  0.62  0.83  0.46  0.62  0.97  0.71</span></span>
+<span><span class="co">#&gt;  [4,] -0.51  0.88 0.33  1.00 0.70  0.62 -0.32  0.70  0.63  0.06  0.26  0.28</span></span>
+<span><span class="co">#&gt;  [5,]  0.81  0.56 0.79  0.70 1.00  0.70  0.60  0.26  0.79  0.06  0.84  0.73</span></span>
+<span><span class="co">#&gt;  [6,]  0.56  0.47 0.39  0.62 0.70  1.00 -0.67 -0.03  0.57  0.20  0.25  0.42</span></span>
+<span><span class="co">#&gt;  [7,]  0.61 -0.04 0.62 -0.32 0.60 -0.67  1.00  0.47  0.00  0.45  0.78  0.59</span></span>
+<span><span class="co">#&gt;  [8,] -0.27  0.62 0.83  0.70 0.26 -0.03  0.47  1.00  0.36  0.89  0.80  0.64</span></span>
+<span><span class="co">#&gt;  [9,]  0.43  0.70 0.46  0.63 0.79  0.57  0.00  0.36  1.00 -0.30  0.72 -0.14</span></span>
+<span><span class="co">#&gt; [10,]  0.31  0.34 0.62  0.06 0.06  0.20  0.45  0.89 -0.30  1.00  0.48  0.72</span></span>
+<span><span class="co">#&gt; [11,]  0.66  0.36 0.97  0.26 0.84  0.25  0.78  0.80  0.72  0.48  1.00  0.71</span></span>
+<span><span class="co">#&gt; [12,]  0.50 -0.29 0.71  0.28 0.73  0.42  0.59  0.64 -0.14  0.72  0.71  1.00</span></span></code></pre>
 </div>
 <div class="section level6">
 <h6 id="test-output">test output<a class="anchor" aria-label="anchor" href="#test-output"></a>
@@ -585,8 +725,9 @@ encouraged to try again, possibly several times, to find one.</p>
 <span><span class="co">## calculate eigenvalues of the correlation matrix</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">cor_matrix_12</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/fig4-1.png" class="r-plt" width="480" style="display: block; margin: auto;"></p>
-<pre><code><span><span class="co">#&gt; cor_matrix_12  is positive-definite</span></span>
-<span><span class="co">#&gt;  [1] 6.964 1.743 1.087 0.658 0.567 0.377 0.254 0.159 0.127 0.051 0.014 0.001</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; cor_matrix_12  is NOT positive-definite</span></span>
+<span><span class="co">#&gt;  [1]  6.033  3.006  2.192  1.396  0.789  0.371  0.081 -0.169 -0.364 -0.441</span></span>
+<span><span class="co">#&gt; [11] -0.447 -0.448</span></span></code></pre>
 <hr>
 </div>
 </div>
@@ -722,10 +863,10 @@ function. For a detailed demonstration, see the vignette file,
 <span><span class="co">## derived correlation matrix to two decimal places</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">orthogonalItemCors</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      Q1   Q2   Q3   Q4   Q5   Q6   Q7   Q8</span></span>
-<span><span class="co">#&gt; Q1 1.00 0.58 0.63 0.28 0.24 0.22 0.11 0.13</span></span>
+<span><span class="co">#&gt; Q1 1.00 0.58 0.63 0.29 0.24 0.22 0.11 0.13</span></span>
 <span><span class="co">#&gt; Q2 0.58 1.00 0.69 0.18 0.13 0.10 0.14 0.17</span></span>
 <span><span class="co">#&gt; Q3 0.63 0.69 1.00 0.26 0.22 0.18 0.11 0.14</span></span>
-<span><span class="co">#&gt; Q4 0.28 0.18 0.26 1.00 0.75 0.79 0.32 0.26</span></span>
+<span><span class="co">#&gt; Q4 0.29 0.18 0.26 1.00 0.75 0.79 0.32 0.26</span></span>
 <span><span class="co">#&gt; Q5 0.24 0.13 0.22 0.75 1.00 0.78 0.18 0.14</span></span>
 <span><span class="co">#&gt; Q6 0.22 0.10 0.18 0.79 0.78 1.00 0.23 0.18</span></span>
 <span><span class="co">#&gt; Q7 0.11 0.14 0.11 0.32 0.18 0.23 1.00 0.74</span></span>
@@ -827,7 +968,7 @@ with ‘k’ rows and ‘k’ columns.</p></li>
 <span><span class="co">#&gt; Variable  2 :  var2  -</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  3 :  var3  -</span></span>
-<span><span class="co">#&gt; best solution in 2371 iterations</span></span>
+<span><span class="co">#&gt; best solution in 4729 iterations</span></span>
 <span><span class="co">#&gt; Variable  4 :  var4  -</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -838,10 +979,10 @@ with ‘k’ rows and ‘k’ columns.</p></li>
 <span><span class="co">## test the function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    128 obs. of  4 variables:</span></span>
-<span><span class="co">#&gt;  $ var1: num  4 3 4 3 1 2 2 1 3 3 ...</span></span>
-<span><span class="co">#&gt;  $ var2: num  3 2 5 3 2 4 2 2 2 2 ...</span></span>
-<span><span class="co">#&gt;  $ var3: num  2 2 5 5 3 5 2 1 2 1 ...</span></span>
-<span><span class="co">#&gt;  $ var4: num  4 3 5 4 3 4 3 2 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ var1: num  1 3 4 2 2 2 3 4 5 2 ...</span></span>
+<span><span class="co">#&gt;  $ var2: num  2 3 3 3 3 2 4 2 2 3 ...</span></span>
+<span><span class="co">#&gt;  $ var3: num  1 4 3 4 2 3 5 1 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ var4: num  3 4 4 4 3 3 4 3 4 4 ...</span></span>
 <span></span>
 <span><span class="co">### means should be correct to two decimal places</span></span>
 <span><span class="va">dfmoments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -905,13 +1046,13 @@ and recommend the brand.</p>
 <span>  cormatrix <span class="op">=</span> <span class="va">corMat</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Variable  1 :  BT  -</span></span>
-<span><span class="co">#&gt; best solution in 266 iterations</span></span>
+<span><span class="co">#&gt; best solution in 49 iterations</span></span>
 <span><span class="co">#&gt; Variable  2 :  BS  -</span></span>
-<span><span class="co">#&gt; best solution in 237 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1064 iterations</span></span>
 <span><span class="co">#&gt; Variable  3 :  BL  -</span></span>
-<span><span class="co">#&gt; best solution in 322 iterations</span></span>
+<span><span class="co">#&gt; best solution in 461 iterations</span></span>
 <span><span class="co">#&gt; Variable  4 :  BLY  -</span></span>
-<span><span class="co">#&gt; best solution in 696 iterations</span></span>
+<span><span class="co">#&gt; best solution in 651 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arranging data to match correlations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -920,20 +1061,20 @@ and recommend the brand.</p>
 <span><span class="co">## test the function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     BT       BS   BL      BLY</span></span>
-<span><span class="co">#&gt; 1 4.00 4.333333 1.75 4.000000</span></span>
-<span><span class="co">#&gt; 2 3.25 3.333333 2.75 2.000000</span></span>
-<span><span class="co">#&gt; 3 4.50 4.333333 4.50 4.666667</span></span>
-<span><span class="co">#&gt; 4 4.25 4.333333 4.50 4.666667</span></span>
-<span><span class="co">#&gt; 5 4.00 4.000000 4.00 4.333333</span></span>
-<span><span class="co">#&gt; 6 3.00 3.333333 3.00 3.000000</span></span>
+<span><span class="co">#&gt; 1 2.50 3.333333 2.50 2.000000</span></span>
+<span><span class="co">#&gt; 2 4.00 4.000000 2.75 3.000000</span></span>
+<span><span class="co">#&gt; 3 4.25 4.666667 4.25 4.666667</span></span>
+<span><span class="co">#&gt; 4 4.00 4.666667 3.00 3.666667</span></span>
+<span><span class="co">#&gt; 5 2.25 3.666667 2.25 3.000000</span></span>
+<span><span class="co">#&gt; 6 4.25 4.333333 3.50 4.333333</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       BT       BS   BL      BLY</span></span>
-<span><span class="co">#&gt; 251 4.50 4.666667 3.50 4.333333</span></span>
-<span><span class="co">#&gt; 252 4.50 4.666667 3.75 4.333333</span></span>
-<span><span class="co">#&gt; 253 3.75 3.666667 4.00 3.666667</span></span>
-<span><span class="co">#&gt; 254 3.75 4.000000 3.50 3.666667</span></span>
-<span><span class="co">#&gt; 255 4.50 4.333333 3.50 4.666667</span></span>
-<span><span class="co">#&gt; 256 4.25 4.333333 4.50 5.000000</span></span>
+<span><span class="co">#&gt; 251 4.50 4.333333 3.75 4.333333</span></span>
+<span><span class="co">#&gt; 252 4.00 4.000000 3.25 4.000000</span></span>
+<span><span class="co">#&gt; 253 4.25 4.333333 4.50 4.666667</span></span>
+<span><span class="co">#&gt; 254 4.50 4.333333 4.00 4.666667</span></span>
+<span><span class="co">#&gt; 255 4.50 4.666667 4.75 5.000000</span></span>
+<span><span class="co">#&gt; 256 4.00 3.666667 3.50 4.333333</span></span>
 <span></span>
 <span><span class="co">### means should be correct to two decimal places</span></span>
 <span><span class="va">dfmoments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -943,16 +1084,16 @@ and recommend the brand.</p>
 <span></span>
 <span><span class="va">dfmoments</span></span>
 <span><span class="co">#&gt;         BT    BS    BL   BLY</span></span>
-<span><span class="co">#&gt; mean 3.899 4.102 3.601 4.001</span></span>
-<span><span class="co">#&gt; sd   0.602 0.500 0.800 0.700</span></span>
+<span><span class="co">#&gt; mean 3.901 4.102 3.600 4.000</span></span>
+<span><span class="co">#&gt; sd   0.601 0.499 0.801 0.702</span></span>
 <span></span>
 <span><span class="co">### correlations should be correct to two decimal places</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       BT    BS   BL   BLY</span></span>
-<span><span class="co">#&gt; BT  1.00 0.750 0.60 0.700</span></span>
-<span><span class="co">#&gt; BS  0.75 1.000 0.65 0.719</span></span>
-<span><span class="co">#&gt; BL  0.60 0.650 1.00 0.680</span></span>
-<span><span class="co">#&gt; BLY 0.70 0.719 0.68 1.000</span></span></code></pre></div>
+<span><span class="co">#&gt;       BT   BS   BL  BLY</span></span>
+<span><span class="co">#&gt; BT  1.00 0.75 0.60 0.70</span></span>
+<span><span class="co">#&gt; BS  0.75 1.00 0.65 0.72</span></span>
+<span><span class="co">#&gt; BL  0.60 0.65 1.00 0.68</span></span>
+<span><span class="co">#&gt; BLY 0.70 0.72 0.68 1.00</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -995,22 +1136,28 @@ standard deviations of each variable</p></li>
 <span><span class="co">## generate correlation matrix</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
 <span><span class="va">myCorr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrAlpha.html">makeCorrAlpha</a></span><span class="op">(</span>items <span class="op">=</span> <span class="va">k</span>, alpha <span class="op">=</span> <span class="va">myAlpha</span><span class="op">)</span></span>
-<span><span class="co">#&gt; correlation values consistent with desired alpha in 15193 iterations</span></span>
+<span><span class="co">#&gt; reached max iterations (3600) - best mean difference: 1.4e-05</span></span>
+<span><span class="co">#&gt; Correlation matrix is not yet positive definite</span></span>
+<span><span class="co">#&gt; Working on it</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; improved at swap - 1 (min eigenvalue: 0.015206)</span></span>
+<span><span class="co">#&gt; positive definite at swap - 1</span></span>
 <span><span class="co">#&gt; The correlation matrix is positive definite</span></span>
+<span><span class="co">#&gt; Min eigenvalue: 0.015206</span></span>
 <span></span>
 <span><span class="co">## display correlation matrix</span></span>
 <span><span class="va">myCorr</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        [,1]   [,2]  [,3]  [,4]  [,5]  [,6]</span></span>
-<span><span class="co">#&gt; [1,]  1.000 -0.153 0.116 0.430 0.438 0.473</span></span>
-<span><span class="co">#&gt; [2,] -0.153  1.000 0.480 0.498 0.528 0.585</span></span>
-<span><span class="co">#&gt; [3,]  0.116  0.480 1.000 0.602 0.625 0.641</span></span>
-<span><span class="co">#&gt; [4,]  0.430  0.498 0.602 1.000 0.662 0.677</span></span>
-<span><span class="co">#&gt; [5,]  0.438  0.528 0.625 0.662 1.000 0.684</span></span>
-<span><span class="co">#&gt; [6,]  0.473  0.585 0.641 0.677 0.684 1.000</span></span>
+<span><span class="co">#&gt;       [,1]  [,2]  [,3]  [,4]  [,5]  [,6]</span></span>
+<span><span class="co">#&gt; [1,] 1.000 0.761 0.633 0.553 0.421 0.458</span></span>
+<span><span class="co">#&gt; [2,] 0.761 1.000 0.413 0.353 0.130 0.781</span></span>
+<span><span class="co">#&gt; [3,] 0.633 0.413 1.000 0.433 0.595 0.585</span></span>
+<span><span class="co">#&gt; [4,] 0.553 0.353 0.433 1.000 0.597 0.400</span></span>
+<span><span class="co">#&gt; [5,] 0.421 0.130 0.595 0.597 1.000 0.173</span></span>
+<span><span class="co">#&gt; [6,] 0.458 0.781 0.585 0.400 0.173 1.000</span></span>
 <span></span>
 <span><span class="co">### checking Cronbach's Alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">myCorr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8500101</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.8500034</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="step-2-generate-dataframe">Step 2: Generate dataframe<a class="anchor" aria-label="anchor" href="#step-2-generate-dataframe"></a>
@@ -1034,17 +1181,17 @@ standard deviations of each variable</p></li>
 <span><span class="co">#&gt;               </span></span>
 <span><span class="co">#&gt; Use the makeScales() function in future.</span></span>
 <span><span class="co">#&gt; Variable  1</span></span>
-<span><span class="co">#&gt; best solution in 972 iterations</span></span>
+<span><span class="co">#&gt; best solution in 843 iterations</span></span>
 <span><span class="co">#&gt; Variable  2</span></span>
-<span><span class="co">#&gt; best solution in 17 iterations</span></span>
+<span><span class="co">#&gt; best solution in 583 iterations</span></span>
 <span><span class="co">#&gt; Variable  3</span></span>
-<span><span class="co">#&gt; best solution in 973 iterations</span></span>
+<span><span class="co">#&gt; best solution in 2263 iterations</span></span>
 <span><span class="co">#&gt; Variable  4</span></span>
-<span><span class="co">#&gt; best solution in 4866 iterations</span></span>
+<span><span class="co">#&gt; best solution in 169 iterations</span></span>
 <span><span class="co">#&gt; Variable  5</span></span>
-<span><span class="co">#&gt; best solution in 336 iterations</span></span>
+<span><span class="co">#&gt; best solution in 2353 iterations</span></span>
 <span><span class="co">#&gt; Variable  6</span></span>
-<span><span class="co">#&gt; best solution in 16769 iterations</span></span>
+<span><span class="co">#&gt; best solution in 3633 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arranging data to match correlations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1053,20 +1200,20 @@ standard deviations of each variable</p></li>
 <span><span class="co">## resulting dataframe</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">myItems</span><span class="op">)</span></span>
 <span><span class="co">#&gt;              </span></span>
-<span><span class="co">#&gt; 1 4 3 2 4 4 3</span></span>
-<span><span class="co">#&gt; 2 1 2 2 2 2 1</span></span>
-<span><span class="co">#&gt; 3 4 3 4 4 5 5</span></span>
-<span><span class="co">#&gt; 4 2 3 4 4 3 5</span></span>
-<span><span class="co">#&gt; 5 3 3 3 4 4 4</span></span>
-<span><span class="co">#&gt; 6 3 2 2 3 3 1</span></span>
+<span><span class="co">#&gt; 1 3 3 3 3 2 4</span></span>
+<span><span class="co">#&gt; 2 2 3 3 2 1 4</span></span>
+<span><span class="co">#&gt; 3 3 3 2 3 3 2</span></span>
+<span><span class="co">#&gt; 4 3 3 2 2 3 2</span></span>
+<span><span class="co">#&gt; 5 3 3 3 4 5 3</span></span>
+<span><span class="co">#&gt; 6 3 3 3 2 3 2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">myItems</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                </span></span>
-<span><span class="co">#&gt; 251 2 3 3 2 3 2</span></span>
-<span><span class="co">#&gt; 252 1 4 3 2 3 4</span></span>
-<span><span class="co">#&gt; 253 4 2 2 3 4 2</span></span>
-<span><span class="co">#&gt; 254 3 3 4 4 4 5</span></span>
-<span><span class="co">#&gt; 255 4 4 3 5 5 5</span></span>
-<span><span class="co">#&gt; 256 4 4 5 5 5 5</span></span>
+<span><span class="co">#&gt; 251 3 4 2 4 3 5</span></span>
+<span><span class="co">#&gt; 252 3 3 3 2 3 4</span></span>
+<span><span class="co">#&gt; 253 5 4 4 5 5 5</span></span>
+<span><span class="co">#&gt; 254 1 2 1 1 2 1</span></span>
+<span><span class="co">#&gt; 255 3 3 4 4 4 5</span></span>
+<span><span class="co">#&gt; 256 4 4 4 4 4 5</span></span>
 <span></span>
 <span><span class="co">## means and standard deviations</span></span>
 <span><span class="va">myMoments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -1074,13 +1221,13 @@ standard deviations of each variable</p></li>
 <span>  sds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">myItems</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">myMoments</span></span>
-<span><span class="co">#&gt;        [,1]  [,2]  [,3]  [,4]  [,5]  [,6]</span></span>
-<span><span class="co">#&gt; means 2.750 3.000 3.000 3.250 3.500 3.500</span></span>
-<span><span class="co">#&gt; sds   0.998 0.751 1.002 0.998 0.998 1.498</span></span>
+<span><span class="co">#&gt;        [,1]  [,2]  [,3]  [,4]  [,5] [,6]</span></span>
+<span><span class="co">#&gt; means 2.750 3.000 3.000 3.250 3.500  3.5</span></span>
+<span><span class="co">#&gt; sds   0.998 0.751 0.998 1.002 1.002  1.5</span></span>
 <span></span>
 <span><span class="co">## Cronbach's Alpha of dataframe</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">myItems</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8498695</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.8492683</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="summary-plots-of-new-dataframe">Summary plots of new dataframe<a class="anchor" aria-label="anchor" href="#summary-plots-of-new-dataframe"></a>
 </h5>
@@ -1146,7 +1293,7 @@ combination of items that give summated scores. Must lie between ‘0’
 <span>  lowerbound <span class="op">=</span> <span class="va">lowerbound</span>, upperbound <span class="op">=</span> <span class="va">upperbound</span>,</span>
 <span>  items <span class="op">=</span> <span class="va">items</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; best solution in 900 iterations</span></span>
+<span><span class="co">#&gt; best solution in 313 iterations</span></span>
 <span></span>
 <span><span class="co">## sum over all items</span></span>
 <span><span class="va">summatedScale</span> <span class="op">&lt;-</span> <span class="va">meanScale</span> <span class="op">*</span> <span class="va">items</span></span></code></pre></div>
@@ -1172,39 +1319,39 @@ Summated scale distribution
 <span><span class="co">#&gt; generate 256 rows</span></span>
 <span><span class="co">#&gt; rearrange 4 values within each of 256 rows</span></span>
 <span><span class="co">#&gt; Complete!</span></span>
-<span><span class="co">#&gt; desired Cronbach's alpha = 0.8 (achieved alpha = 0.8004)</span></span>
+<span><span class="co">#&gt; desired Cronbach's alpha = 0.8 (achieved alpha = 0.799)</span></span>
 <span></span>
 <span><span class="co">### First 10 observations and summated scale</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">newItems_1</span>, <span class="va">summatedScale</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    V1 V2 V3 V4 summatedScale</span></span>
-<span><span class="co">#&gt; 1   4  1  1  3             9</span></span>
-<span><span class="co">#&gt; 2   2  2  2  2             8</span></span>
-<span><span class="co">#&gt; 3   5  1  2  4            12</span></span>
-<span><span class="co">#&gt; 4   5  4  4  4            17</span></span>
-<span><span class="co">#&gt; 5   5  2  3  3            13</span></span>
-<span><span class="co">#&gt; 6   5  5  5  4            19</span></span>
-<span><span class="co">#&gt; 7   4  1  2  4            11</span></span>
-<span><span class="co">#&gt; 8   5  4  4  5            18</span></span>
-<span><span class="co">#&gt; 9   5  3  4  5            17</span></span>
-<span><span class="co">#&gt; 10  4  1  4  3            12</span></span>
+<span><span class="co">#&gt; 1   1  2  2  5            10</span></span>
+<span><span class="co">#&gt; 2   2  5  3  4            14</span></span>
+<span><span class="co">#&gt; 3   1  4  4  2            11</span></span>
+<span><span class="co">#&gt; 4   2  2  2  2             8</span></span>
+<span><span class="co">#&gt; 5   4  4  4  5            17</span></span>
+<span><span class="co">#&gt; 6   1  4  2  2             9</span></span>
+<span><span class="co">#&gt; 7   1  2  1  1             5</span></span>
+<span><span class="co">#&gt; 8   1  3  3  3            10</span></span>
+<span><span class="co">#&gt; 9   2  5  4  4            15</span></span>
+<span><span class="co">#&gt; 10  1  3  3  2             9</span></span>
 <span></span>
 <span><span class="co">### correlation matrix</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      V1   V2   V3   V4</span></span>
-<span><span class="co">#&gt; V1 1.00 0.56 0.61 0.51</span></span>
-<span><span class="co">#&gt; V2 0.56 1.00 0.60 0.33</span></span>
-<span><span class="co">#&gt; V3 0.61 0.60 1.00 0.39</span></span>
-<span><span class="co">#&gt; V4 0.51 0.33 0.39 1.00</span></span>
+<span><span class="co">#&gt; V1 1.00 0.53 0.62 0.52</span></span>
+<span><span class="co">#&gt; V2 0.53 1.00 0.61 0.35</span></span>
+<span><span class="co">#&gt; V3 0.62 0.61 1.00 0.37</span></span>
+<span><span class="co">#&gt; V4 0.52 0.35 0.37 1.00</span></span>
 <span></span>
 <span><span class="co">### default Cronbach's alpha = 0.80</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">newItems_1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8004</span></span>
+<span><span class="co">#&gt; [1] 0.799</span></span>
 <span></span>
 <span><span class="co">### calculate eigenvalues and print scree plot</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_1-1.png" class="r-plt" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor(newItems_1)  is positive-definite</span></span>
-<span><span class="co">#&gt; [1] 2.517 0.717 0.403 0.364</span></span></code></pre>
+<span><span class="co">#&gt; [1] 2.509 0.717 0.437 0.337</span></span></code></pre>
 </div>
 <div class="section level5">
 <h5 id="makeitemsscale-with-same-summated-values-and-higher-alpha">
@@ -1223,39 +1370,39 @@ Summated scale distribution
 <span><span class="co">#&gt; generate 256 rows</span></span>
 <span><span class="co">#&gt; rearrange 4 values within each of 256 rows</span></span>
 <span><span class="co">#&gt; Complete!</span></span>
-<span><span class="co">#&gt; desired Cronbach's alpha = 0.9 (achieved alpha = 0.8778)</span></span>
+<span><span class="co">#&gt; desired Cronbach's alpha = 0.9 (achieved alpha = 0.8775)</span></span>
 <span></span>
 <span><span class="co">### First 10 observations and summated scale</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">newItems_2</span>, <span class="va">summatedScale</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    V1 V2 V3 V4 summatedScale</span></span>
-<span><span class="co">#&gt; 1   4  1  2  2             9</span></span>
-<span><span class="co">#&gt; 2   3  1  2  2             8</span></span>
-<span><span class="co">#&gt; 3   3  3  3  3            12</span></span>
-<span><span class="co">#&gt; 4   5  3  5  4            17</span></span>
-<span><span class="co">#&gt; 5   4  2  4  3            13</span></span>
-<span><span class="co">#&gt; 6   5  4  5  5            19</span></span>
-<span><span class="co">#&gt; 7   4  1  4  2            11</span></span>
-<span><span class="co">#&gt; 8   5  4  5  4            18</span></span>
-<span><span class="co">#&gt; 9   5  4  4  4            17</span></span>
-<span><span class="co">#&gt; 10  4  1  4  3            12</span></span>
+<span><span class="co">#&gt; 1   3  1  3  3            10</span></span>
+<span><span class="co">#&gt; 2   4  2  4  4            14</span></span>
+<span><span class="co">#&gt; 3   4  1  2  4            11</span></span>
+<span><span class="co">#&gt; 4   4  1  1  2             8</span></span>
+<span><span class="co">#&gt; 5   5  4  4  4            17</span></span>
+<span><span class="co">#&gt; 6   3  2  2  2             9</span></span>
+<span><span class="co">#&gt; 7   2  1  1  1             5</span></span>
+<span><span class="co">#&gt; 8   4  2  2  2            10</span></span>
+<span><span class="co">#&gt; 9   5  3  3  4            15</span></span>
+<span><span class="co">#&gt; 10  3  1  2  3             9</span></span>
 <span></span>
 <span><span class="co">### correlation matrix</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      V1   V2   V3   V4</span></span>
-<span><span class="co">#&gt; V1 1.00 0.58 0.68 0.64</span></span>
-<span><span class="co">#&gt; V2 0.58 1.00 0.58 0.66</span></span>
-<span><span class="co">#&gt; V3 0.68 0.58 1.00 0.73</span></span>
-<span><span class="co">#&gt; V4 0.64 0.66 0.73 1.00</span></span>
+<span><span class="co">#&gt; V1 1.00 0.59 0.61 0.68</span></span>
+<span><span class="co">#&gt; V2 0.59 1.00 0.66 0.60</span></span>
+<span><span class="co">#&gt; V3 0.61 0.66 1.00 0.70</span></span>
+<span><span class="co">#&gt; V4 0.68 0.60 0.70 1.00</span></span>
 <span></span>
 <span><span class="co">### requested Cronbach's alpha = 0.90</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">newItems_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8778</span></span>
+<span><span class="co">#&gt; [1] 0.8775</span></span>
 <span></span>
 <span><span class="co">### calculate eigenvalues and print scree plot</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_2</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_2-1.png" class="r-plt" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor(newItems_2)  is positive-definite</span></span>
-<span><span class="co">#&gt; [1] 2.929 0.457 0.366 0.248</span></span></code></pre>
+<span><span class="co">#&gt; [1] 2.926 0.436 0.370 0.268</span></span></code></pre>
 </div>
 <div class="section level5">
 <h5 id="same-summated-values-with-lower-alpha-may-require-higher-variance">same summated values with lower <em>alpha</em> may require higher
@@ -1274,39 +1421,39 @@ Summated scale distribution
 <span><span class="co">#&gt; generate 256 rows</span></span>
 <span><span class="co">#&gt; rearrange 4 values within each of 256 rows</span></span>
 <span><span class="co">#&gt; Complete!</span></span>
-<span><span class="co">#&gt; desired Cronbach's alpha = 0.6 (achieved alpha = 0.5989)</span></span>
+<span><span class="co">#&gt; desired Cronbach's alpha = 0.6 (achieved alpha = 0.6)</span></span>
 <span></span>
 <span><span class="co">### First 10 observations and summated scale</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">newItems_3</span>, <span class="va">summatedScale</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    V1 V2 V3 V4 summatedScale</span></span>
-<span><span class="co">#&gt; 1   1  1  3  4             9</span></span>
-<span><span class="co">#&gt; 2   1  4  2  1             8</span></span>
-<span><span class="co">#&gt; 3   2  4  4  2            12</span></span>
-<span><span class="co">#&gt; 4   3  5  4  5            17</span></span>
-<span><span class="co">#&gt; 5   2  5  2  4            13</span></span>
-<span><span class="co">#&gt; 6   4  5  5  5            19</span></span>
-<span><span class="co">#&gt; 7   1  4  3  3            11</span></span>
-<span><span class="co">#&gt; 8   5  5  5  3            18</span></span>
-<span><span class="co">#&gt; 9   4  5  5  3            17</span></span>
-<span><span class="co">#&gt; 10  2  3  2  5            12</span></span>
+<span><span class="co">#&gt; 1   3  1  3  3            10</span></span>
+<span><span class="co">#&gt; 2   3  5  4  2            14</span></span>
+<span><span class="co">#&gt; 3   2  5  2  2            11</span></span>
+<span><span class="co">#&gt; 4   1  1  1  5             8</span></span>
+<span><span class="co">#&gt; 5   3  4  5  5            17</span></span>
+<span><span class="co">#&gt; 6   2  1  4  2             9</span></span>
+<span><span class="co">#&gt; 7   1  1  2  1             5</span></span>
+<span><span class="co">#&gt; 8   1  4  3  2            10</span></span>
+<span><span class="co">#&gt; 9   2  4  4  5            15</span></span>
+<span><span class="co">#&gt; 10  1  3  3  2             9</span></span>
 <span></span>
 <span><span class="co">### correlation matrix</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      V1   V2   V3   V4</span></span>
-<span><span class="co">#&gt; V1 1.00 0.45 0.45 0.09</span></span>
-<span><span class="co">#&gt; V2 0.45 1.00 0.25 0.17</span></span>
-<span><span class="co">#&gt; V3 0.45 0.25 1.00 0.22</span></span>
-<span><span class="co">#&gt; V4 0.09 0.17 0.22 1.00</span></span>
+<span><span class="co">#&gt; V1 1.00 0.44 0.43 0.19</span></span>
+<span><span class="co">#&gt; V2 0.44 1.00 0.28 0.13</span></span>
+<span><span class="co">#&gt; V3 0.43 0.28 1.00 0.16</span></span>
+<span><span class="co">#&gt; V4 0.19 0.13 0.16 1.00</span></span>
 <span></span>
 <span><span class="co">### requested Cronbach's alpha = 0.70</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">newItems_3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.5989</span></span>
+<span><span class="co">#&gt; [1] 0.6</span></span>
 <span></span>
 <span><span class="co">### calculate eigenvalues and print scree plot</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_3-1.png" class="r-plt" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor(newItems_3)  is positive-definite</span></span>
-<span><span class="co">#&gt; [1] 1.862 0.946 0.742 0.450</span></span></code></pre>
+<span><span class="co">#&gt; [1] 1.866 0.915 0.715 0.504</span></span></code></pre>
 <hr>
 </div>
 </div>
@@ -1347,13 +1494,13 @@ correlated observations.</p>
 <span><span class="co">#&gt;  Welch Two Sample t-test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  x1 and x2</span></span>
-<span><span class="co">#&gt; t = -2.1599, df = 44.101, p-value = 0.03626</span></span>
+<span><span class="co">#&gt; t = -2.186, df = 44.464, p-value = 0.03412</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0</span></span>
 <span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -0.95576930 -0.03311959</span></span>
+<span><span class="co">#&gt;  -0.96083888 -0.03916112</span></span>
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt; mean of x mean of y </span></span>
-<span><span class="co">#&gt;  2.500000  2.994444</span></span></code></pre></div>
+<span><span class="co">#&gt;       2.5       3.0</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="makepaired-paired-sample-t-test">makePaired() paired-sample t-test<a class="anchor" aria-label="anchor" href="#makepaired-paired-sample-t-test"></a>
@@ -1409,7 +1556,7 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <span>  lowerbound <span class="op">=</span> <span class="va">lower</span>, upperbound <span class="op">=</span> <span class="va">upper</span>, items <span class="op">=</span> <span class="va">items</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Initial data vectors</span></span>
-<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
+<span><span class="co">#&gt; best solution in 6 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span><span class="co">#&gt; Arranging values to conform with desired t-value</span></span>
 <span><span class="co">#&gt; Complete!</span></span></code></pre></div>
@@ -1420,8 +1567,8 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <code class="sourceCode R"><span><span class="co">## test function output</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    20 obs. of  2 variables:</span></span>
-<span><span class="co">#&gt;  $ X1: num  1.33 2.83 3.67 2 3.17 ...</span></span>
-<span><span class="co">#&gt;  $ X2: num  2.5 3.67 2.83 1.67 4 ...</span></span>
+<span><span class="co">#&gt;  $ X1: num  1.33 2.67 3.17 2.83 2.67 ...</span></span>
+<span><span class="co">#&gt;  $ X2: num  3 3.5 3.5 2.5 1.83 ...</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      X1   X2</span></span>
@@ -1435,8 +1582,8 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <span></span>
 <span><span class="va">pairedMoments</span></span>
 <span><span class="co">#&gt;         X1    X2</span></span>
-<span><span class="co">#&gt; mean 2.500 2.992</span></span>
-<span><span class="co">#&gt; sd   0.759 0.851</span></span></code></pre></div>
+<span><span class="co">#&gt; mean 2.500 3.000</span></span>
+<span><span class="co">#&gt; sd   0.749 0.845</span></span></code></pre></div>
 </div>
 <div class="section level7">
 <h6 id="run-a-paired-sample-t-test-with-the-new-data">run a paired-sample t-test with the new data<a class="anchor" aria-label="anchor" href="#run-a-paired-sample-t-test-with-the-new-data"></a>
@@ -1454,13 +1601,13 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <span><span class="co">#&gt;  Paired t-test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  pairedDat$X1 and pairedDat$X2</span></span>
-<span><span class="co">#&gt; t = -2.4455, df = 19, p-value = 0.02438</span></span>
+<span><span class="co">#&gt; t = -2.512, df = 19, p-value = 0.0212</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true mean difference is not equal to 0</span></span>
 <span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -0.91246509 -0.07086825</span></span>
+<span><span class="co">#&gt;  -0.91661108 -0.08338892</span></span>
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt; mean difference </span></span>
-<span><span class="co">#&gt;      -0.4916667</span></span></code></pre></div>
+<span><span class="co">#&gt;            -0.5</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -1587,18 +1734,18 @@ effect sizes.</li>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in makeRepeated(n = 128, k = 3, means = c(3.1, 3.5, 3.9), sds = c(1, :</span></span>
 <span><span class="co">#&gt; Optimization may not have converged. Check results carefully.</span></span>
-<span><span class="co">#&gt; best solution in 1114 iterations</span></span>
-<span><span class="co">#&gt; best solution in 661 iterations</span></span>
-<span><span class="co">#&gt; best solution in 1021 iterations</span></span>
+<span><span class="co">#&gt; best solution in 413 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1112 iterations</span></span>
+<span><span class="co">#&gt; best solution in 758 iterations</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">out1</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   time_1 time_2 time_3</span></span>
-<span><span class="co">#&gt; 1   3.25   3.25   4.25</span></span>
-<span><span class="co">#&gt; 2   2.75   2.50   5.00</span></span>
-<span><span class="co">#&gt; 3   3.50   3.00   4.00</span></span>
-<span><span class="co">#&gt; 4   4.75   3.00   1.75</span></span>
-<span><span class="co">#&gt; 5   4.50   3.00   3.00</span></span>
-<span><span class="co">#&gt; 6   1.25   4.50   5.00</span></span>
+<span><span class="co">#&gt; 1   1.75   4.75   4.25</span></span>
+<span><span class="co">#&gt; 2   1.75   4.75   4.50</span></span>
+<span><span class="co">#&gt; 3   2.50   4.50   4.00</span></span>
+<span><span class="co">#&gt; 4   2.50   2.75   5.00</span></span>
+<span><span class="co">#&gt; 5   2.25   4.75   4.00</span></span>
+<span><span class="co">#&gt; 6   2.00   4.50   4.00</span></span>
 <span><span class="va">out1</span><span class="op">$</span><span class="va">correlation_matrix</span></span>
 <span><span class="co">#&gt;            time_1     time_2     time_3</span></span>
 <span><span class="co">#&gt; time_1  1.0000000 -0.4899454 -0.4899454</span></span>
@@ -1617,46 +1764,46 @@ effect sizes.</li>
 <span>  return_corr_only <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  diagnostics <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; best solution in 110 iterations</span></span>
-<span><span class="co">#&gt; best solution in 673 iterations</span></span>
-<span><span class="co">#&gt; best solution in 336 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $data</span></span>
 <span><span class="co">#&gt;    time_1 time_2 time_3 time_4</span></span>
-<span><span class="co">#&gt; 1     2.4    2.4    4.8    5.0</span></span>
-<span><span class="co">#&gt; 2     3.0    4.6    4.6    4.4</span></span>
-<span><span class="co">#&gt; 3     3.6    2.0    2.8    4.0</span></span>
-<span><span class="co">#&gt; 4     2.6    3.8    5.4    5.6</span></span>
-<span><span class="co">#&gt; 5     2.2    1.8    2.4    4.0</span></span>
-<span><span class="co">#&gt; 6     3.4    2.4    4.8    3.0</span></span>
-<span><span class="co">#&gt; 7     2.4    4.0    3.8    5.0</span></span>
-<span><span class="co">#&gt; 8     3.4    4.6    5.2    4.8</span></span>
-<span><span class="co">#&gt; 9     3.0    4.2    1.4    4.8</span></span>
-<span><span class="co">#&gt; 10    2.0    3.0    2.2    2.8</span></span>
-<span><span class="co">#&gt; 11    2.8    3.6    4.0    6.2</span></span>
-<span><span class="co">#&gt; 12    1.8    3.2    4.8    5.8</span></span>
-<span><span class="co">#&gt; 13    2.0    4.0    4.0    4.0</span></span>
-<span><span class="co">#&gt; 14    2.4    3.0    5.2    5.0</span></span>
-<span><span class="co">#&gt; 15    1.4    3.2    3.4    2.0</span></span>
-<span><span class="co">#&gt; 16    4.4    4.6    6.0    5.6</span></span>
-<span><span class="co">#&gt; 17    3.0    2.2    2.0    5.0</span></span>
-<span><span class="co">#&gt; 18    2.0    2.6    3.8    5.0</span></span>
-<span><span class="co">#&gt; 19    1.8    3.8    5.0    5.2</span></span>
-<span><span class="co">#&gt; 20    3.6    5.8    4.4    4.2</span></span>
-<span><span class="co">#&gt; 21    4.0    3.8    5.4    5.0</span></span>
-<span><span class="co">#&gt; 22    1.4    2.8    4.8    5.2</span></span>
-<span><span class="co">#&gt; 23    2.2    4.0    3.2    4.6</span></span>
-<span><span class="co">#&gt; 24    3.0    4.0    4.8    5.0</span></span>
-<span><span class="co">#&gt; 25    3.0    3.4    4.6    3.6</span></span>
-<span><span class="co">#&gt; 26    3.0    3.2    3.8    2.6</span></span>
-<span><span class="co">#&gt; 27    1.6    1.6    3.0    4.0</span></span>
-<span><span class="co">#&gt; 28    3.4    4.4    2.4    3.2</span></span>
-<span><span class="co">#&gt; 29    4.4    3.4    3.0    4.2</span></span>
-<span><span class="co">#&gt; 30    2.6    3.2    3.0    3.0</span></span>
-<span><span class="co">#&gt; 31    3.0    3.8    4.0    5.0</span></span>
-<span><span class="co">#&gt; 32    3.2    5.6    6.0    4.2</span></span>
+<span><span class="co">#&gt; 1     2.0    3.4    5.4    5.0</span></span>
+<span><span class="co">#&gt; 2     3.6    3.0    4.2    3.6</span></span>
+<span><span class="co">#&gt; 3     2.2    5.0    4.4    3.6</span></span>
+<span><span class="co">#&gt; 4     2.8    3.0    5.8    6.0</span></span>
+<span><span class="co">#&gt; 5     1.6    3.4    5.2    4.4</span></span>
+<span><span class="co">#&gt; 6     2.8    3.6    2.6    4.0</span></span>
+<span><span class="co">#&gt; 7     3.6    5.0    4.6    4.4</span></span>
+<span><span class="co">#&gt; 8     2.2    4.6    4.6    5.8</span></span>
+<span><span class="co">#&gt; 9     2.8    3.6    4.8    5.6</span></span>
+<span><span class="co">#&gt; 10    2.2    2.0    3.2    4.4</span></span>
+<span><span class="co">#&gt; 11    1.8    4.4    4.6    4.6</span></span>
+<span><span class="co">#&gt; 12    3.4    3.4    2.2    3.8</span></span>
+<span><span class="co">#&gt; 13    4.2    3.8    4.0    5.0</span></span>
+<span><span class="co">#&gt; 14    1.8    2.8    2.8    4.4</span></span>
+<span><span class="co">#&gt; 15    3.0    2.2    2.6    4.2</span></span>
+<span><span class="co">#&gt; 16    2.8    4.0    3.6    5.2</span></span>
+<span><span class="co">#&gt; 17    2.4    2.4    2.0    4.0</span></span>
+<span><span class="co">#&gt; 18    4.6    4.2    6.0    3.0</span></span>
+<span><span class="co">#&gt; 19    2.4    1.6    2.8    1.8</span></span>
+<span><span class="co">#&gt; 20    1.4    2.6    3.2    4.0</span></span>
+<span><span class="co">#&gt; 21    3.0    4.6    3.6    4.0</span></span>
+<span><span class="co">#&gt; 22    3.0    2.6    3.2    5.0</span></span>
+<span><span class="co">#&gt; 23    3.6    4.6    3.8    6.0</span></span>
+<span><span class="co">#&gt; 24    2.8    3.0    2.2    3.4</span></span>
+<span><span class="co">#&gt; 25    4.0    5.8    6.4    4.4</span></span>
+<span><span class="co">#&gt; 26    3.0    4.6    3.0    3.4</span></span>
+<span><span class="co">#&gt; 27    2.0    3.6    4.4    3.6</span></span>
+<span><span class="co">#&gt; 28    2.8    3.6    4.4    5.0</span></span>
+<span><span class="co">#&gt; 29    2.2    2.6    3.4    3.8</span></span>
+<span><span class="co">#&gt; 30    3.0    4.0    4.0    4.0</span></span>
+<span><span class="co">#&gt; 31    3.4    2.8    5.6    6.8</span></span>
+<span><span class="co">#&gt; 32    1.6    2.2    5.6    4.4</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $correlation_matrix</span></span>
 <span><span class="co">#&gt;            time_1    time_2    time_3     time_4</span></span>
@@ -1704,18 +1851,18 @@ effect sizes.</li>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in makeRepeated(n = 32, k = 4, means = c(2, 2.5, 3, 2.8), sds = c(0.8,</span></span>
 <span><span class="co">#&gt; : Optimization may not have converged. Check results carefully.</span></span>
+<span><span class="co">#&gt; best solution in 683 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
-<span><span class="co">#&gt; best solution in 721 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">out3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 8</span></span>
 <span><span class="co">#&gt;  $ data                    :'data.frame':    32 obs. of  4 variables:</span></span>
-<span><span class="co">#&gt;   ..$ time_1: num [1:32] 2.5 1.75 2.75 2.5 1.75 1.25 2 1.75 1.75 2 ...</span></span>
-<span><span class="co">#&gt;   ..$ time_2: num [1:32] 3.5 2.5 2.25 3.5 2 2.25 2 1.5 2 2 ...</span></span>
-<span><span class="co">#&gt;   ..$ time_3: num [1:32] 3 2.5 3 4.5 2.75 3.25 1.75 2.5 4.5 1.75 ...</span></span>
-<span><span class="co">#&gt;   ..$ time_4: num [1:32] 2.5 2.25 1.75 3.25 3.75 3.5 1.75 2.25 4.5 1.5 ...</span></span>
+<span><span class="co">#&gt;   ..$ time_1: num [1:32] 1.75 1.25 2.5 1.5 1.75 2.75 1.25 3 4 1.5 ...</span></span>
+<span><span class="co">#&gt;   ..$ time_2: num [1:32] 4 2.25 3 2.25 2.75 2.75 1.25 4 3.5 1.25 ...</span></span>
+<span><span class="co">#&gt;   ..$ time_3: num [1:32] 4.25 2.5 3.5 3.5 2 3 3.5 3.75 3.5 1.25 ...</span></span>
+<span><span class="co">#&gt;   ..$ time_4: num [1:32] 3 2.25 3.5 2.75 3 2 4.75 3.25 2 1.5 ...</span></span>
 <span><span class="co">#&gt;  $ correlation_matrix      : num [1:4, 1:4] 1 0.66 0.33 0 0.66 ...</span></span>
 <span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
 <span><span class="co">#&gt;   .. ..$ : chr [1:4] "time_1" "time_2" "time_3" "time_4"</span></span>
@@ -1943,8 +2090,9 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span></span>
 <span><span class="co">#### generate a correlation matrix</span></span>
 <span><span class="va">cor_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrAlpha.html">makeCorrAlpha</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fl">4</span>, alpha <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span></span>
-<span><span class="co">#&gt; correlation values consistent with desired alpha in 14116 iterations</span></span>
+<span><span class="co">#&gt; reached max iterations (1600) - best mean difference: 4.6e-05</span></span>
 <span><span class="co">#&gt; The correlation matrix is positive definite</span></span>
+<span><span class="co">#&gt; Min eigenvalue: 0.184649</span></span>
 <span></span>
 <span><span class="co">#### specify moments as vectors</span></span>
 <span><span class="va">means_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span><span class="op">)</span></span>
@@ -1963,9 +2111,9 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">#&gt; Variable  1</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  2</span></span>
-<span><span class="co">#&gt; best solution in 1070 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1475 iterations</span></span>
 <span><span class="co">#&gt; Variable  3</span></span>
-<span><span class="co">#&gt; best solution in 68 iterations</span></span>
+<span><span class="co">#&gt; best solution in 171 iterations</span></span>
 <span><span class="co">#&gt; Variable  4</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1977,8 +2125,9 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span></span>
 <span><span class="co">#### generate a correlation matrix</span></span>
 <span><span class="va">cor_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrAlpha.html">makeCorrAlpha</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fl">5</span>, alpha <span class="op">=</span> <span class="fl">0.85</span><span class="op">)</span></span>
-<span><span class="co">#&gt; correlation values consistent with desired alpha in 22469 iterations</span></span>
+<span><span class="co">#&gt; reached max iterations (2500) - best mean difference: 4e-05</span></span>
 <span><span class="co">#&gt; The correlation matrix is positive definite</span></span>
+<span><span class="co">#&gt; Min eigenvalue: 0.221793</span></span>
 <span></span>
 <span><span class="co">#### specify moments as vectors</span></span>
 <span><span class="va">means_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span><span class="op">)</span></span>
@@ -1997,11 +2146,11 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">#&gt; Variable  1</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  2</span></span>
-<span><span class="co">#&gt; best solution in 106 iterations</span></span>
+<span><span class="co">#&gt; best solution in 34 iterations</span></span>
 <span><span class="co">#&gt; Variable  3</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  4</span></span>
-<span><span class="co">#&gt; best solution in 290 iterations</span></span>
+<span><span class="co">#&gt; best solution in 234 iterations</span></span>
 <span><span class="co">#&gt; Variable  5</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -2013,8 +2162,17 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span></span>
 <span><span class="co">#### generate a correlation matrix</span></span>
 <span><span class="va">cor_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeCorrAlpha.html">makeCorrAlpha</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fl">6</span>, alpha <span class="op">=</span> <span class="fl">0.90</span><span class="op">)</span></span>
-<span><span class="co">#&gt; correlation values consistent with desired alpha in 603 iterations</span></span>
+<span><span class="co">#&gt; reached max iterations (3600) - best mean difference: 4e-05</span></span>
+<span><span class="co">#&gt; Correlation matrix is not yet positive definite</span></span>
+<span><span class="co">#&gt; Working on it</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; improved at swap - 2 (min eigenvalue: -0.031507)</span></span>
+<span><span class="co">#&gt; improved at swap - 6 (min eigenvalue: -0.018702)</span></span>
+<span><span class="co">#&gt; improved at swap - 7 (min eigenvalue: -0.010675)</span></span>
+<span><span class="co">#&gt; improved at swap - 10 (min eigenvalue: 0.052317)</span></span>
+<span><span class="co">#&gt; positive definite at swap - 10</span></span>
 <span><span class="co">#&gt; The correlation matrix is positive definite</span></span>
+<span><span class="co">#&gt; Min eigenvalue: 0.052317</span></span>
 <span></span>
 <span><span class="co">#### specify moments as vectors</span></span>
 <span><span class="va">means_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>, <span class="fl">3.5</span><span class="op">)</span></span>
@@ -2033,15 +2191,15 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">#&gt; Variable  1</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  2</span></span>
-<span><span class="co">#&gt; best solution in 343 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1140 iterations</span></span>
 <span><span class="co">#&gt; Variable  3</span></span>
-<span><span class="co">#&gt; best solution in 42 iterations</span></span>
+<span><span class="co">#&gt; best solution in 41 iterations</span></span>
 <span><span class="co">#&gt; Variable  4</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  5</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  6</span></span>
-<span><span class="co">#&gt; best solution in 1230 iterations</span></span>
+<span><span class="co">#&gt; best solution in 561 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arranging data to match correlations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -2050,7 +2208,7 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### behavioural intention</span></span>
 <span><span class="va">intent</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lfast.html">lfast</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">4.0</span>, sd <span class="op">=</span> <span class="fl">3</span>, lowerbound <span class="op">=</span> <span class="fl">0</span>, upperbound <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; best solution in 3059 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1305 iterations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">intent</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"int"</span></span></code></pre></div>
 <div class="section level7">
 <h6 id="check-properties-of-item-dataframes">check properties of item dataframes<a class="anchor" aria-label="anchor" href="#check-properties-of-item-dataframes"></a>
@@ -2071,14 +2229,14 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### Attitude #1 correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span><span class="co">#&gt; [1,] 1.00 0.18 0.27 0.43</span></span>
-<span><span class="co">#&gt; [2,] 0.18 1.00 0.63 0.71</span></span>
-<span><span class="co">#&gt; [3,] 0.27 0.63 1.00 0.77</span></span>
-<span><span class="co">#&gt; [4,] 0.43 0.71 0.77 1.00</span></span>
+<span><span class="co">#&gt; [1,] 1.00 0.49 0.37 0.51</span></span>
+<span><span class="co">#&gt; [2,] 0.49 1.00 0.65 0.68</span></span>
+<span><span class="co">#&gt; [3,] 0.37 0.65 1.00 0.28</span></span>
+<span><span class="co">#&gt; [4,] 0.51 0.68 0.28 1.00</span></span>
 <span></span>
 <span><span class="co">### Attitude #1 cronbach's alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_1</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8</span></span>
+<span><span class="co">#&gt; [1] 0.798</span></span>
 <span></span>
 <span><span class="co">## Attitude #2</span></span>
 <span><span class="va">A2_moments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -2095,15 +2253,15 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### Attitude #2 correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span></span>
-<span><span class="co">#&gt; [1,] 1.00 0.06 0.31 0.44 0.50</span></span>
-<span><span class="co">#&gt; [2,] 0.06 1.00 0.57 0.63 0.65</span></span>
-<span><span class="co">#&gt; [3,] 0.31 0.57 1.00 0.68 0.68</span></span>
-<span><span class="co">#&gt; [4,] 0.44 0.63 0.68 1.00 0.80</span></span>
-<span><span class="co">#&gt; [5,] 0.50 0.65 0.68 0.80 1.00</span></span>
+<span><span class="co">#&gt; [1,] 1.00 0.61 0.54 0.74 0.61</span></span>
+<span><span class="co">#&gt; [2,] 0.61 1.00 0.41 0.47 0.44</span></span>
+<span><span class="co">#&gt; [3,] 0.54 0.41 1.00 0.60 0.35</span></span>
+<span><span class="co">#&gt; [4,] 0.74 0.47 0.60 1.00 0.53</span></span>
+<span><span class="co">#&gt; [5,] 0.61 0.44 0.35 0.53 1.00</span></span>
 <span></span>
 <span><span class="co">### Attitude #2 cronbach's alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.85</span></span>
+<span><span class="co">#&gt; [1] 0.849</span></span>
 <span></span>
 <span><span class="co">## Attitude #3</span></span>
 <span><span class="va">A3_moments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -2120,12 +2278,12 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### Attitude #3 correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]</span></span>
-<span><span class="co">#&gt; [1,] 1.00 0.33 0.37 0.42 0.47 0.48</span></span>
-<span><span class="co">#&gt; [2,] 0.33 1.00 0.50 0.54 0.55 0.63</span></span>
-<span><span class="co">#&gt; [3,] 0.37 0.50 1.00 0.65 0.71 0.78</span></span>
-<span><span class="co">#&gt; [4,] 0.42 0.54 0.65 1.00 0.82 0.84</span></span>
-<span><span class="co">#&gt; [5,] 0.47 0.55 0.71 0.82 1.00 0.85</span></span>
-<span><span class="co">#&gt; [6,] 0.48 0.63 0.78 0.84 0.85 1.00</span></span>
+<span><span class="co">#&gt; [1,] 1.00 0.53 0.79 0.43 0.71 0.64</span></span>
+<span><span class="co">#&gt; [2,] 0.53 1.00 0.72 0.86 0.47 0.41</span></span>
+<span><span class="co">#&gt; [3,] 0.79 0.72 1.00 0.71 0.71 0.66</span></span>
+<span><span class="co">#&gt; [4,] 0.43 0.86 0.71 1.00 0.43 0.47</span></span>
+<span><span class="co">#&gt; [5,] 0.71 0.47 0.71 0.43 1.00 0.42</span></span>
+<span><span class="co">#&gt; [6,] 0.64 0.41 0.66 0.47 0.42 1.00</span></span>
 <span></span>
 <span><span class="co">### Attitude #2 cronbach's alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_3</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
@@ -2188,29 +2346,29 @@ modelling, then I recommend the <em>sim.item()</em> and
 <code class="sourceCode R"><span><span class="co">## data structure</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    128 obs. of  16 variables:</span></span>
-<span><span class="co">#&gt;  $ A1_1 : num  3 3 2 2 1 3 1 2 2 2 ...</span></span>
-<span><span class="co">#&gt;  $ A1_2 : num  3 4 2 2 3 2 2 3 4 1 ...</span></span>
-<span><span class="co">#&gt;  $ A1_3 : num  4 4 2 2 2 3 3 4 4 2 ...</span></span>
-<span><span class="co">#&gt;  $ A1_4 : num  4 4 3 3 3 3 3 4 4 2 ...</span></span>
-<span><span class="co">#&gt;  $ A2_1 : num  3 3 3 2 2 2 2 3 3 2 ...</span></span>
-<span><span class="co">#&gt;  $ A2_2 : num  2 4 1 4 2 3 3 2 3 2 ...</span></span>
-<span><span class="co">#&gt;  $ A2_3 : num  4 4 2 2 2 3 4 4 4 2 ...</span></span>
-<span><span class="co">#&gt;  $ A2_4 : num  4 5 2 4 3 3 2 4 4 2 ...</span></span>
-<span><span class="co">#&gt;  $ A2_5 : num  4 5 3 4 3 4 3 4 5 3 ...</span></span>
-<span><span class="co">#&gt;  $ A3_1 : num  3 3 2 2 2 2 2 2 3 2 ...</span></span>
-<span><span class="co">#&gt;  $ A3_2 : num  3 4 2 2 2 2 3 3 2 2 ...</span></span>
-<span><span class="co">#&gt;  $ A3_3 : num  3 4 3 3 3 3 2 3 4 2 ...</span></span>
-<span><span class="co">#&gt;  $ A3_4 : num  4 3 3 3 2 2 2 4 3 1 ...</span></span>
-<span><span class="co">#&gt;  $ A3_5 : num  4 4 3 4 3 3 2 4 4 2 ...</span></span>
-<span><span class="co">#&gt;  $ A3_6 : num  4 4 4 3 3 3 3 4 4 2 ...</span></span>
-<span><span class="co">#&gt;  $ Int_1: num  8 7 0 3 0 2 1 2 10 3 ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ A1_1 : num  3 2 2 2 4 4 3 3 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ A1_2 : num  3 3 1 1 4 3 3 3 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ A1_3 : num  4 4 3 2 4 3 4 4 3 5 ...</span></span>
+<span><span class="co">#&gt;  $ A1_4 : num  4 4 3 2 4 4 4 4 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ A2_1 : num  3 2 1 2 3 3 3 3 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ A2_2 : num  4 2 2 2 3 3 3 4 1 2 ...</span></span>
+<span><span class="co">#&gt;  $ A2_3 : num  4 3 2 2 4 3 2 3 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ A2_4 : num  4 3 2 1 4 3 2 3 2 3 ...</span></span>
+<span><span class="co">#&gt;  $ A2_5 : num  4 3 3 3 4 4 4 4 4 4 ...</span></span>
+<span><span class="co">#&gt;  $ A3_1 : num  4 3 2 2 3 4 3 4 2 3 ...</span></span>
+<span><span class="co">#&gt;  $ A3_2 : num  3 3 1 1 2 4 4 4 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ A3_3 : num  5 3 2 2 3 5 4 4 2 3 ...</span></span>
+<span><span class="co">#&gt;  $ A3_4 : num  4 4 1 2 2 5 5 4 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ A3_5 : num  5 4 3 3 3 4 4 4 2 4 ...</span></span>
+<span><span class="co">#&gt;  $ A3_6 : num  4 4 3 4 3 4 4 5 2 4 ...</span></span>
+<span><span class="co">#&gt;  $ Int_1: num  0 4 0 0 9 1 6 4 5 8 ...</span></span></code></pre></div>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## eigenvalues of dataframe correlations</span></span>
 <span><span class="va">Cor_Correlated_Scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">Cor_Correlated_Scales</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/fig7-1.png" class="r-plt" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; Cor_Correlated_Scales  is positive-definite</span></span>
-<span><span class="co">#&gt;  [1] 7.11 2.26 1.09 1.01 0.93 0.66 0.56 0.50 0.41 0.36 0.29 0.24 0.21 0.15 0.13</span></span>
+<span><span class="co">#&gt;  [1] 6.98 2.24 1.15 1.01 0.80 0.67 0.61 0.56 0.42 0.37 0.34 0.26 0.21 0.18 0.12</span></span>
 <span><span class="co">#&gt; [16] 0.10</span></span></code></pre>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#### Eigenvalues of predictor variable items only</span></span>
@@ -2218,7 +2376,7 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">Cor_Attitude_items</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/fig7a-1.png" class="r-plt" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; Cor_Attitude_items  is positive-definite</span></span>
-<span><span class="co">#&gt;  [1] 6.95 2.22 1.02 0.97 0.71 0.64 0.56 0.44 0.36 0.29 0.24 0.21 0.15 0.13 0.10</span></span></code></pre>
+<span><span class="co">#&gt;  [1] 6.81 2.20 1.06 0.86 0.70 0.66 0.60 0.51 0.37 0.36 0.26 0.21 0.18 0.12 0.10</span></span></code></pre>
 <hr>
 </div>
 </div>

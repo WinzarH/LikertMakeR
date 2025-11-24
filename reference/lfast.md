@@ -70,7 +70,7 @@ x <- lfast(
   upperbound = 7,
   items = 6
 )
-#> best solution in 1807 iterations
+#> best solution in 188 iterations
 
 ## five-item -3 to +3 rating scale
 x <- lfast(
@@ -81,7 +81,7 @@ x <- lfast(
   upperbound = 3,
   items = 5
 )
-#> best solution in 1599 iterations
+#> best solution in 3291 iterations
 
 ## four-item 1-5 rating scale with medium variation
 x <- lfast(
@@ -93,9 +93,10 @@ x <- lfast(
   items = 4,
   precision = 5
 )
-#> best solution in 1 iterations
+#> best solution in 5 iterations
 
 ## eleven-point 'likelihood of purchase' scale
 x <- lfast(256, 3, 3.0, 0, 10)
-#> best solution in 1391 iterations
+#> best solution in 7008 iterations
+
 ```

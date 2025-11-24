@@ -10,7 +10,7 @@ function to generate synthetic data with the predefined alpha.
 ## Usage
 
 ``` r
-makeCorrAlpha(items, alpha, variance = 0.5, precision = 0)
+makeCorrAlpha(items, alpha, variance = 0.5, precision = 0, sort_cors = FALSE)
 ```
 
 ## Arguments
@@ -29,12 +29,20 @@ makeCorrAlpha(items, alpha, variance = 0.5, precision = 0)
 
   (positive, real) Default = 0.5. User-provided standard deviation of
   values sampled from a normally-distributed log transformation.
+  Caution: Larger values increase chance of a non-positive-definite
+  matrix. 'TRUE' is faster, but produces less natural output. Default =
+  FALSE
 
 - precision:
 
   (positive, real) Default = 0. User-defined value ranging from '0' to
   '3' to add some random variation around the target *Cronbach's Alpha*.
   '0' gives an exact alpha (to two decimal places)
+
+- sort_cors:
+
+  (logical) If 'TRUE', sorts the correlation coefficients in the final
+  correlation matrix. Similar to an earlier version of this function.
 
 ## Value
 
@@ -76,70 +84,107 @@ cor_matrix <- makeCorrAlpha(
 )
 #> correlation values consistent with desired alpha in 59 iterations
 #> The correlation matrix is positive definite
+#> Min eigenvalue: 0.23404
 #> 
 
 # test function output
 print(cor_matrix)
 #>           [,1]      [,2]      [,3]      [,4]
-#> [1,] 1.0000000 0.4251139 0.4331446 0.5069007
-#> [2,] 0.4251139 1.0000000 0.6926037 0.6936888
-#> [3,] 0.4331446 0.6926037 1.0000000 0.7658611
-#> [4,] 0.5069007 0.6936888 0.7658611 1.0000000
+#> [1,] 1.0000000 0.7658611 0.6926037 0.4331446
+#> [2,] 0.7658611 1.0000000 0.6936888 0.4251139
+#> [3,] 0.6926037 0.6936888 1.0000000 0.5069007
+#> [4,] 0.4331446 0.4251139 0.5069007 1.0000000
 alpha(cor_matrix)
 #> [1] 0.8500063
 eigenvalues(cor_matrix, 1)
 
 #> cor_matrix  is positive-definite
 #> 
-#> [1] 2.7842025 0.6581071 0.3291732 0.2285172
+#> [1] 2.7831667 0.6670820 0.3157114 0.2340400
 
 # higher alpha, more items
-cor_matrix2 <- makeCorrAlpha(items = 8, alpha = 0.95)
+cor_matrix2 <- makeCorrAlpha(
+  items = 8,
+  alpha = 0.95
+)
 #> correlation values consistent with desired alpha in 731 iterations
+#> Correlation matrix is not yet positive definite
+#> Working on it
+#> 
+#> improved at swap - 1 (min eigenvalue: -0.124095)
+#> improved at swap - 2 (min eigenvalue: -0.122669)
+#> improved at swap - 19 (min eigenvalue: -0.102987)
+#> improved at swap - 20 (min eigenvalue: -0.073935)
+#> improved at swap - 22 (min eigenvalue: -0.064356)
+#> improved at swap - 26 (min eigenvalue: -0.057259)
+#> improved at swap - 27 (min eigenvalue: -0.041386)
+#> improved at swap - 31 (min eigenvalue: -0.031194)
+#> improved at swap - 32 (min eigenvalue: -0.030663)
+#> improved at swap - 33 (min eigenvalue: -0.010804)
+#> improved at swap - 67 (min eigenvalue: -0.007359)
+#> improved at swap - 71 (min eigenvalue: -0.005866)
+#> improved at swap - 77 (min eigenvalue: -0.000102)
+#> improved at swap - 102 (min eigenvalue: 0.002371)
+#> positive definite at swap - 102
 #> The correlation matrix is positive definite
+#> Min eigenvalue: 0.002371
 #> 
 
 # test output
 cor_matrix2 |> round(2)
 #>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
-#> [1,] 1.00 0.25 0.45 0.51 0.58 0.58 0.62 0.67
-#> [2,] 0.25 1.00 0.68 0.69 0.69 0.69 0.70 0.71
-#> [3,] 0.45 0.68 1.00 0.72 0.73 0.73 0.73 0.75
-#> [4,] 0.51 0.69 0.72 1.00 0.76 0.76 0.78 0.79
-#> [5,] 0.58 0.69 0.73 0.76 1.00 0.81 0.83 0.86
-#> [6,] 0.58 0.69 0.73 0.76 0.81 1.00 0.87 0.89
-#> [7,] 0.62 0.70 0.73 0.78 0.83 0.87 1.00 0.89
-#> [8,] 0.67 0.71 0.75 0.79 0.86 0.89 0.89 1.00
+#> [1,] 1.00 0.69 0.83 0.76 0.76 0.69 0.72 0.51
+#> [2,] 0.69 1.00 0.86 0.79 0.75 0.67 0.45 0.89
+#> [3,] 0.83 0.86 1.00 0.73 0.89 0.70 0.58 0.69
+#> [4,] 0.76 0.79 0.73 1.00 0.78 0.73 0.87 0.62
+#> [5,] 0.76 0.75 0.89 0.78 1.00 0.81 0.73 0.58
+#> [6,] 0.69 0.67 0.70 0.73 0.81 1.00 0.68 0.71
+#> [7,] 0.72 0.45 0.58 0.87 0.73 0.68 1.00 0.25
+#> [8,] 0.51 0.89 0.69 0.62 0.58 0.71 0.25 1.00
 alpha(cor_matrix2) |> round(3)
 #> [1] 0.95
 eigenvalues(cor_matrix2, 1) |> round(3)
 
 #> cor_matrix2  is positive-definite
 #> 
-#> [1] 5.988 0.788 0.319 0.262 0.224 0.200 0.126 0.092
+#> [1] 5.954 0.983 0.418 0.340 0.223 0.047 0.032 0.002
 
 
 # large random variation around alpha
 set.seed(42)
-cor_matrix3 <- makeCorrAlpha(items = 6, alpha = 0.85, precision = 2)
+cor_matrix3 <- makeCorrAlpha(
+  items = 6,
+  alpha = 0.85,
+  precision = 2
+)
 #> correlation values consistent with desired alpha in 2484 iterations
+#> Correlation matrix is not yet positive definite
+#> Working on it
+#> 
+#> improved at swap - 3 (min eigenvalue: -0.034581)
+#> improved at swap - 6 (min eigenvalue: -0.013659)
+#> improved at swap - 7 (min eigenvalue: -0.003994)
+#> improved at swap - 9 (min eigenvalue: 0.006886)
+#> positive definite at swap - 9
 #> The correlation matrix is positive definite
+#> Min eigenvalue: 0.006886
 #> 
 
 # test output
 cor_matrix3 |> round(2)
 #>      [,1] [,2] [,3] [,4] [,5] [,6]
-#> [1,] 1.00 0.47 0.48 0.68 0.71 0.71
-#> [2,] 0.47 1.00 0.72 0.74 0.74 0.76
-#> [3,] 0.48 0.72 1.00 0.77 0.77 0.78
-#> [4,] 0.68 0.74 0.77 1.00 0.78 0.85
-#> [5,] 0.71 0.74 0.77 0.78 1.00 0.90
-#> [6,] 0.71 0.76 0.78 0.85 0.90 1.00
+#> [1,] 1.00 0.74 0.47 0.68 0.77 0.78
+#> [2,] 0.74 1.00 0.77 0.85 0.71 0.78
+#> [3,] 0.47 0.77 1.00 0.76 0.71 0.48
+#> [4,] 0.68 0.85 0.76 1.00 0.74 0.90
+#> [5,] 0.77 0.71 0.71 0.74 1.00 0.72
+#> [6,] 0.78 0.78 0.48 0.90 0.72 1.00
 alpha(cor_matrix3) |> round(3)
 #> [1] 0.94
 eigenvalues(cor_matrix3, 1) |> round(3)
 
 #> cor_matrix3  is positive-definite
 #> 
-#> [1] 4.648 0.608 0.279 0.221 0.163 0.081
+#> [1] 4.638 0.641 0.390 0.235 0.089 0.007
+
 ```
