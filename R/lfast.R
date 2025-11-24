@@ -32,8 +32,6 @@
 #'
 #' @importFrom stats rbeta
 #'
-#' @export lfast
-#'
 #' @examples
 #'
 #' ## six-item 1-7 rating scale
@@ -70,6 +68,8 @@
 #' ## eleven-point 'likelihood of purchase' scale
 #' x <- lfast(256, 3, 3.0, 0, 10)
 #'
+#'
+#' @export
 lfast <- function(n, mean, sd,
                   lowerbound, upperbound,
                   items = 1, precision = 0) {
@@ -90,8 +90,9 @@ lfast <- function(n, mean, sd,
   a <- (m^2 - m^3 - m * s^2) / s^2 ## alpha shape parameter
   b <- (m - 2 * m^2 + m^3 - s^2 + m * s^2) / s^2 ## beta shape parameter
 
-  best_value <- 1e+5 ## set high value to start
-  best_vector <- rep(1e+5, n) ## set high value to start
+  best_value <- Inf ## set high value to start
+  best_vector <- NULL
+
   maxiter <- max(1024, n^2) ## at least 2^10 iterations
 
   for (i in 1:maxiter) {
@@ -109,9 +110,9 @@ lfast <- function(n, mean, sd,
     if (temp_value < best_value) {
       best_vector <- item_vector
       best_value <- temp_value
-    } else {
-      next
-    }
+    } # else {
+    #   next
+    # }
 
     ## tolerance ensures both mean and sd accurate to 2 decimal places
     if (best_value < tolerance) {
