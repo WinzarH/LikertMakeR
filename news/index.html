@@ -36,7 +36,7 @@
 <h2 class="pkg-version" data-toc-text="development version" id="likertmaker-development-version">LikertMakeR (development version)<a class="anchor" aria-label="anchor" href="#likertmaker-development-version"></a></h2>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.3.0" id="likertmaker-130-2025-10-18">LikertMakeR 1.3.0 (2025-10-18)<a class="anchor" aria-label="anchor" href="#likertmaker-130-2025-10-18"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.3.0" id="likertmaker-130-2025-11-24">LikertMakeR 1.3.0 (2025-11-24)<a class="anchor" aria-label="anchor" href="#likertmaker-130-2025-11-24"></a></h2>
 <div class="section level3">
 <h3 id="improvements-1-3-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-1-3-0"></a></h3>
 <ul><li>
@@ -49,6 +49,16 @@
 <p><code><a href="../reference/makeScales.html">makeScales()</a></code> function replaces <code><a href="../reference/makeItems.html">makeItems()</a></code> function:</p>
 <ul><li>I finally worked out how to turn a single value into a vector of length <code>k</code>.</li>
 <li>Embarrassingly straightforward.</li>
+</ul></li>
+<li>
+<p>Updated version of <code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> function produces a more “natural-looking” correlation matrix:</p>
+<ul><li>previous version sorted correlations in the correlation matrix to improve likelihood of extracting a positive-definite matrix. Fast, but unnatural results.</li>
+<li>I have applied a slightly faster algorithm for rearranging the correlations in a draft matrix to produce one that is positive-definite.<br></li>
+<li>Additional parameter <code>sort_cors = FALSE</code>. If <code>TRUE</code>, results are similar to the earlier version of <code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code>.</li>
+</ul></li>
+<li>
+<p>Updated version of <code><a href="../reference/lfast.html">lfast()</a></code> function</p>
+<ul><li>runs slightly faster</li>
 </ul></li>
 </ul></div>
 <div class="section level3">
