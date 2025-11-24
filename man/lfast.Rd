@@ -73,6 +73,7 @@ x <- lfast(
 ## eleven-point 'likelihood of purchase' scale
 x <- lfast(256, 3, 3.0, 0, 10)
 
+
 }
 \seealso{
 \itemize{

@@ -373,7 +373,7 @@ ____
 
 #### makeCorrAlpha() usage
 
-      makeCorrAlpha(items, alpha, variance = 0.5, precision = 0)
+      makeCorrAlpha(items, alpha, variance = 0.5, precision = 0, sort_cors = FALSE)
 
 ##### makeCorrAlpha() arguments
 

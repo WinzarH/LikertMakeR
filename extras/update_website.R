@@ -54,6 +54,10 @@ devtools::check()
 # install into your active library
 # devtools::install(upgrade = "never", force = TRUE)
 
+# devtools::check(document = TRUE)
+
+
+
 
 pkgdown::build_site()
 

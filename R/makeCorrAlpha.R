@@ -16,14 +16,14 @@
 #'  User-provided standard deviation of values sampled from a
 #'  normally-distributed log transformation.
 #'  Caution: Larger values increase chance of a non-positive-definite matrix.
-#' @param sort_cors (logical) If 'TRUE', sorts the correlation coefficients in
-#' the final correlation matrix.
-#' Similar to an earlier version of this function.
 #' 'TRUE' is faster, but produces less natural output. Default = FALSE
 #' @param precision (positive, real) Default = 0.
 #'  User-defined value ranging from '0' to '3' to add some random variation
 #'  around the target _Cronbach's Alpha_.
 #'  '0' gives an exact alpha (to two decimal places)
+#' @param sort_cors (logical) If 'TRUE', sorts the correlation coefficients in
+#'  the final correlation matrix.
+#'  Similar to an earlier version of this function.
 #'
 #' @importFrom stats rnorm
 #'
@@ -89,6 +89,7 @@
 #' cor_matrix3 |> round(2)
 #' alpha(cor_matrix3) |> round(3)
 #' eigenvalues(cor_matrix3, 1) |> round(3)
+#'
 #'
 #' @export
 makeCorrAlpha <- function(items,
