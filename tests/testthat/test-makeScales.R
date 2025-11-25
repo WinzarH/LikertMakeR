@@ -8,12 +8,12 @@ test_that("makeScales: basic generation works and respects shapes, names, bounds
 
   set.seed(123)
 
-  n  <- 128L
+  n <- 128L
   k <- 4L
   means <- c(2.5, 3.0, 3.0, 3.5)
-  sds   <- c(1.0, 1.0, 1.5, 0.75)
-  lb    <- rep(1L, k)
-  ub    <- rep(5L, k)
+  sds <- c(1.0, 1.0, 1.5, 0.75)
+  lb <- rep(1L, k)
+  ub <- rep(5L, k)
 
 
   corMat <- matrix(c(
@@ -46,7 +46,7 @@ test_that("makeScales: basic generation works and respects shapes, names, bounds
   s_hat <- vapply(df, stats::sd, numeric(1))
 
   testthat::expect_true(all(abs(m_hat - means) <= 0.25))
-  testthat::expect_true(all(abs(s_hat - sds)   <= 0.35))
+  testthat::expect_true(all(abs(s_hat - sds) <= 0.35))
 
   # correlations roughly match target (off-diagonal)
   Rhat <- stats::cor(df)
@@ -60,10 +60,10 @@ testthat::test_that("makeScales: scalar lower/upper/items recycle correctly", {
   k <- 5L
 
   means <- rep(3, k)
-  sds   <- rep(1, k)
-  lb    <- 1L      # scalar, should recycle
-  ub    <- 7L      # scalar, should recycle
-  items <- 3L      # scalar, should recycle
+  sds <- rep(1, k)
+  lb <- 1L # scalar, should recycle
+  ub <- 7L # scalar, should recycle
+  items <- 3L # scalar, should recycle
 
   corMat <- diag(k)
   dimnames(corMat) <- list(LETTERS[1:k], LETTERS[1:k])
@@ -84,19 +84,17 @@ testthat::test_that("makeScales: scalar lower/upper/items recycle correctly", {
 })
 
 
-
 testthat::test_that("makeScales: rejects non-PSD correlation matrices early with a clear error", {
-
   set.seed(99)
   n <- 50L
   means <- c(3, 3, 3)
-  sds   <- c(1, 1, 1)
-  lb    <- c(1, 1, 1)
-  ub    <- c(5, 5, 5)
+  sds <- c(1, 1, 1)
+  lb <- c(1, 1, 1)
+  ub <- c(5, 5, 5)
 
   badCor <- matrix(c(
-    1,   -0.9, -0.9,
-    -0.9, 1,   -0.9,
+    1, -0.9, -0.9,
+    -0.9, 1, -0.9,
     -0.9, -0.9, 1
   ), nrow = 3, byrow = TRUE)
 
@@ -107,15 +105,13 @@ testthat::test_that("makeScales: rejects non-PSD correlation matrices early with
 })
 
 
-
-
 testthat::test_that("makeScales: mismatched lengths and dimensions fail fast with a descriptive error", {
   set.seed(1)
   n <- 40L
-  means <- c(3, 3, 3)  # length 3
-  sds   <- c(1, 1)     # length 2 -> mismatch
-  lb    <- 1
-  ub    <- 5
+  means <- c(3, 3, 3) # length 3
+  sds <- c(1, 1) # length 2 -> mismatch
+  lb <- 1
+  ub <- 5
   items <- 5L
   corMat <- diag(3)
 
@@ -126,16 +122,14 @@ testthat::test_that("makeScales: mismatched lengths and dimensions fail fast wit
 })
 
 
-
-
 testthat::test_that("makeScales: NA/Inf inputs are rejected", {
   # testthat::skip("Enable after adding explicit NA/Inf/type checks that stop().")
 
   n <- 20L
   means <- c(3, NA)
-  sds   <- c(1, 1)
-  lb    <- c(1, 1)
-  ub    <- c(5, 5)
+  sds <- c(1, 1)
+  lb <- c(1, 1)
+  ub <- c(5, 5)
   corMat <- diag(2)
 
   testthat::expect_error(
@@ -154,10 +148,10 @@ testthat::test_that("makeScales: lowerbound < upperbound and within-range means 
   # testthat::skip("Enable after adding bound order and mean-range checks that stop().")
 
   n <- 30L
-  means <- c(6, 2)       # first mean outside [lb, ub] if lb=1,ub=5
-  sds   <- c(1, 1)
-  lb    <- c(1, 3)
-  ub    <- c(5, 2)       # invalid: lb >= ub in 2nd position
+  means <- c(6, 2) # first mean outside [lb, ub] if lb=1,ub=5
+  sds <- c(1, 1)
+  lb <- c(1, 3)
+  ub <- c(5, 2) # invalid: lb >= ub in 2nd position
   corMat <- diag(2)
 
   testthat::expect_error(
@@ -166,9 +160,8 @@ testthat::test_that("makeScales: lowerbound < upperbound and within-range means 
   )
 
 
-
-
-  lb2 <- c(1, 1); ub2 <- c(5, 5)
+  lb2 <- c(1, 1)
+  ub2 <- c(5, 5)
   testthat::expect_error(
     makeScales(n, means, sds, lb2, ub2, cormatrix = corMat),
     regexp = "means.*within.*bounds|outside"

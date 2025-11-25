@@ -172,7 +172,6 @@ result2 <- makeScalesRegression(
 print(result2$target_stats$iv_cormatrix)
 print(result2$optimisation_info)
 
-
 }
 \seealso{
 \code{\link{lfast}} for generating individual rating-scale vectors with exact moments.

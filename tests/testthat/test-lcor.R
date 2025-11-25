@@ -1,7 +1,6 @@
 ## Unit tests for lcor() function
 
 
-
 test_that("lcor runs silently with valid inputs", {
   n <- 32
 

@@ -187,12 +187,13 @@
 #' # alpha(data = mydat_80) |> round(2)
 #'
 makeItemsScale <- function(
-    scale,
-    lowerbound,
-    upperbound,
-    items,
-    alpha = 0.80,
-    variance = 0.5) {
+  scale,
+  lowerbound,
+  upperbound,
+  items,
+  alpha = 0.80,
+  variance = 0.5
+) {
   ###
   ##  makeCombinations produces a dataframe of all combinations of item values
   ###

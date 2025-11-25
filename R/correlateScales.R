@@ -44,7 +44,6 @@
 #' )
 #'
 #'
-#'
 #' ### attitude #2
 #' cor_2 <- makeCorrAlpha(items = 5, alpha = 0.85)
 #' means_2 <- c(2.5, 2.5, 3.0, 3.0, 3.5)
@@ -57,7 +56,6 @@
 #' )
 #'
 #'
-#'
 #' ### attitude #3
 #' cor_3 <- makeCorrAlpha(items = 6, alpha = 0.75)
 #' means_3 <- c(2.5, 2.5, 3.0, 3.0, 3.5, 3.5)
@@ -68,7 +66,6 @@
 #'   lowerbound = rep(lower, 6), upperbound = rep(upper, 6),
 #'   cormatrix = cor_3
 #' )
-#'
 #'
 #'
 #' ### behavioural intention
@@ -213,7 +210,6 @@ correlateScales <- function(dataframes, scalecors) {
   }
 
   ## END integrity checks
-
 
 
   ## calculate row sums of the dataframes

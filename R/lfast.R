@@ -68,7 +68,6 @@
 #' ## eleven-point 'likelihood of purchase' scale
 #' x <- lfast(256, 3, 3.0, 0, 10)
 #'
-#'
 #' @export
 lfast <- function(n, mean, sd,
                   lowerbound, upperbound,

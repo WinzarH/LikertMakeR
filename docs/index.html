@@ -340,6 +340,7 @@
 <li><p><strong><em>variance</em></strong>: standard deviation of values sampled from a normally-distributed log transformation. Default = ‘0.5’. A value of ‘0’ makes all values in the correlation matrix the same, equal to the mean correlation needed to produce the desired <em>Alpha</em>. A value of ‘2’, or more, risks producing a matrix that is not positive-definite, so not feasible.</p></li>
 <li><p><strong><em>precision</em></strong>: a value between ‘0’ and ‘3’ to add some random variation around the target <em>Cronbach’s Alpha</em>. Default = ‘0’. A value of ‘0’ produces the desired <em>Alpha</em>, generally exact to two decimal places. Higher values produce increasingly random values around the desired <em>Alpha</em>.</p></li>
 <li><p><strong><em>sort_cors</em></strong>: Logical. Default = <code>FALSE</code>. If <code>TRUE</code>, then runs more quickly, but produces a less natural correlation matrix.</p></li>
+<li><p><strong><em>diagnostics</em></strong>: Logical. If <code>TRUE</code>, returns a list containing the correlation matrix and a diagnostics list (target/achieved alpha, average inter-item correlation, eigenvalues, PD flag, and key arguments). If <code>FALSE</code> (default), returns the correlation matrix only.</p></li>
 </ul>
 </div>
 </div>

@@ -139,7 +139,6 @@
 makeScales <- function(n, means, sds,
                        lowerbound = 1, upperbound = 5,
                        items = 1, cormatrix) {
-
   ####
   ### Basic scalar checks
   ####
@@ -202,8 +201,10 @@ makeScales <- function(n, means, sds,
     colnames(cormatrix) <- scale_names
   } else {
     if (!identical(rownames(cormatrix), colnames(cormatrix))) {
-      warning("Row and column names of 'cormatrix' do not match.",
-              "\nUsing rownames for both.")
+      warning(
+        "Row and column names of 'cormatrix' do not match.",
+        "\nUsing rownames for both."
+      )
       scale_names <- rownames(cormatrix)
       colnames(cormatrix) <- scale_names
     } else {
@@ -216,13 +217,17 @@ makeScales <- function(n, means, sds,
   ####
 
   if (!is.numeric(means) || length(means) != k || any(!is.finite(means))) {
-    stop("'means' must be a numeric vector of length ", k,
-         " with all finite values.")
+    stop(
+      "'means' must be a numeric vector of length ", k,
+      " with all finite values."
+    )
   }
 
   if (!is.numeric(sds) || length(sds) != k || any(!is.finite(sds)) || any(sds <= 0)) {
-    stop("'sds' must be a numeric vector of positive, ",
-         "finite values of length ", k, ".")
+    stop(
+      "'sds' must be a numeric vector of positive, ",
+      "finite values of length ", k, "."
+    )
   }
 
   ####
@@ -232,13 +237,12 @@ makeScales <- function(n, means, sds,
   # Recycle single values to vectors if needed
   if (length(lowerbound) == 1L) lowerbound <- rep(lowerbound, k)
   if (length(upperbound) == 1L) upperbound <- rep(upperbound, k)
-  if (length(items)      == 1L) items      <- rep(items,      k)
+  if (length(items) == 1L) items <- rep(items, k)
 
   parameter_integrity <- function() {
-
     # lengths
     if (length(lowerbound) != k || length(upperbound) != k ||
-        length(items)      != k) {
+      length(items) != k) {
       stop(
         "Parameters have unequal length and dimensions.",
         "\nlowerbound, upperbound, items must each have length k = ", k,
@@ -259,8 +263,10 @@ makeScales <- function(n, means, sds,
 
     # bounds order
     if (any(lowerbound >= upperbound)) {
-      stop("All 'lowerbound' values must be strictly less than the ",
-      "corresponding 'upperbound' values.")
+      stop(
+        "All 'lowerbound' values must be strictly less than the ",
+        "corresponding 'upperbound' values."
+      )
     }
 
     # items as positive integers
@@ -276,8 +282,10 @@ makeScales <- function(n, means, sds,
 
   # Optional: warn if means are outside bounds (but don't stop)
   if (any(means < lowerbound | means > upperbound)) {
-    stop("Some 'means' are outside their corresponding",
-         " [lowerbound, upperbound] ranges.")
+    stop(
+      "Some 'means' are outside their corresponding",
+      " [lowerbound, upperbound] ranges."
+    )
   }
 
   ####

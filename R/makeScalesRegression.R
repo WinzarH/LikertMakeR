@@ -134,7 +134,6 @@
 #' print(result2$target_stats$iv_cormatrix)
 #' print(result2$optimisation_info)
 #'
-#'
 #' @seealso
 #' \code{\link{lfast}} for generating individual rating-scale vectors with exact moments.
 #'
@@ -145,25 +144,26 @@
 #'
 #' @export
 makeScalesRegression <- function(
-    n,
-    beta_std,
-    r_squared,
-    iv_cormatrix = NULL,
-    iv_cor_mean = 0.3,
-    iv_cor_variance = 0.01,
-    iv_cor_range = c(-0.7, 0.7),
-    iv_means,
-    iv_sds,
-    dv_mean,
-    dv_sd,
-    lowerbound_iv,
-    upperbound_iv,
-    lowerbound_dv,
-    upperbound_dv,
-    items_iv = 1,
-    items_dv = 1,
-    var_names = NULL,
-    tolerance = 0.005) {
+  n,
+  beta_std,
+  r_squared,
+  iv_cormatrix = NULL,
+  iv_cor_mean = 0.3,
+  iv_cor_variance = 0.01,
+  iv_cor_range = c(-0.7, 0.7),
+  iv_means,
+  iv_sds,
+  dv_mean,
+  dv_sd,
+  lowerbound_iv,
+  upperbound_iv,
+  lowerbound_dv,
+  upperbound_dv,
+  items_iv = 1,
+  items_dv = 1,
+  var_names = NULL,
+  tolerance = 0.005
+) {
   # Input validation
   k <- length(beta_std) # number of IVs
 

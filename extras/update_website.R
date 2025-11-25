@@ -48,19 +48,8 @@ getNamespaceExports("LikertMakeR")
 devtools::clean_dll()
 
 devtools::document()
-# tools::showNonASCIIfile("R/makeScalesRegression.R")
 
 devtools::check()
-# install into your active library
-# devtools::install(upgrade = "never", force = TRUE)
-
-# devtools::check(document = TRUE)
-
-
-
-
-pkgdown::build_site()
-
 
 # 1) Make sure it's not loaded
 "LikertMakeR" %in% loadedNamespaces()   # should be FALSE
@@ -68,6 +57,13 @@ pkgdown::build_site()
 # 2) Install to your user library (once, so deploy can load it)
 # devtools::install(upgrade = "never")
 devtools::install()
+
+# args(LikertMakeR::makeCorrAlpha)
+# should show ..., sort_cors = FALSE, diagnostics = FALSE
+
+
+pkgdown::build_site()
+
 
 # sanity check:
 system.file(package = "LikertMakeR")    # should print a path
