@@ -14,6 +14,7 @@ devtools::build()
 
 # devtools::check()
 devtools::check_win_devel()
+
 rhub::rhub_check()
 
 
