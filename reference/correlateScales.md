@@ -47,9 +47,6 @@ upper <- 5
 ### attitude #1
 cor_1 <- makeCorrAlpha(items = 4, alpha = 0.90)
 #> reached max iterations (1600) - best mean difference: 2.2e-05
-#> The correlation matrix is positive definite
-#> Min eigenvalue: 0.105529
-#> 
 means_1 <- c(2.5, 2.5, 3.0, 3.5)
 sds_1 <- c(0.9, 1.0, 0.9, 1.0)
 
@@ -77,7 +74,6 @@ Att_1 <- makeItems(
 #> 
 
 
-
 ### attitude #2
 cor_2 <- makeCorrAlpha(items = 5, alpha = 0.85)
 #> reached max iterations (2500) - best mean difference: 8.1e-05
@@ -87,9 +83,6 @@ cor_2 <- makeCorrAlpha(items = 5, alpha = 0.85)
 #> improved at swap - 3 (min eigenvalue: -0.076042)
 #> improved at swap - 6 (min eigenvalue: 0.011761)
 #> positive definite at swap - 6
-#> The correlation matrix is positive definite
-#> Min eigenvalue: 0.011761
-#> 
 means_2 <- c(2.5, 2.5, 3.0, 3.0, 3.5)
 sds_2 <- c(1.0, 1.0, 0.9, 1.0, 1.5)
 
@@ -119,13 +112,9 @@ Att_2 <- makeItems(
 #> 
 
 
-
 ### attitude #3
 cor_3 <- makeCorrAlpha(items = 6, alpha = 0.75)
 #> reached max iterations (3600) - best mean difference: 6.6e-05
-#> The correlation matrix is positive definite
-#> Min eigenvalue: 0.351503
-#> 
 means_3 <- c(2.5, 2.5, 3.0, 3.0, 3.5, 3.5)
 sds_3 <- c(1.0, 1.5, 1.0, 1.5, 1.0, 1.5)
 
@@ -155,7 +144,6 @@ Att_3 <- makeItems(
 #> 
 #> Successfully generated correlated variables
 #> 
-
 
 
 ### behavioural intention
@@ -189,15 +177,15 @@ my_correlated_scales <- correlateScales(
 #> New dataframe successfully created
 head(my_correlated_scales)
 #>   A1_1 A1_2 A1_3 A1_4 A2_1 A2_2 A2_3 A2_4 A2_5 A3_1 A3_2 A3_3 A3_4 A3_5 A3_6
-#> 1    2    2    3    4    2    1    2    4    2    3    5    3    2    5    4
-#> 2    3    2    3    4    1    1    1    2    1    2    5    5    3    5    2
-#> 3    1    1    2    3    2    3    2    2    3    2    3    4    5    3    5
-#> 4    3    3    3    4    2    2    3    3    5    2    3    3    3    3    5
-#> 5    2    3    2    2    2    4    3    2    5    4    1    2    4    4    1
-#> 6    2    1    2    2    1    1    3    3    2    1    1    2    1    3    1
+#> 1    3    3    4    4    2    2    3    4    3    4    5    4    3    5    5
+#> 2    4    3    3    4    4    3    4    3    3    3    5    3    3    4    5
+#> 3    3    3    3    2    3    3    3    3    4    1    1    2    2    3    3
+#> 4    3    4    4    4    4    2    3    4    4    3    5    4    5    5    5
+#> 5    2    1    2    3    2    1    2    2    1    1    2    2    1    2    3
+#> 6    2    2    2    2    2    2    3    2    4    3    1    3    2    3    3
 #>   Int_1
 #> 1     0
-#> 2     9
+#> 2     8
 #> 3     3
 #> 4     0
 #> 5     1

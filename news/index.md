@@ -30,7 +30,8 @@
 
 - Updated version of
   [`makeCorrAlpha()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrAlpha.md)
-  function produces a more “natural-looking” correlation matrix:
+  function produces a more “natural-looking” correlation matrix, plus
+  diagnostics:
 
   - previous version sorted correlations in the correlation matrix to
     improve likelihood of extracting a positive-definite matrix. Fast,
@@ -41,6 +42,11 @@
   - Additional parameter `sort_cors = FALSE`. If `TRUE`, results are
     similar to the earlier version of
     [`makeCorrAlpha()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrAlpha.md).
+  - Additional parameter `diagnostics = FALSE`. If `TRUE`, returns a
+    list containing the correlation matrix and a diagnostics list
+    (target/achieved alpha, average inter-item correlation, eigenvalues,
+    PD flag, and key arguments). If `FALSE` (default), returns the
+    correlation matrix only.
 
 - Updated version of
   [`lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)

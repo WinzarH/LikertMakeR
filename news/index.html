@@ -29,7 +29,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
@@ -51,10 +51,11 @@
 <li>Embarrassingly straightforward.</li>
 </ul></li>
 <li>
-<p>Updated version of <code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> function produces a more “natural-looking” correlation matrix:</p>
+<p>Updated version of <code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> function produces a more “natural-looking” correlation matrix, plus diagnostics:</p>
 <ul><li>previous version sorted correlations in the correlation matrix to improve likelihood of extracting a positive-definite matrix. Fast, but unnatural results.</li>
 <li>I have applied a slightly faster algorithm for rearranging the correlations in a draft matrix to produce one that is positive-definite.<br></li>
 <li>Additional parameter <code>sort_cors = FALSE</code>. If <code>TRUE</code>, results are similar to the earlier version of <code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code>.</li>
+<li>Additional parameter <code>diagnostics = FALSE</code>. If <code>TRUE</code>, returns a list containing the correlation matrix and a diagnostics list (target/achieved alpha, average inter-item correlation, eigenvalues, PD flag, and key arguments). If <code>FALSE</code> (default), returns the correlation matrix only.</li>
 </ul></li>
 <li>
 <p>Updated version of <code><a href="../reference/lfast.html">lfast()</a></code> function</p>
