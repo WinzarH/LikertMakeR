@@ -1820,10 +1820,10 @@ See [Matta et al. (2018)](https://doi.org/10.1186/s40536-018-0068-8)
 - [GenOrd:Simulation of Discrete Random Variables with Given Correlation Matrix and Marginal Distributions](https://CRAN.R-project.org/package=GenOrd) on CRAN.
 
 - [SimCorMultRes: Simulates Correlated Multinomial Responses](https://cran.r-project.org/package=SimCorMultRes) on CRAN. 
-See [Touloumis (2016)](https://journal.r-project.org/archive/2016/RJ-2016-034/index.html)
+See [Touloumis (2016)](https://doi.org/10.32614/RJ-2016-034)
  
 - [covsim: VITA, IG and PLSIM Simulation for Given Covariance and Marginals](https://cran.r-project.org/package=covsim) on CRAN. 
-See [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03)
+See [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03/)
 
 ### Factor Models: Classical Test Theory (CTT) 
 
@@ -1882,9 +1882,9 @@ Revelle, W. (in prep) _An introduction to psychometric theory with applications 
 Touloumis, A. (2016), Simulating Correlated Binary and Multinomial Responses 
 under Marginal Model Specification: The SimCorMultRes Package, 
 _The R Journal_ 8:2, 79-91. 
-<doi:10.32614/RJ-2016-034>
+<https://doi.org/10.32614/RJ-2016-034>
 
 Winzar, H. (2022). LikertMakeR: Synthesise and correlate Likert scale and 
 related rating-scale data with predefined first and second moments. CRAN: 
-<doi:10.32614/CRAN.package.LikertMakeR>
+<https://CRAN.R-project.org/package=LikertMakeR>
 
