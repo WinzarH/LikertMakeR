@@ -22,7 +22,7 @@
    - Embarrassingly straightforward.
     
 - Updated version of `makeCorrAlpha()` function produces a more 
-  "natural-looking" correlation matrix:
+  "natural-looking" correlation matrix, plus diagnostics:
 
    - previous version sorted correlations in the correlation matrix to improve 
      likelihood of extracting a positive-definite matrix. 
@@ -31,6 +31,11 @@
      in a draft matrix to produce one that is positive-definite.   
    - Additional parameter `sort_cors = FALSE`. 
      If `TRUE`, results are similar to the earlier version of `makeCorrAlpha()`.
+   - Additional parameter `diagnostics = FALSE`.
+     If `TRUE`, returns a list containing the correlation matrix and a 
+     diagnostics list (target/achieved alpha, average inter-item correlation, 
+     eigenvalues, PD flag, and key arguments).
+     If `FALSE` (default), returns the correlation matrix only. 
      
 - Updated version of `lfast()` function
 

@@ -400,6 +400,12 @@ ____
   
   -  **_sort_cors_**: Logical. Default = `FALSE`. If `TRUE`, then runs more 
   quickly, but produces a less natural correlation matrix. 
+  
+  - **_diagnostics_**: Logical. 
+  If `TRUE`, returns a list containing the correlation matrix and a 
+  diagnostics list (target/achieved alpha, average inter-item correlation, 
+  eigenvalues, PD flag, and key arguments).
+  If `FALSE` (default), returns the correlation matrix only. 
 
 #### NOTE
 

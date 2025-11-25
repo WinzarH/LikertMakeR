@@ -4,7 +4,14 @@
 \alias{makeCorrAlpha}
 \title{Correlation matrix from Cronbach's Alpha}
 \usage{
-makeCorrAlpha(items, alpha, variance = 0.5, precision = 0, sort_cors = FALSE)
+makeCorrAlpha(
+  items,
+  alpha,
+  variance = 0.5,
+  precision = 0,
+  sort_cors = FALSE,
+  diagnostics = FALSE
+)
 }
 \arguments{
 \item{items}{(positive, int) matrix dimensions:
@@ -27,9 +34,19 @@ around the target \emph{Cronbach's Alpha}.
 \item{sort_cors}{(logical) If 'TRUE', sorts the correlation coefficients in
 the final correlation matrix.
 Similar to an earlier version of this function.}
+
+\item{diagnostics}{(logical) If 'TRUE', returns a list containing the
+correlation matrix and a diagnostics list (target/achieved alpha,
+average inter-item correlation, eigenvalues, PD flag, and key arguments).
+If 'FALSE' (default), returns the correlation matrix only.}
 }
 \value{
-a correlation matrix
+If 'diagnostics = FALSE', a k x k correlation matrix.
+If 'diagnostics = TRUE', a list with components:
+\describe{
+\item{R}{k x k correlation matrix}
+\item{diagnostics}{list of summary statistics}
+}
 }
 \description{
 \code{makeCorrAlpha()} generates a random correlation
@@ -102,5 +119,15 @@ cor_matrix3 |> round(2)
 alpha(cor_matrix3) |> round(3)
 eigenvalues(cor_matrix3, 1) |> round(3)
 
+
+# with diagnostics
+cor_matrix4 <- makeCorrAlpha(
+  items = 4,
+  alpha = 0.80,
+  diagnostics = TRUE
+)
+
+# test output
+cor_matrix4
 
 }

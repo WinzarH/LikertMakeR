@@ -414,6 +414,12 @@ likelihood of a non-positive-definite matrix.
 
 - **_sort_cors_**: Logical. Default = `FALSE`. If `TRUE`, then runs more 
   quickly, but produces a less natural correlation matrix. 
+  
+- **_diagnostics_**: Logical. 
+  If `TRUE`, returns a list containing the correlation matrix and a 
+  diagnostics list (target/achieved alpha, average inter-item correlation, 
+  eigenvalues, PD flag, and key arguments).
+  If `FALSE` (default), returns the correlation matrix only.
 
 
 ### makeCorrAlpha() is volatile
@@ -508,6 +514,31 @@ alpha(cor_matrix_12)
 ## calculate eigenvalues of the correlation matrix
 eigenvalues(cor_matrix_12, 1) |> round(3)
 ```
+
+
+#### makeCorrAlpha() with diagnostics output
+
+```{r cor_matrix_d}
+## apply makeCorrAlpha() with diagnostics
+set.seed(42)
+
+cor_matrix_5 <- makeCorrAlpha(
+  items = 6,
+  alpha = 0.90,
+  diagnostics = TRUE
+)
+```
+
+##### diagnostics output
+
+```{r cor_matrix_5_mat}
+## output
+cor_matrix_5$R |> round(2)
+
+cor_matrix_5$diagnostics
+```
+
+
 
 ____
 
@@ -737,17 +768,17 @@ cor(df) |> round(3)
 ## define parameters
 n <- 256
 dfMeans <- c(3.9, 4.1, 3.6, 4.0)
-dfSds <-   c(0.6, 0.5, 0.8, 0.7)
+dfSds <- c(0.6, 0.5, 0.8, 0.7)
 lowerbound <- rep(1, 4)
 upperbound <- rep(5, 4)
 items <- c(4, 3, 4, 3)
 
 corMat <- matrix(
   c(
-     1.00, 0.75, 0.60, 0.70,
-     0.75, 1.00, 0.65, 0.72,
-     0.60, 0.65, 1.00, 0.68,
-     0.70, 0.72, 0.68, 1.00
+    1.00, 0.75, 0.60, 0.70,
+    0.75, 1.00, 0.65, 0.72,
+    0.60, 0.65, 1.00, 0.68,
+    0.70, 0.72, 0.68, 1.00
   ),
   nrow = 4, ncol = 4
 )
