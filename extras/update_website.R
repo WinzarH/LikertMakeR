@@ -47,9 +47,20 @@ getNamespaceExports("LikertMakeR")
 
 devtools::clean_dll()
 
+urlchecker::url_check()
+urlchecker::url_update()  # updates DESCRIPTION/R/Rd; still manually fix Rmd/Bib if needed
+
+
+
 devtools::document()
 
+# devtools::check(cran = TRUE)
+
+# devtools::check(args = c("--as-cran"))
+
 devtools::check()
+
+
 
 # 1) Make sure it's not loaded
 "LikertMakeR" %in% loadedNamespaces()   # should be FALSE
