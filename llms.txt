@@ -35,9 +35,6 @@ The package is intended for:
     relationships among scale properties, sample size, number of items,
     *etc.* …
 
-4.  checking the feasibility of scale moments with given scale and
-    correlation properties.
-
 ## Functions
 
 Functions in this version of ***LikertMakeR*** are:
@@ -402,7 +399,7 @@ dimensions and predefined *Cronbach’s Alpha*.
 #### makeCorrAlpha() usage
 
 ``` R
-  makeCorrAlpha(items, alpha, variance = 0.5, precision = 0, sort_cors = FALSE)
+  makeCorrAlpha(items, alpha, variance = 0.5, precision = 0, sort_cors = FALSE, diagnostics = FALSE)
 ```
 
 ##### makeCorrAlpha() arguments
@@ -465,7 +462,7 @@ alpha <- 0.85
 **apply makeCorrAlpha() function**
 
 ``` R
-cor_matrix_4 <- makeCorrAlpha(items, alpha, variance)
+cor_matrix_4 <- makeCorrAlpha(items, alpha)
 ```
 
 **test output with Helper functions**
@@ -498,7 +495,7 @@ alpha(cor_matrix_8)
 eigenvalues(cor_matrix_8, 1)
 ```
 
-#### repeated with random variation around Alpha
+#### same as above, with random variation around Alpha
 
 ##### define parameters
 

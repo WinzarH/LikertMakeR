@@ -87,7 +87,6 @@
 <li><p>“Reproducing” or “Reverse-engineering” rating-scale data for further analysis and visualisation when only summary statistics have been reported,</p></li>
 <li><p>Teaching. Create data with known properties without the need to find or gather original data.</p></li>
 <li><p>Helping researchers and students to better understand the relationships among scale properties, sample size, number of items, <em>etc.</em> …</p></li>
-<li><p>checking the feasibility of scale moments with given scale and correlation properties.</p></li>
 </ol>
 </div>
 <div class="section level2">
@@ -345,7 +344,7 @@
 <div class="section level4">
 <h4 id="makecorralpha-usage">makeCorrAlpha() usage<a class="anchor" aria-label="anchor" href="#makecorralpha-usage"></a>
 </h4>
-<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>  <span class="fu">makeCorrAlpha</span>(items, alpha, <span class="at">variance =</span> <span class="fl">0.5</span>, <span class="at">precision =</span> <span class="dv">0</span>, <span class="at">sort_cors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>  <span class="fu">makeCorrAlpha</span>(items, alpha, <span class="at">variance =</span> <span class="fl">0.5</span>, <span class="at">precision =</span> <span class="dv">0</span>, <span class="at">sort_cors =</span> <span class="cn">FALSE</span>, <span class="at">diagnostics =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <div class="section level5">
 <h5 id="makecorralpha-arguments">makeCorrAlpha() arguments<a class="anchor" aria-label="anchor" href="#makecorralpha-arguments"></a>
 </h5>
@@ -385,7 +384,7 @@
 <div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">4</span></span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.85</span></span></code></pre></div>
 <p><strong>apply makeCorrAlpha() function</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>cor_matrix_4 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(items, alpha, variance)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>cor_matrix_4 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(items, alpha)</span></code></pre></div>
 <p><strong>test output with Helper functions</strong></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">alpha</span>(cor_matrix_4)</span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">eigenvalues</span>(cor_matrix_4, <span class="dv">1</span>)</span></code></pre></div>
@@ -407,7 +406,7 @@
 </div>
 </div>
 <div class="section level4">
-<h4 id="repeated-with-random-variation-around-alpha">repeated with random variation around Alpha<a class="anchor" aria-label="anchor" href="#repeated-with-random-variation-around-alpha"></a>
+<h4 id="same-as-above-with-random-variation-around-alpha">same as above, with random variation around Alpha<a class="anchor" aria-label="anchor" href="#same-as-above-with-random-variation-around-alpha"></a>
 </h4>
 <div class="section level5">
 <h5 id="define-parameters-2">define parameters<a class="anchor" aria-label="anchor" href="#define-parameters-2"></a>
