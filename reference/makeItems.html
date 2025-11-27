@@ -21,7 +21,21 @@ moments, and
 lcor(), which rearranges values in each column of the dataframe
 so they closely match the desired correlation matrix.
 
-"><meta property="og:image" content="https://winzarh.github.io/LikertMakeR/logo.png"></head><body>
+"><meta property="og:image" content="https://winzarh.github.io/LikertMakeR/logo.png"></head><body><p>
+
+
+
+
+
+
+
+
+
+  pkgdown/extra-head.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -166,10 +180,10 @@ between -1 and +1, and '1' in the diagonal.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	16 obs. of  4 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q1: num  4 2 2 2 4 3 2 2 1 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q2: num  4 2 3 2 4 3 3 4 2 3 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q3: num  3 5 1 2 4 4 3 5 2 5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q4: num  4 3 3 3 4 4 4 4 3 5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q1: num  2 3 3 1 4 3 4 2 2 3 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q2: num  2 4 3 4 4 4 2 3 3 3 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q3: num  2 2 5 1 5 4 1 4 3 5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q4: num  3 4 4 3 5 4 3 4 3 4 ...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># means</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">df</span>, <span class="fl">2</span>, <span class="va">mean</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
@@ -184,10 +198,10 @@ between -1 and +1, and '1' in the diagonal.</p></dd>
 <span class="r-in"><span><span class="co"># correlations</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Q1    Q2    Q3    Q4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Q1 1.000 0.313 0.429 0.530</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Q1 1.000 0.313 0.386 0.619</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q2 0.313 1.000 0.514 0.707</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Q3 0.429 0.514 1.000 0.728</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Q4 0.530 0.707 0.728 1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Q3 0.386 0.514 1.000 0.788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Q4 0.619 0.707 0.788 1.000</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -209,5 +223,6 @@ between -1 and +1, and '1' in the diagonal.</p></dd>
 
 
 
-  </body></html>
+  
+</body></html>
 

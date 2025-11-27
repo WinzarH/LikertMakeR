@@ -4,6 +4,8 @@
 
 ## LikertMakeR 1.3.0 (2025-11-24)
 
+CRAN release: 2025-11-26
+
 ### Improvements
 
 - New
