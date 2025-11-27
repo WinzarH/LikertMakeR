@@ -6,6 +6,8 @@ template:
     bootswatch: spacelab
   favicon: pkgdown/favicon/favicon.ico
   logo: pkgdown/favicon/web-app-manifest-512x512.png
+  includes:
+    in_header: pkgdown/extra-head.html
 
 navbar:
   title: LikertMakeR

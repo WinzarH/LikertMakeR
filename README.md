@@ -11,7 +11,6 @@
   <!-- badges: end -->
   
 
-
 # LikertMakeR  <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
 (V 1.3.0  November 2025)
