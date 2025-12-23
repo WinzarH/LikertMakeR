@@ -52,7 +52,7 @@ If 'diagnostics = TRUE', a list with components:
 \code{makeCorrAlpha()} generates a random correlation
 matrix of given dimensions and predefined \emph{Cronbach's Alpha}.
 
-Such a correlation matrix can be applied to the \code{\link[=makeItems]{makeItems()}}
+Such a correlation matrix can be applied to the \code{\link[=makeScales]{makeScales()}}
 function to generate synthetic data with the predefined alpha.
 }
 \note{

@@ -1,0 +1,579 @@
+
+---
+title: "likertMakeR::reliability()"
+author: "Hume Winzar"
+date: "December 2025"
+output: rmarkdown::html_vignette
+bibliography: references.bib  
+link-citations: true
+vignette: >
+  %\VignetteIndexEntry{likertMakeR::reliability()}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| label: setup
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r}
+#| label: load_packages
+#| echo: false
+#| warning: false
+#| message: false
+
+# library(dplyr)
+# library(tibble)
+# library(kableExtra)
+# library(tidyr)
+library(LikertMakeR)
+
+```
+
+<!-- END setup chunks -->
+
+## Reliability estimation with `LikertMakeR::reliability()`
+
+The `reliability()` function estimates a range of internal consistency
+reliability coefficients 
+for **single-factor Likert and rating-scale measures**. 
+It is designed to work naturally with synthetic data generated
+by **LikertMakeR**, but applies equally to real survey data.
+
+Unlike many reliability functions, `reliability()`:
+
+- presents **multiple coefficients in a tidy table**,
+- provides **bootstrap confidence intervals** when requested,
+- supports **ordinal (polychoric-based) reliability**, and
+- includes **explicit diagnostics** explaining when ordinal estimates
+  are not feasible.
+
+### When should you use `reliability()`?
+
+Use `reliability()` when:
+
+- your scale is intended to measure **one underlying construct**,
+- items are **Likert-type or bounded rating scales**, and
+- you want **transparent, reproducible reliability estimates**, especially
+  for teaching, simulation, or methods work.
+
+The function is **not intended for multidimensional scales or SEM models**;
+excellent alternatives already exist for those purposes (e.g. `lavaan`,
+`semTools`).
+
+---
+
+## Function usage
+
+```{r}
+#| label: usage
+#| eval: false
+
+reliability(
+  data,
+  include = "none",
+  ci = FALSE,
+  ci_level = 0.95,
+  n_boot = 1000,
+  na_method = c("pairwise", "listwise"),
+  min_count = 2,
+  digits = 3,
+  verbose = TRUE
+)
+```
+
+## Arguments
+
+### `data`
+
+An `n × k` data frame or matrix containing item responses,
+where rows correspond to respondents and columns correspond to items.
+
+---
+
+### `include`
+
+A character vector specifying which additional reliability coefficients
+to compute.
+
+Possible values are:
+
+- `"none"` (default)  
+  Computes **Cronbach’s alpha** and **McDonald’s omega (total)** using
+  Pearson correlations.
+
+- `"lambda6"`  
+  Adds **Guttman’s lambda-6**, computed via `psych::alpha()`  
+  (requires the optional package **psych**).
+
+- `"polychoric"`  
+  Adds **ordinal reliability estimates**, computed from polychoric
+  correlations:
+  - ordinal alpha (Zumbo’s alpha),
+  - ordinal omega (total).
+
+Multiple options may be supplied, for example:
+
+```{r}
+#| label: include_vector
+#| eval: false 
+
+include = c("lambda6", "polychoric")
+```
+
+### `ci`
+
+Logical.  
+If `TRUE`, confidence intervals are computed using a
+**nonparametric bootstrap**.
+
+Default is `FALSE`.
+
+---
+
+### `ci_level`
+
+Confidence level for bootstrap intervals.  
+Default is `0.95`.
+
+---
+
+### `n_boot`
+
+Number of bootstrap resamples used when `ci = TRUE`.  
+Default is `1000`.
+
+Larger values reduce Monte Carlo error but increase computation time,
+especially for ordinal (polychoric-based) reliability estimates.
+
+---
+
+### `na_method`
+
+How missing values are handled:
+
+- `"pairwise"` (default): correlations use all available pairs,
+- `"listwise"`: rows with any missing values are removed before analysis.
+
+---
+
+### `min_count`
+
+Minimum observed frequency per response category required to attempt
+polychoric correlations.  
+Default is `2`.
+
+Ordinal reliability estimates are skipped if any item contains categories
+with fewer than `min_count` observations. When this occurs, diagnostics
+are stored in the returned object and may be inspected using
+`ordinal_diagnostics()`.
+
+---
+
+### `digits`
+
+Number of decimal places used when printing estimates.  
+Default is `3`.
+
+---
+
+### `verbose`
+
+Logical.  
+If `TRUE`, warnings and progress indicators are displayed.
+
+Default is `TRUE`.
+
+---
+
+## Reliability coefficients returned
+
+### Pearson-based coefficients (always available)
+
+- **Cronbach’s alpha**  
+  Computed from the Pearson correlation matrix.
+
+- **McDonald’s omega (total)**  
+  Computed from the leading eigenvalue of the correlation matrix, assuming
+  a single common factor.
+
+These estimates are appropriate when Likert-scale responses are treated
+as approximately interval-scaled.
+
+---
+
+### Ordinal (polychoric-based) coefficients
+
+When `include = "polychoric"`:
+
+- **Ordinal alpha (Zumbo’s alpha)**  
+  Cronbach’s alpha computed from the **polychoric correlation matrix**.
+
+- **Ordinal omega (total)**  
+  McDonald’s omega computed from the polychoric correlation matrix.
+
+These estimates are often preferred when items are clearly ordinal,
+response distributions are skewed, or floor/ceiling effects are present.
+
+---
+
+## Ordinal diagnostics and safeguards
+
+Ordinal reliability estimation can fail when response categories are sparse
+(e.g., very few observations in extreme categories).
+
+When this occurs:
+
+- ordinal estimates are **skipped rather than forced**,
+- a clear warning is issued,
+- diagnostics are stored in the returned object.
+
+Diagnostics may be inspected using:
+
+```{r}
+#| label: ordinal_diagnostics
+#| eval: false 
+
+ordinal_diagnostics(result)
+```
+
+## Examples
+
+### Create a synthetic dataset
+
+The example below generates a four-item single-factor scale with a target
+Cronbach’s alpha of 0.80, using functions from **LikertMakeR**.
+
+```{r}
+#| label: dataset
+
+# example correlation matrix
+my_cor <- LikertMakeR::makeCorrAlpha(
+  items = 4,
+  alpha = 0.80
+)
+
+# example correlated dataframe
+my_data <- LikertMakeR::makeScales(
+  n = 64,
+  means = c(2.75, 3.00, 3.25, 3.50),
+  sds = c(1.25, 1.50, 1.30, 1.25),
+  lowerbound = rep(1, 4),
+  upperbound = rep(5, 4),
+  cormatrix = my_cor
+)
+```
+
+
+### Basic reliability estimates
+
+By default, `reliability()` returns Pearson-based Cronbach’s alpha and
+McDonald’s omega (total), assuming a single common factor.
+
+```{r}
+#| label: simple_function
+
+# $\alpha$ and $\omega$
+
+reliability(my_data)
+```
+
+### Including additional coefficients
+
+Additional reliability coefficients may be requested using the
+`include` argument.
+
+```{r}
+#| label: include_parameter
+
+# $\alpha$ , $\omega$ and $\lambda 6$ , plus ordinal versions
+
+reliability(
+  my_data,
+  include = c("lambda6", "polychoric")
+)
+```
+
+The available options are:
+
+- `"lambda6"`  
+  Adds **Guttman’s lambda-6**, computed using `psych::alpha()`.  
+  This option requires the suggested package **psych**.
+
+- `"polychoric"`  
+  Adds **ordinal (polychoric-based) reliability estimates**, including
+  ordinal alpha (Zumbo’s alpha) and ordinal omega (total).
+
+Multiple options may be supplied simultaneously. If `"none"` is included
+alongside other options, it is ignored.
+
+If ordinal reliability estimates cannot be computed — most commonly due to
+sparse response categories — they are skipped automatically. In such cases,
+the returned object contains diagnostic information explaining why the
+estimates were omitted.
+
+### When should I use each option?
+
+By default, `reliability()` reports Cronbach’s alpha and McDonald’s omega
+computed from Pearson correlations. This is appropriate for most teaching,
+exploratory, and applied settings, especially when Likert items have five or
+more categories and reasonably symmetric distributions.
+
+Use `include = "lambda6"` when you want an additional lower-bound reliability
+estimate that is less sensitive to tau-equivalence assumptions. Guttman’s
+lambda-6 is often reported alongside alpha and omega in methodological
+comparisons and requires the **psych** package.
+
+Use `include = "polychoric"` when item responses are clearly ordinal and
+category distributions are well populated. In this case, the function
+computes ordinal alpha (Zumbo’s alpha) and ordinal omega based on polychoric
+correlations. Ordinal methods are most appropriate when response categories
+are few (e.g., 4–5 points) and when treating items as continuous may be
+questionable. If response categories are sparse, ordinal estimates are
+skipped and diagnostics are provided to explain why.
+
+
+
+
+### Notes on computation
+
+All reliability coefficients in `reliability()` are computed under the
+assumption of a **single common factor**. The function is intended for
+unidimensional scales and does not perform factor extraction or
+dimensionality testing.
+
+Cronbach’s alpha and McDonald’s omega are computed from **Pearson
+correlations** by default. When `include = "polychoric"` is specified,
+ordinal reliability estimates are computed 
+using **polychoric correlations**, corresponding 
+to *Zumbo’s ordinal alpha* and *ordinal omega total*.
+
+Ordinal reliability estimates may be **skipped automatically** when:
+
+- an item has fewer than two observed response categories, or
+- one or more response categories occur fewer than `min_count` times.
+
+In these cases, the function returns `NA` for ordinal estimates and stores
+diagnostic information explaining the decision. These diagnostics can be
+inspected using `ordinal_diagnostics()`.
+
+When `ci = TRUE`, confidence intervals are obtained using a **nonparametric
+bootstrap**. For ordinal reliability estimates, bootstrap resamples may
+fail if polychoric correlations cannot be estimated in some resampled
+datasets. Such failures are tracked internally and reported in the output
+notes. Increasing `n_boot` can improve the stability of ordinal confidence
+intervals when the proportion of successful bootstrap draws is high but
+not complete.
+
+For transparency, methodological details about estimation methods and
+bootstrap performance are reported alongside point estimates in the
+returned table.
+
+
+
+## Choosing a Reliability Coefficient: A Practical Decision Guide
+
+Researchers and students are often faced with multiple reliability coefficients and little guidance on when each should be used. This section provides a practical, defensible guide for choosing among Cronbach’s alpha, McDonald’s omega, and their ordinal counterparts when working with Likert-type and rating-scale data.
+
+This guidance assumes a single-factor scale, which is the design focus of LikertMakeR.
+
+### Step 1: What kind of data do you have?
+
+#### Continuous or approximately continuous items
+
+Examples:
+
+  - Scale scores with many response options
+
+  - Visual analogue scales
+
+  - Aggregated or averaged ratings
+
+  → Pearson correlations are usually appropriate.
+
+#### Ordinal (Likert-type) items
+
+Examples:
+
+  - 5-point or 7-point agreement scales
+
+  - Frequency scales with clear category boundaries
+
+  → Ordinal (polychoric-based) methods are often more appropriate, especially when responses are skewed or unevenly distributed.
+
+### Step 2: Choosing between α and ω
+
+#### Cronbach’s alpha (α)
+
+Cronbach’s alpha is the most widely reported reliability coefficient and is based on average inter-item correlations.
+
+Use alpha when:
+
+  - You need comparability with legacy literature
+
+  - Items are roughly tau-equivalent
+
+  - You want a simple baseline estimate
+
+Limitations:
+
+  - Assumes equal factor loadings
+
+  - Can underestimate reliability when loadings differ
+
+  - Sensitive to the number of items
+
+Alpha should be viewed as a descriptive lower bound, not a definitive measure of internal consistency.
+
+#### McDonald’s omega (ω)
+
+McDonald’s omega estimates the proportion of variance attributable to a single common factor, allowing items to have different loadings.
+
+Use omega when:
+
+  - Items vary in strength or discrimination
+
+  - You want a model-based reliability estimate
+
+  - A single factor is theoretically justified
+
+Advantages:
+
+  - Fewer restrictive assumptions than alpha
+
+  - Better behaved in simulations
+
+  - Increasingly recommended in methodological literature
+
+As a general rule, omega is preferred to alpha for single-factor scales when factor loadings are unequal.
+
+### Step 3: When should I use ordinal reliability?
+
+Ordinal reliability coefficients are computed from polychoric correlations, which estimate associations between latent continuous variables underlying ordinal responses.
+
+In reliability(), these correspond to:
+
+  - Ordinal alpha (often called Zumbo’s alpha)
+
+  - Ordinal omega
+
+Use ordinal reliability when:
+
+  - Items are ordinal (e.g., 5- or 7-point Likert scales)
+
+  - Response distributions are skewed or uneven
+
+  - You wish to respect the ordinal measurement scale
+
+Important caveats:
+
+  - Polychoric correlations require sufficient observations per category
+
+  - Sparse categories can cause estimation failure
+
+  - Diagnostics should always be inspected
+
+If ordinal estimation is not feasible, reliability() reports this transparently and falls back to Pearson-based estimates.
+
+### Step 4: α vs ω vs ordinal ω — a practical summary
+
+| Situation | Recommended coefficient |
+|----------|--------------------------|
+| Legacy comparison, simple reporting | α |
+| Single-factor scale, unequal loadings | ω |
+| Likert items with skew or ceiling effects | Ordinal ω |
+| Teaching or demonstration | α *and* ω |
+| Ordinal data, small samples or sparse categories | ω (Pearson-based) |
+
+
+When in doubt:
+
+    Report omega, and optionally alpha for comparison.
+
+If your data are clearly ordinal and diagnostics permit:
+
+    Ordinal omega is the most defensible choice.
+
+### Step 5: Confidence intervals
+
+When ci = TRUE, LikertMakeR computes nonparametric bootstrap confidence intervals.
+
+Why bootstrap?
+
+  - No closed-form CI exists for omega
+
+  - Ordinal reliability has no reliable analytic CI
+
+  - Bootstrap intervals are flexible and robust
+
+Practical advice:
+
+  - Use at least 1,000 resamples for stable intervals
+
+  - Expect longer runtimes for ordinal bootstraps
+
+  - Always report the method used to compute CIs
+
+
+
+
+
+
+
+## Recommended reading
+
+ - For readers who want to go a little deeper
+
+If you use reliability() for teaching or applied research, the following
+sources provide accessible explanations of the ideas behind the coefficients
+reported here.
+
+### Understanding Cronbach’s alpha and its limitations
+
+  - Cronbach, L. J. (1951). Coefficient alpha and the internal structure of tests.
+The original source for alpha; still worth reading to understand what alpha
+does—and does not—measure.
+
+  - Revelle, W., & Zinbarg, R. E. (2009). Coefficients alpha, beta, omega, and the glb.
+A clear discussion of why alpha can be misleading and when omega is preferable.
+
+### Omega and factor-based reliability
+
+  - McDonald, R. P. (1999). Test theory: A unified treatment.
+The definitive reference for omega; recommended for readers comfortable with
+factor analysis concepts.
+
+### Ordinal reliability for Likert-type data
+
+  - Zumbo, B. D., Gadermann, A. M., & Zeisser, C. (2007).
+Ordinal versions of coefficients alpha and theta for Likert rating scales.
+Introduces ordinal (polychoric-based) alpha—often called Zumbo’s alpha.
+
+  - Gadermann, A. M., Guhn, M., & Zumbo, B. D. (2012).
+Estimating ordinal reliability for Likert-type and ordinal item response data.
+A practical, non-technical guide that is especially suitable for teaching.
+
+### Polychoric correlations in practice
+
+  - Holgado–Tello, F. P., et al. (2010).
+Polychoric versus Pearson correlations in factor analysis of ordinal variables.
+A helpful applied comparison explaining why Pearson correlations can distort
+analyses of Likert-type data.
+
+## Teaching tip
+
+For most classroom examples, start with Pearson-based alpha and omega.
+Introduce ordinal reliability only after students understand:
+
+(a) factor models, and
+(b) why Likert responses are not truly continuous.
+
+This mirrors the progressive structure used in reliability() and helps
+students see why additional assumptions are required for ordinal methods.
+

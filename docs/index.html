@@ -43,7 +43,7 @@
 
     <a class="navbar-brand me-2" href="index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,7 @@
 <div class="section level1">
 <h1 id="likertmaker-">LikertMakeR <a class="anchor" aria-label="anchor" href="#likertmaker-"></a>
 </h1>
-<p>(V 1.3.0 November 2025)</p>
+<p>(V 1.4.0 December 2025)</p>
 <p>Synthesise and correlate Likert scales, and similar rating-scale data, with predefined first &amp; second moments (mean and standard deviation), <em>Cronbach’s Alpha</em>, <em>Factor Loadings</em>, and other summary statistics.</p>
 <div class="section level2">
 <h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
@@ -87,7 +87,6 @@
 <li><p>“Reproducing” or “Reverse-engineering” rating-scale data for further analysis and visualisation when only summary statistics have been reported,</p></li>
 <li><p>Teaching. Create data with known properties without the need to find or gather original data.</p></li>
 <li><p>Helping researchers and students to better understand the relationships among scale properties, sample size, number of items, <em>etc.</em> …</p></li>
-<li><p>checking the feasibility of scale moments with given scale and correlation properties.</p></li>
 </ol>
 </div>
 <div class="section level2">
@@ -112,6 +111,7 @@
 <ul>
 <li><p><a href="#alpha"><strong><em>alpha()</em></strong></a> calculates Cronbach’s Alpha from a given correlation matrix or a given dataframe</p></li>
 <li><p><a href="#eigenvalues"><strong><em>eigenvalues()</em></strong></a> calculates eigenvalues of a correlation matrix, reports on positive-definite status of the matrix and, optionally, displays a scree plot to visualise the eigenvalues</p></li>
+<li><p><a href="#reliability"><strong><em>reliability()</em></strong></a> Computes internal consistency reliability estimates for a single-factor scale, including Cronbach’s alpha, McDonald’s omega (total), and optional ordinal (polychoric-based) variants, plus Confidence intervals via nonparametric bootstrap.</p></li>
 </ul>
 </div>
 </div>
@@ -345,7 +345,7 @@
 <div class="section level4">
 <h4 id="makecorralpha-usage">makeCorrAlpha() usage<a class="anchor" aria-label="anchor" href="#makecorralpha-usage"></a>
 </h4>
-<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>  <span class="fu">makeCorrAlpha</span>(items, alpha, <span class="at">variance =</span> <span class="fl">0.5</span>, <span class="at">precision =</span> <span class="dv">0</span>, <span class="at">sort_cors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>  <span class="fu">makeCorrAlpha</span>(items, alpha, <span class="at">variance =</span> <span class="fl">0.5</span>, <span class="at">precision =</span> <span class="dv">0</span>, <span class="at">sort_cors =</span> <span class="cn">FALSE</span>, <span class="at">diagnostics =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <div class="section level5">
 <h5 id="makecorralpha-arguments">makeCorrAlpha() arguments<a class="anchor" aria-label="anchor" href="#makecorralpha-arguments"></a>
 </h5>
@@ -385,7 +385,7 @@
 <div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="dv">4</span></span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.85</span></span></code></pre></div>
 <p><strong>apply makeCorrAlpha() function</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>cor_matrix_4 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(items, alpha, variance)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>cor_matrix_4 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(items, alpha)</span></code></pre></div>
 <p><strong>test output with Helper functions</strong></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">alpha</span>(cor_matrix_4)</span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">eigenvalues</span>(cor_matrix_4, <span class="dv">1</span>)</span></code></pre></div>
@@ -407,7 +407,7 @@
 </div>
 </div>
 <div class="section level4">
-<h4 id="repeated-with-random-variation-around-alpha">repeated with random variation around Alpha<a class="anchor" aria-label="anchor" href="#repeated-with-random-variation-around-alpha"></a>
+<h4 id="same-as-above-with-random-variation-around-alpha">same as above, with random variation around Alpha<a class="anchor" aria-label="anchor" href="#same-as-above-with-random-variation-around-alpha"></a>
 </h4>
 <div class="section level5">
 <h5 id="define-parameters-2">define parameters<a class="anchor" aria-label="anchor" href="#define-parameters-2"></a>
@@ -521,11 +521,11 @@
 <h4 id="makescales-usage">
 <em>makeScales()</em> usage<a class="anchor" aria-label="anchor" href="#makescales-usage"></a>
 </h4>
-<div class="sourceCode" id="cb31"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">makeItems</span>(n, means, sds, lowerbound, upperbound, items, cormatrix)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">makeScales</span>(n, means, sds, lowerbound, upperbound, items, cormatrix)</span></code></pre></div>
 </div>
 <div class="section level4">
-<h4 id="makeitems-arguments">
-<em>makeItems()</em> arguments<a class="anchor" aria-label="anchor" href="#makeitems-arguments"></a>
+<h4 id="makescales-arguments">
+<em>makeScales()</em> arguments<a class="anchor" aria-label="anchor" href="#makescales-arguments"></a>
 </h4>
 <ul>
 <li><p><strong><em>n</em></strong>: number of observations to generate.</p></li>
@@ -997,11 +997,12 @@
 <div class="sourceCode" id="cb48"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a>cor_1 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(<span class="at">items =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>)</span>
 <span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a>means_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>)</span>
 <span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a>sds_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
-<span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a>Att_1 <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
+<span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a>Att_1 <span class="ot">&lt;-</span> <span class="fu">makeScales</span>(</span>
 <span id="cb48-5"><a href="#cb48-5" tabindex="-1"></a>  n, means_1, sds_1,</span>
 <span id="cb48-6"><a href="#cb48-6" tabindex="-1"></a>  <span class="fu">rep</span>(lower, <span class="dv">4</span>), <span class="fu">rep</span>(upper, <span class="dv">4</span>),</span>
-<span id="cb48-7"><a href="#cb48-7" tabindex="-1"></a>  cor_1</span>
-<span id="cb48-8"><a href="#cb48-8" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb48-7"><a href="#cb48-7" tabindex="-1"></a>  <span class="at">items =</span> <span class="dv">3</span>,</span>
+<span id="cb48-8"><a href="#cb48-8" tabindex="-1"></a>  cor_1</span>
+<span id="cb48-9"><a href="#cb48-9" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level6">
 <h6 id="attitude-2">attitude #2<a class="anchor" aria-label="anchor" href="#attitude-2"></a>
@@ -1009,11 +1010,12 @@
 <div class="sourceCode" id="cb49"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>cor_2 <span class="ot">&lt;-</span> <span class="fu">makeCorrAlpha</span>(<span class="at">items =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.80</span>)</span>
 <span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>means_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>)</span>
 <span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>sds_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">1.0</span>)</span>
-<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a>Att_2 <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a>Att_2 <span class="ot">&lt;-</span> <span class="fu">makeScales</span>(</span>
 <span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a>  n, means_2, sds_2,</span>
 <span id="cb49-6"><a href="#cb49-6" tabindex="-1"></a>  <span class="fu">rep</span>(lower, <span class="dv">5</span>), <span class="fu">rep</span>(upper, <span class="dv">5</span>),</span>
-<span id="cb49-7"><a href="#cb49-7" tabindex="-1"></a>  cor_2</span>
-<span id="cb49-8"><a href="#cb49-8" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb49-7"><a href="#cb49-7" tabindex="-1"></a>  <span class="at">items =</span> <span class="dv">3</span>,</span>
+<span id="cb49-8"><a href="#cb49-8" tabindex="-1"></a>  cor_2</span>
+<span id="cb49-9"><a href="#cb49-9" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="section level6">
 <h6 id="attitude-3">attitude #3<a class="anchor" aria-label="anchor" href="#attitude-3"></a>
@@ -1022,11 +1024,12 @@
 <span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>means_3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>)</span>
 <span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a>sds_3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">1.0</span>)</span>
 <span id="cb50-4"><a href="#cb50-4" tabindex="-1"></a></span>
-<span id="cb50-5"><a href="#cb50-5" tabindex="-1"></a>Att_3 <span class="ot">&lt;-</span> <span class="fu">makeItems</span>(</span>
+<span id="cb50-5"><a href="#cb50-5" tabindex="-1"></a>Att_3 <span class="ot">&lt;-</span> <span class="fu">makeScales</span>(</span>
 <span id="cb50-6"><a href="#cb50-6" tabindex="-1"></a>  n, means_3, sds_3,</span>
 <span id="cb50-7"><a href="#cb50-7" tabindex="-1"></a>  <span class="fu">rep</span>(lower, <span class="dv">6</span>), <span class="fu">rep</span>(upper, <span class="dv">6</span>),</span>
-<span id="cb50-8"><a href="#cb50-8" tabindex="-1"></a>  cor_3</span>
-<span id="cb50-9"><a href="#cb50-9" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb50-8"><a href="#cb50-8" tabindex="-1"></a>  <span class="at">items =</span> <span class="dv">3</span>,</span>
+<span id="cb50-9"><a href="#cb50-9" tabindex="-1"></a>  cor_3</span>
+<span id="cb50-10"><a href="#cb50-10" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 <div class="section level5">
@@ -1089,6 +1092,7 @@
 <ul>
 <li><p><strong><em>alpha()</em></strong> calculates <em>Cronbach’s Alpha</em> from a given correlation matrix or a given dataframe</p></li>
 <li><p><strong><em>eigenvalues()</em></strong> calculates eigenvalues of a correlation matrix, and reports on whether the correlation matrix is positive definite and an optional scree plot</p></li>
+<li><p><strong><em>reliability()</em></strong> Computes a range of internal consistency reliability estimates for a single-factor scale with optional Confidence intervals</p></li>
 </ul>
 <div class="section level3">
 <h3 id="alpha">alpha()<a class="anchor" aria-label="anchor" href="#alpha"></a>
@@ -1190,6 +1194,84 @@
 <span id="cb63-5"><a href="#cb63-5" tabindex="-1"></a>evals <span class="ot">&lt;-</span> <span class="fu">eigenvalues</span>(correlationMatrix, <span class="dv">1</span>)</span>
 <span id="cb63-6"><a href="#cb63-6" tabindex="-1"></a></span>
 <span id="cb63-7"><a href="#cb63-7" tabindex="-1"></a><span class="fu">print</span>(evals)</span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="reliability">reliability()<a class="anchor" aria-label="anchor" href="#reliability"></a>
+</h3>
+<p>Estimates a range of internal consistency reliability coefficients for a single-factor scale</p>
+<div class="section level4">
+<h4 id="reliability-usage">reliability() usage<a class="anchor" aria-label="anchor" href="#reliability-usage"></a>
+</h4>
+<div class="sourceCode" id="cb64"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">reliability</span>(</span>
+<span id="cb64-2"><a href="#cb64-2" tabindex="-1"></a>  data,</span>
+<span id="cb64-3"><a href="#cb64-3" tabindex="-1"></a>  <span class="at">include =</span> <span class="st">"none"</span>,</span>
+<span id="cb64-4"><a href="#cb64-4" tabindex="-1"></a>  <span class="at">ci =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb64-5"><a href="#cb64-5" tabindex="-1"></a>  <span class="at">ci_level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb64-6"><a href="#cb64-6" tabindex="-1"></a>  <span class="at">n_boot =</span> <span class="dv">1000</span>,</span>
+<span id="cb64-7"><a href="#cb64-7" tabindex="-1"></a>  <span class="at">na_method =</span> <span class="fu">c</span>(<span class="st">"pairwise"</span>, <span class="st">"listwise"</span>),</span>
+<span id="cb64-8"><a href="#cb64-8" tabindex="-1"></a>  <span class="at">min_count =</span> <span class="dv">2</span>,</span>
+<span id="cb64-9"><a href="#cb64-9" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb64-10"><a href="#cb64-10" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb64-11"><a href="#cb64-11" tabindex="-1"></a>) </span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="reliability-arguments">reliability() arguments<a class="anchor" aria-label="anchor" href="#reliability-arguments"></a>
+</h4>
+<p><strong><em>data</em></strong> an <code>r</code> by <code>k</code> data frame or matrix containing item responses, with observations in the rows and items in the columns.</p>
+<p><strong><em>include</em></strong> Character vector specifying which further estimates to compute. Possible values are:</p>
+<ul>
+<li><p><code>"none"</code> (default): Pearson-based alpha and omega only.</p></li>
+<li><p><code>"lambda6"</code>: Include Guttman’s lambda-6 (requires package <a href="https://CRAN.R-project.org/package=psych" class="external-link">psych</a>).</p></li>
+<li><p><code>"polychoric"</code>: Include ordinal (polychoric-based) alpha and omega.</p></li>
+</ul>
+<p>Multiple options may be supplied.</p>
+<p><strong><em>ci</em></strong> Logical; if <code>TRUE</code>, confidence intervals are computed using nonparametric bootstrap. Default is <code>FALSE</code>.</p>
+<p><strong><em>ci_level</em></strong> Confidence level for bootstrap intervals. Default = <code>0.95</code>.</p>
+<p><strong><em>n_boot</em></strong> Number of bootstrap resamples used when <code>ci = TRUE</code>. Default is <code>1000</code>.</p>
+<p><strong><em>na_method</em></strong> How to handle missing values. Either <code>"pairwise"</code> (default) or <code>"listwise"</code>.</p>
+<p><strong><em>min_count</em></strong> Minimum observed frequency per response category required to attempt polychoric correlations. Ordinal reliability estimates are skipped if this condition is violated. Default is <code>2</code>.</p>
+<p><strong><em>digits</em></strong> decimal places used when printing estimates. Default is <code>3</code>.</p>
+<p><strong><em>verbose</em></strong> Logical; if <code>TRUE</code>, warnings and progress indicators are displayed. Default is <code>TRUE</code>.</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="reliability-examples">reliability() examples<a class="anchor" aria-label="anchor" href="#reliability-examples"></a>
+</h3>
+<div class="section level4">
+<h4 id="create-dataset">create dataset<a class="anchor" aria-label="anchor" href="#create-dataset"></a>
+</h4>
+<div class="sourceCode" id="cb65"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a>my_cor <span class="ot">&lt;-</span> LikertMakeR<span class="sc">::</span><span class="fu">makeCorrAlpha</span>(</span>
+<span id="cb65-2"><a href="#cb65-2" tabindex="-1"></a>  <span class="at">items =</span> <span class="dv">4</span>,</span>
+<span id="cb65-3"><a href="#cb65-3" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.80</span></span>
+<span id="cb65-4"><a href="#cb65-4" tabindex="-1"></a>)</span>
+<span id="cb65-5"><a href="#cb65-5" tabindex="-1"></a></span>
+<span id="cb65-6"><a href="#cb65-6" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> LikertMakeR<span class="sc">::</span><span class="fu">makeScales</span>(</span>
+<span id="cb65-7"><a href="#cb65-7" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">64</span>,</span>
+<span id="cb65-8"><a href="#cb65-8" tabindex="-1"></a>  <span class="at">means =</span> <span class="fu">c</span>(<span class="fl">2.75</span>, <span class="fl">3.00</span>, <span class="fl">3.25</span>, <span class="fl">3.50</span>),</span>
+<span id="cb65-9"><a href="#cb65-9" tabindex="-1"></a>  <span class="at">sds =</span> <span class="fu">c</span>(<span class="fl">1.25</span>, <span class="fl">1.50</span>, <span class="fl">1.30</span>, <span class="fl">1.25</span>),</span>
+<span id="cb65-10"><a href="#cb65-10" tabindex="-1"></a>  <span class="at">lowerbound =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>),</span>
+<span id="cb65-11"><a href="#cb65-11" tabindex="-1"></a>  <span class="at">upperbound =</span> <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">4</span>),</span>
+<span id="cb65-12"><a href="#cb65-12" tabindex="-1"></a>  <span class="at">items =</span> <span class="dv">4</span>,</span>
+<span id="cb65-13"><a href="#cb65-13" tabindex="-1"></a>  <span class="at">cormatrix =</span> my_cor</span>
+<span id="cb65-14"><a href="#cb65-14" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="run-function">run function<a class="anchor" aria-label="anchor" href="#run-function"></a>
+</h4>
+<div class="sourceCode" id="cb66"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a><span class="fu">reliability</span>(my_data)</span>
+<span id="cb66-2"><a href="#cb66-2" tabindex="-1"></a></span>
+<span id="cb66-3"><a href="#cb66-3" tabindex="-1"></a><span class="fu">reliability</span>(</span>
+<span id="cb66-4"><a href="#cb66-4" tabindex="-1"></a>  my_data,</span>
+<span id="cb66-5"><a href="#cb66-5" tabindex="-1"></a>  <span class="at">include =</span> <span class="fu">c</span>(<span class="st">"lambda6"</span>, <span class="st">"polychoric"</span>)</span>
+<span id="cb66-6"><a href="#cb66-6" tabindex="-1"></a>)</span></code></pre></div>
+<p>##### slower</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a><span class="fu">reliability</span>(</span>
+<span id="cb67-2"><a href="#cb67-2" tabindex="-1"></a>  my_data,</span>
+<span id="cb67-3"><a href="#cb67-3" tabindex="-1"></a>  <span class="at">include =</span> <span class="st">"polychoric"</span>,</span>
+<span id="cb67-4"><a href="#cb67-4" tabindex="-1"></a>  <span class="at">ci =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb67-5"><a href="#cb67-5" tabindex="-1"></a>  <span class="at">n_boot =</span> <span class="dv">200</span></span>
+<span id="cb67-6"><a href="#cb67-6" tabindex="-1"></a>)</span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -1200,27 +1282,27 @@
 <div class="section level4">
 <h4 id="apa">APA:<a class="anchor" aria-label="anchor" href="#apa"></a>
 </h4>
-<div class="sourceCode" id="cb64"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a> Winzar, <span class="fu">H.</span> (<span class="dv">2022</span>). LikertMakeR<span class="sc">:</span> Synthesise and correlate Likert<span class="sc">-</span>scale </span>
-<span id="cb64-2"><a href="#cb64-2" tabindex="-1"></a> and related rating<span class="sc">-</span>scale data with predefined first <span class="sc">&amp;</span> second moments, </span>
-<span id="cb64-3"><a href="#cb64-3" tabindex="-1"></a> Version <span class="dv">1</span>.<span class="fl">2.0</span> (<span class="dv">2025</span>),</span>
-<span id="cb64-4"><a href="#cb64-4" tabindex="-1"></a> The Comprehensive R Archive <span class="fu">Network</span> (CRAN),</span>
-<span id="cb64-5"><a href="#cb64-5" tabindex="-1"></a><span class="sc">&lt;</span>https<span class="sc">:</span><span class="er">//</span>CRAN.R<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>LikertMakeR<span class="sc">&gt;</span></span>
-<span id="cb64-6"><a href="#cb64-6" tabindex="-1"></a>    </span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a> Winzar, <span class="fu">H.</span> (<span class="dv">2022</span>). LikertMakeR<span class="sc">:</span> Synthesise and correlate Likert<span class="sc">-</span>scale </span>
+<span id="cb68-2"><a href="#cb68-2" tabindex="-1"></a> and related rating<span class="sc">-</span>scale data with predefined first <span class="sc">&amp;</span> second moments, </span>
+<span id="cb68-3"><a href="#cb68-3" tabindex="-1"></a> Version <span class="dv">1</span>.<span class="fl">4.0</span> (<span class="dv">2025</span>),</span>
+<span id="cb68-4"><a href="#cb68-4" tabindex="-1"></a> The Comprehensive R Archive <span class="fu">Network</span> (CRAN),</span>
+<span id="cb68-5"><a href="#cb68-5" tabindex="-1"></a><span class="sc">&lt;</span>https<span class="sc">:</span><span class="er">//</span>CRAN.R<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>LikertMakeR<span class="sc">&gt;</span></span>
+<span id="cb68-6"><a href="#cb68-6" tabindex="-1"></a>    </span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="bib">BIB:<a class="anchor" aria-label="anchor" href="#bib"></a>
 </h4>
-<div class="sourceCode" id="cb65"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a><span class="sc">@</span>software{winzar2022,</span>
-<span id="cb65-2"><a href="#cb65-2" tabindex="-1"></a>title <span class="ot">=</span> {LikertMakeR<span class="sc">:</span> Synthesise and correlate Likert<span class="sc">-</span>scale </span>
-<span id="cb65-3"><a href="#cb65-3" tabindex="-1"></a>and related rating<span class="sc">-</span>scale data with predefined first <span class="sc">&amp;</span> second moments},</span>
-<span id="cb65-4"><a href="#cb65-4" tabindex="-1"></a>author <span class="ot">=</span> {Hume Winzar},</span>
-<span id="cb65-5"><a href="#cb65-5" tabindex="-1"></a>abstract <span class="ot">=</span> {LikertMakeR synthesises Likert scale and related rating<span class="sc">-</span>scale data with predefined means and standard deviations, and optionally correlates these vectors to fit a predefined correlation matrix or Cronbach<span class="st">'s Alpha.},</span></span>
-<span id="cb65-6"><a href="#cb65-6" tabindex="-1"></a><span class="st">journal = {The Comprehensive R Archive Network (CRAN)},</span></span>
-<span id="cb65-7"><a href="#cb65-7" tabindex="-1"></a><span class="st">month = {12},</span></span>
-<span id="cb65-8"><a href="#cb65-8" tabindex="-1"></a><span class="st">year = {2022},</span></span>
-<span id="cb65-9"><a href="#cb65-9" tabindex="-1"></a><span class="st">version = {1.2.0 (2025)}</span></span>
-<span id="cb65-10"><a href="#cb65-10" tabindex="-1"></a><span class="st">url = {https://CRAN.R-project.org/package=LikertMakeR},</span></span>
-<span id="cb65-11"><a href="#cb65-11" tabindex="-1"></a><span class="st">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a><span class="sc">@</span>software{winzar2022,</span>
+<span id="cb69-2"><a href="#cb69-2" tabindex="-1"></a>title <span class="ot">=</span> {LikertMakeR<span class="sc">:</span> Synthesise and correlate Likert<span class="sc">-</span>scale </span>
+<span id="cb69-3"><a href="#cb69-3" tabindex="-1"></a>and related rating<span class="sc">-</span>scale data with predefined first <span class="sc">&amp;</span> second moments},</span>
+<span id="cb69-4"><a href="#cb69-4" tabindex="-1"></a>author <span class="ot">=</span> {Hume Winzar},</span>
+<span id="cb69-5"><a href="#cb69-5" tabindex="-1"></a>abstract <span class="ot">=</span> {LikertMakeR synthesises Likert scale and related rating<span class="sc">-</span>scale data with predefined means and standard deviations, and optionally correlates these vectors to fit a predefined correlation matrix or Cronbach<span class="st">'s Alpha.},</span></span>
+<span id="cb69-6"><a href="#cb69-6" tabindex="-1"></a><span class="st">journal = {The Comprehensive R Archive Network (CRAN)},</span></span>
+<span id="cb69-7"><a href="#cb69-7" tabindex="-1"></a><span class="st">month = {12},</span></span>
+<span id="cb69-8"><a href="#cb69-8" tabindex="-1"></a><span class="st">year = {2022},</span></span>
+<span id="cb69-9"><a href="#cb69-9" tabindex="-1"></a><span class="st">version = {1.4.0 (2025)}</span></span>
+<span id="cb69-10"><a href="#cb69-10" tabindex="-1"></a><span class="st">url = {https://CRAN.R-project.org/package=LikertMakeR},</span></span>
+<span id="cb69-11"><a href="#cb69-11" tabindex="-1"></a><span class="st">}</span></span></code></pre></div>
 </div>
 </div>
 </div>

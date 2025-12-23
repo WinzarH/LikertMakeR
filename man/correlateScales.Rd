@@ -44,9 +44,10 @@ cor_1 <- makeCorrAlpha(items = 4, alpha = 0.90)
 means_1 <- c(2.5, 2.5, 3.0, 3.5)
 sds_1 <- c(0.9, 1.0, 0.9, 1.0)
 
-Att_1 <- makeItems(
+Att_1 <- makeScales(
   n = n, means = means_1, sds = sds_1,
   lowerbound = rep(lower, 4), upperbound = rep(upper, 4),
+  items = 4,
   cormatrix = cor_1
 )
 
@@ -56,9 +57,10 @@ cor_2 <- makeCorrAlpha(items = 5, alpha = 0.85)
 means_2 <- c(2.5, 2.5, 3.0, 3.0, 3.5)
 sds_2 <- c(1.0, 1.0, 0.9, 1.0, 1.5)
 
-Att_2 <- makeItems(
+Att_2 <- makeScales(
   n = n, means = means_2, sds = sds_2,
   lowerbound = rep(lower, 5), upperbound = rep(upper, 5),
+  items = 5,
   cormatrix = cor_2
 )
 
@@ -68,9 +70,10 @@ cor_3 <- makeCorrAlpha(items = 6, alpha = 0.75)
 means_3 <- c(2.5, 2.5, 3.0, 3.0, 3.5, 3.5)
 sds_3 <- c(1.0, 1.5, 1.0, 1.5, 1.0, 1.5)
 
-Att_3 <- makeItems(
+Att_3 <- makeScales(
   n = n, means = means_3, sds = sds_3,
   lowerbound = rep(lower, 6), upperbound = rep(upper, 6),
+  items = 6,
   cormatrix = cor_3
 )
 

@@ -51,11 +51,11 @@ reference:
     contents:
       - alpha
       - eigenvalues
+      - reliability
+      - ordinal_diagnostics
   - title: Deprecated functions
     contents:
       - lexact
-      - makeItems
-
 articles:
   - title: Getting started
     desc: Intro to the package and key workflows.
@@ -67,4 +67,5 @@ articles:
     contents:
       - lfast_validation
       - makeCorrLoadings_validate
+      - reliability_vignette
 

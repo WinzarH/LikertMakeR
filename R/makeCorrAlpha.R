@@ -5,7 +5,7 @@
 #' @description `makeCorrAlpha()` generates a random correlation
 #'  matrix of given dimensions and predefined _Cronbach's Alpha_.
 #'
-#' Such a correlation matrix can be applied to the [makeItems()]
+#' Such a correlation matrix can be applied to the [makeScales()]
 #' function to generate synthetic data with the predefined alpha.
 #'
 #' @param items (positive, int) matrix dimensions:

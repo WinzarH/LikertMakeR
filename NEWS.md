@@ -1,10 +1,36 @@
 # LikertMakeR (development version)
 
+# LikertMakeR 1.4.0 (December 2025)
+
+## Improvements
+
+- New `reliability()` function:
+  Calculates various reliability statistics:
+  
+  - Cronbach's alpha ($\alpha$)
+  
+  - McDonald's omega-total ($\omega_t$)
+  
+  - Guttman's lambda 6 ($\lambda 6$)
+  
+  - Zumbo's ordinal alpha (Cronbach's alpha from polychoric correlations)
+  
+  - ordinal-omega-total (McDonald's omega total from polychoric correlations)
+  
+  with bootstrapped Confidence Intervals for each as an option.
+  
+## Maintenance
+
+- Fixed typos and simplified examples.
+
+- removed redundant `makeItems()` function
+
+
 # LikertMakeR 1.3.0 (2025-11-24)
 
 ## Improvements
 
-- New `makeScalesRegression()` function : 
+- New `makeScalesRegression()` function: 
    Generates synthetic rating-scale data that replicates reported regression
    results, and then returns 
    
@@ -31,6 +57,7 @@
      in a draft matrix to produce one that is positive-definite.   
    - Additional parameter `sort_cors = FALSE`. 
      If `TRUE`, results are similar to the earlier version of `makeCorrAlpha()`.
+     A little faster but not as "natural-looking".
    - Additional parameter `diagnostics = FALSE`.
      If `TRUE`, returns a list containing the correlation matrix and a 
      diagnostics list (target/achieved alpha, average inter-item correlation, 

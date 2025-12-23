@@ -121,10 +121,7 @@ _____
  * *makeCorrLoadings* constructs a random correlation matrix from a given 
  _factor loadings_ matrix, and _factor-correlations_ matrix.
  
- <!-- * *makeItems()* is a wrapper function for _lfast()_  -->
- <!-- and _lcor()_ to generate synthetic rating-scale items with predefined  -->
- <!-- first and second moments and a predefined correlation matrix. -->
- 
+
   * *makeScales()* is a wrapper function for _lfast()_ 
  and _lcor()_ to generate items or summated scales with predefined 
  first and second moments and a predefined correlation matrix. 
@@ -136,7 +133,7 @@ _____
  * *makePaired()* generates a dataframe of two correlated columns based 
  on summary data from a paired-sample t-test.
  
- * *makeRepeated()* generates a dataframe of 'k' correlated columns based 
+ * *makeRepeated()* generates a dataframe of `k` correlated columns based 
  on summary data from a repeated-samples ANOVA.
  
  * *makeScalesRegression()* generates a dataframe based on results of 
@@ -556,24 +553,24 @@ ____
 
 ##### makeCorrLoadings() arguments
 
-  - **_loadings_**:  'k' (items) by 'f' (factors)
+  - **_loadings_**:  `k` (items) by `f` (factors)
   matrix of _standardised_ factor loadings. 
   Item names and Factor names can be taken from the row_names (items) 
   and the column_names (factors), if present.
 
-  - **_factorCor_**:  'f' x 'f' factor correlation matrix. 
+  - **_factorCor_**:  `f` x `f` factor correlation matrix. 
   If not present, then we assume that the factors are uncorrelated 
   (orthogonal), which is rare in practice, and the function applies an 
   identity matrix for _factor_cor_.
  
-  - **_uniquenesses_**: length 'k' vector of uniquenesses.
+  - **_uniquenesses_**: length `k` vector of uniquenesses.
      If NULL, the default, compute from the calculated communalities.
  
   - **_nearPD_**: (logical) If TRUE, then the function calls the _nearPD_ 
   function from the _**Matrix**_ package to transform the resulting 
   correlation matrix onto the nearest Positive Definite matrix. 
   Obviously, this only applies if the resulting correlation matrix is not 
-  positive definite. (It should never be needed.)
+  positive definite. (_It should never be needed._)
 
 ##### Note
 
@@ -688,21 +685,21 @@ following parameters:
 
 - **_n_**: number of observations 
 
-- **_dfMeans_**: a vector of length 'k' of desired means of each variable
+- **_dfMeans_**: a vector of length `k` of desired means of each variable
 
-- **_dfSds_**: a vector of length 'k' of desired standard deviations of 
+- **_dfSds_**: a vector of length `k` of desired standard deviations of 
  each variable
  
- - **_lowerbound_**: a vector of length 'k' of values for the lower bound 
+ - **_lowerbound_**: a vector of length `k` of values for the lower bound 
  of each variable. default = '1'
 
-- **_upperbound_**: a vector of length 'k' of values for the upper bound 
+- **_upperbound_**: a vector of length `k` of values for the upper bound 
  of each variable. Default = '5'
  
-- **_items_**: a vector of length 'k' of the number of items in each 
+- **_items_**: a vector of length `k` of the number of items in each 
 variable. Default = '1'.
  
-- **_cormatrix_**: a target correlation matrix with 'k' rows and 'k' columns. 
+- **_cormatrix_**: a target correlation matrix with `k` rows and `k` columns. 
 
 
 ### _makeScales()_ examples
@@ -825,7 +822,7 @@ This is a two-step process:
   1. apply **_makeCorrAlpha()_** to generate a correlation matrix from 
    desired alpha,
   
-  2. apply **_makeItems()_** to generate rating-scale items from the 
+  2. apply **_makeScales()_** to generate rating-scale items from the 
     correlation matrix and desired moments
   
 Required parameters are:
@@ -836,15 +833,15 @@ Required parameters are:
 
   - **_n_**: number of observations 
 
-  - **_lowerbound_**: a vector of length 'k' of values for the lower bound 
+  - **_lowerbound_**: a vector of length `k` of values for the lower bound 
    of each variable 
 
-  - **_upperbound_**: a vector of length 'k' of values for the upper bound 
+  - **_upperbound_**: a vector of length `k` of values for the upper bound 
    of each variable
 
-  - **_means_**: a vector of length 'k' of desired means of each variable
+  - **_means_**: a vector of length `k` of desired means of each variable
 
-  - **_sds_**: a vector of length 'k' of desired standard deviations of 
+  - **_sds_**: a vector of length `k` of desired standard deviations of 
    each variable
  
 ### Step 1: Generate a correlation matrix
@@ -877,9 +874,10 @@ lowerbound <- rep(1, k)
 upperbound <- rep(5, k)
 
 ## Generate Items
-myItems <- makeItems(
+myItems <- makeScales(
   n = n, means = myMeans, sds = mySds,
   lowerbound = lowerbound, upperbound = upperbound,
+  items = 1,
   cormatrix = myCorr
 )
 
@@ -900,7 +898,7 @@ alpha(NULL, myItems)
 
 #### Summary plots of new dataframe
 
-```{r fig5, fig.height=5, fig.width=5, fig.align='center', echo=FALSE, warning=FALSE, crop = TRUE, fig.cap="Summary of dataframe from makeItems() function"}
+```{r fig5, fig.height=5, fig.width=5, fig.align='center', echo=FALSE, warning=FALSE, crop = TRUE, fig.cap="Summary of dataframe from makeScales() function"}
 # Correlation panel
 
 panel.cor <- function(x, y) {
@@ -1097,7 +1095,11 @@ eigenvalues(cor(newItems_3), 1) |> round(3)
 
 ## Create a dataframe for a t-test
 
-Generating a data for an **independent-samples t-test** is trivial with _LikertMakeR_. But a dataframe for a **paired-sample t-test** is tricky because the observations are related to each other. That is, we must generate a dataframe of correlated observations.
+Generating a data for an **independent-samples t-test** is trivial 
+with _LikertMakeR_. 
+But a dataframe for a **paired-sample t-test** is tricky because the 
+observations are related to each other. 
+That is, we must generate a dataframe of correlated observations.
 
 ### Independent-samples t-test
 
@@ -1125,13 +1127,19 @@ t.test(x1, x2)
 
 ### makePaired() paired-sample t-test
 
-_**makePaired()**_ generates correlated values so the data replicate rating scales taken, for example, in a before and after experimental design. 
-The function is effectively a wrapper function for _lfast()_ and _lcor()_ with the addition of a _t-statistic_ from which the between-column correlation is inferred.
+_**makePaired()**_ generates correlated values so the data replicate rating 
+scales taken, for example, in a before and after experimental design. 
+The function is effectively a wrapper function for _lfast()_ and _lcor()_ with 
+the addition of a _t-statistic_ from which the between-column correlation is 
+inferred.
 
 Paired t-tests apply to observations that are associated with each other. 
-For example: the same people rating the same object before and after a treatment, the same people rating two different objects, ratings by husband & wife, _etc._
+For example: the same people rating the same object before and after a 
+treatment, the same people rating two different objects, 
+ratings by husband & wife, _etc._
 
-_**makePaired()**_ has similar parameters as for the _lfast()_ function with the addition of a value for the desired t-statistic.
+_**makePaired()**_ has similar parameters as for the _lfast()_ function 
+with the addition of a value for the desired t-statistic.
 
  - _**n**_ sample size
  
@@ -1252,7 +1260,7 @@ This function estimates the average correlation between repeated measures by mat
   (default: `(n - 1) * (k - 1)`).
   -  _**structure**_ Character. Correlation structure to assume: `"cs"`, `"ar1"`, or `"toeplitz"` (default).
   -  _**names**_ Character vector of length `k`. Variable names for each timepoint (default: `"time_1"` to `"time_k"`).
-  -  _**items**_ Integer. Number of items used to generate each scale score (passed to `link{lfast}`).
+  -  _**items**_ Integer. Number of items used to generate each scale score (passed to `link{lfast}`). (default: `1`).
   -  _**lowerbound**_, Integer. Lower bounds for Likert-type response scales (default: `1`).
   -  _**upperbound**_, Integer. upper bounds for Likert-type response scales (default: `5`).
   -  _**return_corr_only**_ Logical. If `TRUE`, return only the estimated correlation matrix.
@@ -1441,10 +1449,10 @@ rating-scale items in other dataframes do.
 
 To run _**correlateScales()**_, parameters are:
 
- - _**dataframes**_: a list of 'k' dataframes to be rearranged and combined 
+ - _**dataframes**_: a list of `k` dataframes to be rearranged and combined 
 
  - _**scalecors**_: target correlation matrix - should be a symmetric k*k 
-  positive-semi-definite matrix, where 'k' is the number of dataframes
+  positive-semi-definite matrix, where `k` is the number of dataframes
 
 As with other functions in _LikertMakeR_, _correlateScales()_ focuses on item and scale moments (mean and standard deviation) rather than on covariance structure. 
 If you wish to simulate data for teaching or experimenting with Structural Equation modelling, then I recommend the _sim.item()_ and _sim.congeneric()_ functions from the [psych package](https://CRAN.R-project.org/package=psych)
@@ -1469,10 +1477,11 @@ cor_1 <- makeCorrAlpha(items = 4, alpha = 0.80)
 means_1 <- c(2.5, 2.5, 3.0, 3.5)
 sds_1 <- c(0.75, 0.85, 0.85, 0.75)
 
-#### apply makeItems() function
-Att_1 <- makeItems(
+#### apply makeScales() function
+Att_1 <- makeScales(
   n = n, means = means_1, sds = sds_1,
   lowerbound = rep(lower, 4), upperbound = rep(upper, 4),
+  items = 1,
   cormatrix = cor_1
 )
 
@@ -1485,10 +1494,11 @@ cor_2 <- makeCorrAlpha(items = 5, alpha = 0.85)
 means_2 <- c(2.5, 2.5, 3.0, 3.0, 3.5)
 sds_2 <- c(0.75, 0.85, 0.75, 0.85, 0.75)
 
-#### apply makeItems() function
-Att_2 <- makeItems(
+#### apply makeScales() function
+Att_2 <- makeScales(
   n, means_2, sds_2,
   rep(lower, 5), rep(upper, 5),
+  items = 1,
   cor_2
 )
 
@@ -1501,10 +1511,11 @@ cor_3 <- makeCorrAlpha(items = 6, alpha = 0.90)
 means_3 <- c(2.5, 2.5, 3.0, 3.0, 3.5, 3.5)
 sds_3 <- c(0.75, 0.85, 0.85, 1.0, 0.75, 0.85)
 
-#### apply makeItems() function
-Att_3 <- makeItems(
+#### apply makeScales() function
+Att_3 <- makeScales(
   n, means_3, sds_3,
   rep(lower, 6), rep(upper, 6),
+  items = 1,
   cor_3
 )
 

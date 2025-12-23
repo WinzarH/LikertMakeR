@@ -13,7 +13,7 @@
 
 # LikertMakeR  <img src="man/figures/logo.png" align="center" height="134" alt="LikertMakeR" />
 
-(V 1.3.0  November 2025)
+(V 1.4.0  December 2025)
 
 Synthesise and correlate Likert scales, and similar rating-scale data, with 
 predefined first & second moments (mean and standard deviation), 
@@ -90,6 +90,12 @@ Functions in this version of **_LikertMakeR_** are:
   calculates eigenvalues of a correlation matrix, 
   reports on positive-definite status of the matrix and, optionally, 
   displays a scree plot to visualise the eigenvalues
+  
+  - [**_reliability()_**](#reliability)
+  Computes internal consistency reliability estimates for a single-factor
+  scale, including Cronbach’s alpha, McDonald’s omega (total), and optional
+  ordinal (polychoric-based) variants, 
+  plus Confidence intervals via nonparametric bootstrap.
 
 ## Rating scale properties
 
@@ -589,9 +595,9 @@ _makeScales()_ is a wrapper function for:
 
 #### _makeScales()_ usage 
 
-    makeItems(n, means, sds, lowerbound, upperbound, items, cormatrix)
+    makeScales(n, means, sds, lowerbound, upperbound, items, cormatrix)
 
-#### _makeItems()_ arguments
+#### _makeScales()_ arguments
 
   - **_n_**: number of observations to generate.
 
@@ -1042,9 +1048,10 @@ k*k positive-semi-definite matrix, where 'k' is the number of dataframes
     cor_1 <- makeCorrAlpha(items = 3, alpha = 0.85)
     means_1 <- c(2.5, 2.5, 3.0)
     sds_1 <- c(0.9, 1.0, 1.0)
-    Att_1 <- makeItems(
+    Att_1 <- makeScales(
       n, means_1, sds_1,
       rep(lower, 4), rep(upper, 4),
+      items = 3,
       cor_1
     )
 
@@ -1053,9 +1060,10 @@ k*k positive-semi-definite matrix, where 'k' is the number of dataframes
     cor_2 <- makeCorrAlpha(items = 3, alpha = 0.80)
     means_2 <- c(2.5, 3.0, 3.5)
     sds_2 <- c(1.0, 1.5, 1.0)
-    Att_2 <- makeItems(
+    Att_2 <- makeScales(
       n, means_2, sds_2,
       rep(lower, 5), rep(upper, 5),
+      items = 3,
       cor_2
     )
 
@@ -1065,9 +1073,10 @@ k*k positive-semi-definite matrix, where 'k' is the number of dataframes
     means_3 <- c(2.5, 3.0, 3.5)
     sds_3 <- c(1.0, 1.5, 1.0)
 
-    Att_3 <- makeItems(
+    Att_3 <- makeScales(
       n, means_3, sds_3,
       rep(lower, 6), rep(upper, 6),
+      items = 3,
       cor_3
     )
 
@@ -1130,6 +1139,9 @@ _likertMakeR_ includes two additional functions that may be of help
   - **_eigenvalues()_** calculates eigenvalues of a correlation matrix, 
   and reports on whether the correlation matrix is positive definite and 
   an optional scree plot
+  
+  - **_reliability()_** Computes a range of internal consistency reliability 
+  estimates for a single-factor scale with optional Confidence intervals
 
 ### alpha()
 
@@ -1224,6 +1236,103 @@ _eigenvalues()_ calculates eigenvalues of a correlation
     print(evals)
 
 
+
+### reliability()
+
+Estimates a range of internal consistency reliability coefficients for a 
+single-factor scale
+
+#### reliability() usage
+
+    reliability(
+      data,
+      include = "none",
+      ci = FALSE,
+      ci_level = 0.95,
+      n_boot = 1000,
+      na_method = c("pairwise", "listwise"),
+      min_count = 2,
+      digits = 3,
+      verbose = TRUE
+    ) 
+    
+#### reliability() arguments
+
+ **_data_** an `r` by `k` data frame or matrix containing item responses, with observations in the rows and items in the columns.
+
+ **_include_** Character vector specifying which further estimates
+   to compute. Possible values are:
+
+  -  `"none"` (default): Pearson-based alpha and omega only.
+  
+  -  `"lambda6"`: Include Guttman’s lambda-6 
+  (requires package [psych](https://CRAN.R-project.org/package=psych )).
+  
+  -  `"polychoric"`: Include ordinal (polychoric-based) alpha and omega.
+   
+   Multiple options may be supplied.
+
+ **_ci_** Logical; if `TRUE`, confidence intervals are computed using
+   nonparametric bootstrap. Default is `FALSE`.
+
+ **_ci_level_** Confidence level for bootstrap intervals.
+   Default = `0.95`.
+
+ **_n_boot_** Number of bootstrap resamples used when `ci = TRUE`.
+   Default is `1000`.
+
+ **_na_method_** How to handle missing values. Either
+   `"pairwise"` (default) or `"listwise"`.
+
+ **_min_count_** Minimum observed frequency per response category required
+   to attempt polychoric correlations. Ordinal reliability estimates are
+   skipped if this condition is violated. Default is `2`.
+
+ **_digits_** decimal places used when printing estimates.
+   Default is `3`.
+
+ **_verbose_** Logical; if `TRUE`, warnings and progress indicators
+   are displayed. Default is `TRUE`.
+
+### reliability() examples
+
+#### create dataset
+
+    my_cor <- LikertMakeR::makeCorrAlpha(
+      items = 4,
+      alpha = 0.80
+    )
+
+    my_data <- LikertMakeR::makeScales(
+      n = 64,
+      means = c(2.75, 3.00, 3.25, 3.50),
+      sds = c(1.25, 1.50, 1.30, 1.25),
+      lowerbound = rep(1, 4),
+      upperbound = rep(5, 4),
+      items = 4,
+      cormatrix = my_cor
+    )
+
+#### run function
+
+    reliability(my_data)
+
+    reliability(
+      my_data,
+      include = c("lambda6", "polychoric")
+    )
+
+
+ ##### slower 
+ 
+    reliability(
+      my_data,
+      include = "polychoric",
+      ci = TRUE,
+      n_boot = 200
+    )
+
+
 ____
 
 
@@ -1233,7 +1342,7 @@ ____
 
      Winzar, H. (2022). LikertMakeR: Synthesise and correlate Likert-scale 
      and related rating-scale data with predefined first & second moments, 
-     Version 1.2.0 (2025),
+     Version 1.4.0 (2025),
      The Comprehensive R Archive Network (CRAN),
     <https://CRAN.R-project.org/package=LikertMakeR>
         
@@ -1247,6 +1356,6 @@ ____
     journal = {The Comprehensive R Archive Network (CRAN)},
     month = {12},
     year = {2022},
-    version = {1.2.0 (2025)}
+    version = {1.4.0 (2025)}
     url = {https://CRAN.R-project.org/package=LikertMakeR},
     }

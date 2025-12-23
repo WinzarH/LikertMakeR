@@ -54,9 +54,6 @@ urlchecker::url_update()  # updates DESCRIPTION/R/Rd; still manually fix Rmd/Bib
 
 devtools::document()
 
-# devtools::check(cran = TRUE)
-
-# devtools::check(args = c("--as-cran"))
 
 devtools::check()
 
@@ -68,9 +65,6 @@ devtools::check()
 # 2) Install to your user library (once, so deploy can load it)
 # devtools::install(upgrade = "never")
 devtools::install()
-
-# args(LikertMakeR::makeCorrAlpha)
-# should show ..., sort_cors = FALSE, diagnostics = FALSE
 
 
 pkgdown::build_site()
