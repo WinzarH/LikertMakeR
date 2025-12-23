@@ -4,7 +4,7 @@
 dimensions and predefined *Cronbach's Alpha*.
 
 Such a correlation matrix can be applied to the
-[`makeItems()`](https://winzarh.github.io/LikertMakeR/reference/makeItems.md)
+[`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md)
 function to generate synthetic data with the predefined alpha.
 
 ## Usage

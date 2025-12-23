@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,17 +50,37 @@
 <h2 class="pkg-version" data-toc-text="development version" id="likertmaker-development-version">LikertMakeR (development version)<a class="anchor" aria-label="anchor" href="#likertmaker-development-version"></a></h2>
 </div>
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.4.0" id="likertmaker-140-december-2025">LikertMakeR 1.4.0 (December 2025)<a class="anchor" aria-label="anchor" href="#likertmaker-140-december-2025"></a></h2>
+<div class="section level3">
+<h3 id="improvements-1-4-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-1-4-0"></a></h3>
+<ul><li>
+<p>New <code><a href="../reference/reliability.html">reliability()</a></code> function: Calculates various reliability statistics:</p>
+<ul><li><p>Cronbach’s alpha (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>)</p></li>
+<li><p>McDonald’s omega-total (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\omega_t</annotation></semantics></math>)</p></li>
+<li><p>Guttman’s lambda 6 (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mn>6</mn></mrow><annotation encoding="application/x-tex">\lambda 6</annotation></semantics></math>)</p></li>
+<li><p>Zumbo’s ordinal alpha (Cronbach’s alpha from polychoric correlations)</p></li>
+<li><p>ordinal-omega-total (McDonald’s omega total from polychoric correlations)</p></li>
+</ul><p>with bootstrapped Confidence Intervals for each as an option.</p>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="maintenance-1-4-0">Maintenance<a class="anchor" aria-label="anchor" href="#maintenance-1-4-0"></a></h3>
+<ul><li><p>Fixed typos and simplified examples.</p></li>
+<li><p>removed redundant <code>makeItems()</code> function</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.3.0" id="likertmaker-130-2025-11-24">LikertMakeR 1.3.0 (2025-11-24)<a class="anchor" aria-label="anchor" href="#likertmaker-130-2025-11-24"></a></h2><p class="text-muted">CRAN release: 2025-11-26</p>
 <div class="section level3">
 <h3 id="improvements-1-3-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-1-3-0"></a></h3>
 <ul><li>
-<p>New <code><a href="../reference/makeScalesRegression.html">makeScalesRegression()</a></code> function : Generates synthetic rating-scale data that replicates reported regression results, and then returns</p>
+<p>New <code><a href="../reference/makeScalesRegression.html">makeScalesRegression()</a></code> function: Generates synthetic rating-scale data that replicates reported regression results, and then returns</p>
 <ol style="list-style-type: decimal"><li><p>a data frame that provides the requested statistical properties and</p></li>
 <li><p>a correlation matrix and summary moments of the data frame, plus</p></li>
 <li><p>diagnostic statistics, including comparison of target values against achieved values.</p></li>
 </ol></li>
 <li>
-<p><code><a href="../reference/makeScales.html">makeScales()</a></code> function replaces <code><a href="../reference/makeItems.html">makeItems()</a></code> function:</p>
+<p><code><a href="../reference/makeScales.html">makeScales()</a></code> function replaces <code>makeItems()</code> function:</p>
 <ul><li>I finally worked out how to turn a single value into a vector of length <code>k</code>.</li>
 <li>Embarrassingly straightforward.</li>
 </ul></li>
@@ -68,7 +88,7 @@
 <p>Updated version of <code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> function produces a more “natural-looking” correlation matrix, plus diagnostics:</p>
 <ul><li>previous version sorted correlations in the correlation matrix to improve likelihood of extracting a positive-definite matrix. Fast, but unnatural results.</li>
 <li>I have applied a slightly faster algorithm for rearranging the correlations in a draft matrix to produce one that is positive-definite.<br></li>
-<li>Additional parameter <code>sort_cors = FALSE</code>. If <code>TRUE</code>, results are similar to the earlier version of <code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code>.</li>
+<li>Additional parameter <code>sort_cors = FALSE</code>. If <code>TRUE</code>, results are similar to the earlier version of <code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code>. A little faster but not as “natural-looking”.</li>
 <li>Additional parameter <code>diagnostics = FALSE</code>. If <code>TRUE</code>, returns a list containing the correlation matrix and a diagnostics list (target/achieved alpha, average inter-item correlation, eigenvalues, PD flag, and key arguments). If <code>FALSE</code> (default), returns the correlation matrix only.</li>
 </ul></li>
 <li>

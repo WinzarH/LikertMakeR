@@ -4,6 +4,7 @@
 <url><loc>https://winzarh.github.io/LikertMakeR/articles/lfast_validation.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/articles/LikertMakeR_vignette.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.html</loc></url>
+<url><loc>https://winzarh.github.io/LikertMakeR/articles/reliability_vignette.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/authors.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/CONTRIBUTING.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/extra-head.html</loc></url>
@@ -19,12 +20,14 @@
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/lfast.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/makeCorrAlpha.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/makeCorrLoadings.html</loc></url>
-<url><loc>https://winzarh.github.io/LikertMakeR/reference/makeItems.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/makePaired.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/makeRepeated.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/makeScales.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/makeScalesRegression.html</loc></url>
+<url><loc>https://winzarh.github.io/LikertMakeR/reference/ordinal_diagnostics.html</loc></url>
+<url><loc>https://winzarh.github.io/LikertMakeR/reference/print.likert_reliability.html</loc></url>
 <url><loc>https://winzarh.github.io/LikertMakeR/reference/print.makeScalesRegression.html</loc></url>
+<url><loc>https://winzarh.github.io/LikertMakeR/reference/reliability.html</loc></url>
 </urlset>
 

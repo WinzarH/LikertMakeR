@@ -50,22 +50,19 @@ cor_1 <- makeCorrAlpha(items = 4, alpha = 0.90)
 means_1 <- c(2.5, 2.5, 3.0, 3.5)
 sds_1 <- c(0.9, 1.0, 0.9, 1.0)
 
-Att_1 <- makeItems(
+Att_1 <- makeScales(
   n = n, means = means_1, sds = sds_1,
   lowerbound = rep(lower, 4), upperbound = rep(upper, 4),
+  items = 4,
   cormatrix = cor_1
 )
-#> NOTE:
-#> makeItems() function is being deprecated
-#>               
-#> Use the makeScales() function in future.
-#> Variable  1
+#> Variable  1 :  item01  - 
 #> reached maximum of 1024 iterations
-#> Variable  2
+#> Variable  2 :  item02  - 
+#> best solution in 667 iterations
+#> Variable  3 :  item03  - 
 #> reached maximum of 1024 iterations
-#> Variable  3
-#> reached maximum of 1024 iterations
-#> Variable  4
+#> Variable  4 :  item04  - 
 #> reached maximum of 1024 iterations
 #> 
 #> Arranging data to match correlations
@@ -80,30 +77,28 @@ cor_2 <- makeCorrAlpha(items = 5, alpha = 0.85)
 #> Correlation matrix is not yet positive definite
 #> Working on it
 #> 
-#> improved at swap - 3 (min eigenvalue: -0.076042)
-#> improved at swap - 6 (min eigenvalue: 0.011761)
-#> positive definite at swap - 6
+#> improved at swap - 1 (min eigenvalue: -0.017242)
+#> improved at swap - 3 (min eigenvalue: -0.008469)
+#> improved at swap - 4 (min eigenvalue: 0.025501)
+#> positive definite at swap - 4
 means_2 <- c(2.5, 2.5, 3.0, 3.0, 3.5)
 sds_2 <- c(1.0, 1.0, 0.9, 1.0, 1.5)
 
-Att_2 <- makeItems(
+Att_2 <- makeScales(
   n = n, means = means_2, sds = sds_2,
   lowerbound = rep(lower, 5), upperbound = rep(upper, 5),
+  items = 5,
   cormatrix = cor_2
 )
-#> NOTE:
-#> makeItems() function is being deprecated
-#>               
-#> Use the makeScales() function in future.
-#> Variable  1
+#> Variable  1 :  item01  - 
 #> reached maximum of 1024 iterations
-#> Variable  2
+#> Variable  2 :  item02  - 
 #> reached maximum of 1024 iterations
-#> Variable  3
+#> Variable  3 :  item03  - 
+#> best solution in 808 iterations
+#> Variable  4 :  item04  - 
 #> reached maximum of 1024 iterations
-#> Variable  4
-#> reached maximum of 1024 iterations
-#> Variable  5
+#> Variable  5 :  item05  - 
 #> reached maximum of 1024 iterations
 #> 
 #> Arranging data to match correlations
@@ -114,30 +109,27 @@ Att_2 <- makeItems(
 
 ### attitude #3
 cor_3 <- makeCorrAlpha(items = 6, alpha = 0.75)
-#> reached max iterations (3600) - best mean difference: 6.6e-05
+#> correlation values consistent with desired alpha in 72 iterations
 means_3 <- c(2.5, 2.5, 3.0, 3.0, 3.5, 3.5)
 sds_3 <- c(1.0, 1.5, 1.0, 1.5, 1.0, 1.5)
 
-Att_3 <- makeItems(
+Att_3 <- makeScales(
   n = n, means = means_3, sds = sds_3,
   lowerbound = rep(lower, 6), upperbound = rep(upper, 6),
+  items = 6,
   cormatrix = cor_3
 )
-#> NOTE:
-#> makeItems() function is being deprecated
-#>               
-#> Use the makeScales() function in future.
-#> Variable  1
+#> Variable  1 :  item01  - 
 #> reached maximum of 1024 iterations
-#> Variable  2
+#> Variable  2 :  item02  - 
 #> reached maximum of 1024 iterations
-#> Variable  3
+#> Variable  3 :  item03  - 
 #> reached maximum of 1024 iterations
-#> Variable  4
+#> Variable  4 :  item04  - 
 #> reached maximum of 1024 iterations
-#> Variable  5
+#> Variable  5 :  item05  - 
 #> reached maximum of 1024 iterations
-#> Variable  6
+#> Variable  6 :  item06  - 
 #> reached maximum of 1024 iterations
 #> 
 #> Arranging data to match correlations
@@ -176,18 +168,18 @@ my_correlated_scales <- correlateScales(
 #> 
 #> New dataframe successfully created
 head(my_correlated_scales)
-#>   A1_1 A1_2 A1_3 A1_4 A2_1 A2_2 A2_3 A2_4 A2_5 A3_1 A3_2 A3_3 A3_4 A3_5 A3_6
-#> 1    2    1    2    2    1    1    2    3    2    2    1    4    2    2    1
-#> 2    3    2    3    3    2    1    3    4    1    3    5    4    1    5    4
-#> 3    3    3    3    4    4    4    5    4    5    3    3    4    2    4    3
-#> 4    4    4    4    3    1    3    3    3    5    3    5    4    2    5    2
-#> 5    1    1    2    2    1    1    1    1    1    3    1    1    1    3    1
-#> 6    3    3    4    5    2    2    3    3    5    3    3    4    3    4    5
-#>   Int_1
-#> 1     1
-#> 2     0
-#> 3     3
-#> 4     5
-#> 5     0
-#> 6     6
+#>   A1_1 A1_2 A1_3 A1_4 A2_1 A2_2 A2_3 A2_4 A2_5     A3_1     A3_2     A3_3
+#> 1 1.75 1.25 1.25 2.00  1.0  1.6  1.2  1.2  1.0 1.000000 1.000000 1.166667
+#> 2 2.25 2.00 3.50 3.75  1.4  2.2  1.6  1.6  1.4 2.000000 4.833333 4.666667
+#> 3 2.50 3.00 3.00 3.75  1.6  1.2  2.0  2.0  2.2 1.833333 1.000000 2.166667
+#> 4 2.25 1.75 2.00 3.00  1.0  1.0  3.6  2.8  1.8 1.166667 1.166667 3.166667
+#> 5 4.25 3.00 3.75 4.25  4.2  4.4  4.0  3.8  5.0 3.833333 2.500000 2.666667
+#> 6 3.00 3.00 3.75 4.50  3.4  2.2  3.6  4.2  5.0 3.000000 4.666667 4.000000
+#>       A3_4     A3_5 A3_6 Int_1
+#> 1 1.833333 3.833333    1     1
+#> 2 3.000000 5.000000    2     4
+#> 3 4.500000 2.500000    2     8
+#> 4 1.166667 4.500000    5     2
+#> 5 2.166667 1.833333    5     2
+#> 6 4.666667 4.666667    5     9
 ```

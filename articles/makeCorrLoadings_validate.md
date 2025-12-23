@@ -19,8 +19,7 @@ The
 function generates a correlation matrix from factor loadings and factor
 correlations as might be published in the results of *Exploratory Factor
 Analysis* (**EFA**) or a *Structural Equation Model* (**SEM**). The
-resulting correlation matrix then can be applied to the
-[`makeItems()`](https://winzarh.github.io/LikertMakeR/reference/makeItems.md)
+resulting correlation matrix then can be applied to the `makeItems()`
 function to generate a synthetic data set of rating-scale items that
 closely resemble the original data that created the factor loadings
 summary table.
@@ -35,10 +34,8 @@ A valid
 [`makeCorrLoadings()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrLoadings.md)
 function should be able to produce a correlation matrix that is
 identical to the original correlation matrix. Further, subsequent
-treatment with
-[`makeItems()`](https://winzarh.github.io/LikertMakeR/reference/makeItems.md)
-should produce a dataframe that appears to come from the same population
-as the original sample.
+treatment with `makeItems()` should produce a dataframe that appears to
+come from the same population as the original sample.
 
 So we need an original, *True*, dataframe to test the function.
 Preferably, we should have several different original dataframes to

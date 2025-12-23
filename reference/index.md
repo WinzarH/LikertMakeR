@@ -40,11 +40,12 @@
 - [`eigenvalues()`](https://winzarh.github.io/LikertMakeR/reference/eigenvalues.md)
   : calculate eigenvalues of a correlation matrix with optional scree
   plot
+- [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
+  : Estimate scale reliability for Likert and rating-scale data
+- [`ordinal_diagnostics()`](https://winzarh.github.io/LikertMakeR/reference/ordinal_diagnostics.md)
+  : Extract ordinal diagnostics from a reliability() result
 
 ## Deprecated functions
 
 - [`lexact()`](https://winzarh.github.io/LikertMakeR/reference/lexact.md)
   : Deprecated. Use lfast() instead
-- [`makeItems()`](https://winzarh.github.io/LikertMakeR/reference/makeItems.md)
-  : Synthesise rating-scale item data with given first and second
-  moments and a predefined correlation matrix

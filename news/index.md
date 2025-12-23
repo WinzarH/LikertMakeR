@@ -2,6 +2,34 @@
 
 ## LikertMakeR (development version)
 
+## LikertMakeR 1.4.0 (December 2025)
+
+### Improvements
+
+- New
+  [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
+  function: Calculates various reliability statistics:
+
+  - Cronbach’s alpha ($`\alpha`$)
+
+  - McDonald’s omega-total ($`\omega_t`$)
+
+  - Guttman’s lambda 6 ($`\lambda 6`$)
+
+  - Zumbo’s ordinal alpha (Cronbach’s alpha from polychoric
+    correlations)
+
+  - ordinal-omega-total (McDonald’s omega total from polychoric
+    correlations)
+
+  with bootstrapped Confidence Intervals for each as an option.
+
+### Maintenance
+
+- Fixed typos and simplified examples.
+
+- removed redundant `makeItems()` function
+
 ## LikertMakeR 1.3.0 (2025-11-24)
 
 CRAN release: 2025-11-26
@@ -10,7 +38,7 @@ CRAN release: 2025-11-26
 
 - New
   [`makeScalesRegression()`](https://winzarh.github.io/LikertMakeR/reference/makeScalesRegression.md)
-  function : Generates synthetic rating-scale data that replicates
+  function: Generates synthetic rating-scale data that replicates
   reported regression results, and then returns
 
   1.  a data frame that provides the requested statistical properties
@@ -22,9 +50,7 @@ CRAN release: 2025-11-26
       against achieved values.
 
 - [`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md)
-  function replaces
-  [`makeItems()`](https://winzarh.github.io/LikertMakeR/reference/makeItems.md)
-  function:
+  function replaces `makeItems()` function:
 
   - I finally worked out how to turn a single value into a vector of
     length `k`.
@@ -44,6 +70,7 @@ CRAN release: 2025-11-26
   - Additional parameter `sort_cors = FALSE`. If `TRUE`, results are
     similar to the earlier version of
     [`makeCorrAlpha()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrAlpha.md).
+    A little faster but not as “natural-looking”.
   - Additional parameter `diagnostics = FALSE`. If `TRUE`, returns a
     list containing the correlation matrix and a diagnostics list
     (target/achieved alpha, average inter-item correlation, eigenvalues,

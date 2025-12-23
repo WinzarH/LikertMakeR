@@ -15,3 +15,4 @@ Deeper dives.
   Validation](https://winzarh.github.io/LikertMakeR/articles/lfast_validation.md):
 - [makeCorrLoadings()
   validation](https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.md):
+- [likertMakeR::reliability()](https://winzarh.github.io/LikertMakeR/articles/reliability_vignette.md):

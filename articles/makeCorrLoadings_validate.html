@@ -39,7 +39,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,7 +100,7 @@ matrix from factor loadings and factor correlations as might be
 published in the results of <em>Exploratory Factor Analysis</em>
 (<strong>EFA</strong>) or a <em>Structural Equation Model</em>
 (<strong>SEM</strong>). The resulting correlation matrix then can be
-applied to the <code><a href="../reference/makeItems.html">makeItems()</a></code> function to generate a synthetic
+applied to the <code>makeItems()</code> function to generate a synthetic
 data set of rating-scale items that closely resemble the original data
 that created the factor loadings summary table.</p>
 <p>This paper tests how well the <code><a href="../reference/makeCorrLoadings.html">makeCorrLoadings()</a></code>
@@ -112,7 +112,7 @@ function achieves that goal.</p>
 <p>A valid <code><a href="../reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> function should be able to
 produce a correlation matrix that is identical to the original
 correlation matrix. Further, subsequent treatment with
-<code><a href="../reference/makeItems.html">makeItems()</a></code> should produce a dataframe that appears to come
+<code>makeItems()</code> should produce a dataframe that appears to come
 from the same population as the original sample.</p>
 <p>So we need an original, <em>True</em>, dataframe to test the
 function. Preferably, we should have several different original
