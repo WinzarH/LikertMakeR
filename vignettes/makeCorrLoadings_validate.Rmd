@@ -3,7 +3,7 @@ title: "makeCorrLoadings() validation"
 author: "Hume Winzar"
 date: "April 2025"
 output: rmarkdown::html_document
-bibliography: references.bib 
+bibliography: references_2.bib 
 link-citations: true
 vignette: >
   %\VignetteIndexEntry{makeCorrLoadings() validation}

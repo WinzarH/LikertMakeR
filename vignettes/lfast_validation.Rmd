@@ -3,7 +3,7 @@ title: "LikertMakeR Scale Reproduction Validation"
 author: "Hume Winzar"
 date: "September 2025"
 output: rmarkdown::html_vignette
-bibliography: references.bib  
+bibliography: references_2.bib  
 link-citations: true
 vignette: >
   %\VignetteIndexEntry{LikertMakeR Scale Reproduction Validation}

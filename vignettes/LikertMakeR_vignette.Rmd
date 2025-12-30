@@ -1,7 +1,7 @@
 ---
 title: "LikertMakeR vignette"
 author: "Hume Winzar"
-date: "April 2025"
+date: "December 2025"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{LikertMakeR vignette}
@@ -31,13 +31,14 @@ knitr::include_graphics("img/LikertMakeR_3.png")
 <!-- ![LikertMakeR](LikertMakeR_hex.png){#id .class width=25%} -->
 
 
-_**LikertMakeR**_ [(Winzar, 2022)](https://cran.r-project.org/package=LikertMakeR) 
+_**LikertMakeR**_ [(Winzar, 2025)](https://cran.r-project.org/package=LikertMakeR) 
 lets you create synthetic Likert-scale, or related rating-scale, data.  
 Set the mean, standard deviation, and correlations or model coefficients, 
 and the package generates data matching those properties. 
 It can also rearrange existing data columns to achieve a desired 
-correlation structure or generate data based on 
-_Cronbach's Alpha_, _factor correlations_, _regression_ or _ANOVA coefficients_, or other summary statistics.
+correlation structure or generate data based on _Cronbach's Alpha_,
+_factor correlations_, _regression_ or _ANOVA coefficients_, 
+or other summary statistics.
 
 ## Purpose
 
@@ -68,6 +69,8 @@ Typically, they are bipolar (usually "agree-disagree") responses to
 propositions that are determined to be moderately-to-highly correlated 
 and that capture some facet of a theoretical construct.
 
+### Rating scales have bounds and discrete measurement intervals
+
 Rating scales, such as _Likert_ scales, are not continuous or unbounded.
 
 For example, a 5-point Likert scale that is constructed with, 
@@ -87,11 +90,28 @@ sciences because:
 
   1. they are in common usage and easily understood,
   
-  2. results and conclusions drawn from technically-correct non-parametric statistics are _(almost)_ always the same as for parametric statistics for such data. <br /> 
+  2. In practice, all measures are bounded by the constraints of the 
+  measurement tool, meaning that they also have upper and lower boundaries 
+  and discrete units of measurement, which means that: 
+  
+  3. results and conclusions drawn from technically-correct non-parametric statistics are _(almost)_ always the same as for parametric statistics for such data. <br /> 
 For example, [D'Alessandro _et al._ (2020)](https://cengage.com.au/sem121/marketing-research-5th-edition-dalessandro-babin-zikmund) 
 argue that a summated scale, made with multiple items, 
 "approaches" an interval scale measure, implying that parametric statistics 
 are quite acceptable. 
+
+### A single 1-5 rating scale is **_NOT_** a Likert scale - it may be an Likert-scale item.
+
+Likert-scale items, such as responses to a single 1-to-5 agree-disagree 
+question, should not be analysed by professional or responsible researchers. 
+There is too much random error in a single item. 
+[Rensis Likert (1932)](https://archive.org/details/likert-1932/mode/2up) 
+designed the scale with the logic that a random overstatement on one item 
+is likely to be compensated by a random understatement on another 
+item, so that, when multiple items are combined, we get a reasonably 
+consistent, internally reliable, measure of the target construct.
+
+### Most rating scales are skewed
 
 Rating-scale boundaries define minima and maxima for any scale values. 
 If the mean is close to one boundary then data points will gather more 
@@ -152,6 +172,11 @@ _____
      - *eigenvalues()* calculates eigenvalues of a correlation matrix, 
      reports on positive-definite status of the matrix and, optionally, 
      displays a scree plot to visualise the eigenvalues.
+     
+     - *reliability()* Computes internal consistency reliability estimates 
+     for a single-factor scale, including Cronbach’s alpha, 
+     McDonald’s omega (total), and optional ordinal (polychoric-based) 
+     variants and Confidence intervals
 
 _____
 
@@ -478,9 +503,12 @@ eigenvalues(cor_matrix_4, 1)
 ```
 
 
-#### twelve variables, alpha = 0.90, variance = 1 
+#### twelve variables, alpha = 0.90, variance = 1.0 
 
-```{r cor_matrix_12}
+High variance will not produce a positive-definite correlation matrix.
+
+
+```{r cor_matrix_12, message=FALSE}
 ## define parameters
 items <- 12
 alpha <- 0.90
@@ -707,6 +735,7 @@ variable. Default = '1'.
 #### four correlated items
 
 ```{r makeScalesExample1}
+
 ## define parameters
 n <- 128
 dfMeans <- c(2.5, 3.0, 3.0, 3.5)
@@ -737,9 +766,19 @@ df <- makeScales(
   upperbound = upperbound,
   cormatrix = corMat
 )
+```
+
+##### Structure of new dataframe
+
+```{r str_makeScalesExample1}
 
 ## test the function
 str(df)
+```
+
+##### Means should be correct to two decimal places
+
+```{r moments_makeScalesExample1}
 
 ### means should be correct to two decimal places
 dfmoments <- data.frame(
@@ -748,6 +787,11 @@ dfmoments <- data.frame(
 ) |> t()
 
 dfmoments
+```
+
+##### Correlations should be correct to two decimal places
+
+```{r cors_makeScalesExample1}
 
 ### correlations should be correct to two decimal places
 cor(df) |> round(3)
@@ -1689,6 +1733,9 @@ _likertMakeR()_ includes two additional functions that may be of help
  * **_eigenvalues()_** calculates eigenvalues of a correlation matrix, 
  a report on whether the correlation matrix is positive definite, and 
  produces an optional scree plot.
+ 
+ * **_reliability_** presents a table of internal consistency statistics
+ 
 
 ### alpha()
 
@@ -1761,6 +1808,49 @@ print(evals)
 ```
 
 
+
+### reliability()
+
+_reliabiity()_ Computes internal consistency reliability estimates for a single-factor scale, including Cronbach’s alpha, McDonald’s omega (total), and optional ordinal (polychoric-based) variants and Confidence intervals.
+
+### reliability() examples
+
+```{r reliabilityExample, warning=FALSE, message=FALSE}
+
+## create dataset
+my_cor <- LikertMakeR::makeCorrAlpha(
+  items = 4,
+  alpha = 0.80
+)
+
+my_data <- LikertMakeR::makeScales(
+  n = 64,
+  means = c(2.75, 3.00, 3.25, 3.50),
+  sds = c(1.25, 1.50, 1.30, 1.25),
+  lowerbound = rep(1, 4),
+  upperbound = rep(5, 4),
+  cormatrix = my_cor
+)
+
+## run function
+reliability(my_data)
+
+reliability(
+  my_data,
+  include = c("lambda6", "polychoric")
+)
+
+
+## bootstrapped Confidence intervals can be slow!
+reliability(
+  my_data,
+  include = "polychoric",
+  ci = TRUE,
+  n_boot = 64
+)
+
+```
+
 ____
 
 
@@ -1806,6 +1896,7 @@ for an excellent and short example using the following packages:
 - the following code will generate a vector of values with approximately 
  the given probabilities. 
  Good for simulating a single item.
+ 
  
 ```{r, eval = FALSE}
 n <- 128
@@ -1895,7 +1986,7 @@ under Marginal Model Specification: The SimCorMultRes Package,
 _The R Journal_ 8:2, 79-91. 
 <https://doi.org/10.32614/RJ-2016-034>
 
-Winzar, H. (2022). LikertMakeR: Synthesise and correlate Likert scale and 
-related rating-scale data with predefined first and second moments. CRAN: 
-<https://CRAN.R-project.org/package=LikertMakeR>
+Winzar, H. (2025). LikertMakeR (V 1.4.0): Synthesise and correlate Likert 
+scale and related rating-scale data with predefined first and second moments. 
+CRAN: <https://CRAN.R-project.org/package=LikertMakeR>
 
