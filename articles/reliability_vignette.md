@@ -83,6 +83,13 @@ Possible values are:
   [`psych::alpha()`](https://rdrr.io/pkg/psych/man/alpha.html)  
   (requires the optional package **psych**).
 
+- `"omega_h"`  
+  Adds **McDonald’s omega hierarchical ($`\omega_h`$)**, also known as
+  **Coefficient H**.  
+  This coefficient estimates the **maximum reliability of the general
+  factor** under a single-factor model, assuming optimal weighting of
+  items.
+
 - `"polychoric"`  
   Adds **ordinal reliability estimates**, computed from polychoric
   correlations:
@@ -118,7 +125,7 @@ Default is `0.95`.
 Number of bootstrap resamples used when `ci = TRUE`.  
 Default is `1000`.
 
-Larger values reduce Monte Carlo error but increase computation time,
+Larger values reduce *Monte Carlo* error but increase computation time,
 especially for ordinal (polychoric-based) reliability estimates.
 
 ------------------------------------------------------------------------
@@ -201,7 +208,7 @@ sparse (e.g., very few observations in extreme categories).
 When this occurs:
 
 - ordinal estimates are **skipped rather than forced**,
-- a clear warning is issued,
+- a warning is issued,
 - diagnostics are stored in the returned object.
 
 Diagnostics may be inspected using:
@@ -209,6 +216,50 @@ Diagnostics may be inspected using:
 ``` r
 ordinal_diagnostics(result)
 ```
+
+------------------------------------------------------------------------
+
+### Hierarchical reliability: $`\omega_h`$ (Coefficient H)
+
+When `include = "omega_h"`,
+[`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
+reports **McDonald’s omega hierarchical** ($`\omega_h`$), also known as
+**Coefficient H**.
+
+$`\omega_h`$ answers a different question from $`\alpha`$ or $`\omega`$
+(total):
+
+> *How well would the underlying latent factor be measured if the best
+> possible linear combination of items were used?*
+
+Key characteristics of $`\omega_h`$:
+
+- It is a **model-based upper bound** on reliability
+- It reflects **factor determinacy**, not observed-score reliability
+- It assumes a **single dominant common factor**
+- It is insensitive to scale length but sensitive to factor structure
+
+$`\omega_h`$ is therefore best interpreted as a **diagnostic index**,
+rather than as a direct estimate of the reliability of observed summed
+scores.
+
+#### Why no confidence intervals for $`\omega_h`$?
+
+Confidence intervals are **not reported** for $`\omega_h`$.
+
+This is intentional:
+
+- $`\omega_h`$ is a **maximal reliability bound**, not a descriptive
+  statistic
+- Its sampling distribution is **highly non-normal**
+- Bootstrap confidence intervals are often **unstable or misleading**
+- There is **no agreed inferential framework** for $`\omega_h`$ in the
+  literature
+
+Accordingly, $`\omega_h`$ is reported as a **point estimate only**, with
+explanatory notes in the output table.
+
+------------------------------------------------------------------------
 
 ## Examples
 
@@ -270,22 +321,24 @@ Additional reliability coefficients may be requested using the `include`
 argument.
 
 ``` r
-# $\alpha$ , $\omega$ and $\lambda 6$ , plus ordinal versions
+# $\alpha$, $\omega$ (total), $\lambda 6$, $\omega_h$, and ordinal variants
 
 reliability(
   my_data,
-  include = c("lambda6", "polychoric")
+  include = c("lambda6", "omega_h", "polychoric")
 )
 #>            coef_name estimate n_items n_obs
 #>                alpha    0.800       4    64
 #>          omega_total    0.871       4    64
 #>              lambda6    0.794       4    64
-#>        ordinal_alpha    0.755       4    64
-#>  ordinal_omega_total    0.846       4    64
+#>              omega_h    0.812       4    64
+#>        ordinal_alpha    0.765       4    64
+#>  ordinal_omega_total    0.851       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
 #>                                       psych::alpha()
+#>     Coefficient H (1-factor FA, maximal reliability)
 #>                              Polychoric correlations
 #>  Polychoric correlations | Ordinal CIs not requested
 ```
@@ -296,6 +349,13 @@ The available options are:
   Adds **Guttman’s lambda-6**, computed using
   [`psych::alpha()`](https://rdrr.io/pkg/psych/man/alpha.html).  
   This option requires the suggested package **psych**.
+
+- `"omega_h"`  
+  Adds **omega hierarchical (Coefficient H)**, a model-based upper bound
+  on reliability that reflects how well the general factor is measured.
+  $`\omega_h`$ is reported as a point estimate only and is best used as
+  a diagnostic indicator of factor strength rather than as
+  observed-score reliability.
 
 - `"polychoric"`  
   Adds **ordinal (polychoric-based) reliability estimates**, including
@@ -322,6 +382,12 @@ Use `include = "lambda6"` when you want an additional lower-bound
 reliability estimate that is less sensitive to tau-equivalence
 assumptions. Guttman’s lambda-6 is often reported alongside alpha and
 omega in methodological comparisons and requires the **psych** package.
+
+Use `include = "omega_h"` when you want to assess the **strength and
+clarity of the general factor** underlying a scale. $`\omega_h`$ is
+particularly useful when evaluating whether a set of items meaningfully
+reflects a single latent construct, but it should not be interpreted as
+the reliability of summed or averaged scores.
 
 Use `include = "polychoric"` when item responses are clearly ordinal and
 category distributions are well populated. In this case, the function
@@ -397,16 +463,16 @@ Examples:
 
 Examples:
 
-- 5-point or 7-point agreement scales
+- Single 5-point or 7-point agreement scales
 
 - Frequency scales with clear category boundaries
 
 → Ordinal (polychoric-based) methods are often more appropriate,
 especially when responses are skewed or unevenly distributed.
 
-### Step 2: Choosing between α and ω
+### Step 2: Choosing between $`\alpha`$ and $`\omega`$
 
-#### Cronbach’s alpha (α)
+#### Cronbach’s alpha ($`\alpha`$)
 
 Cronbach’s alpha is the most widely reported reliability coefficient and
 is based on average inter-item correlations.
@@ -415,7 +481,8 @@ Use alpha when:
 
 - You need comparability with legacy literature
 
-- Items are roughly tau-equivalent
+- Items are roughly tau-equivalent (all items make equal contributions
+  to the underlying factor)
 
 - You want a simple baseline estimate
 
@@ -430,7 +497,7 @@ Limitations:
 Alpha should be viewed as a descriptive lower bound, not a definitive
 measure of internal consistency.
 
-#### McDonald’s omega (ω)
+#### McDonald’s omega ($`\omega`$)
 
 McDonald’s omega estimates the proportion of variance attributable to a
 single common factor, allowing items to have different loadings.
@@ -454,6 +521,31 @@ Advantages:
 As a general rule, omega is preferred to alpha for single-factor scales
 when factor loadings are unequal.
 
+#### Where does Guttman’s $`\lambda_6`$ fit?
+
+Guttman’s lambda-6 ($`\lambda_6`$) is a lower-bound estimate of
+reliability that relaxes Cronbach’s assumption of equal error variances
+across items.
+
+Use $`\lambda_6`$ when:
+
+- You want a reliability estimate that is:
+  - more defensible than $`\alpha`$,
+  - but does not rely on a factor model
+- You are comparing multiple lower-bound estimates
+- You want a conservative benchmark alongside $`\omega`$
+
+Key points:
+
+- $`\lambda_6`$ is always $`\geqslant`$$`\alpha`$ for the same data
+- Like $`\alpha`$, it is a lower bound — not an estimate of true
+  reliability
+- Unlike $`\omega`$, it does not assume a latent factor structure
+
+In practice, $`\lambda_6`$ is most useful when reported **alongside
+$`\alpha`$ and $`\omega`$** to show how sensitive conclusions are to
+different reliability assumptions.
+
 ### Step 3: When should I use ordinal reliability?
 
 Ordinal reliability coefficients are computed from polychoric
@@ -462,7 +554,7 @@ variables underlying ordinal responses.
 
 In reliability(), these correspond to:
 
-- Ordinal alpha (often called Zumbo’s alpha)
+- Ordinal alpha (often called *Zumbo’s alpha*)
 
 - Ordinal omega
 
@@ -485,15 +577,16 @@ Important caveats:
 If ordinal estimation is not feasible, reliability() reports this
 transparently and falls back to Pearson-based estimates.
 
-### Step 4: α vs ω vs ordinal ω — a practical summary
+### Step 4: $`\alpha`$ vs $`\omega`$ vs ordinal $`\omega`$ — a practical summary
 
-| Situation                                        | Recommended coefficient |
-|--------------------------------------------------|-------------------------|
-| Legacy comparison, simple reporting              | α                       |
-| Single-factor scale, unequal loadings            | ω                       |
-| Likert items with skew or ceiling effects        | Ordinal ω               |
-| Teaching or demonstration                        | α *and* ω               |
-| Ordinal data, small samples or sparse categories | ω (Pearson-based)       |
+| Situation | Recommended.coefficient |
+|:---|:---|
+| Legacy comparison, simple reporting | $`\alpha`$, Cronbach’s alpha |
+| Single-factor scale, unequal loadings | $`\omega`$, McDonalds omega |
+| Strength of general factor | $`\omega_h`$, Coefficient H |
+| Likert items with skew or ceiling effects | Ordinal $`\omega`$ |
+| Teaching or demonstration | $`\alpha`$ and $`\omega`$ |
+| Ordinal data, small samples or sparse categories | $`\omega`$ (Pearson-based) |
 
 When in doubt:
 
@@ -503,10 +596,13 @@ If your data are clearly ordinal and diagnostics permit:
 
     Ordinal omega is the most defensible choice.
 
+    “ordinal $\omega$” refers to omega total computed from the 
+    polychoric correlation matrix.
+
 ### Step 5: Confidence intervals
 
-When ci = TRUE, LikertMakeR computes nonparametric bootstrap confidence
-intervals.
+When `ci = TRUE`, LikertMakeR computes nonparametric bootstrap
+confidence intervals.
 
 Why bootstrap?
 
@@ -524,6 +620,10 @@ Practical advice:
 
 - Always report the method used to compute CIs
 
+Confidence intervals are intentionally **not provided** for
+$`\omega_h`$, as it represents a model-based upper bound on reliability
+rather than an inferential estimate.
+
 ## Recommended reading
 
 - For readers who want to go a little deeper
@@ -534,37 +634,57 @@ coefficients reported here.
 
 ### Understanding Cronbach’s alpha and its limitations
 
-- Cronbach, L. J. (1951). Coefficient alpha and the internal structure
-  of tests. The original source for alpha; still worth reading to
-  understand what alpha does—and does not—measure.
+- Cronbach, L. J. (1951). *Coefficient alpha and the internal structure
+  of tests.* (Cronbach ([1951](#ref-cronbach1951)))  
+  The original source for alpha; still worth reading to understand what
+  alpha does—and does not—measure.
 
-- Revelle, W., & Zinbarg, R. E. (2009). Coefficients alpha, beta, omega,
-  and the glb. A clear discussion of why alpha can be misleading and
-  when omega is preferable.
+- Revelle, W., & Zinbarg, R. E. (2009). *Coefficients alpha, beta,
+  omega, and the glb.* (Revelle and Zinbarg
+  ([2009](#ref-revelle2009)))  
+  A clear discussion of why alpha can be misleading and when omega is
+  preferable.
 
 ### Omega and factor-based reliability
 
-- McDonald, R. P. (1999). Test theory: A unified treatment. The
-  definitive reference for omega; recommended for readers comfortable
-  with factor analysis concepts.
+- McDonald, R. P. (1999). *Test theory: A unified treatment.* (McDonald
+  ([2013](#ref-mcdonald2013test)))  
+  The definitive reference for omega; recommended for readers
+  comfortable with factor analysis concepts.
+
+- Hancock, G. R., & Mueller, R. O. (2001). *Rethinking construct
+  reliability within latent variable systems.* (Hancock and Mueller
+  ([2001](#ref-hancock2001)))  
+  Introduces Coefficient H and discusses its interpretation as factor
+  determinacy rather than observed-score reliability.
+
+### Comparative studies
+
+- Xiao L, Hau KT. (2022). *Performance of Coefficient Alpha and Its
+  Alternatives: Effects of Different Types of Non-Normality.* (Xiao and
+  Hau ([2023](#ref-xiao2023)))
 
 ### Ordinal reliability for Likert-type data
 
-- Zumbo, B. D., Gadermann, A. M., & Zeisser, C. (2007). Ordinal versions
-  of coefficients alpha and theta for Likert rating scales. Introduces
-  ordinal (polychoric-based) alpha—often called Zumbo’s alpha.
+- Zumbo, B. D., Gadermann, A. M., & Zeisser, C. (2007). *Ordinal
+  versions of coefficients alpha and theta for Likert rating scales.*
+  (Zumbo, Gadermann, and Zeisser ([2007](#ref-zumbo2007)))  
+  Introduces ordinal (polychoric-based) alpha—often called Zumbo’s
+  alpha.
 
-- Gadermann, A. M., Guhn, M., & Zumbo, B. D. (2012). Estimating ordinal
-  reliability for Likert-type and ordinal item response data. A
-  practical, non-technical guide that is especially suitable for
+- Gadermann, A. M., Guhn, M., & Zumbo, B. D. (2012). *Estimating ordinal
+  reliability for Likert-type and ordinal item response data.*
+  (Gadermann, Guhn, and Zumbo ([2012](#ref-gadermann2012)))  
+  A practical, non-technical guide that is especially suitable for
   teaching.
 
 ### Polychoric correlations in practice
 
-- Holgado–Tello, F. P., et al. (2010). Polychoric versus Pearson
-  correlations in factor analysis of ordinal variables. A helpful
-  applied comparison explaining why Pearson correlations can distort
-  analyses of Likert-type data.
+- Holgado–Tello, F. P., et al. (2010). *Polychoric versus Pearson
+  correlations in factor analysis of ordinal variables.* (Holgado–Tello
+  et al. ([2010](#ref-holgado2010)))  
+  A helpful applied comparison explaining why Pearson correlations can
+  distort analyses of Likert-type data.
 
 ## Teaching tip
 
@@ -577,3 +697,37 @@ Introduce ordinal reliability only after students understand:
 This mirrors the progressive structure used in reliability() and helps
 students see why additional assumptions are required for ordinal
 methods.
+
+## Citations
+
+Cronbach, Lee J. 1951. “Coefficient Alpha and the Internal Structure of
+Tests.” *Psychometrika* 16 (3): 297–334.
+
+Gadermann, Anne M, Martin Guhn, and Bruno D Zumbo. 2012. “Estimating
+Ordinal Reliability for Likert-Type and Ordinal Item Response Data: A
+Conceptual, Empirical, and Practical Guide.” *Practical Assessment,
+Research & Evaluation* 17 (3): n3.
+
+Hancock, Gregory R, and Ralph O Mueller. 2001. “Rethinking Construct
+Reliability Within Latent Variable Systems.” *Structural Equation
+Modeling: Present and Future* 195 (216): 60–70.
+
+Holgado–Tello, Francisco Pablo, Salvador Chacón–Moscoso, Isabel
+Barbero–Garcı́a, and Enrique Vila–Abad. 2010. “Polychoric Versus Pearson
+Correlations in Exploratory and Confirmatory Factor Analysis of Ordinal
+Variables.” *Quality & Quantity* 44 (1): 153–66.
+
+McDonald, Roderick P. 2013. *Test Theory: A Unified Treatment*.
+psychology press.
+
+Revelle, William, and Richard E Zinbarg. 2009. “Coefficients Alpha,
+Beta, Omega, and the Glb: Comments on Sijtsma.” *Psychometrika* 74 (1):
+145–54.
+
+Xiao, Leifeng, and Kit-Tai Hau. 2023. “Performance of Coefficient Alpha
+and Its Alternatives: Effects of Different Types of Non-Normality.”
+*Educational and Psychological Measurement* 83 (1): 5–27.
+
+Zumbo, Bruno D, Anne M Gadermann, and Cornelia Zeisser. 2007. “Ordinal
+Versions of Coefficients Alpha and Theta for Likert Rating Scales.”
+*Journal of Modern Applied Statistical Methods* 6 (1): 4.

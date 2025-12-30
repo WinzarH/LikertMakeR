@@ -81,11 +81,12 @@ cor(dat) |> round(2)
   generate an item correlation matrix with target Cronbach’s alpha
 
 - [`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md):
-  wrapper for lfast() + lcor() to generate full datasets
+  wrapper for lfast() + lcor() to generate a dataframe of correlated
+  columns
 
 - [`makeCorrLoadings()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrLoadings.md):
-  build an item correlation matrix from factor loadings (and factor
-  correlations)
+  build an item correlation matrix from factor loadings and factor
+  correlations
 
 - [`makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md):
   generate items from a summated scale with target alpha
@@ -96,7 +97,7 @@ cor(dat) |> round(2)
   reconstruct data from paired t-test / repeated-measures summaries
 
 - [`makeScalesRegression()`](https://winzarh.github.io/LikertMakeR/reference/makeScalesRegression.md):
-  generate data that reproduce regression summaries
+  generate data from summary of multiple-regression analysis
 
 - [`correlateScales()`](https://winzarh.github.io/LikertMakeR/reference/correlateScales.md):
   combine multiple item sets so summated scales match a target
@@ -106,6 +107,27 @@ cor(dat) |> round(2)
   [`alpha()`](https://winzarh.github.io/LikertMakeR/reference/alpha.md),
   [`eigenvalues()`](https://winzarh.github.io/LikertMakeR/reference/eigenvalues.md),
   [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
+
+## Rating scale properties
+
+A Likert scale is the mean, or sum, of several ordinal rating scales.
+They are bipolar (usually “agree-disagree”) responses to propositions
+that are determined to be moderately-to-highly correlated among each
+other, and capturing various facets of a theoretical construct.
+
+> ### NOTE
+>
+> A single 1-5 rating scale is **NOT** a Likert scale - it may be an
+> Likert-scale item.
+
+Summated rating scales are not continuous or unbounded. For example, a
+5-point Likert scale that is constructed with, say, five items
+(questions) will have a summed range of between 5 (all rated ‘1’) and 25
+(all rated ‘5’) with all integers in between, and the mean range will be
+‘1’ to ‘5’ with intervals of 1/5=0.20. A 7-point Likert scale
+constructed from eight items will have a summed range between 8 (all
+rated ‘1’) and 56 (all rated ‘7’) with all integers in between, and the
+mean range will be ‘1’ to ‘7’ with intervals of 1/8=0.125.
 
 ## Learn more
 

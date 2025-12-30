@@ -25,11 +25,11 @@ of respondents are joined together.
 
 ## Validation against real data
 
-One objective of the ***LikertMakeR*** package ([Winzar
-2022](#ref-winzar2022)) is to “reproduce” or “reverse engineer”
-rating-scale data for further analysis and visualization when only
-summary statistics are available. In such a role, the synthetic data
-should accurately represent the original data, meaning both should
+One objective of the ***LikertMakeR*** package
+([**winzar2022?**](#ref-winzar2022)) is to “reproduce” or “reverse
+engineer” rating-scale data for further analysis and visualization when
+only summary statistics are available. In such a role, the synthetic
+data should accurately represent the original data, meaning both should
 plausibly originate from the same population.
 
 To validate synthetic data, we choose a data set that is readily
@@ -642,8 +642,3 @@ Northwestern University. <https://CRAN.R-project.org/package=psych>.
 William Revelle. 2024. *psychTools: Tools to Accompany the ’Psych’
 Package for Psychological Research*. Evanston, Illinois: Northwestern
 University. <https://CRAN.R-project.org/package=psychTools>.
-
-Winzar, Hume. 2022. *LikertMakeR: Synthesise and Correlate Likert-Scale
-and Related Rating-Scale Data with Predefined First & Second Moments*
-(version 1.1.0 (2025)). *The Comprehensive R Archive Network (CRAN)*.
-<https://CRAN.R-project.org/package=LikertMakeR>.

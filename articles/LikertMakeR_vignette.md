@@ -3,7 +3,7 @@
 ![](img/LikertMakeR_3.png)
 
 ***LikertMakeR*** [(Winzar,
-2022)](https://cran.r-project.org/package=LikertMakeR) lets you create
+2025)](https://cran.r-project.org/package=LikertMakeR) lets you create
 synthetic Likert-scale, or related rating-scale, data.  
 Set the mean, standard deviation, and correlations or model
 coefficients, and the package generates data matching those properties.
@@ -40,6 +40,8 @@ Typically, they are bipolar (usually “agree-disagree”) responses to
 propositions that are determined to be moderately-to-highly correlated
 and that capture some facet of a theoretical construct.
 
+#### Rating scales have bounds and discrete measurement intervals
+
 Rating scales, such as *Likert* scales, are not continuous or unbounded.
 
 For example, a 5-point Likert scale that is constructed with, say, five
@@ -57,7 +59,11 @@ parametric statistics are commonly used in the social sciences because:
 
 1.  they are in common usage and easily understood,
 
-2.  results and conclusions drawn from technically-correct
+2.  In practice, all measures are bounded by the constraints of the
+    measurement tool, meaning that they also have upper and lower
+    boundaries and discrete units of measurement, which means that:
+
+3.  results and conclusions drawn from technically-correct
     non-parametric statistics are *(almost)* always the same as for
     parametric statistics for such data.  
     For example, [D’Alessandro *et al.*
@@ -65,6 +71,19 @@ parametric statistics are commonly used in the social sciences because:
     argue that a summated scale, made with multiple items, “approaches”
     an interval scale measure, implying that parametric statistics are
     quite acceptable.
+
+#### A single 1-5 rating scale is ***NOT*** a Likert scale - it may be an Likert-scale item.
+
+Likert-scale items, such as responses to a single 1-to-5 agree-disagree
+question, should not be analysed by professional or responsible
+researchers. There is too much random error in a single item. [Rensis
+Likert (1932)](https://archive.org/details/likert-1932/mode/2up)
+designed the scale with the logic that a random overstatement on one
+item is likely to be compensated by a random understatement on another
+item, so that, when multiple items are combined, we get a reasonably
+consistent, internally reliable, measure of the target construct.
+
+#### Most rating scales are skewed
 
 Rating-scale boundaries define minima and maxima for any scale values.
 If the mean is close to one boundary then data points will gather more
@@ -125,6 +144,11 @@ scales
   - *eigenvalues()* calculates eigenvalues of a correlation matrix,
     reports on positive-definite status of the matrix and, optionally,
     displays a scree plot to visualise the eigenvalues.
+
+  - *reliability()* Computes internal consistency reliability estimates
+    for a single-factor scale, including Cronbach’s alpha, McDonald’s
+    omega (total), and optional ordinal (polychoric-based) variants and
+    Confidence intervals
 
 ------------------------------------------------------------------------
 
@@ -324,16 +348,16 @@ original; the values are rearranged.
 The first ten observations from this dataframe are:
 
     #>     X1  X2  X3
-    #> 1  2.6 3.2 5.0
-    #> 2  3.2 4.8 4.0
-    #> 3  1.6 1.8 2.0
-    #> 4  1.8 2.4 4.4
-    #> 5  1.6 1.0 3.4
-    #> 6  3.0 5.0 4.0
-    #> 7  1.0 1.0 1.8
-    #> 8  2.4 2.2 4.2
-    #> 9  2.6 3.2 3.0
-    #> 10 1.4 1.0 1.6
+    #> 1  3.6 5.0 3.4
+    #> 2  1.8 1.0 2.4
+    #> 3  2.6 1.8 3.0
+    #> 4  3.8 5.0 4.8
+    #> 5  1.8 1.0 3.0
+    #> 6  2.0 2.8 4.4
+    #> 7  2.4 1.6 2.8
+    #> 8  2.0 2.0 2.6
+    #> 9  3.0 4.4 4.4
+    #> 10 1.8 1.2 2.2
 
 And the new dataframe is correlated close to our desired correlation
 matrix; here presented to 3 decimal places:
@@ -445,7 +469,9 @@ eigenvalues(cor_matrix_4, 1)
     #> cor_matrix_4  is positive-definite
     #> [1] 2.7831667 0.6670820 0.3157114 0.2340400
 
-##### twelve variables, alpha = 0.90, variance = 1
+##### twelve variables, alpha = 0.90, variance = 1.0
+
+High variance will not produce a positive-definite correlation matrix.
 
 ``` r
 ## define parameters
@@ -939,6 +965,7 @@ parameters:
 ##### four correlated items
 
 ``` r
+
 ## define parameters
 n <- 128
 dfMeans <- c(2.5, 3.0, 3.0, 3.5)
@@ -981,14 +1008,24 @@ df <- makeScales(
 #> Arranging data to match correlations
 #> 
 #> Successfully generated correlated variables
+```
+
+###### Structure of new dataframe
+
+``` r
 
 ## test the function
 str(df)
 #> 'data.frame':    128 obs. of  4 variables:
-#>  $ var1: num  3 2 1 3 3 3 2 3 2 4 ...
-#>  $ var2: num  3 4 2 3 3 5 3 3 2 4 ...
-#>  $ var3: num  3 5 2 4 5 5 4 3 1 4 ...
-#>  $ var4: num  3 5 3 4 4 5 4 3 3 4 ...
+#>  $ var1: num  4 4 3 3 3 4 2 1 1 3 ...
+#>  $ var2: num  4 5 3 4 3 5 3 4 3 4 ...
+#>  $ var3: num  5 5 1 4 3 5 3 4 4 5 ...
+#>  $ var4: num  4 5 3 4 3 5 3 4 4 4 ...
+```
+
+###### Means should be correct to two decimal places
+
+``` r
 
 ### means should be correct to two decimal places
 dfmoments <- data.frame(
@@ -1000,14 +1037,19 @@ dfmoments
 #>       var1  var2  var3  var4
 #> mean 2.500 3.000 3.000 3.500
 #> sd   1.004 1.004 1.501 0.753
+```
+
+###### Correlations should be correct to two decimal places
+
+``` r
 
 ### correlations should be correct to two decimal places
 cor(df) |> round(3)
-#>       var1 var2  var3  var4
-#> var1 1.000 0.25 0.350 0.448
-#> var2 0.250 1.00 0.700 0.750
-#> var3 0.350 0.70 1.000 0.843
-#> var4 0.448 0.75 0.843 1.000
+#>       var1 var2 var3  var4
+#> var1 1.000 0.25 0.35 0.448
+#> var2 0.250 1.00 0.70 0.750
+#> var3 0.350 0.70 1.00 0.850
+#> var4 0.448 0.75 0.85 1.000
 ```
 
 ##### four Likert scales
@@ -1067,20 +1109,20 @@ df <- makeScales(
 ## test the function
 head(df)
 #>     BT       BS   BL      BLY
-#> 1 4.50 4.666667 3.75 4.666667
-#> 2 4.25 4.333333 3.75 4.000000
-#> 3 4.75 5.000000 4.25 4.666667
-#> 4 4.00 4.333333 2.75 3.666667
-#> 5 4.50 4.333333 4.75 4.666667
-#> 6 4.50 4.000000 3.50 4.000000
+#> 1 4.00 4.333333 4.75 4.666667
+#> 2 4.50 4.333333 3.50 4.000000
+#> 3 4.00 4.000000 3.25 4.333333
+#> 4 3.00 3.666667 4.00 3.000000
+#> 5 4.50 4.666667 4.25 4.666667
+#> 6 4.75 4.333333 4.50 4.666667
 tail(df)
 #>       BT       BS   BL      BLY
-#> 251 4.25 4.333333 4.25 4.333333
-#> 252 4.25 4.000000 3.75 4.666667
-#> 253 3.75 3.000000 3.75 3.666667
-#> 254 4.00 4.000000 3.00 3.333333
-#> 255 4.00 4.000000 3.50 3.666667
-#> 256 4.00 4.333333 3.00 4.000000
+#> 251 3.75 4.000000 3.75 3.333333
+#> 252 4.25 4.333333 4.00 4.000000
+#> 253 4.50 4.666667 4.00 5.000000
+#> 254 3.75 3.666667 2.75 4.000000
+#> 255 3.50 3.333333 2.00 4.000000
+#> 256 3.50 4.000000 4.00 3.666667
 
 ### means should be correct to two decimal places
 dfmoments <- data.frame(
@@ -1202,20 +1244,20 @@ myItems <- makeScales(
 ## resulting dataframe
 head(myItems)
 #>   item01 item02 item03 item04 item05 item06
-#> 1      2      2      2      3      2      2
-#> 2      3      3      2      4      3      4
-#> 3      2      3      3      2      3      4
-#> 4      2      2      2      3      3      1
-#> 5      2      3      3      4      3      5
-#> 6      4      3      3      4      5      1
+#> 1      1      2      1      3      2      1
+#> 2      2      3      2      2      1      3
+#> 3      2      2      2      3      4      1
+#> 4      2      4      3      3      2      5
+#> 5      3      3      4      4      3      5
+#> 6      2      2      3      4      4      2
 tail(myItems)
 #>     item01 item02 item03 item04 item05 item06
-#> 251      3      3      4      4      4      5
-#> 252      3      3      4      4      4      5
-#> 253      5      4      4      5      5      5
-#> 254      1      2      1      2      2      2
-#> 255      3      3      4      4      5      4
-#> 256      4      4      4      3      4      5
+#> 251      2      3      3      4      4      5
+#> 252      4      4      4      4      4      5
+#> 253      2      3      4      3      4      5
+#> 254      2      2      2      4      4      1
+#> 255      4      4      3      5      4      5
+#> 256      5      4      5      5      4      5
 
 ## means and standard deviations
 myMoments <- data.frame(
@@ -1229,7 +1271,7 @@ myMoments
 
 ## Cronbach's Alpha of dataframe
 alpha(NULL, myItems)
-#> [1] 0.8492378
+#> [1] 0.848731
 ```
 
 ##### Summary plots of new dataframe
@@ -1564,8 +1606,8 @@ pairedDat <- makePaired(
 ## test function output
 str(pairedDat)
 #> 'data.frame':    20 obs. of  2 variables:
-#>  $ X1: num  4.33 1.83 3.17 2.83 2 ...
-#>  $ X2: num  3 3.5 3.5 2.5 3.5 ...
+#>  $ X1: num  2 2.17 3.17 2.17 2.67 ...
+#>  $ X2: num  3 3.5 3.5 2.5 1.83 ...
 
 cor(pairedDat) |> round(2)
 #>      X1   X2
@@ -1713,12 +1755,12 @@ out1 <- makeRepeated(
 
 head(out1$data)
 #>   time_1 time_2 time_3
-#> 1   2.50   3.25   4.75
-#> 2   2.50   4.25   3.75
-#> 3   2.00   5.00   4.00
-#> 4   4.50   1.75   4.25
-#> 5   2.25   4.75   3.50
-#> 6   4.50   3.75   2.00
+#> 1   3.25   4.25   3.25
+#> 2   4.75   3.25   3.25
+#> 3   2.25   4.50   4.00
+#> 4   4.50   2.50   3.75
+#> 5   1.00   5.00   4.75
+#> 6   4.25   4.75   1.50
 out1$correlation_matrix
 #>            time_1     time_2     time_3
 #> time_1  1.0000000 -0.4899454 -0.4899454
@@ -1745,38 +1787,38 @@ out2 <- makeRepeated(
 print(out2)
 #> $data
 #>    time_1 time_2 time_3 time_4
-#> 1     2.2    5.8    4.6    4.4
-#> 2     3.0    3.0    3.8    3.6
-#> 3     1.8    2.4    4.0    3.6
-#> 4     4.2    3.4    5.6    6.0
-#> 5     3.4    4.4    5.2    6.0
-#> 6     2.8    2.0    2.2    3.8
-#> 7     4.6    5.0    6.4    4.0
-#> 8     1.6    2.8    4.4    5.8
-#> 9     1.4    3.0    6.0    5.6
-#> 10    3.0    4.6    3.6    4.4
-#> 11    1.6    2.6    4.8    4.6
-#> 12    2.4    4.6    3.6    5.0
-#> 13    2.2    3.6    4.0    5.2
-#> 14    4.0    3.6    3.2    5.0
-#> 15    2.8    3.6    4.6    4.4
-#> 16    2.0    3.4    3.2    4.4
-#> 17    2.8    2.6    2.2    4.0
-#> 18    2.4    2.2    2.6    3.0
+#> 1     3.4    4.6    4.6    5.0
+#> 2     3.4    5.8    4.2    3.6
+#> 3     1.8    2.8    3.2    3.6
+#> 4     4.2    3.6    5.8    6.0
+#> 5     2.8    4.4    4.8    5.8
+#> 6     3.0    4.0    5.4    3.8
+#> 7     1.8    5.0    6.0    4.4
+#> 8     2.8    2.2    4.0    4.4
+#> 9     2.8    3.0    4.6    5.0
+#> 10    2.4    3.0    3.0    4.4
+#> 11    1.6    2.6    4.4    4.4
+#> 12    4.6    5.0    4.4    4.0
+#> 13    4.0    3.6    3.2    5.0
+#> 14    2.2    3.6    3.2    4.4
+#> 15    1.4    2.0    2.6    3.6
+#> 16    3.6    4.6    3.6    4.0
+#> 17    2.2    2.6    2.6    4.0
+#> 18    3.0    3.8    6.4    3.0
 #> 19    2.8    1.6    2.8    1.8
-#> 20    3.0    4.0    5.6    4.4
-#> 21    3.6    4.6    4.2    4.0
-#> 22    3.0    4.6    4.6    3.4
-#> 23    3.4    5.0    3.0    4.0
-#> 24    2.0    3.4    4.4    5.0
-#> 25    3.6    4.2    4.4    4.0
-#> 26    2.2    4.0    5.8    3.4
-#> 27    3.0    3.6    3.4    3.6
-#> 28    2.8    3.0    2.0    5.0
-#> 29    2.2    2.6    2.8    3.8
-#> 30    1.8    2.2    3.2    4.2
-#> 31    3.6    2.8    5.4    6.8
-#> 32    2.8    3.8    2.6    4.4
+#> 20    2.2    3.4    4.4    4.0
+#> 21    2.4    3.0    4.6    5.6
+#> 22    1.6    4.0    4.0    5.0
+#> 23    2.0    3.6    5.6    6.0
+#> 24    3.0    3.4    3.4    3.4
+#> 25    2.2    4.2    3.8    4.6
+#> 26    3.0    4.6    2.2    4.0
+#> 27    3.6    2.4    3.6    4.4
+#> 28    3.0    3.4    2.2    5.2
+#> 29    2.8    2.6    2.0    3.4
+#> 30    3.6    4.6    5.2    4.2
+#> 31    2.8    2.8    5.6    6.8
+#> 32    2.0    2.2    2.8    3.8
 #> 
 #> $correlation_matrix
 #>            time_1    time_2    time_3     time_4
@@ -1832,10 +1874,10 @@ out3 <- makeRepeated(
 str(out3)
 #> List of 8
 #>  $ data                    :'data.frame':    32 obs. of  4 variables:
-#>   ..$ time_1: num [1:32] 1 1 2.75 2.5 2.5 2.75 1.5 4 1.5 3 ...
-#>   ..$ time_2: num [1:32] 1.5 1.75 3.5 3 2.75 3.75 1.75 3.5 2.25 3 ...
-#>   ..$ time_3: num [1:32] 1.25 3 3.5 2 3 3.75 3.25 3.75 2.5 3.25 ...
-#>   ..$ time_4: num [1:32] 1.75 3 2.25 1.5 2.25 2.5 2.75 2.75 2.25 2.5 ...
+#>   ..$ time_1: num [1:32] 1.25 1.5 3 1.25 3.5 1.25 2.5 2.75 1.5 1.5 ...
+#>   ..$ time_2: num [1:32] 1.75 1.75 2.5 2.25 3.25 2 3 3 1.75 2.75 ...
+#>   ..$ time_3: num [1:32] 4.5 3.75 2.5 3 3 2 3.25 4.25 2.5 3.5 ...
+#>   ..$ time_4: num [1:32] 3.5 3.5 1.75 2.75 2.5 1.25 2.5 2.25 1.5 3.5 ...
 #>  $ correlation_matrix      : num [1:4, 1:4] 1 0.66 0.33 0 0.66 ...
 #>   ..- attr(*, "dimnames")=List of 2
 #>   .. ..$ : chr [1:4] "time_1" "time_2" "time_3" "time_4"
@@ -2190,15 +2232,15 @@ A3_moments
 cor(Att_3) |> round(2)
 #>        item01 item02 item03 item04 item05 item06
 #> item01   1.00   0.53   0.79   0.43   0.71   0.64
-#> item02   0.53   1.00   0.72   0.86   0.47   0.41
-#> item03   0.79   0.72   1.00   0.70   0.71   0.66
-#> item04   0.43   0.86   0.70   1.00   0.43   0.46
-#> item05   0.71   0.47   0.71   0.43   1.00   0.43
-#> item06   0.64   0.41   0.66   0.46   0.43   1.00
+#> item02   0.53   1.00   0.71   0.86   0.47   0.41
+#> item03   0.79   0.71   1.00   0.69   0.71   0.65
+#> item04   0.43   0.86   0.69   1.00   0.42   0.47
+#> item05   0.71   0.47   0.71   0.42   1.00   0.42
+#> item06   0.64   0.41   0.65   0.47   0.42   1.00
 
 ### Attitude #2 cronbach's alpha
 alpha(cor(Att_3)) |> round(3)
-#> [1] 0.898
+#> [1] 0.897
 
 
 ## Behavioural Intention
@@ -2255,22 +2297,22 @@ my_correlated_scales <- correlateScales(
 ## data structure
 str(my_correlated_scales)
 #> 'data.frame':    128 obs. of  16 variables:
-#>  $ A1_1 : num  1 2 2 2 2 2 3 2 2 3 ...
-#>  $ A1_2 : num  1 3 2 2 1 2 2 2 2 2 ...
-#>  $ A1_3 : num  2 4 3 4 2 3 2 2 3 3 ...
-#>  $ A1_4 : num  3 3 3 3 2 4 4 2 3 3 ...
-#>  $ A2_1 : num  2 3 3 1 2 3 3 2 2 2 ...
-#>  $ A2_2 : num  2 4 2 1 2 2 3 1 2 2 ...
-#>  $ A2_3 : num  3 3 4 2 2 4 3 3 3 2 ...
-#>  $ A2_4 : num  2 3 4 1 3 4 4 3 3 2 ...
-#>  $ A2_5 : num  3 3 3 3 3 4 5 3 3 4 ...
-#>  $ A3_1 : num  1 3 2 2 2 2 3 2 3 2 ...
-#>  $ A3_2 : num  2 3 2 2 1 3 3 4 2 2 ...
-#>  $ A3_3 : num  2 3 2 2 1 3 4 3 3 2 ...
-#>  $ A3_4 : num  3 3 2 3 2 3 3 4 2 3 ...
-#>  $ A3_5 : num  2 4 2 3 3 3 5 4 4 3 ...
-#>  $ A3_6 : num  3 4 3 4 2 4 3 2 3 3 ...
-#>  $ Int_1: num  1 3 0 4 2 2 0 4 1 5 ...
+#>  $ A1_1 : num  2 4 2 2 3 2 3 4 2 2 ...
+#>  $ A1_2 : num  1 3 2 3 3 2 4 4 1 1 ...
+#>  $ A1_3 : num  3 4 3 4 3 3 3 4 2 2 ...
+#>  $ A1_4 : num  3 4 3 3 4 3 4 4 3 3 ...
+#>  $ A2_1 : num  2 4 2 3 3 2 3 4 2 1 ...
+#>  $ A2_2 : num  1 4 2 3 3 3 3 3 2 2 ...
+#>  $ A2_3 : num  3 4 4 3 3 3 3 4 3 3 ...
+#>  $ A2_4 : num  2 4 3 3 3 2 3 4 3 1 ...
+#>  $ A2_5 : num  2 4 4 4 4 3 4 4 3 3 ...
+#>  $ A3_1 : num  1 3 2 2 4 4 4 3 3 2 ...
+#>  $ A3_2 : num  2 3 1 3 3 3 3 4 3 1 ...
+#>  $ A3_3 : num  1 4 3 3 4 4 5 4 4 2 ...
+#>  $ A3_4 : num  2 4 2 4 3 4 3 5 4 1 ...
+#>  $ A3_5 : num  2 4 4 3 4 5 5 4 4 2 ...
+#>  $ A3_6 : num  2 4 2 3 5 5 5 5 4 3 ...
+#>  $ Int_1: num  4 4 1 6 2 1 6 4 1 5 ...
 ```
 
 ``` r
@@ -2282,7 +2324,7 @@ eigenvalues(cormatrix = Cor_Correlated_Scales, scree = TRUE) |> round(2)
 ![](LikertMakeR_vignette_files/figure-html/fig7-1.png)
 
     #> Cor_Correlated_Scales  is positive-definite
-    #>  [1] 6.99 2.22 1.09 0.98 0.81 0.67 0.58 0.54 0.51 0.41 0.35 0.28 0.20 0.15 0.12
+    #>  [1] 6.96 2.23 1.08 0.94 0.79 0.71 0.64 0.55 0.47 0.44 0.31 0.24 0.22 0.17 0.14
     #> [16] 0.10
 
 ``` r
@@ -2294,7 +2336,7 @@ eigenvalues(cormatrix = Cor_Attitude_items, scree = TRUE) |> round(2)
 ![](LikertMakeR_vignette_files/figure-html/fig7a-1.png)
 
     #> Cor_Attitude_items  is positive-definite
-    #>  [1] 6.83 2.19 0.99 0.84 0.69 0.67 0.58 0.54 0.46 0.36 0.28 0.20 0.15 0.13 0.10
+    #>  [1] 6.80 2.19 1.00 0.79 0.73 0.68 0.64 0.52 0.46 0.32 0.24 0.22 0.17 0.14 0.10
 
 ------------------------------------------------------------------------
 
@@ -2309,6 +2351,8 @@ when examining parameters and output.
 - ***eigenvalues()*** calculates eigenvalues of a correlation matrix, a
   report on whether the correlation matrix is positive definite, and
   produces an optional scree plot.
+
+- ***reliability*** presents a table of internal consistency statistics
 
 #### alpha()
 
@@ -2391,6 +2435,84 @@ evals <- eigenvalues(correlationMatrix, 1)
     #> correlationMatrix  is positive-definite
     print(evals)
     #> [1] 2.7484991 0.8122627 0.3048151 0.1344231
+
+#### reliability()
+
+*reliabiity()* Computes internal consistency reliability estimates for a
+single-factor scale, including Cronbach’s alpha, McDonald’s omega
+(total), and optional ordinal (polychoric-based) variants and Confidence
+intervals.
+
+#### reliability() examples
+
+``` r
+
+## create dataset
+my_cor <- LikertMakeR::makeCorrAlpha(
+  items = 4,
+  alpha = 0.80
+)
+#> reached max iterations (1600) - best mean difference: 8.8e-05
+
+my_data <- LikertMakeR::makeScales(
+  n = 64,
+  means = c(2.75, 3.00, 3.25, 3.50),
+  sds = c(1.25, 1.50, 1.30, 1.25),
+  lowerbound = rep(1, 4),
+  upperbound = rep(5, 4),
+  cormatrix = my_cor
+)
+#> Variable  1 :  item01  -
+#> Variable  2 :  item02  -
+#> Variable  3 :  item03  -
+#> Variable  4 :  item04  -
+#> 
+#> Arranging data to match correlations
+#> 
+#> Successfully generated correlated variables
+
+## run function
+reliability(my_data)
+#>    coef_name estimate n_items n_obs                notes
+#>        alpha    0.800       4    64 Pearson correlations
+#>  omega_total    0.871       4    64 1-factor eigen omega
+
+reliability(
+  my_data,
+  include = c("lambda6", "polychoric")
+)
+#>            coef_name estimate n_items n_obs
+#>                alpha    0.800       4    64
+#>          omega_total    0.871       4    64
+#>              lambda6    0.797       4    64
+#>        ordinal_alpha    0.760       4    64
+#>  ordinal_omega_total    0.848       4    64
+#>                                                notes
+#>                                 Pearson correlations
+#>                                 1-factor eigen omega
+#>                                       psych::alpha()
+#>                              Polychoric correlations
+#>  Polychoric correlations | Ordinal CIs not requested
+
+
+## bootstrapped Confidence intervals can be slow!
+reliability(
+  my_data,
+  include = "polychoric",
+  ci = TRUE,
+  n_boot = 64
+)
+#>            coef_name estimate ci_lower ci_upper n_items n_obs
+#>                alpha    0.800    0.718    0.871       4    64
+#>          omega_total    0.871    0.828    0.912       4    64
+#>        ordinal_alpha    0.760    0.637    0.826       4    64
+#>  ordinal_omega_total    0.848    0.787    0.885       4    64
+#>                                                notes
+#>                                 Pearson correlations
+#>                                 1-factor eigen omega
+#>                              Polychoric correlations
+#>  Polychoric correlations | Ordinal CIs via bootstrap
+```
 
 ------------------------------------------------------------------------
 
@@ -2538,6 +2660,6 @@ Touloumis, A. (2016), Simulating Correlated Binary and Multinomial
 Responses under Marginal Model Specification: The SimCorMultRes Package,
 *The R Journal* 8:2, 79-91. <https://doi.org/10.32614/RJ-2016-034>
 
-Winzar, H. (2022). LikertMakeR: Synthesise and correlate Likert scale
-and related rating-scale data with predefined first and second moments.
-CRAN: <https://CRAN.R-project.org/package=LikertMakeR>
+Winzar, H. (2025). LikertMakeR (V 1.4.0): Synthesise and correlate
+Likert scale and related rating-scale data with predefined first and
+second moments. CRAN: <https://CRAN.R-project.org/package=LikertMakeR>
