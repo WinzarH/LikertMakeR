@@ -125,7 +125,7 @@ reliability <- function(
 
   include <- match.arg(
     include,
-    choices = c("none", "lambda6", "polychoric"),
+    choices = c("none", "lambda6", "omega_h", "polychoric"),
     several.ok = TRUE
   )
 
@@ -134,6 +134,7 @@ reliability <- function(
 
   if (length(include) > 1 && "none" %in% include) include <- setdiff(include, "none")
 
+  do_omega_h <- "omega_h" %in% include
   do_lambda6 <- "lambda6" %in% include
   do_polychor <- "polychoric" %in% include
 
@@ -148,6 +149,7 @@ reliability <- function(
   if (n < 3) stop("Not enough observations to compute reliability.")
 
   # ------------------ helpers ------------------
+
 
   get_R_pearson <- function(Xdf) stats::cor(Xdf, use = "pairwise.complete.obs")
 
@@ -192,6 +194,7 @@ reliability <- function(
     if (length(sparse) > max_items) sparse <- c(sparse[1:max_items], "...")
     paste(sparse, collapse = "; ")
   }
+
 
   get_R_polychoric <- function(Xdf, min_count_point = 2, verbose = TRUE) {
     Xo <- as.data.frame(lapply(Xdf, function(col) droplevels(ordered(col))))
@@ -291,6 +294,78 @@ reliability <- function(
     sum(loadings)^2 / (sum(loadings)^2 + sum(uni))
   }
 
+
+  ## omega_h function
+
+  H_from_R <- function(Rmat, n_obs = NULL, verbose = TRUE) {
+    # Coefficient H ("maximal reliability") for a single-factor model.
+    # H = (sum(lambda))^2 / ((sum(lambda))^2 + sum(theta))
+    # where lambda are standardized factor loadings and theta are uniquenesses.
+
+    # Prefer psych::fa if available
+    if (requireNamespace("psych", quietly = TRUE)) {
+      fit <- tryCatch(
+        psych::fa(Rmat, nfactors = 1, fm = "minres", rotate = "none"),
+        error = function(e) e
+      )
+      if (inherits(fit, "error")) {
+        if (isTRUE(verbose)) warning("omega_h (H) skipped: psych::fa() failed: ", fit$message, call. = FALSE)
+        return(NA_real_)
+      }
+
+      lam <- as.numeric(fit$loadings[, 1])
+      if (!is.finite(sum(lam))) {
+        return(NA_real_)
+      }
+
+      # Align sign for stability/interpretability
+      if (sum(lam, na.rm = TRUE) < 0) lam <- -lam
+
+      theta <- as.numeric(fit$uniquenesses)
+      if (length(theta) != length(lam)) {
+        return(NA_real_)
+      }
+
+      num <- (sum(lam, na.rm = TRUE))^2
+      den <- num + sum(theta, na.rm = TRUE)
+      if (!is.finite(den) || den <= 0) {
+        return(NA_real_)
+      }
+      return(num / den)
+    }
+
+    # Fallback: stats::factanal (needs n.obs if using covmat list)
+    if (!is.null(n_obs) && is.finite(n_obs) && n_obs > 2) {
+      fit2 <- tryCatch(
+        stats::factanal(covmat = list(cov = Rmat, n.obs = n_obs), factors = 1, rotation = "none"),
+        error = function(e) e
+      )
+      if (inherits(fit2, "error")) {
+        if (isTRUE(verbose)) warning("omega_h (H) skipped: factanal() failed: ", fit2$message, call. = FALSE)
+        return(NA_real_)
+      }
+
+      lam <- as.numeric(fit2$loadings[, 1])
+      if (sum(lam, na.rm = TRUE) < 0) lam <- -lam
+      theta <- as.numeric(fit2$uniquenesses)
+
+      num <- (sum(lam, na.rm = TRUE))^2
+      den <- num + sum(theta, na.rm = TRUE)
+      if (!is.finite(den) || den <= 0) {
+        return(NA_real_)
+      }
+      return(num / den)
+    }
+
+    if (isTRUE(verbose)) {
+      warning("omega_h (H) skipped: requires suggested package 'psych' (preferred), or provide n_obs for factanal() fallback.",
+        call. = FALSE
+      )
+    }
+    NA_real_
+  }
+
+
   # ------------------ Pearson estimates ------------------
 
   R <- get_R_pearson(X)
@@ -314,6 +389,7 @@ reliability <- function(
   diag_ord <- NULL
   ordinal_alpha_est <- NA_real_
   ordinal_omega_est <- NA_real_
+  omega_h_est <- NA_real_
 
   ordinal_ci_ok <- FALSE
 
@@ -326,6 +402,11 @@ reliability <- function(
       ordinal_alpha_est <- alpha_from_R(R_poly)
       ordinal_omega_est <- omega_from_R(R_poly)
     }
+  }
+
+
+  if (do_omega_h) {
+    omega_h_est <- H_from_R(R, n_obs = n, verbose = verbose)
   }
 
   # ------------------ Bootstrap CI init ------------------
@@ -468,6 +549,22 @@ reliability <- function(
         n_items   = k,
         n_obs     = n,
         notes     = "psych::alpha()"
+      )
+    )
+  }
+
+
+  if (do_omega_h && !is.na(omega_h_est)) {
+    out <- dplyr::bind_rows(
+      out,
+      tibble::tibble(
+        coef_name = "omega_h",
+        estimate  = omega_h_est,
+        ci_lower  = NA_real_,
+        ci_upper  = NA_real_,
+        n_items   = k,
+        n_obs     = n,
+        notes     = "Coefficient H (1-factor FA, maximal reliability)"
       )
     )
   }

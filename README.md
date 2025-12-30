@@ -82,22 +82,42 @@ cor(dat) |> round(2)
 
   - `makeCorrAlpha()`: generate an item correlation matrix with target Cronbach’s alpha
 
-  - `makeScales()`: wrapper for lfast() + lcor() to generate full datasets
+  - `makeScales()`: wrapper for lfast() + lcor() to generate a dataframe of correlated columns
 
-  - `makeCorrLoadings()`: build an item correlation matrix from factor loadings (and factor correlations)
+  - `makeCorrLoadings()`: build an item correlation matrix from factor loadings and factor correlations
 
   - `makeItemsScale()`: generate items from a summated scale with target alpha
 
   - `makePaired()` / `makeRepeated()`: reconstruct data from paired t-test / repeated-measures summaries
 
-  - `makeScalesRegression()`: generate data that reproduce regression summaries
+  - `makeScalesRegression()`: generate data from summary of multiple-regression analysis
 
   - `correlateScales()`: combine multiple item sets so summated scales match a target correlation matrix
 
   - Helpers: `alpha()`, `eigenvalues()`, `reliability()`
+
   
- 
- 
+## Rating scale properties
+
+A Likert scale is the mean, or sum, of several ordinal rating scales. 
+They are bipolar (usually “agree-disagree”) responses to propositions 
+that are determined to be moderately-to-highly correlated among each other, 
+and capturing various facets of a theoretical construct.
+
+> ### NOTE   
+> A single 1-5 rating scale is **NOT** a Likert scale - it may be an Likert-scale item.
+    
+Summated rating scales are not continuous or unbounded.
+For example, a 5-point Likert scale that is constructed with, say, 
+five items (questions) will have a summed range of between 5 
+(all rated ‘1’) and 25 (all rated ‘5’) with all integers in between, 
+and the mean range will be ‘1’ to ‘5’ with intervals of 1/5=0.20.
+A 7-point Likert scale constructed from eight items will have a 
+summed range between 8 (all rated ‘1’) and 56 (all rated ‘7’) with 
+all integers in between, and the mean range will be ‘1’ to ‘7’ with 
+intervals of 1/8=0.125.
+
+
 ## Learn more
 
 Package website (recommended): https://winzarh.github.io/LikertMakeR/

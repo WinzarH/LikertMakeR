@@ -17,6 +17,8 @@
   
   - ordinal-omega-total (McDonald's omega total from polychoric correlations)
   
+  - coefficient H
+  
   with bootstrapped Confidence Intervals for each as an option.
   
 ## Maintenance
@@ -24,6 +26,8 @@
 - Fixed typos and simplified examples.
 
 - removed redundant `makeItems()` function
+
+- reduced length of **README** file and moved most content to vignettes
 
 
 # LikertMakeR 1.3.0 (2025-11-24)
