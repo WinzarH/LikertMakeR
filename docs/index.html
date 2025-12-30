@@ -141,14 +141,24 @@
 <li><p><code><a href="reference/lfast.html">lfast()</a></code>: generate bounded/discrete data with target mean &amp; SD</p></li>
 <li><p><code><a href="reference/lcor.html">lcor()</a></code>: rearrange columns to approximate a target correlation matrix</p></li>
 <li><p><code><a href="reference/makeCorrAlpha.html">makeCorrAlpha()</a></code>: generate an item correlation matrix with target Cronbach’s alpha</p></li>
-<li><p><code><a href="reference/makeScales.html">makeScales()</a></code>: wrapper for lfast() + lcor() to generate full datasets</p></li>
-<li><p><code><a href="reference/makeCorrLoadings.html">makeCorrLoadings()</a></code>: build an item correlation matrix from factor loadings (and factor correlations)</p></li>
+<li><p><code><a href="reference/makeScales.html">makeScales()</a></code>: wrapper for lfast() + lcor() to generate a dataframe of correlated columns</p></li>
+<li><p><code><a href="reference/makeCorrLoadings.html">makeCorrLoadings()</a></code>: build an item correlation matrix from factor loadings and factor correlations</p></li>
 <li><p><code><a href="reference/makeItemsScale.html">makeItemsScale()</a></code>: generate items from a summated scale with target alpha</p></li>
 <li><p><code><a href="reference/makePaired.html">makePaired()</a></code> / <code><a href="reference/makeRepeated.html">makeRepeated()</a></code>: reconstruct data from paired t-test / repeated-measures summaries</p></li>
-<li><p><code><a href="reference/makeScalesRegression.html">makeScalesRegression()</a></code>: generate data that reproduce regression summaries</p></li>
+<li><p><code><a href="reference/makeScalesRegression.html">makeScalesRegression()</a></code>: generate data from summary of multiple-regression analysis</p></li>
 <li><p><code><a href="reference/correlateScales.html">correlateScales()</a></code>: combine multiple item sets so summated scales match a target correlation matrix</p></li>
 <li><p>Helpers: <code><a href="reference/alpha.html">alpha()</a></code>, <code><a href="reference/eigenvalues.html">eigenvalues()</a></code>, <code><a href="reference/reliability.html">reliability()</a></code></p></li>
 </ul>
+</div>
+<div class="section level2">
+<h2 id="rating-scale-properties">Rating scale properties<a class="anchor" aria-label="anchor" href="#rating-scale-properties"></a>
+</h2>
+<p>A Likert scale is the mean, or sum, of several ordinal rating scales. They are bipolar (usually “agree-disagree”) responses to propositions that are determined to be moderately-to-highly correlated among each other, and capturing various facets of a theoretical construct.</p>
+<blockquote>
+<h3 id="note">NOTE</h3>
+<p>A single 1-5 rating scale is <strong>NOT</strong> a Likert scale - it may be an Likert-scale item.</p>
+</blockquote>
+<p>Summated rating scales are not continuous or unbounded. For example, a 5-point Likert scale that is constructed with, say, five items (questions) will have a summed range of between 5 (all rated ‘1’) and 25 (all rated ‘5’) with all integers in between, and the mean range will be ‘1’ to ‘5’ with intervals of 1/5=0.20. A 7-point Likert scale constructed from eight items will have a summed range between 8 (all rated ‘1’) and 56 (all rated ‘7’) with all integers in between, and the mean range will be ‘1’ to ‘7’ with intervals of 1/8=0.125.</p>
 </div>
 <div class="section level2">
 <h2 id="learn-more">Learn more<a class="anchor" aria-label="anchor" href="#learn-more"></a>
