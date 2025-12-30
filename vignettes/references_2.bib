@@ -1,5 +1,4 @@
 
-
 @Manual{winzar2025,
   title = {LikertMakeR: Synthesise and correlate Likert-scale
 and related rating-scale data based on summary statistics},
@@ -12,6 +11,16 @@ and related rating-scale data based on summary statistics},
   url = {https://CRAN.R-project.org/package=LikertMakeR},
 }
 
+@article{cronbach1951,
+  title={Coefficient alpha and the internal structure of tests},
+  author={Cronbach, Lee J},
+  journal={psychometrika},
+  volume={16},
+  number={3},
+  pages={297--334},
+  year={1951},
+  publisher={Springer-Verlag}
+}
 
 @Manual{psych,
   title = {psych: Procedures for Psychological, Psychometric, and
@@ -25,27 +34,16 @@ and related rating-scale data based on summary statistics},
 }
 
 
-@Manual{rosetta,
-  title = {rosetta: Parallel Use of Statistical Packages in Teaching},
-  author = {Gjalt-Jorn Peters and Peter Verboon},
-  year = {2023},
-  note = {R package version 0.3.12},
-  url = {https://r-packages.gitlab.io/rosetta/},
-}
-
-
-@article{Jennrich1970,
-author = {Robert I. Jennrich},
-title = {An Asymptotic χ2 Test for the Equality of Two Correlation Matrices},
-journal = {Journal of the American Statistical Association},
-volume = {65},
-number = {330},
-pages = {904--912},
-year = {1970},
-publisher = {ASA Website},
-doi = {10.1080/01621459.1970.10481133},
-URL = {https://doi.org/10.1080/01621459.1970.10481133},
-eprint = {https://doi.org/10.1080/01621459.1970.10481133}
+@Article{Jennrich1970,
+  author    = {Robert I. Jennrich},
+  journal   = {Journal of the American Statistical Association},
+  title     = {An Asymptotic χ2 Test for the Equality of Two Correlation Matrices},
+  year      = {1970},
+  number    = {330},
+  pages     = {904--912},
+  volume    = {65},
+  doi       = {10.1080/01621459.1970.10481133},
+  publisher = {ASA Website},
 }
 
 
@@ -60,31 +58,14 @@ eprint = {https://doi.org/10.1080/01621459.1970.10481133}
   url = {https://CRAN.R-project.org/package=psychTools},
 }
 
-ticle{Revelle2009,
-author={Revelle, William
-and Zinbarg, Richard E.},
-title={Coefficients Alpha, Beta, Omega, and the glb: Comments on Sijtsma},
-journal={Psychometrika},
-year={2009},
-month={Mar},
-day={01},
-volume={74},
-number={1},
-pages={145-154},
-abstract={There are three fundamental problems in Sijtsma (Psychometrika, 2008): (1) contrary to the name, the glb is not the greatest lower bound of reliability but rather is systematically less than $\omega$t(Mc Donald, Test theory: A unified treatment, Erlbaum, Hillsdale, 1999), (2) we agree with Sijtsma that when considering how well a test measures one concept, $\alpha$ is not appropriate, but recommend $\omega$trat her than the glb, and (3) the end user needs procedures that are readily available in open source software.},
-issn={1860-0980},
-doi={10.1007/s11336-008-9102-z},
-url={https://doi.org/10.1007/s11336-008-9102-z}
-}
-
-
-
-@@book{mcdonald2013test,
+@book{mcdonald2013test,
   title={Test theory: A unified treatment},
   author={McDonald, Roderick P},
   year={2013},
   publisher={psychology press}
-}ar@article{hancock2001rethinking,
+}
+
+@article{hancock2001,
   title={Rethinking construct reliability within latent variable systems},
   author={Hancock, Gregory R and Mueller, Ralph O},
   journal={Structural equation modeling: Present and future},
@@ -95,7 +76,7 @@ url={https://doi.org/10.1007/s11336-008-9102-z}
   publisher={Lincolnwood}
 }
 
-@article{xiao2023performance,
+@article{xiao2023,
   title={Performance of coefficient alpha and its alternatives: Effects of different types of non-normality},
   author={Xiao, Leifeng and Hau, Kit-Tai},
   journal={Educational and Psychological Measurement},
@@ -107,7 +88,7 @@ url={https://doi.org/10.1007/s11336-008-9102-z}
 }
 
 
-@article{zumbo2007ordinal,
+@article{zumbo2007,
   title={Ordinal versions of coefficients alpha and theta for Likert rating scales},
   author={Zumbo, Bruno D and Gadermann, Anne M and Zeisser, Cornelia},
   journal={Journal of modern applied statistical methods},
@@ -118,7 +99,7 @@ url={https://doi.org/10.1007/s11336-008-9102-z}
 }
 
 
-@article{gadermann2012estimating,
+@article{gadermann2012,
   title={Estimating ordinal reliability for Likert-type and ordinal item response data: A conceptual, empirical, and practical guide.},
   author={Gadermann, Anne M and Guhn, Martin and Zumbo, Bruno D},
   journal={Practical assessment, research \& evaluation},
@@ -129,8 +110,7 @@ url={https://doi.org/10.1007/s11336-008-9102-z}
   publisher={ERIC}
 }
 
-
-@article{holgado2010polychoric,
+@article{holgado2010,
   title={Polychoric versus Pearson correlations in exploratory and confirmatory factor analysis of ordinal variables},
   author={Holgado--Tello, Francisco Pablo and Chac{\'o}n--Moscoso, Salvador and Barbero--Garc{\'\i}a, Isabel and Vila--Abad, Enrique},
   journal={Quality \& Quantity},
@@ -140,8 +120,6 @@ url={https://doi.org/10.1007/s11336-008-9102-z}
   year={2010},
   publisher={Springer}
 }
-
-
 
 
 
@@ -171,16 +149,15 @@ URL = {https://archive.org/details/likert-1932/}
 }
 
 
-@article{gronneberg2022,
+@Article{gronneberg2022,
   author  = {Grønneberg, Steffen and Foldnes, Njål and Marcoulides, K. M.},
-  title   = {covsim: An R Package for Simulating Non-Normal Data for Structural Equation Models Using Copulas},
   journal = {Journal of Statistical Software},
+  title   = {covsim: An R Package for Simulating Non-Normal Data for Structural Equation Models Using Copulas},
   year    = {2022},
-  volume  = {102},
   number  = {1},
   pages   = {1--45},
+  volume  = {102},
   doi     = {10.18637/jss.v102.i03},
-  url     = {https://doi.org/10.18637/jss.v102.i03}
 }
 
 
@@ -232,6 +209,17 @@ URL = {https://archive.org/details/likert-1932/}
   url          = {https://personality-project.org/r/book/}
 }
 
+
+@article{revelle2009,
+  title={Coefficients alpha, beta, omega, and the glb: Comments on Sijtsma},
+  author={Revelle, William and Zinbarg, Richard E},
+  journal={Psychometrika},
+  volume={74},
+  number={1},
+  pages={145--154},
+  year={2009},
+  publisher={Springer-Verlag}
+}
 
 @article{touloumis2016,
   author  = {Touloumis, Anastasios},
@@ -346,12 +334,12 @@ url={https://doi.org/10.1007/BF02762032}
 }
 
 
-@misc{personalityproject,
-	author = {Wilelle, William},
-  title = {{T}he {P}ersonality {P}roject --- personality-project.org},
-	howpublished = {\url{https://www.personality-project.org/}},
-	year = {2023},
-	note = {[Accessed 09-01-2025]},
+@Misc{personalityproject,
+  author       = {Wilelle, William},
+  howpublished = {\url{https://www.personality-project.org/}},
+  note         = {[Accessed 09-01-2025]},
+  title        = {{T}he {P}ersonality {P}roject --- personality-project.org},
+  date         = {2023},
 }
 
 
@@ -393,12 +381,20 @@ url={https://doi.org/10.1007/BF02762032}
   doi={10.1080/01621459.1967.10482916}
 }
 
+@Manual{rosetta,
+  title  = {rosetta: Parallel Use of Statistical Packages in Teaching},
+  author = {Gjalt-Jorn Peters and Peter Verboon},
+  note   = {R package version 0.3.12},
+  year   = {2023},
+  doi    = {10.32614/CRAN.package.rosetta},
+  url    = {https://CRAN.R-project.org/package=rosetta},
+}
 
-  @Manual{rosetta,
-    title = {rosetta: Parallel Use of Statistical Packages in Teaching},
-    author = {Gjalt-Jorn Peters and Peter Verboon},
-    year = {2023},
-    note = {R package version 0.3.12},
-    url = {https://CRAN.R-project.org/package=rosetta},
-    doi = {10.32614/CRAN.package.rosetta},
-  }
+@Book{mcdonald2013test,
+  author    = {McDonald, Roderick P},
+  publisher = {psychology press},
+  title     = {Test theory: A unified treatment},
+  year      = {2013},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
