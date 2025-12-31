@@ -58,7 +58,7 @@ reference:
       - lexact
 articles:
   - title: Getting started
-    desc: Intro to the package and key workflows.
+    desc: Intro to the LikertMakeR package and key workflows.
     contents:
       - LikertMakeR_vignette
 
@@ -67,5 +67,5 @@ articles:
     contents:
       - lfast_validation
       - makeCorrLoadings_validate
-      - reliability_vignette
+      - reliability_measures
 
