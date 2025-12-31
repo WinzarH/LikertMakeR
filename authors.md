@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/WinzarH/LikertMakeR/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/WinzarH/LikertMakeR/blob/HEAD/DESCRIPTION)
 
 Winzar H (2025). *LikertMakeR: Synthesise and Correlate Likert Scale and
 Rating-Scale Data Based on Summary Statistics*. R package version 1.4.0,
