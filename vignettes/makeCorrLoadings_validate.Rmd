@@ -1,7 +1,7 @@
 ---
 title: "makeCorrLoadings() validation"
 author: "Hume Winzar"
-date: "April 2025"
+date: "December 2025"
 output: rmarkdown::html_document
 bibliography: references_2.bib 
 link-citations: true
@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
 
 ```{r setup-packages, include = FALSE, message=FALSE, warning=FALSE}
 # Load required packages only if installed
-if (requireNamespace("rosetta", quietly = TRUE)) library(rosetta)
 if (requireNamespace("dplyr", quietly = TRUE)) library(dplyr)
 if (requireNamespace("psych", quietly = TRUE)) library(psych)
 if (requireNamespace("psychTools", quietly = TRUE)) library(psychTools)
@@ -72,11 +71,15 @@ that results are generalisable.
 
 ### Original data
 
-We use the pp15 dataset from the `rosetta` package [@rosetta]. This is a
-subset of the Party Panel 2015 dataset. Party Panel is an annual
-semi-panel study among Dutch nightlife patrons, where every year, the
-determinants of another nightlife-related risk behaviour is mapped. In
-2015, determinants were measured of behaviours related to using highly
+We use the pp15 dataset - a subset of the **_Party Panel 2015_** dataset. 
+The dataset was available in the `rosetta` package [@rosetta] which is no 
+longer available on CRAN, at time of writing, but still accessible at the 
+[Rosetta Stats book site](https://rosettastats.com/)
+
+Party Panel is an annual semi-panel study among Dutch nightlife patrons, 
+where every year, the determinants of another nightlife-related risk behaviour 
+is mapped. 
+In 2015, determinants were measured of behaviours related to using highly
 dosed ecstasy pills.
 
 Nine items are relevant to this study. Each is a 7-point likert-style
@@ -149,7 +152,7 @@ sampleSize <- nrow(dat)
 
 ### Target correlation matrix
 
-The correlations among these nine items should be reproducable by the
+The correlations among these nine items should be reproducible by the
 `makeCorrLoadings()` function.
 
 ```{r}
@@ -205,20 +208,27 @@ corresponding p-value for each test.
 
 ### Exploratory Factor Analysis
 
-Some pretesting suggest that two factors are appropriate for this
+Some pretesting suggests that two factors are appropriate for this
 sample. And we're confident that the factors will be correlated, so we
 use promax rotation.
 
 ```{r}
-## factor analysis from `rosetta` package
-rfaDose <- rosetta::factorAnalysis(
-  data = dat,
+## factor analysis from `psych` package
+rfaDose <- psych::fa(
+  r = dat,
   nfactors = 2,
   rotate = "promax"
 )
 
-factorLoadings <- rfaDose$output$loadings
-factorCorrs <- rfaDose$output$correlations
+factorLoadings <- rfaDose$loadings[1:nrow(rfaDose$loadings), 1:ncol(rfaDose$loadings)]
+factorNames <- paste("Factor", "_", seq_along(factorLoadings[1, ]), sep = "")
+colnames(factorLoadings) <- factorNames
+udf <- rfaDose$uniquenesses |> as.data.frame()
+colnames(udf) <- "Uniqueness"
+factorLoadings <- cbind(factorLoadings, udf)
+
+factorCorrs <- rfaDose$Phi
+colnames(factorCorrs) <- rownames(factorCorrs) <- factorNames
 ```
 
 #### Factor Loadings
@@ -386,7 +396,7 @@ fl_c_mean <- mean(fl_c == 0, na.rm = TRUE) |> round(2)
 fl_c[fl_c == 0] <- " "
 #  bring factor loadings together
 fl <- cbind(fl_0, fl_a, fl_b, fl_c)
-colnames(fl) <- c("f1", "f2", "f1", "f2", "f1", "f2", "f1", "f2")
+colnames(fl) <- rep(c("f1", "f2"), 4)
 header_text <- c("Item" = 1, "all values" = 2, "< 0.1 out" = 2, "< 0.2 out" = 2, "<0.3 out" = 2)
 # print summary factor loadings
 kable(fl, digits = 2, align = rep("c", 8)) |>
@@ -615,7 +625,7 @@ kable(summary_results_1) |>
 ## Conclusion
 
 The `makeCorrLoadings` function works quite well when it has information
-on factor loadings, but much less well when "summary" (censored) factor
+on factor loadings, but less well when "summary" (censored) factor
 loadings are given.
 
 ------------------------------------------------------------------------
@@ -713,16 +723,23 @@ Five correlated factors are appropriate for this sample, so we use
 promax rotation.
 
 ```{r}
-## factor analysis from `rosetta` package is a less messy version of the `psych::fa()` function
+## factor analysis from `psych::fa()` function
 
-fa_bfi <- rosetta::factorAnalysis(
-  data = bfi_short,
+fa_bfi <- psych::fa(
+  r = bfi_short,
   nfactors = 5,
   rotate = "promax"
 )
 
-bfiLoadings <- fa_bfi$output$loadings
-bfiCorrs <- fa_bfi$output$correlations
+bfiLoadings <- fa_bfi$loadings[1:nrow(fa_bfi$loadings), 1:ncol(fa_bfi$loadings)]
+bfiFactorNames <- paste("Factor", "_", seq_along(bfiLoadings[1, ]), sep = "")
+colnames(bfiLoadings) <- bfiFactorNames
+bfiUdf <- fa_bfi$uniquenesses |> as.data.frame()
+colnames(bfiUdf) <- "Uniqueness"
+bfiLoadings <- cbind(bfiLoadings, bfiUdf)
+
+bfiCorrs <- fa_bfi$Phi
+colnames(bfiCorrs) <- rownames(bfiCorrs) <- bfiFactorNames
 ```
 
 #### item-factor loadings & uniquenesses
@@ -1127,7 +1144,7 @@ matrix when all item-factor loadings are present.
 A correlation matrix created with `makeCorrLoadings()` seems to be
 robust even with the absence of specified *uniquenesses*, or even
 without *factor correlations*. But a valid reproduction of a correlation
-matrix should have complete item-factor loadings.
+matrix should have complete item-factor loadings or, at worst, item-factor loadings greater than 0.10.
 
 ------------------------------------------------------------------------
 
