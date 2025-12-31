@@ -2,7 +2,7 @@
 
 ### Getting started
 
-Intro to the package and key workflows.
+Intro to the LikertMakeR package and key workflows.
 
 - [LikertMakeR
   vignette](https://winzarh.github.io/LikertMakeR/articles/LikertMakeR_vignette.md):
@@ -15,4 +15,4 @@ Deeper dives.
   Validation](https://winzarh.github.io/LikertMakeR/articles/lfast_validation.md):
 - [makeCorrLoadings()
   validation](https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.md):
-- [likertMakeR::reliability()](https://winzarh.github.io/LikertMakeR/articles/reliability_vignette.md):
+- [likertMakeR::reliability()](https://winzarh.github.io/LikertMakeR/articles/reliability_measures.md):

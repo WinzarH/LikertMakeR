@@ -230,23 +230,23 @@ print(result1)
 #> Key Statistics:
 #> ---------------
 #> Target R-squared:   0.3500
-#> Achieved R-squared: 0.3224
-#> Difference:         -0.0276
+#> Achieved R-squared: 0.3217
+#> Difference:         -0.0283
 #> 
 #> Regression Coefficients (Standardised):
 #>   Variable Target Achieved   Diff
-#>   Attitude    0.4   0.4010  1e-03
-#>  Intention    0.3   0.2992 -8e-04
+#>   Attitude    0.4   0.4000  0e+00
+#>  Intention    0.3   0.2995 -5e-04
 #> 
 #> For full diagnostics, see $diagnostics
 #> For generated data, see $data
 head(result1$data)
 #>   Attitude Intention Behaviour
-#> 1     2.50      1.75      1.50
-#> 2     3.00      4.75      2.75
-#> 3     2.25      2.75      3.25
-#> 4     4.25      5.00      4.50
-#> 5     1.50      3.00      4.50
+#> 1     1.25      1.75      1.50
+#> 2     3.25      2.75      2.75
+#> 3     2.50      3.25      4.25
+#> 4     4.50      3.75      4.50
+#> 5     1.25      4.75      3.75
 #> 6     3.25      3.50      3.75
 
 
