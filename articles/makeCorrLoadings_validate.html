@@ -73,7 +73,7 @@
                         <h4 data-toc-skip class="author">Hume
 Winzar</h4>
             
-            <h4 data-toc-skip class="date">April 2025</h4>
+            <h4 data-toc-skip class="date">December 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/vignettes/makeCorrLoadings_validate.Rmd" class="external-link"><code>vignettes/makeCorrLoadings_validate.Rmd</code></a></small>
       <div class="d-none name"><code>makeCorrLoadings_validate.Rmd</code></div>
@@ -124,12 +124,15 @@ dataframes to ensure that results are generalisable.</p>
 <div class="section level4">
 <h4 id="original-data">Original data<a class="anchor" aria-label="anchor" href="#original-data"></a>
 </h4>
-<p>We use the pp15 dataset from the <code>rosetta</code> package <span class="citation">(<a href="#ref-rosetta">Peters and Verboon
-2023</a>)</span>. This is a subset of the Party Panel 2015 dataset.
-Party Panel is an annual semi-panel study among Dutch nightlife patrons,
-where every year, the determinants of another nightlife-related risk
-behaviour is mapped. In 2015, determinants were measured of behaviours
-related to using highly dosed ecstasy pills.</p>
+<p>We use the pp15 dataset - a subset of the <strong><em>Party Panel
+2015</em></strong> dataset. The dataset was available in the
+<code>rosetta</code> package <span class="citation">(<a href="#ref-rosetta">Peters and Verboon 2023</a>)</span> which is no
+longer available on CRAN, at time of writing, but still accessible at
+the <a href="https://rosettastats.com/" class="external-link">Rosetta Stats book site</a></p>
+<p>Party Panel is an annual semi-panel study among Dutch nightlife
+patrons, where every year, the determinants of another nightlife-related
+risk behaviour is mapped. In 2015, determinants were measured of
+behaviours related to using highly dosed ecstasy pills.</p>
 <p>Nine items are relevant to this study. Each is a 7-point likert-style
 question scored in the range <em>-3</em> to <em>+3</em>.</p>
 <p>The questions and the item labels are presented as follows:</p>
@@ -248,7 +251,7 @@ sex
 <div class="section level4">
 <h4 id="target-correlation-matrix">Target correlation matrix<a class="anchor" aria-label="anchor" href="#target-correlation-matrix"></a>
 </h4>
-<p>The correlations among these nine items should be reproducable by the
+<p>The correlations among these nine items should be reproducible by the
 <code><a href="../reference/makeCorrLoadings.html">makeCorrLoadings()</a></code> function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## correlation matrix</span></span>
@@ -621,34 +624,27 @@ statistic and corresponding p-value for each test.</p>
 <div class="section level4">
 <h4 id="exploratory-factor-analysis">Exploratory Factor Analysis<a class="anchor" aria-label="anchor" href="#exploratory-factor-analysis"></a>
 </h4>
-<p>Some pretesting suggest that two factors are appropriate for this
+<p>Some pretesting suggests that two factors are appropriate for this
 sample. And we’re confident that the factors will be correlated, so we
 use promax rotation.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## factor analysis from `rosetta` package</span></span>
-<span><span class="va">rfaDose</span> <span class="op">&lt;-</span> <span class="fu">rosetta</span><span class="fu">::</span><span class="fu"><a href="https://r-packages.gitlab.io/rosetta/reference/dataReduction.html" class="external-link">factorAnalysis</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">dat</span>,</span>
+<code class="sourceCode R"><span><span class="co">## factor analysis from `psych` package</span></span>
+<span><span class="va">rfaDose</span> <span class="op">&lt;-</span> <span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.html" class="external-link">fa</a></span><span class="op">(</span></span>
+<span>  r <span class="op">=</span> <span class="va">dat</span>,</span>
 <span>  nfactors <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  rotate <span class="op">=</span> <span class="st">"promax"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `aes_string()` was deprecated in ggplot2 3.0.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use tidy evaluation idioms with `aes()`.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> See also `vignette("ggplot2-in-packages")` for more information.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">rosetta</span> package.</span></span>
-<span><span class="co">#&gt;   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://gitlab.com/r-packages/rosetta/-/issues&gt;</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
-<span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">rosetta</span> package.</span></span>
-<span><span class="co">#&gt;   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://gitlab.com/r-packages/rosetta/-/issues&gt;</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
+<span><span class="co">#&gt; Loading required namespace: GPArotation</span></span>
 <span></span>
-<span><span class="va">factorLoadings</span> <span class="op">&lt;-</span> <span class="va">rfaDose</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">loadings</span></span>
-<span><span class="va">factorCorrs</span> <span class="op">&lt;-</span> <span class="va">rfaDose</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">correlations</span></span></code></pre></div>
+<span><span class="va">factorLoadings</span> <span class="op">&lt;-</span> <span class="va">rfaDose</span><span class="op">$</span><span class="va">loadings</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">rfaDose</span><span class="op">$</span><span class="va">loadings</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">rfaDose</span><span class="op">$</span><span class="va">loadings</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">factorNames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">factorLoadings</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">factorLoadings</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">factorNames</span></span>
+<span><span class="va">udf</span> <span class="op">&lt;-</span> <span class="va">rfaDose</span><span class="op">$</span><span class="va">uniquenesses</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">udf</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Uniqueness"</span></span>
+<span><span class="va">factorLoadings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">factorLoadings</span>, <span class="va">udf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">factorCorrs</span> <span class="op">&lt;-</span> <span class="va">rfaDose</span><span class="op">$</span><span class="va">Phi</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">factorCorrs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">factorCorrs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">factorNames</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="factor-loadings">Factor Loadings<a class="anchor" aria-label="anchor" href="#factor-loadings"></a>
 </h5>
@@ -657,10 +653,10 @@ use promax rotation.</p>
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-Factor 1
+Factor_1
 </th>
 <th style="text-align:right;">
-Factor 2
+Factor_2
 </th>
 <th style="text-align:right;">
 Uniqueness
@@ -804,30 +800,30 @@ sex
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-Factor 1
+Factor_1
 </th>
 <th style="text-align:right;">
-Factor 2
+Factor_2
 </th>
 </tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-Factor 1
+Factor_1
 </td>
 <td style="text-align:right;">
 1.00
 </td>
 <td style="text-align:right;">
-0.26
+0.25
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Factor 2
+Factor_2
 </td>
 <td style="text-align:right;">
-0.26
+0.25
 </td>
 <td style="text-align:right;">
 1.00
@@ -1428,10 +1424,10 @@ p
 Full information
 </td>
 <td style="text-align:right;">
-21.08
+21.07
 </td>
 <td style="text-align:right;">
-0.977
+0.978
 </td>
 </tr>
 <tr>
@@ -1439,10 +1435,10 @@ Full information
 Full information - No uniqueness
 </td>
 <td style="text-align:right;">
-22.22
+22.15
 </td>
 <td style="text-align:right;">
-0.965
+0.966
 </td>
 </tr>
 <tr>
@@ -1450,7 +1446,7 @@ Full information - No uniqueness
 Rounded loadings
 </td>
 <td style="text-align:right;">
-21.07
+21.06
 </td>
 <td style="text-align:right;">
 0.978
@@ -1461,10 +1457,10 @@ Rounded loadings
 Rounded loadings - No uniqueness
 </td>
 <td style="text-align:right;">
-22.20
+22.15
 </td>
 <td style="text-align:right;">
-0.965
+0.966
 </td>
 </tr>
 <tr>
@@ -1472,10 +1468,10 @@ Rounded loadings - No uniqueness
 Censored loadings &lt;0.1
 </td>
 <td style="text-align:right;">
-24.53
+24.46
 </td>
 <td style="text-align:right;">
-0.926
+0.928
 </td>
 </tr>
 <tr>
@@ -1483,10 +1479,10 @@ Censored loadings &lt;0.1
 Censored loadings &lt;0.2
 </td>
 <td style="text-align:right;">
-44.08
+44.03
 </td>
 <td style="text-align:right;">
-0.167
+0.168
 </td>
 </tr>
 <tr>
@@ -1494,7 +1490,7 @@ Censored loadings &lt;0.2
 Censored loadings &lt;0.3
 </td>
 <td style="text-align:right;">
-74.23
+73.62
 </td>
 <td style="text-align:right;">
 0.000
@@ -1505,10 +1501,10 @@ Censored loadings &lt;0.3
 Censored loadings &lt;0.1 - no uniqueness
 </td>
 <td style="text-align:right;">
-26.18
+26.09
 </td>
 <td style="text-align:right;">
-0.886
+0.888
 </td>
 </tr>
 <tr>
@@ -1516,10 +1512,10 @@ Censored loadings &lt;0.1 - no uniqueness
 Censored loadings &lt;0.2 - no uniqueness
 </td>
 <td style="text-align:right;">
-46.00
+45.90
 </td>
 <td style="text-align:right;">
-0.123
+0.125
 </td>
 </tr>
 <tr>
@@ -1527,7 +1523,7 @@ Censored loadings &lt;0.2 - no uniqueness
 Censored loadings &lt;0.3 - no uniqueness
 </td>
 <td style="text-align:right;">
-78.88
+78.12
 </td>
 <td style="text-align:right;">
 0.000
@@ -1573,7 +1569,7 @@ Censored loadings &lt;0.3 - no uniqueness, factor cors
 <h3 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
 </h3>
 <p>The <code>makeCorrLoadings</code> function works quite well when it
-has information on factor loadings, but much less well when “summary”
+has information on factor loadings, but less well when “summary”
 (censored) factor loadings are given.</p>
 <hr>
 </div>
@@ -1671,16 +1667,23 @@ test</em>.</p>
 <p>Five correlated factors are appropriate for this sample, so we use
 promax rotation.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## factor analysis from `rosetta` package is a less messy version of the `psych::fa()` function</span></span>
+<code class="sourceCode R"><span><span class="co">## factor analysis from `psych::fa()` function</span></span>
 <span></span>
-<span><span class="va">fa_bfi</span> <span class="op">&lt;-</span> <span class="fu">rosetta</span><span class="fu">::</span><span class="fu"><a href="https://r-packages.gitlab.io/rosetta/reference/dataReduction.html" class="external-link">factorAnalysis</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">bfi_short</span>,</span>
+<span><span class="va">fa_bfi</span> <span class="op">&lt;-</span> <span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/fa.html" class="external-link">fa</a></span><span class="op">(</span></span>
+<span>  r <span class="op">=</span> <span class="va">bfi_short</span>,</span>
 <span>  nfactors <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  rotate <span class="op">=</span> <span class="st">"promax"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">bfiLoadings</span> <span class="op">&lt;-</span> <span class="va">fa_bfi</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">loadings</span></span>
-<span><span class="va">bfiCorrs</span> <span class="op">&lt;-</span> <span class="va">fa_bfi</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">correlations</span></span></code></pre></div>
+<span><span class="va">bfiLoadings</span> <span class="op">&lt;-</span> <span class="va">fa_bfi</span><span class="op">$</span><span class="va">loadings</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">fa_bfi</span><span class="op">$</span><span class="va">loadings</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">fa_bfi</span><span class="op">$</span><span class="va">loadings</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">bfiFactorNames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Factor"</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">bfiLoadings</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">bfiLoadings</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">bfiFactorNames</span></span>
+<span><span class="va">bfiUdf</span> <span class="op">&lt;-</span> <span class="va">fa_bfi</span><span class="op">$</span><span class="va">uniquenesses</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">bfiUdf</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Uniqueness"</span></span>
+<span><span class="va">bfiLoadings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">bfiLoadings</span>, <span class="va">bfiUdf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">bfiCorrs</span> <span class="op">&lt;-</span> <span class="va">fa_bfi</span><span class="op">$</span><span class="va">Phi</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">bfiCorrs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">bfiCorrs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">bfiFactorNames</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="item-factor-loadings-uniquenesses">item-factor loadings &amp; uniquenesses<a class="anchor" aria-label="anchor" href="#item-factor-loadings-uniquenesses"></a>
 </h5>
@@ -1689,19 +1692,19 @@ promax rotation.</p>
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-Factor 1
+Factor_1
 </th>
 <th style="text-align:right;">
-Factor 2
+Factor_2
 </th>
 <th style="text-align:right;">
-Factor 3
+Factor_3
 </th>
 <th style="text-align:right;">
-Factor 4
+Factor_4
 </th>
 <th style="text-align:right;">
-Factor 5
+Factor_5
 </th>
 <th style="text-align:right;">
 Uniqueness
@@ -2294,37 +2297,37 @@ O5
 <th style="text-align:left;">
 </th>
 <th style="text-align:right;">
-Factor 1
+Factor_1
 </th>
 <th style="text-align:right;">
-Factor 2
+Factor_2
 </th>
 <th style="text-align:right;">
-Factor 3
+Factor_3
 </th>
 <th style="text-align:right;">
-Factor 4
+Factor_4
 </th>
 <th style="text-align:right;">
-Factor 5
+Factor_5
 </th>
 </tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-Factor 1
+Factor_1
 </td>
 <td style="text-align:right;">
 1.00
 </td>
 <td style="text-align:right;">
--0.14
+-0.12
 </td>
 <td style="text-align:right;">
--0.24
+-0.22
 </td>
 <td style="text-align:right;">
--0.19
+-0.15
 </td>
 <td style="text-align:right;">
 0.11
@@ -2332,79 +2335,79 @@ Factor 1
 </tr>
 <tr>
 <td style="text-align:left;">
-Factor 2
+Factor_2
 </td>
 <td style="text-align:right;">
--0.14
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.21
-</td>
-<td style="text-align:right;">
-0.47
-</td>
-<td style="text-align:right;">
-0.32
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Factor 3
-</td>
-<td style="text-align:right;">
--0.24
-</td>
-<td style="text-align:right;">
-0.21
+-0.12
 </td>
 <td style="text-align:right;">
 1.00
 </td>
 <td style="text-align:right;">
-0.01
+0.19
 </td>
 <td style="text-align:right;">
 0.35
 </td>
+<td style="text-align:right;">
+0.27
+</td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Factor 4
+Factor_3
 </td>
 <td style="text-align:right;">
--0.19
+-0.22
 </td>
 <td style="text-align:right;">
-0.47
-</td>
-<td style="text-align:right;">
-0.01
+0.19
 </td>
 <td style="text-align:right;">
 1.00
 </td>
 <td style="text-align:right;">
-0.12
+0.00
+</td>
+<td style="text-align:right;">
+0.29
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Factor 5
+Factor_4
+</td>
+<td style="text-align:right;">
+-0.15
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Factor_5
 </td>
 <td style="text-align:right;">
 0.11
 </td>
 <td style="text-align:right;">
-0.32
+0.27
 </td>
 <td style="text-align:right;">
-0.35
+0.29
 </td>
 <td style="text-align:right;">
-0.12
+0.08
 </td>
 <td style="text-align:right;">
 1.00
@@ -2481,7 +2484,7 @@ p
 Full information
 </td>
 <td style="text-align:right;">
-178.4
+175.4
 </td>
 <td style="text-align:right;">
 1.000
@@ -2492,7 +2495,7 @@ Full information
 Full information - No uniquenesses
 </td>
 <td style="text-align:right;">
-183.7
+179.4
 </td>
 <td style="text-align:right;">
 1.000
@@ -2503,7 +2506,7 @@ Full information - No uniquenesses
 Rounded loadings
 </td>
 <td style="text-align:right;">
-178.8
+175.8
 </td>
 <td style="text-align:right;">
 1.000
@@ -2514,7 +2517,7 @@ Rounded loadings
 Rounded loadings - No uniquenesses
 </td>
 <td style="text-align:right;">
-183.7
+179.6
 </td>
 <td style="text-align:right;">
 1.000
@@ -2525,7 +2528,7 @@ Rounded loadings - No uniquenesses
 Censored loadings &lt;0.1
 </td>
 <td style="text-align:right;">
-223.8
+220.1
 </td>
 <td style="text-align:right;">
 1.000
@@ -2536,7 +2539,7 @@ Censored loadings &lt;0.1
 Censored loadings &lt;0.2
 </td>
 <td style="text-align:right;">
-454.5
+451.4
 </td>
 <td style="text-align:right;">
 0.000
@@ -2547,7 +2550,7 @@ Censored loadings &lt;0.2
 Censored loadings &lt;0.3
 </td>
 <td style="text-align:right;">
-490.1
+492.1
 </td>
 <td style="text-align:right;">
 0.000
@@ -2558,10 +2561,10 @@ Censored loadings &lt;0.3
 Censored loadings &lt;0.1 - no uniqueness
 </td>
 <td style="text-align:right;">
-232.6
+227.6
 </td>
 <td style="text-align:right;">
-0.998
+0.999
 </td>
 </tr>
 <tr>
@@ -2569,7 +2572,7 @@ Censored loadings &lt;0.1 - no uniqueness
 Censored loadings &lt;0.2 - no uniqueness
 </td>
 <td style="text-align:right;">
-447.9
+443.0
 </td>
 <td style="text-align:right;">
 0.000
@@ -2580,7 +2583,7 @@ Censored loadings &lt;0.2 - no uniqueness
 Censored loadings &lt;0.3 - no uniqueness
 </td>
 <td style="text-align:right;">
-478.1
+477.2
 </td>
 <td style="text-align:right;">
 0.000
@@ -2669,10 +2672,10 @@ Full information
 21.1
 </td>
 <td style="text-align:right;">
-0.977
+0.978
 </td>
 <td style="text-align:right;border-left:1px solid;">
-178.4
+175.4
 </td>
 <td style="text-align:right;">
 1.000
@@ -2683,13 +2686,13 @@ Full information
 Full information - No uniquenesses
 </td>
 <td style="text-align:right;">
-22.2
+22.1
 </td>
 <td style="text-align:right;">
-0.965
+0.966
 </td>
 <td style="text-align:right;border-left:1px solid;">
-183.7
+179.4
 </td>
 <td style="text-align:right;">
 1.000
@@ -2706,7 +2709,7 @@ Rounded loadings
 0.978
 </td>
 <td style="text-align:right;border-left:1px solid;">
-178.8
+175.8
 </td>
 <td style="text-align:right;">
 1.000
@@ -2717,13 +2720,13 @@ Rounded loadings
 Rounded loadings - No uniquenesses
 </td>
 <td style="text-align:right;">
-22.2
+22.1
 </td>
 <td style="text-align:right;">
-0.965
+0.966
 </td>
 <td style="text-align:right;border-left:1px solid;">
-183.7
+179.6
 </td>
 <td style="text-align:right;">
 1.000
@@ -2737,10 +2740,10 @@ Censored loadings &lt;0.1
 24.5
 </td>
 <td style="text-align:right;">
-0.926
+0.928
 </td>
 <td style="text-align:right;border-left:1px solid;">
-223.8
+220.1
 </td>
 <td style="text-align:right;">
 1.000
@@ -2751,13 +2754,13 @@ Censored loadings &lt;0.1
 Censored loadings &lt;0.2
 </td>
 <td style="text-align:right;">
-44.1
+44.0
 </td>
 <td style="text-align:right;">
-0.167
+0.168
 </td>
 <td style="text-align:right;border-left:1px solid;">
-454.5
+451.4
 </td>
 <td style="text-align:right;">
 0.000
@@ -2768,13 +2771,13 @@ Censored loadings &lt;0.2
 Censored loadings &lt;0.3
 </td>
 <td style="text-align:right;">
-74.2
+73.6
 </td>
 <td style="text-align:right;">
 0.000
 </td>
 <td style="text-align:right;border-left:1px solid;">
-490.1
+492.1
 </td>
 <td style="text-align:right;">
 0.000
@@ -2785,16 +2788,16 @@ Censored loadings &lt;0.3
 Censored loadings &lt;0.1 - no uniqueness
 </td>
 <td style="text-align:right;">
-26.2
+26.1
 </td>
 <td style="text-align:right;">
-0.886
+0.888
 </td>
 <td style="text-align:right;border-left:1px solid;">
-232.6
+227.6
 </td>
 <td style="text-align:right;">
-0.998
+0.999
 </td>
 </tr>
 <tr>
@@ -2802,13 +2805,13 @@ Censored loadings &lt;0.1 - no uniqueness
 Censored loadings &lt;0.2 - no uniqueness
 </td>
 <td style="text-align:right;">
-46.0
+45.9
 </td>
 <td style="text-align:right;">
-0.123
+0.125
 </td>
 <td style="text-align:right;border-left:1px solid;">
-447.9
+443.0
 </td>
 <td style="text-align:right;">
 0.000
@@ -2819,13 +2822,13 @@ Censored loadings &lt;0.2 - no uniqueness
 Censored loadings &lt;0.3 - no uniqueness
 </td>
 <td style="text-align:right;">
-78.9
+78.1
 </td>
 <td style="text-align:right;">
 0.000
 </td>
 <td style="text-align:right;border-left:1px solid;">
-478.1
+477.2
 </td>
 <td style="text-align:right;">
 0.000
@@ -2899,7 +2902,8 @@ are present.</p>
 seems to be robust even with the absence of specified
 <em>uniquenesses</em>, or even without <em>factor correlations</em>. But
 a valid reproduction of a correlation matrix should have complete
-item-factor loadings.</p>
+item-factor loadings or, at worst, item-factor loadings greater than
+0.10.</p>
 <hr>
 </div>
 <div class="section level3">
@@ -2913,7 +2917,7 @@ Statistical Association</em> 65 (330): 904–12. <a href="https://doi.org/10.108
 </div>
 <div id="ref-rosetta" class="csl-entry">
 Peters, Gjalt-Jorn, and Peter Verboon. 2023. <em>Rosetta: Parallel Use
-of Statistical Packages in Teaching</em>. <a href="https://doi.org/10.32614/CRAN.package.rosetta" class="external-link">https://doi.org/10.32614/CRAN.package.rosetta</a>.
+of Statistical Packages in Teaching</em>. <a href="https://rosettastats.com" class="external-link">https://rosettastats.com</a>.
 </div>
 <div id="ref-psych" class="csl-entry">
 Revelle, William. 2024. <em>Psych: Procedures for Psychological,

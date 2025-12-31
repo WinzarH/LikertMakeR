@@ -230,24 +230,24 @@ print(result1)
 #> Key Statistics:
 #> ---------------
 #> Target R-squared:   0.3500
-#> Achieved R-squared: 0.3230
-#> Difference:         -0.0270
+#> Achieved R-squared: 0.3224
+#> Difference:         -0.0276
 #> 
 #> Regression Coefficients (Standardised):
-#>   Variable Target Achieved  Diff
-#>   Attitude    0.4   0.4007 7e-04
-#>  Intention    0.3   0.3003 3e-04
+#>   Variable Target Achieved   Diff
+#>   Attitude    0.4   0.4010  1e-03
+#>  Intention    0.3   0.2992 -8e-04
 #> 
 #> For full diagnostics, see $diagnostics
 #> For generated data, see $data
 head(result1$data)
 #>   Attitude Intention Behaviour
-#> 1     2.25      1.75      1.50
-#> 2     4.25      4.50      2.75
-#> 3     2.50      2.75      3.25
-#> 4     3.25      3.75      4.50
-#> 5     2.25      3.00      4.50
-#> 6     2.75      3.50      2.25
+#> 1     2.50      1.75      1.50
+#> 2     3.00      4.75      2.75
+#> 3     2.25      2.75      3.25
+#> 4     4.25      5.00      4.50
+#> 5     1.50      3.00      4.50
+#> 6     3.25      3.50      3.75
 
 
 # Example 2: With optimisation (no IV correlation matrix)

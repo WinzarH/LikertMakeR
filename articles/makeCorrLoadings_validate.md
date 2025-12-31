@@ -45,8 +45,12 @@ ensure that results are generalisable.
 
 #### Original data
 
-We use the pp15 dataset from the `rosetta` package ([Peters and Verboon
-2023](#ref-rosetta)). This is a subset of the Party Panel 2015 dataset.
+We use the pp15 dataset - a subset of the ***Party Panel 2015***
+dataset. The dataset was available in the `rosetta` package ([Peters and
+Verboon 2023](#ref-rosetta)) which is no longer available on CRAN, at
+time of writing, but still accessible at the [Rosetta Stats book
+site](https://rosettastats.com/)
+
 Party Panel is an annual semi-panel study among Dutch nightlife patrons,
 where every year, the determinants of another nightlife-related risk
 behaviour is mapped. In 2015, determinants were measured of behaviours
@@ -98,7 +102,7 @@ sampleSize <- nrow(dat)
 
 #### Target correlation matrix
 
-The correlations among these nine items should be reproducable by the
+The correlations among these nine items should be reproducible by the
 [`makeCorrLoadings()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrLoadings.md)
 function.
 
@@ -161,40 +165,33 @@ test.
 
 #### Exploratory Factor Analysis
 
-Some pretesting suggest that two factors are appropriate for this
+Some pretesting suggests that two factors are appropriate for this
 sample. And we’re confident that the factors will be correlated, so we
 use promax rotation.
 
 ``` r
-## factor analysis from `rosetta` package
-rfaDose <- rosetta::factorAnalysis(
-  data = dat,
+## factor analysis from `psych` package
+rfaDose <- psych::fa(
+  r = dat,
   nfactors = 2,
   rotate = "promax"
 )
-#> Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
-#> ℹ Please use tidy evaluation idioms with `aes()`.
-#> ℹ See also `vignette("ggplot2-in-packages")` for more information.
-#> ℹ The deprecated feature was likely used in the rosetta package.
-#>   Please report the issue at <https://gitlab.com/r-packages/rosetta/-/issues>.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> ℹ The deprecated feature was likely used in the rosetta package.
-#>   Please report the issue at <https://gitlab.com/r-packages/rosetta/-/issues>.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
+#> Loading required namespace: GPArotation
 
-factorLoadings <- rfaDose$output$loadings
-factorCorrs <- rfaDose$output$correlations
+factorLoadings <- rfaDose$loadings[1:nrow(rfaDose$loadings), 1:ncol(rfaDose$loadings)]
+factorNames <- paste("Factor", "_", seq_along(factorLoadings[1, ]), sep = "")
+colnames(factorLoadings) <- factorNames
+udf <- rfaDose$uniquenesses |> as.data.frame()
+colnames(udf) <- "Uniqueness"
+factorLoadings <- cbind(factorLoadings, udf)
+
+factorCorrs <- rfaDose$Phi
+colnames(factorCorrs) <- rownames(factorCorrs) <- factorNames
 ```
 
 ##### Factor Loadings
 
-|             | Factor 1 | Factor 2 | Uniqueness |
+|             | Factor_1 | Factor_2 | Uniqueness |
 |:------------|---------:|---------:|-----------:|
 | long        |     0.11 |     0.41 |       0.80 |
 | intensity   |    -0.04 |     0.79 |       0.39 |
@@ -208,10 +205,10 @@ factorCorrs <- rfaDose$output$correlations
 
 ##### Factor Correlations
 
-|          | Factor 1 | Factor 2 |
+|          | Factor_1 | Factor_2 |
 |:---------|---------:|---------:|
-| Factor 1 |     1.00 |     0.26 |
-| Factor 2 |     0.26 |     1.00 |
+| Factor_1 |     1.00 |     0.25 |
+| Factor_2 |     0.25 |     1.00 |
 
 #### Test Case \#1: Full information
 
@@ -493,16 +490,16 @@ chiSq_7c <- cortest.jennrich(
 
 | Treatment                                            |  chi2 |     p |
 |:-----------------------------------------------------|------:|------:|
-| Full information                                     | 21.08 | 0.977 |
-| Full information - No uniqueness                     | 22.22 | 0.965 |
-| Rounded loadings                                     | 21.07 | 0.978 |
-| Rounded loadings - No uniqueness                     | 22.20 | 0.965 |
-| Censored loadings \<0.1                              | 24.53 | 0.926 |
-| Censored loadings \<0.2                              | 44.08 | 0.167 |
-| Censored loadings \<0.3                              | 74.23 | 0.000 |
-| Censored loadings \<0.1 - no uniqueness              | 26.18 | 0.886 |
-| Censored loadings \<0.2 - no uniqueness              | 46.00 | 0.123 |
-| Censored loadings \<0.3 - no uniqueness              | 78.88 | 0.000 |
+| Full information                                     | 21.07 | 0.978 |
+| Full information - No uniqueness                     | 22.15 | 0.966 |
+| Rounded loadings                                     | 21.06 | 0.978 |
+| Rounded loadings - No uniqueness                     | 22.15 | 0.966 |
+| Censored loadings \<0.1                              | 24.46 | 0.928 |
+| Censored loadings \<0.2                              | 44.03 | 0.168 |
+| Censored loadings \<0.3                              | 73.62 | 0.000 |
+| Censored loadings \<0.1 - no uniqueness              | 26.09 | 0.888 |
+| Censored loadings \<0.2 - no uniqueness              | 45.90 | 0.125 |
+| Censored loadings \<0.3 - no uniqueness              | 78.12 | 0.000 |
 | Censored loadings \<0.1 - no uniqueness, factor cors | 30.51 | 0.727 |
 | Censored loadings \<0.2 - no uniqueness, factor cors | 49.63 | 0.065 |
 | Censored loadings \<0.3 - no uniqueness, factor cors | 65.82 | 0.002 |
@@ -510,7 +507,7 @@ chiSq_7c <- cortest.jennrich(
 ### Conclusion
 
 The `makeCorrLoadings` function works quite well when it has information
-on factor loadings, but much less well when “summary” (censored) factor
+on factor loadings, but less well when “summary” (censored) factor
 loadings are given.
 
 ------------------------------------------------------------------------
@@ -610,21 +607,28 @@ Five correlated factors are appropriate for this sample, so we use
 promax rotation.
 
 ``` r
-## factor analysis from `rosetta` package is a less messy version of the `psych::fa()` function
+## factor analysis from `psych::fa()` function
 
-fa_bfi <- rosetta::factorAnalysis(
-  data = bfi_short,
+fa_bfi <- psych::fa(
+  r = bfi_short,
   nfactors = 5,
   rotate = "promax"
 )
 
-bfiLoadings <- fa_bfi$output$loadings
-bfiCorrs <- fa_bfi$output$correlations
+bfiLoadings <- fa_bfi$loadings[1:nrow(fa_bfi$loadings), 1:ncol(fa_bfi$loadings)]
+bfiFactorNames <- paste("Factor", "_", seq_along(bfiLoadings[1, ]), sep = "")
+colnames(bfiLoadings) <- bfiFactorNames
+bfiUdf <- fa_bfi$uniquenesses |> as.data.frame()
+colnames(bfiUdf) <- "Uniqueness"
+bfiLoadings <- cbind(bfiLoadings, bfiUdf)
+
+bfiCorrs <- fa_bfi$Phi
+colnames(bfiCorrs) <- rownames(bfiCorrs) <- bfiFactorNames
 ```
 
 ##### item-factor loadings & uniquenesses
 
-|     | Factor 1 | Factor 2 | Factor 3 | Factor 4 | Factor 5 | Uniqueness |
+|     | Factor_1 | Factor_2 | Factor_3 | Factor_4 | Factor_5 | Uniqueness |
 |:----|---------:|---------:|---------:|---------:|---------:|-----------:|
 | A1  |     0.07 |     0.14 |     0.03 |    -0.55 |    -0.15 |       0.70 |
 | A2  |     0.06 |     0.13 |     0.06 |     0.55 |     0.13 |       0.59 |
@@ -654,13 +658,13 @@ bfiCorrs <- fa_bfi$output$correlations
 
 ##### factor correlations
 
-|          | Factor 1 | Factor 2 | Factor 3 | Factor 4 | Factor 5 |
+|          | Factor_1 | Factor_2 | Factor_3 | Factor_4 | Factor_5 |
 |:---------|---------:|---------:|---------:|---------:|---------:|
-| Factor 1 |     1.00 |    -0.14 |    -0.24 |    -0.19 |     0.11 |
-| Factor 2 |    -0.14 |     1.00 |     0.21 |     0.47 |     0.32 |
-| Factor 3 |    -0.24 |     0.21 |     1.00 |     0.01 |     0.35 |
-| Factor 4 |    -0.19 |     0.47 |     0.01 |     1.00 |     0.12 |
-| Factor 5 |     0.11 |     0.32 |     0.35 |     0.12 |     1.00 |
+| Factor_1 |     1.00 |    -0.12 |    -0.22 |    -0.15 |     0.11 |
+| Factor_2 |    -0.12 |     1.00 |     0.19 |     0.35 |     0.27 |
+| Factor_3 |    -0.22 |     0.19 |     1.00 |     0.00 |     0.29 |
+| Factor_4 |    -0.15 |     0.35 |     0.00 |     1.00 |     0.08 |
+| Factor_5 |     0.11 |     0.27 |     0.29 |     0.08 |     1.00 |
 
 #### Test Case \#1: Full information
 
@@ -698,16 +702,16 @@ level of item-factor loading that is included.
 
 | Treatment                                               |  chi2 |     p |
 |:--------------------------------------------------------|------:|------:|
-| Full information                                        | 178.4 | 1.000 |
-| Full information - No uniquenesses                      | 183.7 | 1.000 |
-| Rounded loadings                                        | 178.8 | 1.000 |
-| Rounded loadings - No uniquenesses                      | 183.7 | 1.000 |
-| Censored loadings \<0.1                                 | 223.8 | 1.000 |
-| Censored loadings \<0.2                                 | 454.5 | 0.000 |
-| Censored loadings \<0.3                                 | 490.1 | 0.000 |
-| Censored loadings \<0.1 - no uniqueness                 | 232.6 | 0.998 |
-| Censored loadings \<0.2 - no uniqueness                 | 447.9 | 0.000 |
-| Censored loadings \<0.3 - no uniqueness                 | 478.1 | 0.000 |
+| Full information                                        | 175.4 | 1.000 |
+| Full information - No uniquenesses                      | 179.4 | 1.000 |
+| Rounded loadings                                        | 175.8 | 1.000 |
+| Rounded loadings - No uniquenesses                      | 179.6 | 1.000 |
+| Censored loadings \<0.1                                 | 220.1 | 1.000 |
+| Censored loadings \<0.2                                 | 451.4 | 0.000 |
+| Censored loadings \<0.3                                 | 492.1 | 0.000 |
+| Censored loadings \<0.1 - no uniqueness                 | 227.6 | 0.999 |
+| Censored loadings \<0.2 - no uniqueness                 | 443.0 | 0.000 |
+| Censored loadings \<0.3 - no uniqueness                 | 477.2 | 0.000 |
 | Censored loadings \<0.1 - no uniqueness, no factor cors | 241.2 | 0.995 |
 | Censored loadings \<0.2 - no uniqueness, no factor cors | 440.1 | 0.000 |
 | Censored loadings \<0.3 - no uniqueness, no factor cors | 484.4 | 0.000 |
@@ -736,7 +740,8 @@ A correlation matrix created with
 [`makeCorrLoadings()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrLoadings.md)
 seems to be robust even with the absence of specified *uniquenesses*, or
 even without *factor correlations*. But a valid reproduction of a
-correlation matrix should have complete item-factor loadings.
+correlation matrix should have complete item-factor loadings or, at
+worst, item-factor loadings greater than 0.10.
 
 ------------------------------------------------------------------------
 
@@ -747,8 +752,7 @@ Correlation Matrices.” *Journal of the American Statistical Association*
 65 (330): 904–12. <https://doi.org/10.1080/01621459.1970.10481133>.
 
 Peters, Gjalt-Jorn, and Peter Verboon. 2023. *Rosetta: Parallel Use of
-Statistical Packages in Teaching*.
-<https://doi.org/10.32614/CRAN.package.rosetta>.
+Statistical Packages in Teaching*. <https://rosettastats.com>.
 
 Revelle, William. 2024. *Psych: Procedures for Psychological,
 Psychometric, and Personality Research*. Evanston, Illinois:
