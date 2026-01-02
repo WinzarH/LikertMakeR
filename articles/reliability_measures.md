@@ -84,7 +84,7 @@ Possible values are:
   (requires the optional package **psych**).
 
 - `"omega_h"`  
-  Adds **McDonald’s omega hierarchical ($`\omega_h`$)**, also known as
+  Adds **McDonald’s omega hierarchical ($\omega_{h}$)**, also known as
   **Coefficient H**.  
   This coefficient estimates the **maximum reliability of the general
   factor** under a single-factor model, assuming optimal weighting of
@@ -219,44 +219,44 @@ ordinal_diagnostics(result)
 
 ------------------------------------------------------------------------
 
-### Hierarchical reliability: $`\omega_h`$ (Coefficient H)
+### Hierarchical reliability: $\omega_{h}$ (Coefficient H)
 
 When `include = "omega_h"`,
 [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
-reports **McDonald’s omega hierarchical** ($`\omega_h`$), also known as
+reports **McDonald’s omega hierarchical** ($\omega_{h}$), also known as
 **Coefficient H**.
 
-$`\omega_h`$ answers a different question from $`\alpha`$ or $`\omega`$
+$\omega_{h}$ answers a different question from $\alpha$ or $\omega$
 (total):
 
 > *How well would the underlying latent factor be measured if the best
 > possible linear combination of items were used?*
 
-Key characteristics of $`\omega_h`$:
+Key characteristics of $\omega_{h}$:
 
 - It is a **model-based upper bound** on reliability
 - It reflects **factor determinacy**, not observed-score reliability
 - It assumes a **single dominant common factor**
 - It is insensitive to scale length but sensitive to factor structure
 
-$`\omega_h`$ is therefore best interpreted as a **diagnostic index**,
+$\omega_{h}$ is therefore best interpreted as a **diagnostic index**,
 rather than as a direct estimate of the reliability of observed summed
 scores.
 
-#### Why no confidence intervals for $`\omega_h`$?
+#### Why no confidence intervals for $\omega_{h}$?
 
-Confidence intervals are **not reported** for $`\omega_h`$.
+Confidence intervals are **not reported** for $\omega_{h}$.
 
 This is intentional:
 
-- $`\omega_h`$ is a **maximal reliability bound**, not a descriptive
+- $\omega_{h}$ is a **maximal reliability bound**, not a descriptive
   statistic
 - Its sampling distribution is **highly non-normal**
 - Bootstrap confidence intervals are often **unstable or misleading**
-- There is **no agreed inferential framework** for $`\omega_h`$ in the
+- There is **no agreed inferential framework** for $\omega_{h}$ in the
   literature
 
-Accordingly, $`\omega_h`$ is reported as a **point estimate only**, with
+Accordingly, $\omega_{h}$ is reported as a **point estimate only**, with
 explanatory notes in the output table.
 
 ------------------------------------------------------------------------
@@ -332,8 +332,8 @@ reliability(
 #>          omega_total    0.871       4    64
 #>              lambda6    0.794       4    64
 #>              omega_h    0.812       4    64
-#>        ordinal_alpha    0.753       4    64
-#>  ordinal_omega_total    0.845       4    64
+#>        ordinal_alpha    0.769       4    64
+#>  ordinal_omega_total    0.853       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
@@ -353,7 +353,7 @@ The available options are:
 - `"omega_h"`  
   Adds **omega hierarchical (Coefficient H)**, a model-based upper bound
   on reliability that reflects how well the general factor is measured.
-  $`\omega_h`$ is reported as a point estimate only and is best used as
+  $\omega_{h}$ is reported as a point estimate only and is best used as
   a diagnostic indicator of factor strength rather than as
   observed-score reliability.
 
@@ -384,7 +384,7 @@ assumptions. Guttman’s lambda-6 is often reported alongside alpha and
 omega in methodological comparisons and requires the **psych** package.
 
 Use `include = "omega_h"` when you want to assess the **strength and
-clarity of the general factor** underlying a scale. $`\omega_h`$ is
+clarity of the general factor** underlying a scale. $\omega_{h}$ is
 particularly useful when evaluating whether a set of items meaningfully
 reflects a single latent construct, but it should not be interpreted as
 the reliability of summed or averaged scores.
@@ -470,9 +470,9 @@ Examples:
 → Ordinal (polychoric-based) methods are often more appropriate,
 especially when responses are skewed or unevenly distributed.
 
-### Step 2: Choosing between $`\alpha`$ and $`\omega`$
+### Step 2: Choosing between $\alpha$ and $\omega$
 
-#### Cronbach’s alpha ($`\alpha`$)
+#### Cronbach’s alpha ($\alpha$)
 
 Cronbach’s alpha is the most widely reported reliability coefficient and
 is based on average inter-item correlations.
@@ -497,7 +497,7 @@ Limitations:
 Alpha should be viewed as a descriptive lower bound, not a definitive
 measure of internal consistency.
 
-#### McDonald’s omega ($`\omega`$)
+#### McDonald’s omega ($\omega$)
 
 McDonald’s omega estimates the proportion of variance attributable to a
 single common factor, allowing items to have different loadings.
@@ -521,29 +521,29 @@ Advantages:
 As a general rule, omega is preferred to alpha for single-factor scales
 when factor loadings are unequal.
 
-#### Where does Guttman’s $`\lambda_6`$ fit?
+#### Where does Guttman’s $\lambda_{6}$ fit?
 
-Guttman’s lambda-6 ($`\lambda_6`$) is a lower-bound estimate of
+Guttman’s lambda-6 ($\lambda_{6}$) is a lower-bound estimate of
 reliability that relaxes Cronbach’s assumption of equal error variances
 across items.
 
-Use $`\lambda_6`$ when:
+Use $\lambda_{6}$ when:
 
 - You want a reliability estimate that is:
-  - more defensible than $`\alpha`$,
+  - more defensible than $\alpha$,
   - but does not rely on a factor model
 - You are comparing multiple lower-bound estimates
-- You want a conservative benchmark alongside $`\omega`$
+- You want a conservative benchmark alongside $\omega$
 
 Key points:
 
-- $`\lambda_6`$ is always $`\geqslant`$$`\alpha`$ for the same data
-- Like $`\alpha`$, it is a lower bound — not an estimate of true
+- $\lambda_{6}$ is always $\geq$$\alpha$ for the same data
+- Like $\alpha$, it is a lower bound — not an estimate of true
   reliability
-- Unlike $`\omega`$, it does not assume a latent factor structure
+- Unlike $\omega$, it does not assume a latent factor structure
 
-In practice, $`\lambda_6`$ is most useful when reported **alongside
-$`\alpha`$ and $`\omega`$** to show how sensitive conclusions are to
+In practice, $\lambda_{6}$ is most useful when reported **alongside
+$\alpha$ and $\omega$** to show how sensitive conclusions are to
 different reliability assumptions.
 
 ### Step 3: When should I use ordinal reliability?
@@ -577,16 +577,16 @@ Important caveats:
 If ordinal estimation is not feasible, reliability() reports this
 transparently and falls back to Pearson-based estimates.
 
-### Step 4: $`\alpha`$ vs $`\omega`$ vs ordinal $`\omega`$ — a practical summary
+### Step 4: $\alpha$ vs $\omega$ vs ordinal $\omega$ — a practical summary
 
-| Situation | Recommended.coefficient |
-|:---|:---|
-| Legacy comparison, simple reporting | $`\alpha`$, Cronbach’s alpha |
-| Single-factor scale, unequal loadings | $`\omega`$, McDonalds omega |
-| Strength of general factor | $`\omega_h`$, Coefficient H |
-| Likert items with skew or ceiling effects | Ordinal $`\omega`$ |
-| Teaching or demonstration | $`\alpha`$ and $`\omega`$ |
-| Ordinal data, small samples or sparse categories | $`\omega`$ (Pearson-based) |
+| Situation                                        | Recommended.coefficient     |
+|:-------------------------------------------------|:----------------------------|
+| Legacy comparison, simple reporting              | $\alpha$, Cronbach’s alpha  |
+| Single-factor scale, unequal loadings            | $\omega$, McDonalds omega   |
+| Strength of general factor                       | $\omega_{h}$, Coefficient H |
+| Likert items with skew or ceiling effects        | Ordinal $\omega$            |
+| Teaching or demonstration                        | $\alpha$ and $\omega$       |
+| Ordinal data, small samples or sparse categories | $\omega$ (Pearson-based)    |
 
 When in doubt:
 
@@ -621,7 +621,7 @@ Practical advice:
 - Always report the method used to compute CIs
 
 Confidence intervals are intentionally **not provided** for
-$`\omega_h`$, as it represents a model-based upper bound on reliability
+$\omega_{h}$, as it represents a model-based upper bound on reliability
 rather than an inferential estimate.
 
 ## Recommended reading
