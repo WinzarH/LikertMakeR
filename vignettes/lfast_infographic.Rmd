@@ -1,0 +1,12 @@
+---
+title: "lfast() Works"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{lfast() Infographic}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r logo, fig.align='center', echo=FALSE, out.width = '95%'}
+knitr::include_graphics("img/lfast_infographic.png")
+```

@@ -69,3 +69,9 @@ articles:
       - makeCorrLoadings_validate
       - reliability_measures
 
+  - title: Infographics
+    desc: Quick explanations teaching & learning
+    contents:
+      - lfast_infographic
+
+
