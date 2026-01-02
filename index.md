@@ -40,28 +40,32 @@ The latest development version is available from the author’s
 
 ## Quick Start
 
-1.  Make a target correlation matrix from desired Cronbach’s alpha
+1.  Make a target correlation matrix
 
 ``` r
-
 library(LikertMakeR)
 
-R <- makeCorrAlpha(items = 4, alpha = 0.80)
-    
-R
+R <- matrix(
+  c(
+    1.00, 0.60, 0.45, 0.40,
+    0.60, 1.00, 0.75, 0.35,
+    0.45, 0.75, 1.00, 0.50,
+    0.40, 0.35, 0.50, 1.00
+  ),
+  nrow = 4, ncol = 4, byrow = TRUE
+)
 ```
 
 2.  Generate synthetic rating-scale data with predefined moments
 
 ``` r
-
 dat <- makeScales(
   n = 64,
   means = c(2.75, 3.00, 3.25, 3.50),
-  sds   = c(1.25, 1.50, 1.30, 1.25),
+  sds = c(1.25, 1.50, 1.30, 1.25),
   lowerbound = rep(1, 4),
   upperbound = rep(5, 4),
-  items = 4,
+  items = c(5, 5, 4, 4),
   cormatrix = R
 )
 
@@ -117,7 +121,7 @@ other, and capturing various facets of a theoretical construct.
 
 > ### NOTE
 >
-> A single 1-5 rating scale is **NOT** a Likert scale - it may be an
+> A single 1-5 rating scale is ***NOT*** a Likert scale - it may be a
 > Likert-scale item.
 
 Summated rating scales are not continuous or unbounded. For example, a

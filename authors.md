@@ -8,16 +8,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/WinzarH/LikertMakeR/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/WinzarH/LikertMakeR/blob/HEAD/DESCRIPTION)
 
-Winzar H (2025). *LikertMakeR: Synthesise and Correlate Likert Scale and
+Winzar H (2026). *LikertMakeR: Synthesise and Correlate Likert Scale and
 Rating-Scale Data Based on Summary Statistics*. R package version 1.4.0,
 <https://github.com/WinzarH/LikertMakeR/>.
 
     @Manual{,
       title = {LikertMakeR: Synthesise and Correlate Likert Scale and Rating-Scale Data Based on Summary Statistics},
       author = {Hume Winzar},
-      year = {2025},
+      year = {2026},
       note = {R package version 1.4.0},
       url = {https://github.com/WinzarH/LikertMakeR/},
     }

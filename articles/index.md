@@ -16,3 +16,10 @@ Deeper dives.
 - [makeCorrLoadings()
   validation](https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.md):
 - [likertMakeR::reliability()](https://winzarh.github.io/LikertMakeR/articles/reliability_measures.md):
+
+### Infographics
+
+Quick explanations teaching & learning
+
+- [lfast()
+  Works](https://winzarh.github.io/LikertMakeR/articles/lfast_infographic.md):
