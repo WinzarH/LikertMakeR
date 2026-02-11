@@ -332,8 +332,8 @@ reliability(
 #>          omega_total    0.871       4    64
 #>              lambda6    0.794       4    64
 #>              omega_h    0.812       4    64
-#>        ordinal_alpha    0.755       4    64
-#>  ordinal_omega_total    0.847       4    64
+#>        ordinal_alpha    0.750       4    64
+#>  ordinal_omega_total    0.843       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
