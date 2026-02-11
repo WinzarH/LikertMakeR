@@ -106,25 +106,41 @@ correlateScales <- function(dataframes, scalecors) {
   ###
 
   ## Function finding matching sums values and linking rows
-  findMatchingRows <- function(sums_vector, df) {
-    used_rows <- rep(FALSE, nrow(df)) # Track which rows have been used
-    # Create an empty dataframe with the same structure plus one for the value
-    results_df <- data.frame(matrix(ncol = ncol(df) + 1, nrow = 0))
-    colnames(results_df) <- c(colnames(df), "sums")
+  ## Use lookup table for faster matching
+  findMatchingRows <- function(sums_vector, df, df_row_sums) {
+    n <- nrow(df)
+    used_rows <- rep(FALSE, n)
+
+    # Create a lookup table (list) grouped by sum values
+    # This avoids repeated searching through the entire vector
+    sum_lookup <- split(seq_len(n), df_row_sums)
+
+    # Pre-allocate results matrix for speed (faster than growing dataframe)
+    results_matrix <- matrix(nrow = 0, ncol = ncol(df))
+    colnames(results_matrix) <- colnames(df)
 
     for (i in seq_along(sums_vector)) {
       row_sum <- sums_vector[i]
-      # Find unused rows where the sum equals the current value
-      row_indices <- which(apply(df, 1, sum) == row_sum & !used_rows)
-      # Check if there are any unused matching rows left
-      if (length(row_indices) > 0) {
-        first_match <- row_indices[1] # Take the first available match
-        new_row <- df[first_match, , drop = FALSE] # Extract the row
-        # new_row$sums <- row_sum # Append the vector value to the row
-        results_df <- rbind(results_df, new_row) ## Add row to results df
-        used_rows[first_match] <- TRUE # Mark this row as used
+
+      # Get all rows with this sum value via hash table lookup
+      candidate_indices <- sum_lookup[[as.character(row_sum)]]
+
+      if (!is.null(candidate_indices) && length(candidate_indices) > 0) {
+        # Find first unused candidate from the small set of candidates
+        available <- candidate_indices[!used_rows[candidate_indices]]
+
+        if (length(available) > 0) {
+          first_match <- available[1]
+          # Add row to results (matrix rbind is faster than dataframe rbind)
+          results_matrix <- rbind(results_matrix, df[first_match, , drop = FALSE])
+          used_rows[first_match] <- TRUE
+        }
       }
     } ## END sums_vector loop
+
+    # Convert matrix back to dataframe
+    results_df <- as.data.frame(results_matrix)
+    colnames(results_df) <- colnames(df)
 
     return(results_df)
   } ## END findMatchingRows function
@@ -132,13 +148,11 @@ correlateScales <- function(dataframes, scalecors) {
 
   ## Function to rename columns for their dataframe
   rename_columns <- function(data_list) {
-    # for (df_name in seq_along(data_list)) {
     for (var_name in names(data_list)) {
       new_col_names <- paste(var_name, 1:ncol(data_list[[var_name]]),
         sep = "_"
       )
       colnames(data_list[[var_name]]) <- new_col_names
-      # }
     }
     return(data_list)
   }
@@ -215,23 +229,26 @@ correlateScales <- function(dataframes, scalecors) {
   ## END integrity checks
 
 
+  ## Vectorize row sum calculation using lapply
   ## calculate row sums of the dataframes
-  factor_sums <- vector("list", length(factor_list))
-  for (s in 1:length(factor_list)) {
-    factor_sums[[s]] <- apply(factor_list[[s]], 1, sum)
-  }
+  factor_sums <- lapply(factor_list, function(df) {
+    rowSums(df)
+  })
 
   ## reorder the sums according  target correlations
   ordered_sums <- lcor(factor_sums, scalecors)
 
+  ## Vectorize row matching using Map (parallel lapply)
   ## allocate dataframe rows to corresponding sum values
-  factor <- vector("list", length(factor_list))
-  for (l in 1:length(factor_list)) {
-    factor[[l]] <- findMatchingRows(ordered_sums[, l], factor_list[[l]])
-  }
+  factor <- Map(
+    findMatchingRows,
+    sums_vector = asplit(ordered_sums, 2), # Split matrix by columns (MARGIN = 2)
+    df = factor_list,
+    df_row_sums = factor_sums
+  )
 
   ## bring all columns together into one dataframe
-  new_df <- bind_cols(factor)
+  new_df <- dplyr::bind_cols(factor)
 
   if (!is.null(new_df) && nrow(new_df) > 0) {
     message("New dataframe successfully created")
