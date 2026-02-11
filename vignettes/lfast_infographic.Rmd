@@ -2,7 +2,7 @@
 title: "lfast() Works"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{lfast() Infographic}
+  %\VignetteIndexEntry{lfast() Works}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -58,6 +58,7 @@ devtools::document()
 devtools::check()
 
 
+# 0) restart R
 
 # 1) Make sure it's not loaded
 "LikertMakeR" %in% loadedNamespaces()   # should be FALSE
@@ -66,7 +67,7 @@ devtools::check()
 # devtools::install(upgrade = "never")
 devtools::install()
 
-
+# 3)
 pkgdown::build_site()
 
 
