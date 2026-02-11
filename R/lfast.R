@@ -103,15 +103,13 @@ lfast <- function(n, mean, sd,
     ## difference between target moments and actual moments
     mean_dif <- mean(item_vector) - mean
     sd_dif <- sd(item_vector) - sd
-    temp_value <- abs(mean_dif) + abs(sd_dif) ## simple figure to be minimised
+    temp_value <- abs(mean_dif) + abs(sd_dif) ## simple value to be minimised
 
     ## keep the best result so far
     if (temp_value < best_value) {
       best_vector <- item_vector
       best_value <- temp_value
-    } # else {
-    #   next
-    # }
+    }
 
     ## tolerance ensures both mean and sd accurate to 2 decimal places
     if (best_value < tolerance) {
