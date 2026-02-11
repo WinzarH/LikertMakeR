@@ -2,7 +2,7 @@
 
 ## LikertMakeR (development version)
 
-## LikertMakeR 1.4.0 (December 2025)
+## LikertMakeR 1.4.0 (February 2026)
 
 ### Improvements
 
@@ -25,6 +25,10 @@
   - coefficient H
 
   with bootstrapped Confidence Intervals for each as an option.
+
+- correlateScales() function runs 3 to 8 times faster
+
+  - due to some pre-calculation and vectorisation replacing “for loops”
 
 ### Maintenance
 

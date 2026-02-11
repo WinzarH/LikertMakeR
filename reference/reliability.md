@@ -151,7 +151,7 @@ my_data <- LikertMakeR::makeScales(
 reliability(my_data)
 #>    coef_name estimate n_items n_obs                notes
 #>        alpha    0.801       4    64 Pearson correlations
-#>  omega_total    0.871       4    64 1-factor eigen omega
+#>  omega_total    0.872       4    64 1-factor eigen omega
 
 reliability(
   my_data,
@@ -159,10 +159,10 @@ reliability(
 )
 #>            coef_name estimate n_items n_obs
 #>                alpha    0.801       4    64
-#>          omega_total    0.871       4    64
-#>              lambda6    0.795       4    64
-#>        ordinal_alpha    0.760       4    64
-#>  ordinal_omega_total    0.848       4    64
+#>          omega_total    0.872       4    64
+#>              lambda6    0.797       4    64
+#>        ordinal_alpha    0.761       4    64
+#>  ordinal_omega_total    0.849       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
@@ -179,10 +179,10 @@ reliability(
   n_boot = 200
 )
 #>            coef_name estimate ci_lower ci_upper n_items n_obs
-#>                alpha    0.801    0.700    0.864       4    64
-#>          omega_total    0.871    0.819    0.908       4    64
-#>        ordinal_alpha    0.760    0.640    0.813       4    64
-#>  ordinal_omega_total    0.848    0.788    0.878       4    64
+#>                alpha    0.801    0.712    0.867       4    64
+#>          omega_total    0.872    0.824    0.910       4    64
+#>        ordinal_alpha    0.761    0.644    0.812       4    64
+#>  ordinal_omega_total    0.849    0.790    0.876       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
