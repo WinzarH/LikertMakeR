@@ -1,5 +1,20 @@
 # LikertMakeR (development version)
 
+# LikertMakeR 1.4.1 (February 2026)
+
+## Improvements
+
+## Maintenance
+
+- Tutorials added to the website
+
+  * infographic to be removed from CRAN
+  
+  * blog_01 (quick-start tutorial) generates a dataframe.
+  
+  * blog_2 (t-test tutorial) "reproduces"" published data, runs t-test, effect-sizes, and visualisation. 
+
+
 # LikertMakeR 1.4.0 (February 2026)
 
 ## Improvements
@@ -33,6 +48,9 @@
 - removed redundant `makeItems()` function
 
 - reduced length of **README** file and moved most content to vignettes
+
+
+
 
 
 # LikertMakeR 1.3.0 (2025-11-24)

@@ -13,6 +13,8 @@
 **LikertMakeR** synthesises Likert-scale and related bounded rating-scale data with
 predefined *means*, *standard deviations*, and (optionally) *correlations*, *Cronbach’s alpha*, and *factor-loading-based structure*.
 
+Version 1.4.1 (February 2026)
+
 ## Purpose
 
 1. *Reverse-engineer* published results when only summary statistics are reported (for re-analysis, visualisation, or teaching).
@@ -109,7 +111,7 @@ that are determined to be moderately-to-highly correlated among each other,
 and capturing various facets of a theoretical construct.
 
 > ### NOTE   
-> A single 1-5 rating scale is **_NOT_** a Likert scale - it may be a Likert-scale item.
+> A single 1-5 rating scale is **_NOT_** a true Likert scale - it may be a Likert-scale item.
     
 Summated rating scales are not continuous or unbounded.
 For example, a 5-point Likert scale that is constructed with, say, 
