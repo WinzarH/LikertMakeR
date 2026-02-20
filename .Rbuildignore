@@ -9,13 +9,19 @@
 ^README\.Rmd$
 ^cran-comments\.md$
 ^_pkgdown\.yml$
-^pkgdown$
 ^docs$
 ^revdep$
 ^extras$
+^inst/pkgdown/
 
 # Exclude website-only vignettes from CRAN tarball:
-^vignettes/(lfast_validation|makeCorrLoadings_validate)\.Rmd$
+^vignettes/lfast_validation\.Rmd$
+^vignettes/makeCorrLoadings_validate\.Rmd$
+^vignettes/lfast_infographic\.Rmd$
+^vignettes/blog_01\.Rmd$
+^vignettes/blog02\.Rmd$
+
+
 
 # If those vignettes create auxiliary files/dirs, exclude them too:
 ^vignettes/(lfast_validation|makeCorrLoadings_validate)_files/
