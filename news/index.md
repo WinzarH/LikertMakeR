@@ -2,7 +2,24 @@
 
 ## LikertMakeR (development version)
 
+## LikertMakeR 1.4.1 (February 2026)
+
+### Improvements
+
+### Maintenance
+
+- Tutorials added to the website
+
+  - infographic to be removed from CRAN
+
+  - blog_01 (quick-start tutorial) generates a dataframe.
+
+  - blog_2 (t-test tutorial) “reproduces”” published data, runs t-test,
+    effect-sizes, and visualisation.
+
 ## LikertMakeR 1.4.0 (February 2026)
+
+CRAN release: 2026-02-11
 
 ### Improvements
 
@@ -10,11 +27,11 @@
   [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
   function: Calculates various reliability statistics:
 
-  - Cronbach’s alpha ($\alpha$)
+  - Cronbach’s alpha ($`\alpha`$)
 
-  - McDonald’s omega-total ($\omega_{t}$)
+  - McDonald’s omega-total ($`\omega_t`$)
 
-  - Guttman’s lambda 6 ($\lambda 6$)
+  - Guttman’s lambda 6 ($`\lambda 6`$)
 
   - Zumbo’s ordinal alpha (Cronbach’s alpha from polychoric
     correlations)
