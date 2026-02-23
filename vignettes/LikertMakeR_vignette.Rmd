@@ -23,7 +23,7 @@ library(LikertMakeR)
 ```
 
 
-```{r logo, fig.align='center', echo=FALSE, out.width = '25%'}
+```{r logo, fig.align='center', echo=FALSE, out.width = '20%'}
 knitr::include_graphics("img/LikertMakeR_3.png")
 ```
 
@@ -673,7 +673,7 @@ variable. Default = '1'.
 
 ### _makeScales()_ examples
 
-#### four correlated items
+#### _makeScales()_ example #1. four correlated items
 
 ```{r makeScalesExample1}
 
@@ -738,12 +738,12 @@ dfmoments
 cor(df) |> round(3)
 ```
 
-#### four Likert scales
+#### _makeScales()_ example #2. four Likert scales
 
-**Brand Trust (BT)**  - The confidence a consumer has in a brand’s reliability and honesty.
-**Brand Satisfaction (BS)** - Overall affective evaluation of the brand experience. 
-**Brand Love (BL)** - Deep emotional attachment toward the brand. 
-**Brand Loyalty (BLY)**  - Intention to repurchase and recommend the brand. 
+  - **Brand Trust (BT)**  - The confidence a consumer has in a brand’s reliability and honesty.
+  - **Brand Satisfaction (BS)** - Overall affective evaluation of the brand experience. 
+  - **Brand Love (BL)** - Deep emotional attachment toward the brand. 
+  - **Brand Loyalty (BLY)**  - Intention to repurchase and recommend the brand. 
 
 
 ```{r makeScalesExample2}
@@ -1870,15 +1870,28 @@ See [Grønneberg et al. (2022)](https://www.jstatsoft.org/article/view/v102i03/)
 
 ### Factor Models: Classical Test Theory (CTT) 
 
+The [latentFactoR](https://CRAN.R-project.org/package=latentFactoR) package is 
+ideal for generating multi-factor items. <br /> 
+`latentFactoR::simulate_factors()` 
+generates data based on latent factor models, which in turn can be adjusted to 
+continuous, polytomous, dichotomous, or mixed. Skews, cross-loadings, wording 
+effects, population errors, and local dependencies can be added.  <br />
+**High recommended!**
+
+
+
 The [psych package](https://CRAN.R-project.org/package=psych) has several 
 excellent functions for simulating rating-scale data based on factor loadings. <br /> 
 These focus on factor and item correlations rather than item moments. <br />
-Highly recommended.
+**Highly recommended.**
 
 - [**_psych::sim.item_**  Generate simulated data structures for circumplex, spherical, or simple structure](https://CRAN.R-project.org/package=psych)
 
 - [**_psych::sim.congeneric_** Simulate a congeneric data set with or without minor factors](https://CRAN.R-project.org/package=psych)
 See [Revelle (in prep)](https://personality-project.org/r/book/)
+
+
+
 
 Also:
 
@@ -1886,12 +1899,6 @@ Also:
 functions for simulating and testing data for application in 
 Structural Equation modelling. 
 See examples at [https://simsem.org/](https://simsem.org/) 
-
-### General data simulation
-
-[**_simpr_**](https://CRAN.R-project.org/package=simpr) provides a general, 
-simple, and tidyverse-friendly framework for generating simulated data, 
-fitting models on simulations, and tidying model results.
 
 
 ____
