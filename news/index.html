@@ -43,7 +43,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
@@ -53,6 +53,45 @@
 <h2 class="pkg-version" data-toc-text="1.4.1" id="likertmaker-141-february-2026">LikertMakeR 1.4.1 (February 2026)<a class="anchor" aria-label="anchor" href="#likertmaker-141-february-2026"></a></h2>
 <div class="section level3">
 <h3 id="improvements-1-4-1">Improvements<a class="anchor" aria-label="anchor" href="#improvements-1-4-1"></a></h3>
+<div class="section level4">
+<h4 id="major-improvements-to-makecorralpha-1-4-1">Major Improvements to <code>makeCorrAlpha()</code>
+<a class="anchor" aria-label="anchor" href="#major-improvements-to-makecorralpha-1-4-1"></a></h4>
+<div class="section level5">
+<h5 id="new-constructive-correlation-generator-1-4-1">New constructive correlation generator<a class="anchor" aria-label="anchor" href="#new-constructive-correlation-generator-1-4-1"></a></h5>
+<p><code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> has been completely re-engineered. The previous swap-based approach for achieving positive-definite correlation matrices has been replaced with a constructive one-factor generator.</p>
+<p>The new algorithm:</p>
+<ul><li>runs more than 150 times faster than the previous version (3000 times faster for large k).</li>
+<li>Guarantees positive definiteness without post-hoc repair.</li>
+<li>Produces stable behaviour across large numbers of items (tested up to k = 40).</li>
+<li>Maintains alpha accuracy within ±0.005 when <code>precision = 0</code>.</li>
+<li>Uses adaptive dispersion control to ensure feasibility at high variance levels.</li>
+</ul><p>This results in substantially improved numerical stability and smoother behaviour across the parameter space.</p>
+</div>
+<div class="section level5">
+<h5 id="redefined-precision-argument-1-4-1">Redefined <code>precision</code> argument<a class="anchor" aria-label="anchor" href="#redefined-precision-argument-1-4-1"></a></h5>
+<p>The <code>precision</code> argument has been redefined to control decimal-level accuracy of the target Cronbach’s alpha.</p>
+<ul><li>
+<code>precision = 0</code> (default) reproduces the requested alpha deterministically.</li>
+<li>
+<code>precision = 1</code> allows alpha variation at approximately one decimal place.</li>
+<li>
+<code>precision = 2</code> allows alpha variation at approximately two decimal places.</li>
+<li>
+<code>precision = 3</code> allows alpha variation at approximately three decimal places.</li>
+</ul><p>Internally, alpha is sampled with standard deviation:</p>
+<pre><code>0.5 × 10^(-precision)</code></pre>
+<p>This provides an intuitive and transparent interpretation of the argument.</p>
+</div>
+<div class="section level5">
+<h5 id="deprecated-argument-1-4-1">Deprecated argument<a class="anchor" aria-label="anchor" href="#deprecated-argument-1-4-1"></a></h5>
+<ul><li>
+<code>sort_cors</code> is now deprecated and has no effect under the new constructive generator. It will be removed in a future release.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="backward-compatibility-1-4-1">Backward compatibility<a class="anchor" aria-label="anchor" href="#backward-compatibility-1-4-1"></a></h5>
+<p>For most use cases, behaviour remains consistent with previous versions when <code>precision = 0</code>. However, users who relied on the previous swap-based construction may observe smoother and more stable correlation structures under the new implementation.</p>
+</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="maintenance-1-4-1">Maintenance<a class="anchor" aria-label="anchor" href="#maintenance-1-4-1"></a></h3>
@@ -62,7 +101,7 @@
 <li><p>blog_01 (quick-start tutorial) generates a dataframe.</p></li>
 <li><p>blog_2 (t-test tutorial) “reproduces”” published data, runs t-test, effect-sizes, and visualisation.</p></li>
 </ul></li>
-</ul></div>
+</ul><hr></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.4.0" id="likertmaker-140-february-2026">LikertMakeR 1.4.0 (February 2026)<a class="anchor" aria-label="anchor" href="#likertmaker-140-february-2026"></a></h2><p class="text-muted">CRAN release: 2026-02-11</p>

@@ -75,7 +75,7 @@ Winzar</h4>
             
             <h4 data-toc-skip class="date">December 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/vignettes/reliability_measures.Rmd" class="external-link"><code>vignettes/reliability_measures.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/vignettes/reliability_measures.Rmd" class="external-link"><code>vignettes/reliability_measures.Rmd</code></a></small>
       <div class="d-none name"><code>reliability_measures.Rmd</code></div>
     </div>
 
@@ -395,7 +395,7 @@ target Cronbach’s alpha of 0.80, using functions from
 <span>  items <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.80</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; reached max iterations (1600) - best mean difference: 5.3e-05</span></span>
+<span><span class="co">#&gt; Achieved alpha = 0.8</span></span>
 <span></span>
 <span><span class="co"># example correlated dataframe</span></span>
 <span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu">LikertMakeR</span><span class="fu">::</span><span class="fu"><a href="../reference/makeScales.html">makeScales</a></span><span class="op">(</span></span>
@@ -409,7 +409,7 @@ target Cronbach’s alpha of 0.80, using functions from
 <span><span class="co">#&gt; Variable  1 :  item01  -</span></span>
 <span><span class="co">#&gt; reached maximum of 4096 iterations</span></span>
 <span><span class="co">#&gt; Variable  2 :  item02  -</span></span>
-<span><span class="co">#&gt; best solution in 919 iterations</span></span>
+<span><span class="co">#&gt; best solution in 358 iterations</span></span>
 <span><span class="co">#&gt; Variable  3 :  item03  -</span></span>
 <span><span class="co">#&gt; reached maximum of 4096 iterations</span></span>
 <span><span class="co">#&gt; Variable  4 :  item04  -</span></span>
@@ -430,8 +430,8 @@ factor.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/reliability.html">reliability</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    coef_name estimate n_items n_obs                notes</span></span>
-<span><span class="co">#&gt;        alpha    0.800       4    64 Pearson correlations</span></span>
-<span><span class="co">#&gt;  omega_total    0.871       4    64 1-factor eigen omega</span></span></code></pre></div>
+<span><span class="co">#&gt;        alpha     0.80       4    64 Pearson correlations</span></span>
+<span><span class="co">#&gt;  omega_total     0.87       4    64 1-factor eigen omega</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="including-additional-coefficients">Including additional coefficients<a class="anchor" aria-label="anchor" href="#including-additional-coefficients"></a>
@@ -447,11 +447,11 @@ factor.</p>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;            coef_name estimate n_items n_obs</span></span>
 <span><span class="co">#&gt;                alpha    0.800       4    64</span></span>
-<span><span class="co">#&gt;          omega_total    0.871       4    64</span></span>
-<span><span class="co">#&gt;              lambda6    0.794       4    64</span></span>
-<span><span class="co">#&gt;              omega_h    0.812       4    64</span></span>
+<span><span class="co">#&gt;          omega_total    0.870       4    64</span></span>
+<span><span class="co">#&gt;              lambda6    0.761       4    64</span></span>
+<span><span class="co">#&gt;              omega_h    0.806       4    64</span></span>
 <span><span class="co">#&gt;        ordinal_alpha    0.762       4    64</span></span>
-<span><span class="co">#&gt;  ordinal_omega_total    0.850       4    64</span></span>
+<span><span class="co">#&gt;  ordinal_omega_total    0.849       4    64</span></span>
 <span><span class="co">#&gt;                                                notes</span></span>
 <span><span class="co">#&gt;                                 Pearson correlations</span></span>
 <span><span class="co">#&gt;                                 1-factor eigen omega</span></span>

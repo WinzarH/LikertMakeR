@@ -11,6 +11,8 @@ Intro to the LikertMakeR package and key workflows.
 
 Deeper dives.
 
+- [How \`makeCorrAlpha()\` Works: Then and
+  Now](https://winzarh.github.io/LikertMakeR/articles/makeCorrAlpha_explainer.md):
 - [LikertMakeR Scale Reproduction
   Validation](https://winzarh.github.io/LikertMakeR/articles/lfast_validation.md):
 - [makeCorrLoadings()
@@ -19,7 +21,7 @@ Deeper dives.
 
 ### Tutorials
 
-Quick explanations teaching & learning
+Quick explanations, teaching & learning
 
 - [what is
   LikertMakeR?](https://winzarh.github.io/LikertMakeR/articles/blog_01.md):

@@ -46,7 +46,7 @@ upper <- 5
 
 ### attitude #1
 cor_1 <- makeCorrAlpha(items = 4, alpha = 0.90)
-#> reached max iterations (1600) - best mean difference: 2.2e-05
+#> Achieved alpha = 0.9
 means_1 <- c(2.5, 2.5, 3.0, 3.5)
 sds_1 <- c(0.9, 1.0, 0.9, 1.0)
 
@@ -59,7 +59,7 @@ Att_1 <- makeScales(
 #> Variable  1 :  item01  - 
 #> reached maximum of 1024 iterations
 #> Variable  2 :  item02  - 
-#> best solution in 667 iterations
+#> best solution in 716 iterations
 #> Variable  3 :  item03  - 
 #> reached maximum of 1024 iterations
 #> Variable  4 :  item04  - 
@@ -73,14 +73,7 @@ Att_1 <- makeScales(
 
 ### attitude #2
 cor_2 <- makeCorrAlpha(items = 5, alpha = 0.85)
-#> reached max iterations (2500) - best mean difference: 8.1e-05
-#> Correlation matrix is not yet positive definite
-#> Working on it
-#> 
-#> improved at swap - 1 (min eigenvalue: -0.017242)
-#> improved at swap - 3 (min eigenvalue: -0.008469)
-#> improved at swap - 4 (min eigenvalue: 0.025501)
-#> positive definite at swap - 4
+#> Achieved alpha = 0.85
 means_2 <- c(2.5, 2.5, 3.0, 3.0, 3.5)
 sds_2 <- c(1.0, 1.0, 0.9, 1.0, 1.5)
 
@@ -95,9 +88,9 @@ Att_2 <- makeScales(
 #> Variable  2 :  item02  - 
 #> reached maximum of 1024 iterations
 #> Variable  3 :  item03  - 
-#> best solution in 808 iterations
-#> Variable  4 :  item04  - 
 #> reached maximum of 1024 iterations
+#> Variable  4 :  item04  - 
+#> best solution in 331 iterations
 #> Variable  5 :  item05  - 
 #> reached maximum of 1024 iterations
 #> 
@@ -109,7 +102,7 @@ Att_2 <- makeScales(
 
 ### attitude #3
 cor_3 <- makeCorrAlpha(items = 6, alpha = 0.75)
-#> correlation values consistent with desired alpha in 72 iterations
+#> Achieved alpha = 0.75
 means_3 <- c(2.5, 2.5, 3.0, 3.0, 3.5, 3.5)
 sds_3 <- c(1.0, 1.5, 1.0, 1.5, 1.0, 1.5)
 
@@ -120,7 +113,7 @@ Att_3 <- makeScales(
   cormatrix = cor_3
 )
 #> Variable  1 :  item01  - 
-#> reached maximum of 1024 iterations
+#> best solution in 537 iterations
 #> Variable  2 :  item02  - 
 #> reached maximum of 1024 iterations
 #> Variable  3 :  item03  - 
@@ -128,7 +121,7 @@ Att_3 <- makeScales(
 #> Variable  4 :  item04  - 
 #> reached maximum of 1024 iterations
 #> Variable  5 :  item05  - 
-#> reached maximum of 1024 iterations
+#> best solution in 501 iterations
 #> Variable  6 :  item06  - 
 #> reached maximum of 1024 iterations
 #> 
@@ -169,17 +162,17 @@ my_correlated_scales <- correlateScales(
 #> New dataframe successfully created
 head(my_correlated_scales)
 #>   A1_1 A1_2 A1_3 A1_4 A2_1 A2_2 A2_3 A2_4 A2_5     A3_1     A3_2     A3_3
-#> 1 2.25 1.75 2.75 3.25  3.2  3.6  3.2  2.8  4.0 1.500000 2.500000 4.333333
-#> 2 3.25 4.00 4.50 4.50  4.4  4.8  3.6  3.4  4.8 2.166667 4.666667 4.833333
-#> 3 1.00 1.00 1.75 2.00  1.0  1.2  1.2  1.2  1.0 2.666667 1.000000 2.833333
-#> 4 2.50 2.00 3.00 3.50  1.2  1.0  3.8  3.2  2.2 1.833333 1.000000 1.166667
-#> 5 4.25 3.00 2.75 4.00  3.2  2.6  2.2  2.2  4.8 1.000000 1.500000 4.000000
-#> 6 1.75 1.50 2.00 4.25  2.0  1.8  2.8  2.6  2.0 1.166667 1.000000 3.166667
+#> 1 2.25 1.50 1.25 2.50  3.4  1.2  3.8  3.0  5.0 2.666667 4.166667 2.000000
+#> 2 2.50 3.50 3.25 4.25  1.6  2.8  1.8  2.8  4.6 1.333333 1.000000 3.500000
+#> 3 1.75 2.75 3.25 3.75  3.0  2.6  3.4  3.6  4.0 2.166667 1.000000 4.166667
+#> 4 5.00 4.00 3.50 4.00  3.6  4.4  3.8  4.0  5.0 1.833333 5.000000 4.833333
+#> 5 1.50 2.25 2.75 3.50  2.2  1.2  2.0  3.4  1.6 1.833333 1.166667 2.000000
+#> 6 2.75 1.75 1.75 2.75  1.6  1.2  1.6  1.6  1.2 1.500000 1.166667 2.166667
 #>       A3_4     A3_5     A3_6 Int_1
-#> 1 3.000000 2.833333 3.166667     2
-#> 2 5.000000 4.666667 3.833333     9
-#> 3 1.166667 1.833333 1.166667     8
-#> 4 1.000000 2.333333 1.000000     2
-#> 5 3.166667 4.666667 3.166667     8
-#> 6 3.500000 4.833333 4.000000     1
+#> 1 1.166667 1.833333 1.000000     2
+#> 2 5.000000 3.666667 2.333333     9
+#> 3 2.000000 1.833333 3.166667     5
+#> 4 5.000000 4.500000 5.000000     5
+#> 5 3.666667 3.000000 5.000000     4
+#> 6 1.333333 3.166667 4.666667     0
 ```
