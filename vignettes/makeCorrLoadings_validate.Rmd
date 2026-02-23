@@ -5,10 +5,7 @@ date: "December 2025"
 output: rmarkdown::html_document
 bibliography: references_2.bib 
 link-citations: true
-vignette: >
-  %\VignetteIndexEntry{makeCorrLoadings() validation}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+
 ---
 
 ```{r, include = FALSE}

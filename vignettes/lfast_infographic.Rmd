@@ -1,5 +1,6 @@
 ---
 title: "lfast() Works"
+output: rmarkdown::html_document
 
 ---
 

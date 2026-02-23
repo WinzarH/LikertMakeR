@@ -2,7 +2,7 @@
 ---
 title: "what is LikertMakeR?"
 author: "Hume Winzar"
-
+output: rmarkdown::html_document
 ---
 
 

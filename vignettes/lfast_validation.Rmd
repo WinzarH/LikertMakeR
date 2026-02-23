@@ -2,13 +2,10 @@
 title: "LikertMakeR Scale Reproduction Validation"
 author: "Hume Winzar"
 date: "September 2025"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 bibliography: references_2.bib  
 link-citations: true
-vignette: >
-  %\VignetteIndexEntry{LikertMakeR Scale Reproduction Validation}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+
 ---
 
 <!-- BEGIN Setup chunks -->
