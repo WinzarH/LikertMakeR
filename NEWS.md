@@ -4,6 +4,51 @@
 
 ## Improvements
 
+### Major Improvements to `makeCorrAlpha()`
+
+#### New constructive correlation generator
+
+`makeCorrAlpha()` has been completely re-engineered. The previous swap-based approach for achieving positive-definite correlation matrices has been replaced with a constructive one-factor generator.
+
+The new algorithm:
+
+- runs more than 150 times faster than the previous version (3000 times faster for large k).
+- Guarantees positive definiteness without post-hoc repair.
+- Produces stable behaviour across large numbers of items (tested up to k = 40).
+- Maintains alpha accuracy within ±0.005 when `precision = 0`.
+- Uses adaptive dispersion control to ensure feasibility at high variance levels.
+
+This results in substantially improved numerical stability and smoother behaviour across the parameter space.
+
+
+#### Redefined `precision` argument
+
+The `precision` argument has been redefined to control decimal-level accuracy of the target Cronbach’s alpha.
+
+- `precision = 0` (default) reproduces the requested alpha deterministically.
+- `precision = 1` allows alpha variation at approximately one decimal place.
+- `precision = 2` allows alpha variation at approximately two decimal places.
+- `precision = 3` allows alpha variation at approximately three decimal places.
+
+Internally, alpha is sampled with standard deviation:
+
+```
+0.5 × 10^(-precision)
+```
+
+
+This provides an intuitive and transparent interpretation of the argument.
+
+#### Deprecated argument
+
+- `sort_cors` is now deprecated and has no effect under the new constructive generator. It will be removed in a future release.
+
+
+#### Backward compatibility
+
+For most use cases, behaviour remains consistent with previous versions when `precision = 0`. However, users who relied on the previous swap-based construction may observe smoother and more stable correlation structures under the new implementation.
+
+
 ## Maintenance
 
 - Tutorials added to the website
@@ -14,6 +59,7 @@
   
   * blog_2 (t-test tutorial) "reproduces"" published data, runs t-test, effect-sizes, and visualisation. 
 
+---
 
 # LikertMakeR 1.4.0 (February 2026)
 

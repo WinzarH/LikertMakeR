@@ -27,7 +27,7 @@ Rcpp::compileAttributes()
 # devtools::install()
 
 ## clear any stale namespace bindings
-.rs.restartR()
+# .rs.restartR()
 
 "LikertMakeR" %in% loadedNamespaces()   # should be FALSE
 

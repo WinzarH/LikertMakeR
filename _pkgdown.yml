@@ -65,12 +65,13 @@ articles:
   - title: Validation studies
     desc: Deeper dives.
     contents:
+      - makeCorrAlpha_explainer
       - lfast_validation
       - makeCorrLoadings_validate
       - reliability_measures
 
   - title: Tutorials
-    desc: Quick explanations teaching & learning
+    desc: Quick explanations, teaching & learning
     contents:
       - blog_01
       - blog_02
