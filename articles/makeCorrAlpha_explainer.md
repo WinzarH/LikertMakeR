@@ -161,20 +161,20 @@ entries.
 
 ### A Comparison
 
-| Previous Version | Current Version |
-|:--:|:--:|
-| Target alpha | Target alpha |
-| ↓ | ↓ |
-| Random correlations generated | Implied average correlation |
-| ↓ | ↓ |
-| Matrix assembled | Generate item loadings (one-factor model) |
-| ↓ | ↓ |
-| Is it positive definite? | Construct correlation matrix directly |
-| ↓ | ↓ |
-| If not → swap correlations → test again | Valid by design |
-| ↓ |  |
-| Eventually valid matrix |  |
-|  |  |
+|            Previous Version             |              Current Version              |
+|:---------------------------------------:|:-----------------------------------------:|
+|              Target alpha               |               Target alpha                |
+|                    ↓                    |                     ↓                     |
+|      Random correlations generated      |        Implied average correlation        |
+|                    ↓                    |                     ↓                     |
+|            Matrix assembled             | Generate item loadings (one-factor model) |
+|                    ↓                    |                     ↓                     |
+|        Is it positive definite?         |   Construct correlation matrix directly   |
+|                    ↓                    |                     ↓                     |
+| If not → swap correlations → test again |              Valid by design              |
+|                    ↓                    |                                           |
+|         Eventually valid matrix         |                                           |
+|                                         |                                           |
 
 The difference is conceptual as much as computational.
 
