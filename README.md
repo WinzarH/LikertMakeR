@@ -151,17 +151,3 @@ ____
      The Comprehensive R Archive Network (CRAN),
     <https://CRAN.R-project.org/package=LikertMakeR>
         
-#### BIB:    
-
-    @software{winzar2025},
-     title = {LikertMakeR},
-     author = {Winzar, Hume},
-     abstract = {LikertMakeR synthesises and correlates rating-scale data with predefined means and standard deviations.},
-     publisher = {The Comprehensive R Archive Network (CRAN)},
-     month = dec,
-     year = {2025},
-     version = {1.4.0},
-     origdate = {2022},
-     url = {https://CRAN.R-project.org/package=LikertMakeR},
-     note = {R package}
-    }
