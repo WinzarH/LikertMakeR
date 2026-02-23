@@ -29,3 +29,5 @@ Quick explanations, teaching & learning
   LikertMakeR](https://winzarh.github.io/LikertMakeR/articles/blog_02.md):
 - [lfast()
   Works](https://winzarh.github.io/LikertMakeR/articles/lfast_infographic.md):
+- [How to Cite
+  LikertMakeR](https://winzarh.github.io/LikertMakeR/articles/cite_LikertMakeR.md):
