@@ -8,8 +8,8 @@ function to generate synthetic data with the predefined alpha.
 The algorithm directly builds a positive-definite correlation matrix
 by solving for item loadings that reproduce the desired average
 inter-item correlation implied by alpha.
-Unlike the earlier swap-based approach of this function,
-this method guarantees positive definiteness without post-hoc repair."><meta property="og:description" content="Generate a Positive-Definite
+Unlike earlier versions of this function, this method guarantees positive
+definiteness by construction, without post-hoc repair."><meta property="og:description" content="Generate a Positive-Definite
 Correlation Matrix for a target Cronbach's alpha.
 Constructs a correlation matrix with a specified number of items and
 target Cronbach's alpha using a constructive one-factor model.
@@ -18,8 +18,8 @@ function to generate synthetic data with the predefined alpha.
 The algorithm directly builds a positive-definite correlation matrix
 by solving for item loadings that reproduce the desired average
 inter-item correlation implied by alpha.
-Unlike the earlier swap-based approach of this function,
-this method guarantees positive definiteness without post-hoc repair."><meta property="og:image" content="https://winzarh.github.io/LikertMakeR/logo.png"></head><body><p>
+Unlike earlier versions of this function, this method guarantees positive
+definiteness by construction, without post-hoc repair."><meta property="og:image" content="https://winzarh.github.io/LikertMakeR/logo.png"></head><body><p>
 
 
 
@@ -41,7 +41,7 @@ this method guarantees positive definiteness without post-hoc repair."><meta pro
 
     <a class="navbar-brand me-2" href="../index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,8 +77,8 @@ function to generate synthetic data with the predefined alpha.</p>
 <p>The algorithm directly builds a positive-definite correlation matrix
 by solving for item loadings that reproduce the desired average
 inter-item correlation implied by <em>alpha</em>.
-Unlike the earlier swap-based approach of this function,
-this method guarantees positive definiteness without <em>post-hoc</em> repair.</p>
+Unlike earlier versions of this function, this method guarantees positive
+definiteness by construction, without <em>post-hoc</em> repair.</p>
     </div>
 
     <div class="section level2">
@@ -86,9 +86,8 @@ this method guarantees positive definiteness without <em>post-hoc</em> repair.</
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">makeCorrAlpha</span><span class="op">(</span></span>
 <span>  <span class="va">items</span>,</span>
 <span>  <span class="va">alpha</span>,</span>
-<span>  variance <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>  precision <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  sort_cors <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  variance <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  alpha_noise <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  diagnostics <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -102,28 +101,40 @@ this method guarantees positive definiteness without <em>post-hoc</em> repair.</
 
 
 <dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
-<dd><p>Numeric. Target Cronbach's alpha.</p></dd>
+<dd><p>Numeric. Target Cronbach's alpha (0 &lt; alpha &lt; 1).</p></dd>
 
 
 <dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
-<dd><p>Numeric. Controls heterogeneity of item loadings.
-Larger values produce greater spread among inter-item correlations.
-Internally moderated if necessary to maintain feasibility.</p></dd>
+<dd><p>Numeric. Controls heterogeneity of item loadings in the
+underlying one-factor model.</p>
+<p>Larger values produce greater dispersion among item loadings, which
+results in a wider spread of inter-item correlations while preserving
+the requested Cronbach's alpha.</p>
+<p>Typical guidance:</p><ul><li><p><code>0.05</code> — near-parallel items (very similar correlations)</p></li>
+<li><p><code>0.10</code> — modest heterogeneity (default)</p></li>
+<li><p><code>0.15</code> — strong heterogeneity</p></li>
+<li><p><code>0.20</code> — very strong heterogeneity</p></li>
+<li><p><code>&gt; 0.25</code> — extreme dispersion; internal shrinkage may occur</p></li>
+</ul><p>For most applied psychometric scales (k &lt; 20), values between
+<code>0.05</code> and <code>0.15</code> produce realistic correlation structures.</p></dd>
 
 
-<dt id="arg-precision">precision<a class="anchor" aria-label="anchor" href="#arg-precision"></a></dt>
-<dd><p>Integer (0–3). Controls decimal-level reproducibility
-of alpha.</p><ul><li><p><code>0</code>: exact deterministic alpha.</p></li>
-<li><p><code>1</code>: approximately one-decimal accuracy.</p></li>
-<li><p><code>2</code>: approximately two-decimal accuracy.</p></li>
-<li><p><code>3</code>: approximately three-decimal accuracy.</p></li>
-</ul><p>Internally, alpha is sampled with standard deviation
-\(0.5 \times 10^{-precision}\).</p></dd>
-
-
-<dt id="arg-sort-cors">sort_cors<a class="anchor" aria-label="anchor" href="#arg-sort-cors"></a></dt>
-<dd><p>Deprecated. Retained for backward compatibility.
-Has no effect under the constructive generator.</p></dd>
+<dt id="arg-alpha-noise">alpha_noise<a class="anchor" aria-label="anchor" href="#arg-alpha-noise"></a></dt>
+<dd><p>Numeric. Controls random variation in the target
+Cronbach's alpha before the correlation matrix is constructed.</p>
+<p>When <code>alpha_noise = 0</code> (default), the requested alpha is
+reproduced deterministically (subject to numerical tolerance).</p>
+<p>When <code>alpha_noise &gt; 0</code>, a small amount of random variation is
+added to the requested alpha prior to constructing the matrix. This
+can be useful in teaching or simulation settings where slightly
+different reliability values are desired across repeated runs.</p>
+<p>Internally, noise is added on the Fisher <em>z</em>-transformed scale
+to ensure the resulting alpha remains within valid bounds (0, 1).</p>
+<p>Typical guidance:</p><ul><li><p><code>0.00</code> — deterministic alpha (default)</p></li>
+<li><p><code>0.02</code> — very small variation</p></li>
+<li><p><code>0.05</code> — moderate variation</p></li>
+<li><p><code>0.10</code> — substantial variation (caution)</p></li>
+</ul><p>Larger values increase the spread of achieved alpha across runs.</p></dd>
 
 
 <dt id="arg-diagnostics">diagnostics<a class="anchor" aria-label="anchor" href="#arg-diagnostics"></a></dt>
@@ -137,15 +148,7 @@ the matrix and diagnostic information.</p></dd>
 If <code>diagnostics = TRUE</code>, a list containing:</p><ul><li><p><code>R</code>: the correlation matrix</p></li>
 <li><p><code>diagnostics</code>: list including achieved alpha,
 minimum eigenvalue, and internal variance used</p></li>
-</ul><p>If 'diagnostics = FALSE', a k x k correlation matrix.
-If 'diagnostics = TRUE', a list with components:</p><dl><dt>R</dt>
-<dd><p>k x k correlation matrix</p></dd>
-
-<dt>diagnostics</dt>
-<dd><p>list of summary statistics</p></dd>
-
-
-</dl></div>
+</ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function computes the average inter-item correlation implied by the
@@ -154,113 +157,111 @@ reproduces this value. A small adaptive reduction in dispersion may be
 applied when necessary to ensure a valid positive-definite solution.</p>
 <p>The constructive generator assumes a single common factor structure,
 consistent with typical psychometric scale construction.</p>
-<p>When <code>precision &gt; 0</code>, the target alpha is sampled around the
-requested value to approximate decimal-level reporting accuracy.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example 1</span></span></span>
 <span class="r-in"><span><span class="co"># define parameters</span></span></span>
 <span class="r-in"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fl">4</span></span></span>
 <span class="r-in"><span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fl">0.85</span></span></span>
-<span class="r-in"><span><span class="va">variance</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># apply function</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cor_matrix</span> <span class="op">&lt;-</span> <span class="fu">makeCorrAlpha</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  items <span class="op">=</span> <span class="va">items</span>,</span></span>
-<span class="r-in"><span>  alpha <span class="op">=</span> <span class="va">alpha</span>,</span></span>
-<span class="r-in"><span>  variance <span class="op">=</span> <span class="va">variance</span></span></span>
+<span class="r-in"><span>  alpha <span class="op">=</span> <span class="va">alpha</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Achieved alpha = 0.85</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># test function output</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cor_matrix</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cor_matrix</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           item01    item02    item03    item04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item01 1.0000000 0.5558616 0.6881232 0.7265738</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item02 0.5558616 1.0000000 0.4598536 0.4855490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item03 0.6881232 0.4598536 1.0000000 0.6010805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item04 0.7265738 0.4855490 0.6010805 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item01 1.0000000 0.5649919 0.6673592 0.6971190</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item02 0.5649919 1.0000000 0.4842990 0.5058955</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item03 0.6673592 0.4842990 1.0000000 0.5975555</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item04 0.6971190 0.5058955 0.5975555 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        item01 item02 item03 item04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item01  1.000  0.565  0.667  0.697</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item02  0.565  1.000  0.484  0.506</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item03  0.667  0.484  1.000  0.598</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item04  0.697  0.506  0.598  1.000</span>
 <span class="r-in"><span><span class="fu"><a href="alpha.html">alpha</a></span><span class="op">(</span><span class="va">cor_matrix</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8499825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8499981</span>
 <span class="r-in"><span><span class="fu"><a href="eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">cor_matrix</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="makeCorrAlpha-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cor_matrix  is positive-definite</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.7710735 0.5806680 0.4006440 0.2476146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.7665013 0.5480310 0.4036204 0.2818473</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># higher alpha, more items</span></span></span>
+<span class="r-in"><span><span class="co"># Example 2</span></span></span>
+<span class="r-in"><span><span class="co"># higher alpha, more items, more variability</span></span></span>
 <span class="r-in"><span><span class="va">cor_matrix2</span> <span class="op">&lt;-</span> <span class="fu">makeCorrAlpha</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  items <span class="op">=</span> <span class="fl">8</span>,</span></span>
-<span class="r-in"><span>  alpha <span class="op">=</span> <span class="fl">0.95</span></span></span>
+<span class="r-in"><span>  alpha <span class="op">=</span> <span class="fl">0.95</span>,</span></span>
+<span class="r-in"><span>  variance <span class="op">=</span> <span class="fl">0.10</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Requested variance was reduced internally to ensure feasibility.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Achieved alpha = 0.95</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># test output</span></span></span>
 <span class="r-in"><span><span class="va">cor_matrix2</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        item01 item02 item03 item04 item05 item06 item07 item08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item01   1.00   0.68   0.79   0.82   0.85   0.68   0.80   0.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item02   0.68   1.00   0.68   0.70   0.73   0.59   0.68   0.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item03   0.79   0.68   1.00   0.82   0.85   0.68   0.80   0.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item04   0.82   0.70   0.82   1.00   0.88   0.70   0.82   0.59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item05   0.85   0.73   0.85   0.88   1.00   0.73   0.86   0.61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item06   0.68   0.59   0.68   0.70   0.73   1.00   0.69   0.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item07   0.80   0.68   0.80   0.82   0.86   0.69   1.00   0.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item08   0.57   0.49   0.57   0.59   0.61   0.49   0.57   1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item01   1.00   0.58   0.71   0.58   0.75   0.59   0.69   0.77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item02   0.58   1.00   0.66   0.54   0.70   0.55   0.65   0.72</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item03   0.71   0.66   1.00   0.67   0.86   0.67   0.79   0.88</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item04   0.58   0.54   0.67   1.00   0.70   0.55   0.65   0.72</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item05   0.75   0.70   0.86   0.70   1.00   0.71   0.84   0.93</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item06   0.59   0.55   0.67   0.55   0.71   1.00   0.65   0.73</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item07   0.69   0.65   0.79   0.65   0.84   0.65   1.00   0.86</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item08   0.77   0.72   0.88   0.72   0.93   0.73   0.86   1.00</span>
 <span class="r-in"><span><span class="fu"><a href="alpha.html">alpha</a></span><span class="op">(</span><span class="va">cor_matrix2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.95</span>
 <span class="r-in"><span><span class="fu"><a href="eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">cor_matrix2</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="makeCorrAlpha-2.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cor_matrix2  is positive-definite</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.973 0.568 0.415 0.357 0.209 0.202 0.170 0.106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.965 0.455 0.452 0.406 0.315 0.209 0.135 0.063</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example 3</span></span></span>
 <span class="r-in"><span><span class="co"># large random variation around alpha</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cor_matrix3</span> <span class="op">&lt;-</span> <span class="fu">makeCorrAlpha</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  items <span class="op">=</span> <span class="fl">6</span>,</span></span>
 <span class="r-in"><span>  alpha <span class="op">=</span> <span class="fl">0.85</span>,</span></span>
-<span class="r-in"><span>  precision <span class="op">=</span> <span class="fl">3</span></span></span>
+<span class="r-in"><span>  alpha_noise <span class="op">=</span> <span class="fl">0.10</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Achieved alpha = 0.851</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># test output</span></span></span>
 <span class="r-in"><span><span class="va">cor_matrix3</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        item01 item02 item03 item04 item05 item06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item01   1.00   0.37   0.40   0.38   0.33   0.48</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item02   0.37   1.00   0.52   0.49   0.43   0.63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item03   0.40   0.52   1.00   0.53   0.46   0.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item04   0.38   0.49   0.53   1.00   0.43   0.64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item05   0.33   0.43   0.46   0.43   1.00   0.55</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item06   0.48   0.63   0.67   0.64   0.55   1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item01   1.00   0.48   0.51   0.47   0.35   0.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item02   0.48   1.00   0.52   0.48   0.35   0.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item03   0.51   0.52   1.00   0.51   0.38   0.39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item04   0.47   0.48   0.51   1.00   0.35   0.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item05   0.35   0.35   0.38   0.35   1.00   0.27</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item06   0.36   0.36   0.39   0.36   0.27   1.00</span>
 <span class="r-in"><span><span class="fu"><a href="alpha.html">alpha</a></span><span class="op">(</span><span class="va">cor_matrix3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.807</span>
 <span class="r-in"><span><span class="fu"><a href="eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="va">cor_matrix3</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="makeCorrAlpha-3.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cor_matrix3  is positive-definite</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.469 0.695 0.595 0.508 0.466 0.268</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.074 0.734 0.680 0.532 0.522 0.458</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example 4</span></span></span>
 <span class="r-in"><span><span class="co"># with diagnostics</span></span></span>
 <span class="r-in"><span><span class="va">cor_matrix4</span> <span class="op">&lt;-</span> <span class="fu">makeCorrAlpha</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  items <span class="op">=</span> <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>  alpha <span class="op">=</span> <span class="fl">0.80</span>,</span></span>
 <span class="r-in"><span>  diagnostics <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Achieved alpha = 0.8</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># test output</span></span></span>
 <span class="r-in"><span><span class="va">cor_matrix4</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $R</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           item01    item02    item03    item04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item01 1.0000000 0.5172728 0.3670963 0.4657822</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item02 0.5172728 1.0000000 0.5205415 0.6604779</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item03 0.3670963 0.5205415 1.0000000 0.4687256</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> item04 0.4657822 0.6604779 0.4687256 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item01 1.0000000 0.5847682 0.4880084 0.5936079</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item02 0.5847682 1.0000000 0.4126811 0.5019806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item03 0.4880084 0.4126811 1.0000000 0.4189194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> item04 0.5936079 0.5019806 0.4189194 1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diagnostics</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diagnostics$items</span>
@@ -273,21 +274,21 @@ requested value to approximate decimal-level reporting accuracy.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diagnostics$alpha_achieved</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7999889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7999963</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diagnostics$average_r</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4999827</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4999943</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diagnostics$min_eigenvalue</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3307719</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3748521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diagnostics$variance_input</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $diagnostics$internal_variance_used</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $diagnostics$precision</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $diagnostics$alpha_noise</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

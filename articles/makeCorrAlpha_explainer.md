@@ -95,6 +95,12 @@ In short:
 
 It was effective, but indirect.
 
+- It was slow
+- It often produced a correlation matrix which had eigenvalues where
+  more than two values exceeded ‘1’, which often implies that the data
+  represents a multi-factor data structure. That is, it was not
+  represent a unidimensional construct.
+
 ------------------------------------------------------------------------
 
 ## The New Approach: Construct Instead of Repair
@@ -219,16 +225,68 @@ However, the new method:
 - Produces smoother, more realistic correlation patterns.
 - Guarantees a positive-definite matrix by construction.
 
-The `precision` argument has also been clarified.
+The `precision` argument has been deprecated and replaced with an
+`alpha_noise` argument.
 
-- `precision = 0` produces an exact requested alpha to two decimal
-  places.
-- Higher values of `precision` allow small, controlled variation in
-  alpha.
-- For example, `precision = 2` corresponds roughly to two-decimal
-  reproducibility.
+The nature of the `variance` argument has changed, but not its purpose.
 
-This makes it easier to simulate scales that resemble published results.
+The `sort_cors` argument has been deprecated.
+
+#### Understanding variance and alpha_noise
+
+The redesigned
+[`makeCorrAlpha()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrAlpha.md)
+function now includes two independent controls:
+
+##### variance — How different are the items?
+
+The variance argument controls how much the items differ from each other
+in strength.
+
+- Smaller values produce very similar items (nearly equal correlations).
+
+- Larger values produce more heterogeneous items (wider spread of
+  correlations).
+
+For most teaching and applied examples:
+
+- `variance = 0.05` → near-parallel items
+
+- `variance = 0.10` → modest heterogeneity (recommended default)
+
+- `variance = 0.15` → strong heterogeneity
+
+- `variance > 0.20` → very strong dispersion
+
+Importantly, variance changes the pattern of correlations, but not the
+requested reliability level.
+
+##### `alpha_noise` — How exact should alpha be?
+
+The `alpha_noise` argument controls whether the requested Cronbach’s
+alpha is reproduced exactly, or allowed to vary slightly across runs.
+
+- `alpha_noise = 0` → exact, deterministic alpha
+
+- `alpha_noise = 0.02` → very small variation
+
+- `alpha_noise = 0.05` → moderate variation
+
+- `alpha_noise = 0.10` → substantial variation
+
+This can be useful in teaching or simulation settings where you want
+each run to look slightly different, rather than reproducing the same
+reliability every time.
+
+In summary:
+
+- `variance` controls item heterogeneity.
+
+- `alpha_noise` controls reliability variability.
+
+These two parameters operate independently, allowing you to simulate
+realistic measurement structures while maintaining control over
+reliability.
 
 ------------------------------------------------------------------------
 

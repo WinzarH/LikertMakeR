@@ -39,7 +39,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -175,6 +175,13 @@ limit.</li>
 <p>The method generated something random and then repaired it.</p>
 </blockquote>
 <p>It was effective, but indirect.</p>
+<ul>
+<li>It was slow</li>
+<li>It often produced a correlation matrix which had eigenvalues where
+more than two values exceeded ‘1’, which often implies that the data
+represents a multi-factor data structure. That is, it was not represent
+a unidimensional construct.</li>
+</ul>
 <hr>
 </div>
 </div>
@@ -351,19 +358,67 @@ the results will look very similar.</p>
 <li>Produces smoother, more realistic correlation patterns.</li>
 <li>Guarantees a positive-definite matrix by construction.</li>
 </ul>
-<p>The <code>precision</code> argument has also been clarified.</p>
+<p>The <code>precision</code> argument has been deprecated and replaced
+with an <code>alpha_noise</code> argument.</p>
+<p>The nature of the <code>variance</code> argument has changed, but not
+its purpose.</p>
+<p>The <code>sort_cors</code> argument has been deprecated.</p>
+<div class="section level4">
+<h4 id="understanding-variance-and-alpha_noise">Understanding variance and alpha_noise<a class="anchor" aria-label="anchor" href="#understanding-variance-and-alpha_noise"></a>
+</h4>
+<p>The redesigned <code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> function now includes two
+independent controls:</p>
+<div class="section level5">
+<h5 id="variance-how-different-are-the-items">variance — How different are the items?<a class="anchor" aria-label="anchor" href="#variance-how-different-are-the-items"></a>
+</h5>
+<p>The variance argument controls how much the items differ from each
+other in strength.</p>
 <ul>
-<li>
-<code>precision = 0</code> produces an exact requested alpha to two
-decimal places.</li>
-<li>Higher values of <code>precision</code> allow small, controlled
-variation in alpha.</li>
-<li>For example, <code>precision = 2</code> corresponds roughly to
-two-decimal reproducibility.</li>
+<li><p>Smaller values produce very similar items (nearly equal
+correlations).</p></li>
+<li><p>Larger values produce more heterogeneous items (wider spread of
+correlations).</p></li>
 </ul>
-<p>This makes it easier to simulate scales that resemble published
-results.</p>
+<p>For most teaching and applied examples:</p>
+<ul>
+<li><p><code>variance = 0.05</code> → near-parallel items</p></li>
+<li><p><code>variance = 0.10</code> → modest heterogeneity (recommended
+default)</p></li>
+<li><p><code>variance = 0.15</code> → strong heterogeneity</p></li>
+<li><p><code>variance &gt; 0.20</code> → very strong dispersion</p></li>
+</ul>
+<p>Importantly, variance changes the pattern of correlations, but not
+the requested reliability level.</p>
+</div>
+<div class="section level5">
+<h5 id="alpha_noise-how-exact-should-alpha-be">
+<code>alpha_noise</code> — How exact should alpha be?<a class="anchor" aria-label="anchor" href="#alpha_noise-how-exact-should-alpha-be"></a>
+</h5>
+<p>The <code>alpha_noise</code> argument controls whether the requested
+Cronbach’s alpha is reproduced exactly, or allowed to vary slightly
+across runs.</p>
+<ul>
+<li><p><code>alpha_noise = 0</code> → exact, deterministic
+alpha</p></li>
+<li><p><code>alpha_noise = 0.02</code> → very small variation</p></li>
+<li><p><code>alpha_noise = 0.05</code> → moderate variation</p></li>
+<li><p><code>alpha_noise = 0.10</code> → substantial variation</p></li>
+</ul>
+<p>This can be useful in teaching or simulation settings where you want
+each run to look slightly different, rather than reproducing the same
+reliability every time.</p>
+<p>In summary:</p>
+<ul>
+<li><p><code>variance</code> controls item heterogeneity.</p></li>
+<li><p><code>alpha_noise</code> controls reliability
+variability.</p></li>
+</ul>
+<p>These two parameters operate independently, allowing you to simulate
+realistic measurement structures while maintaining control over
+reliability.</p>
 <hr>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>

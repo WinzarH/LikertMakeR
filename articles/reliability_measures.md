@@ -274,7 +274,6 @@ my_cor <- LikertMakeR::makeCorrAlpha(
   items = 4,
   alpha = 0.80
 )
-#> Achieved alpha = 0.8
 
 # example correlated dataframe
 my_data <- LikertMakeR::makeScales(
@@ -311,8 +310,8 @@ assuming a single common factor.
 
 reliability(my_data)
 #>    coef_name estimate n_items n_obs                notes
-#>        alpha     0.80       4    64 Pearson correlations
-#>  omega_total     0.87       4    64 1-factor eigen omega
+#>        alpha    0.801       4    64 Pearson correlations
+#>  omega_total    0.871       4    64 1-factor eigen omega
 ```
 
 ### Including additional coefficients
@@ -328,12 +327,12 @@ reliability(
   include = c("lambda6", "omega_h", "polychoric")
 )
 #>            coef_name estimate n_items n_obs
-#>                alpha    0.800       4    64
-#>          omega_total    0.870       4    64
-#>              lambda6    0.761       4    64
-#>              omega_h    0.806       4    64
-#>        ordinal_alpha    0.759       4    64
-#>  ordinal_omega_total    0.848       4    64
+#>                alpha    0.801       4    64
+#>          omega_total    0.871       4    64
+#>              lambda6    0.758       4    64
+#>              omega_h    0.805       4    64
+#>        ordinal_alpha    0.755       4    64
+#>  ordinal_omega_total    0.846       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega

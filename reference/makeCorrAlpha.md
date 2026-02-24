@@ -12,9 +12,9 @@ function to generate synthetic data with the predefined alpha.
 
 The algorithm directly builds a positive-definite correlation matrix by
 solving for item loadings that reproduce the desired average inter-item
-correlation implied by *alpha*. Unlike the earlier swap-based approach
-of this function, this method guarantees positive definiteness without
-*post-hoc* repair.
+correlation implied by *alpha*. Unlike earlier versions of this
+function, this method guarantees positive definiteness by construction,
+without *post-hoc* repair.
 
 ## Usage
 
@@ -22,9 +22,8 @@ of this function, this method guarantees positive definiteness without
 makeCorrAlpha(
   items,
   alpha,
-  variance = 0.5,
-  precision = 0,
-  sort_cors = FALSE,
+  variance = 0.1,
+  alpha_noise = 0,
   diagnostics = FALSE
 )
 ```
@@ -37,33 +36,59 @@ makeCorrAlpha(
 
 - alpha:
 
-  Numeric. Target Cronbach's alpha.
+  Numeric. Target Cronbach's alpha (0 \< alpha \< 1).
 
 - variance:
 
-  Numeric. Controls heterogeneity of item loadings. Larger values
-  produce greater spread among inter-item correlations. Internally
-  moderated if necessary to maintain feasibility.
+  Numeric. Controls heterogeneity of item loadings in the underlying
+  one-factor model.
 
-- precision:
+  Larger values produce greater dispersion among item loadings, which
+  results in a wider spread of inter-item correlations while preserving
+  the requested Cronbach's alpha.
 
-  Integer (0–3). Controls decimal-level reproducibility of alpha.
+  Typical guidance:
 
-  - `0`: exact deterministic alpha.
+  - `0.05` — near-parallel items (very similar correlations)
 
-  - `1`: approximately one-decimal accuracy.
+  - `0.10` — modest heterogeneity (default)
 
-  - `2`: approximately two-decimal accuracy.
+  - `0.15` — strong heterogeneity
 
-  - `3`: approximately three-decimal accuracy.
+  - `0.20` — very strong heterogeneity
 
-  Internally, alpha is sampled with standard deviation \\0.5 \times
-  10^{-precision}\\.
+  - `> 0.25` — extreme dispersion; internal shrinkage may occur
 
-- sort_cors:
+  For most applied psychometric scales (k \< 20), values between `0.05`
+  and `0.15` produce realistic correlation structures.
 
-  Deprecated. Retained for backward compatibility. Has no effect under
-  the constructive generator.
+- alpha_noise:
+
+  Numeric. Controls random variation in the target Cronbach's alpha
+  before the correlation matrix is constructed.
+
+  When `alpha_noise = 0` (default), the requested alpha is reproduced
+  deterministically (subject to numerical tolerance).
+
+  When `alpha_noise > 0`, a small amount of random variation is added to
+  the requested alpha prior to constructing the matrix. This can be
+  useful in teaching or simulation settings where slightly different
+  reliability values are desired across repeated runs.
+
+  Internally, noise is added on the Fisher *z*-transformed scale to
+  ensure the resulting alpha remains within valid bounds (0, 1).
+
+  Typical guidance:
+
+  - `0.00` — deterministic alpha (default)
+
+  - `0.02` — very small variation
+
+  - `0.05` — moderate variation
+
+  - `0.10` — substantial variation (caution)
+
+  Larger values increase the spread of achieved alpha across runs.
 
 - diagnostics:
 
@@ -80,17 +105,6 @@ If `diagnostics = FALSE`, a positive-definite correlation matrix. If
 - `diagnostics`: list including achieved alpha, minimum eigenvalue, and
   internal variance used
 
-If 'diagnostics = FALSE', a k x k correlation matrix. If 'diagnostics =
-TRUE', a list with components:
-
-- R:
-
-  k x k correlation matrix
-
-- diagnostics:
-
-  list of summary statistics
-
 ## Details
 
 The function computes the average inter-item correlation implied by the
@@ -101,112 +115,109 @@ applied when necessary to ensure a valid positive-definite solution.
 The constructive generator assumes a single common factor structure,
 consistent with typical psychometric scale construction.
 
-When `precision > 0`, the target alpha is sampled around the requested
-value to approximate decimal-level reporting accuracy.
-
 ## Examples
 
 ``` r
+# Example 1
 # define parameters
 items <- 4
 alpha <- 0.85
-variance <- 0.5
 
 # apply function
 set.seed(42)
 cor_matrix <- makeCorrAlpha(
   items = items,
-  alpha = alpha,
-  variance = variance
+  alpha = alpha
 )
-#> Achieved alpha = 0.85
 
 # test function output
-print(cor_matrix)
+print(cor_matrix) |> round(3)
 #>           item01    item02    item03    item04
-#> item01 1.0000000 0.5558616 0.6881232 0.7265738
-#> item02 0.5558616 1.0000000 0.4598536 0.4855490
-#> item03 0.6881232 0.4598536 1.0000000 0.6010805
-#> item04 0.7265738 0.4855490 0.6010805 1.0000000
+#> item01 1.0000000 0.5649919 0.6673592 0.6971190
+#> item02 0.5649919 1.0000000 0.4842990 0.5058955
+#> item03 0.6673592 0.4842990 1.0000000 0.5975555
+#> item04 0.6971190 0.5058955 0.5975555 1.0000000
+#>        item01 item02 item03 item04
+#> item01  1.000  0.565  0.667  0.697
+#> item02  0.565  1.000  0.484  0.506
+#> item03  0.667  0.484  1.000  0.598
+#> item04  0.697  0.506  0.598  1.000
 alpha(cor_matrix)
-#> [1] 0.8499825
+#> [1] 0.8499981
 eigenvalues(cor_matrix, 1)
 
 #> cor_matrix  is positive-definite
 #> 
-#> [1] 2.7710735 0.5806680 0.4006440 0.2476146
+#> [1] 2.7665013 0.5480310 0.4036204 0.2818473
 
-# higher alpha, more items
+# Example 2
+# higher alpha, more items, more variability
 cor_matrix2 <- makeCorrAlpha(
   items = 8,
-  alpha = 0.95
+  alpha = 0.95,
+  variance = 0.10
 )
-#> Warning: Requested variance was reduced internally to ensure feasibility.
-#> Achieved alpha = 0.95
 
 # test output
 cor_matrix2 |> round(2)
 #>        item01 item02 item03 item04 item05 item06 item07 item08
-#> item01   1.00   0.68   0.79   0.82   0.85   0.68   0.80   0.57
-#> item02   0.68   1.00   0.68   0.70   0.73   0.59   0.68   0.49
-#> item03   0.79   0.68   1.00   0.82   0.85   0.68   0.80   0.57
-#> item04   0.82   0.70   0.82   1.00   0.88   0.70   0.82   0.59
-#> item05   0.85   0.73   0.85   0.88   1.00   0.73   0.86   0.61
-#> item06   0.68   0.59   0.68   0.70   0.73   1.00   0.69   0.49
-#> item07   0.80   0.68   0.80   0.82   0.86   0.69   1.00   0.57
-#> item08   0.57   0.49   0.57   0.59   0.61   0.49   0.57   1.00
+#> item01   1.00   0.58   0.71   0.58   0.75   0.59   0.69   0.77
+#> item02   0.58   1.00   0.66   0.54   0.70   0.55   0.65   0.72
+#> item03   0.71   0.66   1.00   0.67   0.86   0.67   0.79   0.88
+#> item04   0.58   0.54   0.67   1.00   0.70   0.55   0.65   0.72
+#> item05   0.75   0.70   0.86   0.70   1.00   0.71   0.84   0.93
+#> item06   0.59   0.55   0.67   0.55   0.71   1.00   0.65   0.73
+#> item07   0.69   0.65   0.79   0.65   0.84   0.65   1.00   0.86
+#> item08   0.77   0.72   0.88   0.72   0.93   0.73   0.86   1.00
 alpha(cor_matrix2) |> round(3)
 #> [1] 0.95
 eigenvalues(cor_matrix2, 1) |> round(3)
 
 #> cor_matrix2  is positive-definite
 #> 
-#> [1] 5.973 0.568 0.415 0.357 0.209 0.202 0.170 0.106
+#> [1] 5.965 0.455 0.452 0.406 0.315 0.209 0.135 0.063
 
-
+# Example 3
 # large random variation around alpha
-set.seed(42)
 cor_matrix3 <- makeCorrAlpha(
   items = 6,
   alpha = 0.85,
-  precision = 3
+  alpha_noise = 0.10
 )
-#> Achieved alpha = 0.851
 
 # test output
 cor_matrix3 |> round(2)
 #>        item01 item02 item03 item04 item05 item06
-#> item01   1.00   0.37   0.40   0.38   0.33   0.48
-#> item02   0.37   1.00   0.52   0.49   0.43   0.63
-#> item03   0.40   0.52   1.00   0.53   0.46   0.67
-#> item04   0.38   0.49   0.53   1.00   0.43   0.64
-#> item05   0.33   0.43   0.46   0.43   1.00   0.55
-#> item06   0.48   0.63   0.67   0.64   0.55   1.00
+#> item01   1.00   0.48   0.51   0.47   0.35   0.36
+#> item02   0.48   1.00   0.52   0.48   0.35   0.36
+#> item03   0.51   0.52   1.00   0.51   0.38   0.39
+#> item04   0.47   0.48   0.51   1.00   0.35   0.36
+#> item05   0.35   0.35   0.38   0.35   1.00   0.27
+#> item06   0.36   0.36   0.39   0.36   0.27   1.00
 alpha(cor_matrix3) |> round(3)
-#> [1] 0.851
+#> [1] 0.807
 eigenvalues(cor_matrix3, 1) |> round(3)
 
 #> cor_matrix3  is positive-definite
 #> 
-#> [1] 3.469 0.695 0.595 0.508 0.466 0.268
+#> [1] 3.074 0.734 0.680 0.532 0.522 0.458
 
-
+# Example 4
 # with diagnostics
 cor_matrix4 <- makeCorrAlpha(
   items = 4,
   alpha = 0.80,
   diagnostics = TRUE
 )
-#> Achieved alpha = 0.8
 
 # test output
 cor_matrix4
 #> $R
 #>           item01    item02    item03    item04
-#> item01 1.0000000 0.5172728 0.3670963 0.4657822
-#> item02 0.5172728 1.0000000 0.5205415 0.6604779
-#> item03 0.3670963 0.5205415 1.0000000 0.4687256
-#> item04 0.4657822 0.6604779 0.4687256 1.0000000
+#> item01 1.0000000 0.5847682 0.4880084 0.5936079
+#> item02 0.5847682 1.0000000 0.4126811 0.5019806
+#> item03 0.4880084 0.4126811 1.0000000 0.4189194
+#> item04 0.5936079 0.5019806 0.4189194 1.0000000
 #> 
 #> $diagnostics
 #> $diagnostics$items
@@ -219,21 +230,21 @@ cor_matrix4
 #> [1] 0.8
 #> 
 #> $diagnostics$alpha_achieved
-#> [1] 0.7999889
+#> [1] 0.7999963
 #> 
 #> $diagnostics$average_r
-#> [1] 0.4999827
+#> [1] 0.4999943
 #> 
 #> $diagnostics$min_eigenvalue
-#> [1] 0.3307719
+#> [1] 0.3748521
 #> 
 #> $diagnostics$variance_input
-#> [1] 0.5
+#> [1] 0.1
 #> 
 #> $diagnostics$internal_variance_used
-#> [1] 0.125
+#> [1] 0.1
 #> 
-#> $diagnostics$precision
+#> $diagnostics$alpha_noise
 #> [1] 0
 #> 
 #> 

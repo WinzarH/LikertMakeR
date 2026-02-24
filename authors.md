@@ -11,13 +11,13 @@ Source:
 [`DESCRIPTION`](https://github.com/WinzarH/LikertMakeR/blob/HEAD/DESCRIPTION)
 
 Winzar H (2026). *LikertMakeR: Synthesise and Correlate Likert Scale and
-Rating-Scale Data Based on Summary Statistics*. R package version 1.4.1,
+Rating-Scale Data Based on Summary Statistics*. R package version 1.5.0,
 <https://github.com/WinzarH/LikertMakeR/>.
 
     @Manual{,
       title = {LikertMakeR: Synthesise and Correlate Likert Scale and Rating-Scale Data Based on Summary Statistics},
       author = {Hume Winzar},
       year = {2026},
-      note = {R package version 1.4.1},
+      note = {R package version 1.5.0},
       url = {https://github.com/WinzarH/LikertMakeR/},
     }

@@ -2,7 +2,7 @@
 
 ## LikertMakeR (development version)
 
-## LikertMakeR 1.4.1 (February 2026)
+## LikertMakeR 1.5.0 (February 2026)
 
 ### Improvements
 
@@ -15,6 +15,15 @@ has been completely re-engineered. The previous swap-based approach for
 achieving positive-definite correlation matrices has been replaced with
 a constructive one-factor generator.
 
+The previous algorithm:
+
+- was slow
+- was unable to process large number of items (rare, but sometimes
+  wanted)
+- frequently gave results that were more consistent with multi-factor
+  scales
+  - e.g., eigenvalues may give two or more values \> 1,
+
 The new algorithm:
 
 - runs more than 150 times faster than the previous version (3000 times
@@ -22,45 +31,38 @@ The new algorithm:
 - Guarantees positive definiteness without post-hoc repair.
 - Produces stable behaviour across large numbers of items (tested up to
   k = 40).
-- Maintains alpha accuracy within ±0.005 when `precision = 0`.
+- Maintains alpha accuracy within ±0.005 when `alpha_noise = 0`.
 - Uses adaptive dispersion control to ensure feasibility at high
   variance levels.
 
 This results in substantially improved numerical stability and smoother
 behaviour across the parameter space.
 
-##### Redefined `precision` argument
+##### `precision` argument removed and replaced with `alpha_noise` argument
 
-The `precision` argument has been redefined to control decimal-level
-accuracy of the target Cronbach’s alpha.
+A new argument, `alpha_noise`, has been introduced to provide optional
+random variation around the requested Cronbach’s alpha.
 
-- `precision = 0` (default) reproduces the requested alpha
-  deterministically.
-- `precision = 1` allows alpha variation at approximately one decimal
-  place.
-- `precision = 2` allows alpha variation at approximately two decimal
-  places.
-- `precision = 3` allows alpha variation at approximately three decimal
-  places.
+By default (alpha_noise = 0), the function reproduces the specified
+alpha deterministically. When a small positive value is supplied, the
+function will generate slightly different reliability values across
+runs.
 
-Internally, alpha is sampled with standard deviation:
-
-    0.5 × 10^(-precision)
-
-This provides an intuitive and transparent interpretation of the
-argument.
+This is particularly useful in teaching and simulation contexts where
+you may wish to demonstrate natural variation rather than produce the
+exact same matrix each time. The noise is applied in a way that ensures
+the resulting alpha always remains within valid bounds.
 
 ##### Deprecated argument
 
-- `sort_cors` is now deprecated and has no effect under the new
-  constructive generator. It will be removed in a future release.
+- `sort_cors` is now deprecated. It served no useful purpose.
 
 ##### Backward compatibility
 
-For most use cases, behaviour remains consistent with previous versions
-when `precision = 0`. However, users who relied on the previous
-swap-based construction may observe smoother and more stable correlation
-structures under the new implementation.
+For most use cases, behaviour remains consistent with previous versions.
+However, users who relied on the previous swap-based construction may
+observe smoother and more stable correlation structures under the new
+implementation.
 
 ### Maintenance
 

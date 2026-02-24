@@ -39,7 +39,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -395,7 +395,6 @@ target Cronbach’s alpha of 0.80, using functions from
 <span>  items <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.80</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Achieved alpha = 0.8</span></span>
 <span></span>
 <span><span class="co"># example correlated dataframe</span></span>
 <span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu">LikertMakeR</span><span class="fu">::</span><span class="fu"><a href="../reference/makeScales.html">makeScales</a></span><span class="op">(</span></span>
@@ -430,8 +429,8 @@ factor.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/reliability.html">reliability</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    coef_name estimate n_items n_obs                notes</span></span>
-<span><span class="co">#&gt;        alpha     0.80       4    64 Pearson correlations</span></span>
-<span><span class="co">#&gt;  omega_total     0.87       4    64 1-factor eigen omega</span></span></code></pre></div>
+<span><span class="co">#&gt;        alpha    0.801       4    64 Pearson correlations</span></span>
+<span><span class="co">#&gt;  omega_total    0.871       4    64 1-factor eigen omega</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="including-additional-coefficients">Including additional coefficients<a class="anchor" aria-label="anchor" href="#including-additional-coefficients"></a>
@@ -446,12 +445,12 @@ factor.</p>
 <span>  include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lambda6"</span>, <span class="st">"omega_h"</span>, <span class="st">"polychoric"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;            coef_name estimate n_items n_obs</span></span>
-<span><span class="co">#&gt;                alpha    0.800       4    64</span></span>
-<span><span class="co">#&gt;          omega_total    0.870       4    64</span></span>
-<span><span class="co">#&gt;              lambda6    0.761       4    64</span></span>
-<span><span class="co">#&gt;              omega_h    0.806       4    64</span></span>
-<span><span class="co">#&gt;        ordinal_alpha    0.759       4    64</span></span>
-<span><span class="co">#&gt;  ordinal_omega_total    0.848       4    64</span></span>
+<span><span class="co">#&gt;                alpha    0.801       4    64</span></span>
+<span><span class="co">#&gt;          omega_total    0.871       4    64</span></span>
+<span><span class="co">#&gt;              lambda6    0.758       4    64</span></span>
+<span><span class="co">#&gt;              omega_h    0.805       4    64</span></span>
+<span><span class="co">#&gt;        ordinal_alpha    0.755       4    64</span></span>
+<span><span class="co">#&gt;  ordinal_omega_total    0.846       4    64</span></span>
 <span><span class="co">#&gt;                                                notes</span></span>
 <span><span class="co">#&gt;                                 Pearson correlations</span></span>
 <span><span class="co">#&gt;                                 1-factor eigen omega</span></span>
