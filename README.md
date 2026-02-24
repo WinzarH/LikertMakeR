@@ -13,7 +13,7 @@
 **LikertMakeR** synthesises Likert-scale and related bounded rating-scale data with
 predefined *means*, *standard deviations*, and (optionally) *correlations*, *Cronbach’s alpha*, and *factor-loading-based structure*.
 
-Version 1.4.1 (February 2026)
+Version 1.5.0 (February 2026)
 
 ## Purpose
 
