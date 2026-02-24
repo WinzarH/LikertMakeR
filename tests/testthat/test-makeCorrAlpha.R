@@ -5,7 +5,7 @@ test_that("makeCorrAlpha runs silently with valid inputs", {
 
   items <- 4
   alpha <- 0.85
-  variance <- 0.5
+  variance <- 0.1
 
   ## apply function tests
 

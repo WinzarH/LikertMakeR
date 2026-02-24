@@ -7,34 +7,58 @@
 makeCorrAlpha(
   items,
   alpha,
-  variance = 0.5,
-  precision = 0,
-  sort_cors = FALSE,
+  variance = 0.1,
+  alpha_noise = 0,
   diagnostics = FALSE
 )
 }
 \arguments{
 \item{items}{Integer. Number of items (>= 2).}
 
-\item{alpha}{Numeric. Target Cronbach's alpha.}
+\item{alpha}{Numeric. Target Cronbach's alpha (0 < alpha < 1).}
 
-\item{variance}{Numeric. Controls heterogeneity of item loadings.
-Larger values produce greater spread among inter-item correlations.
-Internally moderated if necessary to maintain feasibility.}
+\item{variance}{Numeric. Controls heterogeneity of item loadings in the
+underlying one-factor model.
 
-\item{precision}{Integer (0–3). Controls decimal-level reproducibility
-of alpha.
+Larger values produce greater dispersion among item loadings, which
+results in a wider spread of inter-item correlations while preserving
+the requested Cronbach's alpha.
+
+Typical guidance:
 \itemize{
-\item \code{0}: exact deterministic alpha.
-\item \code{1}: approximately one-decimal accuracy.
-\item \code{2}: approximately two-decimal accuracy.
-\item \code{3}: approximately three-decimal accuracy.
+\item \code{0.05} — near-parallel items (very similar correlations)
+\item \code{0.10} — modest heterogeneity (default)
+\item \code{0.15} — strong heterogeneity
+\item \code{0.20} — very strong heterogeneity
+\item \code{> 0.25} — extreme dispersion; internal shrinkage may occur
 }
-Internally, alpha is sampled with standard deviation
-\eqn{0.5 \times 10^{-precision}}.}
 
-\item{sort_cors}{Deprecated. Retained for backward compatibility.
-Has no effect under the constructive generator.}
+For most applied psychometric scales (k < 20), values between
+\code{0.05} and \code{0.15} produce realistic correlation structures.}
+
+\item{alpha_noise}{Numeric. Controls random variation in the target
+Cronbach's alpha before the correlation matrix is constructed.
+
+When \code{alpha_noise = 0} (default), the requested alpha is
+reproduced deterministically (subject to numerical tolerance).
+
+When \code{alpha_noise > 0}, a small amount of random variation is
+added to the requested alpha prior to constructing the matrix. This
+can be useful in teaching or simulation settings where slightly
+different reliability values are desired across repeated runs.
+
+Internally, noise is added on the Fisher \emph{z}-transformed scale
+to ensure the resulting alpha remains within valid bounds (0, 1).
+
+Typical guidance:
+\itemize{
+\item \code{0.00} — deterministic alpha (default)
+\item \code{0.02} — very small variation
+\item \code{0.05} — moderate variation
+\item \code{0.10} — substantial variation (caution)
+}
+
+Larger values increase the spread of achieved alpha across runs.}
 
 \item{diagnostics}{Logical. If \code{TRUE}, returns a list containing
 the matrix and diagnostic information.}
@@ -46,13 +70,6 @@ If \code{diagnostics = TRUE}, a list containing:
 \item \code{R}: the correlation matrix
 \item \code{diagnostics}: list including achieved alpha,
 minimum eigenvalue, and internal variance used
-}
-
-If 'diagnostics = FALSE', a k x k correlation matrix.
-If 'diagnostics = TRUE', a list with components:
-\describe{
-\item{R}{k x k correlation matrix}
-\item{diagnostics}{list of summary statistics}
 }
 }
 \description{
@@ -68,8 +85,8 @@ function to generate synthetic data with the predefined alpha.
 The algorithm directly builds a positive-definite correlation matrix
 by solving for item loadings that reproduce the desired average
 inter-item correlation implied by \emph{alpha}.
-Unlike the earlier swap-based approach of this function,
-this method guarantees positive definiteness without \emph{post-hoc} repair.
+Unlike earlier versions of this function, this method guarantees positive
+definiteness by construction, without \emph{post-hoc} repair.
 }
 \details{
 The function computes the average inter-item correlation implied by the
@@ -79,34 +96,32 @@ applied when necessary to ensure a valid positive-definite solution.
 
 The constructive generator assumes a single common factor structure,
 consistent with typical psychometric scale construction.
-
-When \code{precision > 0}, the target alpha is sampled around the
-requested value to approximate decimal-level reporting accuracy.
 }
 \examples{
 
+# Example 1
 # define parameters
 items <- 4
 alpha <- 0.85
-variance <- 0.5
 
 # apply function
 set.seed(42)
 cor_matrix <- makeCorrAlpha(
   items = items,
-  alpha = alpha,
-  variance = variance
+  alpha = alpha
 )
 
 # test function output
-print(cor_matrix)
+print(cor_matrix) |> round(3)
 alpha(cor_matrix)
 eigenvalues(cor_matrix, 1)
 
-# higher alpha, more items
+# Example 2
+# higher alpha, more items, more variability
 cor_matrix2 <- makeCorrAlpha(
   items = 8,
-  alpha = 0.95
+  alpha = 0.95,
+  variance = 0.10
 )
 
 # test output
@@ -114,13 +129,12 @@ cor_matrix2 |> round(2)
 alpha(cor_matrix2) |> round(3)
 eigenvalues(cor_matrix2, 1) |> round(3)
 
-
+# Example 3
 # large random variation around alpha
-set.seed(42)
 cor_matrix3 <- makeCorrAlpha(
   items = 6,
   alpha = 0.85,
-  precision = 3
+  alpha_noise = 0.10
 )
 
 # test output
@@ -128,7 +142,7 @@ cor_matrix3 |> round(2)
 alpha(cor_matrix3) |> round(3)
 eigenvalues(cor_matrix3, 1) |> round(3)
 
-
+# Example 4
 # with diagnostics
 cor_matrix4 <- makeCorrAlpha(
   items = 4,
