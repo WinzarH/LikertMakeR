@@ -61,17 +61,17 @@ question scored in the range *-3* to *+3*.
 
 The questions and the item labels are presented as follows:
 
-| Questions | Labels |
-|:---|:---|
-| Expectation that a high dose results in a longer trip | long |
-| Expectation that a high dose results in a more intense trip | intensity |
-| Expectation that a high dose makes you more intoxicated | intoxicated |
-| Expectation that a high dose provides more energy | energy |
-| Expectation that a high dose produces more euphoria | euphoria |
-| Expectation that a high dose yields more insight | insight |
-| Expectation that a high dose strengthens your connection with others | connection |
-| Expectation that a high dose facilitates making contact with others | contact |
-| Expectation that a high dose improves sex | sex |
+| Questions                                                            | Labels      |
+|:---------------------------------------------------------------------|:------------|
+| Expectation that a high dose results in a longer trip                | long        |
+| Expectation that a high dose results in a more intense trip          | intensity   |
+| Expectation that a high dose makes you more intoxicated              | intoxicated |
+| Expectation that a high dose provides more energy                    | energy      |
+| Expectation that a high dose produces more euphoria                  | euphoria    |
+| Expectation that a high dose yields more insight                     | insight     |
+| Expectation that a high dose strengthens your connection with others | connection  |
+| Expectation that a high dose facilitates making contact with others  | contact     |
+| Expectation that a high dose improves sex                            | sex         |
 
 ##### Extract and clean the original data file
 
@@ -111,17 +111,17 @@ function.
 pp15_cor <- cor(dat)
 ```
 
-|  | long | intensity | intoxicated | energy | euphoria | insight | connection | contact | sex |
-|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| long | 1.00 | 0.33 | 0.34 | 0.19 | 0.24 | 0.17 | 0.17 | 0.10 | 0.01 |
-| intensity | 0.33 | 1.00 | 0.69 | 0.12 | 0.26 | -0.01 | 0.14 | 0.12 | 0.00 |
-| intoxicated | 0.34 | 0.69 | 1.00 | 0.15 | 0.13 | -0.03 | -0.01 | -0.02 | -0.11 |
-| energy | 0.19 | 0.12 | 0.15 | 1.00 | 0.32 | 0.29 | 0.28 | 0.31 | 0.10 |
-| euphoria | 0.24 | 0.26 | 0.13 | 0.32 | 1.00 | 0.50 | 0.61 | 0.56 | 0.29 |
-| insight | 0.17 | -0.01 | -0.03 | 0.29 | 0.50 | 1.00 | 0.57 | 0.54 | 0.30 |
-| connection | 0.17 | 0.14 | -0.01 | 0.28 | 0.61 | 0.57 | 1.00 | 0.78 | 0.30 |
-| contact | 0.10 | 0.12 | -0.02 | 0.31 | 0.56 | 0.54 | 0.78 | 1.00 | 0.35 |
-| sex | 0.01 | 0.00 | -0.11 | 0.10 | 0.29 | 0.30 | 0.30 | 0.35 | 1.00 |
+|             | long | intensity | intoxicated | energy | euphoria | insight | connection | contact |   sex |
+|:------------|-----:|----------:|------------:|-------:|---------:|--------:|-----------:|--------:|------:|
+| long        | 1.00 |      0.33 |        0.34 |   0.19 |     0.24 |    0.17 |       0.17 |    0.10 |  0.01 |
+| intensity   | 0.33 |      1.00 |        0.69 |   0.12 |     0.26 |   -0.01 |       0.14 |    0.12 |  0.00 |
+| intoxicated | 0.34 |      0.69 |        1.00 |   0.15 |     0.13 |   -0.03 |      -0.01 |   -0.02 | -0.11 |
+| energy      | 0.19 |      0.12 |        0.15 |   1.00 |     0.32 |    0.29 |       0.28 |    0.31 |  0.10 |
+| euphoria    | 0.24 |      0.26 |        0.13 |   0.32 |     1.00 |    0.50 |       0.61 |    0.56 |  0.29 |
+| insight     | 0.17 |     -0.01 |       -0.03 |   0.29 |     0.50 |    1.00 |       0.57 |    0.54 |  0.30 |
+| connection  | 0.17 |      0.14 |       -0.01 |   0.28 |     0.61 |    0.57 |       1.00 |    0.78 |  0.30 |
+| contact     | 0.10 |      0.12 |       -0.02 |   0.31 |     0.56 |    0.54 |       0.78 |    1.00 |  0.35 |
+| sex         | 0.01 |      0.00 |       -0.11 |   0.10 |     0.29 |    0.30 |       0.30 |    0.35 |  1.00 |
 
 ##### Test cases
 
@@ -160,7 +160,7 @@ To compare the *True* correlation matrix with a *Synthetic* matrix, we
 employ the `cortest.jennrich()` function from the `psych` package
 ([Revelle 2024](#ref-psych)). This is a *Chi-square* test of whether a
 pair of matrices are equal ([Jennrich 1970](#ref-Jennrich1970)). We
-report the raw $`\chi^2`$ statistic and corresponding p-value for each
+report the raw $\chi^{2}$ statistic and corresponding p-value for each
 test.
 
 #### Exploratory Factor Analysis

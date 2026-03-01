@@ -91,11 +91,11 @@ in integer increments for four 5-point items) or an averaged scale
   [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
   function: Calculates various reliability statistics:
 
-  - Cronbach’s alpha ($`\alpha`$)
+  - Cronbach’s alpha ($\alpha$)
 
-  - McDonald’s omega-total ($`\omega_t`$)
+  - McDonald’s omega-total ($\omega_{t}$)
 
-  - Guttman’s lambda 6 ($`\lambda 6`$)
+  - Guttman’s lambda 6 ($\lambda 6$)
 
   - Zumbo’s ordinal alpha (Cronbach’s alpha from polychoric
     correlations)
