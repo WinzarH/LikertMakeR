@@ -64,6 +64,12 @@ However, users who relied on the previous swap-based construction may
 observe smoother and more stable correlation structures under the new
 implementation.
 
+#### `summated` parameter added to `makeItemsScale()` function
+
+Added to specify whether the given scale is a summated scale (e.g. 4-20
+in integer increments for four 5-point items) or an averaged scale
+(e.g., 1-5 in 0.25 increments).
+
 ### Maintenance
 
 - Tutorials added to the website
@@ -79,19 +85,17 @@ implementation.
 
 ## LikertMakeR 1.4.0 (February 2026)
 
-CRAN release: 2026-02-11
-
 ### Improvements
 
 - New
   [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
   function: Calculates various reliability statistics:
 
-  - Cronbach’s alpha ($\alpha$)
+  - Cronbach’s alpha ($`\alpha`$)
 
-  - McDonald’s omega-total ($\omega_{t}$)
+  - McDonald’s omega-total ($`\omega_t`$)
 
-  - Guttman’s lambda 6 ($\lambda 6$)
+  - Guttman’s lambda 6 ($`\lambda 6`$)
 
   - Zumbo’s ordinal alpha (Cronbach’s alpha from polychoric
     correlations)
@@ -116,8 +120,6 @@ CRAN release: 2026-02-11
 - reduced length of **README** file and moved most content to vignettes
 
 ## LikertMakeR 1.3.0 (2025-11-24)
-
-CRAN release: 2025-11-26
 
 ### Improvements
 
@@ -181,8 +183,6 @@ CRAN release: 2025-11-26
 
 ## LikertMakeR 1.2.0 (2025-10-10)
 
-CRAN release: 2025-10-09
-
 ### Improvements
 
 - New
@@ -211,8 +211,6 @@ CRAN release: 2025-10-09
   appear only in the package website.
 
 ## LikertMakeR 1.1.0 (2025-05-26)
-
-CRAN release: 2025-05-30
 
 ### Improvements
 
@@ -263,8 +261,6 @@ CRAN release: 2025-05-30
 
 ## LikertMakeR 1.0.0 (2025-04-03)
 
-CRAN release: 2025-04-04
-
 ### makeCorrLoadings() function added
 
 makeCorrLoadings() generates a correlation matrix of inter-item
@@ -276,8 +272,6 @@ Such a correlation matrix can be applied to the function to generate
 synthetic data with those predefined factor structures.
 
 ## LikertMakeR 1.0.0 (2025-01-08)
-
-CRAN release: 2025-04-04
 
 ### update version number to correct major.minor.patch format
 
@@ -294,8 +288,6 @@ data for a paired-sample t-test
 
 ## LikertMakeR 0.4.0 (2024-11-17)
 
-CRAN release: 2024-11-19
-
 ### target Cronbach’s Alpha added to makeItemsScale() function
 
 generated scale items now defined by a target Cronbach’s Alpha, as well
@@ -303,8 +295,6 @@ as by variance within each scale item. This latest version adds a little
 randomness to the selection of candidate row vectors.
 
 ## LikertMakeR 0.3.0 (2024-05-18)
-
-CRAN release: 2024-05-19
 
 ### more randomness in swaps task to makeCorrAlpha() function
 
@@ -332,8 +322,6 @@ scale items
 Generate rating-scale items from a given summated scale
 
 ## LikertMakeR 0.2.0 (2024-03-02)
-
-CRAN release: 2024-03-02
 
 ### For submission to CRAN
 
@@ -378,8 +366,6 @@ These replace the old ***lcor()*** & ***lfast()*** with the previous
   make_items() function.
 
 ## LikertMakeR 0.1.5 (2022-12-20)
-
-CRAN release: 2022-12-22
 
 #### Initial CRAN release
 

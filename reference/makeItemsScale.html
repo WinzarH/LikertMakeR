@@ -51,7 +51,7 @@ scale, lowerbound, upperbound, items, alpha, variance"><meta property="og:image"
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Generate scale items from a summated scale, with desired Cronbach's Alpha</h1>
-      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/R/makeItemsScale.R" class="external-link"><code>R/makeItemsScale.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/R/makeItemsScale.R" class="external-link"><code>R/makeItemsScale.R</code></a></small>
       <div class="d-none name"><code>makeItemsScale.Rd</code></div>
     </div>
 
@@ -71,6 +71,7 @@ and a desired <em>Cronbach's Alpha</em>.</p>
 <span>  <span class="va">upperbound</span>,</span>
 <span>  <span class="va">items</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  summated <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  variance <span class="op">=</span> <span class="fl">0.5</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -104,6 +105,13 @@ Should range from \(lowerbound \times items\) to
 new dataframe of items.
 Default = '0.8'.</p>
 <p>See <code>@details</code> for further information on the <code>alpha</code> parameter</p></dd>
+
+
+<dt id="arg-summated">summated<a class="anchor" aria-label="anchor" href="#arg-summated"></a></dt>
+<dd><p>(logical) If TRUE, the scale is treated as a summed
+score (e.g., 4–20 for four 5-point items).
+If FALSE, it is treated as an averaged score
+(e.g., 1–5 in 0.25 increments). Default = TRUE.</p></dd>
 
 
 <dt id="arg-variance">variance<a class="anchor" aria-label="anchor" href="#arg-variance"></a></dt>
@@ -183,10 +191,10 @@ a lower variance value.</p>
 <span class="r-in"><span><span class="va">summatedScale</span> <span class="op">&lt;-</span> <span class="va">meanScale</span> <span class="op">*</span> <span class="va">k</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## create new items</span></span></span>
-<span class="r-in"><span><span class="va">newItems</span> <span class="op">&lt;-</span> <span class="fu">makeItemsScale</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  scale <span class="op">=</span> <span class="va">summatedScale</span>,</span></span>
+<span class="r-in"><span><span class="va">newItems1</span> <span class="op">&lt;-</span> <span class="fu">makeItemsScale</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  scale <span class="op">=</span> <span class="va">meanScale</span>,</span></span>
 <span class="r-in"><span>  lowerbound <span class="op">=</span> <span class="va">lower</span>, upperbound <span class="op">=</span> <span class="va">upper</span>,</span></span>
-<span class="r-in"><span>  items <span class="op">=</span> <span class="va">k</span></span></span>
+<span class="r-in"><span>  items <span class="op">=</span> <span class="va">k</span>, summated <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generate 64 rows</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> rearrange 4 values within each of 64 rows</span>
@@ -194,7 +202,21 @@ a lower variance value.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> desired Cronbach's alpha = 0.8 (achieved alpha = 0.8002)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### test new items</span></span></span>
-<span class="r-in"><span><span class="co"># str(newItems)</span></span></span>
+<span class="r-in"><span><span class="co"># str(newItems1)</span></span></span>
+<span class="r-in"><span><span class="co"># alpha(data = newItems) |&gt; round(2)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">newItems2</span> <span class="op">&lt;-</span> <span class="fu">makeItemsScale</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  scale <span class="op">=</span> <span class="va">summatedScale</span>,</span></span>
+<span class="r-in"><span>  lowerbound <span class="op">=</span> <span class="va">lower</span>, upperbound <span class="op">=</span> <span class="va">upper</span>,</span></span>
+<span class="r-in"><span>  items <span class="op">=</span> <span class="va">k</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> generate 64 rows</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> rearrange 4 values within each of 64 rows</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Complete!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> desired Cronbach's alpha = 0.8 (achieved alpha = 0.7998)</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### test new items</span></span></span>
+<span class="r-in"><span><span class="co"># str(newItems2)</span></span></span>
 <span class="r-in"><span><span class="co"># alpha(data = newItems) |&gt; round(2)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -207,7 +229,7 @@ a lower variance value.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generate 64 rows</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> rearrange 4 values within each of 64 rows</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Complete!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> desired Cronbach's alpha = 0.8 (achieved alpha = 0.8011)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> desired Cronbach's alpha = 0.8 (achieved alpha = 0.7996)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### test new data frame</span></span></span>
 <span class="r-in"><span><span class="co"># str(mydat_20)</span></span></span>
@@ -232,7 +254,7 @@ a lower variance value.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generate 64 rows</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> rearrange 4 values within each of 64 rows</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Complete!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> desired Cronbach's alpha = 0.8 (achieved alpha = 0.8003)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> desired Cronbach's alpha = 0.8 (achieved alpha = 0.7989)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### test new dataframe</span></span></span>
 <span class="r-in"><span><span class="co"># str(mydat_80)</span></span></span>

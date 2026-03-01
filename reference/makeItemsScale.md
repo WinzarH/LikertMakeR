@@ -16,6 +16,7 @@ makeItemsScale(
   upperbound,
   items,
   alpha = 0.8,
+  summated = TRUE,
   variance = 0.5
 )
 ```
@@ -47,6 +48,12 @@ makeItemsScale(
   items. Default = '0.8'.
 
   See `@details` for further information on the `alpha` parameter
+
+- summated:
+
+  (logical) If TRUE, the scale is treated as a summed score (e.g., 4–20
+  for four 5-point items). If FALSE, it is treated as an averaged score
+  (e.g., 1–5 in 0.25 increments). Default = TRUE.
 
 - variance:
 
@@ -157,10 +164,10 @@ meanScale <- lfast(
 summatedScale <- meanScale * k
 
 ## create new items
-newItems <- makeItemsScale(
-  scale = summatedScale,
+newItems1 <- makeItemsScale(
+  scale = meanScale,
   lowerbound = lower, upperbound = upper,
-  items = k
+  items = k, summated = FALSE
 )
 #> generate 64 rows
 #> rearrange 4 values within each of 64 rows
@@ -168,7 +175,21 @@ newItems <- makeItemsScale(
 #> desired Cronbach's alpha = 0.8 (achieved alpha = 0.8002)
 
 ### test new items
-# str(newItems)
+# str(newItems1)
+# alpha(data = newItems) |> round(2)
+
+newItems2 <- makeItemsScale(
+  scale = summatedScale,
+  lowerbound = lower, upperbound = upper,
+  items = k
+)
+#> generate 64 rows
+#> rearrange 4 values within each of 64 rows
+#> Complete!
+#> desired Cronbach's alpha = 0.8 (achieved alpha = 0.7998)
+
+### test new items
+# str(newItems2)
 # alpha(data = newItems) |> round(2)
 
 
@@ -181,7 +202,7 @@ mydat_20 <- makeItemsScale(
 #> generate 64 rows
 #> rearrange 4 values within each of 64 rows
 #> Complete!
-#> desired Cronbach's alpha = 0.8 (achieved alpha = 0.8011)
+#> desired Cronbach's alpha = 0.8 (achieved alpha = 0.7996)
 
 ### test new data frame
 # str(mydat_20)
@@ -206,7 +227,7 @@ mydat_80 <- makeItemsScale(
 #> generate 64 rows
 #> rearrange 4 values within each of 64 rows
 #> Complete!
-#> desired Cronbach's alpha = 0.8 (achieved alpha = 0.8003)
+#> desired Cronbach's alpha = 0.8 (achieved alpha = 0.7989)
 
 ### test new dataframe
 # str(mydat_80)

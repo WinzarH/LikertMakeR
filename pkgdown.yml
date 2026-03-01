@@ -1,4 +1,4 @@
-pandoc: 3.1.11
+pandoc: 3.6.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
@@ -11,7 +11,7 @@ articles:
   makeCorrAlpha_explainer: makeCorrAlpha_explainer.html
   makeCorrLoadings_validate: makeCorrLoadings_validate.html
   reliability_measures: reliability_measures.html
-last_built: 2026-02-24T09:37Z
+last_built: 2026-03-01T10:54Z
 urls:
   reference: https://winzarh.github.io/LikertMakeR/reference
   article: https://winzarh.github.io/LikertMakeR/articles
