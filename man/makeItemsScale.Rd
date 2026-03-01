@@ -10,6 +10,7 @@ makeItemsScale(
   upperbound,
   items,
   alpha = 0.8,
+  summated = TRUE,
   variance = 0.5
 )
 }
@@ -31,6 +32,11 @@ new dataframe of items.
 Default = '0.8'.
 
 See \verb{@details} for further information on the \code{alpha} parameter}
+
+\item{summated}{(logical) If TRUE, the scale is treated as a summed
+score (e.g., 4–20 for four 5-point items).
+If FALSE, it is treated as an averaged score
+(e.g., 1–5 in 0.25 increments). Default = TRUE.}
 
 \item{variance}{(positive, real) the quantile from which to select
 items that give given summated scores.
@@ -145,14 +151,24 @@ meanScale <- lfast(
 summatedScale <- meanScale * k
 
 ## create new items
-newItems <- makeItemsScale(
+newItems1 <- makeItemsScale(
+  scale = meanScale,
+  lowerbound = lower, upperbound = upper,
+  items = k, summated = FALSE
+)
+
+### test new items
+# str(newItems1)
+# alpha(data = newItems) |> round(2)
+
+newItems2 <- makeItemsScale(
   scale = summatedScale,
   lowerbound = lower, upperbound = upper,
   items = k
 )
 
 ### test new items
-# str(newItems)
+# str(newItems2)
 # alpha(data = newItems) |> round(2)
 
 

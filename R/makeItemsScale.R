@@ -23,6 +23,11 @@
 #'
 #' See `@details` for further information on the `alpha` parameter
 #'
+#' @param summated (logical) If TRUE, the scale is treated as a summed
+#' score (e.g., 4–20 for four 5-point items).
+#' If FALSE, it is treated as an averaged score
+#'  (e.g., 1–5 in 0.25 increments). Default = TRUE.
+#'
 #' @param variance (positive, real) the quantile from which to select
 #' items that give given summated scores.
 #' Must lie between '0' and '1'.
@@ -134,14 +139,24 @@
 #' summatedScale <- meanScale * k
 #'
 #' ## create new items
-#' newItems <- makeItemsScale(
+#' newItems1 <- makeItemsScale(
+#'   scale = meanScale,
+#'   lowerbound = lower, upperbound = upper,
+#'   items = k, summated = FALSE
+#' )
+#'
+#' ### test new items
+#' # str(newItems1)
+#' # alpha(data = newItems) |> round(2)
+#'
+#' newItems2 <- makeItemsScale(
 #'   scale = summatedScale,
 #'   lowerbound = lower, upperbound = upper,
 #'   items = k
 #' )
 #'
 #' ### test new items
-#' # str(newItems)
+#' # str(newItems2)
 #' # alpha(data = newItems) |> round(2)
 #'
 #'
@@ -192,6 +207,7 @@ makeItemsScale <- function(
   upperbound,
   items,
   alpha = 0.80,
+  summated = TRUE,
   variance = 0.5
 ) {
   ###
@@ -332,6 +348,11 @@ makeItemsScale <- function(
     upperbound = upperbound,
     items = items
   )
+
+
+  if (!summated) {
+    scale <- scale * items
+  }
 
   scale <- as.data.frame(scale) # if scale is submitted as a vector
   mydat <- data.frame(NULL)

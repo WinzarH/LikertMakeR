@@ -49,6 +49,9 @@ This is particularly useful in teaching and simulation contexts where you may wi
 For most use cases, behaviour remains consistent with previous versions. 
 However, users who relied on the previous swap-based construction may observe smoother and more stable correlation structures under the new implementation.
 
+### `summated` parameter added to `makeItemsScale()` function
+
+Added to specify whether the given scale is a summated scale (e.g. 4-20 in integer increments for four 5-point items) or an averaged scale (e.g., 1-5 in 0.25 increments). 
 
 ## Maintenance
 
