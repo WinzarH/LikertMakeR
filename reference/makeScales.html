@@ -39,7 +39,7 @@ so they closely match the desired correlation matrix.
 
     <a class="navbar-brand me-2" href="../index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@ so they closely match the desired correlation matrix.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Synthesise rating-scale data with given first and second moments and a predefined correlation matrix</h1>
-      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/R/makeScales.R" class="external-link"><code>R/makeScales.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/R/makeScales.R" class="external-link"><code>R/makeScales.R</code></a></small>
       <div class="d-none name"><code>makeScales.Rd</code></div>
     </div>
 
@@ -176,10 +176,10 @@ between -1 and +1, and '1' in the diagonal.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	16 obs. of  4 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q1: num  3 3 4 4 2 4 2 1 1 2 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q2: num  4 4 3 3 3 4 2 1 2 2 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q3: num  3 5 2 3 1 5 3 2 1 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q4: num  4 4 4 4 2 5 3 3 3 3 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q1: num  1 3 3 2 2 4 2 2 1 2 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q2: num  3 2 2 5 3 4 1 4 2 3 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q3: num  3 1 1 3 3 5 1 1 1 4 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Q4: num  3 3 3 4 3 5 2 3 3 4 ...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#### means</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">df1</span>, <span class="fl">2</span>, <span class="va">mean</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
@@ -195,9 +195,9 @@ between -1 and +1, and '1' in the diagonal.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Q1    Q2    Q3    Q4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q1 1.000 0.313 0.386 0.619</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Q2 0.313 1.000 0.514 0.619</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Q3 0.386 0.514 1.000 0.728</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Q4 0.619 0.619 0.728 1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Q2 0.313 1.000 0.514 0.707</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Q3 0.386 0.514 1.000 0.788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Q4 0.619 0.707 0.788 1.000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -242,15 +242,15 @@ between -1 and +1, and '1' in the diagonal.</p></dd>
 <span class="r-in"><span>  items <span class="op">=</span> <span class="va">items</span>, cormatrix <span class="op">=</span> <span class="va">corMat</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Variable  1 :  JS  - </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 88 iterations</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 429 iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Variable  2 :  OC  - </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 1334 iterations</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 84 iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Variable  3 :  PSS  - </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 1443 iterations</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 669 iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Variable  4 :  WE  - </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 623 iterations</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 407 iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Variable  5 :  TI  - </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 703 iterations</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 8873 iterations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Arranging data to match correlations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -261,30 +261,30 @@ between -1 and +1, and '1' in the diagonal.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	128 obs. of  5 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ JS : num  3.25 4.25 3 2.25 3.5 3.5 4.5 4.75 4.5 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ OC : num  2.75 4.5 2.5 3 2.25 3.5 4 4.25 3.5 3.75 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ PSS: num  3.67 3.67 3.33 3 2.33 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ WE : num  3.67 3.33 3 3.33 2.33 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ TI : num  3 1 4 2.33 3 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ JS : num  3.5 4.5 4.5 3 3.25 3 4.5 3.5 4.75 4.25 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ OC : num  4 4.25 4.25 3.25 3.75 3 5 2.75 4.5 4.5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ PSS: num  2.33 3.67 4.33 4 3.67 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ WE : num  2.67 3.67 4 4 4.33 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ TI : num  3 1.33 2 2.67 1.33 ...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#### means</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">df2</span>, <span class="fl">2</span>, <span class="va">mean</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    JS    OC   PSS    WE    TI </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3.799 3.602 3.701 3.901 2.201 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3.801 3.602 3.701 3.901 2.201 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#### standard deviations</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">df2</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    JS    OC   PSS    WE    TI </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.699 0.800 0.701 0.599 0.898 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.701 0.800 0.701 0.601 0.898 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#### correlations</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         JS     OC    PSS     WE     TI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> JS   1.000  0.719  0.580  0.650 -0.550</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> OC   0.719  1.000  0.541  0.600 -0.601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PSS  0.580  0.541  1.000  0.570 -0.450</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WE   0.650  0.600  0.570  1.000 -0.501</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TI  -0.550 -0.601 -0.450 -0.501  1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> JS   1.000  0.719  0.580  0.651 -0.550</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> OC   0.719  1.000  0.540  0.600 -0.600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSS  0.580  0.540  1.000  0.569 -0.450</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> WE   0.651  0.600  0.569  1.000 -0.499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TI  -0.550 -0.600 -0.450 -0.499  1.000</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

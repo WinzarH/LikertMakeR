@@ -25,7 +25,7 @@ correlation matrix."><meta property="og:image" content="https://winzarh.github.i
 
     <a class="navbar-brand me-2" href="../index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@ correlation matrix."><meta property="og:image" content="https://winzarh.github.i
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Rearrange elements in each column of a data-frame to fit a predefined correlation matrix</h1>
-      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/R/lcor.R" class="external-link"><code>R/lcor.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/R/lcor.R" class="external-link"><code>R/lcor.R</code></a></small>
       <div class="d-none name"><code>lcor.Rd</code></div>
     </div>
 
@@ -107,15 +107,15 @@ statistics remain the same.</p>
 <span class="r-in"><span>  x2 <span class="op">=</span> <span class="fu"><a href="lfast.html">lfast</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">3.0</span>, <span class="fl">1.50</span>, <span class="va">lowerbound</span>, <span class="va">upperbound</span>, <span class="va">items</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  x3 <span class="op">=</span> <span class="fu"><a href="lfast.html">lfast</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">3.5</span>, <span class="fl">1.00</span>, <span class="va">lowerbound</span>, <span class="va">upperbound</span>, <span class="va">items</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 228 iterations</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 562 iterations</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 31 iterations</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> reached maximum of 1024 iterations</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> reached maximum of 1024 iterations</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">mydat3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       x1    x2    x3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x1 1.000 0.044 0.063</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x2 0.044 1.000 0.008</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x3 0.063 0.008 1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        x1     x2     x3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x1  1.000 -0.031 -0.241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x2 -0.031  1.000 -0.085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x3 -0.241 -0.085  1.000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">tgt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
@@ -132,9 +132,9 @@ statistics remain the same.</p>
 <span class="r-in"><span><span class="co">## test output</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">new3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       X1    X2    X3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.000 0.499 0.752</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.499 1.000 0.250</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.752 0.250 1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.000 0.498 0.750</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.498 1.000 0.251</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.750 0.251 1.000</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

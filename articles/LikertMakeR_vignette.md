@@ -29,7 +29,7 @@ and their impact on scale properties.
 
 Hopefully, this tool will help researchers, teachers & students, and
 other reviewers, to better think about rating-scale distributions, and
-the effects of variance, scale boundaries, and number of items in a
+the effects of covariation, scale boundaries, and number of items in a
 scale. Researchers can also use *LikertMakeR* to create dummy data to
 prepare analyses ahead of a formal survey.
 
@@ -348,16 +348,16 @@ original; the values are rearranged.
 The first ten observations from this dataframe are:
 
     #>     X1  X2  X3
-    #> 1  3.2 2.6 4.6
-    #> 2  2.8 3.8 2.6
-    #> 3  2.4 2.2 2.0
-    #> 4  3.4 5.0 5.0
-    #> 5  2.2 1.0 3.4
-    #> 6  2.6 2.8 4.0
-    #> 7  2.2 1.6 3.0
-    #> 8  3.0 4.2 4.4
-    #> 9  1.4 1.0 2.8
-    #> 10 1.4 1.0 1.6
+    #> 1  3.8 5.0 5.0
+    #> 2  3.0 4.8 3.0
+    #> 3  1.8 1.8 1.6
+    #> 4  3.4 4.8 4.4
+    #> 5  1.4 1.2 1.6
+    #> 6  2.4 2.4 4.0
+    #> 7  2.2 1.0 3.4
+    #> 8  3.0 4.6 4.8
+    #> 9  3.6 4.8 4.6
+    #> 10 1.8 1.0 1.6
 
 And the new dataframe is correlated close to our desired correlation
 matrix; here presented to 3 decimal places:
@@ -385,19 +385,34 @@ following parameters:
 - ***alpha***: the target value for Cronbach’s Alpha
 
 - ***variance***: a notional variance coefficient to affect the spread
-  of values in the correlation matrix. Default = ‘0.5’. A value of ‘0’
+  of values in the correlation matrix. Default = ‘0.1’. A value of ‘0’
   produces a matrix where all off-diagonal correlations are equal.
-  Setting ‘variance = 0.6’ or more may be infeasible, so the function
+  Setting ‘variance = 0.25’ or more may be infeasible, so the function
   should gracefully adjust the `variance` parameter downwards to achieve
   PD status.
 
-- ***precision***: a value between ‘0’ and ‘3’ to add some random
-  variation around the target *Cronbach’s Alpha*. Default = ‘0’. A value
-  of ‘0’ produces the desired *Alpha*, generally exact to two decimal
-  places. Higher values produce increasingly random values around the
-  desired *Alpha*.
+- ***alpha_noise***: Controls random variation in the target Cronbach’s
+  alpha before the correlation matrix is constructed.
 
-- ***sort_cors***: Logical. Deprecated. No longer has any effect.
+When `alpha_noise = 0` (default), the requested alpha is reproduced
+deterministically (subject to numerical tolerance).
+
+When `alpha_noise > 0`, a small amount of random variation is added to
+the requested alpha prior to constructing the matrix. This can be useful
+in teaching or simulation settings where slightly different reliability
+values are desired across repeated runs.
+
+Internally, noise is added on the Fisher *z*-transformed scale to ensure
+the resulting alpha remains within valid bounds (0, 1).
+
+Typical guidance:
+
+- 0.00 — deterministic alpha (default)
+- 0.02 — very small variation
+- 0.05 — moderate variation
+- 0.10 — substantial variation (caution)
+
+Larger values increase the spread of achieved alpha across runs.
 
 - ***diagnostics***: Logical. If `TRUE`, returns a list containing the
   correlation matrix and a diagnostics list (target/achieved alpha,
@@ -412,7 +427,6 @@ following parameters:
 ## define parameters
 items <- 4
 alpha <- 0.85
-# variance <- 0.5 ## by default
 
 ## apply makeCorrAlpha() function
 set.seed(42)
@@ -628,10 +642,10 @@ orthogonalItemCors <- makeCorrLoadings(factorLoadings)
 ## derived correlation matrix to two decimal places
 round(orthogonalItemCors, 2)
 #>      Q1   Q2   Q3   Q4   Q5   Q6   Q7   Q8
-#> Q1 1.00 0.58 0.63 0.28 0.24 0.22 0.11 0.13
+#> Q1 1.00 0.58 0.63 0.29 0.24 0.22 0.11 0.13
 #> Q2 0.58 1.00 0.69 0.18 0.13 0.10 0.14 0.17
 #> Q3 0.63 0.69 1.00 0.26 0.22 0.18 0.11 0.14
-#> Q4 0.28 0.18 0.26 1.00 0.75 0.79 0.32 0.26
+#> Q4 0.29 0.18 0.26 1.00 0.75 0.79 0.32 0.26
 #> Q5 0.24 0.13 0.22 0.75 1.00 0.78 0.18 0.14
 #> Q6 0.22 0.10 0.18 0.79 0.78 1.00 0.23 0.18
 #> Q7 0.11 0.14 0.11 0.32 0.18 0.23 1.00 0.74
@@ -752,10 +766,10 @@ df <- makeScales(
 ## test the function
 str(df)
 #> 'data.frame':    128 obs. of  4 variables:
-#>  $ var1: num  1 3 3 4 2 2 2 2 3 4 ...
-#>  $ var2: num  2 3 4 4 1 4 4 3 3 4 ...
-#>  $ var3: num  1 3 5 4 1 4 5 3 4 4 ...
-#>  $ var4: num  3 4 5 4 2 4 4 3 4 4 ...
+#>  $ var1: num  3 2 2 2 2 4 1 3 3 2 ...
+#>  $ var2: num  1 4 3 5 1 4 2 2 3 2 ...
+#>  $ var3: num  1 5 3 5 1 4 1 1 5 4 ...
+#>  $ var4: num  3 5 3 4 3 4 2 3 4 3 ...
 ```
 
 ###### Means should be correct to two decimal places
@@ -846,20 +860,20 @@ df <- makeScales(
 ## test the function
 head(df)
 #>     BT       BS   BL      BLY
-#> 1 4.00 4.000000 3.75 4.000000
-#> 2 4.00 4.333333 4.00 4.666667
-#> 3 4.00 4.000000 3.25 4.333333
-#> 4 4.25 4.333333 4.25 4.666667
-#> 5 2.50 3.666667 1.75 2.333333
-#> 6 3.75 3.333333 3.50 3.666667
+#> 1 3.75 4.333333 4.50 4.666667
+#> 2 2.25 3.333333 2.50 3.000000
+#> 3 4.00 4.000000 3.00 4.333333
+#> 4 3.75 4.333333 4.25 4.333333
+#> 5 3.00 3.666667 1.75 3.333333
+#> 6 3.75 4.000000 4.25 4.000000
 tail(df)
 #>       BT       BS   BL      BLY
-#> 251 4.50 4.666667 3.25 4.666667
-#> 252 3.75 3.000000 1.50 3.333333
-#> 253 2.50 3.333333 2.25 3.333333
-#> 254 4.25 4.333333 4.00 4.333333
-#> 255 4.75 4.666667 4.50 5.000000
-#> 256 3.50 3.666667 4.25 3.333333
+#> 251 4.25 4.000000 2.25 4.666667
+#> 252 3.50 3.000000 1.50 3.333333
+#> 253 3.00 3.333333 3.25 3.333333
+#> 254 4.50 4.000000 4.50 3.666667
+#> 255 3.25 4.000000 1.75 3.000000
+#> 256 4.25 3.666667 3.50 3.333333
 
 ### means should be correct to two decimal places
 dfmoments <- data.frame(
@@ -975,20 +989,20 @@ myItems <- makeScales(
 ## resulting dataframe
 head(myItems)
 #>   item01 item02 item03 item04 item05 item06
-#> 1      4      3      4      5      3      5
-#> 2      4      4      4      4      4      5
-#> 3      1      3      1      2      3      3
-#> 4      4      3      5      5      5      5
-#> 5      3      3      3      4      5      5
-#> 6      2      3      2      3      2      1
+#> 1      4      3      3      5      5      4
+#> 2      2      3      2      4      4      3
+#> 3      2      3      1      2      3      1
+#> 4      4      4      5      5      5      3
+#> 5      3      3      4      4      5      4
+#> 6      2      3      2      3      2      2
 tail(myItems)
 #>     item01 item02 item03 item04 item05 item06
-#> 251      3      2      3      4      4      5
-#> 252      1      3      3      2      3      4
-#> 253      2      2      3      2      3      2
-#> 254      2      2      1      2      3      4
-#> 255      4      4      3      4      4      5
-#> 256      3      3      4      2      3      1
+#> 251      4      4      4      4      5      5
+#> 252      2      2      3      4      4      2
+#> 253      2      4      3      3      3      4
+#> 254      2      2      4      2      3      3
+#> 255      3      4      4      4      4      4
+#> 256      4      3      3      5      4      5
 
 ## means and standard deviations
 myMoments <- data.frame(
@@ -1038,9 +1052,9 @@ parameters:
 
 - ***alpha***: desired Cronbach’s Alpha. Default = ‘0.8’
 
-- ***variance***: quantile for selecting the combination of items that
-  give summated scores. Must lie between ‘0’ (minimum variance) and ‘1’
-  (maximum variance). Default = ‘0.5’.
+- ***summated***: (logical) If TRUE, the scale is treated as a summed
+  score (e.g., 4–20 for four 5-point items). If FALSE, it is treated as
+  an averaged score (e.g., 1–5 in 0.25 increments). Default = TRUE.
 
 ##### *makeItemsScale()* Example:
 
@@ -1083,36 +1097,35 @@ newItems_1 <- makeItemsScale(
   upperbound = upperbound,
   items = items
 )
-#> generate 256 rows
 #> rearrange 4 values within each of 256 rows
 #> Complete!
-#> desired Cronbach's alpha = 0.8 (achieved alpha = 0.7997)
+#> desired Cronbach's alpha = 0.8 (achieved alpha = 0.8011)
 
 ### First 10 observations and summated scale
 head(cbind(newItems_1, summatedScale), 10)
 #>    V1 V2 V3 V4 summatedScale
-#> 1   5  2  2  3            12
-#> 2   5  2  2  3            12
-#> 3   2  1  2  2             7
-#> 4   5  3  3  3            14
-#> 5   4  1  2  3            10
-#> 6   5  3  5  3            16
-#> 7   4  1  3  4            12
+#> 1   4  2  4  2            12
+#> 2   4  4  2  2            12
+#> 3   3  1  1  2             7
+#> 4   5  4  2  3            14
+#> 5   4  2  3  1            10
+#> 6   5  5  3  3            16
+#> 7   4  2  2  4            12
 #> 8   5  3  4  2            14
-#> 9   4  1  3  3            11
-#> 10  4  2  3  1            10
+#> 9   4  3  3  1            11
+#> 10  4  1  3  2            10
 
 ### correlation matrix
 cor(newItems_1) |> round(2)
 #>      V1   V2   V3   V4
-#> V1 1.00 0.53 0.53 0.58
-#> V2 0.53 1.00 0.51 0.42
-#> V3 0.53 0.51 1.00 0.42
-#> V4 0.58 0.42 0.42 1.00
+#> V1 1.00 0.60 0.66 0.65
+#> V2 0.60 1.00 0.37 0.33
+#> V3 0.66 0.37 1.00 0.41
+#> V4 0.65 0.33 0.41 1.00
 
 ### default Cronbach's alpha = 0.80
 alpha(data = newItems_1) |> round(4)
-#> [1] 0.7997
+#> [1] 0.8011
 
 ### calculate eigenvalues and print scree plot
 eigenvalues(cor(newItems_1), 1) |> round(3)
@@ -1121,7 +1134,7 @@ eigenvalues(cor(newItems_1), 1) |> round(3)
 ![](LikertMakeR_vignette_files/figure-html/makeItemsScale_example_1-1.png)
 
     #> cor(newItems_1)  is positive-definite
-    #> [1] 2.502 0.627 0.486 0.385
+    #> [1] 2.531 0.679 0.587 0.203
 
 ##### *makeItemsScale()* with same summated values and higher *alpha*
 
@@ -1134,36 +1147,35 @@ newItems_2 <- makeItemsScale(
   items = items,
   alpha = 0.9
 )
-#> generate 256 rows
 #> rearrange 4 values within each of 256 rows
 #> Complete!
-#> desired Cronbach's alpha = 0.9 (achieved alpha = 0.8741)
+#> desired Cronbach's alpha = 0.9 (achieved alpha = 0.8989)
 
 ### First 10 observations and summated scale
 head(cbind(newItems_2, summatedScale), 10)
 #>    V1 V2 V3 V4 summatedScale
-#> 1   1  4  4  3            12
-#> 2   2  5  3  2            12
-#> 3   1  3  2  1             7
-#> 4   2  4  4  4            14
-#> 5   2  4  2  2            10
-#> 6   4  4  4  4            16
-#> 7   2  5  3  2            12
-#> 8   2  5  4  3            14
-#> 9   2  5  2  2            11
-#> 10  2  4  2  2            10
+#> 1   4  3  3  2            12
+#> 2   4  3  2  3            12
+#> 3   2  1  2  2             7
+#> 4   4  3  4  3            14
+#> 5   3  2  2  3            10
+#> 6   5  4  4  3            16
+#> 7   4  3  3  2            12
+#> 8   4  3  4  3            14
+#> 9   3  3  2  3            11
+#> 10  3  2  2  3            10
 
 ### correlation matrix
 cor(newItems_2) |> round(2)
 #>      V1   V2   V3   V4
-#> V1 1.00 0.59 0.57 0.66
-#> V2 0.59 1.00 0.67 0.62
-#> V3 0.57 0.67 1.00 0.71
-#> V4 0.66 0.62 0.71 1.00
+#> V1 1.00 0.82 0.70 0.64
+#> V2 0.82 1.00 0.68 0.66
+#> V3 0.70 0.68 1.00 0.64
+#> V4 0.64 0.66 0.64 1.00
 
 ### requested Cronbach's alpha = 0.90
 alpha(data = newItems_2) |> round(4)
-#> [1] 0.8741
+#> [1] 0.8989
 
 ### calculate eigenvalues and print scree plot
 eigenvalues(cor(newItems_2), 1) |> round(3)
@@ -1172,59 +1184,7 @@ eigenvalues(cor(newItems_2), 1) |> round(3)
 ![](LikertMakeR_vignette_files/figure-html/makeItemsScale_example_2-1.png)
 
     #> cor(newItems_2)  is positive-definite
-    #> [1] 2.905 0.459 0.377 0.259
-
-##### same summated values with lower *alpha* may require higher *variance*
-
-``` r
-## apply makeItemsScale() function
-newItems_3 <- makeItemsScale(
-  scale = summatedScale,
-  lowerbound = lowerbound,
-  upperbound = upperbound,
-  items = items,
-  alpha = 0.6,
-  variance = 0.7
-)
-#> generate 256 rows
-#> rearrange 4 values within each of 256 rows
-#> Complete!
-#> desired Cronbach's alpha = 0.6 (achieved alpha = 0.6007)
-
-### First 10 observations and summated scale
-head(cbind(newItems_3, summatedScale), 10)
-#>    V1 V2 V3 V4 summatedScale
-#> 1   5  1  1  5            12
-#> 2   4  1  3  4            12
-#> 3   3  2  1  1             7
-#> 4   5  4  1  4            14
-#> 5   4  2  3  1            10
-#> 6   5  3  3  5            16
-#> 7   5  1  1  5            12
-#> 8   5  2  5  2            14
-#> 9   4  1  3  3            11
-#> 10  4  1  3  2            10
-
-### correlation matrix
-cor(newItems_3) |> round(2)
-#>      V1   V2   V3   V4
-#> V1 1.00 0.49 0.38 0.24
-#> V2 0.49 1.00 0.21 0.17
-#> V3 0.38 0.21 1.00 0.15
-#> V4 0.24 0.17 0.15 1.00
-
-### requested Cronbach's alpha = 0.70
-alpha(data = newItems_3) |> round(4)
-#> [1] 0.6007
-
-### calculate eigenvalues and print scree plot
-eigenvalues(cor(newItems_3), 1) |> round(3)
-```
-
-![](LikertMakeR_vignette_files/figure-html/makeItemsScale_example_3-1.png)
-
-    #> cor(newItems_3)  is positive-definite
-    #> [1] 1.858 0.879 0.796 0.468
+    #> [1] 3.072 0.408 0.343 0.177
 
 ------------------------------------------------------------------------
 
@@ -1250,12 +1210,12 @@ x1 <- lfast(
   n = 20, mean = 2.5, sd = 0.75,
   lowerbound = lower, upperbound = upper, items = items
 )
-#> best solution in 229 iterations
+#> best solution in 864 iterations
 x2 <- lfast(
   n = 30, mean = 3.0, sd = 0.85,
   lowerbound = lower, upperbound = upper, items = items
 )
-#> best solution in 455 iterations
+#> reached maximum of 1024 iterations
 
 ## run independent-samples t-test
 t.test(x1, x2)
@@ -1263,10 +1223,10 @@ t.test(x1, x2)
 #>  Welch Two Sample t-test
 #> 
 #> data:  x1 and x2
-#> t = -2.1852, df = 44.213, p-value = 0.03422
+#> t = -2.1812, df = 44.309, p-value = 0.03452
 #> alternative hypothesis: true difference in means is not equal to 0
 #> 95 percent confidence interval:
-#>  -0.96107472 -0.03892528
+#>  -0.96188958 -0.03811042
 #> sample estimates:
 #> mean of x mean of y 
 #>       2.5       3.0
@@ -1326,7 +1286,7 @@ pairedDat <- makePaired(
 )
 #> Initial data vectors
 #> reached maximum of 1024 iterations
-#> best solution in 515 iterations
+#> best solution in 482 iterations
 #> Arranging values to conform with desired t-value
 #> Complete!
 ```
@@ -1337,8 +1297,8 @@ pairedDat <- makePaired(
 ## test function output
 str(pairedDat)
 #> 'data.frame':    20 obs. of  2 variables:
-#>  $ X1: num  2.33 3.33 3.33 3.33 2 ...
-#>  $ X2: num  2.33 2.5 3.5 3.5 2.83 ...
+#>  $ X1: num  1.83 3.17 1.67 2.17 1.83 ...
+#>  $ X2: num  1.33 3.83 3.17 3.5 3.33 ...
 
 cor(pairedDat) |> round(2)
 #>      X1   X2
@@ -1353,7 +1313,7 @@ pairedMoments <- data.frame(
 pairedMoments
 #>         X1    X2
 #> mean 2.500 3.000
-#> sd   0.753 0.852
+#> sd   0.759 0.852
 ```
 
 ###### run a paired-sample t-test with the new data
@@ -1371,10 +1331,10 @@ paired_t
 #>  Paired t-test
 #> 
 #> data:  pairedDat$X1 and pairedDat$X2
-#> t = -2.4936, df = 19, p-value = 0.02203
+#> t = -2.4846, df = 19, p-value = 0.02246
 #> alternative hypothesis: true mean difference is not equal to 0
 #> 95 percent confidence interval:
-#>  -0.91967444 -0.08032556
+#>  -0.92119776 -0.07880224
 #> sample estimates:
 #> mean difference 
 #>            -0.5
@@ -1480,18 +1440,18 @@ out1 <- makeRepeated(
 )
 #> Warning in makeRepeated(n = 128, k = 3, means = c(3.1, 3.5, 3.9), sds = c(1, :
 #> Optimization may not have converged. Check results carefully.
-#> best solution in 1229 iterations
-#> best solution in 3698 iterations
-#> best solution in 1878 iterations
+#> best solution in 997 iterations
+#> best solution in 50 iterations
+#> best solution in 238 iterations
 
 head(out1$data)
 #>   time_1 time_2 time_3
-#> 1   2.50   4.00   4.00
-#> 2   3.50   2.00   5.00
-#> 3   3.75   4.75   2.25
-#> 4   2.50   3.50   4.50
-#> 5   3.25   2.50   4.75
-#> 6   3.75   3.25   3.75
+#> 1   1.75   4.25   4.50
+#> 2   2.75   4.00   3.50
+#> 3   3.25   2.25   5.00
+#> 4   2.00   4.00   4.50
+#> 5   2.75   4.50   3.00
+#> 6   4.00   2.25   4.25
 out1$correlation_matrix
 #>            time_1     time_2     time_3
 #> time_1  1.0000000 -0.4899454 -0.4899454
@@ -1510,46 +1470,46 @@ out2 <- makeRepeated(
   return_corr_only = FALSE,
   diagnostics = TRUE
 )
+#> best solution in 186 iterations
+#> best solution in 816 iterations
 #> reached maximum of 1024 iterations
-#> best solution in 128 iterations
 #> reached maximum of 1024 iterations
-#> best solution in 762 iterations
 
 print(out2)
 #> $data
 #>    time_1 time_2 time_3 time_4
-#> 1     4.0    3.8    1.4    3.4
-#> 2     2.0    3.2    4.4    5.6
-#> 3     3.6    4.2    4.4    6.2
-#> 4     3.6    3.8    5.6    4.0
-#> 5     2.6    3.2    4.0    4.6
-#> 6     3.0    4.6    3.2    4.8
-#> 7     2.8    4.2    4.0    5.4
-#> 8     2.8    2.2    4.6    4.0
-#> 9     2.4    3.4    5.4    5.4
-#> 10    3.4    4.6    5.2    4.4
-#> 11    2.2    2.4    4.4    4.2
-#> 12    2.2    3.4    4.2    3.6
-#> 13    4.6    4.0    2.8    3.6
-#> 14    1.8    4.0    5.0    3.2
-#> 15    3.6    4.0    5.6    5.8
-#> 16    2.2    2.0    2.4    4.2
-#> 17    1.8    2.2    2.2    4.2
-#> 18    2.0    2.2    2.8    6.2
-#> 19    2.4    4.8    5.2    4.6
-#> 20    2.0    4.4    4.6    5.2
-#> 21    4.2    4.8    5.8    5.6
-#> 22    2.8    2.4    3.0    3.8
-#> 23    2.2    1.8    4.0    2.4
-#> 24    1.8    2.4    3.6    3.6
-#> 25    2.0    5.2    2.6    3.0
-#> 26    3.4    4.0    4.2    3.8
-#> 27    1.8    3.0    4.6    6.0
-#> 28    3.6    5.4    6.0    4.2
-#> 29    3.4    3.0    4.6    5.0
-#> 30    1.8    3.8    3.4    4.0
-#> 31    2.6    3.0    1.8    3.2
-#> 32    3.4    2.6    3.0    3.6
+#> 1     2.6    4.2    5.4    4.0
+#> 2     3.0    2.8    4.8    4.6
+#> 3     1.6    3.0    4.0    4.0
+#> 4     3.6    5.2    3.6    4.8
+#> 5     2.6    3.4    5.8    6.4
+#> 6     2.8    4.8    5.8    5.0
+#> 7     1.6    3.4    3.8    3.8
+#> 8     2.6    1.8    5.2    4.4
+#> 9     2.6    5.2    5.8    5.6
+#> 10    2.4    3.4    3.2    3.0
+#> 11    2.6    4.2    3.6    4.6
+#> 12    2.2    1.6    1.6    4.6
+#> 13    3.4    4.2    5.0    5.0
+#> 14    2.2    4.2    5.0    5.8
+#> 15    3.2    1.8    3.0    6.4
+#> 16    3.6    5.2    5.0    4.8
+#> 17    3.0    3.4    2.0    4.0
+#> 18    1.4    3.4    3.0    5.0
+#> 19    2.6    3.4    3.2    3.4
+#> 20    3.0    4.8    3.0    3.8
+#> 21    2.6    3.0    3.2    4.6
+#> 22    3.8    3.4    4.0    4.6
+#> 23    3.6    4.4    3.8    5.6
+#> 24    3.0    2.6    3.4    2.2
+#> 25    2.2    2.2    2.6    3.2
+#> 26    1.8    2.4    4.2    5.6
+#> 27    1.8    2.6    4.4    4.2
+#> 28    5.6    4.4    4.8    4.2
+#> 29    2.6    3.4    3.2    3.0
+#> 30    2.6    3.6    3.0    3.0
+#> 31    3.0    3.0    3.0    3.4
+#> 32    2.8    3.6    6.6    4.2
 #> 
 #> $correlation_matrix
 #>            time_1    time_2    time_3     time_4
@@ -1597,18 +1557,18 @@ out3 <- makeRepeated(
 )
 #> Warning in makeRepeated(n = 32, k = 4, means = c(2, 2.5, 3, 2.8), sds = c(0.8,
 #> : Optimization may not have converged. Check results carefully.
+#> best solution in 88 iterations
 #> reached maximum of 1024 iterations
 #> reached maximum of 1024 iterations
-#> best solution in 117 iterations
 #> reached maximum of 1024 iterations
 
 str(out3)
 #> List of 8
 #>  $ data                    :'data.frame':    32 obs. of  4 variables:
-#>   ..$ time_1: num [1:32] 2 1.75 1.75 3.25 1.75 2.5 1.75 2.5 1.75 2.25 ...
-#>   ..$ time_2: num [1:32] 2.75 4 3 3 2.5 3.5 2.25 1.75 1.5 2.5 ...
-#>   ..$ time_3: num [1:32] 3.5 4.25 3 2.25 3.5 3.25 2.25 1.5 1.5 3.75 ...
-#>   ..$ time_4: num [1:32] 4 3.5 2 1.5 3.25 2 1.75 1.75 1.5 2.5 ...
+#>   ..$ time_1: num [1:32] 1.25 2.5 1 3.5 2 2.25 2.75 2.25 1.75 1.25 ...
+#>   ..$ time_2: num [1:32] 2.75 2.5 1.25 4 2.75 2.5 3.75 3 2 3 ...
+#>   ..$ time_3: num [1:32] 4 1.5 2 3.5 3.5 2.5 4.25 2.5 2.75 2.75 ...
+#>   ..$ time_4: num [1:32] 4.25 1.25 2.5 3.5 3.25 2 2.5 3.25 2.25 2 ...
 #>  $ correlation_matrix      : num [1:4, 1:4] 1 0.66 0.33 0 0.66 ...
 #>   ..- attr(*, "dimnames")=List of 2
 #>   .. ..$ : chr [1:4] "time_1" "time_2" "time_3" "time_4"
@@ -1803,9 +1763,9 @@ Att_1 <- makeScales(
 #> Variable  1 :  item01  -
 #> reached maximum of 16384 iterations
 #> Variable  2 :  item02  -
-#> best solution in 24 iterations
+#> best solution in 219 iterations
 #> Variable  3 :  item03  -
-#> best solution in 155 iterations
+#> best solution in 216 iterations
 #> Variable  4 :  item04  -
 #> reached maximum of 16384 iterations
 #> 
@@ -1832,11 +1792,11 @@ Att_2 <- makeScales(
 #> Variable  1 :  item01  -
 #> reached maximum of 16384 iterations
 #> Variable  2 :  item02  -
-#> best solution in 255 iterations
+#> best solution in 695 iterations
 #> Variable  3 :  item03  -
 #> reached maximum of 16384 iterations
 #> Variable  4 :  item04  -
-#> best solution in 322 iterations
+#> best solution in 587 iterations
 #> Variable  5 :  item05  -
 #> reached maximum of 16384 iterations
 #> 
@@ -1863,15 +1823,15 @@ Att_3 <- makeScales(
 #> Variable  1 :  item01  -
 #> reached maximum of 16384 iterations
 #> Variable  2 :  item02  -
-#> best solution in 164 iterations
+#> best solution in 239 iterations
 #> Variable  3 :  item03  -
-#> best solution in 124 iterations
+#> best solution in 590 iterations
 #> Variable  4 :  item04  -
 #> reached maximum of 16384 iterations
 #> Variable  5 :  item05  -
 #> reached maximum of 16384 iterations
 #> Variable  6 :  item06  -
-#> best solution in 427 iterations
+#> best solution in 413 iterations
 #> 
 #> Arranging data to match correlations
 #> 
@@ -1880,7 +1840,7 @@ Att_3 <- makeScales(
 ### behavioural intention
 intent <- lfast(n, mean = 4.0, sd = 3, lowerbound = 0, upperbound = 10) |>
   data.frame()
-#> best solution in 6742 iterations
+#> best solution in 5025 iterations
 names(intent) <- "int"
 ```
 
@@ -1902,10 +1862,10 @@ A1_moments
 ### Attitude #1 correlations
 cor(Att_1) |> round(2)
 #>        item01 item02 item03 item04
-#> item01   1.00   0.58   0.41   0.50
-#> item02   0.58   1.00   0.49   0.60
-#> item03   0.41   0.49   1.00   0.43
-#> item04   0.50   0.60   0.43   1.00
+#> item01   1.00   0.49   0.42   0.60
+#> item02   0.49   1.00   0.41   0.58
+#> item03   0.42   0.41   1.00   0.50
+#> item04   0.60   0.58   0.50   1.00
 
 ### Attitude #1 cronbach's alpha
 alpha(cor(Att_1)) |> round(3)
@@ -1926,11 +1886,11 @@ A2_moments
 ### Attitude #2 correlations
 cor(Att_2) |> round(2)
 #>        item01 item02 item03 item04 item05
-#> item01   1.00   0.43   0.57   0.53   0.64
-#> item02   0.43   1.00   0.44   0.41   0.49
-#> item03   0.57   0.44   1.00   0.54   0.65
-#> item04   0.53   0.41   0.54   1.00   0.60
-#> item05   0.64   0.49   0.65   0.60   1.00
+#> item01   1.00   0.59   0.69   0.54   0.50
+#> item02   0.59   1.00   0.60   0.48   0.44
+#> item03   0.69   0.60   1.00   0.55   0.51
+#> item04   0.54   0.48   0.55   1.00   0.41
+#> item05   0.50   0.44   0.51   0.41   1.00
 
 ### Attitude #2 cronbach's alpha
 alpha(cor(Att_2)) |> round(3)
@@ -1951,12 +1911,12 @@ A3_moments
 ### Attitude #3 correlations
 cor(Att_3) |> round(2)
 #>        item01 item02 item03 item04 item05 item06
-#> item01   1.00   0.44   0.49   0.49   0.47   0.48
-#> item02   0.44   1.00   0.65   0.64   0.61   0.62
-#> item03   0.49   0.65   1.00   0.72   0.69   0.70
-#> item04   0.49   0.64   0.72   1.00   0.68   0.68
-#> item05   0.47   0.61   0.69   0.68   1.00   0.65
-#> item06   0.48   0.62   0.70   0.68   0.65   1.00
+#> item01   1.00   0.69   0.64   0.57   0.56   0.47
+#> item02   0.69   1.00   0.78   0.70   0.69   0.58
+#> item03   0.64   0.78   1.00   0.65   0.63   0.53
+#> item04   0.57   0.70   0.65   1.00   0.56   0.48
+#> item05   0.56   0.69   0.63   0.56   1.00   0.47
+#> item06   0.47   0.58   0.53   0.48   0.47   1.00
 
 ### Attitude #2 cronbach's alpha
 alpha(cor(Att_3)) |> round(3)
@@ -2017,22 +1977,22 @@ my_correlated_scales <- correlateScales(
 ## data structure
 str(my_correlated_scales)
 #> 'data.frame':    128 obs. of  16 variables:
-#>  $ A1_1 : num  3 3 2 3 2 3 2 1 2 4 ...
-#>  $ A1_2 : num  2 2 1 4 3 4 1 2 1 3 ...
-#>  $ A1_3 : num  4 3 2 4 2 4 2 3 2 4 ...
-#>  $ A1_4 : num  4 3 2 4 4 4 2 4 3 4 ...
-#>  $ A2_1 : num  3 2 1 2 3 4 2 2 2 4 ...
-#>  $ A2_2 : num  5 1 2 3 2 3 2 3 1 3 ...
-#>  $ A2_3 : num  2 3 2 3 3 4 2 3 2 4 ...
-#>  $ A2_4 : num  3 3 2 3 3 4 3 2 2 3 ...
-#>  $ A2_5 : num  3 3 3 4 4 5 3 3 2 4 ...
-#>  $ A3_1 : num  2 2 1 3 3 3 2 2 3 2 ...
-#>  $ A3_2 : num  4 3 1 4 3 3 2 1 2 2 ...
-#>  $ A3_3 : num  3 4 2 4 4 3 2 2 4 2 ...
-#>  $ A3_4 : num  4 3 2 3 5 4 2 2 3 3 ...
-#>  $ A3_5 : num  4 4 3 4 4 3 3 2 4 4 ...
-#>  $ A3_6 : num  4 3 2 4 5 4 3 3 3 3 ...
-#>  $ Int_1: num  1 9 0 7 3 3 1 0 1 9 ...
+#>  $ A1_1 : num  2 3 2 2 3 3 4 4 3 3 ...
+#>  $ A1_2 : num  2 2 2 2 3 3 4 3 3 4 ...
+#>  $ A1_3 : num  2 4 4 3 3 2 4 3 3 4 ...
+#>  $ A1_4 : num  3 5 3 3 4 4 4 4 4 4 ...
+#>  $ A2_1 : num  1 4 1 2 2 3 2 3 2 2 ...
+#>  $ A2_2 : num  1 3 2 2 3 4 4 3 3 3 ...
+#>  $ A2_3 : num  2 4 2 3 2 3 4 4 3 4 ...
+#>  $ A2_4 : num  2 4 3 3 3 4 4 4 3 4 ...
+#>  $ A2_5 : num  2 4 3 3 4 4 4 5 4 4 ...
+#>  $ A3_1 : num  2 3 3 2 3 2 4 2 4 3 ...
+#>  $ A3_2 : num  2 3 3 2 3 2 4 2 4 4 ...
+#>  $ A3_3 : num  3 3 4 3 4 2 4 2 4 4 ...
+#>  $ A3_4 : num  2 3 3 4 4 3 4 3 4 4 ...
+#>  $ A3_5 : num  3 4 4 3 4 3 5 3 4 4 ...
+#>  $ A3_6 : num  3 3 4 3 4 4 4 4 4 4 ...
+#>  $ Int_1: num  1 6 2 5 6 2 5 4 6 9 ...
 ```
 
 ``` r
@@ -2044,8 +2004,8 @@ eigenvalues(cormatrix = Cor_Correlated_Scales, scree = TRUE) |> round(2)
 ![](LikertMakeR_vignette_files/figure-html/fig7-1.png)
 
     #> Cor_Correlated_Scales  is positive-definite
-    #>  [1] 6.97 2.27 1.11 0.78 0.67 0.58 0.52 0.50 0.47 0.42 0.41 0.32 0.30 0.24 0.24
-    #> [16] 0.20
+    #>  [1] 6.97 2.26 1.13 0.73 0.67 0.61 0.57 0.47 0.43 0.41 0.39 0.34 0.33 0.27 0.25
+    #> [16] 0.18
 
 ``` r
 #### Eigenvalues of predictor variable items only
@@ -2056,7 +2016,7 @@ eigenvalues(cormatrix = Cor_Attitude_items, scree = TRUE) |> round(2)
 ![](LikertMakeR_vignette_files/figure-html/fig7a-1.png)
 
     #> Cor_Attitude_items  is positive-definite
-    #>  [1] 6.81 2.23 0.84 0.71 0.67 0.56 0.52 0.47 0.42 0.42 0.33 0.30 0.26 0.24 0.22
+    #>  [1] 6.81 2.23 0.83 0.67 0.66 0.61 0.57 0.44 0.41 0.39 0.34 0.33 0.27 0.25 0.18
 
 ------------------------------------------------------------------------
 
@@ -2204,8 +2164,8 @@ reliability(
 #>                alpha    0.799       4    64
 #>          omega_total    0.870       4    64
 #>              lambda6    0.756       4    64
-#>        ordinal_alpha    0.762       4    64
-#>  ordinal_omega_total    0.849       4    64
+#>        ordinal_alpha    0.749       4    64
+#>  ordinal_omega_total    0.842       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
@@ -2222,10 +2182,10 @@ reliability(
   n_boot = 64
 )
 #>            coef_name estimate ci_lower ci_upper n_items n_obs
-#>                alpha    0.799    0.717    0.866       4    64
-#>          omega_total    0.870    0.825    0.909       4    64
-#>        ordinal_alpha    0.762    0.649    0.822       4    64
-#>  ordinal_omega_total    0.849    0.792    0.883       4    64
+#>                alpha    0.799    0.732    0.856       4    64
+#>          omega_total    0.870    0.834    0.903       4    64
+#>        ordinal_alpha    0.749    0.654    0.793       4    64
+#>  ordinal_omega_total    0.842    0.795    0.867       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
@@ -2318,10 +2278,11 @@ probability distribution to multivariate and correlated dataframes.
 
 The [latentFactoR](https://CRAN.R-project.org/package=latentFactoR)
 package is ideal for generating multi-factor items.  
-`latentFactoR::simulate_factors()` generates data based on latent factor
-models, which in turn can be adjusted to continuous, polytomous,
-dichotomous, or mixed. Skews, cross-loadings, wording effects,
-population errors, and local dependencies can be added.  
+[`latentFactoR::simulate_factors()`](https://rdrr.io/pkg/latentFactoR/man/simulate_factors.html)
+generates data based on latent factor models, which in turn can be
+adjusted to continuous, polytomous, dichotomous, or mixed. Skews,
+cross-loadings, wording effects, population errors, and local
+dependencies can be added.  
 **High recommended!**
 
 The [psych package](https://CRAN.R-project.org/package=psych) has

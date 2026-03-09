@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,11 +43,30 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="likertmaker-development-version">LikertMakeR (development version)<a class="anchor" aria-label="anchor" href="#likertmaker-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.0.0" id="likertmaker-200-march-2026">LikertMakeR 2.0.0 (March 2026)<a class="anchor" aria-label="anchor" href="#likertmaker-200-march-2026"></a></h2>
+<p>This release introduces major improvements to the internal algorithms used to generate synthetic rating-scale data and correlation matrices.</p>
+<div class="section level3">
+<h3 id="breaking-changes-2-0-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-2-0-0"></a></h3>
+<ul><li><p><code><a href="../reference/makeItemsScale.html">makeItemsScale()</a></code> has been rewritten and one parameter has been removed. Existing code that used the removed argument, <code>variance</code>, will need to be updated.</p></li>
+<li><p><code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> has been completely redesigned - previously flagged in <code>development version 1.5.0</code>. Some parameters have changed, and the internal algorithm for generating correlation matrices has been replaced.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-2-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-2-0-0"></a></h3>
+<ul><li>Added <code><a href="../reference/reliability.html">reliability()</a></code>, a new function for computing reliability statistics for rating-scale data - previously flagged in <code>development version 1.5.0</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="improvements-2-0-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-2-0-0"></a></h3>
+<ul><li><p><code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> is now substantially faster and more stable when generating correlation matrices that satisfy a target Cronbach’s alpha.</p></li>
+<li><p>Improved numerical stability and diagnostics in correlation-matrix generation.</p></li>
+<li><p>Various documentation improvements and code cleanup.</p></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.5.0" id="likertmaker-150-february-2026">LikertMakeR 1.5.0 (February 2026)<a class="anchor" aria-label="anchor" href="#likertmaker-150-february-2026"></a></h2>
@@ -107,7 +126,7 @@
 </ul><hr></div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.4.0" id="likertmaker-140-february-2026">LikertMakeR 1.4.0 (February 2026)<a class="anchor" aria-label="anchor" href="#likertmaker-140-february-2026"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.4.0" id="likertmaker-140-february-2026">LikertMakeR 1.4.0 (February 2026)<a class="anchor" aria-label="anchor" href="#likertmaker-140-february-2026"></a></h2><p class="text-muted">CRAN release: 2026-02-11</p>
 <div class="section level3">
 <h3 id="improvements-1-4-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-1-4-0"></a></h3>
 <ul><li>
@@ -133,7 +152,7 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.3.0" id="likertmaker-130-2025-11-24">LikertMakeR 1.3.0 (2025-11-24)<a class="anchor" aria-label="anchor" href="#likertmaker-130-2025-11-24"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.3.0" id="likertmaker-130-2025-11-24">LikertMakeR 1.3.0 (2025-11-24)<a class="anchor" aria-label="anchor" href="#likertmaker-130-2025-11-24"></a></h2><p class="text-muted">CRAN release: 2025-11-26</p>
 <div class="section level3">
 <h3 id="improvements-1-3-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-1-3-0"></a></h3>
 <ul><li>
@@ -167,7 +186,7 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.2.0" id="likertmaker-120-2025-10-10">LikertMakeR 1.2.0 (2025-10-10)<a class="anchor" aria-label="anchor" href="#likertmaker-120-2025-10-10"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.2.0" id="likertmaker-120-2025-10-10">LikertMakeR 1.2.0 (2025-10-10)<a class="anchor" aria-label="anchor" href="#likertmaker-120-2025-10-10"></a></h2><p class="text-muted">CRAN release: 2025-10-09</p>
 <div class="section level3">
 <h3 id="improvements-1-2-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-1-2-0"></a></h3>
 <ul><li>
@@ -184,7 +203,7 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.1.0" id="likertmaker-110-2025-05-26">LikertMakeR 1.1.0 (2025-05-26)<a class="anchor" aria-label="anchor" href="#likertmaker-110-2025-05-26"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.1.0" id="likertmaker-110-2025-05-26">LikertMakeR 1.1.0 (2025-05-26)<a class="anchor" aria-label="anchor" href="#likertmaker-110-2025-05-26"></a></h2><p class="text-muted">CRAN release: 2025-05-30</p>
 <div class="section level3">
 <h3 id="improvements-1-1-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-1-1-0"></a></h3>
 <ul><li><p>new <code><a href="../reference/makePaired.html">makePaired()</a></code> function: takes summary statistics from a paired-sample t-test and produces a data frame of rating-scale data that would deliver such summary statistics</p></li>
@@ -223,7 +242,7 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.0" id="likertmaker-100-2025-04-03">LikertMakeR 1.0.0 (2025-04-03)<a class="anchor" aria-label="anchor" href="#likertmaker-100-2025-04-03"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.0" id="likertmaker-100-2025-04-03">LikertMakeR 1.0.0 (2025-04-03)<a class="anchor" aria-label="anchor" href="#likertmaker-100-2025-04-03"></a></h2><p class="text-muted">CRAN release: 2025-04-04</p>
 <div class="section level3">
 <h3 id="makecorrloadings-function-added-1-0-0">makeCorrLoadings() function added<a class="anchor" aria-label="anchor" href="#makecorrloadings-function-added-1-0-0"></a></h3>
 <p>makeCorrLoadings() generates a correlation matrix of inter-item correlations based on item factor loadings as might be seen in <em>Exploratory Factor Analysis</em> (<strong>EFA</strong>) or a <em>Structural Equation Model</em> (<strong>SEM</strong>).</p>
@@ -231,7 +250,7 @@
 </div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.0" id="likertmaker-100-2025-01-08">LikertMakeR 1.0.0 (2025-01-08)<a class="anchor" aria-label="anchor" href="#likertmaker-100-2025-01-08"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.0" id="likertmaker-100-2025-01-08">LikertMakeR 1.0.0 (2025-01-08)<a class="anchor" aria-label="anchor" href="#likertmaker-100-2025-01-08"></a></h2><p class="text-muted">CRAN release: 2025-04-04</p>
 <div class="section level3">
 <h3 id="update-version-number-to-correct-majorminorpatch-format-1-0-0">update version number to correct major.minor.patch format<a class="anchor" aria-label="anchor" href="#update-version-number-to-correct-majorminorpatch-format-1-0-0"></a></h3>
 <p>No update from V 0.4.5.</p>
@@ -246,14 +265,14 @@
 </div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.4.0" id="likertmaker-040-2024-11-17">LikertMakeR 0.4.0 (2024-11-17)<a class="anchor" aria-label="anchor" href="#likertmaker-040-2024-11-17"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.4.0" id="likertmaker-040-2024-11-17">LikertMakeR 0.4.0 (2024-11-17)<a class="anchor" aria-label="anchor" href="#likertmaker-040-2024-11-17"></a></h2><p class="text-muted">CRAN release: 2024-11-19</p>
 <div class="section level3">
 <h3 id="target-cronbachs-alpha-added-to-makeitemsscale-function-0-4-0">target Cronbach’s Alpha added to makeItemsScale() function<a class="anchor" aria-label="anchor" href="#target-cronbachs-alpha-added-to-makeitemsscale-function-0-4-0"></a></h3>
 <p>generated scale items now defined by a target Cronbach’s Alpha, as well as by variance within each scale item. This latest version adds a little randomness to the selection of candidate row vectors.</p>
 </div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.3.0" id="likertmaker-030-2024-05-18">LikertMakeR 0.3.0 (2024-05-18)<a class="anchor" aria-label="anchor" href="#likertmaker-030-2024-05-18"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.3.0" id="likertmaker-030-2024-05-18">LikertMakeR 0.3.0 (2024-05-18)<a class="anchor" aria-label="anchor" href="#likertmaker-030-2024-05-18"></a></h2><p class="text-muted">CRAN release: 2024-05-19</p>
 <div class="section level3">
 <h3 id="more-randomness-in-swaps-task-to-makecorralpha-function-0-3-0">more randomness in swaps task to makeCorrAlpha() function<a class="anchor" aria-label="anchor" href="#more-randomness-in-swaps-task-to-makecorralpha-function-0-3-0"></a></h3>
 <p>correlation matrix usually has values sorted lowest to highest. This happens less often</p>
@@ -281,7 +300,7 @@
 </div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.0" id="likertmaker-020-2024-03-02">LikertMakeR 0.2.0 (2024-03-02)<a class="anchor" aria-label="anchor" href="#likertmaker-020-2024-03-02"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="likertmaker-020-2024-03-02">LikertMakeR 0.2.0 (2024-03-02)<a class="anchor" aria-label="anchor" href="#likertmaker-020-2024-03-02"></a></h2><p class="text-muted">CRAN release: 2024-03-02</p>
 <div class="section level3">
 <h3 id="for-submission-to-cran-0-2-0">For submission to CRAN<a class="anchor" aria-label="anchor" href="#for-submission-to-cran-0-2-0"></a></h3>
 <p>Faster and more accurate functions: <strong><em>lcor()</em></strong> &amp; <strong><em>lfast()</em></strong></p>
@@ -315,7 +334,7 @@
 <li><p>setting up for some C++ mods to make lcor() faster, and to introduce make_items() function.</p></li>
 </ul></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.5" id="likertmaker-015-2022-12-20">LikertMakeR 0.1.5 (2022-12-20)<a class="anchor" aria-label="anchor" href="#likertmaker-015-2022-12-20"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.1.5" id="likertmaker-015-2022-12-20">LikertMakeR 0.1.5 (2022-12-20)<a class="anchor" aria-label="anchor" href="#likertmaker-015-2022-12-20"></a></h2><p class="text-muted">CRAN release: 2022-12-22</p>
 <div class="section level4">
 <h4 id="initial-cran-release-0-1-5">Initial CRAN release<a class="anchor" aria-label="anchor" href="#initial-cran-release-0-1-5"></a></h4>
 <ul><li><p>Added references to DESCRIPTION file and expanded citations to vignettes</p></li>

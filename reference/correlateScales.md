@@ -58,9 +58,9 @@ Att_1 <- makeScales(
 #> Variable  1 :  item01  - 
 #> reached maximum of 1024 iterations
 #> Variable  2 :  item02  - 
-#> best solution in 716 iterations
-#> Variable  3 :  item03  - 
 #> reached maximum of 1024 iterations
+#> Variable  3 :  item03  - 
+#> best solution in 242 iterations
 #> Variable  4 :  item04  - 
 #> reached maximum of 1024 iterations
 #> 
@@ -82,13 +82,13 @@ Att_2 <- makeScales(
   cormatrix = cor_2
 )
 #> Variable  1 :  item01  - 
-#> reached maximum of 1024 iterations
+#> best solution in 1023 iterations
 #> Variable  2 :  item02  - 
 #> reached maximum of 1024 iterations
 #> Variable  3 :  item03  - 
 #> reached maximum of 1024 iterations
 #> Variable  4 :  item04  - 
-#> best solution in 331 iterations
+#> best solution in 133 iterations
 #> Variable  5 :  item05  - 
 #> reached maximum of 1024 iterations
 #> 
@@ -110,7 +110,7 @@ Att_3 <- makeScales(
   cormatrix = cor_3
 )
 #> Variable  1 :  item01  - 
-#> best solution in 537 iterations
+#> reached maximum of 1024 iterations
 #> Variable  2 :  item02  - 
 #> reached maximum of 1024 iterations
 #> Variable  3 :  item03  - 
@@ -118,7 +118,7 @@ Att_3 <- makeScales(
 #> Variable  4 :  item04  - 
 #> reached maximum of 1024 iterations
 #> Variable  5 :  item05  - 
-#> best solution in 501 iterations
+#> best solution in 259 iterations
 #> Variable  6 :  item06  - 
 #> reached maximum of 1024 iterations
 #> 
@@ -159,17 +159,17 @@ my_correlated_scales <- correlateScales(
 #> New dataframe successfully created
 head(my_correlated_scales)
 #>   A1_1 A1_2 A1_3 A1_4 A2_1 A2_2 A2_3 A2_4 A2_5     A3_1     A3_2     A3_3
-#> 1 1.50 1.75 2.50 1.50  2.2  1.8  2.6  2.6  3.0 1.500000 1.000000 2.166667
-#> 2 1.25 2.25 1.75 1.75  1.4  1.2  1.8  1.6  4.8 1.500000 4.833333 2.166667
-#> 3 2.50 2.00 3.50 4.00  2.4  1.6  3.2  4.4  3.6 2.333333 2.833333 4.166667
-#> 4 3.50 3.75 4.25 4.25  3.4  3.6  3.4  3.6  4.8 4.333333 4.666667 3.500000
-#> 5 4.00 3.75 3.50 4.50  2.6  2.8  4.0  3.6  4.4 2.333333 3.500000 2.166667
-#> 6 3.00 2.00 2.75 3.00  1.6  1.2  2.6  2.0  2.4 4.000000 4.000000 3.166667
+#> 1 2.00 2.25 3.00 3.75  1.2  2.6  3.4  3.4  5.0 3.333333 5.000000 2.500000
+#> 2 1.75 2.25 1.25 3.25  2.2  2.4  3.2  2.6  4.8 4.166667 4.666667 2.833333
+#> 3 4.25 4.00 3.75 4.75  2.4  2.6  4.0  3.0  4.8 4.333333 3.833333 4.500000
+#> 4 3.00 2.50 3.25 2.50  2.0  1.2  1.4  1.2  2.2 2.500000 1.333333 4.333333
+#> 5 3.75 4.50 3.75 5.00  3.0  4.4  3.4  4.0  5.0 4.000000 1.000000 3.833333
+#> 6 2.00 1.75 2.75 2.25  3.6  3.0  3.4  2.0  5.0 2.166667 1.000000 2.666667
 #>       A3_4     A3_5     A3_6 Int_1
-#> 1 2.166667 2.500000 2.166667     2
-#> 2 1.666667 2.000000 1.666667     9
-#> 3 3.666667 3.666667 4.666667     5
-#> 4 1.000000 3.833333 4.833333     5
-#> 5 2.333333 3.166667 1.000000     6
-#> 6 3.666667 4.333333 4.666667     1
+#> 1 3.000000 4.666667 4.833333     3
+#> 2 5.000000 4.333333 5.000000     0
+#> 3 4.833333 4.666667 5.000000     5
+#> 4 5.000000 4.833333 4.666667     0
+#> 5 1.000000 4.166667 4.166667     3
+#> 6 4.833333 2.166667 4.833333     5
 ```

@@ -51,15 +51,15 @@ mydat3 <- data.frame(
   x2 = lfast(n, 3.0, 1.50, lowerbound, upperbound, items),
   x3 = lfast(n, 3.5, 1.00, lowerbound, upperbound, items)
 )
-#> best solution in 228 iterations
-#> best solution in 562 iterations
+#> best solution in 31 iterations
+#> reached maximum of 1024 iterations
 #> reached maximum of 1024 iterations
 
 cor(mydat3) |> round(3)
-#>       x1    x2    x3
-#> x1 1.000 0.044 0.063
-#> x2 0.044 1.000 0.008
-#> x3 0.063 0.008 1.000
+#>        x1     x2     x3
+#> x1  1.000 -0.031 -0.241
+#> x2 -0.031  1.000 -0.085
+#> x3 -0.241 -0.085  1.000
 
 tgt3 <- matrix(
   c(
@@ -76,7 +76,7 @@ new3 <- lcor(mydat3, tgt3)
 ## test output
 cor(new3) |> round(3)
 #>       X1    X2    X3
-#> X1 1.000 0.499 0.752
-#> X2 0.499 1.000 0.250
-#> X3 0.752 0.250 1.000
+#> X1 1.000 0.498 0.750
+#> X2 0.498 1.000 0.251
+#> X3 0.750 0.251 1.000
 ```

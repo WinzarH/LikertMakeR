@@ -60,7 +60,9 @@ makeCorrAlpha(
   - `> 0.25` — extreme dispersion; internal shrinkage may occur
 
   For most applied psychometric scales (k \< 20), values between `0.05`
-  and `0.15` produce realistic correlation structures.
+  and `0.15` produce realistic correlation structures. Values above
+  `0.30` are automatically reduced to `0.30` to satisfy algorithm
+  constraints.
 
 - alpha_noise:
 

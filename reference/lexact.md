@@ -63,11 +63,11 @@ x <- lexact(
 #> lexact() function is deprecated.
 #>           
 #> Using the more efficient lfast() function instead
-#> best solution in 2254 iterations
+#> best solution in 592 iterations
 
 x <- lexact(256, 2, 1.8, 0, 10)
 #> lexact() function is deprecated.
 #>           
 #> Using the more efficient lfast() function instead
-#> best solution in 2700 iterations
+#> best solution in 9856 iterations
 ```
