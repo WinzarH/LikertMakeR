@@ -37,6 +37,8 @@
 #'
 #'   For most applied psychometric scales (k < 20), values between
 #'   \code{0.05} and \code{0.15} produce realistic correlation structures.
+#'   Values above \code{0.30} are automatically reduced to \code{0.30} to
+#'   satisfy algorithm constraints.
 #'
 #' @param alpha_noise Numeric. Controls random variation in the target
 #'   Cronbach's alpha before the correlation matrix is constructed.
@@ -156,6 +158,9 @@ makeCorrAlpha <- function(items,
   # -------------------------------
   # Base target mean correlation
   # -------------------------------
+  if (!is.numeric(alpha) || length(alpha) != 1 || alpha <= 0 || alpha >= 1)
+    stop("`alpha` must be a single value between 0 and 1.", call. = FALSE)
+
   target_mean_r <- alpha / (k - alpha * (k - 1))
 
   if (target_mean_r <= 0) {
@@ -185,6 +190,15 @@ makeCorrAlpha <- function(items,
 
 
   # variation in correlations
+
+  ## existing code may have old variance level - warn once and continue
+  if (variance > 0.30) {
+      warning(
+        "`variance` cannot exceed 0.30 for the current algorithm; values above this are truncated.",
+        call. = FALSE
+      )
+    variance <- 0.30
+  }
 
   internal_variance <- variance
 
