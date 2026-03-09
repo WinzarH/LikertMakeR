@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeItemsScale.R
 \name{makeItemsScale}
 \alias{makeItemsScale}
-\title{Generate scale items from a summated scale, with desired Cronbach's Alpha}
+\title{Generate item-level Likert responses from a summated scale, with desired Cronbach's Alpha}
 \usage{
 makeItemsScale(
   scale,
@@ -10,8 +10,7 @@ makeItemsScale(
   upperbound,
   items,
   alpha = 0.8,
-  summated = TRUE,
-  variance = 0.5
+  summated = TRUE
 )
 }
 \arguments{
@@ -34,16 +33,9 @@ Default = '0.8'.
 See \verb{@details} for further information on the \code{alpha} parameter}
 
 \item{summated}{(logical) If TRUE, the scale is treated as a summed
-score (e.g., 4–20 for four 5-point items).
+score (e.g., 4-20 for four 5-point items).
 If FALSE, it is treated as an averaged score
-(e.g., 1–5 in 0.25 increments). Default = TRUE.}
-
-\item{variance}{(positive, real) the quantile from which to select
-items that give given summated scores.
-Must lie between '0' and '1'.
-Default = '0.5'.
-
-See \verb{@details} for further information on the \code{variance} parameter}
+(e.g., 1-5 in 0.25 increments). Default = TRUE.}
 }
 \value{
 a dataframe with 'items' columns and 'length(scale)' rows
@@ -51,83 +43,44 @@ a dataframe with 'items' columns and 'length(scale)' rows
 \description{
 \code{makeItemsScale()} generates a random dataframe
 of scale items based on a predefined summated scale
-(such as created by the \code{\link[=lfast]{lfast()}} function),
-and a desired \emph{Cronbach's Alpha}.
-
-scale, lowerbound, upperbound, items, alpha, variance
 }
 \details{
-\subsection{alpha}{
+The \code{makeItemsScale()} function reconstructs individual Likert-style item
+responses from a vector of scale scores while approximating a desired
+Cronbach's alpha.
 
-\code{makeItemsScale()} takes each value of a vector of Likert scales and
-produces a row of 'k' values that average the given scale value, and
-then rearranges the item values within each row,
-attempting to give a dataframe of Likert-scale items that produce a
-predefined \emph{Cronbach's Alpha}.
+The algorithm works in three stages. First, all possible combinations of
+item responses within the specified bounds are generated. For each candidate
+combination, the dispersion of item values is calculated and used as a proxy
+for the similarity between items. Combinations with low dispersion represent
+more homogeneous item responses and therefore imply stronger inter-item
+correlations.
 
-Default value for target alpha is '0.8'.
+Second, the requested Cronbach's alpha is converted to the corresponding
+average inter-item correlation using the identity
 
-More extreme values for the 'variance' parameter may reduce the chances
-of achieving the desired Alpha. So you may need to experiment a little.
-}
+\deqn{\bar r = \alpha / (k - \alpha (k-1))}
 
-\subsection{variance}{
+where \eqn{k} is the number of items. Candidate item combinations are then
+ranked according to how closely their dispersion matches the similarity
+implied by this target correlation.
 
-There may be many ways to find a combination of integers that sum to a
-specific value, and these combinations have different levels of variance:
-\itemize{
-\item low-variance: '3 + 4 = 7'
-\item high-variance: '1 + 6 = 7'
-}
+Third, for each scale score in the input vector, the algorithm selects the
+candidate combination whose item values sum to the required scale value and
+whose dispersion best matches the target correlation structure. The selected
+values are randomly permuted across item positions, and a final optimisation
+step rearranges item values within rows to improve the overall correlation
+structure while preserving each row sum.
 
-The 'variance' parameter defines guidelines for the amount of variance
-among item values that your new dataframe should have.
+This approach produces datasets whose observed Cronbach's alpha closely
+matches the requested value while respecting the discrete nature of Likert
+response scales and the constraint that item values must sum to the supplied
+scale scores.
 
-For example, consider a summated value of '9' on which we apply
-the \code{makeItemsScale()} function to generate three items.
-With zero variance (variance parameter = '0'), then we see all items with
-the same value, the mean of '3'.
-With variance = '1', then we see all items with values
-that give the maximum variance among those items.\tabular{lllll}{
-   variance \tab v1 \tab v2 \tab v3 \tab sum \cr
-   0.0 \tab 3 \tab 3 \tab 3 \tab 9 \cr
-   0.2 \tab 3 \tab 3 \tab 3 \tab 9 \cr
-   0.4 \tab 2 \tab 3 \tab 4 \tab 9 \cr
-   0.6 \tab 1 \tab 4 \tab 4 \tab 9 \cr
-   0.8 \tab 2 \tab 2 \tab 5 \tab 9 \cr
-   1.0 \tab 1 \tab 3 \tab 5 \tab 9 \cr
-}
-
-
-Similarly, the same mean value applied to six items with
-\code{makeItemsScale()} gives the following combinations at
-different values of the 'variance' parameter.\tabular{llllllll}{
-   variance \tab v1 \tab v2 \tab v3 \tab v4 \tab v5 \tab v6 \tab sum \cr
-   0.0 \tab 3 \tab 3 \tab 3 \tab 3 \tab 3 \tab 3 \tab 18 \cr
-   0.2 \tab 1 \tab 3 \tab 3 \tab 3 \tab 4 \tab 4 \tab 18 \cr
-   0.4 \tab 1 \tab 2 \tab 3 \tab 4 \tab 4 \tab 4 \tab 18 \cr
-   0.6 \tab 1 \tab 1 \tab 4 \tab 4 \tab 4 \tab 4 \tab 18 \cr
-   0.8 \tab 1 \tab 1 \tab 3 \tab 4 \tab 4 \tab 5 \tab 18 \cr
-   1.0 \tab 1 \tab 1 \tab 1 \tab 5 \tab 5 \tab 5 \tab 18 \cr
-}
-
-
-And a mean value of '3.5' gives the following combinations.\tabular{llllllll}{
-   variance \tab v1 \tab v2 \tab v3 \tab v4 \tab v5 \tab v6 \tab sum \cr
-   0.0 \tab 3 \tab 3 \tab 3 \tab 4 \tab 4 \tab 4 \tab 21 \cr
-   0.2 \tab 3 \tab 3 \tab 3 \tab 3 \tab 4 \tab 5 \tab 21 \cr
-   0.4 \tab 2 \tab 2 \tab 4 \tab 4 \tab 4 \tab 5 \tab 21 \cr
-   0.6 \tab 1 \tab 3 \tab 4 \tab 4 \tab 4 \tab 5 \tab 21 \cr
-   0.8 \tab 1 \tab 2 \tab 4 \tab 4 \tab 5 \tab 5 \tab 21 \cr
-   1.0 \tab 1 \tab 1 \tab 4 \tab 5 \tab 5 \tab 5 \tab 21 \cr
-}
-
-
-The default value for 'variance' is '0.5' which gives a reasonable
-range of item values.
-But if you want 'responses' that are more consistent then choose
-a lower variance value.
-}
+Extremely high reliability values may be difficult to achieve when the
+number of items is very small or when the response scale has few categories.
+In such cases the discreteness of the response scale places an upper bound
+on the achievable inter-item correlation.
 }
 \examples{
 
@@ -148,7 +101,6 @@ meanScale <- lfast(
   lowerbound = lower, upperbound = upper,
   items = k
 )
-summatedScale <- meanScale * k
 
 ## create new items
 newItems1 <- makeItemsScale(
@@ -159,58 +111,14 @@ newItems1 <- makeItemsScale(
 
 ### test new items
 # str(newItems1)
-# alpha(data = newItems) |> round(2)
+# alpha(data = newItems1) |> round(2)
+
+summatedScale <- meanScale * k
 
 newItems2 <- makeItemsScale(
   scale = summatedScale,
   lowerbound = lower, upperbound = upper,
   items = k
 )
-
-### test new items
-# str(newItems2)
-# alpha(data = newItems) |> round(2)
-
-
-## very low variance usually gives higher Cronbach's Alpha
-mydat_20 <- makeItemsScale(
-  scale = summatedScale,
-  lowerbound = lower, upperbound = upper,
-  items = k, alpha = 0.8, variance = 0.20
-)
-
-### test new data frame
-# str(mydat_20)
-
-# moments <- data.frame(
-#   means = apply(mydat_20, MARGIN = 2, FUN = mean) |> round(3),
-#   sds = apply(mydat_20, MARGIN = 2, FUN = sd) |> round(3)
-# ) |> t()
-
-# moments
-
-# cor(mydat_20) |> round(2)
-# alpha(data = mydat_20) |> round(2)
-
-
-## default alpha (0.8) and higher variance (0.8)
-mydat_80 <- makeItemsScale(
-  scale = summatedScale,
-  lowerbound = lower, upperbound = upper,
-  items = k, variance = 0.80
-)
-
-### test new dataframe
-# str(mydat_80)
-
-# moments <- data.frame(
-#   means = apply(mydat_80, MARGIN = 2, FUN = mean) |> round(3),
-#   sds = apply(mydat_80, MARGIN = 2, FUN = sd) |> round(3)
-# ) |> t()
-
-# moments
-
-# cor(mydat_80) |> round(2)
-# alpha(data = mydat_80) |> round(2)
 
 }
