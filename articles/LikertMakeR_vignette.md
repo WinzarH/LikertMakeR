@@ -348,16 +348,16 @@ original; the values are rearranged.
 The first ten observations from this dataframe are:
 
     #>     X1  X2  X3
-    #> 1  3.8 5.0 5.0
-    #> 2  3.0 4.8 3.0
-    #> 3  1.8 1.8 1.6
-    #> 4  3.4 4.8 4.4
-    #> 5  1.4 1.2 1.6
-    #> 6  2.4 2.4 4.0
-    #> 7  2.2 1.0 3.4
-    #> 8  3.0 4.6 4.8
-    #> 9  3.6 4.8 4.6
-    #> 10 1.8 1.0 1.6
+    #> 1  1.4 1.0 2.8
+    #> 2  2.8 4.2 4.2
+    #> 3  1.6 1.6 2.2
+    #> 4  2.6 3.8 3.8
+    #> 5  1.4 1.0 1.6
+    #> 6  3.2 1.8 4.0
+    #> 7  2.0 1.2 2.4
+    #> 8  2.8 4.8 4.0
+    #> 9  2.2 2.2 3.0
+    #> 10 1.2 1.0 1.6
 
 And the new dataframe is correlated close to our desired correlation
 matrix; here presented to 3 decimal places:
@@ -642,10 +642,10 @@ orthogonalItemCors <- makeCorrLoadings(factorLoadings)
 ## derived correlation matrix to two decimal places
 round(orthogonalItemCors, 2)
 #>      Q1   Q2   Q3   Q4   Q5   Q6   Q7   Q8
-#> Q1 1.00 0.58 0.63 0.29 0.24 0.22 0.11 0.13
+#> Q1 1.00 0.58 0.63 0.28 0.24 0.22 0.11 0.13
 #> Q2 0.58 1.00 0.69 0.18 0.13 0.10 0.14 0.17
 #> Q3 0.63 0.69 1.00 0.26 0.22 0.18 0.11 0.14
-#> Q4 0.29 0.18 0.26 1.00 0.75 0.79 0.32 0.26
+#> Q4 0.28 0.18 0.26 1.00 0.75 0.79 0.32 0.26
 #> Q5 0.24 0.13 0.22 0.75 1.00 0.78 0.18 0.14
 #> Q6 0.22 0.10 0.18 0.79 0.78 1.00 0.23 0.18
 #> Q7 0.11 0.14 0.11 0.32 0.18 0.23 1.00 0.74
@@ -766,10 +766,10 @@ df <- makeScales(
 ## test the function
 str(df)
 #> 'data.frame':    128 obs. of  4 variables:
-#>  $ var1: num  3 2 2 2 2 4 1 3 3 2 ...
-#>  $ var2: num  1 4 3 5 1 4 2 2 3 2 ...
-#>  $ var3: num  1 5 3 5 1 4 1 1 5 4 ...
-#>  $ var4: num  3 5 3 4 3 4 2 3 4 3 ...
+#>  $ var1: num  1 4 3 3 2 4 3 3 3 4 ...
+#>  $ var2: num  3 3 4 3 3 4 4 1 2 3 ...
+#>  $ var3: num  1 3 5 3 4 5 5 1 3 1 ...
+#>  $ var4: num  2 4 4 4 4 4 4 3 3 3 ...
 ```
 
 ###### Means should be correct to two decimal places
@@ -860,20 +860,20 @@ df <- makeScales(
 ## test the function
 head(df)
 #>     BT       BS   BL      BLY
-#> 1 3.75 4.333333 4.50 4.666667
-#> 2 2.25 3.333333 2.50 3.000000
-#> 3 4.00 4.000000 3.00 4.333333
-#> 4 3.75 4.333333 4.25 4.333333
-#> 5 3.00 3.666667 1.75 3.333333
-#> 6 3.75 4.000000 4.25 4.000000
+#> 1 3.00 3.666667 2.50 3.333333
+#> 2 3.50 4.000000 3.25 3.333333
+#> 3 5.00 4.333333 4.00 4.666667
+#> 4 4.25 4.666667 4.50 4.666667
+#> 5 3.75 3.333333 1.75 3.333333
+#> 6 3.50 3.333333 3.00 3.666667
 tail(df)
 #>       BT       BS   BL      BLY
-#> 251 4.25 4.000000 2.25 4.666667
-#> 252 3.50 3.000000 1.50 3.333333
-#> 253 3.00 3.333333 3.25 3.333333
-#> 254 4.50 4.000000 4.50 3.666667
-#> 255 3.25 4.000000 1.75 3.000000
-#> 256 4.25 3.666667 3.50 3.333333
+#> 251 4.50 4.666667 4.00 4.666667
+#> 252 2.75 3.000000 1.50 2.666667
+#> 253 3.00 3.666667 3.50 3.000000
+#> 254 2.50 3.666667 3.00 3.666667
+#> 255 4.50 4.000000 3.75 4.333333
+#> 256 3.00 3.000000 2.75 2.666667
 
 ### means should be correct to two decimal places
 dfmoments <- data.frame(
@@ -989,20 +989,20 @@ myItems <- makeScales(
 ## resulting dataframe
 head(myItems)
 #>   item01 item02 item03 item04 item05 item06
-#> 1      4      3      3      5      5      4
-#> 2      2      3      2      4      4      3
-#> 3      2      3      1      2      3      1
-#> 4      4      4      5      5      5      3
-#> 5      3      3      4      4      5      4
-#> 6      2      3      2      3      2      2
+#> 1      4      3      5      5      5      5
+#> 2      4      4      2      4      4      5
+#> 3      3      2      2      3      4      4
+#> 4      2      4      4      3      3      3
+#> 5      4      3      4      3      5      5
+#> 6      2      2      2      2      2      5
 tail(myItems)
 #>     item01 item02 item03 item04 item05 item06
-#> 251      4      4      4      4      5      5
-#> 252      2      2      3      4      4      2
-#> 253      2      4      3      3      3      4
-#> 254      2      2      4      2      3      3
-#> 255      3      4      4      4      4      4
-#> 256      4      3      3      5      4      5
+#> 251      5      4      4      5      4      5
+#> 252      4      4      4      5      3      5
+#> 253      4      4      4      4      4      5
+#> 254      3      3      4      2      3      4
+#> 255      3      3      4      4      5      5
+#> 256      3      3      3      3      4      3
 
 ## means and standard deviations
 myMoments <- data.frame(
@@ -1297,8 +1297,8 @@ pairedDat <- makePaired(
 ## test function output
 str(pairedDat)
 #> 'data.frame':    20 obs. of  2 variables:
-#>  $ X1: num  1.83 3.17 1.67 2.17 1.83 ...
-#>  $ X2: num  1.33 3.83 3.17 3.5 3.33 ...
+#>  $ X1: num  2.67 1.67 2.83 1.83 1.33 ...
+#>  $ X2: num  1.33 2.67 3.17 3.5 3.33 ...
 
 cor(pairedDat) |> round(2)
 #>      X1   X2
@@ -1446,12 +1446,12 @@ out1 <- makeRepeated(
 
 head(out1$data)
 #>   time_1 time_2 time_3
-#> 1   1.75   4.25   4.50
-#> 2   2.75   4.00   3.50
-#> 3   3.25   2.25   5.00
-#> 4   2.00   4.00   4.50
-#> 5   2.75   4.50   3.00
-#> 6   4.00   2.25   4.25
+#> 1   3.25   5.00   2.50
+#> 2   2.75   4.00   4.00
+#> 3   3.00   3.75   3.75
+#> 4   2.25   4.25   4.00
+#> 5   2.00   4.00   4.50
+#> 6   4.00   2.75   4.00
 out1$correlation_matrix
 #>            time_1     time_2     time_3
 #> time_1  1.0000000 -0.4899454 -0.4899454
@@ -1478,38 +1478,38 @@ out2 <- makeRepeated(
 print(out2)
 #> $data
 #>    time_1 time_2 time_3 time_4
-#> 1     2.6    4.2    5.4    4.0
-#> 2     3.0    2.8    4.8    4.6
-#> 3     1.6    3.0    4.0    4.0
-#> 4     3.6    5.2    3.6    4.8
-#> 5     2.6    3.4    5.8    6.4
-#> 6     2.8    4.8    5.8    5.0
-#> 7     1.6    3.4    3.8    3.8
-#> 8     2.6    1.8    5.2    4.4
-#> 9     2.6    5.2    5.8    5.6
-#> 10    2.4    3.4    3.2    3.0
-#> 11    2.6    4.2    3.6    4.6
-#> 12    2.2    1.6    1.6    4.6
-#> 13    3.4    4.2    5.0    5.0
-#> 14    2.2    4.2    5.0    5.8
-#> 15    3.2    1.8    3.0    6.4
-#> 16    3.6    5.2    5.0    4.8
-#> 17    3.0    3.4    2.0    4.0
-#> 18    1.4    3.4    3.0    5.0
-#> 19    2.6    3.4    3.2    3.4
-#> 20    3.0    4.8    3.0    3.8
-#> 21    2.6    3.0    3.2    4.6
-#> 22    3.8    3.4    4.0    4.6
-#> 23    3.6    4.4    3.8    5.6
-#> 24    3.0    2.6    3.4    2.2
-#> 25    2.2    2.2    2.6    3.2
-#> 26    1.8    2.4    4.2    5.6
-#> 27    1.8    2.6    4.4    4.2
-#> 28    5.6    4.4    4.8    4.2
-#> 29    2.6    3.4    3.2    3.0
-#> 30    2.6    3.6    3.0    3.0
-#> 31    3.0    3.0    3.0    3.4
-#> 32    2.8    3.6    6.6    4.2
+#> 1     2.2    2.4    3.0    4.2
+#> 2     1.8    2.6    4.8    5.6
+#> 3     1.6    1.8    3.0    3.0
+#> 4     2.8    3.4    3.6    4.2
+#> 5     3.0    4.2    4.0    5.6
+#> 6     3.8    4.2    4.2    6.4
+#> 7     2.8    3.4    3.2    4.6
+#> 8     3.4    3.0    2.6    3.8
+#> 9     2.6    5.2    4.4    4.4
+#> 10    3.0    5.2    5.0    4.0
+#> 11    1.6    4.2    5.8    4.6
+#> 12    2.6    1.6    1.6    4.6
+#> 13    3.0    3.0    6.6    4.6
+#> 14    2.6    4.4    5.4    5.6
+#> 15    2.6    3.4    5.2    6.4
+#> 16    3.6    3.4    3.8    4.8
+#> 17    3.0    3.4    3.8    4.6
+#> 18    2.2    2.8    2.0    5.0
+#> 19    1.8    3.4    4.8    3.0
+#> 20    2.2    3.6    3.6    4.8
+#> 21    1.4    3.4    3.2    4.0
+#> 22    2.6    1.8    4.0    4.0
+#> 23    3.2    5.2    5.0    5.0
+#> 24    2.6    3.0    3.2    2.2
+#> 25    3.6    3.4    3.0    3.4
+#> 26    2.6    3.6    5.0    5.8
+#> 27    2.6    2.6    5.8    5.0
+#> 28    5.6    4.8    5.8    4.2
+#> 29    3.6    4.2    3.4    3.0
+#> 30    2.4    2.2    3.0    3.2
+#> 31    3.0    4.4    3.2    3.4
+#> 32    2.6    4.8    3.0    3.8
 #> 
 #> $correlation_matrix
 #>            time_1    time_2    time_3     time_4
@@ -1565,10 +1565,10 @@ out3 <- makeRepeated(
 str(out3)
 #> List of 8
 #>  $ data                    :'data.frame':    32 obs. of  4 variables:
-#>   ..$ time_1: num [1:32] 1.25 2.5 1 3.5 2 2.25 2.75 2.25 1.75 1.25 ...
-#>   ..$ time_2: num [1:32] 2.75 2.5 1.25 4 2.75 2.5 3.75 3 2 3 ...
-#>   ..$ time_3: num [1:32] 4 1.5 2 3.5 3.5 2.5 4.25 2.5 2.75 2.75 ...
-#>   ..$ time_4: num [1:32] 4.25 1.25 2.5 3.5 3.25 2 2.5 3.25 2.25 2 ...
+#>   ..$ time_1: num [1:32] 1.75 3.5 2.25 1.5 1.25 1.5 2.75 2.5 1.75 3 ...
+#>   ..$ time_2: num [1:32] 2.25 3 4 2.75 2.5 1.5 3.25 3.75 3.25 3 ...
+#>   ..$ time_3: num [1:32] 3.5 2.75 4.75 3.75 4 1.25 3.5 3 2.75 3 ...
+#>   ..$ time_4: num [1:32] 4.25 1.25 3.25 4 3.25 1.75 2.5 3.25 2.25 2 ...
 #>  $ correlation_matrix      : num [1:4, 1:4] 1 0.66 0.33 0 0.66 ...
 #>   ..- attr(*, "dimnames")=List of 2
 #>   .. ..$ : chr [1:4] "time_1" "time_2" "time_3" "time_4"
@@ -1977,22 +1977,22 @@ my_correlated_scales <- correlateScales(
 ## data structure
 str(my_correlated_scales)
 #> 'data.frame':    128 obs. of  16 variables:
-#>  $ A1_1 : num  2 3 2 2 3 3 4 4 3 3 ...
-#>  $ A1_2 : num  2 2 2 2 3 3 4 3 3 4 ...
-#>  $ A1_3 : num  2 4 4 3 3 2 4 3 3 4 ...
-#>  $ A1_4 : num  3 5 3 3 4 4 4 4 4 4 ...
-#>  $ A2_1 : num  1 4 1 2 2 3 2 3 2 2 ...
-#>  $ A2_2 : num  1 3 2 2 3 4 4 3 3 3 ...
-#>  $ A2_3 : num  2 4 2 3 2 3 4 4 3 4 ...
-#>  $ A2_4 : num  2 4 3 3 3 4 4 4 3 4 ...
-#>  $ A2_5 : num  2 4 3 3 4 4 4 5 4 4 ...
-#>  $ A3_1 : num  2 3 3 2 3 2 4 2 4 3 ...
-#>  $ A3_2 : num  2 3 3 2 3 2 4 2 4 4 ...
-#>  $ A3_3 : num  3 3 4 3 4 2 4 2 4 4 ...
-#>  $ A3_4 : num  2 3 3 4 4 3 4 3 4 4 ...
-#>  $ A3_5 : num  3 4 4 3 4 3 5 3 4 4 ...
-#>  $ A3_6 : num  3 3 4 3 4 4 4 4 4 4 ...
-#>  $ Int_1: num  1 6 2 5 6 2 5 4 6 9 ...
+#>  $ A1_1 : num  2 2 4 3 4 2 3 2 3 4 ...
+#>  $ A1_2 : num  2 3 4 3 3 1 3 2 3 4 ...
+#>  $ A1_3 : num  3 3 3 3 3 2 3 3 4 4 ...
+#>  $ A1_4 : num  3 3 4 4 4 2 4 3 4 4 ...
+#>  $ A2_1 : num  2 3 4 4 4 2 4 2 4 2 ...
+#>  $ A2_2 : num  2 3 4 3 3 1 3 3 4 3 ...
+#>  $ A2_3 : num  2 3 4 4 4 2 4 3 4 3 ...
+#>  $ A2_4 : num  2 3 4 3 4 2 3 4 4 2 ...
+#>  $ A2_5 : num  2 4 4 4 4 3 5 3 4 4 ...
+#>  $ A3_1 : num  2 3 3 2 3 2 3 2 3 3 ...
+#>  $ A3_2 : num  3 2 4 2 2 2 3 2 3 4 ...
+#>  $ A3_3 : num  3 3 4 3 3 3 4 2 3 4 ...
+#>  $ A3_4 : num  2 1 4 2 4 3 2 2 3 5 ...
+#>  $ A3_5 : num  3 4 4 3 3 3 4 4 4 5 ...
+#>  $ A3_6 : num  4 4 5 4 4 2 4 3 4 4 ...
+#>  $ Int_1: num  0 2 8 6 6 1 6 1 3 10 ...
 ```
 
 ``` r
@@ -2004,8 +2004,8 @@ eigenvalues(cormatrix = Cor_Correlated_Scales, scree = TRUE) |> round(2)
 ![](LikertMakeR_vignette_files/figure-html/fig7-1.png)
 
     #> Cor_Correlated_Scales  is positive-definite
-    #>  [1] 6.97 2.26 1.13 0.73 0.67 0.61 0.57 0.47 0.43 0.41 0.39 0.34 0.33 0.27 0.25
-    #> [16] 0.18
+    #>  [1] 6.97 2.22 1.11 0.75 0.66 0.63 0.57 0.53 0.49 0.44 0.38 0.32 0.29 0.27 0.21
+    #> [16] 0.17
 
 ``` r
 #### Eigenvalues of predictor variable items only
@@ -2016,7 +2016,7 @@ eigenvalues(cormatrix = Cor_Attitude_items, scree = TRUE) |> round(2)
 ![](LikertMakeR_vignette_files/figure-html/fig7a-1.png)
 
     #> Cor_Attitude_items  is positive-definite
-    #>  [1] 6.81 2.23 0.83 0.67 0.66 0.61 0.57 0.44 0.41 0.39 0.34 0.33 0.27 0.25 0.18
+    #>  [1] 6.81 2.18 0.85 0.72 0.66 0.60 0.53 0.51 0.45 0.41 0.34 0.29 0.28 0.21 0.17
 
 ------------------------------------------------------------------------
 
@@ -2164,8 +2164,8 @@ reliability(
 #>                alpha    0.799       4    64
 #>          omega_total    0.870       4    64
 #>              lambda6    0.756       4    64
-#>        ordinal_alpha    0.749       4    64
-#>  ordinal_omega_total    0.842       4    64
+#>        ordinal_alpha    0.765       4    64
+#>  ordinal_omega_total    0.851       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
@@ -2182,10 +2182,10 @@ reliability(
   n_boot = 64
 )
 #>            coef_name estimate ci_lower ci_upper n_items n_obs
-#>                alpha    0.799    0.732    0.856       4    64
-#>          omega_total    0.870    0.834    0.903       4    64
-#>        ordinal_alpha    0.749    0.654    0.793       4    64
-#>  ordinal_omega_total    0.842    0.795    0.867       4    64
+#>                alpha    0.799    0.704    0.855       4    64
+#>          omega_total    0.870    0.820    0.902       4    64
+#>        ordinal_alpha    0.765    0.641    0.808       4    64
+#>  ordinal_omega_total    0.851    0.789    0.875       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
@@ -2278,11 +2278,10 @@ probability distribution to multivariate and correlated dataframes.
 
 The [latentFactoR](https://CRAN.R-project.org/package=latentFactoR)
 package is ideal for generating multi-factor items.  
-[`latentFactoR::simulate_factors()`](https://rdrr.io/pkg/latentFactoR/man/simulate_factors.html)
-generates data based on latent factor models, which in turn can be
-adjusted to continuous, polytomous, dichotomous, or mixed. Skews,
-cross-loadings, wording effects, population errors, and local
-dependencies can be added.  
+`latentFactoR::simulate_factors()` generates data based on latent factor
+models, which in turn can be adjusted to continuous, polytomous,
+dichotomous, or mixed. Skews, cross-loadings, wording effects,
+population errors, and local dependencies can be added.  
 **High recommended!**
 
 The [psych package](https://CRAN.R-project.org/package=psych) has
