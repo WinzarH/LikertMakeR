@@ -1,13 +1,9 @@
-#' Generate scale items from a summated scale, with desired Cronbach's Alpha
+#' Generate item-level Likert responses from a summated scale, with desired Cronbach's Alpha
 #'
 #' @name makeItemsScale
 #'
 #' @description `makeItemsScale()` generates a random dataframe
 #'  of scale items based on a predefined summated scale
-#'  (such as created by the [lfast()] function),
-#'  and a desired _Cronbach's Alpha_.
-#'
-#'  scale, lowerbound, upperbound, items, alpha, variance
 #'
 #' @param scale (int) a vector or dataframe of the summated rating scale.
 #' Should range from \eqn{lowerbound \times items} to
@@ -24,98 +20,57 @@
 #' See `@details` for further information on the `alpha` parameter
 #'
 #' @param summated (logical) If TRUE, the scale is treated as a summed
-#' score (e.g., 4–20 for four 5-point items).
+#' score (e.g., 4-20 for four 5-point items).
 #' If FALSE, it is treated as an averaged score
-#'  (e.g., 1–5 in 0.25 increments). Default = TRUE.
-#'
-#' @param variance (positive, real) the quantile from which to select
-#' items that give given summated scores.
-#' Must lie between '0' and '1'.
-#' Default = '0.5'.
-#'
-#' See `@details` for further information on the `variance` parameter
+#'  (e.g., 1-5 in 0.25 increments). Default = TRUE.
 #'
 #'
 #' @details
+#' The `makeItemsScale()` function reconstructs individual Likert-style item
+#' responses from a vector of scale scores while approximating a desired
+#' Cronbach's alpha.
 #'
-#' ## alpha
+#' The algorithm works in three stages. First, all possible combinations of
+#' item responses within the specified bounds are generated. For each candidate
+#' combination, the dispersion of item values is calculated and used as a proxy
+#' for the similarity between items. Combinations with low dispersion represent
+#' more homogeneous item responses and therefore imply stronger inter-item
+#' correlations.
 #'
-#' `makeItemsScale()` takes each value of a vector of Likert scales and
-#' produces a row of 'k' values that average the given scale value, and
-#' then rearranges the item values within each row,
-#' attempting to give a dataframe of Likert-scale items that produce a
-#' predefined _Cronbach's Alpha_.
+#' Second, the requested Cronbach's alpha is converted to the corresponding
+#' average inter-item correlation using the identity
 #'
-#' Default value for target alpha is '0.8'.
+#' \deqn{\bar r = \alpha / (k - \alpha (k-1))}
 #'
-#' More extreme values for the 'variance' parameter may reduce the chances
-#' of achieving the desired Alpha. So you may need to experiment a little.
+#' where \eqn{k} is the number of items. Candidate item combinations are then
+#' ranked according to how closely their dispersion matches the similarity
+#' implied by this target correlation.
 #'
-#' ## variance
+#' Third, for each scale score in the input vector, the algorithm selects the
+#' candidate combination whose item values sum to the required scale value and
+#' whose dispersion best matches the target correlation structure. The selected
+#' values are randomly permuted across item positions, and a final optimisation
+#' step rearranges item values within rows to improve the overall correlation
+#' structure while preserving each row sum.
 #'
-#' There may be many ways to find a combination of integers that sum to a
-#' specific value, and these combinations have different levels of variance:
+#' This approach produces datasets whose observed Cronbach's alpha closely
+#' matches the requested value while respecting the discrete nature of Likert
+#' response scales and the constraint that item values must sum to the supplied
+#' scale scores.
 #'
-#'   * low-variance: '3 + 4 = 7'
-#'   * high-variance: '1 + 6 = 7'
-#'
-#' The 'variance' parameter defines guidelines for the amount of variance
-#' among item values that your new dataframe should have.
-#'
-#' For example, consider a summated value of '9' on which we apply
-#' the `makeItemsScale()` function to generate three items.
-#' With zero variance (variance parameter = '0'), then we see all items with
-#' the same value, the mean of '3'.
-#' With variance = '1', then we see all items with values
-#' that give the maximum variance among those items.
-#'
-#'   | variance | v1 | v2 | v3 | sum |
-#'   |----------|----|----|----|-----|
-#'   | 0.0      | 3  | 3  | 3  | 9   |
-#'   | 0.2      | 3  | 3  | 3  | 9   |
-#'   | 0.4      | 2  | 3  | 4  | 9   |
-#'   | 0.6      | 1  | 4  | 4  | 9   |
-#'   | 0.8      | 2  | 2  | 5  | 9   |
-#'   | 1.0      | 1  | 3  | 5  | 9   |
-#'
-#'
-#' Similarly, the same mean value applied to six items with
-#'  `makeItemsScale()` gives the following combinations at
-#'  different values of the 'variance' parameter.
-#'
-#'   | variance | v1 | v2 | v3 | v4 | v5 | v6 | sum |
-#'   |----------|----|----|----|----|----|----|-----|
-#'   | 0.0      | 3  | 3  | 3  | 3  | 3  | 3  | 18  |
-#'   | 0.2      | 1  | 3  | 3  | 3  | 4  | 4  | 18  |
-#'   | 0.4      | 1  | 2  | 3  | 4  | 4  | 4  | 18  |
-#'   | 0.6      | 1  | 1  | 4  | 4  | 4  | 4  | 18  |
-#'   | 0.8      | 1  | 1  | 3  | 4  | 4  | 5  | 18  |
-#'   | 1.0      | 1  | 1  | 1  | 5  | 5  | 5  | 18  |
-#'
-#' And a mean value of '3.5' gives the following combinations.
-#'
-#'   | variance | v1 | v2 | v3 | v4 | v5 | v6 | sum |
-#'   |----------|----|----|----|----|----|----|-----|
-#'   | 0.0      |  3 |  3 |  3 |  4 |  4 |  4 |  21 |
-#'   | 0.2      |  3 |  3 |  3 |  3 |  4 |  5 |  21 |
-#'   | 0.4      |  2 |  2 |  4 |  4 |  4 |  5 |  21 |
-#'   | 0.6      |  1 |  3 |  4 |  4 |  4 |  5 |  21 |
-#'   | 0.8      |  1 |  2 |  4 |  4 |  5 |  5 |  21 |
-#'   | 1.0      |  1 |  1 |  4 |  5 |  5 |  5 |  21 |
-#'
-#'  The default value for 'variance' is '0.5' which gives a reasonable
-#'  range of item values.
-#'  But if you want 'responses' that are more consistent then choose
-#'  a lower variance value.
+#' Extremely high reliability values may be difficult to achieve when the
+#' number of items is very small or when the response scale has few categories.
+#' In such cases the discreteness of the response scale places an upper bound
+#' on the achievable inter-item correlation.
 #'
 #'
 #' @importFrom gtools combinations permute
 #' @importFrom dplyr filter arrange slice select all_of pull slice_sample
 #' @importFrom stats sd quantile
+#' @importFrom rlang .data
 #'
 #' @return a dataframe with 'items' columns and 'length(scale)' rows
 #'
-#' @export makeItemsScale
 #'
 #' @examples
 #'
@@ -136,7 +91,6 @@
 #'   lowerbound = lower, upperbound = upper,
 #'   items = k
 #' )
-#' summatedScale <- meanScale * k
 #'
 #' ## create new items
 #' newItems1 <- makeItemsScale(
@@ -147,7 +101,9 @@
 #'
 #' ### test new items
 #' # str(newItems1)
-#' # alpha(data = newItems) |> round(2)
+#' # alpha(data = newItems1) |> round(2)
+#'
+#' summatedScale <- meanScale * k
 #'
 #' newItems2 <- makeItemsScale(
 #'   scale = summatedScale,
@@ -155,125 +111,50 @@
 #'   items = k
 #' )
 #'
-#' ### test new items
-#' # str(newItems2)
-#' # alpha(data = newItems) |> round(2)
-#'
-#'
-#' ## very low variance usually gives higher Cronbach's Alpha
-#' mydat_20 <- makeItemsScale(
-#'   scale = summatedScale,
-#'   lowerbound = lower, upperbound = upper,
-#'   items = k, alpha = 0.8, variance = 0.20
-#' )
-#'
-#' ### test new data frame
-#' # str(mydat_20)
-#'
-#' # moments <- data.frame(
-#' #   means = apply(mydat_20, MARGIN = 2, FUN = mean) |> round(3),
-#' #   sds = apply(mydat_20, MARGIN = 2, FUN = sd) |> round(3)
-#' # ) |> t()
-#'
-#' # moments
-#'
-#' # cor(mydat_20) |> round(2)
-#' # alpha(data = mydat_20) |> round(2)
-#'
-#'
-#' ## default alpha (0.8) and higher variance (0.8)
-#' mydat_80 <- makeItemsScale(
-#'   scale = summatedScale,
-#'   lowerbound = lower, upperbound = upper,
-#'   items = k, variance = 0.80
-#' )
-#'
-#' ### test new dataframe
-#' # str(mydat_80)
-#'
-#' # moments <- data.frame(
-#' #   means = apply(mydat_80, MARGIN = 2, FUN = mean) |> round(3),
-#' #   sds = apply(mydat_80, MARGIN = 2, FUN = sd) |> round(3)
-#' # ) |> t()
-#'
-#' # moments
-#'
-#' # cor(mydat_80) |> round(2)
-#' # alpha(data = mydat_80) |> round(2)
-#'
+#' @export
 makeItemsScale <- function(
   scale,
   lowerbound,
   upperbound,
   items,
   alpha = 0.80,
-  summated = TRUE,
-  variance = 0.5
+  summated = TRUE
 ) {
   ###
   ##  makeCombinations produces a dataframe of all combinations of item values
   ###
 
   makeCombinations <- function(lowerbound, upperbound, items) {
-    # combinations(n, r, v = 1:n, set = TRUE, repeats.allowed = FALSE)
-    # n:  Size of the source vector
-    # r:  Size of the target vectors
-    # v:  Source vector. Defaults to 1:n
-    # set: Logical flag indicating whether duplicates should be removed
-    #      from the source vector v. Defaults to TRUE.
-    # repeats.allowed:  Logical flag indicating whether the constructed
-    #      vectors may include duplicated values. Defaults to FALSE.
-
     mycombinations <- combinations(
       v = c(lowerbound:upperbound),
       r = items,
       n = length(c(lowerbound:upperbound)),
       repeats.allowed = TRUE
     )
-
     return(mycombinations)
   }
 
   ###
   ##  makeVector selects a row of item values rowsums equal to a
-  ##  desired summated value, and at the desired variance quantile
+  ##  desired summated value, and with a variance quantile consistent
+  ##  with desired alpha
   ###
 
-  ## normProb() adds variation to selection of variance quantile
-  normProb <- function() {
-    probs <- variance + rnorm(n = 1, mean = 0, sd = 0.2)
-    if (probs < 0.0) {
-      probs <- 0.0
-    }
-    if (probs > 1.0) {
-      probs <- 1.0
-    }
-    return(probs)
-  }
+  makeVector <- function(targetSum, items) {
+    shortdat <- cand_split[[as.character(targetSum)]]
 
-  makeVector <- function(mycombinations, targetSum, items) {
-    sums <- apply(mycombinations, MARGIN = 1, FUN = sum)
-    mycombinations <- cbind(mycombinations, sums) |> data.frame()
-    shortdat <- filter(mycombinations, mycombinations$sums == targetSum)
-    sds <- apply(shortdat[, 1:items], MARGIN = 1, FUN = sd) |> round(2)
-    shortdat <- cbind(shortdat, sds)
-    shortdat <- shortdat |> arrange(sds)
-    sliceRow <- ifelse(nrow(shortdat) > 1,
-      as.integer(quantile(c(1:nrow(shortdat)), probs = normProb())),
-      1
-    )
-
-    # extract the value for "sd" at the quantile row
-    target_sd <- shortdat |>
-      # arrange(sds) |>
-      slice(sliceRow) |>
-      pull(sds)
+    # guard against missing partitions
+    if (is.null(shortdat) || nrow(shortdat) == 0) {
+      stop(paste0("No candidate partition found for sum = ", targetSum))
+    }
 
     vec <- shortdat |>
-      # arrange(sds) |>
-      filter(sds == target_sd) |>
-      slice_sample(n = 1) |>
-      subset(select = -c(sums, sds))
+      arrange(.data$score) |>
+      slice(1)
+
+    vec <- vec[, seq_len(items)]
+
+    return(vec)
   }
 
   ###
@@ -349,28 +230,56 @@ makeItemsScale <- function(
     items = items
   )
 
+  cand <- as.data.frame(candidates)
+
+  # precompute statistics once
+  cand$sum <- rowSums(cand)
+  cand$sd <- apply(cand[, 1:items], 1, sd)
+
+  # map dispersion to similarity proxy
+  sd_max <- max(cand$sd)
+  cand$r_proxy <- 1 - cand$sd / sd_max
+
+  # target correlation implied by alpha
+  target_r <- alpha / (items - alpha * (items - 1))
+
+  # score partitions by closeness to target correlation
+  cand$score <- abs(cand$r_proxy - target_r)
+
+  # split candidates by possible row sums
+  cand_split <- split(cand, cand$sum)
+
 
   if (!summated) {
     scale <- scale * items
   }
 
   scale <- as.data.frame(scale) # if scale is submitted as a vector
-  mydat <- data.frame(NULL)
 
-  message(paste0("generate ", nrow(scale), " rows"))
+  min_possible <- lowerbound * items
+  max_possible <- upperbound * items
+
+  if (any(scale < min_possible | scale > max_possible, na.rm = TRUE)) {
+    stop(
+      paste0(
+        "Scale values incompatible with item bounds.\n",
+        "Expected scale range: ", min_possible, "-", max_possible, " (with 'summated=TRUE') .\n",
+        "Check 'summated =' option and lower/upper bounds."
+      )
+    )
+  }
+
+
+  mydat <- matrix(NA, nrow = nrow(scale), ncol = items)
 
   for (i in 1:nrow(scale)) {
-    vRow <- makeVector(candidates, scale[i, ], items) |>
+    vRow <- makeVector(as.numeric(scale[i, 1]), items) |>
       permute()
-    mydat <- rbind(mydat, vRow)
+    mydat[i, ] <- as.numeric(vRow)
   }
 
-  mydat <- mydat |>
-    select(order(colnames(mydat)))
+  mydat <- as.data.frame(mydat)
 
-  for (i in 1:nrow(mydat)) {
-    mydat[i, ] <- mydat[i, ] |> permute()
-  }
 
   message(paste0("rearrange ", items, " values within each of ", nrow(scale), " rows"))
 
