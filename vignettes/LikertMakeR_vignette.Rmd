@@ -57,7 +57,7 @@ and their impact on scale properties.
 
 Hopefully, this tool will help researchers, teachers & students, 
 and other reviewers, to better think about rating-scale distributions, 
-and the effects of variance, scale boundaries, 
+and the effects of covariation, scale boundaries, 
 and number of items in a scale. 
 Researchers can also use _LikertMakeR_ to create dummy data to prepare 
 analyses ahead of a formal survey.
@@ -420,20 +420,34 @@ following parameters:
 - **_alpha_**: the target value for Cronbach's Alpha
 
 - **_variance_**: a notional variance coefficient to affect the spread of 
-values in the correlation matrix. Default = '0.5'. 
+values in the correlation matrix. Default = '0.1'. 
 A value of '0' produces a matrix where all off-diagonal correlations 
 are equal. 
-Setting 'variance = 0.6' or more may be infeasible, so the function should gracefully adjust the `variance` parameter downwards to achieve PD status.
+Setting 'variance = 0.25' or more may be infeasible, so the function should gracefully adjust the `variance` parameter downwards to achieve PD status.
 
--  **_precision_**: a value between '0' and '3' to add some random 
-  variation around the target _Cronbach's Alpha_.
-  Default = '0'.
-  A value of '0' produces the desired _Alpha_, generally exact to two 
-  decimal places. Higher values produce increasingly random values around 
-  the desired _Alpha_.
+-  **_alpha_noise_**: Controls random variation in the target
+ Cronbach's alpha before the correlation matrix is constructed.
 
-- **_sort_cors_**: Logical. Deprecated. No longer has any effect.
-  
+When `alpha_noise = 0` (default), the requested alpha is
+reproduced deterministically (subject to numerical tolerance).
+
+When `alpha_noise > 0`, a small amount of random variation is
+added to the requested alpha prior to constructing the matrix. This
+can be useful in teaching or simulation settings where slightly
+different reliability values are desired across repeated runs.
+
+Internally, noise is added on the Fisher _z_-transformed scale
+to ensure the resulting alpha remains within valid bounds (0, 1).
+
+Typical guidance:
+
+   - 0.00 — deterministic alpha (default)
+   - 0.02 — very small variation
+   - 0.05 — moderate variation
+   - 0.10 — substantial variation (caution)
+
+ Larger values increase the spread of achieved alpha across runs.
+
 - **_diagnostics_**: Logical. 
   If `TRUE`, returns a list containing the correlation matrix and a 
   diagnostics list (target/achieved alpha, average inter-item correlation, 
@@ -448,7 +462,6 @@ Setting 'variance = 0.6' or more may be infeasible, so the function should grace
 ## define parameters
 items <- 4
 alpha <- 0.85
-# variance <- 0.5 ## by default
 
 ## apply makeCorrAlpha() function
 set.seed(42)
@@ -951,12 +964,12 @@ following parameters:
   
   - **_alpha_**: desired Cronbach's Alpha. Default = '0.8'
   
-  - **_variance_**: quantile for selecting the combination of items that 
-  give summated scores. 
-  Must lie between '0' (minimum variance) and '1' (maximum variance). 
-  Default = '0.5'.
+  - **_summated_**: (logical) If TRUE, the scale is treated as a summed
+   score (e.g., 4–20 for four 5-point items).
+   If FALSE, it is treated as an averaged score
+   (e.g., 1–5 in 0.25 increments). Default = TRUE.
   
- 
+
 #### _makeItemsScale()_ Example:
 
 ##### generate a summated scale
@@ -1050,31 +1063,6 @@ alpha(data = newItems_2) |> round(4)
 eigenvalues(cor(newItems_2), 1) |> round(3)
 ```
 
-####  same summated values with lower _alpha_ may require higher _variance_
-
-```{r makeItemsScale_example_3, fig.height=4, fig.width=5, fig.align='center', crop = TRUE}
-## apply makeItemsScale() function
-newItems_3 <- makeItemsScale(
-  scale = summatedScale,
-  lowerbound = lowerbound,
-  upperbound = upperbound,
-  items = items,
-  alpha = 0.6,
-  variance = 0.7
-)
-
-### First 10 observations and summated scale
-head(cbind(newItems_3, summatedScale), 10)
-
-### correlation matrix
-cor(newItems_3) |> round(2)
-
-### requested Cronbach's alpha = 0.70
-alpha(data = newItems_3) |> round(4)
-
-### calculate eigenvalues and print scree plot
-eigenvalues(cor(newItems_3), 1) |> round(3)
-```
 
 ----
 
