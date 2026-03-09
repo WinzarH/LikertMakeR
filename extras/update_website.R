@@ -29,10 +29,14 @@ Rcpp::compileAttributes()
 ## clear any stale namespace bindings
 # .rs.restartR()
 
-"LikertMakeR" %in% loadedNamespaces()   # should be FALSE
+"LikertMakeR" %in% loadedNamespaces() # should be FALSE
 
-unlink(file.path(.libPaths()[1], "00LOCK-LikertMakeR"), recursive = TRUE, force = TRUE)
-unlink(file.path(.libPaths()[1], "LikertMakeR"),          recursive = TRUE, force = TRUE)
+unlink(file.path(.libPaths()[1], "00LOCK-LikertMakeR"),
+  recursive = TRUE, force = TRUE
+)
+unlink(file.path(.libPaths()[1], "LikertMakeR"),
+  recursive = TRUE, force = TRUE
+)
 
 
 getNamespaceExports("LikertMakeR")
@@ -48,8 +52,7 @@ getNamespaceExports("LikertMakeR")
 devtools::clean_dll()
 
 urlchecker::url_check()
-urlchecker::url_update()  # updates DESCRIPTION/R/Rd; still manually fix Rmd/Bib if needed
-
+urlchecker::url_update() # updates DESCRIPTION/R/Rd; still manually fix Rmd/Bib if needed
 
 
 devtools::document()
@@ -61,7 +64,7 @@ devtools::check()
 # 0) restart R
 
 # 1) Make sure it's not loaded
-"LikertMakeR" %in% loadedNamespaces()   # should be FALSE
+"LikertMakeR" %in% loadedNamespaces() # should be FALSE
 
 # 2) Install to your user library (once, so deploy can load it)
 # devtools::install(upgrade = "never")
@@ -72,8 +75,7 @@ pkgdown::build_site()
 
 
 # sanity check:
-system.file(package = "LikertMakeR")    # should print a path
+system.file(package = "LikertMakeR") # should print a path
 
 # 3) Deploy
 pkgdown::deploy_to_branch()
-
