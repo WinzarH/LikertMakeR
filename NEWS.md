@@ -1,5 +1,36 @@
 # LikertMakeR (development version)
 
+# LikertMakeR 2.0.0 (March 2026)
+
+This release introduces major improvements to the internal algorithms used
+to generate synthetic rating-scale data and correlation matrices.
+
+## Breaking changes
+
+  - `makeItemsScale()` has been rewritten and one parameter has been removed. Existing code that used the removed argument, `variance`, will need to be updated.
+
+  - `makeCorrAlpha()` has been completely redesigned - previously flagged in 
+  `development version 1.5.0`.
+  Some parameters have changed, and the internal algorithm for generating 
+  correlation matrices has been replaced.
+
+## New features
+
+  - Added `reliability()`, a new function for computing reliability statistics 
+  for rating-scale data - previously flagged in `development version 1.5.0`.
+
+## Improvements
+
+  - `makeCorrAlpha()` is now substantially faster and more stable when 
+  generating correlation matrices that satisfy a target Cronbach's alpha.
+
+  - Improved numerical stability and diagnostics in correlation-matrix 
+  generation.
+
+  - Various documentation improvements and code cleanup.
+
+
+
 # LikertMakeR 1.5.0 (February 2026)
 
 ## Improvements
