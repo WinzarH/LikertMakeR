@@ -34,7 +34,9 @@ Typical guidance:
 }
 
 For most applied psychometric scales (k < 20), values between
-\code{0.05} and \code{0.15} produce realistic correlation structures.}
+\code{0.05} and \code{0.15} produce realistic correlation structures.
+Values above \code{0.30} are automatically reduced to \code{0.30} to
+satisfy algorithm constraints.}
 
 \item{alpha_noise}{Numeric. Controls random variation in the target
 Cronbach's alpha before the correlation matrix is constructed.
