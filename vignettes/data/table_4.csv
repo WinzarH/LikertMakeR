@@ -1,0 +1,20 @@
+Estimated_path,beta,95_CI,Hypothesis_support
+Panel A: Hypothesized model results,,,
+Emotional brand attachment -> Brand credibility,0.72,0.60-0.82,Supported
+Emotional brand attachment -> Consumer satisfaction,0.54,0.42-0.64,Supported
+Emotional brand attachment -> Consumer-based brand equity (CBBE),0.21,0.03-0.40,Not supported
+Brand credibility -> CBBE,0.31,0.11-0.54,Supported
+Consumer satisfaction -> CBBE,0.63,0.50-0.76,Supported
+Total indirect effect,,,
+Emotional brand attachment (EBA) -> CBBE,0.57,0.42-0.77,
+Specific indirect effects,,,
+EBA -> CBBE via Brand credibility,0.09,0.03-0.18,Supported
+EBA -> CBBE via Consumer satisfaction,0.14,0.09-0.21,Supported
+Panel B: Alternative model results,,,
+Emotional brand attachment -> Brand credibility,0.74,0.61-0.84,Supported
+Emotional brand attachment -> Consumer satisfaction,0.56,0.44-0.68,Supported
+Emotional brand attachment -> Brand loyalty,0.40,0.17-0.61,Supported
+Brand credibility -> Brand loyalty,0.14, 0.07-0.45,Not supported
+Consumer satisfaction -> Brand loyalty,0.35,0.19-0.53,Supported
+Specific indirect effect,,,
+EBA -> LOY via Consumer satisfaction,0.12,0.06-0.20,Supported

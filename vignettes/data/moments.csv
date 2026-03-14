@@ -1,0 +1,16 @@
+construct,name,n_items,mean,sd,alpha
+Affection (AFF),AFF,2,2.51,0.93,0.87
+Connection (CON),CON,2,2.79,0.98,0.87
+Passion (PAS),PAS,3,2.62,0.89,0.84
+Clarity of Positioning (COP),COP,3,3.52,0.7,0.8
+Brand trust (TRT),TRT,4,3.3,0.74,0.88
+Consumer satisfaction (SAT),SAT,3,3.87,0.64,0.86
+Awareness/associations (AWR),AWR,5,4.1,0.62,0.87
+Quality (QUL),QUL,4,3.69,0.66,0.84
+Loyalty (LOY),LOY,2,3.56,0.84,0.79
+Perceived differentiation (DIF),DIF,2,3.8,0.78,0.85
+Self-brand congruence (FIT),FIT,2,3.02,0.83,0.82
+Extraversion (EXT),EXT,2,3.09,0.91,0.79
+Brand attitude (ATT),ATT,2,3.5,0.81,0.88
+Relationship proneness (REL),REL,3,2.9,0.83,0.79
+Involvement (INV),INV,4,3.32,0.92,0.79

@@ -3,13 +3,17 @@ Package: LikertMakeR
 Title: Synthesise and Correlate Likert Scale and Rating-Scale Data Based
     on Summary Statistics
 Version: 2.0.0
-Date: 2026-03-10
+Date: 2026-03-15
 Authors@R: 
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0001-7475-2641"))
-Description: Generate and correlate synthetic Likert and rating-scale data
-    with predefined means, standard deviations, Cronbach's Alpha, Factor
-    Loading table, coefficients, and other summary statistics.  
+Description: Generate and correlate synthetic Likert and rating-scale
+    questionnaire responses with predefined means, standard deviations, 
+    Cronbach's Alpha, Factor Loading table, coefficients, and other summary 
+    statistics. 
+    It can be used to simulate Likert data, construct multi-item scales, 
+    generate correlation matrices, and create example survey datasets for 
+    teaching statistics, psychometrics, and methodological research.
     Worked examples and documentation are available in the package 
     articles, accessible via the package website,
     <https://winzarh.github.io/LikertMakeR/>. 
@@ -47,3 +51,4 @@ Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
+citations: use_citation()

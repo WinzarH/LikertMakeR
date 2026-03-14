@@ -49,11 +49,14 @@ getNamespaceExports("LikertMakeR")
 # pkgdown::build_favicons()
 # optional but helpful if you have compiled code
 
-devtools::clean_dll()
 
 urlchecker::url_check()
 urlchecker::url_update() # updates DESCRIPTION/R/Rd; still manually fix Rmd/Bib if needed
 
+
+devtools::clean_dll()
+
+# devtools::build_vignettes()
 
 devtools::document()
 

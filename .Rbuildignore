@@ -23,6 +23,9 @@
 ^vignettes/blog_02\.Rmd$
 ^vignettes/makeCorrAlpha_explainer\.Rmd$
 ^vignettes/cite_LikertMakeR\.Rmd$
+^vignettes/dwivedi_replication\.qmd
+
+^vignettes/dwivedi_replication_files
 
 
 # If those vignettes create auxiliary files/dirs, exclude them too:
@@ -30,3 +33,5 @@
 ^vignettes/heavy_img/
 ^vignettes/data/
 ^\.Rproj\.user$
+^doc$
+^Meta$
