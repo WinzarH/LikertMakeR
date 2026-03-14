@@ -249,3 +249,5 @@ Quick explanations, teaching & learning
   Works](https://winzarh.github.io/LikertMakeR/articles/lfast_infographic.md):
 - [How to Cite
   LikertMakeR](https://winzarh.github.io/LikertMakeR/articles/cite_LikertMakeR.md):
+- [Use LikertMakeR to replicate data from SEM results in a published
+  report](https://winzarh.github.io/LikertMakeR/articles/dwivedi_replication.md):

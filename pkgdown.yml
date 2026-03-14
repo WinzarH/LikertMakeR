@@ -1,17 +1,18 @@
-pandoc: 3.1.11
+pandoc: 3.6.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   blog_01: blog_01.html
   blog_02: blog_02.html
   cite_LikertMakeR: cite_LikertMakeR.html
+  dwivedi_replication: dwivedi_replication.html
   lfast_infographic: lfast_infographic.html
   lfast_validation: lfast_validation.html
   LikertMakeR_vignette: LikertMakeR_vignette.html
   makeCorrAlpha_explainer: makeCorrAlpha_explainer.html
   makeCorrLoadings_validate: makeCorrLoadings_validate.html
   reliability_measures: reliability_measures.html
-last_built: 2026-03-09T11:20Z
+last_built: 2026-03-14T10:09Z
 urls:
   reference: https://winzarh.github.io/LikertMakeR/reference
   article: https://winzarh.github.io/LikertMakeR/articles
