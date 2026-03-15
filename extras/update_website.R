@@ -74,7 +74,15 @@ devtools::check()
 devtools::install()
 
 # 3)
-pkgdown::build_site()
+## to completely rebuild site if change in structure or names of articles
+# pkgdown::build_site()
+
+## regenerate everything from scratch
+# unlink(c("docs", "_pkgdown"), recursive = TRUE)
+# pkgdown::build_site()
+
+## to add another file
+pkgdown::build_site(lazy = TRUE)
 
 
 # sanity check:

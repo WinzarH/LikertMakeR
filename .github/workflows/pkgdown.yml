@@ -23,8 +23,11 @@ jobs:
         with:
           extra-packages: any::pkgdown, local::.
           needs: website
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+
       - name: Build site
-        run: Rscript -e 'pkgdown::build_site(preview = FALSE, new_process = FALSE)'
+        run: Rscript -e 'pkgdown::build_site(preview = FALSE, new_process = FALSE, lazy = TRUE)'
       - name: Deploy to gh-pages
         if: github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3

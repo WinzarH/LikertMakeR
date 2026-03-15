@@ -45,7 +45,10 @@ LinkingTo:
     RcppArmadillo
 VignetteBuilder: 
     knitr
-Config/Needs/website: rmarkdown
+Config/Needs/website: 
+    rmarkdown,
+    pkgdown,
+    quarto
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB

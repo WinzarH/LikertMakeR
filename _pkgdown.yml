@@ -59,24 +59,27 @@ reference:
 
 articles:
   - title: Getting started
-    desc: Intro to the LikertMakeR package and key workflows.
+    desc: First steps with the package
     contents:
       - LikertMakeR_vignette
+      - lfast_infographic
 
-  - title: Validation studies
-    desc: Deeper dives.
+  - title: Tutorials
+    desc: Short demonstrations and examples
+    contents:
+      - likert_scale_defined
+      - t_test_demo
+
+  - title: Methods and validation
+    desc: Technical explanations and validation studies
     contents:
       - makeCorrAlpha_explainer
       - lfast_validation
       - makeCorrLoadings_validate
       - reliability_measures
 
-  - title: Tutorials
-    desc: Quick explanations, teaching & learning
+  - title: Replications and case studies
     contents:
-      - blog_01
-      - blog_02
-      - lfast_infographic
       - cite_LikertMakeR
       - dwivedi_replication
 
