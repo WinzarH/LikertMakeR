@@ -51,7 +51,9 @@ getNamespaceExports("LikertMakeR")
 
 
 urlchecker::url_check()
-urlchecker::url_update() # updates DESCRIPTION/R/Rd; still manually fix Rmd/Bib if needed
+
+# updates DESCRIPTION/R/Rd; still manually fix Rmd/Bib if needed
+urlchecker::url_update()
 
 
 devtools::clean_dll()
