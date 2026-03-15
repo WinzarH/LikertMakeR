@@ -62,6 +62,9 @@ devtools::clean_dll()
 
 devtools::document()
 
+unlink("vignettes/dwivedi_replication_cache", recursive = TRUE)
+unlink("vignettes/.quarto", recursive = TRUE)
+
 
 devtools::check()
 

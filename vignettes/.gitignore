@@ -6,3 +6,4 @@
 
 *.knit.md
 *_files/
+*_cache/
