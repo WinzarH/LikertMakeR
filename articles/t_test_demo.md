@@ -1,4 +1,4 @@
-# Tutorial 2: demonstrate t-tests with LikertMakeR
+# demonstrate t-tests with LikertMakeR
 
 ## TL;DR
 
@@ -190,7 +190,7 @@ ggplot(
 ```
 
 ![You et al. (2025)
-Study#1](blog_02_files/figure-html/t-vis-dotplot-1.png)
+Study#1](t_test_demo_files/figure-html/t-vis-dotplot-1.png)
 
 You et al. (2025) Study#1
 
@@ -432,7 +432,7 @@ ggplot(
 ```
 
 ![Reproduction of \`You et al. (2025)\`
-Study#1](blog_02_files/figure-html/t-vis-minimal-1.png)
+Study#1](t_test_demo_files/figure-html/t-vis-minimal-1.png)
 
 Reproduction of `You et al. (2025)` Study#1
 

@@ -2,14 +2,25 @@
 
 ### Getting started
 
-Intro to the LikertMakeR package and key workflows.
+First steps with the package
 
 - [LikertMakeR
   vignette](https://winzarh.github.io/LikertMakeR/articles/LikertMakeR_vignette.md):
+- [lfast()
+  Works](https://winzarh.github.io/LikertMakeR/articles/lfast_infographic.md):
 
-### Validation studies
+### Tutorials
 
-Deeper dives.
+Short demonstrations and examples
+
+- [what is
+  LikertMakeR?](https://winzarh.github.io/LikertMakeR/articles/likert_scale_defined.md):
+- [demonstrate t-tests with
+  LikertMakeR](https://winzarh.github.io/LikertMakeR/articles/t_test_demo.md):
+
+### Methods and validation
+
+Technical explanations and validation studies
 
 - [How \`makeCorrAlpha()\` Works: Then and
   Now](https://winzarh.github.io/LikertMakeR/articles/makeCorrAlpha_explainer.md):
@@ -19,16 +30,8 @@ Deeper dives.
   validation](https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.md):
 - [likertMakeR::reliability()](https://winzarh.github.io/LikertMakeR/articles/reliability_measures.md):
 
-### Tutorials
+### Replications and case studies
 
-Quick explanations, teaching & learning
-
-- [what is
-  LikertMakeR?](https://winzarh.github.io/LikertMakeR/articles/blog_01.md):
-- [Tutorial 2: demonstrate t-tests with
-  LikertMakeR](https://winzarh.github.io/LikertMakeR/articles/blog_02.md):
-- [lfast()
-  Works](https://winzarh.github.io/LikertMakeR/articles/lfast_infographic.md):
 - [How to Cite
   LikertMakeR](https://winzarh.github.io/LikertMakeR/articles/cite_LikertMakeR.md):
 - [Use LikertMakeR to replicate data from SEM results in a published

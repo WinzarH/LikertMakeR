@@ -171,7 +171,7 @@ sd(df$x)
 #### Visualise the data!
 
 ![Note that off-centre means cause skewed
-distributions](blog_01_files/figure-html/lfast_plot-1.png)
+distributions](likert_scale_defined_files/figure-html/lfast_plot-1.png)
 
 Note that off-centre means cause skewed distributions
 
