@@ -45,20 +45,20 @@ LinkingTo:
     RcppArmadillo
 VignetteBuilder: 
     knitr
-Config/Needs/website: 
-    rmarkdown,
-    pkgdown,
-    quarto,
-    kableExtra,
-    ggplot2,
-    lavaan,
-    semPlot,
-    matrixcalc,
-    stringr,
-    semptools,
+Config/Needs/website:
     dplyr,
     effectsize,
+    ggplot2,
+    kableExtra,
+    lavaan,
+    matrixcalc,
+    pkgdown,
     psych,
+    quarto,
+    rmarkdown,
+    semPlot,
+    semptools,
+    stringr,
     tibble,
     tidyr
 Config/testthat/edition: 3
