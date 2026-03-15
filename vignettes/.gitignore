@@ -3,3 +3,6 @@
 
 /.quarto/
 **/*.quarto_ipynb
+
+*.knit.md
+*_files/
