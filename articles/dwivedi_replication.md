@@ -57,21 +57,17 @@ The ***LikertMakeR*** package provides tools for doing exactly this:
 generating synthetic Likert-scale datasets that reproduce the
 statistical properties of reported data.
 
-Dwivedi A, Johnson LW, Wilkie DC, De Araujo-Gil L (2019). Consumer
-emotional brand attachment with social media brands and social media
-brand equity. *European Journal of Marketing*, 53(6): 1176–1204, doi:
-<https://doi.org/10.1108/EJM-09-2016-0511>
-
 In this tutorial we demonstrate the process using a published study by
-*Dwivedi et al. (2018)*. Using only the statistics reported in their
-paper, we reconstruct a synthetic dataset and show that it reproduces
-the key statistical relationships reported in the original analysis.
+*Dwivedi et al. (2018)*, ([Note 1](#nte-dwivedi)). Using only the
+statistics reported in their paper, we reconstruct a synthetic dataset
+and show that it reproduces the key statistical relationships reported
+in the original analysis.
 
-*Dwevedi et al. (2019)* sought to understand social media platforms from
-a “brand” perspective through examining the effect of consumers’
-emotional attachment on social media consumer-based brand equity (CBBE)
-using an online survey of 340 Australian social media consumers, as
-shown in [Figure 1](#fig-model).
+*Dwivedi et al. (2018)*, [Note 1](#nte-dwivedi), sought to understand
+social media platforms from a “brand” perspective through examining the
+effect of consumers’ emotional attachment on social media consumer-based
+brand equity (CBBE) using an online survey of 340 Australian social
+media consumers, as shown in [Figure 1](#fig-model).
 
 ### Overview of the Reconstruction Process
 
@@ -309,7 +305,7 @@ mat_diff <- dwivedi_correlations - synth_correlations
 frob_diff <- matrixcalc::frobenius.norm(mat_diff)
 ```
 
-Calculated *Frobenius Norm* here is 0.0105541, which is very low for a
+Calculated *Frobenius Norm* here is 0.0117217, which is very low for a
 matrix of this size.
 
 ## Step 4: Generate synthetic Likert responses
@@ -345,38 +341,38 @@ They are all integer responses to standard 1-5 Likert-scale-type
 questions.
 
        aff1 aff2 con1 con2 pas1 pas2 pas3 cop1 cop2 cop3 trt1 trt2 trt3 trt4 sat1
-    1     1    1    1    2    2    1    2    4    2    4    1    3    2    3    4
-    2     3    3    5    4    4    3    3    5    3    4    2    4    3    3    5
-    3     3    2    3    3    3    2    3    4    2    2    2    4    3    3    5
-    4     3    2    3    3    3    2    3    5    3    3    3    5    3    4    4
-    5     4    4    4    3    4    4    3    5    3    5    2    4    4    4    5
-    6     2    2    2    3    3    2    3    4    2    3    2    3    3    4    4
-    7     2    2    2    3    2    1    2    3    1    2    2    3    4    3    4
-    8     2    2    2    3    2    1    3    5    3    3    2    3    3    4    4
-    9     3    3    3    3    3    2    2    5    4    5    3    5    4    4    4
-    10    3    2    4    3    4    3    2    5    3    4    2    3    4    3    5
+    1     2    2    3    2    2    1    2    4    2    2    1    2    1    3    2
+    2     3    3    3    3    3    3    2    5    3    3    3    5    4    4    4
+    3     1    2    3    2    3    2    3    5    3    5    3    5    4    5    4
+    4     4    5    4    4    4    4    3    5    3    4    2    4    3    4    3
+    5     2    3    3    3    3    4    2    5    3    3    3    5    5    4    4
+    6     3    3    3    2    3    1    2    5    3    3    1    3    2    3    3
+    7     1    2    1    1    2    1    2    4    2    2    1    3    3    3    2
+    8     3    4    4    4    3    2    4    5    3    5    3    4    4    5    4
+    9     2    2    3    4    3    3    2    4    2    4    3    5    4    4    3
+    10    2    3    2    2    3    4    3    5    3    4    3    5    4    3    5
        sat2 sat3 awr1 awr2 awr3 awr4 awr5 qul1 qul2 qul3 qul4 loy1 loy2 dif1 dif2
-    1     2    3    3    5    3    4    5    4    2    4    4    2    3    4    2
-    2     4    4    5    5    5    5    5    5    3    5    5    3    5    4    3
-    3     3    4    3    5    5    5    5    5    3    3    4    3    5    5    4
-    4     3    3    2    4    4    4    4    4    2    4    3    3    5    5    5
-    5     4    4    3    5    4    3    5    5    3    5    4    2    4    4    3
-    6     2    3    2    4    4    4    4    4    2    3    4    2    3    3    1
-    7     2    3    3    5    4    5    4    3    1    1    3    2    4    3    1
-    8     3    3    3    5    4    5    3    5    3    4    3    2    4    4    3
-    9     3    4    2    4    4    3    4    5    3    5    3    3    4    4    2
-    10    4    4    3    5    4    5    5    5    3    4    3    4    5    5    4
+    1     4    3    3    5    4    4    5    1    3    1    3    3    2    2    4
+    2     5    4    4    5    5    5    5    4    5    5    5    4    3    4    5
+    3     5    4    3    5    5    4    5    3    5    3    4    5    3    3    5
+    4     5    4    3    5    5    5    4    2    4    4    4    5    5    4    5
+    5     5    4    3    5    5    4    5    2    4    4    4    5    3    3    5
+    6     4    4    3    5    4    3    5    1    3    1    3    4    3    1    3
+    7     3    2    3    5    3    5    4    2    4    4    4    2    1    4    5
+    8     5    4    3    5    4    5    4    3    5    5    3    5    3    3    5
+    9     5    4    3    5    4    4    5    3    5    5    4    4    3    3    4
+    10    5    5    4    5    5    5    5    3    5    5    5    5    4    5    5
        fit1 fit2 ext1 ext2 att1 att2 rel1 rel2 rel3 inv1 inv2 inv3 inv4
-    1     1    3    3    5    3    3    4    2    2    4    3    2    1
-    2     4    5    3    4    4    5    4    3    2    5    2    3    3
-    3     3    4    2    4    3    3    4    4    2    5    3    5    5
-    4     2    3    4    5    3    3    4    4    2    5    4    2    3
-    5     5    5    3    4    4    4    4    2    2    5    3    2    3
-    6     1    3    2    4    3    2    3    1    1    5    2    3    3
-    7     2    3    2    3    4    3    4    2    3    5    3    2    3
-    8     2    4    5    5    4    3    5    3    3    5    4    4    2
-    9     3    4    1    3    3    3    4    2    2    4    2    4    2
-    10    3    4    3    5    5    5    5    3    3    5    5    3    5
+    1     2    3    2    4    2    2    1    3    2    4    3    3    1
+    2     2    4    4    5    3    4    3    5    3    5    2    4    4
+    3     3    4    3    4    4    4    1    3    2    4    1    2    2
+    4     4    5    2    4    4    4    3    5    5    5    5    3    3
+    5     2    4    3    4    3    3    1    3    3    5    3    2    3
+    6     1    3    2    3    2    2    1    3    2    5    2    4    4
+    7     1    3    2    4    2    1    1    3    1    3    1    1    2
+    8     3    4    3    5    4    4    2    4    4    5    3    4    2
+    9     1    3    2    3    3    4    1    3    2    3    1    2    1
+    10    3    4    2    4    4    4    2    4    3    5    4    2    4
 
 Table 5: First ten rows of our synthetic data - all 43 items
 
@@ -388,19 +384,19 @@ Cronbach’s alpha are as desired as we can see in
 | construct | original | synthetic |
 |:----------|---------:|----------:|
 | AFF       |     0.87 |     0.869 |
-| CON       |     0.87 |     0.870 |
+| CON       |     0.87 |     0.869 |
 | PAS       |     0.84 |     0.839 |
-| COP       |     0.80 |     0.801 |
+| COP       |     0.80 |     0.800 |
 | TRT       |     0.88 |     0.879 |
 | SAT       |     0.86 |     0.859 |
 | AWR       |     0.87 |     0.869 |
-| QUL       |     0.84 |     0.840 |
-| LOY       |     0.79 |     0.791 |
+| QUL       |     0.84 |     0.839 |
+| LOY       |     0.79 |     0.788 |
 | DIF       |     0.85 |     0.852 |
-| FIT       |     0.82 |     0.821 |
-| EXT       |     0.79 |     0.790 |
-| ATT       |     0.88 |     0.873 |
-| REL       |     0.79 |     0.790 |
+| FIT       |     0.82 |     0.818 |
+| EXT       |     0.79 |     0.791 |
+| ATT       |     0.88 |     0.880 |
+| REL       |     0.79 |     0.789 |
 | INV       |     0.79 |     0.789 |
 
 Table 6: Comparison between Cronbach’s alphas for original published
@@ -518,19 +514,19 @@ summarised in [Table 8](#tbl-sem_summary). We can see that not all the
 figures are the exactly the same as in the original, but they are very
 close and the conclusions are the same.
 
-| Estimated path                 | β    | 95% CI         |
-|--------------------------------|------|----------------|
-| **Direct effects**             |      |                |
-| Attachment → Credibility       | 0.69 | \[0.6, 0.78\]  |
-| Attachment → SAT               | 0.52 | \[0.43, 0.61\] |
-| Attachment → BrandEquity       | 0.21 | \[0.07, 0.35\] |
-| Credibility → BrandEquity      | 0.30 | \[0.03, 0.58\] |
-| SAT → BrandEquity              | 0.56 | \[0.36, 0.76\] |
-| **Indirect and total effects** |      |                |
-| ind_Attachment_via_Credibility | 0.21 | \[0.01, 0.41\] |
-| ind_Attachment_via_SAT         | 0.29 | \[0.17, 0.41\] |
-| total_ind_Attachment           | 0.50 | \[0.37, 0.62\] |
-| total_Attachment               | 0.71 | \[0.63, 0.79\] |
+| Estimated path                 | β    | 95% CI          |
+|--------------------------------|------|-----------------|
+| **Direct effects**             |      |                 |
+| Attachment → Credibility       | 0.77 | \[0.68, 0.85\]  |
+| Attachment → SAT               | 0.52 | \[0.43, 0.61\]  |
+| Attachment → BrandEquity       | 0.12 | \[-0.2, 0.45\]  |
+| Credibility → BrandEquity      | 0.55 | \[-0.13, 1.22\] |
+| SAT → BrandEquity              | 0.38 | \[-0.08, 0.83\] |
+| **Indirect and total effects** |      |                 |
+| ind_Attachment_via_Credibility | 0.42 | \[-0.12, 0.96\] |
+| ind_Attachment_via_SAT         | 0.19 | \[-0.05, 0.43\] |
+| total_ind_Attachment           | 0.61 | \[0.3, 0.93\]   |
+| total_Attachment               | 0.74 | \[0.66, 0.81\]  |
 
 Table 8: Parameter estimates of the hypothesised model - From synthetic
 data.
@@ -575,5 +571,9 @@ This makes synthetic reconstruction useful for:
 
 ------------------------------------------------------------------------
 
-Download this tutorial as a PDF: [Download
-PDF](https://winzarh.github.io/LikertMakeR/articles/dwivedi_replication.pdf)
+> **Note 1: Reference**
+>
+> Dwivedi A, Johnson LW, Wilkie DC, De Araujo-Gil L (2019). Consumer
+> emotional brand attachment with social media brands and social media
+> brand equity. *European Journal of Marketing*, 53(6): 1176–1204, doi:
+> <https://doi.org/10.1108/EJM-09-2016-0511>

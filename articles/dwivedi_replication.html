@@ -133,11 +133,15 @@
 </blockquote>
 </div>
 <p>The <strong><em>LikertMakeR</em></strong> package provides tools for doing exactly this: generating synthetic Likert-scale datasets that reproduce the statistical properties of reported data.</p>
-<div class="column-margin">
-<p>Dwivedi A, Johnson LW, Wilkie DC, De Araujo-Gil L (2019). Consumer emotional brand attachment with social media brands and social media brand equity. <em>European Journal of Marketing</em>, 53(6): 1176–1204, doi: <a href="https://doi.org/10.1108/EJM-09-2016-0511" class="external-link uri">https://doi.org/10.1108/EJM-09-2016-0511</a></p>
-</div>
-<p>In this tutorial we demonstrate the process using a published study by <em>Dwivedi et al. (2018)</em>. Using only the statistics reported in their paper, we reconstruct a synthetic dataset and show that it reproduces the key statistical relationships reported in the original analysis.</p>
-<p><em>Dwevedi et al. (2019)</em> sought to understand social media platforms from a “brand” perspective through examining the effect of consumers’ emotional attachment on social media consumer-based brand equity (CBBE) using an online survey of 340 Australian social media consumers, as shown in <a href="#fig-model" class="quarto-xref">Figure 1</a>.</p>
+<!-- ::: {.column-margin} -->
+<!-- Dwivedi A, Johnson LW, Wilkie DC, De Araujo-Gil L (2019).  -->
+<!-- Consumer emotional brand attachment with social media  -->
+<!-- brands and social media brand equity.  -->
+<!-- _European Journal of Marketing_, 53(6): 1176–1204,  -->
+<!-- doi: <https://doi.org/10.1108/EJM-09-2016-0511> -->
+<!-- ::: -->
+<p>In this tutorial we demonstrate the process using a published study by <em>Dwivedi et al. (2018)</em>, (<a href="#nte-dwivedi" class="quarto-xref">Note 1</a>). Using only the statistics reported in their paper, we reconstruct a synthetic dataset and show that it reproduces the key statistical relationships reported in the original analysis.</p>
+<p><em>Dwivedi et al. (2018)</em>, <a href="#nte-dwivedi" class="quarto-xref">Note 1</a>, sought to understand social media platforms from a “brand” perspective through examining the effect of consumers’ emotional attachment on social media consumer-based brand equity (CBBE) using an online survey of 340 Australian social media consumers, as shown in <a href="#fig-model" class="quarto-xref">Figure 1</a>.</p>
 <!-- ::: {.callout-tip title = "Key Idea"} -->
 <!-- Even when raw data are unavailable, published studies often report enough -->
 <!-- statistics to reconstruct a **plausible synthetic dataset**. -->
@@ -169,7 +173,7 @@
 <li>structural equation model results</li>
 </ul>
 <p>If these statistics closely match the published values, the synthetic data can be considered a reasonable reconstruction of the original dataset.</p>
-<div id="fig-model" class="margin-caption quarto-float quarto-figure quarto-figure-center" data-fig-align="center" data-fig-cap-location="margin">
+<div id="fig-model" class="margin-caption quarto-float quarto-figure quarto-figure-center" data-fig-cap-location="margin" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="img/dwevedi_model.png" class="quarto-figure quarto-figure-center" data-fig-cap-location="margin">
 </div>
@@ -1100,7 +1104,7 @@ F = \left( \sum_{i=1}^m \sum_{j=1}^n a_{ij}^2 \right)^{1/2}
 <span><span class="va">frob_diff</span> <span class="op">&lt;-</span> <span class="fu">matrixcalc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/matrixcalc/man/frobenius.norm.html" class="external-link">frobenius.norm</a></span><span class="op">(</span><span class="va">mat_diff</span><span class="op">)</span></span></code></pre></div>
 </details>
 </div>
-<p>Calculated <em>Frobenius Norm</em> here is 0.0105541, which is very low for a matrix of this size.</p>
+<p>Calculated <em>Frobenius Norm</em> here is 0.0117217, which is very low for a matrix of this size.</p>
 </section><section class="section level2"><h2 id="step-4-generate-synthetic-likert-responses">Step 4: Generate synthetic Likert responses<a class="anchor" aria-label="anchor" href="#step-4-generate-synthetic-likert-responses"></a>
 </h2>
 <p>So far we have reconstructed the statistical properties of the scales. The next step is to generate individual Likert item responses consistent with those statistics.</p>
@@ -1122,38 +1126,38 @@ F = \left( \sum_{i=1}^m \sum_{j=1}^n a_{ij}^2 \right)^{1/2}
 <figure class="quarto-float quarto-float-tbl"><div aria-describedby="tbl-all_items-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-stdout">
 <pre><code>   aff1 aff2 con1 con2 pas1 pas2 pas3 cop1 cop2 cop3 trt1 trt2 trt3 trt4 sat1
-1     1    1    1    2    2    1    2    4    2    4    1    3    2    3    4
-2     3    3    5    4    4    3    3    5    3    4    2    4    3    3    5
-3     3    2    3    3    3    2    3    4    2    2    2    4    3    3    5
-4     3    2    3    3    3    2    3    5    3    3    3    5    3    4    4
-5     4    4    4    3    4    4    3    5    3    5    2    4    4    4    5
-6     2    2    2    3    3    2    3    4    2    3    2    3    3    4    4
-7     2    2    2    3    2    1    2    3    1    2    2    3    4    3    4
-8     2    2    2    3    2    1    3    5    3    3    2    3    3    4    4
-9     3    3    3    3    3    2    2    5    4    5    3    5    4    4    4
-10    3    2    4    3    4    3    2    5    3    4    2    3    4    3    5
+1     2    2    3    2    2    1    2    4    2    2    1    2    1    3    2
+2     3    3    3    3    3    3    2    5    3    3    3    5    4    4    4
+3     1    2    3    2    3    2    3    5    3    5    3    5    4    5    4
+4     4    5    4    4    4    4    3    5    3    4    2    4    3    4    3
+5     2    3    3    3    3    4    2    5    3    3    3    5    5    4    4
+6     3    3    3    2    3    1    2    5    3    3    1    3    2    3    3
+7     1    2    1    1    2    1    2    4    2    2    1    3    3    3    2
+8     3    4    4    4    3    2    4    5    3    5    3    4    4    5    4
+9     2    2    3    4    3    3    2    4    2    4    3    5    4    4    3
+10    2    3    2    2    3    4    3    5    3    4    3    5    4    3    5
    sat2 sat3 awr1 awr2 awr3 awr4 awr5 qul1 qul2 qul3 qul4 loy1 loy2 dif1 dif2
-1     2    3    3    5    3    4    5    4    2    4    4    2    3    4    2
-2     4    4    5    5    5    5    5    5    3    5    5    3    5    4    3
-3     3    4    3    5    5    5    5    5    3    3    4    3    5    5    4
-4     3    3    2    4    4    4    4    4    2    4    3    3    5    5    5
-5     4    4    3    5    4    3    5    5    3    5    4    2    4    4    3
-6     2    3    2    4    4    4    4    4    2    3    4    2    3    3    1
-7     2    3    3    5    4    5    4    3    1    1    3    2    4    3    1
-8     3    3    3    5    4    5    3    5    3    4    3    2    4    4    3
-9     3    4    2    4    4    3    4    5    3    5    3    3    4    4    2
-10    4    4    3    5    4    5    5    5    3    4    3    4    5    5    4
+1     4    3    3    5    4    4    5    1    3    1    3    3    2    2    4
+2     5    4    4    5    5    5    5    4    5    5    5    4    3    4    5
+3     5    4    3    5    5    4    5    3    5    3    4    5    3    3    5
+4     5    4    3    5    5    5    4    2    4    4    4    5    5    4    5
+5     5    4    3    5    5    4    5    2    4    4    4    5    3    3    5
+6     4    4    3    5    4    3    5    1    3    1    3    4    3    1    3
+7     3    2    3    5    3    5    4    2    4    4    4    2    1    4    5
+8     5    4    3    5    4    5    4    3    5    5    3    5    3    3    5
+9     5    4    3    5    4    4    5    3    5    5    4    4    3    3    4
+10    5    5    4    5    5    5    5    3    5    5    5    5    4    5    5
    fit1 fit2 ext1 ext2 att1 att2 rel1 rel2 rel3 inv1 inv2 inv3 inv4
-1     1    3    3    5    3    3    4    2    2    4    3    2    1
-2     4    5    3    4    4    5    4    3    2    5    2    3    3
-3     3    4    2    4    3    3    4    4    2    5    3    5    5
-4     2    3    4    5    3    3    4    4    2    5    4    2    3
-5     5    5    3    4    4    4    4    2    2    5    3    2    3
-6     1    3    2    4    3    2    3    1    1    5    2    3    3
-7     2    3    2    3    4    3    4    2    3    5    3    2    3
-8     2    4    5    5    4    3    5    3    3    5    4    4    2
-9     3    4    1    3    3    3    4    2    2    4    2    4    2
-10    3    4    3    5    5    5    5    3    3    5    5    3    5</code></pre>
+1     2    3    2    4    2    2    1    3    2    4    3    3    1
+2     2    4    4    5    3    4    3    5    3    5    2    4    4
+3     3    4    3    4    4    4    1    3    2    4    1    2    2
+4     4    5    2    4    4    4    3    5    5    5    5    3    3
+5     2    4    3    4    3    3    1    3    3    5    3    2    3
+6     1    3    2    3    2    2    1    3    2    5    2    4    4
+7     1    3    2    4    2    1    1    3    1    3    1    1    2
+8     3    4    3    5    4    4    2    4    4    5    3    4    2
+9     1    3    2    3    3    4    1    3    2    3    1    2    1
+10    3    4    2    4    4    4    2    4    3    5    4    2    4</code></pre>
 </div>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-tbl" id="tbl-all_items-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1180,7 +1184,7 @@ Table 5: First ten rows of our synthetic data - all 43 items
 <tr class="even">
 <td style="text-align: left;">CON</td>
 <td style="text-align: right;">0.87</td>
-<td style="text-align: right;">0.870</td>
+<td style="text-align: right;">0.869</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">PAS</td>
@@ -1190,7 +1194,7 @@ Table 5: First ten rows of our synthetic data - all 43 items
 <tr class="even">
 <td style="text-align: left;">COP</td>
 <td style="text-align: right;">0.80</td>
-<td style="text-align: right;">0.801</td>
+<td style="text-align: right;">0.800</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">TRT</td>
@@ -1210,12 +1214,12 @@ Table 5: First ten rows of our synthetic data - all 43 items
 <tr class="even">
 <td style="text-align: left;">QUL</td>
 <td style="text-align: right;">0.84</td>
-<td style="text-align: right;">0.840</td>
+<td style="text-align: right;">0.839</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">LOY</td>
 <td style="text-align: right;">0.79</td>
-<td style="text-align: right;">0.791</td>
+<td style="text-align: right;">0.788</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">DIF</td>
@@ -1225,22 +1229,22 @@ Table 5: First ten rows of our synthetic data - all 43 items
 <tr class="odd">
 <td style="text-align: left;">FIT</td>
 <td style="text-align: right;">0.82</td>
-<td style="text-align: right;">0.821</td>
+<td style="text-align: right;">0.818</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">EXT</td>
 <td style="text-align: right;">0.79</td>
-<td style="text-align: right;">0.790</td>
+<td style="text-align: right;">0.791</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ATT</td>
 <td style="text-align: right;">0.88</td>
-<td style="text-align: right;">0.873</td>
+<td style="text-align: right;">0.880</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">REL</td>
 <td style="text-align: right;">0.79</td>
-<td style="text-align: right;">0.790</td>
+<td style="text-align: right;">0.789</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">INV</td>
@@ -1463,8 +1467,8 @@ Table 7: Parameter estimates of the hypothesised and alternative models - Table
 </tr>
 <tr class="even">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Attachment → Credibility</td>
-<td style="text-align: right;">0.69</td>
-<td style="text-align: center;">[0.6, 0.78]</td>
+<td style="text-align: right;">0.77</td>
+<td style="text-align: center;">[0.68, 0.85]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Attachment → SAT</td>
@@ -1473,41 +1477,41 @@ Table 7: Parameter estimates of the hypothesised and alternative models - Table
 </tr>
 <tr class="even">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Attachment → BrandEquity</td>
-<td style="text-align: right;">0.21</td>
-<td style="text-align: center;">[0.07, 0.35]</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: center;">[-0.2, 0.45]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Credibility → BrandEquity</td>
-<td style="text-align: right;">0.30</td>
-<td style="text-align: center;">[0.03, 0.58]</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: center;">[-0.13, 1.22]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">SAT → BrandEquity</td>
-<td style="text-align: right;">0.56</td>
-<td style="text-align: center;">[0.36, 0.76]</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: center;">[-0.08, 0.83]</td>
 </tr>
 <tr class="odd" data-grouplength="4">
 <td colspan="3" style="border-bottom: 1px solid"><strong>Indirect and total effects</strong></td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">ind_Attachment_via_Credibility</td>
-<td style="text-align: right;">0.21</td>
-<td style="text-align: center;">[0.01, 0.41]</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: center;">[-0.12, 0.96]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">ind_Attachment_via_SAT</td>
-<td style="text-align: right;">0.29</td>
-<td style="text-align: center;">[0.17, 0.41]</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: center;">[-0.05, 0.43]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">total_ind_Attachment</td>
-<td style="text-align: right;">0.50</td>
-<td style="text-align: center;">[0.37, 0.62]</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: center;">[0.3, 0.93]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">total_Attachment</td>
-<td style="text-align: right;">0.71</td>
-<td style="text-align: center;">[0.63, 0.79]</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: center;">[0.66, 0.81]</td>
 </tr>
 </tbody>
 </table>
@@ -1551,7 +1555,12 @@ Figure 2: Structural model of Synthetic data - reproducing original data.
 <li>conducting methodological simulations when raw data are unavailable.</li>
 </ul>
 <hr>
-<p>Download this tutorial as a PDF: <a href="dwivedi_replication.pdf">Download PDF</a></p>
+<div id="nte-dwivedi">
+<blockquote>
+<p><strong>Note 1: Reference</strong></p>
+<p>Dwivedi A, Johnson LW, Wilkie DC, De Araujo-Gil L (2019). Consumer emotional brand attachment with social media brands and social media brand equity. <em>European Journal of Marketing</em>, 53(6): 1176–1204, doi: <a href="https://doi.org/10.1108/EJM-09-2016-0511" class="external-link uri">https://doi.org/10.1108/EJM-09-2016-0511</a></p>
+</blockquote>
+</div>
 </section></section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
