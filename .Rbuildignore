@@ -19,8 +19,8 @@
 ^vignettes/lfast_validation\.Rmd$
 ^vignettes/makeCorrLoadings_validate\.Rmd$
 ^vignettes/lfast_infographic\.Rmd$
-^vignettes/blog_01\.Rmd$
-^vignettes/blog_02\.Rmd$
+^vignettes/likert_scale_defined\.Rmd$
+^vignettes/t_test_demo\.Rmd$
 ^vignettes/makeCorrAlpha_explainer\.Rmd$
 ^vignettes/cite_LikertMakeR\.Rmd$
 ^vignettes/dwivedi_replication\.qmd

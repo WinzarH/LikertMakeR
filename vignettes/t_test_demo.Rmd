@@ -1,6 +1,6 @@
 
 ---
-title: "Tutorial 2: demonstrate t-tests with LikertMakeR"
+title: "demonstrate t-tests with LikertMakeR"
 author: "Hume Winzar"
 output: rmarkdown::html_document
 
