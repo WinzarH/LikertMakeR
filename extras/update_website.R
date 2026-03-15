@@ -92,3 +92,14 @@ system.file(package = "LikertMakeR") # should print a path
 
 # 3) Deploy
 pkgdown::deploy_to_branch()
+
+
+
+
+
+renv::dependencies("vignettes/dwivedi_replication.qmd")
+renv::dependencies("vignettes")
+
+
+unlink("_freeze", recursive = TRUE)
+unlink("_cache", recursive = TRUE)

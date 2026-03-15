@@ -25,27 +25,6 @@ format:
     code-summary: "Show the code"
     toc: TRUE
     toc-depth: 2  
-    grid:
-      body-width: 850px
-      margin-width: 300px
-    reference-location: margin
-    citation-location: margin  
-  pdf:
-    documentclass: article
-    papersize: a4
-    fontsize: 11pt
-    geometry: "left=2cm,right=4cm,top=2.5cm,bottom=2.5cm"
-    toc: FALSE
-    number-sections: true
-    code-line-numbers: false
-    highlight-style: github
-    code-overflow: wrap
-    code-fold: false
-    monofont: "DejaVu Sans Mono"
-    tbl-cap-location: top
-    fig-cap-location: top
-    include-in-header: preamble.tex
-    pdf-engine: lualatex
 
 ---
 
