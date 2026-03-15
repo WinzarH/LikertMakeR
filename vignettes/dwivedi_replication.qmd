@@ -112,20 +112,22 @@ The **_LikertMakeR_** package provides tools for doing exactly this:
 generating synthetic Likert-scale datasets that reproduce the statistical 
 properties of reported data.
 
-::: {.column-margin}
-Dwivedi A, Johnson LW, Wilkie DC, De Araujo-Gil L (2019). 
-Consumer emotional brand attachment with social media 
-brands and social media brand equity. 
-_European Journal of Marketing_, 53(6): 1176–1204, 
-doi: <https://doi.org/10.1108/EJM-09-2016-0511>
-:::
+<!-- ::: {.column-margin} -->
+<!-- Dwivedi A, Johnson LW, Wilkie DC, De Araujo-Gil L (2019).  -->
+<!-- Consumer emotional brand attachment with social media  -->
+<!-- brands and social media brand equity.  -->
+<!-- _European Journal of Marketing_, 53(6): 1176–1204,  -->
+<!-- doi: <https://doi.org/10.1108/EJM-09-2016-0511> -->
+<!-- ::: -->
+
 
 In this tutorial we demonstrate the process using a published study 
-by _Dwivedi et al. (2018)_. Using only the statistics reported in their 
+by _Dwivedi et al. (2018)_, (@nte-dwivedi). 
+Using only the statistics reported in their 
 paper, we reconstruct a synthetic dataset and show that it reproduces the 
 key statistical relationships reported in the original analysis. 
 
-_Dwevedi et al. (2019)_ sought to understand social
+_Dwivedi et al. (2018)_, @nte-dwivedi, sought to understand social
 media platforms from a “brand” perspective through examining the effect of
 consumers’ emotional attachment on social media
 consumer-based brand equity (CBBE) using an online survey of 340 Australian
@@ -821,6 +823,15 @@ This makes synthetic reconstruction useful for:
 
 ----
 
-Download this tutorial as a PDF: [Download PDF](dwivedi_replication.pdf)
+
+::: {#nte-dwivedi .callout-note appearance="default" icon=false}
+### Reference {.unnumbered}
+
+Dwivedi A, Johnson LW, Wilkie DC, De Araujo-Gil L (2019). 
+Consumer emotional brand attachment with social media 
+brands and social media brand equity. 
+_European Journal of Marketing_, 53(6): 1176–1204, 
+doi: <https://doi.org/10.1108/EJM-09-2016-0511>
+:::
 
 
