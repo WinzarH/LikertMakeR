@@ -52,6 +52,7 @@ Config/Needs/website:
     kableExtra,
     lavaan,
     matrixcalc,
+    matrixStats,
     pkgdown,
     psych,
     quarto,
