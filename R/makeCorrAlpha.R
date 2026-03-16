@@ -77,8 +77,7 @@
 #' consistent with typical psychometric scale construction.
 #'
 #'
-#' @importFrom stats rnorm
-#' @importFrom stats uniroot
+#' @importFrom stats rnorm sd uniroot
 #'
 #' @return
 #' If \code{diagnostics = FALSE}, a positive-definite correlation matrix.
