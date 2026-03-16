@@ -24,10 +24,10 @@ Depends:
     R (>= 4.2.0)
 Imports: 
     dplyr,
-    gtools,
     Matrix,
     matrixStats,
     Rcpp,
+    stats,
     tibble,
     rlang
 Suggests: 
