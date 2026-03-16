@@ -64,10 +64,9 @@
 #' on the achievable inter-item correlation.
 #'
 #'
-#' @importFrom gtools combinations permute
 #' @importFrom dplyr filter arrange slice select all_of pull slice_sample
-#' @importFrom stats sd quantile
 #' @importFrom rlang .data
+#' @importFrom matrixStats rowSds
 #'
 #' @return a dataframe with 'items' columns and 'length(scale)' rows
 #'
@@ -125,14 +124,30 @@ makeItemsScale <- function(
   ###
 
   makeCombinations <- function(lowerbound, upperbound, items) {
-    mycombinations <- combinations(
-      v = c(lowerbound:upperbound),
-      r = items,
-      n = length(c(lowerbound:upperbound)),
-      repeats.allowed = TRUE
-    )
-    return(mycombinations)
+
+    vals <- lowerbound:upperbound
+
+    grids <- expand.grid(rep(list(vals), items))
+
+    # keep only non-decreasing rows
+    combos <- grids[
+      apply(grids, 1, function(x) all(diff(x) >= 0)),
+    ]
+
+    as.matrix(combos)
+
   }
+
+
+  # makeCombinations <- function(lowerbound, upperbound, items) {
+  #   mycombinations <- combinations(
+  #     v = c(lowerbound:upperbound),
+  #     r = items,
+  #     n = length(c(lowerbound:upperbound)),
+  #     repeats.allowed = TRUE
+  #   )
+  #   return(mycombinations)
+  # }
 
   ###
   ##  makeVector selects a row of item values rowsums equal to a
@@ -148,13 +163,10 @@ makeItemsScale <- function(
       stop(paste0("No candidate partition found for sum = ", targetSum))
     }
 
-    vec <- shortdat |>
-      arrange(.data$score) |>
-      slice(1)
+    # random selection among precomputed best rows
+    vec <- shortdat[sample.int(nrow(shortdat), 1), ]
 
-    vec <- vec[, seq_len(items)]
-
-    return(vec)
+    return(as.numeric(vec))
   }
 
   ###
@@ -234,7 +246,8 @@ makeItemsScale <- function(
 
   # precompute statistics once
   cand$sum <- rowSums(cand)
-  cand$sd <- apply(cand[, 1:items], 1, sd)
+  # cand$sd <- apply(cand[, 1:items], 1, sd)
+  cand$sd <- matrixStats::rowSds(as.matrix(cand[, 1:items]))
 
   # map dispersion to similarity proxy
   sd_max <- max(cand$sd)
@@ -246,8 +259,19 @@ makeItemsScale <- function(
   # score partitions by closeness to target correlation
   cand$score <- abs(cand$r_proxy - target_r)
 
-  # split candidates by possible row sums
+  # split candidates by row sum
   cand_split <- split(cand, cand$sum)
+
+  # keep only best rows for each sum (precompute once)
+  cand_split <- lapply(cand_split, function(df) {
+
+    min_score <- min(df$score)
+
+    best <- df[df$score == min_score, seq_len(items), drop = FALSE]
+
+    as.matrix(best)
+
+  })
 
 
   if (!summated) {
@@ -270,12 +294,11 @@ makeItemsScale <- function(
   }
 
 
-  mydat <- matrix(NA, nrow = nrow(scale), ncol = items)
+  mydat <- matrix(NA_real_, nrow = nrow(scale), ncol = items)
 
-  for (i in 1:nrow(scale)) {
-    vRow <- makeVector(as.numeric(scale[i, 1]), items) |>
-      permute()
-    mydat[i, ] <- as.numeric(vRow)
+  for (i in seq_len(nrow(scale))) {
+    vRow <- sample(makeVector(scale[i, 1], items))
+    mydat[i, ] <- vRow
   }
 
   mydat <- as.data.frame(mydat)
