@@ -12,7 +12,7 @@
 #' research where only summary statistics (standardised regression
 #' coefficients and R-squared) are reported.
 #'
-#' @importFrom stats as.formula coef lm model.frame
+#' @importFrom stats as.formula coef lm model.frame sd
 #' @importFrom Matrix nearPD
 #'
 #' @details
