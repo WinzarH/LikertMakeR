@@ -74,6 +74,7 @@ articles:
     desc: Technical explanations and validation studies
     contents:
       - makeCorrAlpha_explainer
+      - makeItemsScale_explainer
       - lfast_validation
       - makeCorrLoadings_validate
       - reliability_measures
