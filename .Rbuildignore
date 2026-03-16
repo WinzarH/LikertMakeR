@@ -27,6 +27,7 @@
 
 ^vignettes/dwivedi_replication_files
 
+^vignettes/makeItemsScale_explainer\.qmd
 
 # If those vignettes create auxiliary files/dirs, exclude them too:
 ^vignettes/(lfast_validation|makeCorrLoadings_validate)_files/

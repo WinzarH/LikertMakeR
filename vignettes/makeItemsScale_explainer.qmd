@@ -1,0 +1,336 @@
+---
+title: "makeItemsScale() explainer"
+author:
+  - name: Hume Winzar
+    id: hw
+    orcid: 0000-0001-7475-2641
+    email: hume.winzar@mq.edu.au
+    affiliation: 
+      - name: Macquarie University
+        city: Sydney
+        state: NSW
+        country: Australia
+        url: www.mq.edu.au
+abstract: | 
+  lorum
+
+
+execute:
+  cache: FALSE
+
+      
+format: 
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    toc: TRUE
+    toc-depth: 2  
+
+---
+
+# Reconstructing Likert Items from Scale Scores with a Target Reliability
+
+Many simulation studies require item-level Likert responses that satisfy two constraints:
+
+ 1. The item values must sum to a given scale score.
+ 2. The items should exhibit a desired reliability (Cronbach’s $\alpha$).
+
+The `makeItemsScale()` function generates such data by selecting candidate item combinations whose dispersion matches the correlation structure implied by the target reliability.
+
+The key idea is that rows with similar item values produce stronger correlations between items, while rows with widely varying values produce weaker correlations. 
+
+## Relationship between reliability and correlation
+
+Cronbach’s alpha depends on the **average inter-item correlation**:
+
+
+$$
+\alpha = \frac{k \bar r}{1 + (k - 1) \bar r}
+$$
+
+where
+
+
+  - $k$ = number of items
+  - $\bar r$  = mean inter-item correlation.
+
+Rearranging gives the correlation implied by a desired reliability:
+
+
+$$
+\bar r = \frac{\alpha}{k - \alpha (k - 1)}
+$$
+
+
+### Example 
+
+Suppose we want
+
+  - 4 items
+  - target $\alpha$ = 0.80
+
+Then
+
+$$
+\bar r = \frac{0.80}{4 - 0.80 (3)} = 0.5
+$$
+
+Typically, we would formalise this calculation with a function.
+
+```{r}
+#| label: "alpha_2_r_function"
+#| echo: TRUE
+
+alpha_2_r <- function(target_alpha, k) {
+  mean_r <- target_alpha / (k - target_alpha * (k - 1))
+  
+  return(mean_r)
+}
+
+```
+
+
+So the reconstructed items should exhibit an average correlation of approximately $0.50$.
+
+```{r}
+#| label: "load_libraries"
+#| warning: false
+#| message: false
+#| echo: TRUE
+
+library(dplyr)
+library(gtools)
+library(LikertMakeR)
+```
+
+
+
+
+## Candidate rows
+
+The algorithm first generates all possible item combinations within the response bounds.
+
+For a 4-item 1–5 scale, possible rows include:
+
+```{r}
+#| label: "candidates"
+#| echo: TRUE
+#| 
+lower <- 1
+upper <- 5
+k <- 4
+
+
+candidates <- combinations(
+  v = c(lower:upper),
+  r = k,
+  n = length(c(lower:upper)),
+  repeats.allowed = TRUE
+) |>
+  data.frame()
+
+```
+
+
+```{r}
+#| label: "head_candidates"
+#| echo: FALSE
+
+head(candidates)
+
+message(paste0("..."))
+
+tail(candidates)
+
+```
+
+
+Each candidate row represents a possible pattern of item responses.
+
+And each row sums to a value that could be appear in a summated scale. Similarly, each row shows variation in its values, as measured by the row standard deviation
+
+$$
+s = \sqrt{\frac{1}{k - 1}\sum^k_{i=1}  (x_i - \bar x)^2}
+$$
+
+Rows with small $s$ contain similar item values, implying stronger correlations.
+
+Rows with large $s$ contain more varied values, implying weaker correlations.
+
+```{r}
+#| label: "candidate_moments"
+#| echo: TRUE
+#| 
+
+candidates$sum <- rowSums(candidates[, 1:k])
+candidates$sd <- apply(X = candidates[, 1:k], MARGIN = 1, FUN = sd)
+
+
+
+```
+
+
+```{r}
+#| label: "head_candidate_moments"
+#| echo: FALSE
+
+head(candidates)
+
+message(paste0("..."))
+
+tail(candidates)
+
+```
+
+### Similarity index
+
+To relate row dispersion to correlation, the algorithm converts the standard deviation into a **similarity index**
+
+$$
+r^* = 1 - \frac{s}{s_{max}}
+$$
+
+where
+
+  - $s$ = row standard deviation
+  - $s_{max}$ = maximum dispersion observed among candidate rows.
+
+This transformation maps dispersion onto a scale between roughly 0 (low similarity) and 1 (high similarity).
+
+The similarity index is calculated using the maximum dispersion observed across all possible item combinations within the response range. 
+Using a global maximum ensures that the similarity scale is consistent across all scale scores and allows candidate rows from different sums to be compared using the same similarity metric.
+
+Rows with similar values therefore have large $r^*$
+
+```{r}
+#| label: "candidate_similarities"
+#| echo: TRUE
+
+s_max <- max(candidates$sd)
+
+candidates$similar <-  1 - candidates$sd / s_max
+
+head(candidates)
+
+message(paste0("..."))
+
+tail(candidates)
+```
+
+
+
+
+
+
+### Selecting candidate rows
+
+For each candidate row we compute
+
+$$
+| {r^* - \bar r} |
+$$
+
+where
+
+  - $r^*$ = row similarity
+  - $\bar r$ = target mean correlation.
+
+Rows whose similarity index is **closest to the target correlation** are preferred.
+
+
+### Worked example 1
+
+**Four 5-point items with summed score = 12**
+
+Suppose a respondent’s scale score is **12**.
+
+We must find item values such that
+
+$$
+x_1 + x_2 + x_3 +x_4 = 12
+$$
+
+Possible combinations include:
+
+```{r}
+#| label: "sums_12"
+#| echo: TRUE
+
+sums_12 <- filter(candidates, sum == 12)
+
+print(sums_12)
+
+```
+
+
+Recall the target correlation is **0.50**.
+
+The row
+
+`2  2  4  4`
+
+has similarity **0.50**, which is closest to the target.
+So this row is selected (and later permuted across item positions).
+
+::: {.callout-note title="Geometric intuition"}
+Each row of item responses can be viewed as a point in a 
+$k$-dimensional space whose coordinates are the item values. Rows in which all items have the same value lie on the diagonal line 
+$x_1 = x_2 = ⋯ = x_k $
+These rows have zero dispersion because the item values are identical.
+
+Rows in which the item values differ lie away from this diagonal. The further a row lies from the diagonal, the more uneven the item values are and the larger the row variance becomes. The most dispersed rows occur at the edges of the response space, where some items take the minimum response value and others take the maximum.
+
+The reconstruction algorithm uses this geometry to control reliability. Rows close to the diagonal produce highly correlated items, while rows further away produce weaker correlations. By selecting candidate rows whose distance from the diagonal matches the correlation implied by the target Cronbach’s alpha, the algorithm generates item responses whose overall reliability approximates the requested value.
+:::
+
+### Worked example 2
+
+**Four 5-point items with summed score = 7**
+
+Now consider a scale score of **7**.
+
+Possible rows include:
+
+
+```{r}
+#| label: "sums_7"
+#| echo: TRUE
+
+sums_7 <- filter(candidates, sum == 7)
+
+print(sums_7)
+
+```
+
+The row
+
+`1  1  2  3  ` 
+
+has similarity closest to the target correlation (0.50), so it is selected.
+
+
+## Constructing the dataset
+
+The algorithm repeats this process for every scale score.
+
+  1. Identify candidate rows that sum to the required score
+  2. Compute dispersion for each candidate
+  3. Convert dispersion to similarity index
+  4. Select the row whose similarity best matches the target correlation
+  5. Randomly permute item positions
+
+Finally, a short optimisation step rearranges item values within rows to improve the overall correlation structure while preserving each row sum.
+
+
+## Why this works
+
+Cronbach’s alpha depends on the average correlation between items across respondents. By selecting candidate rows whose within-row dispersion corresponds to the desired correlation level, the algorithm indirectly controls the covariance structure of the generated dataset.
+
+Rows with similar item values generate stronger correlations, while rows with more varied values generate weaker correlations. By selecting rows with the appropriate similarity level for each scale score, the algorithm produces datasets whose observed reliability closely matches the requested value.
+
+Because row variance depends only on the distribution of item values, many different candidate rows share identical dispersion values. Randomly selecting among tied candidates avoids systematic preference for particular partitions while preserving the desired correlation structure.
+
+Because candidate item partitions produce a discrete set of dispersion values, the achieved reliability can only approximate the requested value. In simulation tests the deviation from the target Cronbach’s α is typically less than 0.001.
+
+
+
