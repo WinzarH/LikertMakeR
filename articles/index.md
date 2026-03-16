@@ -24,6 +24,8 @@ Technical explanations and validation studies
 
 - [How \`makeCorrAlpha()\` Works: Then and
   Now](https://winzarh.github.io/LikertMakeR/articles/makeCorrAlpha_explainer.md):
+- [makeItemsScale()
+  explainer](https://winzarh.github.io/LikertMakeR/articles/makeItemsScale_explainer.md):
 - [LikertMakeR Scale Reproduction
   Validation](https://winzarh.github.io/LikertMakeR/articles/lfast_validation.md):
 - [makeCorrLoadings()

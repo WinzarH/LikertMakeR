@@ -124,7 +124,7 @@ newItems1 <- makeItemsScale(
 )
 #> rearrange 4 values within each of 64 rows
 #> Complete!
-#> desired Cronbach's alpha = 0.8 (achieved alpha = 0.8002)
+#> desired Cronbach's alpha = 0.8 (achieved alpha = 0.8006)
 
 ### test new items
 # str(newItems1)
