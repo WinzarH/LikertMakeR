@@ -35,6 +35,8 @@ Suggests:
     kableExtra,
     knitr,
     ggplot2,
+    ggrepel,
+    gtools,
     psych,
     polycor,
     psychTools,
