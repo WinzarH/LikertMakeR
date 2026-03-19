@@ -2,12 +2,110 @@
 
 ## Reconstructing Likert Items from Scale Scores with a Target Reliability
 
-Many simulation studies require item-level Likert responses that satisfy
-two constraints:
+In many situations researchers have access to scale scores but not the
+individual item responses that produced them. For example, published
+studies often report only summary statistics, simulation studies may
+require synthetic item data, and teaching examples may benefit from
+realistic item responses. Generating such data is not straightforward
+because the reconstructed items must satisfy two constraints
+simultaneously: the item values must sum to the observed scale score,
+and the items should exhibit a desired level of reliability.
+
+The
+[`makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md)
+function addresses this problem by reconstructing plausible Likert-style
+item responses whose sums reproduce the supplied scale scores while
+approximating a target Cronbach’s alpha. The algorithm achieves this by
+selecting candidate item combinations whose dispersion corresponds to
+the inter-item correlation implied by the desired reliability.
+
+Reconstructed item-level Likert responses must satisfy two constraints:
 
 1.  The item values must sum to a given scale score.
 2.  The items should exhibit a desired reliability (Cronbach’s
     $`\alpha`$).
+
+Show the code
+
+``` r
+## load required packages
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+library(gtools)
+library(knitr)
+library(kableExtra)
+library(LikertMakeR)
+```
+
+Quick example:
+
+The short dataset in [Table 1](#tbl-opening_example) shows a four-item
+5-point Likert scale, `myScale` for which we want to produce scale items
+that match the scores in the dataset and have *Cronbach’s alpha* of
+`0.80`. This result is achieved in the four columns, `V1 ... V4` which
+average to equal the corresponding values in `myScale`.
+
+Show the code
+
+``` r
+n <- 16
+mean <- 3
+sd <- 1.0
+lower <- 1
+upper <- 5
+k <- 4
+
+target_alpha <- 0.8
+
+df <- data.frame(
+  myScale = lfast(
+    n = n, mean = mean, sd = sd,
+    lowerbound = lower, upperbound = upper,
+    items = k
+  )
+)
+
+myItems <- makeItemsScale(
+  scale = df,
+  lowerbound = lower,
+  upperbound = upper,
+  items = k,
+  alpha = target_alpha,
+  summated = FALSE
+)
+
+myAlpha <- alpha(, myItems) |> round(4)
+
+df <- cbind(df, myItems)
+
+knitr::kable(df)
+```
+
+| myScale |  V1 |  V2 |  V3 |  V4 |
+|--------:|----:|----:|----:|----:|
+|    1.50 |   1 |   3 |   1 |   1 |
+|    3.00 |   2 |   4 |   4 |   2 |
+|    3.25 |   2 |   5 |   3 |   3 |
+|    1.75 |   1 |   2 |   1 |   3 |
+|    2.25 |   1 |   2 |   4 |   2 |
+|    4.25 |   4 |   5 |   3 |   5 |
+|    4.50 |   3 |   5 |   5 |   5 |
+|    1.75 |   1 |   2 |   1 |   3 |
+|    3.00 |   2 |   2 |   4 |   4 |
+|    3.00 |   2 |   4 |   4 |   2 |
+|    4.50 |   3 |   5 |   5 |   5 |
+|    2.50 |   3 |   4 |   1 |   2 |
+|    3.50 |   3 |   4 |   5 |   2 |
+|    4.25 |   3 |   5 |   4 |   5 |
+|    2.00 |   1 |   3 |   1 |   3 |
+|    3.00 |   2 |   2 |   4 |   4 |
+
+Table 1: Short Example: 4-item 5-point Likert scale, alpha = 0.8
+
+Here, the resulting *Cronbach’s alpha* = 0.8003, so the synthetic data
+are correct to two decimal places. Not bad for just 16 observations!
+*(Actually, number of observations has little to do with **alpha**)*
 
 The
 [`makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md)
@@ -69,20 +167,13 @@ alpha_2_r <- function(target_alpha, k) {
 So the reconstructed items should exhibit an average correlation of
 approximately $`0.50`$.
 
-Show the code
-
-``` r
-library(dplyr)
-library(gtools)
-library(LikertMakeR)
-```
-
 ### Candidate rows
 
 The algorithm first generates all possible item combinations within the
 response bounds.
 
-For a 4-item 1–5 scale, possible rows include:
+For a 4-item 1–5 scale, there are 70 possible rows (aka: *combinations
+with replacement*), as shown in [Table 2](#tbl-head_candidates).
 
 Show the code
 
@@ -101,27 +192,30 @@ candidates <- combinations(
   data.frame()
 ```
 
-      X1 X2 X3 X4
-    1  1  1  1  1
-    2  1  1  1  2
-    3  1  1  1  3
-    4  1  1  1  4
-    5  1  1  1  5
-    6  1  1  2  2
+|     | X1  | X2  | X3  | X4  |
+|:----|:----|:----|:----|:----|
+| 1   | 1   | 1   | 1   | 1   |
+| 2   | 1   | 1   | 1   | 2   |
+| 3   | 1   | 1   | 1   | 3   |
+| 4   | 1   | 1   | 1   | 4   |
+| 5   | 1   | 1   | 1   | 5   |
+| 6   | 1   | 1   | 2   | 2   |
+| 7   | …   | …   | …   | …   |
+| 65  | 3   | 5   | 5   | 5   |
+| 66  | 4   | 4   | 4   | 4   |
+| 67  | 4   | 4   | 4   | 5   |
+| 68  | 4   | 4   | 5   | 5   |
+| 69  | 4   | 5   | 5   | 5   |
+| 70  | 5   | 5   | 5   | 5   |
 
-    ...
+Table 2: Candidate rows
 
-       X1 X2 X3 X4
-    65  3  5  5  5
-    66  4  4  4  4
-    67  4  4  4  5
-    68  4  4  5  5
-    69  4  5  5  5
-    70  5  5  5  5
+A scale made from six 5-point items has 210 possible combinations. A
+scale made from three 7-point items has 84 possible combinations.
 
 Each candidate row represents a possible pattern of item responses.
 
-And each row sums to a value that could be appear in a summated scale.
+Each row sums to a value that could be appear in a summated scale.
 Similarly, each row shows variation in its values, as measured by the
 row standard deviation
 
@@ -143,23 +237,23 @@ candidates$sum <- rowSums(candidates[, 1:k])
 candidates$sd <- apply(X = candidates[, 1:k], MARGIN = 1, FUN = sd)
 ```
 
-      X1 X2 X3 X4 sum        sd
-    1  1  1  1  1   4 0.0000000
-    2  1  1  1  2   5 0.5000000
-    3  1  1  1  3   6 1.0000000
-    4  1  1  1  4   7 1.5000000
-    5  1  1  1  5   8 2.0000000
-    6  1  1  2  2   6 0.5773503
+|     | X1  | X2  | X3  | X4  | sum | sd     |
+|:----|:----|:----|:----|:----|:----|:-------|
+| 1   | 1   | 1   | 1   | 1   | 4   | 0      |
+| 2   | 1   | 1   | 1   | 2   | 5   | 0.5    |
+| 3   | 1   | 1   | 1   | 3   | 6   | 1      |
+| 4   | 1   | 1   | 1   | 4   | 7   | 1.5    |
+| 5   | 1   | 1   | 1   | 5   | 8   | 2      |
+| 6   | 1   | 1   | 2   | 2   | 6   | 0.5774 |
+| 7   | …   | …   | …   | …   | …   | …      |
+| 65  | 3   | 5   | 5   | 5   | 18  | 1      |
+| 66  | 4   | 4   | 4   | 4   | 16  | 0      |
+| 67  | 4   | 4   | 4   | 5   | 17  | 0.5    |
+| 68  | 4   | 4   | 5   | 5   | 18  | 0.5774 |
+| 69  | 4   | 5   | 5   | 5   | 19  | 0.5    |
+| 70  | 5   | 5   | 5   | 5   | 20  | 0      |
 
-    ...
-
-       X1 X2 X3 X4 sum        sd
-    65  3  5  5  5  18 1.0000000
-    66  4  4  4  4  16 0.0000000
-    67  4  4  4  5  17 0.5000000
-    68  4  4  5  5  18 0.5773503
-    69  4  5  5  5  19 0.5000000
-    70  5  5  5  5  20 0.0000000
+Table 3: sum and sd of candidate rows
 
 #### Similarity index
 
@@ -176,14 +270,11 @@ where
 - $`s`$ = row standard deviation
 - $`s_{max}`$ = maximum dispersion observed among candidate rows.
 
-This transformation maps dispersion onto a scale between roughly 0 (low
-similarity) and 1 (high similarity).
+This transformation maps dispersion onto a scale between $`0`$ (low
+similarity) and $`1`$ (high similarity).
 
 The similarity index is calculated using the maximum dispersion observed
-across all possible item combinations within the response range. Using a
-global maximum ensures that the similarity scale is consistent across
-all scale scores and allows candidate rows from different sums to be
-compared using the same similarity metric.
+across all possible item combinations within the response range.
 
 Rows with similar values therefore have large $`r^*`$
 
@@ -193,43 +284,30 @@ Show the code
 s_max <- max(candidates$sd)
 
 candidates$similar <-  1 - candidates$sd / s_max
-
-head(candidates)
 ```
 
-      X1 X2 X3 X4 sum        sd   similar
-    1  1  1  1  1   4 0.0000000 1.0000000
-    2  1  1  1  2   5 0.5000000 0.7834936
-    3  1  1  1  3   6 1.0000000 0.5669873
-    4  1  1  1  4   7 1.5000000 0.3504809
-    5  1  1  1  5   8 2.0000000 0.1339746
-    6  1  1  2  2   6 0.5773503 0.7500000
+|     | X1  | X2  | X3  | X4  | sum | sd     | similar |
+|:----|:----|:----|:----|:----|:----|:-------|:--------|
+| 1   | 1   | 1   | 1   | 1   | 4   | 0      | 1       |
+| 2   | 1   | 1   | 1   | 2   | 5   | 0.5    | 0.7835  |
+| 3   | 1   | 1   | 1   | 3   | 6   | 1      | 0.567   |
+| 4   | 1   | 1   | 1   | 4   | 7   | 1.5    | 0.3505  |
+| 5   | 1   | 1   | 1   | 5   | 8   | 2      | 0.134   |
+| 6   | 1   | 1   | 2   | 2   | 6   | 0.5774 | 0.75    |
+| 7   | …   | …   | …   | …   | …   | …      | …       |
+| 65  | 3   | 5   | 5   | 5   | 18  | 1      | 0.567   |
+| 66  | 4   | 4   | 4   | 4   | 16  | 0      | 1       |
+| 67  | 4   | 4   | 4   | 5   | 17  | 0.5    | 0.7835  |
+| 68  | 4   | 4   | 5   | 5   | 18  | 0.5774 | 0.75    |
+| 69  | 4   | 5   | 5   | 5   | 19  | 0.5    | 0.7835  |
+| 70  | 5   | 5   | 5   | 5   | 20  | 0      | 1       |
 
-Show the code
-
-``` r
-message(paste0("..."))
-```
-
-    ...
-
-Show the code
-
-``` r
-tail(candidates)
-```
-
-       X1 X2 X3 X4 sum        sd   similar
-    65  3  5  5  5  18 1.0000000 0.5669873
-    66  4  4  4  4  16 0.0000000 1.0000000
-    67  4  4  4  5  17 0.5000000 0.7834936
-    68  4  4  5  5  18 0.5773503 0.7500000
-    69  4  5  5  5  19 0.5000000 0.7834936
-    70  5  5  5  5  20 0.0000000 1.0000000
+Table 4: Top and bottom rows of candidate similarities
 
 #### Selecting candidate rows
 
-For each candidate row we compute
+For each candidate row we compute the absolute difference between the
+target mean correlation coefficient and the row similarity score.
 
 ``` math
 
@@ -244,7 +322,35 @@ where
 Rows whose similarity index is **closest to the target correlation** are
 preferred.
 
-#### Worked example 1
+### Visual explanation of candidate selection
+
+[Figure 1](#fig-similarity_sum_graphic) shows all 70 possible
+combinations of four 5-point items. Each point represents one
+combination of four items, arranged by the sum of items and the
+similarity score. Sum-of-items ranges from ‘4’ `1111` to ‘20’ `5555`,
+and the similarity score ranges from ‘0’ (minimum similarity/ maximum
+variance - here representing `1155` to ‘1’ (perfect similarity/ zero
+variance). Note the five points at the top, at similarity = ‘1’ that
+represent the combinations where all item values are equal.
+
+We find the “best” combination at the intersection of the given sum and
+our target alpha. Recall that, with four items, a target alpha of ‘0.80’
+corresponds to a mean correlation of ‘0.5’.
+
+For example, if we have a scale that sums to ‘8’, we see there are five
+combinations with that sum: `2222`, `1223`, `1133`, `1124`, and `1115`,
+with progressively decreasing similarity score. With a target alpha of
+‘0.80’ then we select combination `1133`, (similarity=‘0.5’). If target
+alpha is ‘0.70’, corresponding to similarity=‘0.368’ the closest
+combination is `1124`, so that is chosen. And we choose `1223` if target
+alpha is ‘0.90’ (similarity=‘0.692’).
+
+![](makeItemsScale_explainer_files/figure-html/fig-similarity_sum_graphic-1.png)
+
+Figure 1: Possible combinations of four 5-point items. Select best
+combination at the intersection of given sum and desired alpha.
+
+### Worked example 1
 
 **Four 5-point items with summed score = 12**
 
@@ -267,15 +373,15 @@ sums_12 <- filter(candidates, sum == 12)
 print(sums_12)
 ```
 
-      X1 X2 X3 X4 sum        sd   similar
-    1  1  1  5  5  12 2.3094011 0.0000000
-    2  1  2  4  5  12 1.8257419 0.2094306
-    3  1  3  3  5  12 1.6329932 0.2928932
-    4  1  3  4  4  12 1.4142136 0.3876276
-    5  2  2  3  5  12 1.4142136 0.3876276
-    6  2  2  4  4  12 1.1547005 0.5000000
-    7  2  3  3  4  12 0.8164966 0.6464466
-    8  3  3  3  3  12 0.0000000 1.0000000
+      X1 X2 X3 X4 sum        sd   similar  label
+    1  1  1  5  5  12 2.3094011 0.0000000 (1155)
+    2  1  2  4  5  12 1.8257419 0.2094306 (1245)
+    3  1  3  3  5  12 1.6329932 0.2928932 (1335)
+    4  1  3  4  4  12 1.4142136 0.3876276 (1344)
+    5  2  2  3  5  12 1.4142136 0.3876276 (2235)
+    6  2  2  4  4  12 1.1547005 0.5000000 (2244)
+    7  2  3  3  4  12 0.8164966 0.6464466 (2334)
+    8  3  3  3  3  12 0.0000000 1.0000000 (3333)
 
 Recall the target correlation is **0.50**.
 
@@ -284,31 +390,10 @@ The row
 `2 2 4 4`
 
 has similarity **0.50**, which is closest to the target. So this row is
-selected (and later permuted across item positions).
+selected (and later permuted across item positions). Check also in
+[Figure 1](#fig-similarity_sum_graphic).
 
-> **Geometric intuition**
->
-> Each row of item responses can be viewed as a point in a
-> $`k`$-dimensional space whose coordinates are the item values. Rows in
-> which all items have the same value lie on the diagonal line \$x_1 =
-> x_2 = ⋯ = x_k \$ These rows have zero dispersion because the item
-> values are identical.
->
-> Rows in which the item values differ lie away from this diagonal. The
-> further a row lies from the diagonal, the more uneven the item values
-> are and the larger the row variance becomes. The most dispersed rows
-> occur at the edges of the response space, where some items take the
-> minimum response value and others take the maximum.
->
-> The reconstruction algorithm uses this geometry to control
-> reliability. Rows close to the diagonal produce highly correlated
-> items, while rows further away produce weaker correlations. By
-> selecting candidate rows whose distance from the diagonal matches the
-> correlation implied by the target Cronbach’s alpha, the algorithm
-> generates item responses whose overall reliability approximates the
-> requested value.
-
-#### Worked example 2
+### Worked example 2
 
 **Four 5-point items with summed score = 7**
 
@@ -324,17 +409,17 @@ sums_7 <- filter(candidates, sum == 7)
 print(sums_7)
 ```
 
-      X1 X2 X3 X4 sum        sd   similar
-    1  1  1  1  4   7 1.5000000 0.3504809
-    2  1  1  2  3   7 0.9574271 0.5854219
-    3  1  2  2  2   7 0.5000000 0.7834936
+      X1 X2 X3 X4 sum        sd   similar  label
+    1  1  1  1  4   7 1.5000000 0.3504809 (1114)
+    2  1  1  2  3   7 0.9574271 0.5854219 (1123)
+    3  1  2  2  2   7 0.5000000 0.7834936 (1222)
 
 The row
 
 `1 1 2 3`
 
 has similarity closest to the target correlation (0.50), so it is
-selected.
+selected. Check also in [Figure 1](#fig-similarity_sum_graphic).
 
 ### Constructing the dataset
 
@@ -349,6 +434,96 @@ The algorithm repeats this process for every scale score.
 Finally, a short optimisation step rearranges item values within rows to
 improve the overall correlation structure while preserving each row sum.
 
+### The final optimisation step
+
+The short optimisation step takes the selected rows that correspond to
+the desired scale sums and iteratively rearranges values within each row
+until the desired Cronbach’s alpha is achieved.
+
+This step implements a stochastic local search procedure in which small,
+random perturbations are applied to individual rows and retained only if
+they improve the fit to the target reliability.
+
+The algorithm follows the following steps:
+
+1.  Initialise the current dataset as the best dataset.
+2.  Repeat:
+    - Randomly select a row.
+    - Randomly select two positions within that row and swap their
+      values.
+    - Recalculate Cronbach’s alpha for the updated dataset.
+    - If the new alpha is closer to the target value, retain the change
+      (i.e., update the best dataset); otherwise, revert the swap.
+3.  Stop when the alpha falls within a specified tolerance of the
+    target; otherwise, continue iterating.
+
+The effect of the optimisation step is best shown with an example.
+Consider a scale similar to that shown at the top of this explainer,
+[Figure 2](#fig-before_after_table), this time with eight observations
+for brevity.
+
+As shown in [Figure 2](#fig-before_after_table), two datasets with
+identical row values can produce markedly different reliability
+depending on how values are arranged.
+
+**Before Optimisation** $`\alpha`$ = 0.617
+
+|  V1 |  V2 |  V3 |  V4 |
+|----:|----:|----:|----:|
+|   2 |   1 |   1 |   1 |
+|   4 |   2 |   5 |   4 |
+|   3 |   3 |   1 |   1 |
+|   5 |   3 |   3 |   5 |
+|   4 |   2 |   2 |   4 |
+|   3 |   4 |   1 |   2 |
+|   2 |   4 |   5 |   4 |
+|   5 |   2 |   4 |   4 |
+
+**After Optimisation** $`\alpha`$ = 0.799
+
+|  V1 |  V2 |  V3 |  V4 |
+|----:|----:|----:|----:|
+|   2 |   1 |   1 |   1 |
+|   5 |   4 |   2 |   4 |
+|   3 |   1 |   1 |   3 |
+|   5 |   5 |   3 |   3 |
+|   4 |   2 |   4 |   2 |
+|   4 |   2 |   1 |   3 |
+|   5 |   4 |   4 |   2 |
+|   5 |   4 |   2 |   4 |
+
+Figure 2: Comparison of random and optimised reconstructions. Both
+tables show identical row values, but only the optimised arrangement
+achieves the target reliability.
+
+Correlation matrices of the data, before and after the alpha-search
+optimisation step, are presented in [Figure 3](#fig-before_after_cor).
+
+We see that randomly-allocated row values produce mean correlations
+well-below that required to achieve the desired alpha, but after
+optimisation the values are typically correct within two decimal places.
+
+**Before Optimisation** $`\bar r`$ = 0.287
+
+|     |    V1 |    V2 |   V3 |   V4 |
+|:----|------:|------:|-----:|-----:|
+| V1  |  1.00 | -0.17 | 0.27 | 0.65 |
+| V2  | -0.17 |  1.00 | 0.10 | 0.12 |
+| V3  |  0.27 |  0.10 | 1.00 | 0.75 |
+| V4  |  0.65 |  0.12 | 0.75 | 1.00 |
+
+**After Optimisation** $`\bar r`$ = 0.499
+
+|     |   V1 |   V2 |    V3 |    V4 |
+|:----|-----:|-----:|------:|------:|
+| V1  | 1.00 | 0.91 |  0.57 |  0.64 |
+| V2  | 0.91 | 1.00 |  0.52 |  0.51 |
+| V3  | 0.57 | 0.52 |  1.00 | -0.16 |
+| V4  | 0.64 | 0.51 | -0.16 |  1.00 |
+
+Figure 3: Comparison of correlations from dataframe with
+randomly-allocated row values and optimised dataframe.
+
 ### Why this works
 
 Cronbach’s alpha depends on the average correlation between items across
@@ -362,13 +537,12 @@ with the appropriate similarity level for each scale score, the
 algorithm produces datasets whose observed reliability closely matches
 the requested value.
 
-Because row variance depends only on the distribution of item values,
-many different candidate rows share identical dispersion values.
-Randomly selecting among tied candidates avoids systematic preference
-for particular partitions while preserving the desired correlation
-structure.
+Many different candidate rows share identical dispersion values. When
+this occurs at the same sum-value, the algorithm randomly selecting
+among tied candidates. This avoids systematic preference for particular
+partitions while preserving the desired correlation structure.
 
-Because candidate item partitions produce a discrete set of dispersion
-values, the achieved reliability can only approximate the requested
-value. In simulation tests the deviation from the target Cronbach’s α is
-typically less than 0.001.
+Candidate item partitions produce a discrete set of dispersion values,
+which means the achieved reliability can only approximate the requested
+value. In simulation tests the deviation from the target Cronbach’s
+$`\alpha`$ is typically less than `0.001`.
