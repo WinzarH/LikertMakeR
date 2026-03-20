@@ -32,7 +32,7 @@ format:
 
 In many situations researchers have access to scale scores but not the individual item responses that produced them. For example, published studies often report only summary statistics, simulation studies may require synthetic item data, and teaching examples may benefit from realistic item responses. Generating such data is not straightforward because the reconstructed items must satisfy two constraints simultaneously: the item values must sum to the observed scale score, and the items should exhibit a desired level of reliability.
 
-The `makeItemsScale()` function addresses this problem by reconstructing plausible Likert-style item responses whose sums reproduce the supplied scale scores while approximating a target Cronbach’s alpha. The algorithm achieves this by selecting candidate item combinations whose dispersion corresponds to the inter-item correlation implied by the desired reliability.
+The `makeItemsScale()` function addresses this problem by reconstructing plausible Likert-style item responses whose sums reproduce the supplied scale scores while approximating a target _Cronbach’s alpha_. The algorithm achieves this by selecting candidate item combinations whose dispersion corresponds to the inter-item correlation implied by the desired reliability.
 
 Reconstructed item-level Likert responses must satisfy two constraints:
 
@@ -63,6 +63,9 @@ scale, `myScale` for which we want to produce scale items that match the
 scores in the dataset and have _Cronbach's alpha_ of `0.80`. 
 This result is achieved in the four columns, `V1 ... V4` which average to 
 equal the corresponding values in `myScale`.
+
+
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
 ```{r}
 #| label: tbl-opening_example
@@ -103,6 +106,8 @@ df <- cbind(df, myItems)
 knitr::kable(df)
 
 ```
+
+</div>
 
 Here, the resulting _Cronbach's alpha_ = `r myAlpha`, so the synthetic data 
 are correct to two decimal places. Not bad for just 16 observations! 
@@ -186,7 +191,7 @@ upper <- 5
 k <- 4
 
 
-candidates <- combinations(
+candidates <- gtools::combinations(
   v = c(lower:upper),
   r = k,
   n = length(c(lower:upper)),
@@ -197,6 +202,9 @@ candidates <- combinations(
 ```
 
 
+
+
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
 ```{r}
 #| label: tbl-head_candidates
@@ -214,6 +222,9 @@ out <- rbind(
 
 knitr::kable(out)
 ```
+
+</div>
+
 
 A scale made from six 5-point items has 210 possible combinations. 
 A scale made from three 7-point items has 84 possible combinations.
@@ -243,6 +254,7 @@ candidates$sd <- apply(X = candidates[, 1:k], MARGIN = 1, FUN = sd)
 ```
 
 
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
 ```{r}
 #| label: tbl-head_candidate_moments
@@ -261,7 +273,7 @@ out <- rbind(
 knitr::kable(out)
 ```
 
-
+</div>
 
 ### Similarity index
 
@@ -296,6 +308,7 @@ candidates$similar <-  1 - candidates$sd / s_max
 ```
 
 
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
 ```{r}
 #| label: tbl-show_candidate_similarities
@@ -314,7 +327,7 @@ out <- rbind(
 knitr::kable(out)
 ```
 
-
+</div>
 
 ### Selecting candidate rows
 
@@ -420,6 +433,8 @@ $$
 
 Possible combinations include:
 
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
+
 ```{r}
 #| label: "sums_12"
 #| echo: TRUE
@@ -430,6 +445,8 @@ print(sums_12)
 
 ```
 
+</div>
+
 
 Recall the target correlation is **0.50**.
 
@@ -437,9 +454,9 @@ The row
 
 `2  2  4  4`
 
-has similarity **0.50**, which is closest to the target.
+has similarity **0.50**, which is closest to the target similarity score.
 So this row is selected (and later permuted across item positions).
-Check also in @fig-similarity_sum_graphic.
+You can verify this in @fig-similarity_sum_graphic.
 
 
 ## Worked example 2
@@ -450,6 +467,7 @@ Now consider a scale score of **7**.
 
 Possible rows include:
 
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
 ```{r}
 #| label: "sums_7"
@@ -461,11 +479,13 @@ print(sums_7)
 
 ```
 
+</div>
+
 The row
 
 `1  1  2  3  ` 
 
-has similarity closest to the target correlation (0.50), so it is selected.
+has similarity closest to the target similarity (0.50), so it is selected.
 Check also in @fig-similarity_sum_graphic.
 
 
@@ -502,17 +522,10 @@ The algorithm follows the following steps:
     - If the new alpha is closer to the target value, retain the change (i.e., update the best dataset); otherwise, revert the swap.
  3. Stop when the alpha falls within a specified tolerance of the target; otherwise, continue iterating.
 
-<!-- The iterative process is illustrated in @fig-flow_rearrangeRowValues. -->
-
-
-
-<!-- ![flowchart - Rearrange row values to achieve target alpha](img/flow_rearrangeRowValues.png){#fig-flow_rearrangeRowValues width=40% .lightbox} -->
-
-
 
 The effect of the optimisation step is best shown with an example. 
 Consider a scale similar to that shown at the top of this 
-explainer, @fig-before_after_table, this time with eight 
+explainer, @tbl-selectItems, this time with eight 
 observations for brevity.
 
 ```{r}
@@ -532,14 +545,14 @@ k <- 4
 target_alpha <- 0.8
 
 df <- data.frame(
-  myScale = lfast(
+  myScale = LikertMakeR::lfast(
     n = n, mean = mean, sd = sd,
     lowerbound = lower, upperbound = upper,
     items = k
   )
 )
 
-trueItems <- makeItemsScale(
+trueItems <- LikertMakeR::makeItemsScale(
   scale = df,
   lowerbound = lower,
   upperbound = upper,
@@ -548,15 +561,26 @@ trueItems <- makeItemsScale(
   summated = FALSE
 )
 
-alpha_optim <- alpha(, trueItems) |> round(4)
+alpha_optim <- LikertMakeR::alpha(, trueItems) |> round(3)
 
 randItems <- trueItems
 for (i in seq_len(nrow(randItems))) {
   randItems[i, ] <- sample(as.numeric(randItems[i, ]))
 }
 
-alpha_random <- alpha(, randItems) |> round(4)
+selectItems <- trueItems
+for (i in seq_len(nrow(selectItems))) {
+  selectItems[i, ] <- sort(as.numeric(selectItems[i, ]))
+}
 
+myscale <- data.frame(
+  scale = rowMeans(selectItems),
+                      sums = rowSums(selectItems)
+                      )
+
+selectItems <- cbind(myscale, selectItems)
+
+alpha_random <- LikertMakeR::alpha(, randItems) |> round(3)
 
 cor_random <- cor(randItems) |> round(2)
 cor_optim <- cor(trueItems) |> round(2)
@@ -567,90 +591,132 @@ mean_r_random <- alpha_random / (k - alpha_random * (k - 1))
 
 ```
 
-As shown in @fig-before_after_table, two datasets with identical row values can produce markedly different reliability depending on how values are arranged.
+
+The function `LikertMakeR::makeItemsScale()` accepts a given vector of 
+Likert-scale values, as either means or as a summated scale, and then 
+extracts appropriate item combinations for the desired Cronbach's alpha.
 
 
-::: {#fig-before_after_table fig-cap="Comparison of random and optimised reconstructions. Both tables show identical row values, but only the optimised arrangement achieves the target reliability."}
-
-::: {.columns}
-
-::: {.column width="50%" style="padding-right: 1.5em; border-right: 1px solid #ccc;"}
-**Before Optimisation**
-$\alpha$ = `r round(alpha_random, 3)`
-
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
 ```{r}
-#| echo: false
-#| out-width: "100%"
+#| label: tbl-selectItems
+#| tbl-cap: "Given Scale (mean=3, sd=1), and selected item combinations for target alpha=0.8"
+#| warning: false
+#| message: false
+#| echo: FALSE
 
-kable(randItems)
+kable(selectItems)
+
 ```
 
-:::
-  
-::: {.column width="50%" style="padding-left: 1.5em;"}
-**After Optimisation**
-$\alpha$ = `r round(alpha_optim, 3)`
+</div>
 
+As part of the same process, as shown in @tbl-randItems, the values within each selected item combination are randomly rearranged.
+
+
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
 ```{r}
-#| echo: false
-#| out-width: "100%"
+#| label: tbl-randItems
+#| warning: false
+#| message: false
+#| echo: FALSE
 
-kable(trueItems)
+cap_rand <- paste0(
+  "Derived scale items before optimisation ($\\alpha$ = ", 
+  alpha_random, 
+  ")"
+)
+
+kable(randItems, caption = cap_rand)
+
 ```
 
-:::
-  
-:::
+</div>
 
-:::
 
+Comparison of the initial scale reconstruction (@tbl-selectItems), and then the randomised scales (@tbl-randItems) and optimised scales (@tbl-trueItems) show identical row values, but only the optimised arrangement achieves the target reliability.
+
+
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
+
+```{r}
+#| label: tbl-trueItems
+#| warning: false
+#| message: false
+#| echo: FALSE
+
+cap_optim <- paste0(
+  "Derived scale items after optimisation ($\\alpha$ = ", 
+  alpha_optim, 
+  ")"
+)
+
+kable(trueItems, caption = cap_optim)
+
+```
+
+</div>
 
 
 Correlation matrices of the data, before and after the alpha-search 
-optimisation step, are presented in @fig-before_after_cor.
+optimisation step, are presented in @tbl-cor_random and @tbl-cor_optim.
 
 We see that randomly-allocated row values produce mean correlations well-below 
 that required to achieve the desired alpha, but after optimisation the values 
 are typically correct within two decimal places.
 
 
-::: {#fig-before_after_cor fig-cap="Comparison of correlations from dataframe with randomly-allocated row values and optimised dataframe."}
-
-::: {.columns}
-
-::: {.column width="50%" style="padding-right: 1.5em; border-right: 1px solid #ccc;"}
-**Before Optimisation**
-$\bar r$ = `r round(mean_r_random, 3)`
-
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
 ```{r}
+#| label: tbl-cor_random
 #| echo: false
-#| out-width: "100%"
 
-kable(cor_random)
+cap_cor_random <- paste0(
+  "Item correlations before optimisation ($\\alpha$ = ", 
+  alpha_random, 
+  ")"
+)
+
+kable(
+  cor_random, 
+  caption = cap_cor_random,
+  align = "c") |>
+  kable_styling(
+    full_width = FALSE,
+    position = "center"
+  )
+
 ```
 
-:::
-  
-::: {.column width="50%" style="padding-left: 1.5em;"}
-**After Optimisation**
-$\bar r$ = `r round(mean_r_optim, 3)`
+</div>
 
+
+
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
 ```{r}
+#| label: tbl-cor_optim
 #| echo: false
-#| out-width: "100%"
 
-kable(cor_optim)
+cap_cor_optim <- paste0(
+  "Item correlations after optimisation ($\\alpha$ = ", 
+  alpha_optim, 
+  ")"
+)
+
+kable(
+  cor_optim, 
+  caption = cap_cor_optim,
+  align = "c") |>
+  kable_styling(
+    full_width = FALSE
+  )
 ```
 
-:::
-  
-:::
-
-:::
+</div>
 
 
 ## Why this works
