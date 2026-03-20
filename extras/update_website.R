@@ -1,5 +1,6 @@
 ## send to https://winzarh.github.io/LikertMakeR/
 
+
 ## 1. Clean and rebuild attributes
 Rcpp::compileAttributes()
 
@@ -62,8 +63,8 @@ devtools::clean_dll()
 
 devtools::document()
 
-unlink("vignettes/dwivedi_replication_cache", recursive = TRUE)
-unlink("vignettes/.quarto", recursive = TRUE)
+# unlink("vignettes/dwivedi_replication_cache", recursive = TRUE)
+# unlink("vignettes/.quarto", recursive = TRUE)
 
 
 devtools::check()
@@ -87,7 +88,7 @@ devtools::install()
 # pkgdown::build_site()
 
 ## to add another file
-pkgdown::build_site(lazy = TRUE)
+pkgdown::build_site(lazy = FALSE)
 
 
 # sanity check:
