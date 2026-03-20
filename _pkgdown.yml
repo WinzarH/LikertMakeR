@@ -9,6 +9,8 @@ template:
   includes:
     in_header: pkgdown/extra-head.html
 
+
+
 navbar:
   title: LikertMakeR
   type: default
