@@ -51,10 +51,21 @@ $$ \mathrm{sd}(D)^2 = \mathrm{sd}(X_{\text{before}})^2 +
 A paired-sample t-test thus requires an estimate of the covariance between
 the two sets of observations.
 makePaired() rearranges these formulae so that the covariance is
-inferred from the t-statistic."><meta property="og:image" content="https://winzarh.github.io/LikertMakeR/logo.png"><!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-J-H1Rv9BCwaVRosM345iL.js"></script><script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-plausible.init()
-</script></head><body>
+inferred from the t-statistic."><meta property="og:image" content="https://winzarh.github.io/LikertMakeR/logo.png"></head><body><p>
+
+
+
+
+
+
+
+
+
+  pkgdown/extra-head.html
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -207,8 +218,8 @@ The user should review the input parameters and insert more realistic values.</p
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	20 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X1: num  1.67 3.67 2.67 1.67 1.17 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X2: num  2.33 4.33 5 2.5 1.5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X1: num  1.5 2.83 2.83 3 4.33 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X2: num  2.5 4.33 2.5 4.83 5 ...</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      X1   X2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.00 0.82</span>
@@ -248,5 +259,6 @@ The user should review the input parameters and insert more realistic values.</p
 
 
 
-  </body></html>
+  
+</body></html>
 
