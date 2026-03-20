@@ -15,8 +15,8 @@ The
 [`makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md)
 function addresses this problem by reconstructing plausible Likert-style
 item responses whose sums reproduce the supplied scale scores while
-approximating a target Cronbach’s alpha. The algorithm achieves this by
-selecting candidate item combinations whose dispersion corresponds to
+approximating a target *Cronbach’s alpha*. The algorithm achieves this
+by selecting candidate item combinations whose dispersion corresponds to
 the inter-item correlation implied by the desired reliability.
 
 Reconstructed item-level Likert responses must satisfy two constraints:
@@ -84,26 +84,26 @@ knitr::kable(df)
 
 | myScale |  V1 |  V2 |  V3 |  V4 |
 |--------:|----:|----:|----:|----:|
-|    1.50 |   1 |   3 |   1 |   1 |
-|    3.00 |   2 |   4 |   4 |   2 |
-|    3.25 |   2 |   5 |   3 |   3 |
-|    1.75 |   1 |   2 |   1 |   3 |
-|    2.25 |   1 |   2 |   4 |   2 |
-|    4.25 |   4 |   5 |   3 |   5 |
-|    4.50 |   3 |   5 |   5 |   5 |
-|    1.75 |   1 |   2 |   1 |   3 |
-|    3.00 |   2 |   2 |   4 |   4 |
-|    3.00 |   2 |   4 |   4 |   2 |
-|    4.50 |   3 |   5 |   5 |   5 |
-|    2.50 |   3 |   4 |   1 |   2 |
-|    3.50 |   3 |   4 |   5 |   2 |
-|    4.25 |   3 |   5 |   4 |   5 |
-|    2.00 |   1 |   3 |   1 |   3 |
-|    3.00 |   2 |   2 |   4 |   4 |
+|    3.75 |   2 |   4 |   5 |   4 |
+|    3.25 |   2 |   3 |   5 |   3 |
+|    4.25 |   3 |   4 |   5 |   5 |
+|    3.50 |   3 |   2 |   5 |   4 |
+|    2.50 |   1 |   2 |   4 |   3 |
+|    3.00 |   4 |   2 |   4 |   2 |
+|    2.00 |   1 |   1 |   3 |   3 |
+|    1.25 |   1 |   1 |   1 |   2 |
+|    3.50 |   3 |   2 |   4 |   5 |
+|    2.75 |   3 |   1 |   3 |   4 |
+|    2.50 |   3 |   2 |   4 |   1 |
+|    4.75 |   5 |   4 |   5 |   5 |
+|    1.75 |   1 |   1 |   2 |   3 |
+|    2.50 |   2 |   1 |   4 |   3 |
+|    2.25 |   4 |   2 |   2 |   1 |
+|    4.50 |   5 |   3 |   5 |   5 |
 
 Table 1: Short Example: 4-item 5-point Likert scale, alpha = 0.8
 
-Here, the resulting *Cronbach’s alpha* = 0.8003, so the synthetic data
+Here, the resulting *Cronbach’s alpha* = 0.799, so the synthetic data
 are correct to two decimal places. Not bad for just 16 observations!
 *(Actually, number of observations has little to do with **alpha**)*
 
@@ -183,7 +183,7 @@ upper <- 5
 k <- 4
 
 
-candidates <- combinations(
+candidates <- gtools::combinations(
   v = c(lower:upper),
   r = k,
   n = length(c(lower:upper)),
@@ -389,8 +389,9 @@ The row
 
 `2 2 4 4`
 
-has similarity **0.50**, which is closest to the target. So this row is
-selected (and later permuted across item positions). Check also in
+has similarity **0.50**, which is closest to the target similarity
+score. So this row is selected (and later permuted across item
+positions). You can verify this in
 [Figure 1](#fig-similarity_sum_graphic).
 
 ### Worked example 2
@@ -418,7 +419,7 @@ The row
 
 `1 1 2 3`
 
-has similarity closest to the target correlation (0.50), so it is
+has similarity closest to the target similarity (0.50), so it is
 selected. Check also in [Figure 1](#fig-similarity_sum_graphic).
 
 ### Constructing the dataset
@@ -459,70 +460,89 @@ The algorithm follows the following steps:
 
 The effect of the optimisation step is best shown with an example.
 Consider a scale similar to that shown at the top of this explainer,
-[Figure 2](#fig-before_after_table), this time with eight observations
-for brevity.
+[Table 5](#tbl-selectItems), this time with eight observations for
+brevity.
 
-As shown in [Figure 2](#fig-before_after_table), two datasets with
-identical row values can produce markedly different reliability
-depending on how values are arranged.
+The function
+[`LikertMakeR::makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md)
+accepts a given vector of Likert-scale values, as either means or as a
+summated scale, and then extracts appropriate item combinations for the
+desired Cronbach’s alpha.
 
-**Before Optimisation** $`\alpha`$ = 0.617
+| scale | sums |  V1 |  V2 |  V3 |  V4 |
+|------:|-----:|----:|----:|----:|----:|
+|  2.25 |    9 |   1 |   2 |   2 |   4 |
+|  2.50 |   10 |   1 |   2 |   3 |   4 |
+|  2.75 |   11 |   1 |   3 |   3 |   4 |
+|  3.00 |   12 |   2 |   2 |   4 |   4 |
+|  4.75 |   19 |   4 |   5 |   5 |   5 |
+|  3.75 |   15 |   2 |   4 |   4 |   5 |
+|  1.50 |    6 |   1 |   1 |   1 |   3 |
+|  3.50 |   14 |   2 |   3 |   4 |   5 |
+
+Table 5: Given Scale (mean=3, sd=1), and selected item combinations for
+target alpha=0.8
+
+As part of the same process, as shown in [Table 6](#tbl-randItems), the
+values within each selected item combination are randomly rearranged.
 
 |  V1 |  V2 |  V3 |  V4 |
 |----:|----:|----:|----:|
-|   2 |   1 |   1 |   1 |
-|   4 |   2 |   5 |   4 |
-|   3 |   3 |   1 |   1 |
-|   5 |   3 |   3 |   5 |
-|   4 |   2 |   2 |   4 |
-|   3 |   4 |   1 |   2 |
-|   2 |   4 |   5 |   4 |
-|   5 |   2 |   4 |   4 |
+|   2 |   1 |   2 |   4 |
+|   1 |   3 |   2 |   4 |
+|   1 |   3 |   4 |   3 |
+|   2 |   4 |   2 |   4 |
+|   5 |   4 |   5 |   5 |
+|   4 |   4 |   2 |   5 |
+|   1 |   1 |   3 |   1 |
+|   5 |   2 |   4 |   3 |
 
-**After Optimisation** $`\alpha`$ = 0.799
+Table 6: Derived scale items before optimisation ($`\alpha`$ = 0.667)
+
+Comparison of the initial scale reconstruction
+([Table 5](#tbl-selectItems)), and then the randomised scales
+([Table 6](#tbl-randItems)) and optimised scales
+([Table 7](#tbl-trueItems)) show identical row values, but only the
+optimised arrangement achieves the target reliability.
 
 |  V1 |  V2 |  V3 |  V4 |
 |----:|----:|----:|----:|
-|   2 |   1 |   1 |   1 |
-|   5 |   4 |   2 |   4 |
-|   3 |   1 |   1 |   3 |
-|   5 |   5 |   3 |   3 |
+|   2 |   2 |   4 |   1 |
+|   4 |   1 |   2 |   3 |
+|   4 |   3 |   1 |   3 |
 |   4 |   2 |   4 |   2 |
-|   4 |   2 |   1 |   3 |
-|   5 |   4 |   4 |   2 |
-|   5 |   4 |   2 |   4 |
+|   5 |   4 |   5 |   5 |
+|   5 |   2 |   4 |   4 |
+|   3 |   1 |   1 |   1 |
+|   4 |   3 |   5 |   2 |
 
-Figure 2: Comparison of random and optimised reconstructions. Both
-tables show identical row values, but only the optimised arrangement
-achieves the target reliability.
+Table 7: Derived scale items after optimisation ($`\alpha`$ = 0.801)
 
 Correlation matrices of the data, before and after the alpha-search
-optimisation step, are presented in [Figure 3](#fig-before_after_cor).
+optimisation step, are presented in [Table 8](#tbl-cor_random) and
+[Table 9](#tbl-cor_optim).
 
 We see that randomly-allocated row values produce mean correlations
 well-below that required to achieve the desired alpha, but after
 optimisation the values are typically correct within two decimal places.
 
-**Before Optimisation** $`\bar r`$ = 0.287
+|     |  V1  |  V2  |  V3   |  V4   |
+|:----|:----:|:----:|:-----:|:-----:|
+| V1  | 1.00 | 0.33 | 0.47  | 0.49  |
+| V2  | 0.33 | 1.00 | 0.09  | 0.71  |
+| V3  | 0.47 | 0.09 | 1.00  | -0.09 |
+| V4  | 0.49 | 0.71 | -0.09 | 1.00  |
 
-|     |    V1 |    V2 |   V3 |   V4 |
-|:----|------:|------:|-----:|-----:|
-| V1  |  1.00 | -0.17 | 0.27 | 0.65 |
-| V2  | -0.17 |  1.00 | 0.10 | 0.12 |
-| V3  |  0.27 |  0.10 | 1.00 | 0.75 |
-| V4  |  0.65 |  0.12 | 0.75 | 1.00 |
+Table 8: Item correlations before optimisation (\$\alpha\$ = 0.667)
 
-**After Optimisation** $`\bar r`$ = 0.499
+|     |  V1  |  V2  |  V3  |  V4  |
+|:----|:----:|:----:|:----:|:----:|
+| V1  | 1.00 | 0.45 | 0.28 | 0.88 |
+| V2  | 0.45 | 1.00 | 0.54 | 0.56 |
+| V3  | 0.28 | 0.54 | 1.00 | 0.29 |
+| V4  | 0.88 | 0.56 | 0.29 | 1.00 |
 
-|     |   V1 |   V2 |    V3 |    V4 |
-|:----|-----:|-----:|------:|------:|
-| V1  | 1.00 | 0.91 |  0.57 |  0.64 |
-| V2  | 0.91 | 1.00 |  0.52 |  0.51 |
-| V3  | 0.57 | 0.52 |  1.00 | -0.16 |
-| V4  | 0.64 | 0.51 | -0.16 |  1.00 |
-
-Figure 3: Comparison of correlations from dataframe with
-randomly-allocated row values and optimised dataframe.
+Table 9: Item correlations after optimisation (\$\alpha\$ = 0.801)
 
 ### Why this works
 

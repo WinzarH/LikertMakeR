@@ -17,25 +17,15 @@
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="makeItemsScale_explainer_files/libs/quarto-html/popper.min.js"></script><script src="makeItemsScale_explainer_files/libs/quarto-html/tippy.umd.min.js"></script><link href="makeItemsScale_explainer_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="makeItemsScale_explainer_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<script src="makeItemsScale_explainer_files/libs/kePrint-0.0.1/kePrint.js"></script><link href="makeItemsScale_explainer_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="makeItemsScale() explainer">
 <meta property="og:image" content="https://winzarh.github.io/LikertMakeR/logo.png">
+<!-- Privacy-friendly analytics by Plausible --><script async src="https://plausible.io/js/pa-J-H1Rv9BCwaVRosM345iL.js"></script><script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+plausible.init()
+</script>
 </head>
 <body>
-<p>
-
-
-
-
-
-
-
-
-
-  pkgdown/extra-head.html
-
-  
-
-  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -86,7 +76,7 @@
     <section class="section level2"><h2 id="reconstructing-likert-items-from-scale-scores-with-a-target-reliability">Reconstructing Likert Items from Scale Scores with a Target Reliability<a class="anchor" aria-label="anchor" href="#reconstructing-likert-items-from-scale-scores-with-a-target-reliability"></a>
 </h2>
 <p>In many situations researchers have access to scale scores but not the individual item responses that produced them. For example, published studies often report only summary statistics, simulation studies may require synthetic item data, and teaching examples may benefit from realistic item responses. Generating such data is not straightforward because the reconstructed items must satisfy two constraints simultaneously: the item values must sum to the observed scale score, and the items should exhibit a desired level of reliability.</p>
-<p>The <code><a href="../reference/makeItemsScale.html">makeItemsScale()</a></code> function addresses this problem by reconstructing plausible Likert-style item responses whose sums reproduce the supplied scale scores while approximating a target Cronbach’s alpha. The algorithm achieves this by selecting candidate item combinations whose dispersion corresponds to the inter-item correlation implied by the desired reliability.</p>
+<p>The <code><a href="../reference/makeItemsScale.html">makeItemsScale()</a></code> function addresses this problem by reconstructing plausible Likert-style item responses whose sums reproduce the supplied scale scores while approximating a target <em>Cronbach’s alpha</em>. The algorithm achieves this by selecting candidate item combinations whose dispersion corresponds to the inter-item correlation implied by the desired reliability.</p>
 <p>Reconstructed item-level Likert responses must satisfy two constraints:</p>
 <ol type="1">
 <li>The item values must sum to a given scale score.</li>
@@ -106,6 +96,7 @@
 </div>
 <p>Quick example:</p>
 <p>The short dataset in <a href="#tbl-opening_example" class="quarto-xref">Table 1</a> shows a four-item 5-point Likert scale, <code>myScale</code> for which we want to produce scale items that match the scores in the dataset and have <em>Cronbach’s alpha</em> of <code>0.80</code>. This result is achieved in the four columns, <code>V1 ... V4</code> which average to equal the corresponding values in <code>myScale</code>.</p>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 <div class="cell">
 <details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">16</span></span>
@@ -154,116 +145,116 @@ Table 1: Short Example: 4-item 5-point Likert scale, alpha = 0.8
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">1.50</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.75</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">3.00</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
 <td style="text-align: right;">3.25</td>
 <td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1.75</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
 <td style="text-align: right;">3</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">2.25</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
 <td style="text-align: right;">4.25</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">4.50</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">5</td>
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">5</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">1.75</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.50</td>
 <td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">3.00</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">3.00</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">4.50</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="even">
 <td style="text-align: right;">2.50</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.25</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3.50</td>
 <td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">2</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">4.25</td>
+<td style="text-align: right;">2.75</td>
 <td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2.50</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.75</td>
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
 <td style="text-align: right;">5</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">1.75</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">3</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">2.50</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2.25</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.50</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
 </tr>
 </tbody>
 </table>
@@ -272,7 +263,8 @@ Table 1: Short Example: 4-item 5-point Likert scale, alpha = 0.8
 </figure>
 </div>
 </div>
-<p>Here, the resulting <em>Cronbach’s alpha</em> = 0.8003, so the synthetic data are correct to two decimal places. Not bad for just 16 observations! <em>(Actually, number of observations has little to do with <strong>alpha</strong>)</em></p>
+</div>
+<p>Here, the resulting <em>Cronbach’s alpha</em> = 0.799, so the synthetic data are correct to two decimal places. Not bad for just 16 observations! <em>(Actually, number of observations has little to do with <strong>alpha</strong>)</em></p>
 <p>The <code><a href="../reference/makeItemsScale.html">makeItemsScale()</a></code> function generates such data by selecting candidate item combinations whose dispersion matches the correlation structure implied by the target reliability.</p>
 <p>The key idea is that rows with similar item values produce stronger correlations between items, while rows with widely varying values produce weaker correlations.</p>
 <section class="level2"><h3 id="relationship-between-reliability-and-correlation">Relationship between reliability and correlation<a class="anchor" aria-label="anchor" href="#relationship-between-reliability-and-correlation"></a>
@@ -325,7 +317,7 @@ Table 1: Short Example: 4-item 5-point Likert scale, alpha = 0.8
 <span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span></span>
 <span></span>
-<span><span class="va">candidates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gtools/man/combinations.html" class="external-link">combinations</a></span><span class="op">(</span></span>
+<span><span class="va">candidates</span> <span class="op">&lt;-</span> <span class="fu">gtools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gtools/man/combinations.html" class="external-link">combinations</a></span><span class="op">(</span></span>
 <span>  v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">lower</span><span class="op">:</span><span class="va">upper</span><span class="op">)</span>,</span>
 <span>  r <span class="op">=</span> <span class="va">k</span>,</span>
 <span>  n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">lower</span><span class="op">:</span><span class="va">upper</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -334,6 +326,7 @@ Table 1: Short Example: 4-item 5-point Likert scale, alpha = 0.8
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </details>
 </div>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 <div class="cell">
 <div id="tbl-head_candidates" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-head_candidates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -447,6 +440,7 @@ Table 2: Candidate rows
 </figure>
 </div>
 </div>
+</div>
 <p>A scale made from six 5-point items has 210 possible combinations. A scale made from three 7-point items has 84 possible combinations.</p>
 <p>Each candidate row represents a possible pattern of item responses.</p>
 <p>Each row sums to a value that could be appear in a summated scale. Similarly, each row shows variation in its values, as measured by the row standard deviation</p>
@@ -461,6 +455,7 @@ s = \sqrt{\frac{1}{k - 1}\sum^k_{i=1}  (x_i - \bar x)^2}
 <span><span class="va">candidates</span><span class="op">$</span><span class="va">sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">candidates</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="va">k</span><span class="op">]</span>, MARGIN <span class="op">=</span> <span class="fl">1</span>, FUN <span class="op">=</span> <span class="va">sd</span><span class="op">)</span></span></code></pre></div>
 </details>
 </div>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 <div class="cell">
 <div id="tbl-head_candidate_moments" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-head_candidate_moments-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -602,6 +597,7 @@ Table 3: sum and sd of candidate rows
 </figure>
 </div>
 </div>
+</div>
 <section class="level3"><h4 id="similarity-index">Similarity index<a class="anchor" aria-label="anchor" href="#similarity-index"></a>
 </h4>
 <p>To relate row dispersion to correlation, the algorithm converts the standard deviation into a <strong>similarity index</strong></p>
@@ -625,6 +621,7 @@ r^* = 1 - \frac{s}{s_{max}}
 <span><span class="va">candidates</span><span class="op">$</span><span class="va">similar</span> <span class="op">&lt;-</span>  <span class="fl">1</span> <span class="op">-</span> <span class="va">candidates</span><span class="op">$</span><span class="va">sd</span> <span class="op">/</span> <span class="va">s_max</span></span></code></pre></div>
 </details>
 </div>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 <div class="cell">
 <div id="tbl-show_candidate_similarities" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-show_candidate_similarities-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -780,6 +777,7 @@ Table 4: Top and bottom rows of candidate similarities
 </figure>
 </div>
 </div>
+</div>
 </section><section class="level3"><h4 id="selecting-candidate-rows">Selecting candidate rows<a class="anchor" aria-label="anchor" href="#selecting-candidate-rows"></a>
 </h4>
 <p>For each candidate row we compute the absolute difference between the target mean correlation coefficient and the row similarity score.</p>
@@ -820,6 +818,7 @@ Figure 1: Possible combinations of four 5-point items. Select best combination 
 x_1 + x_2 + x_3 +x_4 = 12
 </annotation></semantics></math></p>
 <p>Possible combinations include:</p>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 <div class="cell">
 <details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sums_12</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">candidates</span>, <span class="va">sum</span> <span class="op">==</span> <span class="fl">12</span><span class="op">)</span></span>
@@ -837,15 +836,17 @@ x_1 + x_2 + x_3 +x_4 = 12
 8  3  3  3  3  12 0.0000000 1.0000000 (3333)</code></pre>
 </div>
 </div>
+</div>
 <p>Recall the target correlation is <strong>0.50</strong>.</p>
 <p>The row</p>
 <p><code>2  2  4  4</code></p>
-<p>has similarity <strong>0.50</strong>, which is closest to the target. So this row is selected (and later permuted across item positions). Check also in <a href="#fig-similarity_sum_graphic" class="quarto-xref">Figure 1</a>.</p>
+<p>has similarity <strong>0.50</strong>, which is closest to the target similarity score. So this row is selected (and later permuted across item positions). You can verify this in <a href="#fig-similarity_sum_graphic" class="quarto-xref">Figure 1</a>.</p>
 </section><section class="level2"><h3 id="worked-example-2">Worked example 2<a class="anchor" aria-label="anchor" href="#worked-example-2"></a>
 </h3>
 <p><strong>Four 5-point items with summed score = 7</strong></p>
 <p>Now consider a scale score of <strong>7</strong>.</p>
 <p>Possible rows include:</p>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 <div class="cell">
 <details class="code-fold"><summary>Show the code</summary><div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sums_7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">candidates</span>, <span class="va">sum</span> <span class="op">==</span> <span class="fl">7</span><span class="op">)</span></span>
@@ -858,9 +859,10 @@ x_1 + x_2 + x_3 +x_4 = 12
 3  1  2  2  2   7 0.5000000 0.7834936 (1222)</code></pre>
 </div>
 </div>
+</div>
 <p>The row</p>
 <p><code>1  1  2  3</code></p>
-<p>has similarity closest to the target correlation (0.50), so it is selected. Check also in <a href="#fig-similarity_sum_graphic" class="quarto-xref">Figure 1</a>.</p>
+<p>has similarity closest to the target similarity (0.50), so it is selected. Check also in <a href="#fig-similarity_sum_graphic" class="quarto-xref">Figure 1</a>.</p>
 </section><section class="level2"><h3 id="constructing-the-dataset">Constructing the dataset<a class="anchor" aria-label="anchor" href="#constructing-the-dataset"></a>
 </h3>
 <p>The algorithm repeats this process for every scale score.</p>
@@ -889,16 +891,106 @@ x_1 + x_2 + x_3 +x_4 = 12
 </li>
 <li>Stop when the alpha falls within a specified tolerance of the target; otherwise, continue iterating.</li>
 </ol>
-<!-- The iterative process is illustrated in @fig-flow_rearrangeRowValues. --><!-- ![flowchart - Rearrange row values to achieve target alpha](img/flow_rearrangeRowValues.png){#fig-flow_rearrangeRowValues width=40% .lightbox} --><p>The effect of the optimisation step is best shown with an example. Consider a scale similar to that shown at the top of this explainer, <a href="#fig-before_after_table" class="quarto-xref">Figure 2</a>, this time with eight observations for brevity.</p>
-<p>As shown in <a href="#fig-before_after_table" class="quarto-xref">Figure 2</a>, two datasets with identical row values can produce markedly different reliability depending on how values are arranged.</p>
-<div id="fig-before_after_table" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-before_after_table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="columns">
-<div class="column" style="padding-right: 1.5em; border-right: 1px solid #ccc;">
-<p><strong>Before Optimisation</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> = 0.617</p>
+<p>The effect of the optimisation step is best shown with an example. Consider a scale similar to that shown at the top of this explainer, <a href="#tbl-selectItems" class="quarto-xref">Table 5</a>, this time with eight observations for brevity.</p>
+<p>The function <code><a href="../reference/makeItemsScale.html">LikertMakeR::makeItemsScale()</a></code> accepts a given vector of Likert-scale values, as either means or as a summated scale, and then extracts appropriate item combinations for the desired Cronbach’s alpha.</p>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 <div class="cell">
+<div id="tbl-selectItems" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-selectItems-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 5: Given Scale (mean=3, sd=1), and selected item combinations for target alpha=0.8
+</figcaption><div aria-describedby="tbl-selectItems-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table caption-top">
+<table class="table do-not-create-environment cell caption-top">
+<thead><tr class="header">
+<th style="text-align: right;">scale</th>
+<th style="text-align: right;">sums</th>
+<th style="text-align: right;">V1</th>
+<th style="text-align: right;">V2</th>
+<th style="text-align: right;">V3</th>
+<th style="text-align: right;">V4</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2.25</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2.50</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2.75</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4.75</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3.75</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.50</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3.50</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>As part of the same process, as shown in <a href="#tbl-randItems" class="quarto-xref">Table 6</a>, the values within each selected item combination are randomly rearranged.</p>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
+<div class="cell">
+<div id="tbl-randItems" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-randItems-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 6: Derived scale items before optimisation (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> = 0.667)
+</figcaption><div aria-describedby="tbl-randItems-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table do-not-create-environment cell caption-top">
 <thead><tr class="header">
 <th style="text-align: right;">V1</th>
 <th style="text-align: right;">V2</th>
@@ -909,61 +1001,68 @@ x_1 + x_2 + x_3 +x_4 = 12
 <tr class="odd">
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">5</td>
 <td style="text-align: right;">4</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
 </tr>
 <tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">4</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+</figure>
 </div>
-<div class="column" style="padding-left: 1.5em;">
-<p><strong>After Optimisation</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> = 0.799</p>
+</div>
+</div>
+<p>Comparison of the initial scale reconstruction (<a href="#tbl-selectItems" class="quarto-xref">Table 5</a>), and then the randomised scales (<a href="#tbl-randItems" class="quarto-xref">Table 6</a>) and optimised scales (<a href="#tbl-trueItems" class="quarto-xref">Table 7</a>) show identical row values, but only the optimised arrangement achieves the target reliability.</p>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 <div class="cell">
+<div id="tbl-trueItems" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-trueItems-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 7: Derived scale items after optimisation (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> = 0.801)
+</figcaption><div aria-describedby="tbl-trueItems-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table caption-top">
+<table class="table do-not-create-environment cell caption-top">
 <thead><tr class="header">
 <th style="text-align: right;">V1</th>
 <th style="text-align: right;">V2</th>
@@ -973,165 +1072,165 @@ x_1 + x_2 + x_3 +x_4 = 12
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
 </tr>
 <tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">4</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">4</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+</figure>
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-before_after_table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure 2: Comparison of random and optimised reconstructions. Both tables show identical row values, but only the optimised arrangement achieves the target reliability.
-</figcaption></figure>
-</div>
-<p>Correlation matrices of the data, before and after the alpha-search optimisation step, are presented in <a href="#fig-before_after_cor" class="quarto-xref">Figure 3</a>.</p>
+<p>Correlation matrices of the data, before and after the alpha-search optimisation step, are presented in <a href="#tbl-cor_random" class="quarto-xref">Table 8</a> and <a href="#tbl-cor_optim" class="quarto-xref">Table 9</a>.</p>
 <p>We see that randomly-allocated row values produce mean correlations well-below that required to achieve the desired alpha, but after optimisation the values are typically correct within two decimal places.</p>
-<div id="fig-before_after_cor" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-before_after_cor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="columns">
-<div class="column" style="padding-right: 1.5em; border-right: 1px solid #ccc;">
-<p><strong>Before Optimisation</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>r</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar r</annotation></semantics></math> = 0.287</p>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 <div class="cell">
+<div id="tbl-cor_random" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cor_random-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 8: Item correlations before optimisation ($\alpha$ = 0.667)
+</figcaption><div aria-describedby="tbl-cor_random-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table caption-top">
+<table class="table table do-not-create-environment cell caption-top" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">V1</th>
-<th style="text-align: right;">V2</th>
-<th style="text-align: right;">V3</th>
-<th style="text-align: right;">V4</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">V1</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">V2</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">V3</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">V4</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">V1</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">-0.17</td>
-<td style="text-align: right;">0.27</td>
-<td style="text-align: right;">0.65</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">0.33</td>
+<td style="text-align: center;">0.47</td>
+<td style="text-align: center;">0.49</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">V2</td>
-<td style="text-align: right;">-0.17</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">0.12</td>
+<td style="text-align: center;">0.33</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">0.09</td>
+<td style="text-align: center;">0.71</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">V3</td>
-<td style="text-align: right;">0.27</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.75</td>
+<td style="text-align: center;">0.47</td>
+<td style="text-align: center;">0.09</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">-0.09</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">V4</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">0.12</td>
-<td style="text-align: right;">0.75</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: center;">0.49</td>
+<td style="text-align: center;">0.71</td>
+<td style="text-align: center;">-0.09</td>
+<td style="text-align: center;">1.00</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+</figure>
 </div>
-<div class="column" style="padding-left: 1.5em;">
-<p><strong>After Optimisation</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>r</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar r</annotation></semantics></math> = 0.499</p>
+</div>
+</div>
+<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 <div class="cell">
+<div id="tbl-cor_optim" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cor_optim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 9: Item correlations after optimisation ($\alpha$ = 0.801)
+</figcaption><div aria-describedby="tbl-cor_optim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table caption-top">
+<table class="table table do-not-create-environment cell caption-top" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">V1</th>
-<th style="text-align: right;">V2</th>
-<th style="text-align: right;">V3</th>
-<th style="text-align: right;">V4</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">V1</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">V2</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">V3</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">V4</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">V1</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.91</td>
-<td style="text-align: right;">0.57</td>
-<td style="text-align: right;">0.64</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">0.45</td>
+<td style="text-align: center;">0.28</td>
+<td style="text-align: center;">0.88</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">V2</td>
-<td style="text-align: right;">0.91</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.52</td>
-<td style="text-align: right;">0.51</td>
+<td style="text-align: center;">0.45</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">0.54</td>
+<td style="text-align: center;">0.56</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">V3</td>
-<td style="text-align: right;">0.57</td>
-<td style="text-align: right;">0.52</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">-0.16</td>
+<td style="text-align: center;">0.28</td>
+<td style="text-align: center;">0.54</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">0.29</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">V4</td>
-<td style="text-align: right;">0.64</td>
-<td style="text-align: right;">0.51</td>
-<td style="text-align: right;">-0.16</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: center;">0.88</td>
+<td style="text-align: center;">0.56</td>
+<td style="text-align: center;">0.29</td>
+<td style="text-align: center;">1.00</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+</figure>
 </div>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-before_after_cor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure 3: Comparison of correlations from dataframe with randomly-allocated row values and optimised dataframe.
-</figcaption></figure>
 </div>
 </section><section class="level2"><h3 id="why-this-works">Why this works<a class="anchor" aria-label="anchor" href="#why-this-works"></a>
 </h3>
@@ -1242,6 +1341,5 @@ Figure 3: Comparison of correlations from dataframe with randomly-allocated row
 
 
 
-  
-</body>
+  </body>
 </html>
