@@ -27,6 +27,12 @@ jobs:
 
       - uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: Install TinyTeX
+        run: quarto install tinytex
+
+      - name: Build site
+        run: Rscript -e 'pkgdown::build_site(preview = FALSE, new_process = FALSE, lazy = TRUE, quiet = FALSE)'
+
       - name: Build site
         run: Rscript -e 'pkgdown::build_site(preview = FALSE, new_process = FALSE, lazy = TRUE, quiet = FALSE)'
       - name: Deploy to gh-pages
