@@ -1,8 +1,0 @@
-bibentry(
-  bibtype = "Manual",
-  title = "LikertMakeR: Simulating Likert and Rating-Scale Data",
-  author = person("Hume", "Winzar"),
-  year = "2026",
-  note = "R package version 2.0.0",
-  url = "https://CRAN.R-project.org/package=LikertMakeR"
-)
