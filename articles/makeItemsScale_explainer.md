@@ -23,7 +23,7 @@ Reconstructed item-level Likert responses must satisfy two constraints:
 
 1.  The item values must sum to a given scale score.
 2.  The items should exhibit a desired reliability (Cronbach’s
-    $`\alpha`$).
+    $\alpha$).
 
 Show the code
 
@@ -84,27 +84,27 @@ knitr::kable(df)
 
 | myScale |  V1 |  V2 |  V3 |  V4 |
 |--------:|----:|----:|----:|----:|
-|    2.00 |   1 |   3 |   3 |   1 |
-|    2.75 |   1 |   4 |   3 |   3 |
-|    2.25 |   1 |   2 |   2 |   4 |
-|    3.75 |   2 |   5 |   4 |   4 |
-|    2.75 |   1 |   4 |   3 |   3 |
-|    3.00 |   2 |   4 |   2 |   4 |
-|    1.25 |   1 |   2 |   1 |   1 |
-|    3.25 |   3 |   3 |   5 |   2 |
-|    1.50 |   1 |   3 |   1 |   1 |
-|    3.25 |   2 |   5 |   3 |   3 |
-|    5.00 |   5 |   5 |   5 |   5 |
-|    4.25 |   4 |   5 |   5 |   3 |
-|    2.25 |   1 |   4 |   2 |   2 |
-|    3.50 |   2 |   3 |   4 |   5 |
-|    3.25 |   2 |   5 |   3 |   3 |
-|    4.00 |   3 |   3 |   5 |   5 |
+|    3.25 |   5 |   3 |   2 |   3 |
+|    3.00 |   2 |   2 |   4 |   4 |
+|    3.25 |   5 |   3 |   2 |   3 |
+|    1.25 |   2 |   1 |   1 |   1 |
+|    3.50 |   5 |   4 |   3 |   2 |
+|    4.00 |   5 |   3 |   3 |   5 |
+|    1.75 |   3 |   1 |   1 |   2 |
+|    1.75 |   3 |   1 |   1 |   2 |
+|    3.00 |   4 |   2 |   2 |   4 |
+|    4.50 |   5 |   3 |   5 |   5 |
+|    2.75 |   4 |   3 |   3 |   1 |
+|    4.50 |   5 |   5 |   5 |   3 |
+|    4.00 |   5 |   3 |   5 |   3 |
+|    2.50 |   3 |   2 |   1 |   4 |
+|    3.00 |   4 |   2 |   2 |   4 |
+|    1.75 |   3 |   2 |   1 |   1 |
 
 Table 1: Short Example: 4-item 5-point Likert scale, alpha = 0.8
 
-Here, the resulting *Cronbach’s alpha* = 0.8012, so the synthetic data
-are correct to two decimal places. Not bad for just 16 observations!
+Here, the resulting *Cronbach’s alpha* = 0.8, so the synthetic data are
+correct to two decimal places. Not bad for just 16 observations!
 *(Actually, number of observations has little to do with **alpha**)*
 
 The
@@ -121,36 +121,27 @@ produce weaker correlations.
 
 Cronbach’s alpha depends on the **average inter-item correlation**:
 
-``` math
-
-\alpha = \frac{k \bar r}{1 + (k - 1) \bar r}
-```
+$$\alpha = \frac{k\bar{r}}{1 + (k - 1)\bar{r}}$$
 
 where
 
-- $`k`$ = number of items
-- $`\bar r`$ = mean inter-item correlation.
+- $k$ = number of items
+- $\bar{r}$ = mean inter-item correlation.
 
 Rearranging gives the correlation implied by a desired reliability:
 
-``` math
-
-\bar r = \frac{\alpha}{k - \alpha (k - 1)}
-```
+$$\bar{r} = \frac{\alpha}{k - \alpha(k - 1)}$$
 
 #### Example
 
 Suppose we want
 
 - 4 items
-- target $`\alpha`$ = 0.80
+- target $\alpha$ = 0.80
 
 Then
 
-``` math
-
-\bar r = \frac{0.80}{4 - 0.80 (3)} = 0.5
-```
+$$\bar{r} = \frac{0.80}{4 - 0.80(3)} = 0.5$$
 
 Typically, we would formalise this calculation with a function.
 
@@ -165,7 +156,7 @@ alpha_2_r <- function(target_alpha, k) {
 ```
 
 So the reconstructed items should exhibit an average correlation of
-approximately $`0.50`$.
+approximately $0.50$.
 
 ### Candidate rows
 
@@ -219,15 +210,12 @@ Each row sums to a value that could be appear in a summated scale.
 Similarly, each row shows variation in its values, as measured by the
 row standard deviation
 
-``` math
+$$s = \sqrt{\frac{1}{k - 1}\sum\limits_{i = 1}^{k}(x_{i} - \bar{x})^{2}}$$
 
-s = \sqrt{\frac{1}{k - 1}\sum^k_{i=1}  (x_i - \bar x)^2}
-```
-
-Rows with small $`s`$ contain similar item values, implying stronger
+Rows with small $s$ contain similar item values, implying stronger
 correlations.
 
-Rows with large $`s`$ contain more varied values, implying weaker
+Rows with large $s$ contain more varied values, implying weaker
 correlations.
 
 Show the code
@@ -260,23 +248,20 @@ Table 3: sum and sd of candidate rows
 To relate row dispersion to correlation, the algorithm converts the
 standard deviation into a **similarity index**
 
-``` math
-
-r^* = 1 - \frac{s}{s_{max}}
-```
+$$r^{*} = 1 - \frac{s}{s_{max}}$$
 
 where
 
-- $`s`$ = row standard deviation
-- $`s_{max}`$ = maximum dispersion observed among candidate rows.
+- $s$ = row standard deviation
+- $s_{max}$ = maximum dispersion observed among candidate rows.
 
-This transformation maps dispersion onto a scale between $`0`$ (low
-similarity) and $`1`$ (high similarity).
+This transformation maps dispersion onto a scale between $0$ (low
+similarity) and $1$ (high similarity).
 
 The similarity index is calculated using the maximum dispersion observed
 across all possible item combinations within the response range.
 
-Rows with similar values therefore have large $`r^*`$
+Rows with similar values therefore have large $r^{*}$
 
 Show the code
 
@@ -309,15 +294,12 @@ Table 4: Top and bottom rows of candidate similarities
 For each candidate row we compute the absolute difference between the
 target mean correlation coefficient and the row similarity score.
 
-``` math
-
-| {r^* - \bar r} |
-```
+$$|{r^{*} - \bar{r}}|$$
 
 where
 
-- $`r^*`$ = row similarity
-- $`\bar r`$ = target mean correlation.
+- $r^{*}$ = row similarity
+- $\bar{r}$ = target mean correlation.
 
 Rows whose similarity index is **closest to the target correlation** are
 preferred.
@@ -358,10 +340,7 @@ Suppose a respondent’s scale score is **12**.
 
 We must find item values such that
 
-``` math
-
-x_1 + x_2 + x_3 +x_4 = 12
-```
+$$x_{1} + x_{2} + x_{3} + x_{4} = 12$$
 
 Possible combinations include:
 
@@ -471,14 +450,14 @@ desired Cronbach’s alpha.
 
 | scale | sums |  V1 |  V2 |  V3 |  V4 |
 |------:|-----:|----:|----:|----:|----:|
-|  1.50 |    6 |   1 |   1 |   1 |   3 |
 |  2.50 |   10 |   1 |   2 |   3 |   4 |
-|  3.25 |   13 |   2 |   3 |   3 |   5 |
-|  4.00 |   16 |   3 |   3 |   5 |   5 |
-|  3.50 |   14 |   2 |   3 |   4 |   5 |
-|  3.25 |   13 |   2 |   3 |   3 |   5 |
-|  1.75 |    7 |   1 |   1 |   2 |   3 |
-|  4.25 |   17 |   3 |   4 |   5 |   5 |
+|  2.00 |    8 |   1 |   1 |   3 |   3 |
+|  4.75 |   19 |   4 |   5 |   5 |   5 |
+|  2.25 |    9 |   1 |   2 |   2 |   4 |
+|  3.75 |   15 |   2 |   4 |   4 |   5 |
+|  2.75 |   11 |   1 |   3 |   3 |   4 |
+|  2.25 |    9 |   1 |   2 |   2 |   4 |
+|  3.75 |   15 |   2 |   4 |   4 |   5 |
 
 Table 5: Given Scale (mean=3, sd=1), and selected item combinations for
 target alpha=0.8
@@ -488,16 +467,16 @@ values within each selected item combination are randomly rearranged.
 
 |  V1 |  V2 |  V3 |  V4 |
 |----:|----:|----:|----:|
-|   1 |   3 |   1 |   1 |
-|   3 |   4 |   2 |   1 |
-|   2 |   5 |   3 |   3 |
-|   5 |   3 |   5 |   3 |
-|   3 |   4 |   5 |   2 |
-|   2 |   3 |   3 |   5 |
-|   2 |   1 |   1 |   3 |
-|   4 |   3 |   5 |   5 |
+|   4 |   2 |   1 |   3 |
+|   1 |   1 |   3 |   3 |
+|   4 |   5 |   5 |   5 |
+|   4 |   2 |   2 |   1 |
+|   5 |   4 |   2 |   4 |
+|   1 |   4 |   3 |   3 |
+|   1 |   4 |   2 |   2 |
+|   5 |   4 |   2 |   4 |
 
-Table 6: Derived scale items before optimisation ($`\alpha`$ = 0.605)
+Table 6: Derived scale items before optimisation ($\alpha$ = 0.656)
 
 Comparison of the initial scale reconstruction
 ([Table 5](#tbl-selectItems)), and then the randomised scales
@@ -507,16 +486,16 @@ optimised arrangement achieves the target reliability.
 
 |  V1 |  V2 |  V3 |  V4 |
 |----:|----:|----:|----:|
-|   1 |   3 |   1 |   1 |
-|   1 |   4 |   2 |   3 |
-|   3 |   3 |   2 |   5 |
-|   3 |   5 |   5 |   3 |
-|   2 |   3 |   4 |   5 |
-|   2 |   5 |   3 |   3 |
-|   1 |   2 |   1 |   3 |
-|   3 |   5 |   5 |   4 |
+|   4 |   3 |   2 |   1 |
+|   3 |   1 |   3 |   1 |
+|   5 |   4 |   5 |   5 |
+|   4 |   1 |   2 |   2 |
+|   5 |   4 |   2 |   4 |
+|   3 |   1 |   4 |   3 |
+|   4 |   1 |   2 |   2 |
+|   5 |   2 |   4 |   4 |
 
-Table 7: Derived scale items after optimisation ($`\alpha`$ = 0.8)
+Table 7: Derived scale items after optimisation ($\alpha$ = 0.801)
 
 Correlation matrices of the data, before and after the alpha-search
 optimisation step, are presented in [Table 8](#tbl-cor_random) and
@@ -526,23 +505,23 @@ We see that randomly-allocated row values produce mean correlations
 well-below that required to achieve the desired alpha, but after
 optimisation the values are typically correct within two decimal places.
 
-|     |  V1  |  V2   |  V3  |  V4   |
-|:----|:----:|:-----:|:----:|:-----:|
-| V1  | 1.00 | 0.05  | 0.79 | 0.27  |
-| V2  | 0.05 | 1.00  | 0.34 | -0.22 |
-| V3  | 0.79 | 0.34  | 1.00 | 0.43  |
-| V4  | 0.27 | -0.22 | 0.43 | 1.00  |
+|     |  V1   |  V2  |  V3   |  V4  |
+|:----|:-----:|:----:|:-----:|:----:|
+| V1  | 1.00  | 0.21 | -0.17 | 0.37 |
+| V2  | 0.21  | 1.00 | 0.43  | 0.56 |
+| V3  | -0.17 | 0.43 | 1.00  | 0.53 |
+| V4  | 0.37  | 0.56 | 0.53  | 1.00 |
 
-Table 8: Item correlations before optimisation (\$\alpha\$ = 0.605)
+Table 8: Item correlations before optimisation (\$\alpha\$ = 0.656)
 
-|     |  V1  |  V2   |  V3  |  V4   |
-|:----|:----:|:-----:|:----:|:-----:|
-| V1  | 1.00 | 0.53  | 0.75 | 0.59  |
-| V2  | 0.53 | 1.00  | 0.73 | -0.02 |
-| V3  | 0.75 | 0.73  | 1.00 | 0.43  |
-| V4  | 0.59 | -0.02 | 0.43 | 1.00  |
+|     |  V1  |  V2  |  V3  |  V4  |
+|:----|:----:|:----:|:----:|:----:|
+| V1  | 1.00 | 0.74 | 0.14 | 0.72 |
+| V2  | 0.74 | 1.00 | 0.18 | 0.58 |
+| V3  | 0.14 | 0.18 | 1.00 | 0.64 |
+| V4  | 0.72 | 0.58 | 0.64 | 1.00 |
 
-Table 9: Item correlations after optimisation (\$\alpha\$ = 0.8)
+Table 9: Item correlations after optimisation (\$\alpha\$ = 0.801)
 
 ### Why this works
 
@@ -565,4 +544,4 @@ partitions while preserving the desired correlation structure.
 Candidate item partitions produce a discrete set of dispersion values,
 which means the achieved reliability can only approximate the requested
 value. In simulation tests the deviation from the target Cronbach’s
-$`\alpha`$ is typically less than `0.001`.
+$\alpha$ is typically less than `0.001`.
