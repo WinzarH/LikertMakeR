@@ -66,6 +66,9 @@ devtools::document()
 # unlink("vignettes/dwivedi_replication_cache", recursive = TRUE)
 # unlink("vignettes/.quarto", recursive = TRUE)
 
+# devtools::test( filter = "alpha_sensitivity")
+
+# tools::showNonASCIIfile("R/alpha_sensitivity.R")
 
 devtools::check()
 
@@ -85,10 +88,10 @@ devtools::install()
 
 ## regenerate everything from scratch
 # unlink(c("docs", "_pkgdown"), recursive = TRUE)
-# pkgdown::build_site()
+pkgdown::build_site()
 
 ## to add another file
-pkgdown::build_site(lazy = FALSE)
+# pkgdown::build_site(lazy = TRUE)
 
 
 # sanity check:
@@ -99,10 +102,10 @@ pkgdown::deploy_to_branch()
 
 
 
-
-
-renv::dependencies("vignettes/dwivedi_replication.qmd")
-renv::dependencies("vignettes")
+#
+#
+# renv::dependencies("vignettes/dwivedi_replication.qmd")
+# renv::dependencies("vignettes")
 
 
 unlink("_freeze", recursive = TRUE)
