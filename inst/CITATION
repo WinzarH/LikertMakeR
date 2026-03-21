@@ -1,0 +1,10 @@
+citHeader("To cite LikertMakeR:")
+
+citEntry(
+  entry = "Manual",
+  title = "LikertMakeR: Simulating Likert and rating-scale data based on summary statistics",
+  author = person("Hume", "Winzar"),
+  year = "2026",
+  note = "R package version 2.0.0",
+  url = "https://CRAN.R-project.org/package=LikertMakeR"
+)
