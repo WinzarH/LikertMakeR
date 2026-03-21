@@ -55,11 +55,12 @@
 <div class="section level3">
 <h3 id="breaking-changes-2-0-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-2-0-0"></a></h3>
 <ul><li><p><code><a href="../reference/makeItemsScale.html">makeItemsScale()</a></code> has been rewritten and one parameter has been removed. Existing code that used the removed argument, <code>variance</code>, will need to be updated.</p></li>
-<li><p><code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> has been completely redesigned - previously flagged in <code>development version 1.5.0</code>. Some parameters have changed, and the internal algorithm for generating correlation matrices has been replaced.</p></li>
+<li><p><code><a href="../reference/makeCorrAlpha.html">makeCorrAlpha()</a></code> has been completely redesigned - previously flagged in <code>development version 1.5.0</code>. Some parameters have changed, and the internal algorithm for generating correlation matrices has been replaced to guarantee an assumed underlying single-factor structure.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-2-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-2-0-0"></a></h3>
-<ul><li>Added <code><a href="../reference/reliability.html">reliability()</a></code>, a new function for computing reliability statistics for rating-scale data - previously flagged in <code>development version 1.5.0</code>.</li>
+<ul><li><p>Added <code><a href="../reference/reliability.html">reliability()</a></code>, a new function for computing reliability statistics for rating-scale data - previously flagged in <code>development version 1.5.0</code>.</p></li>
+<li><p>Added <code><a href="../reference/alpha_sensitivity.html">alpha_sensitivity()</a></code>, a new function that computes how Cronbach’s alpha changes as a function of scale design parameters.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="improvements-2-0-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-2-0-0"></a></h3>

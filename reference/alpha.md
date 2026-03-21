@@ -24,6 +24,11 @@ alpha(cormatrix = NULL, data = NULL)
 
 a single value
 
+## See also
+
+[`alpha_sensitivity`](https://winzarh.github.io/LikertMakeR/reference/alpha_sensitivity.md),
+[`reliability`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
+
 ## Examples
 
 ``` r

@@ -3,19 +3,6 @@
 Generate a Positive-Definite Correlation Matrix for a target *Cronbach's
 alpha*.
 
-Constructs a correlation matrix with a specified number of items and
-target *Cronbach's alpha* using a constructive one-factor model.
-
-Such a correlation matrix can be applied to the
-[`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md)
-function to generate synthetic data with the predefined alpha.
-
-The algorithm directly builds a positive-definite correlation matrix by
-solving for item loadings that reproduce the desired average inter-item
-correlation implied by *alpha*. Unlike earlier versions of this
-function, this method guarantees positive definiteness by construction,
-without *post-hoc* repair.
-
 ## Usage
 
 ``` r
@@ -108,6 +95,19 @@ If `diagnostics = FALSE`, a positive-definite correlation matrix. If
   internal variance used
 
 ## Details
+
+Constructs a correlation matrix with a specified number of items and
+target *Cronbach's alpha* using a constructive one-factor model.
+
+Such a correlation matrix can be applied to the
+[`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md)
+function to generate synthetic data with the predefined alpha.
+
+The algorithm directly builds a positive-definite correlation matrix by
+solving for item loadings that reproduce the desired average inter-item
+correlation implied by *alpha*. Unlike earlier versions of this
+function, this method guarantees positive definiteness by construction,
+without *post-hoc* repair.
 
 The function computes the average inter-item correlation implied by the
 requested alpha and solves for a one-factor loading structure that

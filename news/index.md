@@ -17,7 +17,7 @@ used to generate synthetic rating-scale data and correlation matrices.
   has been completely redesigned - previously flagged in
   `development version 1.5.0`. Some parameters have changed, and the
   internal algorithm for generating correlation matrices has been
-  replaced.
+  replaced to guarantee an assumed underlying single-factor structure.
 
 ### New features
 
@@ -25,6 +25,11 @@ used to generate synthetic rating-scale data and correlation matrices.
   [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md),
   a new function for computing reliability statistics for rating-scale
   data - previously flagged in `development version 1.5.0`.
+
+- Added
+  [`alpha_sensitivity()`](https://winzarh.github.io/LikertMakeR/reference/alpha_sensitivity.md),
+  a new function that computes how Cronbach’s alpha changes as a
+  function of scale design parameters.
 
 ### Improvements
 

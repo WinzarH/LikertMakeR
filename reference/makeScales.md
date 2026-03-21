@@ -1,17 +1,8 @@
 # Synthesise rating-scale data with given first and second moments and a predefined correlation matrix
 
-`makeScales()` generates a dataframe of random discrete values so the
-data replicate a rating scale, and are correlated close to a predefined
-correlation matrix.
-
-`makeScales()` is wrapper function for:
-
-- [`lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md),
-  generates a dataframe that best fits the desired moments, and
-
-- [`lcor()`](https://winzarh.github.io/LikertMakeR/reference/lcor.md),
-  which rearranges values in each column of the dataframe so they
-  closely match the desired correlation matrix.
+Generates a dataframe of random discrete values so the data replicate a
+rating scale, and are correlated close to a predefined correlation
+matrix.
 
 ## Usage
 
@@ -61,6 +52,22 @@ makeScales(n, means, sds, lowerbound = 1, upperbound = 5, items = 1, cormatrix)
 ## Value
 
 a dataframe of rating-scale values
+
+## Details
+
+`makeScales()` is wrapper function for:
+
+- [`lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md),
+  generates a dataframe that best fits the desired moments, and
+
+- [`lcor()`](https://winzarh.github.io/LikertMakeR/reference/lcor.md),
+  which rearranges values in each column of the dataframe so they
+  closely match the desired correlation matrix.
+
+## See also
+
+[`lfast`](https://winzarh.github.io/LikertMakeR/reference/lfast.md),
+[`lcor`](https://winzarh.github.io/LikertMakeR/reference/lcor.md)
 
 ## Examples
 
@@ -113,10 +120,10 @@ df1 <- makeScales(
 
 str(df1)
 #> 'data.frame':    16 obs. of  4 variables:
-#>  $ Q1: num  1 3 1 2 2 4 2 2 2 3 ...
-#>  $ Q2: num  3 2 2 5 3 4 1 3 2 4 ...
-#>  $ Q3: num  3 3 3 1 1 4 1 4 1 5 ...
-#>  $ Q4: num  3 3 3 3 3 5 2 4 3 4 ...
+#>  $ Q1: num  1 2 1 2 4 2 2 4 1 2 ...
+#>  $ Q2: num  2 3 2 2 1 2 3 5 4 3 ...
+#>  $ Q3: num  4 1 1 3 1 1 4 4 1 4 ...
+#>  $ Q4: num  3 3 2 3 3 3 4 4 3 4 ...
 
 #### means
 apply(df1, 2, mean) |> round(3)
@@ -131,10 +138,10 @@ apply(df1, 2, sd) |> round(3)
 #### correlations
 cor(df1) |> round(3)
 #>       Q1    Q2    Q3    Q4
-#> Q1 1.000 0.313 0.386 0.530
-#> Q2 0.313 1.000 0.429 0.619
-#> Q3 0.386 0.429 1.000 0.788
-#> Q4 0.530 0.619 0.788 1.000
+#> Q1 1.000 0.313 0.386 0.619
+#> Q2 0.313 1.000 0.514 0.619
+#> Q3 0.386 0.514 1.000 0.788
+#> Q4 0.619 0.619 0.788 1.000
 
 
 
@@ -198,11 +205,11 @@ df2 <- makeScales(
 
 str(df2)
 #> 'data.frame':    128 obs. of  5 variables:
-#>  $ JS : num  4.25 3.5 3.5 4.75 4.25 3.25 4.75 3.25 2.75 4.75 ...
-#>  $ OC : num  4 3.5 3.25 4.5 4.75 3.5 4.75 3.25 3.25 4.25 ...
-#>  $ PSS: num  2.33 3.67 3 3.67 3.67 ...
-#>  $ WE : num  4 3.67 4 4.33 4.33 ...
-#>  $ TI : num  2.67 2.33 2 1.33 1 ...
+#>  $ JS : num  4.5 3.5 4.75 4.75 4.75 3.75 3.5 4.25 3.5 3.5 ...
+#>  $ OC : num  4.5 3.25 5 3.25 4 4 4.25 4 4 3.5 ...
+#>  $ PSS: num  4.67 3.67 3.67 4 4.33 ...
+#>  $ WE : num  4.67 4 4.33 4.33 4.33 ...
+#>  $ TI : num  1.33 3 1.67 1.67 1.33 ...
 
 #### means
 apply(df2, 2, mean) |> round(3)
@@ -218,8 +225,8 @@ apply(df2, 2, sd) |> round(3)
 cor(df2) |> round(3)
 #>         JS     OC    PSS     WE     TI
 #> JS   1.000  0.720  0.580  0.651 -0.551
-#> OC   0.720  1.000  0.539  0.600 -0.600
-#> PSS  0.580  0.539  1.000  0.571 -0.450
-#> WE   0.651  0.600  0.571  1.000 -0.499
+#> OC   0.720  1.000  0.540  0.601 -0.600
+#> PSS  0.580  0.540  1.000  0.571 -0.450
+#> WE   0.651  0.601  0.571  1.000 -0.499
 #> TI  -0.551 -0.600 -0.450 -0.499  1.000
 ```

@@ -30,10 +30,8 @@
   : Correlation matrix from Cronbach's Alpha
 - [`makeCorrLoadings()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrLoadings.md)
   : Generate Inter-Item Correlation Matrix from Factor Loadings
-- [`print(`*`<makeScalesRegression>`*`)`](https://winzarh.github.io/LikertMakeR/reference/print.makeScalesRegression.md)
-  : Print method for makeScalesRegression objects
 
-## Helper functions
+## Analysis & diagnostics
 
 - [`alpha()`](https://winzarh.github.io/LikertMakeR/reference/alpha.md)
   : Calculate Cronbach's Alpha from a correlation matrix or dataframe
@@ -42,6 +40,8 @@
   plot
 - [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
   : Estimate scale reliability for Likert and rating-scale data
+- [`alpha_sensitivity()`](https://winzarh.github.io/LikertMakeR/reference/alpha_sensitivity.md)
+  : Sensitivity of Cronbach's alpha to scale design parameters
 - [`ordinal_diagnostics()`](https://winzarh.github.io/LikertMakeR/reference/ordinal_diagnostics.md)
   : Extract ordinal diagnostics from a reliability() result
 
@@ -49,3 +49,10 @@
 
 - [`lexact()`](https://winzarh.github.io/LikertMakeR/reference/lexact.md)
   : Deprecated. Use lfast() instead
+
+## Internal
+
+- [`print(`*`<likert_reliability>`*`)`](https://winzarh.github.io/LikertMakeR/reference/print.likert_reliability.md)
+  : Print method for reliability objects
+- [`print(`*`<makeScalesRegression>`*`)`](https://winzarh.github.io/LikertMakeR/reference/print.makeScalesRegression.md)
+  : Print method for makeScalesRegression objects
