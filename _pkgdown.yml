@@ -9,8 +9,6 @@ template:
   includes:
     in_header: pkgdown/extra-head.html
 
-
-
 navbar:
   title: LikertMakeR
   type: default
@@ -48,16 +46,20 @@ reference:
     contents:
       - makeCorrAlpha
       - makeCorrLoadings
-      - print.makeScalesRegression
-  - title: Helper functions
+  - title: Analysis & diagnostics
     contents:
       - alpha
       - eigenvalues
       - reliability
+      - alpha_sensitivity
       - ordinal_diagnostics
   - title: Deprecated functions
     contents:
       - lexact
+  - title: Internal
+    contents:
+      - has_keyword("internal")
+    internal: true
 
 articles:
   - title: Getting started

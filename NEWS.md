@@ -7,22 +7,30 @@ to generate synthetic rating-scale data and correlation matrices.
 
 ## Breaking changes
 
-  - `makeItemsScale()` has been rewritten and one parameter has been removed. Existing code that used the removed argument, `variance`, will need to be updated.
+  - `makeItemsScale()` has been rewritten and one parameter has been removed. 
+  Existing code that used the removed argument, `variance`, 
+  will need to be updated.
 
   - `makeCorrAlpha()` has been completely redesigned - previously flagged in 
   `development version 1.5.0`.
   Some parameters have changed, and the internal algorithm for generating 
-  correlation matrices has been replaced.
+  correlation matrices has been replaced to guarantee an assumed underlying 
+  single-factor structure.
 
 ## New features
 
   - Added `reliability()`, a new function for computing reliability statistics 
   for rating-scale data - previously flagged in `development version 1.5.0`.
+  
+  - Added `alpha_sensitivity()`, a new function that computes how 
+  Cronbach's alpha changes as a function of scale design parameters.
 
 ## Improvements
 
   - `makeCorrAlpha()` is now substantially faster and more stable when 
   generating correlation matrices that satisfy a target Cronbach's alpha.
+  
+  - `alpha()` has additional integrity checks
 
   - Improved numerical stability and diagnostics in correlation-matrix 
   generation.
