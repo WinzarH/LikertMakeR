@@ -32,6 +32,9 @@ used to generate synthetic rating-scale data and correlation matrices.
   is now substantially faster and more stable when generating
   correlation matrices that satisfy a target Cronbach’s alpha.
 
+- [`alpha()`](https://winzarh.github.io/LikertMakeR/reference/alpha.md)
+  has additional integrity checks
+
 - Improved numerical stability and diagnostics in correlation-matrix
   generation.
 

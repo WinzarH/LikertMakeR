@@ -1104,7 +1104,7 @@ F = \left( \sum_{i=1}^m \sum_{j=1}^n a_{ij}^2 \right)^{1/2}
 <span><span class="va">frob_diff</span> <span class="op">&lt;-</span> <span class="fu">matrixcalc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/matrixcalc/man/frobenius.norm.html" class="external-link">frobenius.norm</a></span><span class="op">(</span><span class="va">mat_diff</span><span class="op">)</span></span></code></pre></div>
 </details>
 </div>
-<p>Calculated <em>Frobenius Norm</em> here is 0.0124398, which is very low for a matrix of this size.</p>
+<p>Calculated <em>Frobenius Norm</em> here is 0.0122667, which is very low for a matrix of this size.</p>
 </section><section class="section level2"><h2 id="step-4-generate-synthetic-likert-responses">Step 4: Generate synthetic Likert responses<a class="anchor" aria-label="anchor" href="#step-4-generate-synthetic-likert-responses"></a>
 </h2>
 <p>So far we have reconstructed the statistical properties of the scales. The next step is to generate individual Likert item responses consistent with those statistics.</p>
@@ -1126,38 +1126,38 @@ F = \left( \sum_{i=1}^m \sum_{j=1}^n a_{ij}^2 \right)^{1/2}
 <figure class="quarto-float quarto-float-tbl"><div aria-describedby="tbl-all_items-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-stdout">
 <pre><code>   aff1 aff2 con1 con2 pas1 pas2 pas3 cop1 cop2 cop3 trt1 trt2 trt3 trt4 sat1
-1     1    1    1    1    2    1    2    4    4    2    1    3    2    2    3
-2     4    4    5    4    4    5    4    5    5    3    3    5    4    5    5
-3     2    1    3    2    2    1    1    4    4    2    2    4    2    2    5
-4     5    4    4    3    4    3    4    5    5    4    2    4    4    4    5
-5     2    2    3    2    3    1    2    5    3    3    3    5    3    4    5
-6     2    1    2    1    1    1    2    5    3    3    2    4    3    4    5
-7     3    3    3    3    2    1    2    4    3    2    1    3    1    2    3
-8     3    3    4    3    4    3    3    4    4    2    2    4    3    2    4
-9     3    3    4    3    4    3    4    5    5    3    2    4    4    4    5
-10    3    2    3    3    3    2    3    5    5    4    3    5    4    4    5
+1     2    2    2    2    3    1    2    4    2    2    1    3    3    2    4
+2     3    3    3    3    4    4    3    4    2    4    3    5    4    5    5
+3     2    1    2    2    2    1    1    4    2    4    3    5    3    3    4
+4     2    1    3    2    3    2    2    5    3    5    3    5    4    5    5
+5     2    2    4    3    3    2    3    4    2    4    3    4    4    5    4
+6     2    1    2    1    2    2    3    4    2    2    2    3    2    4    3
+7     3    3    3    3    4    3    3    4    2    2    2    4    3    3    4
+8     2    2    3    2    3    1    2    5    3    3    2    4    3    3    4
+9     3    2    2    1    3    1    2    4    2    3    2    4    3    4    5
+10    2    2    2    2    3    2    3    5    4    5    1    3    3    3    5
    sat2 sat3 awr1 awr2 awr3 awr4 awr5 qul1 qul2 qul3 qul4 loy1 loy2 dif1 dif2
-1     1    2    4    2    4    3    3    4    2    2    2    1    2    4    2
-2     4    4    5    5    5    5    5    5    4    5    5    4    5    5    5
-3     4    5    5    3    5    4    4    4    2    4    4    3    4    4    2
-4     4    5    5    3    5    5    5    5    3    4    5    4    5    5    4
-5     3    4    5    3    5    4    4    4    2    4    4    3    4    4    2
-6     3    4    5    3    5    5    4    5    3    3    3    3    4    4    3
-7     2    2    4    2    2    3    4    4    2    2    4    2    3    3    2
-8     3    3    5    4    5    5    5    5    3    5    3    4    5    5    4
-9     4    4    5    3    5    5    4    5    3    5    4    3    5    5    4
-10    3    4    5    3    5    5    4    5    3    5    3    3    4    5    4
+1     2    3    5    3    5    4    4    4    2    4    2    3    4    5    4
+2     4    4    5    3    5    5    5    5    3    4    5    5    5    5    4
+3     2    3    5    3    5    5    4    4    2    4    3    3    5    4    2
+4     4    5    5    3    5    5    4    5    3    4    5    4    5    4    2
+5     3    4    4    2    4    4    4    4    2    3    4    3    5    4    2
+6     2    3    5    3    5    4    4    4    2    4    3    2    4    3    1
+7     3    3    5    3    3    4    4    5    3    3    4    2    4    4    3
+8     3    4    4    2    4    4    4    4    2    4    3    2    3    4    2
+9     4    4    5    3    3    3    3    5    4    5    5    1    2    4    3
+10    3    4    5    3    5    5    4    5    3    5    3    3    5    5    4
    fit1 fit2 ext1 ext2 att1 att2 rel1 rel2 rel3 inv1 inv2 inv3 inv4
-1     1    2    1    1    2    2    1    3    1    4    1    2    2
-2     3    5    3    4    4    5    5    3    5    5    2    4    3
-3     2    4    1    3    3    3    1    3    1    5    4    2    3
-4     3    4    3    5    4    5    3    5    4    5    5    4    3
-5     3    4    1    3    3    3    2    2    4    4    3    1    3
-6     1    3    2    3    2    2    1    1    3    3    1    1    3
-7     1    3    2    4    2    2    2    4    4    5    3    3    2
-8     3    4    3    5    3    4    3    5    5    5    2    4    4
-9     3    4    3    4    4    4    3    5    3    5    3    4    5
-10    1    3    3    5    3    4    2    4    4    5    3    4    5</code></pre>
+1     1    3    4    2    4    3    2    4    2    5    2    3    4
+2     2    4    4    2    5    4    3    5    3    5    3    5    4
+3     3    4    2    1    3    3    1    3    2    4    4    2    2
+4     4    5    4    3    4    4    2    4    4    5    5    5    5
+5     3    5    4    2    4    3    1    3    3    5    3    2    3
+6     2    3    4    2    3    3    2    2    4    5    2    3    3
+7     4    5    4    2    4    3    2    4    4    5    3    3    2
+8     1    3    3    1    4    3    2    4    3    3    1    1    1
+9     2    3    4    3    3    3    1    3    3    3    1    1    1
+10    3    4    5    3    4    4    3    5    3    5    3    4    5</code></pre>
 </div>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-tbl" id="tbl-all_items-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1189,12 +1189,12 @@ Table 5: First ten rows of our synthetic data - all 43 items
 <tr class="odd">
 <td style="text-align: left;">PAS</td>
 <td style="text-align: right;">0.84</td>
-<td style="text-align: right;">0.839</td>
+<td style="text-align: right;">0.840</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">COP</td>
 <td style="text-align: right;">0.80</td>
-<td style="text-align: right;">0.800</td>
+<td style="text-align: right;">0.799</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">TRT</td>
@@ -1204,7 +1204,7 @@ Table 5: First ten rows of our synthetic data - all 43 items
 <tr class="even">
 <td style="text-align: left;">SAT</td>
 <td style="text-align: right;">0.86</td>
-<td style="text-align: right;">0.860</td>
+<td style="text-align: right;">0.859</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">AWR</td>
@@ -1214,12 +1214,12 @@ Table 5: First ten rows of our synthetic data - all 43 items
 <tr class="even">
 <td style="text-align: left;">QUL</td>
 <td style="text-align: right;">0.84</td>
-<td style="text-align: right;">0.839</td>
+<td style="text-align: right;">0.841</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">LOY</td>
 <td style="text-align: right;">0.79</td>
-<td style="text-align: right;">0.790</td>
+<td style="text-align: right;">0.791</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">DIF</td>
@@ -1229,12 +1229,12 @@ Table 5: First ten rows of our synthetic data - all 43 items
 <tr class="odd">
 <td style="text-align: left;">FIT</td>
 <td style="text-align: right;">0.82</td>
-<td style="text-align: right;">0.822</td>
+<td style="text-align: right;">0.821</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">EXT</td>
 <td style="text-align: right;">0.79</td>
-<td style="text-align: right;">0.788</td>
+<td style="text-align: right;">0.791</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ATT</td>
@@ -1244,12 +1244,12 @@ Table 5: First ten rows of our synthetic data - all 43 items
 <tr class="even">
 <td style="text-align: left;">REL</td>
 <td style="text-align: right;">0.79</td>
-<td style="text-align: right;">0.789</td>
+<td style="text-align: right;">0.790</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">INV</td>
 <td style="text-align: right;">0.79</td>
-<td style="text-align: right;">0.791</td>
+<td style="text-align: right;">0.790</td>
 </tr>
 </tbody>
 </table>
@@ -1467,51 +1467,51 @@ Table 7: Parameter estimates of the hypothesised and alternative models - Table
 </tr>
 <tr class="even">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Attachment → Credibility</td>
-<td style="text-align: right;">0.74</td>
-<td style="text-align: center;">[0.66, 0.83]</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: center;">[0.62, 0.8]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Attachment → SAT</td>
-<td style="text-align: right;">0.54</td>
-<td style="text-align: center;">[0.45, 0.63]</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: center;">[0.44, 0.62]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Attachment → BrandEquity</td>
-<td style="text-align: right;">0.17</td>
-<td style="text-align: center;">[-0.02, 0.37]</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: center;">[0.12, 0.44]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Credibility → BrandEquity</td>
-<td style="text-align: right;">0.39</td>
-<td style="text-align: center;">[0.01, 0.77]</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: center;">[-0.12, 0.54]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">SAT → BrandEquity</td>
-<td style="text-align: right;">0.49</td>
-<td style="text-align: center;">[0.23, 0.75]</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: center;">[0.37, 0.84]</td>
 </tr>
 <tr class="odd" data-grouplength="4">
 <td colspan="3" style="border-bottom: 1px solid"><strong>Indirect and total effects</strong></td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">ind_Attachment_via_Credibility</td>
-<td style="text-align: right;">0.29</td>
-<td style="text-align: center;">[0, 0.58]</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: center;">[-0.09, 0.39]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">ind_Attachment_via_SAT</td>
-<td style="text-align: right;">0.27</td>
-<td style="text-align: center;">[0.12, 0.41]</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: center;">[0.18, 0.45]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">total_ind_Attachment</td>
-<td style="text-align: right;">0.55</td>
-<td style="text-align: center;">[0.38, 0.73]</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: center;">[0.33, 0.61]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding-left: 2em;" data-indentlevel="1">total_Attachment</td>
-<td style="text-align: right;">0.73</td>
-<td style="text-align: center;">[0.65, 0.81]</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: center;">[0.67, 0.82]</td>
 </tr>
 </tbody>
 </table>
