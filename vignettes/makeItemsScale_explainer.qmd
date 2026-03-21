@@ -21,11 +21,7 @@ format:
     code-summary: "Show the code"
     toc: TRUE
     toc-depth: 2  
-  pdf:
-    documentclass: scrartcl
-    classoption: DIV=11
-    papersize: A4
-  
+
 ---
 
 # Reconstructing Likert Items from Scale Scores with a Target Reliability
