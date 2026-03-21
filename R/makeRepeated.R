@@ -1,4 +1,4 @@
-#' @title Reproduce Repeated-Measures Data from ANOVA Summary Statistics
+#' Reproduce Repeated-Measures Data from ANOVA Summary Statistics
 #'
 #' @description
 #' Constructs a synthetic dataset and inter-timepoint correlation matrix
@@ -119,7 +119,7 @@
 #' @importFrom stats median optimize
 #'
 #' @export
-
+#'
 makeRepeated <- function(n, k, means, sds,
                          f_stat,
                          df_between = k - 1,

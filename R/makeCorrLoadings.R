@@ -9,9 +9,9 @@
 #' are present, as shown in the _makeCorrLoadings() validation article_.
 #'
 #' @seealso
-#' - makeCorrLoadings() validation article:
-#' <https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.html>
-#' - Package website: <https://winzarh.github.io/LikertMakeR/>
+#'  - makeCorrLoadings() validation article:
+#'  <https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.html>
+#'  - Package website: <https://winzarh.github.io/LikertMakeR/>
 #'
 #' @param loadings Numeric matrix. A \eqn{k \times f} matrix of standardized
 #' factor loadings \eqn{items \times factors}.

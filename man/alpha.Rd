@@ -49,3 +49,6 @@ alpha(, df)
 alpha(corMat, df)
 
 }
+\seealso{
+\code{\link{alpha_sensitivity}}, \code{\link{reliability}}
+}

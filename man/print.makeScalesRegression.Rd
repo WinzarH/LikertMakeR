@@ -14,3 +14,4 @@
 \description{
 Print method for makeScalesRegression objects
 }
+\keyword{internal}

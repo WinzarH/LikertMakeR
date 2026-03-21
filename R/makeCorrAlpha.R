@@ -1,8 +1,7 @@
 #' Correlation matrix from Cronbach's Alpha
 #'
-#' @name makeCorrAlpha
 #'
-#' @description Generate a Positive-Definite
+#' Generate a Positive-Definite
 #' Correlation Matrix for a target _Cronbach's alpha_.
 #'
 #' Constructs a correlation matrix with a specified number of items and

@@ -38,9 +38,9 @@ Default = 0}
 a dataframe approximating user-specified conditions.
 }
 \description{
-The function \code{makePaired()} generates a dataset from
-paired-sample \emph{t}-test summary statistics.
-
+Generates a dataset from paired-sample \emph{t}-test summary statistics.
+}
+\details{
 \code{makePaired()} generates correlated values so the data replicate
 rating scales taken, for example, in a before and after experimental design.
 
@@ -108,4 +108,7 @@ cor(pairedDat) |> round(2)
 
 t.test(pairedDat$X1, pairedDat$X2, paired = TRUE)
 
+}
+\seealso{
+\code{\link{lfast}}, \code{\link{lcor}}
 }

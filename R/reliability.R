@@ -109,6 +109,8 @@
 #' @param verbose Logical; if \code{TRUE}, warnings and progress indicators
 #'   are displayed. Default is \code{TRUE}.
 #'
+#' @seealso \code{\link{alpha_sensitivity}}, \code{\link{alpha}}
+#'
 #' @export
 reliability <- function(
   data,

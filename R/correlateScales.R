@@ -98,7 +98,7 @@
 #' )
 #' head(my_correlated_scales)
 #'
-#' @export correlateScales
+#' @export
 #'
 correlateScales <- function(dataframes, scalecors) {
   ###

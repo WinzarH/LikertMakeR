@@ -77,7 +77,8 @@ minimum eigenvalue, and internal variance used
 \description{
 Generate a Positive-Definite
 Correlation Matrix for a target \emph{Cronbach's alpha}.
-
+}
+\details{
 Constructs a correlation matrix with a specified number of items and
 target \emph{Cronbach's alpha} using a constructive one-factor model.
 
@@ -89,8 +90,7 @@ by solving for item loadings that reproduce the desired average
 inter-item correlation implied by \emph{alpha}.
 Unlike earlier versions of this function, this method guarantees positive
 definiteness by construction, without \emph{post-hoc} repair.
-}
-\details{
+
 The function computes the average inter-item correlation implied by the
 requested alpha and solves for a one-factor loading structure that
 reproduces this value. A small adaptive reduction in dispersion may be

@@ -126,4 +126,6 @@ reliability(
 }
 \seealso{
 \code{\link{ordinal_diagnostics}}
+
+\code{\link{alpha_sensitivity}}, \code{\link{alpha}}
 }

@@ -1,9 +1,7 @@
 #' Synthesise a dataset from paired-sample t-test summary statistics
 #'
-#' @name makePaired
 #'
-#' @description The function `makePaired()` generates a dataset from
-#' paired-sample *t*-test summary statistics.
+#' Generates a dataset from paired-sample *t*-test summary statistics.
 #'
 #' `makePaired()` generates correlated values so the data replicate
 #' rating scales taken, for example, in a before and after experimental design.
@@ -54,7 +52,6 @@
 #' @importFrom stats rbeta
 #' @importFrom Rcpp sourceCpp
 #'
-#' @export makePaired
 #'
 #' @note
 #'
@@ -69,6 +66,8 @@
 #'
 #' If this happens, the function will fail with an _ERROR_ message.
 #' The user should review the input parameters and insert more realistic values.
+#'
+#' @seealso \code{\link{lfast}}, \code{\link{lcor}}
 #'
 #' @examples
 #'
@@ -90,6 +89,8 @@
 #' cor(pairedDat) |> round(2)
 #'
 #' t.test(pairedDat$X1, pairedDat$X2, paired = TRUE)
+#'
+#' @export
 #'
 makePaired <- function(n, means, sds, t_value,
                        lowerbound, upperbound,

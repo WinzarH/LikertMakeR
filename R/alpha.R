@@ -8,7 +8,9 @@
 #' @param data (real) a dataframe or matrix
 #'
 #' @return a single value
-#' @export alpha
+#'
+#' @seealso \code{\link{alpha_sensitivity}}, \code{\link{reliability}}
+#'
 #'
 #' @examples
 #'
@@ -39,11 +41,15 @@
 #'
 #' alpha(corMat, df)
 #'
+#' @export
+#'
 alpha <- function(cormatrix = NULL, data = NULL) {
   ## input integrity checks
   if (is.null(cormatrix) && is.null(data)) {
-    message("Error: Please input either a correlation matrix or a data file")
-    return(NULL)
+    stop(
+      "Provide either a correlation matrix or a data argument.",
+      call. = FALSE
+    )
   } else {
     if (is.null(cormatrix)) {
       cormatrix <- cor(data)
@@ -53,7 +59,23 @@ alpha <- function(cormatrix = NULL, data = NULL) {
                 \nUsing cormatrix by default.")
       }
     }
-  } ## END input integrity checks
+  }
+  # Catch common user mistake: alpha(df) instead of alpha(, df)
+  if (!is.null(cormatrix) && is.null(data)) {
+    if (is.data.frame(cormatrix) || is.matrix(cormatrix)) {
+      # Check if it's NOT a valid correlation matrix
+      is_square <- is.matrix(cormatrix) && nrow(cormatrix) == ncol(cormatrix)
+      diag_is_one <- is_square && all(diag(cormatrix) == 1)
+      if (!is_square || !diag_is_one) {
+        stop(
+          "You supplied a dataset as the first argument.\n",
+          "Use: alpha(, data = your_data)",
+          call. = FALSE
+        )
+      }
+    }
+  }
+  ## END input integrity checks
 
   # Calculate Cronbach's Alpha from the correlation matrix
   # find the mean of upper (or lower) triangle

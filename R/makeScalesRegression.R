@@ -384,6 +384,7 @@ makeScalesRegression <- function(
 #' @param x An object of class "makeScalesRegression"
 #' @param ... Additional arguments (currently unused)
 #'
+#' @keywords internal
 #' @export
 print.makeScalesRegression <- function(x, ...) {
   cat("Regression Data Generation Results\n")
