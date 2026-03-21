@@ -163,8 +163,8 @@ reliability(
 #>                alpha    0.799       4    64
 #>          omega_total    0.869       4    64
 #>              lambda6    0.756       4    64
-#>        ordinal_alpha    0.756       4    64
-#>  ordinal_omega_total    0.846       4    64
+#>        ordinal_alpha    0.763       4    64
+#>  ordinal_omega_total    0.850       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
@@ -181,10 +181,10 @@ reliability(
   n_boot = 200
 )
 #>            coef_name estimate ci_lower ci_upper n_items n_obs
-#>                alpha    0.799    0.717    0.848       4    64
-#>          omega_total    0.869    0.826    0.898       4    64
-#>        ordinal_alpha    0.756    0.632    0.799       4    64
-#>  ordinal_omega_total    0.846    0.784    0.869       4    64
+#>                alpha    0.799    0.702    0.850       4    64
+#>          omega_total    0.869    0.819    0.899       4    64
+#>        ordinal_alpha    0.763    0.617    0.810       4    64
+#>  ordinal_omega_total    0.850    0.779    0.876       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega
