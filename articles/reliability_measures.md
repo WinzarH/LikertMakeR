@@ -100,7 +100,7 @@ Possible values are:
 Multiple options may be supplied, for example:
 
 ``` r
-include = c("lambda6", "polychoric")
+include <- c("lambda6", "polychoric")
 ```
 
 ### `ci`
@@ -331,8 +331,8 @@ reliability(
 #>          omega_total    0.871       4    64
 #>              lambda6    0.758       4    64
 #>              omega_h    0.805       4    64
-#>        ordinal_alpha    0.760       4    64
-#>  ordinal_omega_total    0.848       4    64
+#>        ordinal_alpha    0.769       4    64
+#>  ordinal_omega_total    0.853       4    64
 #>                                                notes
 #>                                 Pearson correlations
 #>                                 1-factor eigen omega

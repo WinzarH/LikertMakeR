@@ -305,7 +305,7 @@ mat_diff <- dwivedi_correlations - synth_correlations
 frob_diff <- matrixcalc::frobenius.norm(mat_diff)
 ```
 
-Calculated *Frobenius Norm* here is 0.0135177, which is very low for a
+Calculated *Frobenius Norm* here is 0.012152, which is very low for a
 matrix of this size.
 
 ## Step 4: Generate synthetic Likert responses
@@ -341,38 +341,38 @@ They are all integer responses to standard 1-5 Likert-scale-type
 questions.
 
        aff1 aff2 con1 con2 pas1 pas2 pas3 cop1 cop2 cop3 trt1 trt2 trt3 trt4 sat1
-    1     2    2    2    2    2    1    1    1    3    1    2    4    2    2    4
-    2     4    3    5    4    4    5    3    4    5    5    3    5    4    5    5
-    3     1    2    3    2    3    1    2    2    4    4    2    4    3    3    5
-    4     4    3    5    4    3    2    3    2    4    3    2    4    2    3    4
-    5     1    2    3    2    2    1    1    1    3    3    1    3    3    3    5
-    6     4    3    4    3    3    3    4    2    4    3    3    5    4    5    5
-    7     2    2    3    2    3    1    2    3    5    3    3    5    3    4    4
-    8     4    4    3    3    4    5    4    3    5    5    3    5    4    4    5
-    9     3    3    3    3    4    3    4    3    5    3    3    5    4    4    5
-    10    4    3    4    3    3    3    4    3    5    5    3    5    4    4    5
+    1     1    1    1    1    2    1    1    4    2    3    1    3    2    3    4
+    2     3    3    4    3    4    3    2    5    3    4    3    5    4    4    5
+    3     3    3    3    3    2    1    2    5    3    4    3    5    3    4    5
+    4     5    4    4    4    4    3    3    5    3    5    2    4    3    4    5
+    5     3    2    3    2    3    2    2    4    2    3    3    5    4    4    5
+    6     2    2    2    2    1    1    2    5    3    3    2    4    3    4    5
+    7     2    1    2    2    2    1    2    5    3    3    2    4    3    3    5
+    8     2    2    3    2    4    2    3    4    2    4    2    4    3    3    3
+    9     2    2    4    4    3    2    3    5    3    5    1    3    2    3    5
+    10    3    3    4    3    3    2    4    5    4    5    3    5    5    5    5
        sat2 sat3 awr1 awr2 awr3 awr4 awr5 qul1 qul2 qul3 qul4 loy1 loy2 dif1 dif2
-    1     2    3    5    3    5    4    4    5    3    3    3    2    3    3    5
-    2     5    5    5    5    5    5    5    5    3    5    5    5    5    4    5
-    3     3    4    5    3    4    4    3    4    2    4    4    2    4    2    4
-    4     3    4    5    3    3    3    3    4    2    2    3    3    5    5    5
-    5     4    4    5    3    5    4    4    4    2    4    4    2    4    3    5
-    6     4    4    4    2    4    3    3    5    3    5    3    4    5    1    3
-    7     3    3    5    3    4    4    5    4    2    3    4    2    4    3    5
-    8     4    4    5    3    5    4    5    5    3    5    4    2    4    3    5
-    9     4    5    5    3    5    5    4    5    3    5    3    3    5    3    4
-    10    3    4    5    3    5    5    5    5    3    5    3    3    5    4    5
+    1     3    3    5    3    5    3    4    3    1    3    1    2    4    2    4
+    2     3    4    5    5    5    5    5    5    3    5    5    4    5    5    4
+    3     4    4    5    4    5    5    5    5    3    4    3    3    4    5    4
+    4     4    4    5    3    5    5    4    5    3    3    3    5    5    5    5
+    5     4    4    4    2    4    4    4    5    3    3    4    2    4    5    3
+    6     3    4    5    3    5    4    4    4    2    4    2    3    5    5    3
+    7     4    4    5    3    4    4    5    5    3    3    4    3    4    5    4
+    8     2    3    5    3    3    3    3    4    2    4    3    3    4    5    4
+    9     3    4    5    4    5    5    5    5    3    4    3    4    5    4    2
+    10    5    5    5    4    5    5    5    5    4    5    5    4    5    5    4
        fit1 fit2 ext1 ext2 att1 att2 rel1 rel2 rel3 inv1 inv2 inv3 inv4
-    1     2    4    1    3    2    3    1    3    2    5    2    3    3
-    2     4    5    4    5    4    4    2    4    4    5    3    5    4
-    3     2    3    4    5    4    3    2    4    2    5    4    2    3
-    4     3    4    3    5    4    3    2    4    2    5    5    3    3
-    5     1    2    1    3    3    3    1    2    3    1    2    1    1
-    6     4    5    1    2    4    4    2    2    4    4    1    2    3
-    7     2    4    3    5    4    3    2    4    2    4    3    2    1
-    8     3    5    5    5    4    4    3    5    4    5    3    3    5
-    9     3    4    3    5    4    3    2    4    3    5    2    3    4
-    10    3    4    3    5    4    4    3    5    5    5    4    5    5
+    1     3    5    5    4    2    3    2    3    1    4    1    3    3
+    2     2    4    2    4    4    4    3    5    5    5    3    5    4
+    3     2    4    4    5    4    3    3    3    1    4    4    2    2
+    4     3    5    2    4    4    4    3    5    3    4    4    2    2
+    5     3    4    1    3    4    3    1    3    1    4    3    1    2
+    6     2    3    2    3    2    3    2    3    1    3    1    1    2
+    7     1    2    3    5    3    3    3    4    2    5    4    4    2
+    8     2    3    3    5    4    4    3    4    2    5    2    3    3
+    9     3    4    2    3    4    4    3    4    2    5    3    5    5
+    10    3    4    4    5    5    4    3    5    3    5    2    3    4
 
 Table 5: First ten rows of our synthetic data - all 43 items
 
@@ -385,19 +385,19 @@ Cronbach’s alpha are as desired as we can see in
 |:----------|---------:|----------:|
 | AFF       |     0.87 |     0.869 |
 | CON       |     0.87 |     0.869 |
-| PAS       |     0.84 |     0.839 |
-| COP       |     0.80 |     0.800 |
+| PAS       |     0.84 |     0.840 |
+| COP       |     0.80 |     0.799 |
 | TRT       |     0.88 |     0.879 |
-| SAT       |     0.86 |     0.860 |
-| AWR       |     0.87 |     0.869 |
+| SAT       |     0.86 |     0.859 |
+| AWR       |     0.87 |     0.870 |
 | QUL       |     0.84 |     0.840 |
-| LOY       |     0.79 |     0.789 |
-| DIF       |     0.85 |     0.851 |
-| FIT       |     0.82 |     0.821 |
-| EXT       |     0.79 |     0.792 |
+| LOY       |     0.79 |     0.791 |
+| DIF       |     0.85 |     0.849 |
+| FIT       |     0.82 |     0.822 |
+| EXT       |     0.79 |     0.791 |
 | ATT       |     0.88 |     0.879 |
 | REL       |     0.79 |     0.789 |
-| INV       |     0.79 |     0.791 |
+| INV       |     0.79 |     0.789 |
 
 Table 6: Comparison between Cronbach’s alphas for original published
 constructs and synthetic costructs.
@@ -485,7 +485,7 @@ model <- "
 sem_result <- lavaan::sem(
   model,
   data = all_items,
-  estimator = "ML" #,
+  estimator = "ML" # ,
   # se = "bootstrap",
   # bootstrap = 2000
 )
@@ -517,16 +517,16 @@ close and the conclusions are the same.
 | Estimated path                 | β    | 95% CI          |
 |--------------------------------|------|-----------------|
 | **Direct effects**             |      |                 |
-| Attachment → Credibility       | 0.72 | \[0.63, 0.8\]   |
-| Attachment → SAT               | 0.52 | \[0.43, 0.61\]  |
-| Attachment → BrandEquity       | 0.26 | \[0.09, 0.43\]  |
-| Credibility → BrandEquity      | 0.28 | \[-0.08, 0.64\] |
-| SAT → BrandEquity              | 0.56 | \[0.3, 0.82\]   |
+| Attachment → Credibility       | 0.73 | \[0.64, 0.82\]  |
+| Attachment → SAT               | 0.53 | \[0.44, 0.62\]  |
+| Attachment → BrandEquity       | 0.20 | \[0.02, 0.38\]  |
+| Credibility → BrandEquity      | 0.37 | \[0, 0.74\]     |
+| SAT → BrandEquity              | 0.51 | \[0.25, 0.77\]  |
 | **Indirect and total effects** |      |                 |
-| ind_Attachment_via_Credibility | 0.20 | \[-0.06, 0.46\] |
-| ind_Attachment_via_SAT         | 0.29 | \[0.15, 0.44\]  |
-| total_ind_Attachment           | 0.49 | \[0.34, 0.65\]  |
-| total_Attachment               | 0.75 | \[0.68, 0.83\]  |
+| ind_Attachment_via_Credibility | 0.27 | \[-0.01, 0.55\] |
+| ind_Attachment_via_SAT         | 0.27 | \[0.13, 0.42\]  |
+| total_ind_Attachment           | 0.54 | \[0.38, 0.71\]  |
+| total_Attachment               | 0.74 | \[0.67, 0.82\]  |
 
 Table 8: Parameter estimates of the hypothesised model - From synthetic
 data.

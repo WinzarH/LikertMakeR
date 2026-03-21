@@ -84,27 +84,27 @@ knitr::kable(df)
 
 | myScale |  V1 |  V2 |  V3 |  V4 |
 |--------:|----:|----:|----:|----:|
-|    3.25 |   5 |   3 |   2 |   3 |
-|    3.00 |   2 |   2 |   4 |   4 |
-|    3.25 |   5 |   3 |   2 |   3 |
-|    1.25 |   2 |   1 |   1 |   1 |
-|    3.50 |   5 |   4 |   3 |   2 |
-|    4.00 |   5 |   3 |   3 |   5 |
-|    1.75 |   3 |   1 |   1 |   2 |
-|    1.75 |   3 |   1 |   1 |   2 |
-|    3.00 |   4 |   2 |   2 |   4 |
-|    4.50 |   5 |   3 |   5 |   5 |
-|    2.75 |   4 |   3 |   3 |   1 |
-|    4.50 |   5 |   5 |   5 |   3 |
-|    4.00 |   5 |   3 |   5 |   3 |
-|    2.50 |   3 |   2 |   1 |   4 |
-|    3.00 |   4 |   2 |   2 |   4 |
-|    1.75 |   3 |   2 |   1 |   1 |
+|    3.25 |   3 |   5 |   3 |   2 |
+|    4.25 |   4 |   5 |   5 |   3 |
+|    2.25 |   1 |   2 |   4 |   2 |
+|    3.25 |   2 |   3 |   3 |   5 |
+|    2.75 |   1 |   4 |   3 |   3 |
+|    5.00 |   5 |   5 |   5 |   5 |
+|    1.25 |   1 |   2 |   1 |   1 |
+|    2.75 |   1 |   3 |   3 |   4 |
+|    3.00 |   2 |   4 |   4 |   2 |
+|    1.75 |   1 |   3 |   2 |   1 |
+|    3.25 |   3 |   5 |   3 |   2 |
+|    2.25 |   1 |   2 |   4 |   2 |
+|    4.50 |   3 |   5 |   5 |   5 |
+|    3.25 |   2 |   3 |   5 |   3 |
+|    3.25 |   3 |   5 |   2 |   3 |
+|    2.00 |   1 |   3 |   3 |   1 |
 
 Table 1: Short Example: 4-item 5-point Likert scale, alpha = 0.8
 
-Here, the resulting *Cronbach’s alpha* = 0.8, so the synthetic data are
-correct to two decimal places. Not bad for just 16 observations!
+Here, the resulting *Cronbach’s alpha* = 0.801, so the synthetic data
+are correct to two decimal places. Not bad for just 16 observations!
 *(Actually, number of observations has little to do with **alpha**)*
 
 The
@@ -150,7 +150,7 @@ Show the code
 ``` r
 alpha_2_r <- function(target_alpha, k) {
   mean_r <- target_alpha / (k - target_alpha * (k - 1))
-  
+
   return(mean_r)
 }
 ```
@@ -169,6 +169,7 @@ with replacement*), as shown in [Table 2](#tbl-head_candidates).
 Show the code
 
 ``` r
+#|
 lower <- 1
 upper <- 5
 k <- 4
@@ -268,7 +269,7 @@ Show the code
 ``` r
 s_max <- max(candidates$sd)
 
-candidates$similar <-  1 - candidates$sd / s_max
+candidates$similar <- 1 - candidates$sd / s_max
 ```
 
 |     | X1  | X2  | X3  | X4  | sum | sd     | similar |
@@ -450,14 +451,14 @@ desired Cronbach’s alpha.
 
 | scale | sums |  V1 |  V2 |  V3 |  V4 |
 |------:|-----:|----:|----:|----:|----:|
-|  2.50 |   10 |   1 |   2 |   3 |   4 |
-|  2.00 |    8 |   1 |   1 |   3 |   3 |
-|  4.75 |   19 |   4 |   5 |   5 |   5 |
-|  2.25 |    9 |   1 |   2 |   2 |   4 |
-|  3.75 |   15 |   2 |   4 |   4 |   5 |
+|  1.50 |    6 |   1 |   1 |   1 |   3 |
+|  3.25 |   13 |   2 |   3 |   3 |   5 |
+|  2.75 |   11 |   1 |   3 |   3 |   4 |
+|  4.25 |   17 |   3 |   4 |   5 |   5 |
 |  2.75 |   11 |   1 |   3 |   3 |   4 |
 |  2.25 |    9 |   1 |   2 |   2 |   4 |
-|  3.75 |   15 |   2 |   4 |   4 |   5 |
+|  4.50 |   18 |   3 |   5 |   5 |   5 |
+|  2.75 |   11 |   1 |   3 |   3 |   4 |
 
 Table 5: Given Scale (mean=3, sd=1), and selected item combinations for
 target alpha=0.8
@@ -467,16 +468,16 @@ values within each selected item combination are randomly rearranged.
 
 |  V1 |  V2 |  V3 |  V4 |
 |----:|----:|----:|----:|
-|   4 |   2 |   1 |   3 |
-|   1 |   1 |   3 |   3 |
-|   4 |   5 |   5 |   5 |
-|   4 |   2 |   2 |   1 |
-|   5 |   4 |   2 |   4 |
-|   1 |   4 |   3 |   3 |
-|   1 |   4 |   2 |   2 |
-|   5 |   4 |   2 |   4 |
+|   1 |   3 |   1 |   1 |
+|   2 |   3 |   3 |   5 |
+|   1 |   3 |   4 |   3 |
+|   4 |   5 |   3 |   5 |
+|   3 |   4 |   3 |   1 |
+|   2 |   2 |   4 |   1 |
+|   5 |   5 |   5 |   3 |
+|   1 |   3 |   4 |   3 |
 
-Table 6: Derived scale items before optimisation ($\alpha$ = 0.656)
+Table 6: Derived scale items before optimisation ($\alpha$ = 0.709)
 
 Comparison of the initial scale reconstruction
 ([Table 5](#tbl-selectItems)), and then the randomised scales
@@ -486,16 +487,16 @@ optimised arrangement achieves the target reliability.
 
 |  V1 |  V2 |  V3 |  V4 |
 |----:|----:|----:|----:|
-|   4 |   3 |   2 |   1 |
-|   3 |   1 |   3 |   1 |
-|   5 |   4 |   5 |   5 |
-|   4 |   1 |   2 |   2 |
-|   5 |   4 |   2 |   4 |
-|   3 |   1 |   4 |   3 |
-|   4 |   1 |   2 |   2 |
-|   5 |   2 |   4 |   4 |
+|   1 |   3 |   1 |   1 |
+|   3 |   5 |   3 |   2 |
+|   1 |   3 |   4 |   3 |
+|   5 |   5 |   4 |   3 |
+|   1 |   4 |   3 |   3 |
+|   2 |   4 |   2 |   1 |
+|   5 |   5 |   3 |   5 |
+|   3 |   4 |   3 |   1 |
 
-Table 7: Derived scale items after optimisation ($\alpha$ = 0.801)
+Table 7: Derived scale items after optimisation ($\alpha$ = 0.81)
 
 Correlation matrices of the data, before and after the alpha-search
 optimisation step, are presented in [Table 8](#tbl-cor_random) and
@@ -505,23 +506,23 @@ We see that randomly-allocated row values produce mean correlations
 well-below that required to achieve the desired alpha, but after
 optimisation the values are typically correct within two decimal places.
 
-|     |  V1   |  V2  |  V3   |  V4  |
-|:----|:-----:|:----:|:-----:|:----:|
-| V1  | 1.00  | 0.21 | -0.17 | 0.37 |
-| V2  | 0.21  | 1.00 | 0.43  | 0.56 |
-| V3  | -0.17 | 0.43 | 1.00  | 0.53 |
-| V4  | 0.37  | 0.56 | 0.53  | 1.00 |
+|     |  V1  |  V2  |  V3  |  V4  |
+|:----|:----:|:----:|:----:|:----:|
+| V1  | 1.00 | 0.84 | 0.39 | 0.27 |
+| V2  | 0.84 | 1.00 | 0.17 | 0.40 |
+| V3  | 0.39 | 0.17 | 1.00 | 0.20 |
+| V4  | 0.27 | 0.40 | 0.20 | 1.00 |
 
-Table 8: Item correlations before optimisation (\$\alpha\$ = 0.656)
+Table 8: Item correlations before optimisation (\$\alpha\$ = 0.709)
 
 |     |  V1  |  V2  |  V3  |  V4  |
 |:----|:----:|:----:|:----:|:----:|
-| V1  | 1.00 | 0.74 | 0.14 | 0.72 |
-| V2  | 0.74 | 1.00 | 0.18 | 0.58 |
-| V3  | 0.14 | 0.18 | 1.00 | 0.64 |
-| V4  | 0.72 | 0.58 | 0.64 | 1.00 |
+| V1  | 1.00 | 0.85 | 0.40 | 0.49 |
+| V2  | 0.85 | 1.00 | 0.37 | 0.44 |
+| V3  | 0.40 | 0.37 | 1.00 | 0.55 |
+| V4  | 0.49 | 0.44 | 0.55 | 1.00 |
 
-Table 9: Item correlations after optimisation (\$\alpha\$ = 0.801)
+Table 9: Item correlations after optimisation (\$\alpha\$ = 0.81)
 
 ### Why this works
 
