@@ -149,7 +149,7 @@ ____
 
 #### APA:
 
-     Winzar, H. (2025). LikertMakeR (version 1.4.0) [R package]. 
+     Winzar, H. (2026). LikertMakeR (version 2.0.0) [R package]. 
      The Comprehensive R Archive Network (CRAN),
     <https://CRAN.R-project.org/package=LikertMakeR>
         
