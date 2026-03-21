@@ -8,16 +8,16 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/WinzarH/LikertMakeR/blob/main/inst/CITATION)
+[`DESCRIPTION`](https://github.com/WinzarH/LikertMakeR/blob/main/DESCRIPTION)
 
-Winzar H (2026). *LikertMakeR: Simulating Likert and Rating-Scale Data*.
-R package version 2.0.0,
-<https://CRAN.R-project.org/package=LikertMakeR>.
+Winzar H (2026). *LikertMakeR: Synthesise and Correlate Likert Scale and
+Rating-Scale Data Based on Summary Statistics*. R package version 2.0.0,
+<https://github.com/WinzarH/LikertMakeR/>.
 
     @Manual{,
-      title = {LikertMakeR: Simulating Likert and Rating-Scale Data},
+      title = {LikertMakeR: Synthesise and Correlate Likert Scale and Rating-Scale Data Based on Summary Statistics},
       author = {Hume Winzar},
       year = {2026},
       note = {R package version 2.0.0},
-      url = {https://CRAN.R-project.org/package=LikertMakeR},
+      url = {https://github.com/WinzarH/LikertMakeR/},
     }
