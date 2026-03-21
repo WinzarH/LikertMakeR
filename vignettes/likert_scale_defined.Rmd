@@ -126,7 +126,6 @@ sd(df$x)
 ### Visualise the data!
 
 ```{r lfast_plot, echo=FALSE, message=FALSE, fig.width = 6.5, fig.align = "center", fig.cap="Note that off-centre means cause skewed distributions"}
-
 library(ggplot2)
 
 ggplot(df, aes(x = x)) +

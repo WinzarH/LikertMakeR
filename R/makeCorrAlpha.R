@@ -156,8 +156,9 @@ makeCorrAlpha <- function(items,
   # -------------------------------
   # Base target mean correlation
   # -------------------------------
-  if (!is.numeric(alpha) || length(alpha) != 1 || alpha <= 0 || alpha >= 1)
+  if (!is.numeric(alpha) || length(alpha) != 1 || alpha <= 0 || alpha >= 1) {
     stop("`alpha` must be a single value between 0 and 1.", call. = FALSE)
+  }
 
   target_mean_r <- alpha / (k - alpha * (k - 1))
 
@@ -191,10 +192,10 @@ makeCorrAlpha <- function(items,
 
   ## existing code may have old variance level - warn once and continue
   if (variance > 0.30) {
-      warning(
-        "`variance` cannot exceed 0.30 for the current algorithm; values above this are truncated.",
-        call. = FALSE
-      )
+    warning(
+      "`variance` cannot exceed 0.30 for the current algorithm; values above this are truncated.",
+      call. = FALSE
+    )
     variance <- 0.30
   }
 

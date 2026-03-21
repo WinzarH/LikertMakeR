@@ -32,7 +32,6 @@ knitr::opts_chunk$set(
 # library(kableExtra)
 # library(tidyr)
 library(LikertMakeR)
-
 ```
 
 <!-- END setup chunks -->
@@ -126,9 +125,9 @@ Multiple options may be supplied, for example:
 
 ```{r}
 #| label: include_vector
-#| eval: false 
+#| eval: false
 
-include = c("lambda6", "polychoric")
+include <- c("lambda6", "polychoric")
 ```
 
 ### `ci`
@@ -242,7 +241,7 @@ Diagnostics may be inspected using:
 
 ```{r}
 #| label: ordinal_diagnostics
-#| eval: false 
+#| eval: false
 
 ordinal_diagnostics(result)
 ```
@@ -592,7 +591,7 @@ decision_table <- data.frame(
   Situation = c(
     "Legacy comparison, simple reporting",
     "Single-factor scale, unequal loadings",
-    "Strength of general factor", 
+    "Strength of general factor",
     "Likert items with skew or ceiling effects",
     "Teaching or demonstration",
     "Ordinal data, small samples or sparse categories"
@@ -600,7 +599,7 @@ decision_table <- data.frame(
   `Recommended coefficient` = c(
     "$\\alpha$, Cronbach's alpha",
     "$\\omega$, McDonalds omega",
-    "$\\omega_h$, Coefficient H", 
+    "$\\omega_h$, Coefficient H",
     "Ordinal $\\omega$",
     "$\\alpha$ and $\\omega$",
     "$\\omega$ (Pearson-based)"

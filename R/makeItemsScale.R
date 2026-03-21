@@ -124,7 +124,6 @@ makeItemsScale <- function(
   ###
 
   makeCombinations <- function(lowerbound, upperbound, items) {
-
     vals <- lowerbound:upperbound
 
     grids <- expand.grid(rep(list(vals), items))
@@ -135,7 +134,6 @@ makeItemsScale <- function(
     ]
 
     as.matrix(combos)
-
   }
 
 
@@ -264,13 +262,11 @@ makeItemsScale <- function(
 
   # keep only best rows for each sum (precompute once)
   cand_split <- lapply(cand_split, function(df) {
-
     min_score <- min(df$score)
 
     best <- df[df$score == min_score, seq_len(items), drop = FALSE]
 
     as.matrix(best)
-
   })
 
 

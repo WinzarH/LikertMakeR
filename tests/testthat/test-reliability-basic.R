@@ -1,5 +1,4 @@
 test_that("reliability() returns a valid likert_reliability object", {
-
   set.seed(123)
 
   cor_mat <- LikertMakeR::makeCorrAlpha(
@@ -10,7 +9,7 @@ test_that("reliability() returns a valid likert_reliability object", {
   dat <- LikertMakeR::makeScales(
     n = 50,
     means = c(3, 3, 3, 3),
-    sds   = c(1, 1, 1, 1),
+    sds = c(1, 1, 1, 1),
     lowerbound = rep(1, 4),
     upperbound = rep(5, 4),
     cormatrix = cor_mat

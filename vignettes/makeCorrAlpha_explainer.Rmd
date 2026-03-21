@@ -212,44 +212,62 @@ factor <- data.frame(
 
 ggplot() +
   # Latent factor box
-  geom_rect(data = factor,
-            aes(xmin = x - 0.5, xmax = x + 0.5,
-                ymin = y - 0.7, ymax = y + 0.7),
-            fill = "steelblue", alpha = 0.3) +
-  geom_text(data = factor,
-            aes(x = x, y = y, label = label),
-            size = 5, fontface = "bold") +
-  
+  geom_rect(
+    data = factor,
+    aes(
+      xmin = x - 0.5, xmax = x + 0.5,
+      ymin = y - 0.7, ymax = y + 0.7
+    ),
+    fill = "steelblue", alpha = 0.3
+  ) +
+  geom_text(
+    data = factor,
+    aes(x = x, y = y, label = label),
+    size = 5, fontface = "bold"
+  ) +
+
   # Item boxes
-  geom_rect(data = items,
-            aes(xmin = x - 0.5, xmax = x + 0.5,
-                ymin = y - 0.4, ymax = y + 0.4),
-            fill = "grey80") +
-  geom_text(data = items,
-            aes(x = x, y = y, label = item),
-            size = 4) +
-  
+  geom_rect(
+    data = items,
+    aes(
+      xmin = x - 0.5, xmax = x + 0.5,
+      ymin = y - 0.4, ymax = y + 0.4
+    ),
+    fill = "grey80"
+  ) +
+  geom_text(
+    data = items,
+    aes(x = x, y = y, label = item),
+    size = 4
+  ) +
+
   # Arrows (loadings)
-  geom_segment(data = items,
-               aes(x = factor$x + 0.5,
-                   y = factor$y,
-                   xend = x - 0.5,
-                   yend = y),
-               arrow = arrow(length = unit(0.2, "cm")),
-               linewidth = 0.6) +
-  
+  geom_segment(
+    data = items,
+    aes(
+      x = factor$x + 0.5,
+      y = factor$y,
+      xend = x - 0.5,
+      yend = y
+    ),
+    arrow = arrow(length = unit(0.2, "cm")),
+    linewidth = 0.6
+  ) +
+
   # Loading labels
-  geom_text(data = items,
-            aes(x = 2,
-                y = (y + factor$y) / 2,
-                label = round(loading, 2)),
-            size = 3.5) +
-  
+  geom_text(
+    data = items,
+    aes(
+      x = 2,
+      y = (y + factor$y) / 2,
+      label = round(loading, 2)
+    ),
+    size = 3.5
+  ) +
   xlim(0, 4) +
   ylim(0, 7) +
   theme_void() +
   ggtitle("Single-Factor Model Underlying the Correlation Matrix")
-
 ```
 
 

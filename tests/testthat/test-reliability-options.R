@@ -1,5 +1,4 @@
 test_that("include = lambda6 adds lambda6 row", {
-
   skip_if_not_installed("psych")
 
   set.seed(123)
@@ -12,7 +11,7 @@ test_that("include = lambda6 adds lambda6 row", {
   dat <- LikertMakeR::makeScales(
     n = 50,
     means = c(3, 3, 3, 3),
-    sds   = c(1, 1, 1, 1),
+    sds = c(1, 1, 1, 1),
     lowerbound = rep(1, 4),
     upperbound = rep(5, 4),
     cormatrix = cor_mat
@@ -25,7 +24,6 @@ test_that("include = lambda6 adds lambda6 row", {
 
 
 test_that("polychoric requested but skipped produces NA ordinal estimates", {
-
   set.seed(123)
 
   # force sparsity

@@ -47,7 +47,6 @@ library(matrixcalc)
 library(dplyr)
 library(stringr)
 library(lavaan)
-
 ```
 
 
@@ -203,7 +202,6 @@ Fifteen constructs were measured with Likert scales constructed from 43 items (q
 #| echo: false
 
 moments <- read.csv(file = "data/moments.csv", header = TRUE)
-
 ```
 
 
@@ -215,7 +213,6 @@ moments <- read.csv(file = "data/moments.csv", header = TRUE)
 
 kbl(moments) |>
   kable_styling(full_width = FALSE, latex_options = "scale_down")
-
 ```
 
 
@@ -259,7 +256,6 @@ base_data <- data.frame(
   REL = lfast(sample_size, mean = 2.90, sd = 0.83, lower, upper, items = 3),
   INV = lfast(sample_size, mean = 3.32, sd = 0.92, lower, upper, items = 4)
 )
-
 ```
 
 
@@ -275,7 +271,7 @@ same as in the reported data, to two decimal places.
 #| echo: false
 
 base_means <- sapply(base_data, mean)
-base_sd <-  sapply(base_data, sd)
+base_sd <- sapply(base_data, sd)
 
 base_moments <- data.frame(
   mean = base_means |> round(3),
@@ -284,7 +280,6 @@ base_moments <- data.frame(
 
 kbl(base_moments) |>
   kable_styling(full_width = FALSE, latex_options = "scale_down")
-  
 ```
 
 
@@ -301,12 +296,11 @@ _Dwivedi et al._ reported the correlation presented in
 #| label: make_target_correlations
 #| echo: FALSE
 
-dwivedi_correlations <- read.csv("data/correlations.csv", header = FALSE) |> 
+dwivedi_correlations <- read.csv("data/correlations.csv", header = FALSE) |>
   as.matrix()
 
 varnames <- colnames(base_data)
 dimnames(dwivedi_correlations) <- list(Rows = varnames, Cols = varnames)
-
 ```
 
 
@@ -319,7 +313,6 @@ dimnames(dwivedi_correlations) <- list(Rows = varnames, Cols = varnames)
 
 kbl(dwivedi_correlations) |>
   kable_styling(full_width = FALSE, latex_options = "scale_down")
-
 ```
 
 
@@ -360,7 +353,7 @@ dimnames(synth_correlations) <- list(Rows = varnames, Cols = varnames)
 #| tbl-cap-location: "margin"
 #| echo: false
 
-kbl(synth_correlations  |> round(2)) |>
+kbl(synth_correlations |> round(2)) |>
   kable_styling(full_width = FALSE, latex_options = "scale_down")
 ```
 
@@ -398,7 +391,6 @@ $$ {#eq-frobenius}
 
 mat_diff <- dwivedi_correlations - synth_correlations
 frob_diff <- matrixcalc::frobenius.norm(mat_diff)
-
 ```
 
 
@@ -431,7 +423,6 @@ aff_items <- makeItemsScale(
   alpha = 0.87, summated = FALSE
 )
 names(aff_items) <- c("aff1", "aff2")
-
 ```
 
 
@@ -559,7 +550,6 @@ compared_alphas <- data.frame(
 
 kbl(compared_alphas) |>
   kable_styling(full_width = FALSE, latex_options = "scale_down")
-
 ```
 
 
@@ -589,10 +579,10 @@ original_betas <- original_betas |>
     Estimated_path = gsub("->", "\u2192", Estimated_path)
   )
 
-panel_a <- original_betas[c(2:6, 8, 10:11),] 
+panel_a <- original_betas[c(2:6, 8, 10:11), ]
 row.names(panel_a) <- NULL
 
-panel_b <- original_betas[c(13:17, 19),] 
+panel_b <- original_betas[c(13:17, 19), ]
 row.names(panel_b) <- NULL
 
 combined <- bind_rows(panel_a, panel_b)
@@ -618,7 +608,6 @@ kbl(
     position = "center",
     latex_options = "scale_down"
   )
-
 ```
 
 
@@ -673,7 +662,7 @@ model <- "
 sem_result <- lavaan::sem(
   model,
   data = all_items,
-  estimator = "ML" #,
+  estimator = "ML" # ,
   # se = "bootstrap",
   # bootstrap = 2000
 )
@@ -694,7 +683,6 @@ boot_pe <- lavaan::parameterEstimates(
   boot.ci.type = "bca.simple"
 )
 boot_pe <- boot_pe[boot_pe$op == ":=", ]
-
 ```
 
 
@@ -716,8 +704,9 @@ med_table <- std_results %>%
   left_join(
     boot_pe %>%
       select(lhs, op, rhs,
-             ci.lower_boot = ci.lower,
-             ci.upper_boot = ci.upper),
+        ci.lower_boot = ci.lower,
+        ci.upper_boot = ci.upper
+      ),
     by = c("lhs", "op", "rhs")
   )
 
@@ -761,7 +750,6 @@ kbl(
     nrow(combined)
   ) %>%
   kable_styling(full_width = FALSE, latex_options = "scale_down")
-
 ```
 
 
@@ -788,7 +776,6 @@ semptools::quick_parallel_mediation(
   edge.label.cex = 0.8,
   do_add_rsq = 1
 )
-
 ```
 
 

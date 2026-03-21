@@ -94,7 +94,6 @@ apply(df1, 2, sd) |> round(3)
 cor(df1) |> round(3)
 
 
-
 ## Example 2: five correlated Likert scales
 
 ### a study on employee engagement and organizational climate:

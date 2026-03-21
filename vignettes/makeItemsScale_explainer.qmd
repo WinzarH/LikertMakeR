@@ -100,7 +100,6 @@ myAlpha <- alpha(, myItems) |> round(4)
 df <- cbind(df, myItems)
 
 knitr::kable(df)
-
 ```
 
 </div>
@@ -160,10 +159,9 @@ Typically, we would formalise this calculation with a function.
 
 alpha_2_r <- function(target_alpha, k) {
   mean_r <- target_alpha / (k - target_alpha * (k - 1))
-  
+
   return(mean_r)
 }
-
 ```
 
 
@@ -181,7 +179,7 @@ For a 4-item 1–5 scale, there are 70 possible rows (aka: _combinations with re
 ```{r}
 #| label: "candidates"
 #| echo: TRUE
-#| 
+#|
 lower <- 1
 upper <- 5
 k <- 4
@@ -194,7 +192,6 @@ candidates <- gtools::combinations(
   repeats.allowed = TRUE
 ) |>
   data.frame()
-
 ```
 
 
@@ -208,7 +205,7 @@ candidates <- gtools::combinations(
 #| echo: false
 
 sep <- candidates[1, ]
-sep[,] <- "..."
+sep[, ] <- "..."
 
 out <- rbind(
   head(round(candidates, 4)),
@@ -246,7 +243,6 @@ Rows with large $s$ contain more varied values, implying weaker correlations.
 
 candidates$sum <- rowSums(candidates[, 1:k])
 candidates$sd <- apply(X = candidates[, 1:k], MARGIN = 1, FUN = sd)
-
 ```
 
 
@@ -258,7 +254,7 @@ candidates$sd <- apply(X = candidates[, 1:k], MARGIN = 1, FUN = sd)
 #| echo: false
 
 sep <- candidates[1, ]
-sep[,] <- "..."
+sep[, ] <- "..."
 
 out <- rbind(
   head(round(candidates, 4)),
@@ -299,8 +295,7 @@ Rows with similar values therefore have large $r^*$
 
 s_max <- max(candidates$sd)
 
-candidates$similar <-  1 - candidates$sd / s_max
-
+candidates$similar <- 1 - candidates$sd / s_max
 ```
 
 
@@ -312,7 +307,7 @@ candidates$similar <-  1 - candidates$sd / s_max
 #| echo: false
 
 sep <- candidates[1, ]
-sep[,] <- "..."
+sep[, ] <- "..."
 
 out <- rbind(
   head(round(candidates, 4)),
@@ -377,7 +372,7 @@ so that is chosen. And we choose `1223` if target alpha is '0.90'
 #| echo: FALSE
 
 candidates$label <- apply(
-  candidates[, c("X1","X2","X3","X4")],
+  candidates[, c("X1", "X2", "X3", "X4")],
   1,
   function(x) paste0("(", paste(x, collapse = ""), ")")
 )
@@ -390,27 +385,31 @@ ggplot(candidates, aes(x = sum, y = similar)) +
     width = 0.0, height = 0.0
   ) +
   geom_text_repel(aes(label = label), size = 2, alpha = 1) +
-  scale_x_continuous(name = "Sum of scale items", breaks = c(4,8,12,16,20)) +
+  scale_x_continuous(name = "Sum of scale items", breaks = c(4, 8, 12, 16, 20)) +
   scale_y_continuous(name = "Similarity score (r*)") +
   geom_hline(yintercept = 0.5, colour = "#FF6F61") +
-  annotate("text", x = min(candidates$sum) - 0.5, y=0.52,
-           label = "alpha == 0.80",
-           parse = TRUE, size=3) +
+  annotate("text",
+    x = min(candidates$sum) - 0.5, y = 0.52,
+    label = "alpha == 0.80",
+    parse = TRUE, size = 3
+  ) +
   geom_hline(yintercept = 0.69, colour = "#FFB300") +
-  annotate("text", x = min(candidates$sum) - 0.5, y=0.71,
-           label = "alpha == 0.90",
-           parse = TRUE, size=3) +
+  annotate("text",
+    x = min(candidates$sum) - 0.5, y = 0.71,
+    label = "alpha == 0.90",
+    parse = TRUE, size = 3
+  ) +
   geom_hline(yintercept = 0.37, colour = "#FFB300") +
-  annotate("text", x = min(candidates$sum) - 0.5, y=0.39,
-           label = "alpha == 0.70",
-           parse = TRUE, size=3) +
-  theme_minimal() + 
+  annotate("text",
+    x = min(candidates$sum) - 0.5, y = 0.39,
+    label = "alpha == 0.70",
+    parse = TRUE, size = 3
+  ) +
+  theme_minimal() +
   theme(
     panel.grid.major.y = element_blank(),
     panel.grid.minor.y = element_blank()
   )
-
-
 ```
 
 
@@ -438,7 +437,6 @@ Possible combinations include:
 sums_12 <- filter(candidates, sum == 12)
 
 print(sums_12)
-
 ```
 
 </div>
@@ -472,7 +470,6 @@ Possible rows include:
 sums_7 <- filter(candidates, sum == 7)
 
 print(sums_7)
-
 ```
 
 </div>
@@ -571,8 +568,8 @@ for (i in seq_len(nrow(selectItems))) {
 
 myscale <- data.frame(
   scale = rowMeans(selectItems),
-                      sums = rowSums(selectItems)
-                      )
+  sums = rowSums(selectItems)
+)
 
 selectItems <- cbind(myscale, selectItems)
 
@@ -584,7 +581,6 @@ cor_optim <- cor(trueItems) |> round(2)
 mean_r_optim <- alpha_optim / (k - alpha_optim * (k - 1))
 
 mean_r_random <- alpha_random / (k - alpha_random * (k - 1))
-
 ```
 
 
@@ -603,7 +599,6 @@ extracts appropriate item combinations for the desired Cronbach's alpha.
 #| echo: FALSE
 
 kable(selectItems)
-
 ```
 
 </div>
@@ -620,13 +615,12 @@ As part of the same process, as shown in @tbl-randItems, the values within each 
 #| echo: FALSE
 
 cap_rand <- paste0(
-  "Derived scale items before optimisation ($\\alpha$ = ", 
-  alpha_random, 
+  "Derived scale items before optimisation ($\\alpha$ = ",
+  alpha_random,
   ")"
 )
 
 kable(randItems, caption = cap_rand)
-
 ```
 
 </div>
@@ -644,13 +638,12 @@ Comparison of the initial scale reconstruction (@tbl-selectItems), and then the 
 #| echo: FALSE
 
 cap_optim <- paste0(
-  "Derived scale items after optimisation ($\\alpha$ = ", 
-  alpha_optim, 
+  "Derived scale items after optimisation ($\\alpha$ = ",
+  alpha_optim,
   ")"
 )
 
 kable(trueItems, caption = cap_optim)
-
 ```
 
 </div>
@@ -671,20 +664,20 @@ are typically correct within two decimal places.
 #| echo: false
 
 cap_cor_random <- paste0(
-  "Item correlations before optimisation ($\\alpha$ = ", 
-  alpha_random, 
+  "Item correlations before optimisation ($\\alpha$ = ",
+  alpha_random,
   ")"
 )
 
 kable(
-  cor_random, 
+  cor_random,
   caption = cap_cor_random,
-  align = "c") |>
+  align = "c"
+) |>
   kable_styling(
     full_width = FALSE,
     position = "center"
   )
-
 ```
 
 </div>
@@ -698,15 +691,16 @@ kable(
 #| echo: false
 
 cap_cor_optim <- paste0(
-  "Item correlations after optimisation ($\\alpha$ = ", 
-  alpha_optim, 
+  "Item correlations after optimisation ($\\alpha$ = ",
+  alpha_optim,
   ")"
 )
 
 kable(
-  cor_optim, 
+  cor_optim,
   caption = cap_cor_optim,
-  align = "c") |>
+  align = "c"
+) |>
   kable_styling(
     full_width = FALSE
   )

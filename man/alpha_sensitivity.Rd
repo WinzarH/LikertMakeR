@@ -67,7 +67,7 @@ The function supports two modes:
 # Theoretical example
 
 \dontrun{
-alpha_sensitivity(k = 6)  # produces plot
+alpha_sensitivity(k = 6) # produces plot
 }
 
 alpha_sensitivity(k = 6, r_bar = 0.4, plot = FALSE)
@@ -77,9 +77,9 @@ alpha_sensitivity(k = 6, r_bar = 0.4, vary = "k", plot = FALSE)
 
 # Empirical example
 df <- data.frame(
-  V1 = c(1,2,3,4,5),
-  V2 = c(3,2,4,2,5),
-  V3 = c(2,1,5,4,3)
+  V1 = c(1, 2, 3, 4, 5),
+  V2 = c(3, 2, 4, 2, 5),
+  V3 = c(2, 1, 5, 4, 3)
 )
 
 \dontrun{

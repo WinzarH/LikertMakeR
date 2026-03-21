@@ -2,7 +2,6 @@
 
 ## Core correctness (formula check)
 test_that("alpha_sensitivity computes correct alpha values", {
-
   res <- alpha_sensitivity(k = 4, r_bar = 0.5, plot = FALSE)
 
   expected <- (4 * 0.5) / (1 + (4 - 1) * 0.5)
@@ -15,7 +14,6 @@ test_that("alpha_sensitivity computes correct alpha values", {
 
 ## Monotonic behaviour (conceptual integrity)
 test_that("alpha increases monotonically with r_bar", {
-
   res <- alpha_sensitivity(k = 6, vary = "r_bar", plot = FALSE)
 
   expect_true(all(diff(res$alpha) > 0))
@@ -23,11 +21,10 @@ test_that("alpha increases monotonically with r_bar", {
 
 ## Empirical mode works
 test_that("empirical mode derives k and r_bar correctly", {
-
   df <- data.frame(
-    x1 = c(1,2,3,4),
-    x2 = c(1,2,3,4),
-    x3 = c(1,2,3,4)
+    x1 = c(1, 2, 3, 4),
+    x2 = c(1, 2, 3, 4),
+    x3 = c(1, 2, 3, 4)
   )
 
   res <- alpha_sensitivity(data = df, plot = FALSE)
@@ -38,7 +35,6 @@ test_that("empirical mode derives k and r_bar correctly", {
 
 ## Input validation (combined)
 test_that("input validation works correctly", {
-
   df <- data.frame(a = 1:3, b = 1:3)
 
   expect_error(alpha_sensitivity())
@@ -46,5 +42,3 @@ test_that("input validation works correctly", {
   expect_error(alpha_sensitivity(k = 1, r_bar = 0.3))
   expect_error(alpha_sensitivity(k = 4, r_bar = 1))
 })
-
-
