@@ -15,8 +15,8 @@
   : Dataframe of correlated scales from different dataframes of scale
   items
 - [`makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md)
-  : Generate item-level Likert responses from a summated scale, with
-  desired Cronbach's Alpha
+  : Generate scale items from a summated scale, with desired Cronbach's
+  Alpha
 - [`makePaired()`](https://winzarh.github.io/LikertMakeR/reference/makePaired.md)
   : Synthesise a dataset from paired-sample t-test summary statistics
 - [`makeRepeated()`](https://winzarh.github.io/LikertMakeR/reference/makeRepeated.md)
