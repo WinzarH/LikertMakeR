@@ -2,6 +2,15 @@
 
 ## LikertMakeR (development version)
 
+## LikertMakeR 2.1.1 (April 2026)
+
+### changes
+
+- [`makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md)
+  has been further re-rewritten. The function runs about twice as fast
+  (but that is still too slow). This is a stopgap ahead of writing some
+  sub-functions in C++.
+
 ## LikertMakeR 2.1.0 (April 2026)
 
 ### changes

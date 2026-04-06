@@ -5,7 +5,7 @@ rating-scale data with predefined *means*, *standard deviations*,
 *correlations*, *Cronbach’s alpha*, and *factor-loading-based structure*
 for simulation studies, teaching, and methodological research..
 
-Version 2.1.0 (April 2026)
+Version 2.1.1 (April 2026)
 
 ## Purpose
 

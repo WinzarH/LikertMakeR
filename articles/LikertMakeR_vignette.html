@@ -39,7 +39,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">LikertMakeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -430,16 +430,16 @@ a target correlation matrix.</p>
 original; the values are rearranged.</p>
 <p>The first ten observations from this dataframe are:</p>
 <pre><code><span><span class="co">#&gt;     X1  X2  X3</span></span>
-<span><span class="co">#&gt; 1  3.0 2.0 3.6</span></span>
-<span><span class="co">#&gt; 2  3.2 4.4 2.8</span></span>
-<span><span class="co">#&gt; 3  1.4 1.6 2.0</span></span>
-<span><span class="co">#&gt; 4  3.4 4.8 4.4</span></span>
-<span><span class="co">#&gt; 5  1.8 1.2 3.0</span></span>
-<span><span class="co">#&gt; 6  1.6 1.8 2.6</span></span>
-<span><span class="co">#&gt; 7  2.2 4.4 4.2</span></span>
-<span><span class="co">#&gt; 8  3.0 4.8 4.8</span></span>
-<span><span class="co">#&gt; 9  2.2 2.6 4.2</span></span>
-<span><span class="co">#&gt; 10 1.6 1.2 2.4</span></span></code></pre>
+<span><span class="co">#&gt; 1  3.4 5.0 5.0</span></span>
+<span><span class="co">#&gt; 2  2.4 4.6 3.2</span></span>
+<span><span class="co">#&gt; 3  1.4 1.0 2.0</span></span>
+<span><span class="co">#&gt; 4  3.8 4.8 4.4</span></span>
+<span><span class="co">#&gt; 5  2.0 2.4 2.8</span></span>
+<span><span class="co">#&gt; 6  3.6 4.6 4.2</span></span>
+<span><span class="co">#&gt; 7  2.8 3.0 3.2</span></span>
+<span><span class="co">#&gt; 8  3.2 4.8 4.6</span></span>
+<span><span class="co">#&gt; 9  2.6 4.0 3.8</span></span>
+<span><span class="co">#&gt; 10 1.8 1.6 1.6</span></span></code></pre>
 <p>And the new dataframe is correlated close to our desired correlation
 matrix; here presented to 3 decimal places:</p>
 <pre><code><span><span class="co">#&gt;      X1   X2   X3</span></span>
@@ -853,10 +853,10 @@ with <code>k</code> rows and <code>k</code> columns.</p></li>
 <code class="sourceCode R"><span><span class="co">## test the function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    128 obs. of  4 variables:</span></span>
-<span><span class="co">#&gt;  $ var1: num  2 3 4 4 2 3 2 1 3 4 ...</span></span>
-<span><span class="co">#&gt;  $ var2: num  2 2 5 3 2 3 4 2 5 3 ...</span></span>
-<span><span class="co">#&gt;  $ var3: num  1 3 5 4 2 4 5 1 4 3 ...</span></span>
-<span><span class="co">#&gt;  $ var4: num  3 3 4 4 3 4 4 2 4 4 ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ var1: num  2 2 1 3 2 2 3 1 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ var2: num  2 4 4 3 2 4 4 2 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ var3: num  1 5 3 4 2 5 3 1 4 3 ...</span></span>
+<span><span class="co">#&gt;  $ var4: num  3 4 4 4 3 4 4 2 4 4 ...</span></span></code></pre></div>
 </div>
 <div class="section level6">
 <h6 id="means-should-be-correct-to-two-decimal-places">Means should be correct to two decimal places<a class="anchor" aria-label="anchor" href="#means-should-be-correct-to-two-decimal-places"></a>
@@ -879,11 +879,11 @@ with <code>k</code> rows and <code>k</code> columns.</p></li>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">### correlations should be correct to two decimal places</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       var1 var2 var3  var4</span></span>
-<span><span class="co">#&gt; var1 1.000 0.25 0.35 0.448</span></span>
-<span><span class="co">#&gt; var2 0.250 1.00 0.70 0.750</span></span>
-<span><span class="co">#&gt; var3 0.350 0.70 1.00 0.850</span></span>
-<span><span class="co">#&gt; var4 0.448 0.75 0.85 1.000</span></span></code></pre></div>
+<span><span class="co">#&gt;       var1 var2  var3  var4</span></span>
+<span><span class="co">#&gt; var1 1.000 0.25 0.350 0.448</span></span>
+<span><span class="co">#&gt; var2 0.250 1.00 0.700 0.750</span></span>
+<span><span class="co">#&gt; var3 0.350 0.70 1.000 0.843</span></span>
+<span><span class="co">#&gt; var4 0.448 0.75 0.843 1.000</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level5">
@@ -953,20 +953,20 @@ recommend the brand.</li>
 <span><span class="co">## test the function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     BT       BS   BL      BLY</span></span>
-<span><span class="co">#&gt; 1 4.00 4.000000 2.75 3.666667</span></span>
-<span><span class="co">#&gt; 2 4.25 4.666667 4.00 4.000000</span></span>
-<span><span class="co">#&gt; 3 4.00 4.333333 3.50 4.333333</span></span>
-<span><span class="co">#&gt; 4 4.00 4.333333 3.50 4.333333</span></span>
-<span><span class="co">#&gt; 5 3.75 4.000000 4.00 4.333333</span></span>
-<span><span class="co">#&gt; 6 3.00 3.000000 3.25 3.666667</span></span>
+<span><span class="co">#&gt; 1 4.00 4.333333 3.50 4.666667</span></span>
+<span><span class="co">#&gt; 2 4.00 4.000000 3.50 3.333333</span></span>
+<span><span class="co">#&gt; 3 3.00 3.666667 2.75 2.666667</span></span>
+<span><span class="co">#&gt; 4 3.50 4.000000 3.75 2.666667</span></span>
+<span><span class="co">#&gt; 5 3.75 3.666667 2.75 4.000000</span></span>
+<span><span class="co">#&gt; 6 3.75 4.000000 3.50 3.666667</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       BT       BS   BL      BLY</span></span>
 <span><span class="co">#&gt; 251 4.50 4.666667 4.00 4.666667</span></span>
-<span><span class="co">#&gt; 252 3.75 3.333333 2.25 2.666667</span></span>
-<span><span class="co">#&gt; 253 2.50 3.333333 3.25 3.333333</span></span>
-<span><span class="co">#&gt; 254 2.50 4.000000 3.25 3.666667</span></span>
-<span><span class="co">#&gt; 255 3.00 3.666667 1.50 4.000000</span></span>
-<span><span class="co">#&gt; 256 3.75 4.000000 2.50 4.000000</span></span>
+<span><span class="co">#&gt; 252 4.00 4.666667 4.00 4.333333</span></span>
+<span><span class="co">#&gt; 253 3.25 4.000000 3.50 3.000000</span></span>
+<span><span class="co">#&gt; 254 3.50 4.000000 3.25 3.333333</span></span>
+<span><span class="co">#&gt; 255 4.50 5.000000 4.50 4.666667</span></span>
+<span><span class="co">#&gt; 256 3.75 4.333333 3.25 3.333333</span></span>
 <span></span>
 <span><span class="co">### means should be correct to two decimal places</span></span>
 <span><span class="va">dfmoments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -1081,20 +1081,20 @@ of desired standard deviations of each variable</p></li>
 <span><span class="co">## resulting dataframe</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">myItems</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   item01 item02 item03 item04 item05 item06</span></span>
-<span><span class="co">#&gt; 1      4      3      5      5      3      5</span></span>
-<span><span class="co">#&gt; 2      3      3      3      4      3      5</span></span>
-<span><span class="co">#&gt; 3      1      3      2      4      3      3</span></span>
+<span><span class="co">#&gt; 1      4      3      4      5      5      5</span></span>
+<span><span class="co">#&gt; 2      3      3      3      3      4      5</span></span>
+<span><span class="co">#&gt; 3      4      4      3      5      4      1</span></span>
 <span><span class="co">#&gt; 4      4      4      5      4      4      5</span></span>
-<span><span class="co">#&gt; 5      3      4      3      3      5      4</span></span>
-<span><span class="co">#&gt; 6      1      2      2      3      2      4</span></span>
+<span><span class="co">#&gt; 5      3      2      3      3      4      4</span></span>
+<span><span class="co">#&gt; 6      2      3      3      3      2      2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">myItems</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     item01 item02 item03 item04 item05 item06</span></span>
-<span><span class="co">#&gt; 251      4      3      3      4      4      5</span></span>
-<span><span class="co">#&gt; 252      3      2      2      3      3      1</span></span>
-<span><span class="co">#&gt; 253      2      3      3      3      4      3</span></span>
-<span><span class="co">#&gt; 254      2      2      2      2      3      1</span></span>
-<span><span class="co">#&gt; 255      4      4      4      5      4      5</span></span>
-<span><span class="co">#&gt; 256      3      2      4      5      4      5</span></span>
+<span><span class="co">#&gt; 251      2      2      3      3      3      4</span></span>
+<span><span class="co">#&gt; 252      5      4      5      5      5      5</span></span>
+<span><span class="co">#&gt; 253      4      4      3      3      4      4</span></span>
+<span><span class="co">#&gt; 254      2      3      2      3      3      5</span></span>
+<span><span class="co">#&gt; 255      4      4      4      4      5      5</span></span>
+<span><span class="co">#&gt; 256      1      3      4      3      3      1</span></span>
 <span></span>
 <span><span class="co">## means and standard deviations</span></span>
 <span><span class="va">myMoments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -1179,45 +1179,45 @@ optimisation. Set to FALSE for slightly faster execution.</p></li>
 <span><span class="co">#&gt; rearrange 4 values within each of 16 rows</span></span>
 <span><span class="co">#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |==                                                                    |   4%  |                                                                              |===                                                                   |   4%  |                                                                              |===                                                                   |   5%  |                                                                              |====                                                                  |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |=====                                                                 |   8%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |=======                                                               |  11%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |==============                                                        |  21%  |                                                                              |===============                                                       |  21%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  22%  |                                                                              |================                                                      |  23%  |                                                                              |=================                                                     |  24%  |                                                                              |=================                                                     |  25%  |                                                                              |==================                                                    |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |===================                                                   |  28%  |                                                                              |====================                                                  |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  39%  |                                                                              |============================                                          |  40%  |                                                                              |============================                                          |  41%  |                                                                              |=============================                                         |  41%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |===============================                                       |  44%  |                                                                              |===============================                                       |  45%  |                                                                              |================================                                      |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |=================================                                     |  48%  |                                                                              |==================================                                    |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  51%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |=====================================                                 |  54%  |                                                                              |======================================                                |  54%  |                                                                              |======================================                                |  55%  |                                                                              |=======================================                               |  55%  |                                                                              |=======================================                               |  56%  |                                                                              |========================================                              |  57%  |                                                                              |========================================                              |  58%  |                                                                              |=========================================                             |  58%  |                                                                              |=========================================                             |  59%  |                                                                              |==========================================                            |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |==========================================                            |  61%  |                                                                              |===========================================                           |  61%  |                                                                              |===========================================                           |  62%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |=============================================                         |  64%  |                                                                              |=============================================                         |  65%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |===============================================                       |  68%  |                                                                              |================================================                      |  68%  |                                                                              |================================================                      |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |=================================================                     |  71%  |                                                                              |==================================================                    |  71%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |====================================================                  |  74%  |                                                                              |====================================================                  |  75%  |                                                                              |=====================================================                 |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  77%  |                                                                              |======================================================                |  78%  |                                                                              |=======================================================               |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  79%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  81%  |                                                                              |=========================================================             |  82%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |===========================================================           |  84%  |                                                                              |===========================================================           |  85%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |=============================================================         |  88%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |===============================================================       |  91%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |==================================================================    |  94%  |                                                                              |==================================================================    |  95%  |                                                                              |===================================================================   |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |====================================================================  |  98%  |                                                                              |===================================================================== |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================| 100%</span></span>
 <span><span class="co">#&gt; Complete!</span></span>
-<span><span class="co">#&gt; desired Cronbach's alpha = 0.8 (achieved alpha = 0.8253)</span></span>
+<span><span class="co">#&gt; desired Cronbach's alpha = 0.8 (achieved alpha = 0.7977)</span></span>
 <span></span>
 <span><span class="co">###  observations and summated scale</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">newItems</span>, <span class="va">summatedScale</span><span class="op">)</span>, <span class="fl">16</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    X1 X2 X3 X4 summatedScale</span></span>
-<span><span class="co">#&gt; 1   3  2  3  3            11</span></span>
-<span><span class="co">#&gt; 2   1  3  2  2             8</span></span>
-<span><span class="co">#&gt; 3   3  4  3  4            14</span></span>
-<span><span class="co">#&gt; 4   4  2  3  3            12</span></span>
-<span><span class="co">#&gt; 5   3  2  2  2             9</span></span>
-<span><span class="co">#&gt; 6   4  3  3  2            12</span></span>
-<span><span class="co">#&gt; 7   3  3  3  1            10</span></span>
-<span><span class="co">#&gt; 8   1  3  2  3             9</span></span>
+<span><span class="co">#&gt; 1   2  3  3  3            11</span></span>
+<span><span class="co">#&gt; 2   2  1  2  3             8</span></span>
+<span><span class="co">#&gt; 3   3  3  4  4            14</span></span>
+<span><span class="co">#&gt; 4   4  3  2  3            12</span></span>
+<span><span class="co">#&gt; 5   2  2  2  3             9</span></span>
+<span><span class="co">#&gt; 6   2  4  3  3            12</span></span>
+<span><span class="co">#&gt; 7   3  2  3  2            10</span></span>
+<span><span class="co">#&gt; 8   2  2  2  3             9</span></span>
 <span><span class="co">#&gt; 9   2  2  2  2             8</span></span>
-<span><span class="co">#&gt; 10  5  5  4  4            18</span></span>
-<span><span class="co">#&gt; 11  5  3  4  4            16</span></span>
-<span><span class="co">#&gt; 12  4  4  3  5            16</span></span>
-<span><span class="co">#&gt; 13  3  3  4  4            14</span></span>
-<span><span class="co">#&gt; 14  1  2  3  2             8</span></span>
-<span><span class="co">#&gt; 15  3  4  4  4            15</span></span>
+<span><span class="co">#&gt; 10  5  4  4  5            18</span></span>
+<span><span class="co">#&gt; 11  4  5  5  2            16</span></span>
+<span><span class="co">#&gt; 12  4  5  4  3            16</span></span>
+<span><span class="co">#&gt; 13  4  4  3  3            14</span></span>
+<span><span class="co">#&gt; 14  2  1  3  2             8</span></span>
+<span><span class="co">#&gt; 15  4  4  3  4            15</span></span>
 <span><span class="co">#&gt; 16  3  3  3  3            12</span></span>
 <span></span>
 <span><span class="co">### correlation matrix</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      X1   X2   X3   X4</span></span>
-<span><span class="co">#&gt; X1 1.00 0.41 0.65 0.48</span></span>
-<span><span class="co">#&gt; X2 0.41 1.00 0.51 0.61</span></span>
-<span><span class="co">#&gt; X3 0.65 0.51 1.00 0.58</span></span>
-<span><span class="co">#&gt; X4 0.48 0.61 0.58 1.00</span></span>
+<span><span class="co">#&gt; X1 1.00 0.71 0.58 0.47</span></span>
+<span><span class="co">#&gt; X2 0.71 1.00 0.71 0.32</span></span>
+<span><span class="co">#&gt; X3 0.58 0.71 1.00 0.18</span></span>
+<span><span class="co">#&gt; X4 0.47 0.32 0.18 1.00</span></span>
 <span></span>
 <span><span class="co">### default Cronbach's alpha = 0.80</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">newItems</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.8253</span></span>
+<span><span class="co">#&gt; [1] 0.7977</span></span>
 <span></span>
 <span><span class="co">### calculate eigenvalues and print scree plot</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_1-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor(newItems)  is positive-definite</span></span>
-<span><span class="co">#&gt; [1] 2.628 0.662 0.381 0.329</span></span></code></pre>
+<span><span class="co">#&gt; [1] 2.544 0.875 0.340 0.241</span></span></code></pre>
 </div>
 <div class="section level5">
 <h5 id="makeitemsscale-with-same-summated-values-and-higher-alpha">
@@ -1237,45 +1237,45 @@ optimisation. Set to FALSE for slightly faster execution.</p></li>
 <span><span class="co">#&gt; rearrange 4 values within each of 16 rows</span></span>
 <span><span class="co">#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |==                                                                    |   4%  |                                                                              |===                                                                   |   4%  |                                                                              |===                                                                   |   5%  |                                                                              |====                                                                  |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |=====                                                                 |   8%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |=======                                                               |  11%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |==============                                                        |  21%  |                                                                              |===============                                                       |  21%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  22%  |                                                                              |================                                                      |  23%  |                                                                              |=================                                                     |  24%  |                                                                              |=================                                                     |  25%  |                                                                              |==================                                                    |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |===================                                                   |  28%  |                                                                              |====================                                                  |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  39%  |                                                                              |============================                                          |  40%  |                                                                              |============================                                          |  41%  |                                                                              |=============================                                         |  41%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |===============================                                       |  44%  |                                                                              |===============================                                       |  45%  |                                                                              |================================                                      |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |=================================                                     |  48%  |                                                                              |==================================                                    |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  51%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |=====================================                                 |  54%  |                                                                              |======================================                                |  54%  |                                                                              |======================================                                |  55%  |                                                                              |=======================================                               |  55%  |                                                                              |=======================================                               |  56%  |                                                                              |========================================                              |  57%  |                                                                              |========================================                              |  58%  |                                                                              |=========================================                             |  58%  |                                                                              |=========================================                             |  59%  |                                                                              |==========================================                            |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |==========================================                            |  61%  |                                                                              |===========================================                           |  61%  |                                                                              |===========================================                           |  62%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |=============================================                         |  64%  |                                                                              |=============================================                         |  65%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |===============================================                       |  68%  |                                                                              |================================================                      |  68%  |                                                                              |================================================                      |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |=================================================                     |  71%  |                                                                              |==================================================                    |  71%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |====================================================                  |  74%  |                                                                              |====================================================                  |  75%  |                                                                              |=====================================================                 |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  77%  |                                                                              |======================================================                |  78%  |                                                                              |=======================================================               |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  79%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  81%  |                                                                              |=========================================================             |  82%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |===========================================================           |  84%  |                                                                              |===========================================================           |  85%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |=============================================================         |  88%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |===============================================================       |  91%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |==================================================================    |  94%  |                                                                              |==================================================================    |  95%  |                                                                              |===================================================================   |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |====================================================================  |  98%  |                                                                              |===================================================================== |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================| 100%</span></span>
 <span><span class="co">#&gt; Complete!</span></span>
-<span><span class="co">#&gt; desired Cronbach's alpha = 0.9 (achieved alpha = 0.9055)</span></span>
+<span><span class="co">#&gt; desired Cronbach's alpha = 0.9 (achieved alpha = 0.9097)</span></span>
 <span></span>
 <span><span class="co">### observations and summated scale</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">newItems_2</span>, <span class="va">summatedScale</span><span class="op">)</span>, <span class="fl">16</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    X1 X2 X3 X4 summatedScale</span></span>
-<span><span class="co">#&gt; 1   3  2  3  3            11</span></span>
-<span><span class="co">#&gt; 2   2  3  2  1             8</span></span>
-<span><span class="co">#&gt; 3   4  4  3  3            14</span></span>
-<span><span class="co">#&gt; 4   3  3  3  3            12</span></span>
+<span><span class="co">#&gt; 1   3  3  2  3            11</span></span>
+<span><span class="co">#&gt; 2   2  2  2  2             8</span></span>
+<span><span class="co">#&gt; 3   4  3  4  3            14</span></span>
+<span><span class="co">#&gt; 4   2  3  4  3            12</span></span>
 <span><span class="co">#&gt; 5   2  3  2  2             9</span></span>
-<span><span class="co">#&gt; 6   2  3  4  3            12</span></span>
-<span><span class="co">#&gt; 7   3  2  2  3            10</span></span>
-<span><span class="co">#&gt; 8   2  3  2  2             9</span></span>
+<span><span class="co">#&gt; 6   3  3  3  3            12</span></span>
+<span><span class="co">#&gt; 7   3  3  2  2            10</span></span>
+<span><span class="co">#&gt; 8   2  2  2  3             9</span></span>
 <span><span class="co">#&gt; 9   2  2  2  2             8</span></span>
-<span><span class="co">#&gt; 10  5  4  4  5            18</span></span>
+<span><span class="co">#&gt; 10  5  5  4  4            18</span></span>
 <span><span class="co">#&gt; 11  4  4  4  4            16</span></span>
 <span><span class="co">#&gt; 12  4  4  4  4            16</span></span>
-<span><span class="co">#&gt; 13  3  3  4  4            14</span></span>
+<span><span class="co">#&gt; 13  4  3  4  3            14</span></span>
 <span><span class="co">#&gt; 14  2  2  2  2             8</span></span>
 <span><span class="co">#&gt; 15  4  3  4  4            15</span></span>
-<span><span class="co">#&gt; 16  3  3  3  3            12</span></span>
+<span><span class="co">#&gt; 16  2  3  3  4            12</span></span>
 <span></span>
 <span><span class="co">### correlation matrix</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      X1   X2   X3   X4</span></span>
-<span><span class="co">#&gt; X1 1.00 0.66 0.69 0.87</span></span>
-<span><span class="co">#&gt; X2 0.66 1.00 0.61 0.53</span></span>
-<span><span class="co">#&gt; X3 0.69 0.61 1.00 0.87</span></span>
-<span><span class="co">#&gt; X4 0.87 0.53 0.87 1.00</span></span>
+<span><span class="co">#&gt; X1 1.00 0.79 0.73 0.63</span></span>
+<span><span class="co">#&gt; X2 0.79 1.00 0.68 0.70</span></span>
+<span><span class="co">#&gt; X3 0.73 0.68 1.00 0.76</span></span>
+<span><span class="co">#&gt; X4 0.63 0.70 0.76 1.00</span></span>
 <span></span>
 <span><span class="co">### requested Cronbach's alpha = 0.90</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">newItems_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.9055</span></span>
+<span><span class="co">#&gt; [1] 0.9097</span></span>
 <span></span>
 <span><span class="co">### calculate eigenvalues and print scree plot</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">newItems_2</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/makeItemsScale_example_2-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; cor(newItems_2)  is positive-definite</span></span>
-<span><span class="co">#&gt; [1] 3.129 0.524 0.302 0.045</span></span></code></pre>
+<span><span class="co">#&gt; [1] 3.148 0.409 0.285 0.158</span></span></code></pre>
 <hr>
 </div>
 </div>
@@ -1303,12 +1303,12 @@ correlated observations.</p>
 <span>  n <span class="op">=</span> <span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">2.5</span>, sd <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>  lowerbound <span class="op">=</span> <span class="va">lower</span>, upperbound <span class="op">=</span> <span class="va">upper</span>, items <span class="op">=</span> <span class="va">items</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; best solution in 972 iterations</span></span>
+<span><span class="co">#&gt; best solution in 939 iterations</span></span>
 <span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lfast.html">lfast</a></span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">30</span>, mean <span class="op">=</span> <span class="fl">3.0</span>, sd <span class="op">=</span> <span class="fl">0.85</span>,</span>
 <span>  lowerbound <span class="op">=</span> <span class="va">lower</span>, upperbound <span class="op">=</span> <span class="va">upper</span>, items <span class="op">=</span> <span class="va">items</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; best solution in 883 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span></span>
 <span><span class="co">## run independent-samples t-test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span></span>
@@ -1316,13 +1316,13 @@ correlated observations.</p>
 <span><span class="co">#&gt;  Welch Two Sample t-test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  x1 and x2</span></span>
-<span><span class="co">#&gt; t = -2.1896, df = 44.244, p-value = 0.03387</span></span>
+<span><span class="co">#&gt; t = -2.2201, df = 44.098, p-value = 0.0316</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0</span></span>
 <span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -0.96013982 -0.03986018</span></span>
+<span><span class="co">#&gt;  -0.96446388 -0.04664723</span></span>
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt; mean of x mean of y </span></span>
-<span><span class="co">#&gt;       2.5       3.0</span></span></code></pre></div>
+<span><span class="co">#&gt;  2.500000  3.005556</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="makepaired-paired-sample-t-test">makePaired() paired-sample t-test<a class="anchor" aria-label="anchor" href="#makepaired-paired-sample-t-test"></a>
@@ -1378,7 +1378,7 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <span>  lowerbound <span class="op">=</span> <span class="va">lower</span>, upperbound <span class="op">=</span> <span class="va">upper</span>, items <span class="op">=</span> <span class="va">items</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Initial data vectors</span></span>
-<span><span class="co">#&gt; best solution in 885 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span><span class="co">#&gt; Arranging values to conform with desired t-value</span></span>
 <span><span class="co">#&gt; Complete!</span></span></code></pre></div>
@@ -1389,8 +1389,8 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <code class="sourceCode R"><span><span class="co">## test function output</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    20 obs. of  2 variables:</span></span>
-<span><span class="co">#&gt;  $ X1: num  2.17 2.67 3.33 3 3.5 ...</span></span>
-<span><span class="co">#&gt;  $ X2: num  1.83 2.67 2.67 3.5 3.67 ...</span></span>
+<span><span class="co">#&gt;  $ X1: num  2 1.5 1.83 2.5 1.5 ...</span></span>
+<span><span class="co">#&gt;  $ X2: num  3 1.83 2.5 3.83 2.17 ...</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      X1   X2</span></span>
@@ -1403,9 +1403,9 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pairedMoments</span></span>
-<span><span class="co">#&gt;         X1   X2</span></span>
-<span><span class="co">#&gt; mean 2.500 3.00</span></span>
-<span><span class="co">#&gt; sd   0.749 0.86</span></span></code></pre></div>
+<span><span class="co">#&gt;         X1    X2</span></span>
+<span><span class="co">#&gt; mean 2.500 3.000</span></span>
+<span><span class="co">#&gt; sd   0.739 0.853</span></span></code></pre></div>
 </div>
 <div class="section level7">
 <h6 id="run-a-paired-sample-t-test-with-the-new-data">run a paired-sample t-test with the new data<a class="anchor" aria-label="anchor" href="#run-a-paired-sample-t-test-with-the-new-data"></a>
@@ -1423,10 +1423,10 @@ accuracy required, as in <em>lfast()</em>.</p></li>
 <span><span class="co">#&gt;  Paired t-test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  pairedDat$X1 and pairedDat$X2</span></span>
-<span><span class="co">#&gt; t = -2.4846, df = 19, p-value = 0.02246</span></span>
+<span><span class="co">#&gt; t = -2.5073, df = 19, p-value = 0.02141</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true mean difference is not equal to 0</span></span>
 <span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -0.92119776 -0.07880224</span></span>
+<span><span class="co">#&gt;  -0.91737903 -0.08262097</span></span>
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt; mean difference </span></span>
 <span><span class="co">#&gt;            -0.5</span></span></code></pre></div>
@@ -1557,18 +1557,18 @@ effect sizes.</li>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in makeRepeated(n = 128, k = 3, means = c(3.1, 3.5, 3.9), sds = c(1, :</span></span>
 <span><span class="co">#&gt; Optimization may not have converged. Check results carefully.</span></span>
-<span><span class="co">#&gt; best solution in 660 iterations</span></span>
-<span><span class="co">#&gt; best solution in 210 iterations</span></span>
-<span><span class="co">#&gt; best solution in 2448 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1325 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1104 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1711 iterations</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">out1</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   time_1 time_2 time_3</span></span>
-<span><span class="co">#&gt; 1   2.00   4.00   4.75</span></span>
-<span><span class="co">#&gt; 2   4.25   2.75   3.75</span></span>
-<span><span class="co">#&gt; 3   2.00   4.25   4.00</span></span>
-<span><span class="co">#&gt; 4   3.75   1.25   5.00</span></span>
-<span><span class="co">#&gt; 5   2.50   5.00   3.00</span></span>
-<span><span class="co">#&gt; 6   4.25   1.50   4.75</span></span>
+<span><span class="co">#&gt; 1   2.00   3.25   4.75</span></span>
+<span><span class="co">#&gt; 2   2.75   2.50   4.75</span></span>
+<span><span class="co">#&gt; 3   2.75   4.75   3.00</span></span>
+<span><span class="co">#&gt; 4   1.75   3.75   5.00</span></span>
+<span><span class="co">#&gt; 5   2.50   2.75   5.00</span></span>
+<span><span class="co">#&gt; 6   2.50   3.00   4.75</span></span>
 <span><span class="va">out1</span><span class="op">$</span><span class="va">correlation_matrix</span></span>
 <span><span class="co">#&gt;            time_1     time_2     time_3</span></span>
 <span><span class="co">#&gt; time_1  1.0000000 -0.4899454 -0.4899454</span></span>
@@ -1587,46 +1587,46 @@ effect sizes.</li>
 <span>  return_corr_only <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  diagnostics <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; best solution in 30 iterations</span></span>
-<span><span class="co">#&gt; best solution in 533 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
+<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $data</span></span>
 <span><span class="co">#&gt;    time_1 time_2 time_3 time_4</span></span>
-<span><span class="co">#&gt; 1     3.0    3.2    4.2    5.2</span></span>
-<span><span class="co">#&gt; 2     3.2    4.4    2.2    4.4</span></span>
-<span><span class="co">#&gt; 3     3.0    2.0    4.2    4.0</span></span>
-<span><span class="co">#&gt; 4     3.4    4.2    3.0    4.8</span></span>
-<span><span class="co">#&gt; 5     2.8    4.0    6.2    5.4</span></span>
-<span><span class="co">#&gt; 6     1.6    1.8    1.8    5.4</span></span>
-<span><span class="co">#&gt; 7     3.2    3.2    2.0    2.2</span></span>
-<span><span class="co">#&gt; 8     3.4    3.8    2.6    3.2</span></span>
-<span><span class="co">#&gt; 9     2.6    3.6    3.4    4.0</span></span>
-<span><span class="co">#&gt; 10    3.8    4.8    6.0    6.0</span></span>
-<span><span class="co">#&gt; 11    3.8    4.8    4.4    5.2</span></span>
-<span><span class="co">#&gt; 12    2.0    1.6    3.8    3.0</span></span>
-<span><span class="co">#&gt; 13    2.2    5.0    3.4    2.2</span></span>
-<span><span class="co">#&gt; 14    2.8    3.8    4.8    5.8</span></span>
-<span><span class="co">#&gt; 15    2.0    5.0    3.8    4.8</span></span>
-<span><span class="co">#&gt; 16    2.2    3.2    4.0    5.2</span></span>
-<span><span class="co">#&gt; 17    2.4    2.6    5.4    3.8</span></span>
-<span><span class="co">#&gt; 18    1.6    3.6    3.8    4.2</span></span>
-<span><span class="co">#&gt; 19    2.2    3.0    3.2    5.4</span></span>
-<span><span class="co">#&gt; 20    2.6    2.0    3.2    4.4</span></span>
-<span><span class="co">#&gt; 21    1.8    2.0    2.0    3.6</span></span>
-<span><span class="co">#&gt; 22    2.2    4.0    5.2    5.2</span></span>
-<span><span class="co">#&gt; 23    4.8    4.6    5.0    4.6</span></span>
-<span><span class="co">#&gt; 24    4.4    3.2    3.2    3.8</span></span>
-<span><span class="co">#&gt; 25    3.6    4.0    4.8    3.4</span></span>
-<span><span class="co">#&gt; 26    2.6    3.8    5.4    6.0</span></span>
-<span><span class="co">#&gt; 27    3.6    3.6    3.8    4.6</span></span>
-<span><span class="co">#&gt; 28    2.0    3.8    5.4    3.6</span></span>
-<span><span class="co">#&gt; 29    2.0    2.6    3.6    3.4</span></span>
-<span><span class="co">#&gt; 30    2.6    5.2    5.8    4.2</span></span>
-<span><span class="co">#&gt; 31    2.0    2.8    3.6    4.6</span></span>
-<span><span class="co">#&gt; 32    2.6    2.8    4.6    5.2</span></span>
+<span><span class="co">#&gt; 1     3.6    2.4    2.6    4.4</span></span>
+<span><span class="co">#&gt; 2     3.0    4.6    4.0    3.0</span></span>
+<span><span class="co">#&gt; 3     2.0    2.2    3.2    3.4</span></span>
+<span><span class="co">#&gt; 4     2.6    3.6    6.0    5.2</span></span>
+<span><span class="co">#&gt; 5     4.0    5.2    4.2    5.0</span></span>
+<span><span class="co">#&gt; 6     2.0    3.6    5.6    4.8</span></span>
+<span><span class="co">#&gt; 7     2.6    3.2    3.4    2.4</span></span>
+<span><span class="co">#&gt; 8     3.4    4.8    2.6    4.8</span></span>
+<span><span class="co">#&gt; 9     2.2    3.4    5.0    5.4</span></span>
+<span><span class="co">#&gt; 10    2.4    3.8    4.4    4.0</span></span>
+<span><span class="co">#&gt; 11    2.8    3.4    5.0    5.4</span></span>
+<span><span class="co">#&gt; 12    2.0    3.4    4.2    3.6</span></span>
+<span><span class="co">#&gt; 13    3.0    3.4    4.8    6.0</span></span>
+<span><span class="co">#&gt; 14    2.2    1.8    1.6    3.4</span></span>
+<span><span class="co">#&gt; 15    2.4    2.6    3.2    2.6</span></span>
+<span><span class="co">#&gt; 16    2.4    4.2    5.0    4.4</span></span>
+<span><span class="co">#&gt; 17    2.2    1.6    2.2    5.0</span></span>
+<span><span class="co">#&gt; 18    1.8    5.0    4.8    5.2</span></span>
+<span><span class="co">#&gt; 19    3.6    5.0    4.4    5.0</span></span>
+<span><span class="co">#&gt; 20    1.8    2.6    4.6    4.8</span></span>
+<span><span class="co">#&gt; 21    4.2    3.8    5.2    5.8</span></span>
+<span><span class="co">#&gt; 22    5.2    4.6    5.4    4.0</span></span>
+<span><span class="co">#&gt; 23    3.4    3.0    2.4    2.2</span></span>
+<span><span class="co">#&gt; 24    2.0    3.8    2.0    3.0</span></span>
+<span><span class="co">#&gt; 25    2.8    2.4    3.0    5.0</span></span>
+<span><span class="co">#&gt; 26    2.4    5.0    4.2    4.6</span></span>
+<span><span class="co">#&gt; 27    2.6    4.2    2.8    5.0</span></span>
+<span><span class="co">#&gt; 28    2.0    2.6    5.4    4.4</span></span>
+<span><span class="co">#&gt; 29    2.0    3.4    3.2    5.4</span></span>
+<span><span class="co">#&gt; 30    3.6    4.4    5.8    3.6</span></span>
+<span><span class="co">#&gt; 31    3.4    3.2    3.8    5.0</span></span>
+<span><span class="co">#&gt; 32    2.4    2.2    4.2    4.8</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $correlation_matrix</span></span>
 <span><span class="co">#&gt;            time_1    time_2    time_3     time_4</span></span>
@@ -1674,18 +1674,18 @@ effect sizes.</li>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in makeRepeated(n = 32, k = 4, means = c(2, 2.5, 3, 2.8), sds = c(0.8,</span></span>
 <span><span class="co">#&gt; : Optimization may not have converged. Check results carefully.</span></span>
+<span><span class="co">#&gt; best solution in 640 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
-<span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
-<span><span class="co">#&gt; best solution in 85 iterations</span></span>
+<span><span class="co">#&gt; best solution in 621 iterations</span></span>
 <span><span class="co">#&gt; reached maximum of 1024 iterations</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">out3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 8</span></span>
 <span><span class="co">#&gt;  $ data                    :'data.frame':    32 obs. of  4 variables:</span></span>
-<span><span class="co">#&gt;   ..$ time_1: num [1:32] 1.5 2.75 2.25 1.5 1.75 2.5 1.25 1.25 2 2 ...</span></span>
-<span><span class="co">#&gt;   ..$ time_2: num [1:32] 1.25 3 2 2.5 3.5 3.75 2.5 2.5 3.5 3.5 ...</span></span>
-<span><span class="co">#&gt;   ..$ time_3: num [1:32] 1.75 3.75 2.25 1.75 3.5 2.25 3.5 2.5 4.5 3.5 ...</span></span>
-<span><span class="co">#&gt;   ..$ time_4: num [1:32] 2.25 2.5 1.75 1.75 3 1.25 3.75 3 2.25 4.75 ...</span></span>
+<span><span class="co">#&gt;   ..$ time_1: num [1:32] 1.75 1.25 2.5 1.5 1 2.75 2 2 3 2.75 ...</span></span>
+<span><span class="co">#&gt;   ..$ time_2: num [1:32] 2.5 3.25 3.75 1.5 3.25 3.5 2.5 2.75 3.25 2.75 ...</span></span>
+<span><span class="co">#&gt;   ..$ time_3: num [1:32] 3 4.5 4 2.75 3.5 4 2.5 1.75 2.5 4.75 ...</span></span>
+<span><span class="co">#&gt;   ..$ time_4: num [1:32] 3.75 4.5 3.5 3.5 3.25 3.75 3.5 1.25 2.5 4 ...</span></span>
 <span><span class="co">#&gt;  $ correlation_matrix      : num [1:4, 1:4] 1 0.66 0.33 0 0.66 ...</span></span>
 <span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
 <span><span class="co">#&gt;   .. ..$ : chr [1:4] "time_1" "time_2" "time_3" "time_4"</span></span>
@@ -1928,9 +1928,9 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">#&gt; Variable  1 :  item01  -</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  2 :  item02  -</span></span>
-<span><span class="co">#&gt; best solution in 645 iterations</span></span>
+<span><span class="co">#&gt; best solution in 400 iterations</span></span>
 <span><span class="co">#&gt; Variable  3 :  item03  -</span></span>
-<span><span class="co">#&gt; best solution in 314 iterations</span></span>
+<span><span class="co">#&gt; best solution in 635 iterations</span></span>
 <span><span class="co">#&gt; Variable  4 :  item04  -</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1957,11 +1957,11 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">#&gt; Variable  1 :  item01  -</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  2 :  item02  -</span></span>
-<span><span class="co">#&gt; best solution in 246 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1396 iterations</span></span>
 <span><span class="co">#&gt; Variable  3 :  item03  -</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  4 :  item04  -</span></span>
-<span><span class="co">#&gt; best solution in 158 iterations</span></span>
+<span><span class="co">#&gt; best solution in 605 iterations</span></span>
 <span><span class="co">#&gt; Variable  5 :  item05  -</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1988,15 +1988,15 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">#&gt; Variable  1 :  item01  -</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  2 :  item02  -</span></span>
-<span><span class="co">#&gt; best solution in 1680 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1088 iterations</span></span>
 <span><span class="co">#&gt; Variable  3 :  item03  -</span></span>
-<span><span class="co">#&gt; best solution in 1882 iterations</span></span>
+<span><span class="co">#&gt; best solution in 634 iterations</span></span>
 <span><span class="co">#&gt; Variable  4 :  item04  -</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  5 :  item05  -</span></span>
 <span><span class="co">#&gt; reached maximum of 16384 iterations</span></span>
 <span><span class="co">#&gt; Variable  6 :  item06  -</span></span>
-<span><span class="co">#&gt; best solution in 2135 iterations</span></span>
+<span><span class="co">#&gt; best solution in 1136 iterations</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arranging data to match correlations</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -2005,7 +2005,7 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### behavioural intention</span></span>
 <span><span class="va">intent</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lfast.html">lfast</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">4.0</span>, sd <span class="op">=</span> <span class="fl">3</span>, lowerbound <span class="op">=</span> <span class="fl">0</span>, upperbound <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; best solution in 13456 iterations</span></span>
+<span><span class="co">#&gt; best solution in 3257 iterations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">intent</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"int"</span></span></code></pre></div>
 <div class="section level7">
 <h6 id="check-properties-of-item-dataframes">check properties of item dataframes<a class="anchor" aria-label="anchor" href="#check-properties-of-item-dataframes"></a>
@@ -2026,14 +2026,14 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### Attitude #1 correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        item01 item02 item03 item04</span></span>
-<span><span class="co">#&gt; item01   1.00   0.54   0.52   0.39</span></span>
-<span><span class="co">#&gt; item02   0.54   1.00   0.62   0.47</span></span>
-<span><span class="co">#&gt; item03   0.52   0.62   1.00   0.45</span></span>
-<span><span class="co">#&gt; item04   0.39   0.47   0.45   1.00</span></span>
+<span><span class="co">#&gt; item01   1.00   0.42   0.48   0.58</span></span>
+<span><span class="co">#&gt; item02   0.42   1.00   0.42   0.50</span></span>
+<span><span class="co">#&gt; item03   0.48   0.42   1.00   0.59</span></span>
+<span><span class="co">#&gt; item04   0.58   0.50   0.59   1.00</span></span>
 <span></span>
 <span><span class="co">### Attitude #1 cronbach's alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_1</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.799</span></span>
+<span><span class="co">#&gt; [1] 0.8</span></span>
 <span></span>
 <span><span class="co">## Attitude #2</span></span>
 <span><span class="va">A2_moments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -2050,11 +2050,11 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### Attitude #2 correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        item01 item02 item03 item04 item05</span></span>
-<span><span class="co">#&gt; item01   1.00   0.64   0.54   0.43   0.53</span></span>
-<span><span class="co">#&gt; item02   0.64   1.00   0.65   0.51   0.63</span></span>
-<span><span class="co">#&gt; item03   0.54   0.65   1.00   0.44   0.53</span></span>
-<span><span class="co">#&gt; item04   0.43   0.51   0.44   1.00   0.43</span></span>
-<span><span class="co">#&gt; item05   0.53   0.63   0.53   0.43   1.00</span></span>
+<span><span class="co">#&gt; item01   1.00   0.48   0.49   0.66   0.51</span></span>
+<span><span class="co">#&gt; item02   0.48   1.00   0.44   0.60   0.45</span></span>
+<span><span class="co">#&gt; item03   0.49   0.44   1.00   0.60   0.46</span></span>
+<span><span class="co">#&gt; item04   0.66   0.60   0.60   1.00   0.63</span></span>
+<span><span class="co">#&gt; item05   0.51   0.45   0.46   0.63   1.00</span></span>
 <span></span>
 <span><span class="co">### Attitude #2 cronbach's alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
@@ -2075,16 +2075,16 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="co">### Attitude #3 correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        item01 item02 item03 item04 item05 item06</span></span>
-<span><span class="co">#&gt; item01   1.00   0.57   0.47   0.48   0.57   0.64</span></span>
-<span><span class="co">#&gt; item02   0.57   1.00   0.57   0.58   0.69   0.76</span></span>
-<span><span class="co">#&gt; item03   0.47   0.57   1.00   0.48   0.57   0.64</span></span>
-<span><span class="co">#&gt; item04   0.48   0.58   0.48   1.00   0.58   0.65</span></span>
-<span><span class="co">#&gt; item05   0.57   0.69   0.57   0.58   1.00   0.76</span></span>
-<span><span class="co">#&gt; item06   0.64   0.76   0.64   0.65   0.76   1.00</span></span>
+<span><span class="co">#&gt; item01   1.00   0.47   0.68   0.67   0.61   0.55</span></span>
+<span><span class="co">#&gt; item02   0.47   1.00   0.54   0.53   0.49   0.45</span></span>
+<span><span class="co">#&gt; item03   0.68   0.54   1.00   0.76   0.70   0.64</span></span>
+<span><span class="co">#&gt; item04   0.67   0.53   0.76   1.00   0.69   0.63</span></span>
+<span><span class="co">#&gt; item05   0.61   0.49   0.70   0.69   1.00   0.58</span></span>
+<span><span class="co">#&gt; item06   0.55   0.45   0.64   0.63   0.58   1.00</span></span>
 <span></span>
 <span><span class="co">### Attitude #2 cronbach's alpha</span></span>
 <span><span class="fu"><a href="../reference/alpha.html">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">Att_3</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.9</span></span>
+<span><span class="co">#&gt; [1] 0.899</span></span>
 <span></span>
 <span></span>
 <span><span class="co">## Behavioural Intention</span></span>
@@ -2098,7 +2098,7 @@ modelling, then I recommend the <em>sim.item()</em> and
 <span><span class="va">intent_moments</span></span>
 <span><span class="co">#&gt;        int</span></span>
 <span><span class="co">#&gt; mean 4.000</span></span>
-<span><span class="co">#&gt; sd   3.001</span></span></code></pre></div>
+<span><span class="co">#&gt; sd   2.999</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level6">
@@ -2143,37 +2143,37 @@ modelling, then I recommend the <em>sim.item()</em> and
 <code class="sourceCode R"><span><span class="co">## data structure</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    128 obs. of  16 variables:</span></span>
-<span><span class="co">#&gt;  $ A1_1 : num  3 2 2 1 2 3 2 3 2 2 ...</span></span>
-<span><span class="co">#&gt;  $ A1_2 : num  3 2 2 1 2 3 2 3 3 3 ...</span></span>
-<span><span class="co">#&gt;  $ A1_3 : num  4 3 3 2 4 4 3 3 4 2 ...</span></span>
-<span><span class="co">#&gt;  $ A1_4 : num  4 3 4 3 4 4 4 3 3 3 ...</span></span>
-<span><span class="co">#&gt;  $ A2_1 : num  3 2 4 2 3 4 2 3 3 3 ...</span></span>
-<span><span class="co">#&gt;  $ A2_2 : num  3 2 3 2 2 4 1 4 2 3 ...</span></span>
-<span><span class="co">#&gt;  $ A2_3 : num  3 3 3 2 3 3 3 4 2 4 ...</span></span>
-<span><span class="co">#&gt;  $ A2_4 : num  3 2 3 3 5 4 4 4 4 4 ...</span></span>
-<span><span class="co">#&gt;  $ A2_5 : num  4 3 5 3 4 4 2 4 4 4 ...</span></span>
-<span><span class="co">#&gt;  $ A3_1 : num  3 3 3 2 2 2 1 3 3 3 ...</span></span>
-<span><span class="co">#&gt;  $ A3_2 : num  3 3 4 2 2 2 1 4 2 2 ...</span></span>
-<span><span class="co">#&gt;  $ A3_3 : num  4 4 4 2 2 3 3 4 2 3 ...</span></span>
-<span><span class="co">#&gt;  $ A3_4 : num  5 4 4 2 2 3 2 5 3 3 ...</span></span>
-<span><span class="co">#&gt;  $ A3_5 : num  4 4 4 3 3 4 3 4 4 3 ...</span></span>
-<span><span class="co">#&gt;  $ A3_6 : num  4 4 5 3 3 4 2 5 4 3 ...</span></span>
-<span><span class="co">#&gt;  $ Int_1: num  6 1 0 0 5 4 7 1 9 0 ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ A1_1 : num  3 3 2 3 2 2 2 2 2 3 ...</span></span>
+<span><span class="co">#&gt;  $ A1_2 : num  4 3 2 3 2 2 2 1 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ A1_3 : num  4 3 2 3 2 3 1 3 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ A1_4 : num  5 3 3 4 3 4 4 2 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ A2_1 : num  3 3 2 3 1 2 2 2 2 3 ...</span></span>
+<span><span class="co">#&gt;  $ A2_2 : num  2 3 2 2 2 3 2 2 1 2 ...</span></span>
+<span><span class="co">#&gt;  $ A2_3 : num  4 4 3 3 2 3 3 2 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ A2_4 : num  3 3 3 3 2 3 3 2 2 3 ...</span></span>
+<span><span class="co">#&gt;  $ A2_5 : num  4 3 3 3 3 4 3 3 3 4 ...</span></span>
+<span><span class="co">#&gt;  $ A3_1 : num  3 2 2 2 2 2 2 2 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ A3_2 : num  3 4 2 3 2 2 1 2 2 3 ...</span></span>
+<span><span class="co">#&gt;  $ A3_3 : num  4 4 3 3 3 3 2 2 3 2 ...</span></span>
+<span><span class="co">#&gt;  $ A3_4 : num  4 3 3 2 2 2 2 3 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ A3_5 : num  4 4 3 4 3 3 3 3 3 4 ...</span></span>
+<span><span class="co">#&gt;  $ A3_6 : num  5 4 4 3 3 3 3 3 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ Int_1: num  3 5 2 9 6 1 6 4 4 5 ...</span></span></code></pre></div>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## eigenvalues of dataframe correlations</span></span>
 <span><span class="va">Cor_Correlated_Scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">Cor_Correlated_Scales</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/fig7-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; Cor_Correlated_Scales  is positive-definite</span></span>
-<span><span class="co">#&gt;  [1] 6.93 2.25 1.04 0.75 0.71 0.64 0.54 0.49 0.48 0.42 0.39 0.35 0.32 0.27 0.25</span></span>
-<span><span class="co">#&gt; [16] 0.17</span></span></code></pre>
+<span><span class="co">#&gt;  [1] 6.96 2.26 1.10 0.74 0.70 0.59 0.53 0.49 0.46 0.46 0.38 0.35 0.30 0.25 0.23</span></span>
+<span><span class="co">#&gt; [16] 0.19</span></span></code></pre>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#### Eigenvalues of predictor variable items only</span></span>
 <span><span class="va">Cor_Attitude_items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">my_correlated_scales</span><span class="op">[</span>, <span class="op">-</span><span class="fl">16</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/eigenvalues.html">eigenvalues</a></span><span class="op">(</span>cormatrix <span class="op">=</span> <span class="va">Cor_Attitude_items</span>, scree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="LikertMakeR_vignette_files/figure-html/fig7a-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <pre><code><span><span class="co">#&gt; Cor_Attitude_items  is positive-definite</span></span>
-<span><span class="co">#&gt;  [1] 6.77 2.22 0.78 0.74 0.64 0.58 0.53 0.49 0.46 0.39 0.36 0.33 0.28 0.25 0.18</span></span></code></pre>
+<span><span class="co">#&gt;  [1] 6.80 2.22 0.84 0.74 0.63 0.58 0.50 0.48 0.46 0.38 0.37 0.31 0.26 0.23 0.20</span></span></code></pre>
 <hr>
 </div>
 </div>
@@ -2323,9 +2323,9 @@ variants and Confidence intervals.</p>
 <span><span class="co">#&gt;            coef_name estimate n_items n_obs</span></span>
 <span><span class="co">#&gt;                alpha    0.800       4    64</span></span>
 <span><span class="co">#&gt;          omega_total    0.870       4    64</span></span>
-<span><span class="co">#&gt;              lambda6    0.758       4    64</span></span>
-<span><span class="co">#&gt;        ordinal_alpha    0.762       4    64</span></span>
-<span><span class="co">#&gt;  ordinal_omega_total    0.849       4    64</span></span>
+<span><span class="co">#&gt;              lambda6    0.757       4    64</span></span>
+<span><span class="co">#&gt;        ordinal_alpha    0.765       4    64</span></span>
+<span><span class="co">#&gt;  ordinal_omega_total    0.850       4    64</span></span>
 <span><span class="co">#&gt;                                                notes</span></span>
 <span><span class="co">#&gt;                                 Pearson correlations</span></span>
 <span><span class="co">#&gt;                                 1-factor eigen omega</span></span>
@@ -2342,10 +2342,10 @@ variants and Confidence intervals.</p>
 <span>  n_boot <span class="op">=</span> <span class="fl">64</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;            coef_name estimate ci_lower ci_upper n_items n_obs</span></span>
-<span><span class="co">#&gt;                alpha    0.800    0.712    0.866       4    64</span></span>
-<span><span class="co">#&gt;          omega_total    0.870    0.824    0.909       4    64</span></span>
-<span><span class="co">#&gt;        ordinal_alpha    0.762    0.619    0.821       4    64</span></span>
-<span><span class="co">#&gt;  ordinal_omega_total    0.849    0.778    0.882       4    64</span></span>
+<span><span class="co">#&gt;                alpha    0.800    0.713    0.847       4    64</span></span>
+<span><span class="co">#&gt;          omega_total    0.870    0.824    0.897       4    64</span></span>
+<span><span class="co">#&gt;        ordinal_alpha    0.765    0.670    0.798       4    64</span></span>
+<span><span class="co">#&gt;  ordinal_omega_total    0.850    0.802    0.869       4    64</span></span>
 <span><span class="co">#&gt;                                                notes</span></span>
 <span><span class="co">#&gt;                                 Pearson correlations</span></span>
 <span><span class="co">#&gt;                                 1-factor eigen omega</span></span>
