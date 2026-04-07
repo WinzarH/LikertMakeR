@@ -7,9 +7,9 @@
 ### changes
 
 - [`makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md)
-  has been further re-rewritten. The function runs about twice as fast
-  (but that is still too slow). This is a stopgap ahead of writing some
-  sub-functions in C++.
+  has been further re-rewritten with some sub-functions in C++ The
+  function runs about twice as fast, but still noticeably slow with
+  large k and large n.
 
 ## LikertMakeR 2.1.0 (April 2026)
 
