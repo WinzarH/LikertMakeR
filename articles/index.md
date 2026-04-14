@@ -28,6 +28,9 @@ Technical explanations and validation studies
   Validation](https://winzarh.github.io/LikertMakeR/articles/lfast_validation.md):
 - [makeCorrLoadings()
   validation](https://winzarh.github.io/LikertMakeR/articles/makeCorrLoadings_validate.md):
+- [makeItemsScale() explainer: Reconstructing Item-Level Data with a
+  Target Cronbach’s
+  Alpha](https://winzarh.github.io/LikertMakeR/articles/makeItemsScale_explainer.md):
 - [likertMakeR::reliability()](https://winzarh.github.io/LikertMakeR/articles/reliability_measures.md):
 
 ### Replications and case studies
