@@ -2,8 +2,8 @@ Type: Package
 Package: LikertMakeR
 Title: Synthesise and Correlate Likert Scale and Rating-Scale Data Based
     on Summary Statistics
-Version: 2.0.0
-Date: 2026-03-15
+Version: 2.1.1
+Date: 2026-04-07
 Authors@R: 
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0001-7475-2641"))
@@ -24,19 +24,19 @@ Depends:
     R (>= 4.2.0)
 Imports: 
     dplyr,
+    gtools,
     Matrix,
     matrixStats,
     Rcpp,
     stats,
     tibble,
-    rlang
+    utils,
 Suggests: 
     effectsize,
     kableExtra,
     knitr,
     ggplot2,
     ggrepel,
-    gtools,
     psych,
     polycor,
     psychTools,

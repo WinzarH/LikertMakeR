@@ -1,5 +1,23 @@
 # LikertMakeR (development version)
 
+# LikertMakeR 2.1.1 (April 2026)
+
+## changes
+
+  - `makeItemsScale()` has been further re-rewritten with some 
+  sub-functions in C++
+  The function runs about twice as fast, but still noticeably slow with 
+  large k and large n.
+
+
+# LikertMakeR 2.1.0 (April 2026)
+
+## changes
+
+  - `makeItemsScale()` has been re-rewritten.
+  The function creates more realistic items.
+
+
 # LikertMakeR 2.0.0 (March 2026)
 
 This release introduces major improvements to the internal algorithms used
