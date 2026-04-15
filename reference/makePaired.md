@@ -137,8 +137,8 @@ pairedDat <- makePaired(
 
 str(pairedDat)
 #> 'data.frame':    20 obs. of  2 variables:
-#>  $ X1: num  2 4.5 3 1.83 3.67 ...
-#>  $ X2: num  2.5 5 1.83 1.67 3.17 ...
+#>  $ X1: num  1.67 4.5 2.83 3.17 1.5 ...
+#>  $ X2: num  2.33 5 1.67 5 1 ...
 cor(pairedDat) |> round(2)
 #>      X1   X2
 #> X1 1.00 0.82
@@ -149,10 +149,10 @@ t.test(pairedDat$X1, pairedDat$X2, paired = TRUE)
 #>  Paired t-test
 #> 
 #> data:  pairedDat$X1 and pairedDat$X2
-#> t = -2.5027, df = 19, p-value = 0.02161
+#> t = -2.4982, df = 19, p-value = 0.02182
 #> alternative hypothesis: true mean difference is not equal to 0
 #> 95 percent confidence interval:
-#>  -0.91814556 -0.08185444
+#>  -0.9189107 -0.0810893
 #> sample estimates:
 #> mean difference 
 #>            -0.5 
