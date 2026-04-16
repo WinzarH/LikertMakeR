@@ -12,7 +12,7 @@ author:
         country: Australia
         url: www.mq.edu.au
         
-date: "April 2026"        
+date: last-modified
 abstract: | 
   We demonstrate how the **_LikertMakeR_** package can reconstruct a realistic survey dataset using only published summary statistics. Using statistics reported by Dwivedi et al. (2019) — including means, standard deviations, correlations, and reliability coefficients — we generate synthetic Likert-scale responses for 340 observations and 43 survey items. The reconstructed dataset closely reproduces the reported descriptive statistics and correlation structure, and when analysed with structural equation modelling it yields relationships similar to those reported in the original study. This example illustrates how **_LikertMakeR_** can be used to approximate original datasets from published results, enabling replication exercises, teaching demonstrations, and methodological exploration when raw data are unavailable.
 
