@@ -16,6 +16,7 @@ unlink("R/RcppExports.R")
 
 Rcpp::compileAttributes()
 
+
 # .rs.restartR()
 #
 # unlink(file.path(.libPaths()[1], "00LOCK-LikertMakeR"), recursive = TRUE, force = TRUE)
@@ -73,6 +74,7 @@ devtools::document()
 devtools::check()
 
 
+
 # 0) restart R
 
 # 1) Make sure it's not loaded
@@ -88,6 +90,7 @@ devtools::install()
 
 ## regenerate everything from scratch
 # unlink(c("docs", "_pkgdown"), recursive = TRUE)
+
 pkgdown::build_site()
 
 ## to add another file
@@ -99,7 +102,6 @@ system.file(package = "LikertMakeR") # should print a path
 
 # 3) Deploy
 pkgdown::deploy_to_branch()
-
 
 
 #

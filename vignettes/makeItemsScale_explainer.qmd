@@ -1,5 +1,5 @@
 ---
-title: "makeItemsScale() explainer"
+title: "makeItemsScale() explainer: Reconstructing Item-Level Data with a Target Cronbach’s Alpha"
 author:
   - name: Hume Winzar
     id: hw
@@ -13,7 +13,7 @@ author:
         url: www.mq.edu.au
 
 abstract: | 
-   The makeItemsScale() function reconstructs Likert item responses from scale scores.  It selects candidate item partitions whose dispersion matches the correlation implied by a target Cronbach’s alpha. The resulting dataset reproduces the scale scores while closely matching the requested reliability.
+   The makeItemsScale() function reconstructs Likert item responses from scale scores.  It selects candidate item partitions and then apply simulated annealing to rearrange values while retaining scale parameters. The resulting dataset reproduces the scale scores while closely matching the requested reliability.
 
 format: 
   html:
@@ -24,17 +24,16 @@ format:
 
 ---
 
-# Reconstructing Likert Items from Scale Scores with a Target Reliability
 
-In many situations researchers have access to scale scores but not the individual item responses that produced them. For example, published studies often report only summary statistics, simulation studies may require synthetic item data, and teaching examples may benefit from realistic item responses. Generating such data is not straightforward because the reconstructed items must satisfy two constraints simultaneously: the item values must sum to the observed scale score, and the items should exhibit a desired level of reliability.
+# Summary
 
-The `makeItemsScale()` function addresses this problem by reconstructing plausible Likert-style item responses whose sums reproduce the supplied scale scores while approximating a target _Cronbach’s alpha_. The algorithm achieves this by selecting candidate item combinations whose dispersion corresponds to the inter-item correlation implied by the desired reliability.
+Researchers often work with summated rating scales, where multiple items are combined into a single score. In some situations, it is useful to reverse this process: to generate item-level data that reproduce a given scale while also exhibiting a desired level of internal consistency, typically measured by Cronbach’s alpha.
 
-Reconstructed item-level Likert responses must satisfy two constraints:
+This is not a straightforward task. Many different combinations of item values can produce the same total score, but only a small subset will yield the required reliability. The `makeItemsScale()` function addresses this problem by generating candidate datasets and iteratively refining them to match a target alpha while preserving the original scale values.
 
- 1. The item values must sum to a given scale score.
- 2. The items should exhibit a desired reliability (Cronbach’s $\alpha$).
- 
+The approach combines a carefully designed scoring function with a stochastic optimisation method known as _simulated annealing_. Together, these allow the algorithm to explore a large space of possible solutions and converge on datasets with realistic and controlled properties.
+
+
 ```{r}
 #| label: "load_libraries"
 #| warning: false
@@ -46,13 +45,15 @@ library(dplyr)
 library(ggplot2)
 library(ggrepel)
 library(gtools)
+library(tidyr)
 library(knitr)
 library(kableExtra)
 library(LikertMakeR)
 ```
 
 
-Quick example:
+
+## Quick example:
 
 The short dataset in @tbl-opening_example shows a four-item 5-point Likert 
 scale, `myScale` for which we want to produce scale items that match the 
@@ -69,654 +70,581 @@ equal the corresponding values in `myScale`.
 #| warning: false
 #| message: false
 #| echo: TRUE
+
+## set parameters
+set.seed(42)
+
 n <- 16
-mean <- 3
-sd <- 1.0
+
 lower <- 1
 upper <- 5
 k <- 4
+means <- runif(n = k, min = 2.25, max = 3.75)
+sds <- runif(n = k, min = 0.7, max = 1.2)
 
 target_alpha <- 0.8
 
-df <- data.frame(
-  myScale = lfast(
-    n = n, mean = mean, sd = sd,
-    lowerbound = lower, upperbound = upper,
-    items = k
+## correlation matrix
+
+r_mat <- makeCorrAlpha(items = k, alpha = target_alpha)
+
+df <- makeScales(
+  n = n, means = means, sds = sds, 
+  lowerbound = lower, upperbound = upper, cormatrix = r_mat
   )
-)
+
+summated_scale <- rowSums(df)
 
 myItems <- makeItemsScale(
-  scale = df,
+  scale = summated_scale,
   lowerbound = lower,
   upperbound = upper,
   items = k,
   alpha = target_alpha,
-  summated = FALSE
+  summated = TRUE,
+  progress = FALSE
 )
 
 myAlpha <- alpha(, myItems) |> round(4)
 
-df <- cbind(df, myItems)
+all_dat <- cbind(df, myItems, summated_scale)
 
-knitr::kable(df)
+knitr::kable(all_dat)
 ```
 
 </div>
+
 
 Here, the resulting _Cronbach's alpha_ = `r myAlpha`, so the synthetic data 
 are correct to two decimal places. Not bad for just 16 observations! 
 _(Actually, number of observations has little to do with **alpha**)_
 
-The `makeItemsScale()` function generates such data by selecting candidate 
-item combinations whose dispersion matches the correlation structure implied 
-by the target reliability.
-
-The key idea is that rows with similar item values produce stronger 
-correlations between items, while rows with widely varying values produce 
-weaker correlations. 
-
-## Relationship between reliability and correlation
-
-Cronbach’s alpha depends on the **average inter-item correlation**:
-
-
-$$
-\alpha = \frac{k \bar r}{1 + (k - 1) \bar r}
-$$
-
-where
-
-  - $k$ = number of items
-  - $\bar r$  = mean inter-item correlation.
-
-Rearranging gives the correlation implied by a desired reliability:
-
-
-$$
-\bar r = \frac{\alpha}{k - \alpha (k - 1)}
-$$
-
-
-### Example 
-
-Suppose we want
-
-  - 4 items
-  - target $\alpha$ = 0.80
-
-Then
-
-$$
-\bar r = \frac{0.80}{4 - 0.80 (3)} = 0.5
-$$
-
-Typically, we would formalise this calculation with a function.
-
-```{r}
-#| label: "alpha_2_r_function"
-#| echo: TRUE
-
-alpha_2_r <- function(target_alpha, k) {
-  mean_r <- target_alpha / (k - target_alpha * (k - 1))
-
-  return(mean_r)
-}
-```
-
-
-So the reconstructed items should exhibit an average correlation of 
-approximately $0.50$.
-
-
-## Candidate rows
-
-The algorithm first generates all possible item combinations within the 
-response bounds.
-
-For a 4-item 1–5 scale, there are 70 possible rows (aka: _combinations with replacement_), as shown in @tbl-head_candidates.
-
-```{r}
-#| label: "candidates"
-#| echo: TRUE
-#|
-lower <- 1
-upper <- 5
-k <- 4
-
-
-candidates <- gtools::combinations(
-  v = c(lower:upper),
-  r = k,
-  n = length(c(lower:upper)),
-  repeats.allowed = TRUE
-) |>
-  data.frame()
-```
+Note also that the `makeItemsScale()` function does not exactly reproduce the original scale items. It simply produces a plausible set of items that reproduce the same summated scale along with the target Cronbach's alpha.
 
 
 
 
-<div style="width: fit-content; margin-left: auto; margin-right: auto;">
+# The Goal: Matching a Target Cronbach’s Alpha
 
-```{r}
-#| label: tbl-head_candidates
-#| tbl-cap: "Candidate rows"
-#| echo: false
+Cronbach’s alpha is a widely used measure of internal consistency. It reflects how closely related a set of items are as a group.
 
-sep <- candidates[1, ]
-sep[, ] <- "..."
+At a high level:
 
-out <- rbind(
-  head(round(candidates, 4)),
-  sep,
-  tail(round(candidates, 4))
-)
+ - High alpha → items behave similarly
+ - Low alpha → items behave more independently
 
-knitr::kable(out)
-```
+The challenge that `makeItemsScale()` deals with is:
 
-</div>
+ > Given a set of **row totals**, reconstruct item-level data such that:
+ > 
+ >  - Row sums are preserved
+ >  - The resulting dataset has a desired alpha
 
+These constraints make the problem non-trivial.
 
-A scale made from six 5-point items has 210 possible combinations. 
-A scale made from three 7-point items has 84 possible combinations.
+# From Scale to Items
 
+Suppose we observe a total score of 12 for a respondent, using a 4-item scale with values from 1 to 5.
 
-Each candidate row represents a possible pattern of item responses.
+There are many ways to construct such a row:
 
-Each row sums to a value that could be appear in a summated scale. 
-Similarly, each row shows variation in its values, as measured by the 
-row standard deviation
+ - $[3, 3, 3, 3]$
+ - $[2, 3, 4, 3]$
+ - $[1, 5, 4, 2]$
+
+All satisfy the same row sum.
+
+ > The key insight: row sums alone do not determine item structure
+
+The function begins by generating candidate combinations that satisfy these constraints.
+
+## The Core Challenge
+
+Although many datasets satisfy the row sums, very few will produce the desired Cronbach’s alpha.
+
+This creates a large search problem:
+
+ - Many valid solutions
+ - Few desirable ones
+
+To navigate this space, we need:
+
+ 1. A way to evaluate solutions
+ 1. A way to search efficiently
+ 
+ 
+# The Score Function: What “Good” Looks Like
+
+To guide the search, we define a score function:
 
 $$
-s = \sqrt{\frac{1}{k - 1}\sum^k_{i=1}  (x_i - \bar x)^2}
+score = alpha\_err^2 + w\_balance * balance\_penalty * (1 + alpha\_err)
 $$
 
-Rows with small $s$ contain similar item values, implying stronger correlations.
+where: 
 
-Rows with large $s$ contain more varied values, implying weaker correlations.
+ - $alpha\_err = abs(calculated\_alpha - target\_alpha)$
+ - $balance\_penalty = mean((col\_means - expected\_mean)^2)$
+ - $w\_balance$ is a relative weighting coefficient
+ 
+Lower values for $score$ indicate better solutions. 
+ 
+ $balance\_penalty$ measures how evenly the item means are distributed.
 
-```{r}
-#| label: "candidate_moments"
-#| echo: TRUE
-
-candidates$sum <- rowSums(candidates[, 1:k])
-candidates$sd <- apply(X = candidates[, 1:k], MARGIN = 1, FUN = sd)
-```
+ - Lower values indicate more similar item means
+ - Higher values indicate imbalance across items
 
 
-<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
-```{r}
-#| label: tbl-head_candidate_moments
-#| tbl-cap: "sum and sd of candidate rows"
-#| echo: false
-
-sep <- candidates[1, ]
-sep[, ] <- "..."
-
-out <- rbind(
-  head(round(candidates, 4)),
-  sep,
-  tail(round(candidates, 4))
-)
-
-knitr::kable(out)
-```
-
-</div>
-
-### Similarity index
-
-To relate row dispersion to correlation, the algorithm converts the standard 
-deviation into a **similarity index**
+## Component 1: Matching the target alpha
 
 $$
-r^* = 1 - \frac{s}{s_{max}}
+alpha\_err = abs(calculated\_alpha - target\_alpha)
 $$
 
-where
+ - Measures deviation from the desired reliability
+ - Squared to penalise larger errors
+ 
+## Component 2: Balancing item means
 
-  - $s$ = row standard deviation
-  - $s_{max}$ = maximum dispersion observed among candidate rows.
+ $$ 
+ balance\_penalty = mean((col\_means - expected\_mean)^2) 
+ $$
 
-This transformation maps dispersion onto a scale between  $0$ (low similarity) 
-and $1$ (high similarity).
+ - Encourages similar item means
+ - Avoids unrealistic item distributions 
 
-The similarity index is calculated using the maximum dispersion observed 
-across all possible item combinations within the response range. 
+## Competing objectives
 
-Rows with similar values therefore have large $r^*$
-
-```{r}
-#| label: "candidate_similarities"
-#| echo: TRUE
-
-s_max <- max(candidates$sd)
-
-candidates$similar <- 1 - candidates$sd / s_max
-```
-
-
-<div style="width: fit-content; margin-left: auto; margin-right: auto;">
-
-```{r}
-#| label: tbl-show_candidate_similarities
-#| tbl-cap: "Top and bottom rows of candidate similarities"
-#| echo: false
-
-sep <- candidates[1, ]
-sep[, ] <- "..."
-
-out <- rbind(
-  head(round(candidates, 4)),
-  sep,
-  tail(round(candidates, 4))
-)
-
-knitr::kable(out)
-```
-
-</div>
-
-### Selecting candidate rows
-
-For each candidate row we compute the absolute difference between the target 
-mean correlation coefficient and the row similarity score.
-
-$$
-| {r^* - \bar r} |
-$$
-
-where
-
-  - $r^*$ = row similarity
-  - $\bar r$ = target mean correlation.
-
-Rows whose similarity index is **closest to the target correlation** are 
-preferred.
-
-## Visual explanation of candidate selection
-
-@fig-similarity_sum_graphic shows all 70 possible combinations of 
-four 5-point items. Each point represents one combination of four items, 
-arranged by the sum of items and the similarity score. 
-Sum-of-items ranges from '4' `1111` to '20' `5555`, 
-and the similarity score ranges from '0' 
-(minimum similarity/ maximum variance - here representing `1155` to '1' 
-(perfect similarity/ zero variance). 
-Note the five points at the top, at similarity = '1' that represent the 
-combinations where all item values are equal. 
-
-We find the "best" combination at the intersection of the given sum and our 
-target alpha. Recall that, with four items, a target alpha of '0.80' 
-corresponds to a mean correlation of '0.5'. 
-
-For example, if we have a scale that sums to '8', we see there are five 
-combinations with that sum: `2222`, `1223`, `1133`, `1124`, and `1115`, with 
-progressively decreasing similarity score. With a target alpha of '0.80' then 
-we select combination `1133`, (similarity='0.5'). If target alpha is '0.70', 
-corresponding to similarity='0.368' the closest combination is `1124`, 
-so that is chosen. And we choose `1223` if target alpha is '0.90' 
-(similarity='0.692'). 
+These components may favour different solutions.
 
 
 
 ```{r}
-#| label: fig-similarity_sum_graphic
-#| fig-cap: "Possible combinations of four 5-point items. Select best combination at the intersection of given sum and desired alpha."
-#| fig-width: 7
-#| fig-height: 6
-#| out-width: "100%"
-#| echo: FALSE
-
-candidates$label <- apply(
-  candidates[, c("X1", "X2", "X3", "X4")],
-  1,
-  function(x) paste0("(", paste(x, collapse = ""), ")")
-)
-
-
-ggplot(candidates, aes(x = sum, y = similar)) +
-  geom_jitter(
-    size = 3,
-    colour = "#0077B3", alpha = 0.3,
-    width = 0.0, height = 0.0
-  ) +
-  geom_text_repel(aes(label = label), size = 2, alpha = 1) +
-  scale_x_continuous(name = "Sum of scale items", breaks = c(4, 8, 12, 16, 20)) +
-  scale_y_continuous(name = "Similarity score (r*)") +
-  geom_hline(yintercept = 0.5, colour = "#FF6F61") +
-  annotate("text",
-    x = min(candidates$sum) - 0.5, y = 0.52,
-    label = "alpha == 0.80",
-    parse = TRUE, size = 3
-  ) +
-  geom_hline(yintercept = 0.69, colour = "#FFB300") +
-  annotate("text",
-    x = min(candidates$sum) - 0.5, y = 0.71,
-    label = "alpha == 0.90",
-    parse = TRUE, size = 3
-  ) +
-  geom_hline(yintercept = 0.37, colour = "#FFB300") +
-  annotate("text",
-    x = min(candidates$sum) - 0.5, y = 0.39,
-    label = "alpha == 0.70",
-    parse = TRUE, size = 3
-  ) +
-  theme_minimal() +
-  theme(
-    panel.grid.major.y = element_blank(),
-    panel.grid.minor.y = element_blank()
-  )
-```
-
-
-
-## Worked example 1
-
-**Four 5-point items with summed score = 12**
-
-Suppose a respondent’s scale score is **12**.
-
-We must find item values such that
-
-$$
-x_1 + x_2 + x_3 +x_4 = 12
-$$
-
-Possible combinations include:
-
-<div style="width: fit-content; margin-left: auto; margin-right: auto;">
-
-```{r}
-#| label: "sums_12"
-#| echo: TRUE
-
-sums_12 <- filter(candidates, sum == 12)
-
-print(sums_12)
-```
-
-</div>
-
-
-Recall the target correlation is **0.50**.
-
-The row
-
-`2  2  4  4`
-
-has similarity **0.50**, which is closest to the target similarity score.
-So this row is selected (and later permuted across item positions).
-You can verify this in @fig-similarity_sum_graphic.
-
-
-## Worked example 2
-
-**Four 5-point items with summed score = 7**
-
-Now consider a scale score of **7**.
-
-Possible rows include:
-
-<div style="width: fit-content; margin-left: auto; margin-right: auto;">
-
-```{r}
-#| label: "sums_7"
-#| echo: TRUE
-
-sums_7 <- filter(candidates, sum == 7)
-
-print(sums_7)
-```
-
-</div>
-
-The row
-
-`1  1  2  3  ` 
-
-has similarity closest to the target similarity (0.50), so it is selected.
-Check also in @fig-similarity_sum_graphic.
-
-
-## Constructing the dataset
-
-The algorithm repeats this process for every scale score.
-
-  1. Identify candidate rows that sum to the required score
-  2. Compute dispersion for each candidate
-  3. Convert dispersion to similarity index
-  4. Select the row whose similarity best matches the target correlation
-  5. Randomly permute item positions
-
-Finally, a short optimisation step rearranges item values within rows to 
-improve the overall correlation structure while preserving each row sum.
-
-## The final optimisation step
-
-The short optimisation step takes the selected rows that correspond to the 
-desired scale sums and iteratively rearranges values within each row until 
-the desired Cronbach's alpha is achieved. 
-
-This step implements a stochastic local search procedure in which small, 
-random perturbations are applied to individual rows and retained only if they 
-improve the fit to the target reliability.
-
-The algorithm follows the following steps:
-
- 1. Initialise the current dataset as the best dataset.
- 2. Repeat:
-    - Randomly select a row.
-    - Randomly select two positions within that row and swap their values.
-    - Recalculate Cronbach’s alpha for the updated dataset.
-    - If the new alpha is closer to the target value, retain the change (i.e., update the best dataset); otherwise, revert the swap.
- 3. Stop when the alpha falls within a specified tolerance of the target; otherwise, continue iterating.
-
-
-The effect of the optimisation step is best shown with an example. 
-Consider a scale similar to that shown at the top of this 
-explainer, @tbl-selectItems, this time with eight 
-observations for brevity.
-
-```{r}
-#| label: optimisation_setup
+#| label: fig-score_components
+#| fig-cap: "Score is the resolution of competing objectives"
+#| warning: false
 #| message: false
 #| echo: FALSE
 
-# set.seed(123)
 
-n <- 8
-mean <- 3
-sd <- 1.0
-lower <- 1
-upper <- 5
-k <- 4
+# Simulated "solution space"
+x <- seq(0, 1, length.out = 200)
 
-target_alpha <- 0.8
+# Suppose:
+# x = degree of alignment with target alpha
+
+alpha_err <- (x - 0.8)^2 # best at x = 0.8
+balance_penalty <- (x - 0.4)^2 # best at x = 0.4
+
+w_balance <- 0.5
+
+score <- alpha_err + w_balance * balance_penalty
 
 df <- data.frame(
-  myScale = LikertMakeR::lfast(
-    n = n, mean = mean, sd = sd,
-    lowerbound = lower, upperbound = upper,
-    items = k
+  x = x,
+  alpha_err = alpha_err,
+  balance_penalty = balance_penalty,
+  score = score
+)
+
+# reshape for plotting
+
+df_long <- df |>
+  pivot_longer(-x, names_to = "component", values_to = "value")
+
+df_long$component <- recode(df_long$component,
+                            alpha_err = "Alpha error",
+                            balance_penalty = "Balanced means penalty",
+                            score = "Total score"
+)
+
+df_labels <- df_long %>%
+  group_by(component) %>%
+  slice_max(x, n = 1)
+
+
+
+
+ggplot(
+  df_long,
+  aes(x, value, linetype = component, colour = component)
+) +
+  geom_line(aes(linewidth = component)) +
+  labs(
+    title = "Score resolves multiple objectves",
+    x = "Candidate solution",
+       y = "penalty") +
+  scale_linetype_manual(values = c(
+    "Alpha error" = "dashed",
+    "Balanced means penalty" = "dotted",
+    "Total score" = "solid"
+  )) +
+  
+  scale_linewidth_manual(values = c(
+    "Alpha error" = 0.8,
+    "Balanced means penalty" = 0.8,
+    "Total score" = 1.4
+  )) +
+  scale_colour_manual(values = c(
+    "Alpha error" = "steelblue",
+    "Balanced means penalty" = "steelblue",
+    "Total score" = "royalblue"
+  )) +
+  geom_text_repel(
+    data = df_labels,
+    # aes(label = component),
+    aes(label = component, colour = "black"),
+    nudge_x = 0.05,
+    direction = "y",
+    hjust = 0.0,
+    vjust = -1.0,
+    segment.color = "grey50",
+    size = 4
+  ) +
+  # coord_cartesian(xlim = c(0, 1.1)) +
+  theme_minimal() +
+  theme(
+    legend.position = "none"
   )
-)
 
-trueItems <- LikertMakeR::makeItemsScale(
-  scale = df,
-  lowerbound = lower,
-  upperbound = upper,
-  items = k,
-  alpha = target_alpha,
-  summated = FALSE
-)
 
-alpha_optim <- LikertMakeR::alpha(, trueItems) |> round(3)
 
-randItems <- trueItems
-for (i in seq_len(nrow(randItems))) {
-  randItems[i, ] <- sample(as.numeric(randItems[i, ]))
-}
-
-selectItems <- trueItems
-for (i in seq_len(nrow(selectItems))) {
-  selectItems[i, ] <- sort(as.numeric(selectItems[i, ]))
-}
-
-myscale <- data.frame(
-  scale = rowMeans(selectItems),
-  sums = rowSums(selectItems)
-)
-
-selectItems <- cbind(myscale, selectItems)
-
-alpha_random <- LikertMakeR::alpha(, randItems) |> round(3)
-
-cor_random <- cor(randItems) |> round(2)
-cor_optim <- cor(trueItems) |> round(2)
-
-mean_r_optim <- alpha_optim / (k - alpha_optim * (k - 1))
-
-mean_r_random <- alpha_random / (k - alpha_random * (k - 1))
 ```
 
 
-The function `LikertMakeR::makeItemsScale()` accepts a given vector of 
-Likert-scale values, as either means or as a summated scale, and then 
-extracts appropriate item combinations for the desired Cronbach's alpha.
+### Interpreting the score function in @fig-score_components
 
 
-<div style="width: fit-content; margin-left: auto; margin-right: auto;">
+ - Alpha error is minimised at one point
+ - Balance penalty at another
+ - The final score is a compromise
+
+The algorithm solves a **multi-objective optimisation problem**
+
+In @fig-score_components, the horizontal axis (“candidate solution”) represents a range of possible datasets that the algorithm might consider. Each point corresponds to a different arrangement of item values, with varying levels of reliability and balance. The vertical axis shows the penalty assigned by each component of the score function.
+
+The curves illustrate how different criteria favour different solutions. The alpha error is lowest where the dataset is closest to the target Cronbach’s alpha, while the balance penalty is lowest where item means are most evenly distributed. These preferred solutions do not coincide. The total score combines both components, producing a compromise that reflects the relative weighting of each objective.
+
+ > In practice, the algorithm moves through many such candidate solutions, using the score to evaluate their quality and guide the search toward an optimal balance.
+
+
+
+# Simulated Annealing: How We Search
+
+Once we can evaluate solutions, we need a way to find good ones.
+
+## The problem with greedy search
+
+A simple strategy:
+
+ > Always accept improvements
+
+A "greedy search" makes small changes and accepts every improvement, 
+rejecting any changes that do not improve the configuration. 
+An earlier version of the `makeItemsScale()` function did just this. 
+It was fast, but often failed to converge to give the desired alpha value 
+because the algorithm was trapped in a local minimum solution.
+
+
+## The idea of simulated annealing
+
+Simulated annealing allows occasional “worse” moves.
+
+ - Early: explore widely
+ - Later: refine carefully
+
+### Temperature
+
+At each step, worse moves are accepted with probability:
+
+
+$$
+P = exp ( \, - \frac {\Delta} {T} ) \,
+$$
+
+where:
+
+ - $\Delta$ = how much worse the new solution is
+ - $T$ = temperature
+
+### What this means
+
+#### High temperature
+
+ - $T$ is large
+ - $\frac{\Delta} {T}$ is small
+ - $exp ( - \frac {\Delta}{T} ) \approx 1$
+
+Worse moves are often accepted
+
+#### Low temperature
+
+ - $T$ is small
+ - $\frac{\Delta} {T}$ is large
+ - $exp ( - \frac {\Delta}{T} ) \approx 0$
+
+Worse moves are almost never accepted
+
+ - High temperature → more exploration
+ - Low temperature → more selective
+
+Temperature decreases over time:
+
+
+### Temperature "cools" over time
+
+In this function, temperature starts at an initial value $T_0$, and gradually decreases:
+
+$$
+T = T_0 * (1 - iter / max\_iter)
+$$
+
 
 ```{r}
-#| label: tbl-selectItems
-#| tbl-cap: "Given Scale (mean=3, sd=1), and selected item combinations for target alpha=0.8"
+#| label: fig-temperature_trace
+#| fig-cap: "Simulated Annealing temperature cooling over iterations"
 #| warning: false
 #| message: false
 #| echo: FALSE
 
-kable(selectItems)
+
+load(file = "data/trace.rdata")
+
+# trace <- readRDS(
+#   system.file("extdata", "trace.rds", package = "LikertMakeR")
+# )
+
+
+ggplot(trace, aes(iter, T)) +
+  geom_line(linewidth = 1, colour = "blue") +
+  labs(title = "Temperature over iterations",
+       x = "Iteration",
+       y = "Temperature") +
+  theme_minimal()
 ```
 
-</div>
 
-As part of the same process, as shown in @tbl-randItems, the values within each selected item combination are randomly rearranged.
+### Visual intuition
 
 
-<div style="width: fit-content; margin-left: auto; margin-right: auto;">
 
 ```{r}
-#| label: tbl-randItems
+#| label: fig-search_space
+#| fig-cap: "Notional search space for optimisation algorithm"
 #| warning: false
 #| message: false
 #| echo: FALSE
 
-cap_rand <- paste0(
-  "Derived scale items before optimisation ($\\alpha$ = ",
-  alpha_random,
-  ")"
-)
 
-kable(randItems, caption = cap_rand)
+# Create landscape
+x <- seq(0, 10, length.out = 500)
+y <- 0.6 * sin(x) +
+  0.3 * sin(2 * x) +
+  0.05 * x -
+  0.2 * exp(-((x - 3)^2) / 0.3)
+
+landscape <- data.frame(x = x, y = y)
+
+# Identify minima
+local_min_x <- x[which.min((x - 3)^2)]
+local_min_y <- y[which.min((x - 3)^2)]
+
+global_min_x <- x[which.min(y)]
+global_min_y <- min(y)
+
+
+# Plot
+ggplot(landscape, aes(x, y)) +
+  geom_line(linewidth = 1.2, colour = "darkgreen") +
+
+  # Local minimum
+  annotate("point",
+           x = local_min_x, y = local_min_y,
+           colour = "#F7671A", size = 4) +
+  annotate("text",
+           x = local_min_x, y = local_min_y,
+           label = "Local minimum",
+           vjust = 1.5, size = 4) +
+
+  # Global minimum
+  annotate("point",
+           x = global_min_x, y = global_min_y,
+           colour = "#F7671A", size = 4) +
+  annotate("text",
+           x = global_min_x, y = global_min_y,
+           label = "Optimal solution",
+           vjust = 1.5, size = 4) +
+
+
+  # Minimal theme
+  theme_minimal() +
+  theme(
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    panel.grid = element_blank()
+  )
+
 ```
 
-</div>
 
 
-Comparison of the initial scale reconstruction (@tbl-selectItems), and then the randomised scales (@tbl-randItems) and optimised scales (@tbl-trueItems) show identical row values, but only the optimised arrangement achieves the target reliability.
 
 
-<div style="width: fit-content; margin-left: auto; margin-right: auto;">
+
+
+Think of a landscape as in @fig-search_space:
+
+ - Valleys = good solutions
+ - Shallow valleys = local minima
+ - Deepest valley = optimal solution
+
+A greedy search gets stuck.
+
+Simulated annealing can escape and find better regions.
+
+
+### Types of Moves
+
+The algorithm modifies rows while preserving row sums.
+
+#### Redistribution
+
+$$
+[3, 4, 2, 3] \rightarrow [4, 3, 2, 3]
+$$
+
+ - One value increases
+ - Another decreases
+
+#### Swap
+
+$$
+[3, 4, 2, 3] \rightarrow [3, 2, 4, 3]
+$$
+
+ - Values exchanged
+ - No change in distribution
+
+#### Key constraint
+
+ > Row sums are always preserved
+
+This ensures consistency with the input scale.
+
+### How It All Works Together
+
+At each iteration:
+
+ 1. Propose a change
+ 1. Compute the score
+ 1. Accept or reject based on temperature
+
+ > The score defines the landscape; simulated annealing explores it.
+
+
+## What the Algorithm Looks Like in Practice
+
+We can track the algorithm over time.
+
+
+### Temperature
+
+ - Decreases steadily
+ - Controls exploration
+
+### Score
+
 
 ```{r}
-#| label: tbl-trueItems
+#| label: fig-score_trace
+#| fig-cap: "Simulated Annealing Score over iterations"
 #| warning: false
 #| message: false
 #| echo: FALSE
 
-cap_optim <- paste0(
-  "Derived scale items after optimisation ($\\alpha$ = ",
-  alpha_optim,
-  ")"
-)
 
-kable(trueItems, caption = cap_optim)
+ggplot(trace, aes(iter)) +
+  geom_line(aes(y = score), colour = "steelblue", alpha = 0.5) +
+  geom_line(aes(y = best_score),
+    colour = "royalblue", linewidth = 1
+  ) +
+  labs(
+    title = "Score convergence",
+    x = "Iteraton",
+    y = "Score"
+  ) +
+  theme_minimal()
 ```
 
-</div>
+As we see in @fig-score_trace:
 
+ - Noisy early
+ - Stabilises over time
 
-Correlation matrices of the data, before and after the alpha-search 
-optimisation step, are presented in @tbl-cor_random and @tbl-cor_optim.
+The lighter line shows the current value for `score` at each iteration. The heavy line shows the best value achieved so far, improving steadily over time.
 
-We see that randomly-allocated row values produce mean correlations well-below 
-that required to achieve the desired alpha, but after optimisation the values 
-are typically correct within two decimal places.
+Early iterations have wide variation, reflecting exploration with high temperature. Later iterations have lower temperature and reduced variation.
 
+### Alpha
 
-<div style="width: fit-content; margin-left: auto; margin-right: auto;">
+@fig-alpha_trace shows that over time, alpha:
+
+ - Fluctuates early
+ - Converges toward target
+
+ 
+#### Convergence Toward Target Alpha
+
 
 ```{r}
-#| label: tbl-cor_random
-#| echo: false
+#| label: fig-alpha_trace
+#| fig-cap: "Simulated Annealing Cronbach's alpha over iterations"
+#| warning: false
+#| message: false
+#| echo: FALSE
 
-cap_cor_random <- paste0(
-  "Item correlations before optimisation ($\\alpha$ = ",
-  alpha_random,
-  ")"
-)
+target_alpha <- 0.85
 
-kable(
-  cor_random,
-  caption = cap_cor_random,
-  align = "c"
-) |>
-  kable_styling(
-    full_width = FALSE,
-    position = "center"
-  )
+ggplot(trace, aes(iter)) +
+  geom_line(aes(y = alpha), colour = "steelblue", alpha = 0.5) +
+  geom_line(aes(y = best_alpha), colour = "royalblue", linewidth = 1) +
+  geom_hline(yintercept = target_alpha, 
+             colour = "darkgrey", linetype = "dashed", linewidth = 0.5) +
+  annotate("text", x=30, y=0.86, 
+           label="target_alpha=0.85", colour = "#666666") +
+  labs(
+    title = "Alpha convergence",
+    x = "Iteration",
+    y = "Cronbach's alpha"
+  ) +
+  theme_minimal()
 ```
 
-</div>
 
+The lighter line shows the current alpha, which fluctuates as the algorithm explores different configurations. The darker line tracks the best solution found so far, improving steadily over time.
 
+Early iterations are volatile, reflecting exploration. Later iterations stabilise as the algorithm refines the solution.
 
-<div style="width: fit-content; margin-left: auto; margin-right: auto;">
+ > This transition from exploration to refinement is the defining feature of simulated annealing.
+ 
 
-```{r}
-#| label: tbl-cor_optim
-#| echo: false
+###  Extensions
 
-cap_cor_optim <- paste0(
-  "Item correlations after optimisation ($\\alpha$ = ",
-  alpha_optim,
-  ")"
-)
+The score function can be extended to include:
 
-kable(
-  cor_optim,
-  caption = cap_cor_optim,
-  align = "c"
-) |>
-  kable_styling(
-    full_width = FALSE
-  )
-```
+ - variance constraints
+ - distribution shape
+ - additional structural properties
 
-</div>
+However:
 
+ > More constraints make optimisation harder
+ 
+## Summary
 
-## Why this works
-
-Cronbach’s alpha depends on the average correlation between items across respondents. By selecting candidate rows whose within-row dispersion corresponds to the desired correlation level, the algorithm indirectly controls the covariance structure of the generated dataset.
-
-Rows with similar item values generate stronger correlations, while rows with more varied values generate weaker correlations. By selecting rows with the appropriate similarity level for each scale score, the algorithm produces datasets whose observed reliability closely matches the requested value.
-
-Many different candidate rows share identical dispersion values. When this occurs at the same sum-value, the algorithm randomly selecting among tied candidates. This avoids systematic preference for particular partitions while preserving the desired correlation structure.
-
-Candidate item partitions produce a discrete set of dispersion values, which means the achieved reliability can only approximate the requested value. In simulation tests the deviation from the target Cronbach’s $\alpha$ is typically less than `0.001`.
-
-
+ - The problem is to reconstruct item-level data from scale totals
+ - The score function defines what “good” means
+ - Simulated annealing enables effective search
+ - The result is a flexible, realistic dataset with controlled reliability 
+ 

@@ -24,9 +24,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// score_items_cpp
+List score_items_cpp(NumericMatrix dat, double target_alpha, double w_balance, double expected_mean);
+RcppExport SEXP _LikertMakeR_score_items_cpp(SEXP datSEXP, SEXP target_alphaSEXP, SEXP w_balanceSEXP, SEXP expected_meanSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type dat(datSEXP);
+    Rcpp::traits::input_parameter< double >::type target_alpha(target_alphaSEXP);
+    Rcpp::traits::input_parameter< double >::type w_balance(w_balanceSEXP);
+    Rcpp::traits::input_parameter< double >::type expected_mean(expected_meanSEXP);
+    rcpp_result_gen = Rcpp::wrap(score_items_cpp(dat, target_alpha, w_balance, expected_mean));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_LikertMakeR_lcor_C_randomised", (DL_FUNC) &_LikertMakeR_lcor_C_randomised, 3},
+    {"_LikertMakeR_score_items_cpp", (DL_FUNC) &_LikertMakeR_score_items_cpp, 4},
     {NULL, NULL, 0}
 };
 

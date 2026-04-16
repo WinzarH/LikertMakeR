@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeItemsScale.R
 \name{makeItemsScale}
 \alias{makeItemsScale}
-\title{Generate item-level Likert responses from a summated scale, with desired Cronbach's Alpha}
+\title{Generate scale items from a summated scale, with desired Cronbach's Alpha}
 \usage{
 makeItemsScale(
   scale,
@@ -10,7 +10,8 @@ makeItemsScale(
   upperbound,
   items,
   alpha = 0.8,
-  summated = TRUE
+  summated = TRUE,
+  progress = TRUE
 )
 }
 \arguments{
@@ -32,10 +33,13 @@ Default = '0.8'.
 
 See \verb{@details} for further information on the \code{alpha} parameter}
 
-\item{summated}{(logical) If TRUE, the scale is treated as a summed
-score (e.g., 4-20 for four 5-point items).
-If FALSE, it is treated as an averaged score
-(e.g., 1-5 in 0.25 increments). Default = TRUE.}
+\item{summated}{logical. If TRUE (default), \code{scale} is assumed to be a
+summated scale. If FALSE, the input is treated as a mean scale and will
+be multiplied by \code{items} internally.}
+
+\item{progress}{logical. If TRUE (default is \code{interactive()}), a progress
+bar is displayed during optimisation.
+Set to FALSE for slightly faster execution.}
 }
 \value{
 a dataframe with 'items' columns and 'length(scale)' rows
@@ -43,82 +47,37 @@ a dataframe with 'items' columns and 'length(scale)' rows
 \description{
 \code{makeItemsScale()} generates a random dataframe
 of scale items based on a predefined summated scale
+(such as created by the \code{\link[=lfast]{lfast()}} function),
+and a desired \emph{Cronbach's Alpha}.
 }
 \details{
-The \code{makeItemsScale()} function reconstructs individual Likert-style item
-responses from a vector of scale scores while approximating a desired
-Cronbach's alpha.
+\subsection{alpha}{
 
-The algorithm works in three stages. First, all possible combinations of
-item responses within the specified bounds are generated. For each candidate
-combination, the dispersion of item values is calculated and used as a proxy
-for the similarity between items. Combinations with low dispersion represent
-more homogeneous item responses and therefore imply stronger inter-item
-correlations.
+\code{makeItemsScale()} takes each value of a vector of Likert scales and
+produces a row of 'k' values that average the given scale value, and
+then rearranges the item values within each row,
+attempting to give a dataframe of Likert-scale items that produce a
+predefined \emph{Cronbach's Alpha}.
 
-Second, the requested Cronbach's alpha is converted to the corresponding
-average inter-item correlation using the identity
+Default value for target alpha is '0.8'.
 
-\deqn{\bar r = \alpha / (k - \alpha (k-1))}
+More extreme values for the 'variance' parameter may reduce the chances
+of achieving the desired Alpha. So you may need to experiment a little.
 
-where \eqn{k} is the number of items. Candidate item combinations are then
-ranked according to how closely their dispersion matches the similarity
-implied by this target correlation.
-
-Third, for each scale score in the input vector, the algorithm selects the
-candidate combination whose item values sum to the required scale value and
-whose dispersion best matches the target correlation structure. The selected
-values are randomly permuted across item positions, and a final optimisation
-step rearranges item values within rows to improve the overall correlation
-structure while preserving each row sum.
-
-This approach produces datasets whose observed Cronbach's alpha closely
-matches the requested value while respecting the discrete nature of Likert
-response scales and the constraint that item values must sum to the supplied
-scale scores.
-
-Extremely high reliability values may be difficult to achieve when the
-number of items is very small or when the response scale has few categories.
-In such cases the discreteness of the response scale places an upper bound
-on the achievable inter-item correlation.
+Candidate item combinations are sampled based on their dispersion,
+favouring moderate variability. Final item properties emerge through
+optimisation to satisfy reliability constraints.
+}
 }
 \examples{
 
-## define parameters
-k <- 4
-lower <- 1
-upper <- 5
+summatedScale <- c(16, 11, 14, 7, 10, 13, 16, 13, 12, 14, 8, 11, 8, 18,  8, 13)
 
-## scale properties
-n <- 64
-mean <- 3.0
-sd <- 0.85
-
-## create scale
-set.seed(42)
-meanScale <- lfast(
-  n = n, mean = mean, sd = sd,
-  lowerbound = lower, upperbound = upper,
-  items = k
-)
-
-## create new items
-newItems1 <- makeItemsScale(
-  scale = meanScale,
-  lowerbound = lower, upperbound = upper,
-  items = k, summated = FALSE
-)
-
-### test new items
-# str(newItems1)
-# alpha(data = newItems1) |> round(2)
-
-summatedScale <- meanScale * k
-
-newItems2 <- makeItemsScale(
+newItems <- makeItemsScale(
   scale = summatedScale,
-  lowerbound = lower, upperbound = upper,
-  items = k
+  lowerbound = 1, upperbound = 5,
+  items = 4
 )
+
 
 }

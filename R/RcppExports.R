@@ -5,3 +5,7 @@ lcor_C_randomised <- function(data_df, target, passes = 10L) {
     .Call('_LikertMakeR_lcor_C_randomised', PACKAGE = 'LikertMakeR', data_df, target, passes)
 }
 
+score_items_cpp <- function(dat, target_alpha, w_balance, expected_mean) {
+    .Call('_LikertMakeR_score_items_cpp', PACKAGE = 'LikertMakeR', dat, target_alpha, w_balance, expected_mean)
+}
+
