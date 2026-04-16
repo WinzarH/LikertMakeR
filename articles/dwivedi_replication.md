@@ -17,7 +17,7 @@
   - Apply the reported correlation matrix to reproduce the relationships
     among variables.
   - Reconstruct plausible individual survey items using reported
-    reliability (Cronbach’s $`\alpha`$).
+    reliability (Cronbach’s $\alpha$).
 
 - **Validation:** The synthetic dataset closely reproduces the published
   descriptive statistics, correlations, and scale reliabilities.
@@ -294,11 +294,7 @@ reconstructed correlations closely match those reported in the paper.
 The *Frobenius Norm* is defined as the square root of the sum of the
 squares of all the matrix entries [Equation 1](#eq-frobenius).
 
-``` math
-
-F = \left( \sum_{i=1}^m \sum_{j=1}^n a_{ij}^2 \right)^{1/2}
- \qquad(1)
-```
+$$F = \left( \sum\limits_{i = 1}^{m}\sum\limits_{j = 1}^{n}a_{ij}^{2} \right)^{1/2}\qquad(1)$$
 
 *Frobenius norm of a matrix.*
 
@@ -309,7 +305,7 @@ mat_diff <- dwivedi_correlations - synth_correlations
 frob_diff <- matrixcalc::frobenius.norm(mat_diff)
 ```
 
-Calculated *Frobenius Norm* here is 0.0131173, which is very low for a
+Calculated *Frobenius Norm* here is 0.0131204, which is very low for a
 matrix of this size.
 
 ## Step 4: Generate synthetic Likert responses
@@ -397,38 +393,38 @@ They are all integer responses to standard 1-5 Likert-scale-item
 questions.
 
        aff1 aff2 con1 con2 pas1 pas2 pas3 cop1 cop2 cop3 trt1 trt2 trt3 trt4 sat1
-    1     1    2    2    1    2    2    2    4    2    3    2    3    2    3    4
-    2     3    3    3    3    3    3    3    4    4    4    3    3    4    4    5
-    3     2    2    3    3    3    2    2    3    2    2    3    3    2    3    3
-    4     3    3    4    3    4    2    2    4    3    4    4    2    3    3    5
-    5     1    2    2    1    2    1    1    3    3    4    4    4    5    4    5
-    6     1    2    2    2    1    1    1    3    3    3    3    3    4    3    4
-    7     1    1    3    1    1    1    2    4    4    4    4    3    3    3    4
-    8     2    2    3    3    3    2    3    3    3    3    2    3    3    3    4
-    9     1    5    4    3    4    5    3    4    3    3    4    3    3    4    5
-    10    3    4    5    4    3    4    3    4    4    4    4    4    4    4    4
+    1     1    2    1    2    1    2    1    3    3    3    4    3    4    3    3
+    2     3    3    3    5    4    4    3    4    3    4    4    4    3    3    4
+    3     1    2    2    4    1    1    2    4    3    3    2    2    2    2    3
+    4     3    3    4    4    3    3    3    4    5    5    5    5    5    4    4
+    5     2    4    3    3    2    3    2    3    3    2    3    3    3    3    3
+    6     2    2    1    3    2    1    3    3    3    4    3    4    3    3    3
+    7     2    3    3    3    4    2    2    4    3    4    4    3    3    3    4
+    8     3    3    1    5    4    3    5    4    4    4    4    4    4    5    4
+    9     2    2    3    3    3    3    3    5    4    4    4    4    3    3    4
+    10    2    3    2    3    3    4    3    5    3    4    3    4    4    4    4
        sat2 sat3 awr1 awr2 awr3 awr4 awr5 qul1 qul2 qul3 qul4 loy1 loy2 dif1 dif2
-    1     3    3    3    3    3    4    4    2    2    2    2    4    2    3    3
-    2     4    5    5    5    5    5    5    5    5    5    4    5    4    4    5
-    3     2    2    4    4    4    4    4    2    2    2    2    3    2    3    4
-    4     4    4    4    5    4    4    5    4    4    4    4    5    3    4    5
-    5     4    4    4    4    4    5    4    5    4    4    4    4    4    3    3
-    6     3    4    3    3    4    4    4    3    3    3    3    3    3    2    2
-    7     3    3    4    3    3    4    3    3    3    3    3    4    3    3    4
-    8     3    3    3    4    4    4    3    3    3    3    3    4    3    4    4
-    9     4    5    5    4    4    4    4    3    5    4    4    5    4    4    4
-    10    3    4    5    4    5    4    5    5    4    4    4    4    4    4    5
+    1     4    4    4    4    4    4    4    4    4    3    4    4    3    4    3
+    2     4    5    5    4    5    4    5    4    5    4    4    5    5    5    4
+    3     4    4    5    5    3    5    5    4    3    3    3    3    3    3    3
+    4     5    5    4    5    5    5    4    5    5    4    5    5    5    5    4
+    5     4    4    5    4    5    5    5    2    3    3    2    4    4    3    3
+    6     3    4    2    3    3    3    1    3    3    4    3    3    3    2    2
+    7     4    4    5    4    4    4    4    4    5    4    3    4    3    4    4
+    8     4    4    3    4    5    4    4    5    4    5    5    4    3    4    4
+    9     5    4    4    4    5    5    5    5    4    4    4    5    4    4    3
+    10    4    5    5    5    5    5    5    4    5    5    4    5    3    5    4
        fit1 fit2 ext1 ext2 att1 att2 rel1 rel2 rel3 inv1 inv2 inv3 inv4
-    1     2    2    3    3    4    4    2    2    3    3    3    2    4
-    2     5    4    5    3    4    4    3    4    4    3    5    2    5
-    3     2    2    4    3    4    3    4    2    3    2    4    2    5
-    4     5    3    5    2    5    3    5    4    4    5    5    5    5
-    5     3    3    2    2    4    4    3    3    3    2    4    2    4
-    6     4    1    1    1    2    2    2    2    2    1    2    1    2
-    7     2    2    2    2    3    3    1    2    2    1    5    3    2
-    8     4    2    4    4    4    3    2    2    1    2    5    1    5
-    9     5    5    2    1    4    4    2    3    3    1    4    1    5
-    10    4    4    5    5    5    4    4    4    3    3    5    3    5
+    1     3    2    1    2    4    2    1    4    3    4    5    5    4
+    2     4    4    3    3    5    4    4    4    5    5    5    5    1
+    3     3    3    1    2    4    2    1    2    2    2    3    2    2
+    4     4    4    3    4    5    3    3    4    5    5    5    5    4
+    5     3    2    1    3    4    3    2    3    2    3    5    3    4
+    6     2    2    3    3    4    2    1    2    3    1    3    1    1
+    7     4    3    4    3    4    3    2    2    3    3    4    3    3
+    8     5    3    4    5    5    3    4    2    3    2    5    5    2
+    9     3    3    2    2    5    3    4    3    3    3    5    3    3
+    10    4    2    4    4    4    3    4    3    3    5    5    5    1
 
 Table 5: First ten rows of our synthetic data - all 43 items
 
@@ -440,20 +436,20 @@ in [Table 6](#tbl-compare_alphas).
 | construct | original_alphas | synthetic_alphas |
 |:----------|----------------:|-----------------:|
 | AFF       |            0.87 |            0.870 |
-| CON       |            0.87 |            0.860 |
-| PAS       |            0.84 |            0.839 |
+| CON       |            0.87 |            0.866 |
+| PAS       |            0.84 |            0.840 |
 | COP       |            0.80 |            0.800 |
 | TRT       |            0.88 |            0.879 |
-| SAT       |            0.86 |            0.859 |
+| SAT       |            0.86 |            0.860 |
 | AWR       |            0.87 |            0.869 |
 | QUL       |            0.84 |            0.839 |
-| LOY       |            0.79 |            0.791 |
-| DIF       |            0.85 |            0.828 |
-| FIT       |            0.82 |            0.811 |
-| EXT       |            0.79 |            0.789 |
-| ATT       |            0.88 |            0.812 |
+| LOY       |            0.79 |            0.789 |
+| DIF       |            0.85 |            0.848 |
+| FIT       |            0.82 |            0.809 |
+| EXT       |            0.79 |            0.791 |
+| ATT       |            0.88 |            0.846 |
 | REL       |            0.79 |            0.790 |
-| INV       |            0.79 |            0.785 |
+| INV       |            0.79 |            0.788 |
 
 Table 6: Comparison between Cronbach’s alphas for original published
 constructs and synthetic constructs.
@@ -470,27 +466,27 @@ to see if we can find the same relationships found by *Dwivedi et al.*
 The original published results from *Dwivedi et al.* are reproduced in
 [Table 7](#tbl-table_4).
 
-| Estimated path | β | 95% CI | Hypothesis support |
-|----|----|----|----|
-| **Panel A: Hypothesised model results** |  |  |  |
-| Emotional brand attachment → Brand credibility | 0.72 | 0.60-0.82 | Supported |
-| Emotional brand attachment → Consumer satisfaction | 0.54 | 0.42-0.64 | Supported |
-| Emotional brand attachment → Consumer-based brand equity (CBBE) | 0.21 | 0.03-0.40 | Not supported |
-| Brand credibility → CBBE | 0.31 | 0.11-0.54 | Supported |
-| Consumer satisfaction → CBBE | 0.63 | 0.50-0.76 | Supported |
-| ***Total indirect effect*** |  |  |  |
-| Emotional brand attachment (EBA) → CBBE | 0.57 | 0.42-0.77 |  |
-| ***Specific indirect effects*** |  |  |  |
-| EBA → CBBE via Brand credibility | 0.09 | 0.03-0.18 | Supported |
-| EBA → CBBE via Consumer satisfaction | 0.14 | 0.09-0.21 | Supported |
-| **Panel B: Alternative model results** |  |  |  |
-| Emotional brand attachment → Brand credibility | 0.74 | 0.61-0.84 | Supported |
-| Emotional brand attachment → Consumer satisfaction | 0.56 | 0.44-0.68 | Supported |
-| Emotional brand attachment → Brand loyalty | 0.40 | 0.17-0.61 | Supported |
-| Brand credibility → Brand loyalty | 0.14 | 0.07-0.45 | Not supported |
-| Consumer satisfaction → Brand loyalty | 0.35 | 0.19-0.53 | Supported |
-| ***Specific indirect effects*** |  |  |  |
-| EBA → LOY via Consumer satisfaction | 0.12 | 0.06-0.20 | Supported |
+| Estimated path                                                  | β    | 95% CI    | Hypothesis support |
+|-----------------------------------------------------------------|------|-----------|--------------------|
+| **Panel A: Hypothesised model results**                         |      |           |                    |
+| Emotional brand attachment → Brand credibility                  | 0.72 | 0.60-0.82 | Supported          |
+| Emotional brand attachment → Consumer satisfaction              | 0.54 | 0.42-0.64 | Supported          |
+| Emotional brand attachment → Consumer-based brand equity (CBBE) | 0.21 | 0.03-0.40 | Not supported      |
+| Brand credibility → CBBE                                        | 0.31 | 0.11-0.54 | Supported          |
+| Consumer satisfaction → CBBE                                    | 0.63 | 0.50-0.76 | Supported          |
+| ***Total indirect effect***                                     |      |           |                    |
+| Emotional brand attachment (EBA) → CBBE                         | 0.57 | 0.42-0.77 |                    |
+| ***Specific indirect effects***                                 |      |           |                    |
+| EBA → CBBE via Brand credibility                                | 0.09 | 0.03-0.18 | Supported          |
+| EBA → CBBE via Consumer satisfaction                            | 0.14 | 0.09-0.21 | Supported          |
+| **Panel B: Alternative model results**                          |      |           |                    |
+| Emotional brand attachment → Brand credibility                  | 0.74 | 0.61-0.84 | Supported          |
+| Emotional brand attachment → Consumer satisfaction              | 0.56 | 0.44-0.68 | Supported          |
+| Emotional brand attachment → Brand loyalty                      | 0.40 | 0.17-0.61 | Supported          |
+| Brand credibility → Brand loyalty                               | 0.14 | 0.07-0.45 | Not supported      |
+| Consumer satisfaction → Brand loyalty                           | 0.35 | 0.19-0.53 | Supported          |
+| ***Specific indirect effects***                                 |      |           |                    |
+| EBA → LOY via Consumer satisfaction                             | 0.12 | 0.06-0.20 | Supported          |
 
 Table 7: Parameter estimates of the hypothesised and alternative
 models - Table IV from *Dwivedi et al. (2019)*.
@@ -576,16 +572,16 @@ and the conclusions are the same.
 | Estimated path                 | β    | 95% CI          |
 |--------------------------------|------|-----------------|
 | **Direct effects**             |      |                 |
-| Attachment → Credibility       | 0.71 | \[0.63, 0.79\]  |
+| Attachment → Credibility       | 0.71 | \[0.64, 0.79\]  |
 | Attachment → SAT               | 0.53 | \[0.45, 0.61\]  |
-| Attachment → BrandEquity       | 0.21 | \[0.06, 0.37\]  |
-| Credibility → BrandEquity      | 0.29 | \[-0.05, 0.62\] |
-| SAT → BrandEquity              | 0.59 | \[0.34, 0.84\]  |
+| Attachment → BrandEquity       | 0.21 | \[-0.45, 0.87\] |
+| Credibility → BrandEquity      | 0.30 | \[-1.37, 1.96\] |
+| SAT → BrandEquity              | 0.58 | \[-0.54, 1.71\] |
 | **Indirect and total effects** |      |                 |
-| ind_Attachment_via_Credibility | 0.20 | \[-0.04, 0.44\] |
-| ind_Attachment_via_SAT         | 0.31 | \[0.17, 0.45\]  |
-| total_ind_Attachment           | 0.52 | \[0.38, 0.65\]  |
-| total_Attachment               | 0.73 | \[0.65, 0.8\]   |
+| ind_Attachment_via_Credibility | 0.21 | \[-0.98, 1.4\]  |
+| ind_Attachment_via_SAT         | 0.31 | \[-0.29, 0.91\] |
+| total_ind_Attachment           | 0.52 | \[-0.08, 1.12\] |
+| total_Attachment               | 0.73 | \[0.63, 0.83\]  |
 
 Table 8: Parameter estimates of the hypothesised model - From synthetic
 data.
@@ -635,10 +631,9 @@ This makes synthetic reconstruction useful for:
 Dwivedi, Abhishek, Lester W. Johnson, Dean Charles Wilkie, and Luciana
 De Araujo-Gil. 2019. ‘Consumer Emotional Brand Attachment with Social
 Media Brands and Social Media Brand Equity’. *European Journal of
-Marketing* 53 (6): 1176–1204.
-<https://doi.org/10.1108/EJM-09-2016-0511>.
+Marketing* 53 (6): 1176–204. <https://doi.org/10.1108/EJM-09-2016-0511>.
 
 Winzar, Hume. 2026. *LikertMakeR: Synthesise and Correlate Likert-Scale
-and Related Rating-Scale Data Based on Summary Statistics* (version
-2.0.0). The Comprehensive R Archive Network (CRAN).
+and Related Rating-Scale Data Based on Summary Statistics*. Version
+2.0.0. The Comprehensive R Archive Network (CRAN).
 <https://CRAN.R-project.org/package=LikertMakeR>.
