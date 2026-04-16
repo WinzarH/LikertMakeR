@@ -242,12 +242,12 @@ print(result1)
 #> For generated data, see $data
 head(result1$data)
 #>   Attitude Intention Behaviour
-#> 1     2.75      1.75      1.50
-#> 2     2.25      3.00      2.75
-#> 3     2.25      4.75      3.25
-#> 4     3.25      3.25      4.50
-#> 5     2.50      3.25      4.50
-#> 6     3.25      3.25      3.75
+#> 1     3.00      1.75      2.25
+#> 2     4.25      5.00      2.75
+#> 3     1.50      3.00      3.25
+#> 4     4.50      4.50      4.50
+#> 5     4.00      3.25      4.25
+#> 6     3.50      2.25      3.75
 
 
 # Example 2: With optimisation (no IV correlation matrix)
