@@ -43,7 +43,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Synthesise a dataset from paired-sample t-test summary statistics</h1>
-      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/R/makePaired.R" class="external-link"><code>R/makePaired.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/R/makePaired.R" class="external-link"><code>R/makePaired.R</code></a></small>
       <div class="d-none name"><code>makePaired.Rd</code></div>
     </div>
 
@@ -165,15 +165,15 @@ The user should review the input parameters and insert more realistic values.</p
 <span class="r-in"><span>  lowerbound <span class="op">=</span> <span class="va">lower</span>, upperbound <span class="op">=</span> <span class="va">upper</span>, items <span class="op">=</span> <span class="va">k</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Initial data vectors</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 188 iterations</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> reached maximum of 1024 iterations</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> best solution in 735 iterations</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Arranging values to conform with desired t-value</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Complete!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	20 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X1: num  2.67 4.17 3.67 3.17 3 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X2: num  2.5 5 5 4 4.67 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X1: num  2 4.67 2.83 4 2 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ X2: num  1.83 5 4.67 5 3.5 ...</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pairedDat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      X1   X2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X1 1.00 0.82</span>
@@ -184,10 +184,10 @@ The user should review the input parameters and insert more realistic values.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Paired t-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  pairedDat$X1 and pairedDat$X2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> t = -2.4982, df = 19, p-value = 0.02182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> t = -2.5355, df = 19, p-value = 0.02017</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: true mean difference is not equal to 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  -0.9189107 -0.0810893</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  -0.91274991 -0.08725009</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mean difference </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            -0.5 </span>

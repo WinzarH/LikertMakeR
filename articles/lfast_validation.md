@@ -158,13 +158,13 @@ gives an *exact replication* of a scale, and use the *Neuhäuser* test
 option to see if the function produces a “pretty good” dataframe. So, we
 present summary results for both tests in this study.
 
-| Feature                | method = “BWS”                                    | method = “Neuhäuser”                         |
-|:-----------------------|:--------------------------------------------------|:---------------------------------------------|
-| Test Statistic         | Based on comparing quantiles                      | Based on comparing ranks.                    |
-| Sensitivity            | More sensitive to shape differences.              | Less sensitive to shape differences.         |
-| Robustness to Outliers | Less robust to outliers.                          | More robust to outliers.                     |
-| Focus                  | Sensitive to general differences across the ranks | Less sensitive to tail differences.          |
-| Type of Differences    | More likely to pick up on subtle differences      | Less likely to pick up on subtle differences |
+| Feature | method = “BWS” | method = “Neuhäuser” |
+|:---|:---|:---|
+| Test Statistic | Based on comparing quantiles | Based on comparing ranks. |
+| Sensitivity | More sensitive to shape differences. | Less sensitive to shape differences. |
+| Robustness to Outliers | Less robust to outliers. | More robust to outliers. |
+| Focus | Sensitive to general differences across the ranks | Less sensitive to tail differences. |
+| Type of Differences | More likely to pick up on subtle differences | Less likely to pick up on subtle differences |
 
 Comparison of BWS and Neuhäuser Methods
 
@@ -322,7 +322,7 @@ Selected SPI items for three samples
 
 The following tables list the dimension under consideration and the
 proportion of cases in each of the three samples that ere
-*‘statistically significant’* ($\rho$ \< 0.05).
+*‘statistically significant’* ($`\rho`$ \< 0.05).
 
 Tables show the *BWS* test / *Neuhäuser* test.
 
@@ -488,7 +488,7 @@ to outliers, was not statistically significant.
 
 The appendix table shows summary results for the three data sets for all
 135 items, indicating the proportion of cases where distribution
-comparison tests were *‘statistically significant’* ($\rho$ \< 0.05).
+comparison tests were *‘statistically significant’* ($`\rho`$ \< 0.05).
 
 In about 37 of the 135 items (27%) did the BWS test show proportion of
 significant simulations less than 80%.

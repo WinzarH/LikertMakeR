@@ -105,26 +105,26 @@ knitr::kable(all_dat)
 
 | item01 | item02 | item03 | item04 |  X1 |  X2 |  X3 |  X4 | summated_scale |
 |-------:|-------:|-------:|-------:|----:|----:|----:|----:|---------------:|
-|      2 |      3 |      2 |      3 |   2 |   3 |   3 |   2 |             10 |
-|      2 |      4 |      1 |      3 |   3 |   2 |   3 |   2 |             10 |
-|      5 |      5 |      3 |      5 |   4 |   5 |   4 |   5 |             18 |
-|      2 |      3 |      2 |      3 |   4 |   2 |   2 |   2 |             10 |
-|      5 |      5 |      5 |      5 |   5 |   5 |   5 |   5 |             20 |
-|      4 |      4 |      4 |      4 |   4 |   4 |   4 |   4 |             16 |
-|      3 |      4 |      3 |      3 |   3 |   2 |   4 |   4 |             13 |
-|      4 |      4 |      3 |      3 |   4 |   3 |   3 |   4 |             14 |
-|      4 |      2 |      1 |      3 |   3 |   2 |   3 |   2 |             10 |
-|      4 |      3 |      3 |      4 |   4 |   3 |   4 |   3 |             14 |
-|      4 |      2 |      2 |      3 |   2 |   4 |   3 |   2 |             11 |
-|      3 |      3 |      2 |      4 |   3 |   3 |   3 |   3 |             12 |
-|      4 |      5 |      2 |      3 |   3 |   4 |   3 |   4 |             14 |
-|      3 |      3 |      3 |      4 |   2 |   4 |   3 |   4 |             13 |
-|      5 |      4 |      4 |      3 |   4 |   4 |   4 |   4 |             16 |
-|      4 |      4 |      3 |      3 |   4 |   3 |   3 |   4 |             14 |
+|      2 |      2 |      2 |      3 |   2 |   2 |   3 |   2 |              9 |
+|      5 |      5 |      4 |      3 |   4 |   4 |   4 |   5 |             17 |
+|      4 |      4 |      3 |      3 |   3 |   4 |   3 |   4 |             14 |
+|      4 |      4 |      3 |      3 |   2 |   4 |   4 |   4 |             14 |
+|      4 |      4 |      4 |      5 |   5 |   4 |   4 |   4 |             17 |
+|      4 |      5 |      2 |      4 |   4 |   3 |   5 |   3 |             15 |
+|      4 |      3 |      2 |      3 |   3 |   3 |   3 |   3 |             12 |
+|      4 |      3 |      3 |      3 |   4 |   3 |   3 |   3 |             13 |
+|      3 |      3 |      1 |      3 |   3 |   1 |   3 |   3 |             10 |
+|      3 |      5 |      3 |      4 |   4 |   4 |   3 |   4 |             15 |
+|      2 |      3 |      1 |      3 |   3 |   2 |   2 |   2 |              9 |
+|      5 |      4 |      5 |      5 |   5 |   5 |   5 |   4 |             19 |
+|      2 |      4 |      3 |      3 |   3 |   3 |   3 |   3 |             12 |
+|      3 |      2 |      2 |      3 |   2 |   2 |   2 |   4 |             10 |
+|      5 |      4 |      3 |      4 |   4 |   5 |   4 |   3 |             16 |
+|      4 |      3 |      2 |      4 |   3 |   3 |   4 |   3 |             13 |
 
 Table 1: Short Example: 4-item 5-point Likert scale, alpha = 0.8
 
-Here, the resulting *Cronbach’s alpha* = 0.8165, so the synthetic data
+Here, the resulting *Cronbach’s alpha* = 0.7963, so the synthetic data
 are correct to two decimal places. Not bad for just 16 observations!
 *(Actually, number of observations has little to do with **alpha**)*
 
@@ -162,9 +162,9 @@ scale with values from 1 to 5.
 
 There are many ways to construct such a row:
 
-- $\lbrack 3,3,3,3\rbrack$
-- $\lbrack 2,3,4,3\rbrack$
-- $\lbrack 1,5,4,2\rbrack$
+- $`[3, 3, 3, 3]`$
+- $`[2, 3, 4, 3]`$
+- $`[1, 5, 4, 2]`$
 
 All satisfy the same row sum.
 
@@ -192,31 +192,41 @@ To navigate this space, we need:
 
 To guide the search, we define a score function:
 
-$$score = alpha\_ err^{2} + w\_ balance*balance\_ penalty*(1 + alpha\_ err)$$
+``` math
+
+score = alpha\_err^2 + w\_balance * balance\_penalty * (1 + alpha\_err)
+```
 
 where:
 
-- $alpha\_ err = abs(calculated\_ alpha - target\_ alpha)$
-- $balance\_ penalty = mean((col\_ means - expected\_ mean)^{2})$
-- $w\_ balance$ is a relative weighting coefficient
+- $`alpha\_err = abs(calculated\_alpha - target\_alpha)`$
+- $`balance\_penalty = mean((col\_means - expected\_mean)^2)`$
+- $`w\_balance`$ is a relative weighting coefficient
 
-Lower values for $score$ indicate better solutions.
+Lower values for $`score`$ indicate better solutions.
 
-$balance\_ penalty$ measures how evenly the item means are distributed.
+$`balance\_penalty`$ measures how evenly the item means are distributed.
 
 - Lower values indicate more similar item means
 - Higher values indicate imbalance across items
 
 ### Component 1: Matching the target alpha
 
-$$alpha\_ err = abs(calculated\_ alpha - target\_ alpha)$$
+``` math
+
+alpha\_err = abs(calculated\_alpha - target\_alpha)
+```
 
 - Measures deviation from the desired reliability
 - Squared to penalise larger errors
 
 ### Component 2: Balancing item means
 
-$$balance\_ penalty = mean((col\_ means - expected\_ mean)^{2})$$
+``` math
+
+ balance\_penalty = mean((col\_means - expected\_mean)^2)
+ 
+```
 
 - Encourages similar item means
 - Avoids unrealistic item distributions
@@ -284,28 +294,31 @@ Simulated annealing allows occasional “worse” moves.
 
 At each step, worse moves are accepted with probability:
 
-$$P = exp(\, - \frac{\Delta}{T})\,$$
+``` math
+
+P = exp ( \, - \frac {\Delta} {T} ) \,
+```
 
 where:
 
-- $\Delta$ = how much worse the new solution is
-- $T$ = temperature
+- $`\Delta`$ = how much worse the new solution is
+- $`T`$ = temperature
 
 #### What this means
 
 ##### High temperature
 
-- $T$ is large
-- $\frac{\Delta}{T}$ is small
-- $exp(-\frac{\Delta}{T}) \approx 1$
+- $`T`$ is large
+- $`\frac{\Delta} {T}`$ is small
+- $`exp ( - \frac {\Delta}{T} ) \approx 1`$
 
 Worse moves are often accepted
 
 ##### Low temperature
 
-- $T$ is small
-- $\frac{\Delta}{T}$ is large
-- $exp(-\frac{\Delta}{T}) \approx 0$
+- $`T`$ is small
+- $`\frac{\Delta} {T}`$ is large
+- $`exp ( - \frac {\Delta}{T} ) \approx 0`$
 
 Worse moves are almost never accepted
 
@@ -316,10 +329,13 @@ Temperature decreases over time:
 
 #### Temperature “cools” over time
 
-In this function, temperature starts at an initial value $T_{0}$, and
+In this function, temperature starts at an initial value $`T_0`$, and
 gradually decreases:
 
-$$T = T_{0}*(1 - iter/max\_ iter)$$
+``` math
+
+T = T_0 * (1 - iter / max\_iter)
+```
 
 ![](makeItemsScale_explainer_files/figure-html/fig-temperature_trace-1.png)
 
@@ -347,14 +363,20 @@ The algorithm modifies rows while preserving row sums.
 
 ##### Redistribution
 
-$$\left. \lbrack 3,4,2,3\rbrack\rightarrow\lbrack 4,3,2,3\rbrack \right.$$
+``` math
+
+[3, 4, 2, 3] \rightarrow [4, 3, 2, 3]
+```
 
 - One value increases
 - Another decreases
 
 ##### Swap
 
-$$\left. \lbrack 3,4,2,3\rbrack\rightarrow\lbrack 3,2,4,3\rbrack \right.$$
+``` math
+
+[3, 4, 2, 3] \rightarrow [3, 2, 4, 3]
+```
 
 - Values exchanged
 - No change in distribution

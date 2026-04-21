@@ -130,15 +130,15 @@ pairedDat <- makePaired(
   lowerbound = lower, upperbound = upper, items = k
 )
 #> Initial data vectors
+#> best solution in 188 iterations
 #> reached maximum of 1024 iterations
-#> best solution in 735 iterations
 #> Arranging values to conform with desired t-value
 #> Complete!
 
 str(pairedDat)
 #> 'data.frame':    20 obs. of  2 variables:
-#>  $ X1: num  2.67 4.17 3.67 3.17 3 ...
-#>  $ X2: num  2.5 5 5 4 4.67 ...
+#>  $ X1: num  2 4.67 2.83 4 2 ...
+#>  $ X2: num  1.83 5 4.67 5 3.5 ...
 cor(pairedDat) |> round(2)
 #>      X1   X2
 #> X1 1.00 0.82
@@ -149,10 +149,10 @@ t.test(pairedDat$X1, pairedDat$X2, paired = TRUE)
 #>  Paired t-test
 #> 
 #> data:  pairedDat$X1 and pairedDat$X2
-#> t = -2.4982, df = 19, p-value = 0.02182
+#> t = -2.5355, df = 19, p-value = 0.02017
 #> alternative hypothesis: true mean difference is not equal to 0
 #> 95 percent confidence interval:
-#>  -0.9189107 -0.0810893
+#>  -0.91274991 -0.08725009
 #> sample estimates:
 #> mean difference 
 #>            -0.5 
