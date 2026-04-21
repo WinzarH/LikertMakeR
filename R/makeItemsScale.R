@@ -18,9 +18,6 @@
 #' @param alpha (posiitve, real) desired _Cronbach's Alpha_ for the
 #' new dataframe of items.
 #' Default = '0.8'.
-#'
-#' See `@details` for further information on the `alpha` parameter
-#'
 #' @param summated logical. If TRUE (default), `scale` is assumed to be a
 #' summated scale. If FALSE, the input is treated as a mean scale and will
 #' be multiplied by `items` internally.
@@ -28,25 +25,24 @@
 #' bar is displayed during optimisation.
 #' Set to FALSE for slightly faster execution.
 #'
-#'
 #' @details
 #'
-#' ## alpha
+#' ## simulated annealing
 #'
-#' `makeItemsScale()` takes each value of a vector of Likert scales and
-#' produces a row of 'k' values that average the given scale value, and
-#' then rearranges the item values within each row,
-#' attempting to give a dataframe of Likert-scale items that produce a
-#' predefined _Cronbach's Alpha_.
+#' Simulated annealing is used in `makeItemsScale()` to search for item
+#' configurations that satisfy several competing objectives simultaneously.
+#' These include achieving a target Cronbach’s alpha, maintaining similar
+#' item means, and preserving constant row sums. Because improving one
+#' objective can worsen another, a simple greedy search often becomes
+#' trapped in suboptimal solutions.
 #'
-#' Default value for target alpha is '0.8'.
-#'
-#' More extreme values for the 'variance' parameter may reduce the chances
-#' of achieving the desired Alpha. So you may need to experiment a little.
-#'
-#' Candidate item combinations are sampled based on their dispersion,
-#' favouring moderate variability. Final item properties emerge through
-#' optimisation to satisfy reliability constraints.
+#' Simulated annealing addresses this by allowing occasional acceptance of
+#' worse solutions early in the search, promoting exploration of the solution
+#' space. As the algorithm progresses, a cooling schedule reduces this
+#' randomness, increasingly favouring improvements across all criteria.
+#' This process enables the function to converge on a balanced solution that
+#' jointly satisfies the desired scale properties, rather than optimizing any
+#' single objective at the expense of others.
 #'
 #' @importFrom gtools combinations
 #' @importFrom stats quantile runif sd var
@@ -61,8 +57,10 @@
 #'
 #' newItems <- makeItemsScale(
 #'   scale = summatedScale,
-#'   lowerbound = 1, upperbound = 5,
-#'   items = 4
+#'   lowerbound = 1,
+#'   upperbound = 5,
+#'   items = 4,
+#'   alpha = 0.8
 #' )
 #'
 #'
@@ -80,7 +78,6 @@ makeItemsScale <- function(
   ###
   ##  makeCombinations produces a dataframe of all combinations of item values
   ###
-
   makeCombinations <- function(lowerbound, upperbound, items) {
     mycombinations <- gtools::combinations(
       v = c(lowerbound:upperbound),
@@ -88,7 +85,6 @@ makeItemsScale <- function(
       n = length(c(lowerbound:upperbound)),
       repeats.allowed = TRUE
     )
-
     return(mycombinations)
   } # END makeCombinations function
 
@@ -111,8 +107,8 @@ makeItemsScale <- function(
 
 
   ## tune weights
-
-  w_balance <- 0.05
+  ## we want means to be balanced - about the same
+  w_balance <- 0.025
   expected_mean <- mean(scale) / items
 
   ## score_items attempts to find penalty values so that
@@ -167,8 +163,8 @@ makeItemsScale <- function(
     best_score <- current_score
     best_alpha <- current_eval$alpha
 
-    min_iter <- max(32, items^2)
-    max_iter <- items^2 * n
+    min_iter <- max(64, items^2)
+    max_iter <- items^2 * n * 2
 
     iter <- 0
 
@@ -181,12 +177,6 @@ makeItemsScale <- function(
     while (iter < max_iter) {
       iter <- iter + 1
 
-      # update_every <- max(10, floor(max_iter / 100))
-      # if (progress && (iter %% update_every == 0 || iter == max_iter)) {
-      #   setTxtProgressBar(pb, iter)
-      # }
-
-
       if (progress) {
         setTxtProgressBar(pb, iter)
       }
@@ -197,8 +187,6 @@ makeItemsScale <- function(
       T <- max(T, 1e-6)
 
       # Loop through each pair of columns j and k
-
-      # pairs <- combn(ncol(current_items), 2, simplify = FALSE)
 
       pairs_subset <- sample(pairs, size = min(2 * items, length(pairs)))
       row_ids <- sample.int(nrow(current_items), size = min(5 * items, nrow(current_items)))
@@ -232,7 +220,6 @@ makeItemsScale <- function(
                 temp_items[i, ] <- row
               }
             } else {
-              # j1 -1, j2 +1
               if (row[j1] > lowerbound && row[j2] < upperbound) {
                 row[j1] <- row[j1] - 1
                 row[j2] <- row[j2] + 1
@@ -265,6 +252,8 @@ makeItemsScale <- function(
             temp_items[i, j] <- temp_items[i, k]
             temp_items[i, k] <- temp
           }
+
+          ## search and evaluation is expensive, so we use C++ code
 
           new_eval <- score_items_cpp(temp_items, target_alpha, w_balance, expected_mean)
 
@@ -306,11 +295,11 @@ makeItemsScale <- function(
           }
         }
       }
-      # }
     }
 
-
     if (progress) close(pb)
+
+    message(paste0("reached maximum of ", iter, " iterations"))
 
     return(best_items |> as.data.frame())
   } ## END rearrangeRowValues function

@@ -29,9 +29,7 @@ Should range from \eqn{lowerbound \times items} to
 
 \item{alpha}{(posiitve, real) desired \emph{Cronbach's Alpha} for the
 new dataframe of items.
-Default = '0.8'.
-
-See \verb{@details} for further information on the \code{alpha} parameter}
+Default = '0.8'.}
 
 \item{summated}{logical. If TRUE (default), \code{scale} is assumed to be a
 summated scale. If FALSE, the input is treated as a mean scale and will
@@ -51,22 +49,22 @@ of scale items based on a predefined summated scale
 and a desired \emph{Cronbach's Alpha}.
 }
 \details{
-\subsection{alpha}{
+\subsection{simulated annealing}{
 
-\code{makeItemsScale()} takes each value of a vector of Likert scales and
-produces a row of 'k' values that average the given scale value, and
-then rearranges the item values within each row,
-attempting to give a dataframe of Likert-scale items that produce a
-predefined \emph{Cronbach's Alpha}.
+Simulated annealing is used in \code{makeItemsScale()} to search for item
+configurations that satisfy several competing objectives simultaneously.
+These include achieving a target Cronbach’s alpha, maintaining similar
+item means, and preserving constant row sums. Because improving one
+objective can worsen another, a simple greedy search often becomes
+trapped in suboptimal solutions.
 
-Default value for target alpha is '0.8'.
-
-More extreme values for the 'variance' parameter may reduce the chances
-of achieving the desired Alpha. So you may need to experiment a little.
-
-Candidate item combinations are sampled based on their dispersion,
-favouring moderate variability. Final item properties emerge through
-optimisation to satisfy reliability constraints.
+Simulated annealing addresses this by allowing occasional acceptance of
+worse solutions early in the search, promoting exploration of the solution
+space. As the algorithm progresses, a cooling schedule reduces this
+randomness, increasingly favouring improvements across all criteria.
+This process enables the function to converge on a balanced solution that
+jointly satisfies the desired scale properties, rather than optimizing any
+single objective at the expense of others.
 }
 }
 \examples{
@@ -75,8 +73,10 @@ summatedScale <- c(16, 11, 14, 7, 10, 13, 16, 13, 12, 14, 8, 11, 8, 18,  8, 13)
 
 newItems <- makeItemsScale(
   scale = summatedScale,
-  lowerbound = 1, upperbound = 5,
-  items = 4
+  lowerbound = 1,
+  upperbound = 5,
+  items = 4,
+  alpha = 0.8
 )
 
 
