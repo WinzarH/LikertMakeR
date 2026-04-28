@@ -75,7 +75,7 @@ Winzar</h4>
             
             <h4 data-toc-skip class="date">September 2025</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/vignettes/lfast_validation.Rmd" class="external-link"><code>vignettes/lfast_validation.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/vignettes/lfast_validation.Rmd" class="external-link"><code>vignettes/lfast_validation.Rmd</code></a></small>
       <div class="d-none name"><code>lfast_validation.Rmd</code></div>
     </div>
 
@@ -402,24 +402,23 @@ maximum vertical distance between the empirical cumulative distribution
 functions (ECDFs) of the two samples. The <em>KS</em> test has reduced
 sensitivity near the centre of the distribution and excessive
 sensitivity to extreme values <span class="citation">(<a href="#ref-Lilliefors1967">Lilliefors 1967</a>)</span>.</p></li>
-<li><p>The <strong>Baumgartner–Weiß–Schindler (BWS)</strong> test <span class="citation">(<a href="#ref-Baumgartner1998">Baumgartner, Weiß, and
-Schindler 1998</a>)</span><br>
+<li><p>The <strong>Baumgartner–Weiß–Schindler (BWS)</strong> test <span class="citation">(<a href="#ref-Baumgartner1998">Baumgartner et al.
+1998</a>)</span><br>
 improves upon the <em>KS</em> test by incorporating differences across
 the entire distribution, using a rank-based test statistic derived from
 integrated spacing differences. The <em>BWS</em> test is more powerful
 than either the <em>Kolmogorov-Smirnov</em> test or the
-<em>Wilcoxon</em> test <span class="citation">(<a href="#ref-BWStest-Manual">Pav 2023</a>)</span>, as shown in <span class="citation">Baumgartner, Weiß, and Schindler (<a href="#ref-Baumgartner1998">1998</a>)</span>. It is sensitive to both
+<em>Wilcoxon</em> test <span class="citation">(<a href="#ref-BWStest-Manual">Pav 2023</a>)</span>, as shown in <span class="citation">Baumgartner et al. (<a href="#ref-Baumgartner1998">1998</a>)</span>. It is sensitive to both
 <em>location and shape</em> differences and generally has greater power
 across a variety of alternatives <span class="citation">(<a href="#ref-Neuh%C3%A4user2001">Neuhäuser 2001</a>; <a href="#ref-Neuhauser2009">Neuhäuser and Ruxton
 2009</a>)</span>.</p></li>
 <li><p>The <strong>Neuhäuser modification</strong> of the <em>BWS</em>
 test introduces a <em>weighting function</em> that emphasizes
 differences in the <em>central region</em> of the distribution while
-reducing the influence of the tails <span class="citation">(<a href="#ref-Neuh%C3%A4user2001">Neuhäuser 2001</a>)</span>. This makes it more
-robust to small discrepancies in the extremes — a desirable property in
-large samples where minor tail mismatches can lead to false positives
-<span class="citation">(<a href="#ref-Neuh_user_2005">Neuhäuser
-2005</a>)</span>.</p></li>
+reducing the influence of the tails <span class="citation">(<a href="#ref-Neuh%C3%A4user2001">Neuhäuser 2001</a>)</span>. This makes it
+more robust to small discrepancies in the extremes — a desirable
+property in large samples where minor tail mismatches can lead to false
+positives <span class="citation">(<a href="#ref-Neuh_user_2005">Neuhäuser 2005</a>)</span>.</p></li>
 </ul>
 <p>Overall, The researcher might want to use the <em>BWS</em> test to
 see if <code><a href="../reference/lfast.html">LikertMakeR::lfast()</a></code> gives an <em>exact
@@ -886,7 +885,7 @@ Conservatism
 0.00 / 0.00
 </td>
 <td style="text-align:left;width: 10em; ">
-<strong>0.09</strong> / 0.00
+<strong>0.08</strong> / 0.00
 </td>
 <td style="text-align:left;">
 <strong>1.00</strong> / 0.00
@@ -967,7 +966,7 @@ Honesty
 Humor
 </td>
 <td style="text-align:left;width: 10em; ">
-0.02 / 0.01
+0.02 / 0.00
 </td>
 <td style="text-align:left;width: 10em; ">
 <strong>0.40</strong> / 0.00
@@ -3311,7 +3310,7 @@ q_1328
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Baumgartner1998" class="csl-entry">
 Baumgartner, W., P. Weiß, and H. Schindler. 1998. <span>“A Nonparametric
 Test for the General Two-Sample Problem.”</span> <em>Biometrics</em> 54
@@ -3319,9 +3318,9 @@ Test for the General Two-Sample Problem.”</span> <em>Biometrics</em> 54
 </div>
 <div id="ref-sapaproject" class="csl-entry">
 Condon, David M. 2023.
-<span>“<span>S</span><span>A</span><span>P</span><span>A</span>-<span>P</span>roject
+<em><span>S</span><span>A</span><span>P</span><span>A</span>-<span>P</span>roject
 | <span>Y</span>our <span>C</span>ustomized <span>P</span>ersonality
-<span>P</span>rofile <span>R</span>eport — Sapa-Project.org.”</span> <a href="https://www.sapa-project.org/" class="external-link uri">https://www.sapa-project.org/</a>.
+<span>P</span>rofile <span>R</span>eport — Sapa-Project.org</em>. <a href="https://www.sapa-project.org/" class="external-link uri">Https://www.sapa-project.org/</a>.
 </div>
 <div id="ref-Lilliefors1967" class="csl-entry">
 Lilliefors, Hubert W. 1967. <span>“On the Kolmogorov–Smirnov Test for
@@ -3334,8 +3333,9 @@ Based on a Modified Baumgartner-Weiss-Schindler Statistic.”</span>
 <em>Journal of Nonparametric Statistics</em> 13 (5): 729–39. <a href="https://doi.org/10.1080/10485250108832874" class="external-link">https://doi.org/10.1080/10485250108832874</a>.
 </div>
 <div id="ref-Neuh_user_2005" class="csl-entry">
-———. 2005. <span>“Exact Tests Based on the Baumgartner-Weiß-Schindler
-Statistic—a Survey.”</span> <em>Statistical Papers</em> 46 (1): 1–29. <a href="https://doi.org/10.1007/bf02762032" class="external-link">https://doi.org/10.1007/bf02762032</a>.
+Neuhäuser, Markus. 2005. <span>“Exact Tests Based on the
+Baumgartner-Weiß-Schindler Statistic—a Survey.”</span> <em>Statistical
+Papers</em> 46 (1): 1–29. <a href="https://doi.org/10.1007/bf02762032" class="external-link">https://doi.org/10.1007/bf02762032</a>.
 </div>
 <div id="ref-Neuhauser2009" class="csl-entry">
 Neuhäuser, Markus, and Graeme D. Ruxton. 2009. <span>“Distribution-Free
@@ -3349,13 +3349,11 @@ Distributions</em>. <a href="https://github.com/shabbychef/BWStest" class="exter
 </div>
 <div id="ref-psych" class="csl-entry">
 Revelle, William. 2024. <em>Psych: Procedures for Psychological,
-Psychometric, and Personality Research</em>. Evanston, Illinois:
-Northwestern University. <a href="https://CRAN.R-project.org/package=psych" class="external-link">https://CRAN.R-project.org/package=psych</a>.
+Psychometric, and Personality Research</em>. Northwestern University. <a href="https://CRAN.R-project.org/package=psych" class="external-link">https://CRAN.R-project.org/package=psych</a>.
 </div>
 <div id="ref-psychTools" class="csl-entry">
 William Revelle. 2024. <em>psychTools: Tools to Accompany the ’Psych’
-Package for Psychological Research</em>. Evanston, Illinois:
-Northwestern University. <a href="https://CRAN.R-project.org/package=psychTools" class="external-link">https://CRAN.R-project.org/package=psychTools</a>.
+Package for Psychological Research</em>. Northwestern University. <a href="https://CRAN.R-project.org/package=psychTools" class="external-link">https://CRAN.R-project.org/package=psychTools</a>.
 </div>
 </div>
 </div>

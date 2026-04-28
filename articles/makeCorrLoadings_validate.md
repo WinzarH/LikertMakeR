@@ -61,21 +61,22 @@ question scored in the range *-3* to *+3*.
 
 The questions and the item labels are presented as follows:
 
-| Questions                                                            | Labels      |
-|:---------------------------------------------------------------------|:------------|
-| Expectation that a high dose results in a longer trip                | long        |
-| Expectation that a high dose results in a more intense trip          | intensity   |
-| Expectation that a high dose makes you more intoxicated              | intoxicated |
-| Expectation that a high dose provides more energy                    | energy      |
-| Expectation that a high dose produces more euphoria                  | euphoria    |
-| Expectation that a high dose yields more insight                     | insight     |
-| Expectation that a high dose strengthens your connection with others | connection  |
-| Expectation that a high dose facilitates making contact with others  | contact     |
-| Expectation that a high dose improves sex                            | sex         |
+| Questions | Labels |
+|:---|:---|
+| Expectation that a high dose results in a longer trip | long |
+| Expectation that a high dose results in a more intense trip | intensity |
+| Expectation that a high dose makes you more intoxicated | intoxicated |
+| Expectation that a high dose provides more energy | energy |
+| Expectation that a high dose produces more euphoria | euphoria |
+| Expectation that a high dose yields more insight | insight |
+| Expectation that a high dose strengthens your connection with others | connection |
+| Expectation that a high dose facilitates making contact with others | contact |
+| Expectation that a high dose improves sex | sex |
 
 ##### Extract and clean the original data file
 
 ``` r
+
 ## variable names
 item_list <- c(
   "highDose_AttBeliefs_long",
@@ -107,21 +108,22 @@ The correlations among these nine items should be reproducible by the
 function.
 
 ``` r
+
 ## correlation matrix
 pp15_cor <- cor(dat)
 ```
 
-|             | long | intensity | intoxicated | energy | euphoria | insight | connection | contact |   sex |
-|:------------|-----:|----------:|------------:|-------:|---------:|--------:|-----------:|--------:|------:|
-| long        | 1.00 |      0.33 |        0.34 |   0.19 |     0.24 |    0.17 |       0.17 |    0.10 |  0.01 |
-| intensity   | 0.33 |      1.00 |        0.69 |   0.12 |     0.26 |   -0.01 |       0.14 |    0.12 |  0.00 |
-| intoxicated | 0.34 |      0.69 |        1.00 |   0.15 |     0.13 |   -0.03 |      -0.01 |   -0.02 | -0.11 |
-| energy      | 0.19 |      0.12 |        0.15 |   1.00 |     0.32 |    0.29 |       0.28 |    0.31 |  0.10 |
-| euphoria    | 0.24 |      0.26 |        0.13 |   0.32 |     1.00 |    0.50 |       0.61 |    0.56 |  0.29 |
-| insight     | 0.17 |     -0.01 |       -0.03 |   0.29 |     0.50 |    1.00 |       0.57 |    0.54 |  0.30 |
-| connection  | 0.17 |      0.14 |       -0.01 |   0.28 |     0.61 |    0.57 |       1.00 |    0.78 |  0.30 |
-| contact     | 0.10 |      0.12 |       -0.02 |   0.31 |     0.56 |    0.54 |       0.78 |    1.00 |  0.35 |
-| sex         | 0.01 |      0.00 |       -0.11 |   0.10 |     0.29 |    0.30 |       0.30 |    0.35 |  1.00 |
+|  | long | intensity | intoxicated | energy | euphoria | insight | connection | contact | sex |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| long | 1.00 | 0.33 | 0.34 | 0.19 | 0.24 | 0.17 | 0.17 | 0.10 | 0.01 |
+| intensity | 0.33 | 1.00 | 0.69 | 0.12 | 0.26 | -0.01 | 0.14 | 0.12 | 0.00 |
+| intoxicated | 0.34 | 0.69 | 1.00 | 0.15 | 0.13 | -0.03 | -0.01 | -0.02 | -0.11 |
+| energy | 0.19 | 0.12 | 0.15 | 1.00 | 0.32 | 0.29 | 0.28 | 0.31 | 0.10 |
+| euphoria | 0.24 | 0.26 | 0.13 | 0.32 | 1.00 | 0.50 | 0.61 | 0.56 | 0.29 |
+| insight | 0.17 | -0.01 | -0.03 | 0.29 | 0.50 | 1.00 | 0.57 | 0.54 | 0.30 |
+| connection | 0.17 | 0.14 | -0.01 | 0.28 | 0.61 | 0.57 | 1.00 | 0.78 | 0.30 |
+| contact | 0.10 | 0.12 | -0.02 | 0.31 | 0.56 | 0.54 | 0.78 | 1.00 | 0.35 |
+| sex | 0.01 | 0.00 | -0.11 | 0.10 | 0.29 | 0.30 | 0.30 | 0.35 | 1.00 |
 
 ##### Test cases
 
@@ -160,7 +162,7 @@ To compare the *True* correlation matrix with a *Synthetic* matrix, we
 employ the `cortest.jennrich()` function from the `psych` package
 ([Revelle 2024](#ref-psych)). This is a *Chi-square* test of whether a
 pair of matrices are equal ([Jennrich 1970](#ref-Jennrich1970)). We
-report the raw $\chi^{2}$ statistic and corresponding p-value for each
+report the raw $`\chi^2`$ statistic and corresponding p-value for each
 test.
 
 #### Exploratory Factor Analysis
@@ -170,6 +172,7 @@ sample. And we’re confident that the factors will be correlated, so we
 use promax rotation.
 
 ``` r
+
 ## factor analysis from `psych` package
 rfaDose <- psych::fa(
   r = dat,
@@ -213,6 +216,7 @@ colnames(factorCorrs) <- rownames(factorCorrs) <- factorNames
 #### Test Case \#1: Full information
 
 ``` r
+
 ## round input values to 5 decimal places
 # factor loadings
 fl1 <- factorLoadings[, 1:2] |>
@@ -241,6 +245,7 @@ factor loadings and factor correlations to 5 decimal places but without
 uniquenesses
 
 ``` r
+
 ## round input values to 2 decimal places
 # factor loadings
 fl2 <- factorLoadings[, 1:2] |>
@@ -267,6 +272,7 @@ chiSq_2 <- cortest.jennrich(
 factor loadings and factor correlations to two decimal places.
 
 ``` r
+
 ## round input values to 2 decimal places
 # factor loadings
 fl3 <- factorLoadings[, 1:2] |>
@@ -298,6 +304,7 @@ Factor loadings and factor correlations to two decimal places, and no
 uniquenesses
 
 ``` r
+
 ## round input values to 2 decimal places
 # factor loadings
 fl4 <- factorLoadings[, 1:2] |>
@@ -341,6 +348,7 @@ Factor loadings less than ‘0.1’, ‘0.2’, ‘0.3’ are removed for clarit
 presented to two decimal places.
 
 ``` r
+
 ## round input values to 2 decimal places
 # factor loadings
 fl5a <- factorLoadings[, 1:2] |>
@@ -411,6 +419,7 @@ With no declared uniquenesses, they are inferred from estimated
 communalities.
 
 ``` r
+
 itemCors_6a <- makeCorrLoadings(
   loadings = fl5a,
   factorCor = fc5,
@@ -452,6 +461,7 @@ No uniquenesses. That is, Uniquenesses are estimated from
 factor correlations. That is, we assume orthogonal factors.
 
 ``` r
+
 itemCors_7a <- makeCorrLoadings(
   loadings = fl5a,
   factorCor = NULL,
@@ -572,6 +582,7 @@ The correlations among these 25 items should be reproducable by the
 function.
 
 ``` r
+
 ## download data
 data(bfi)
 ## filter for highly-educated women
@@ -607,6 +618,7 @@ Five correlated factors are appropriate for this sample, so we use
 promax rotation.
 
 ``` r
+
 ## factor analysis from `psych::fa()` function
 
 fa_bfi <- psych::fa(
@@ -669,6 +681,7 @@ colnames(bfiCorrs) <- rownames(bfiCorrs) <- bfiFactorNames
 #### Test Case \#1: Full information
 
 ``` r
+
 ## round input values to 5 decimal places
 # factor loadings
 fl1 <- bfiLoadings[, 1:5] |>
@@ -755,9 +768,9 @@ Peters, Gjalt-Jorn, and Peter Verboon. 2023. *Rosetta: Parallel Use of
 Statistical Packages in Teaching*. <https://rosettastats.com>.
 
 Revelle, William. 2024. *Psych: Procedures for Psychological,
-Psychometric, and Personality Research*. Evanston, Illinois:
-Northwestern University. <https://CRAN.R-project.org/package=psych>.
+Psychometric, and Personality Research*. Northwestern University.
+<https://CRAN.R-project.org/package=psych>.
 
 William Revelle. 2024. *psychTools: Tools to Accompany the ’Psych’
-Package for Psychological Research*. Evanston, Illinois: Northwestern
-University. <https://CRAN.R-project.org/package=psychTools>.
+Package for Psychological Research*. Northwestern University.
+<https://CRAN.R-project.org/package=psychTools>.

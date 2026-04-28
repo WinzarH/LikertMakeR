@@ -66,6 +66,7 @@ uniquenesses, and primary factor
 ## Examples
 
 ``` r
+
 # --------------------------------------------------------
 # Example 1: Basic use without diagnostics
 # --------------------------------------------------------

@@ -27,6 +27,7 @@ From ***CRAN***:
 
 ``` r
 
+
   install.packages("LikertMakeR")
 ```
 
@@ -34,6 +35,7 @@ The latest development version is available from the author’s
 ***GitHub*** repository.
 
 ``` r
+
 
  library(devtools)
  
@@ -45,6 +47,7 @@ The latest development version is available from the author’s
 1.  Make a target correlation matrix
 
 ``` r
+
 library(LikertMakeR)
 
 R <- matrix(
@@ -61,6 +64,7 @@ R <- matrix(
 2.  Generate synthetic rating-scale data with predefined moments
 
 ``` r
+
 dat <- makeScales(
   n = 64,
   means = c(2.75, 3.00, 3.25, 3.50),

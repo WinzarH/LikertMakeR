@@ -7,9 +7,10 @@
 ### changes
 
 - [`makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md)
-  has been further re-rewritten with some sub-functions in C++ The
-  function runs about twice as fast, but still noticeably slow with
-  large k and large n.
+  has been further re-rewritten with some sub-functions in C++.
+
+The function runs about twice as fast as previous version, but still
+noticeably slow with large k and large n.
 
 ## LikertMakeR 2.1.0 (April 2026)
 
@@ -154,11 +155,11 @@ CRAN release: 2026-02-11
   [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
   function: Calculates various reliability statistics:
 
-  - Cronbach’s alpha ($\alpha$)
+  - Cronbach’s alpha ($`\alpha`$)
 
-  - McDonald’s omega-total ($\omega_{t}$)
+  - McDonald’s omega-total ($`\omega_t`$)
 
-  - Guttman’s lambda 6 ($\lambda 6$)
+  - Guttman’s lambda 6 ($`\lambda 6`$)
 
   - Zumbo’s ordinal alpha (Cronbach’s alpha from polychoric
     correlations)

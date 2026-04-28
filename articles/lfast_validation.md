@@ -88,7 +88,8 @@ most of which are sub-scales of the Big Five. These give scales with
 | Perfectionism      | SelfControl      | SensationSeeking        |
 | Sociability        | Trust            | WellBeing               |
 
-List of SPI Facets
+List of SPI Facets {.table .table
+style="width: auto !important; margin-left: auto; margin-right: auto;"}
 
 Finally, these dimensions and facets are made by averaging subsets of
 135 items (individual questions). Each item then is a scale with
@@ -100,7 +101,8 @@ Finally, these dimensions and facets are made by averaging subsets of
 | Items per scale           |         14 |      5 |     1 |
 | Discrete values per scale |         84 |     30 |     6 |
 
-Scale properties under consideration
+Scale properties under consideration {.table .table
+style="width: auto !important; margin-left: auto; margin-right: auto;"}
 
 ### Measures of Difference
 
@@ -131,18 +133,17 @@ Several tests are available for comparing continuous distributions:
   the centre of the distribution and excessive sensitivity to extreme
   values ([Lilliefors 1967](#ref-Lilliefors1967)).
 
-- The **Baumgartner–Weiß–Schindler (BWS)** test ([Baumgartner, Weiß, and
-  Schindler 1998](#ref-Baumgartner1998))  
+- The **Baumgartner–Weiß–Schindler (BWS)** test ([Baumgartner et al.
+  1998](#ref-Baumgartner1998))  
   improves upon the *KS* test by incorporating differences across the
   entire distribution, using a rank-based test statistic derived from
   integrated spacing differences. The *BWS* test is more powerful than
   either the *Kolmogorov-Smirnov* test or the *Wilcoxon* test ([Pav
-  2023](#ref-BWStest-Manual)), as shown in Baumgartner, Weiß, and
-  Schindler ([1998](#ref-Baumgartner1998)). It is sensitive to both
-  *location and shape* differences and generally has greater power
-  across a variety of alternatives ([Neuhäuser
-  2001](#ref-Neuh%C3%A4user2001); [Neuhäuser and Ruxton
-  2009](#ref-Neuhauser2009)).
+  2023](#ref-BWStest-Manual)), as shown in Baumgartner et al.
+  ([1998](#ref-Baumgartner1998)). It is sensitive to both *location and
+  shape* differences and generally has greater power across a variety of
+  alternatives ([Neuhäuser 2001](#ref-Neuh%C3%A4user2001); [Neuhäuser
+  and Ruxton 2009](#ref-Neuhauser2009)).
 
 - The **Neuhäuser modification** of the *BWS* test introduces a
   *weighting function* that emphasizes differences in the *central
@@ -158,15 +159,16 @@ gives an *exact replication* of a scale, and use the *Neuhäuser* test
 option to see if the function produces a “pretty good” dataframe. So, we
 present summary results for both tests in this study.
 
-| Feature                | method = “BWS”                                    | method = “Neuhäuser”                         |
-|:-----------------------|:--------------------------------------------------|:---------------------------------------------|
-| Test Statistic         | Based on comparing quantiles                      | Based on comparing ranks.                    |
-| Sensitivity            | More sensitive to shape differences.              | Less sensitive to shape differences.         |
-| Robustness to Outliers | Less robust to outliers.                          | More robust to outliers.                     |
-| Focus                  | Sensitive to general differences across the ranks | Less sensitive to tail differences.          |
-| Type of Differences    | More likely to pick up on subtle differences      | Less likely to pick up on subtle differences |
+| Feature | method = “BWS” | method = “Neuhäuser” |
+|:---|:---|:---|
+| Test Statistic | Based on comparing quantiles | Based on comparing ranks. |
+| Sensitivity | More sensitive to shape differences. | Less sensitive to shape differences. |
+| Robustness to Outliers | Less robust to outliers. | More robust to outliers. |
+| Focus | Sensitive to general differences across the ranks | Less sensitive to tail differences. |
+| Type of Differences | More likely to pick up on subtle differences | Less likely to pick up on subtle differences |
 
-Comparison of BWS and Neuhäuser Methods
+Comparison of BWS and Neuhäuser Methods {.table .table
+style="width: auto !important; margin-left: auto; margin-right: auto;"}
 
 ## Research Design
 
@@ -195,6 +197,7 @@ decided to use Age, Gender, and Education as filters.
 Young highly-educated men
 
 ``` r
+
 young_highly_educated_men <- spi |>
   filter(age < 24 & sex == 1 & education == 7)
 
@@ -209,6 +212,7 @@ This filtering produced a sample of 19 observations.
 Young educated women
 
 ``` r
+
 young_educated_women <- spi |>
   filter(age < 24 & sex == 2 & education >= 5)
 
@@ -223,6 +227,7 @@ This filtering produced a sample of 99 observations.
 Young school-leavers
 
 ``` r
+
 under_18_highschool <- spi |>
   filter(age < 18 & education == 1)
 
@@ -322,7 +327,7 @@ Selected SPI items for three samples
 
 The following tables list the dimension under consideration and the
 proportion of cases in each of the three samples that ere
-*‘statistically significant’* ($\rho$ \< 0.05).
+*‘statistically significant’* ($`\rho`$ \< 0.05).
 
 Tables show the *BWS* test / *Neuhäuser* test.
 
@@ -333,6 +338,8 @@ Fourteen six-point items (84 levels in scale)
 [TABLE]
 
 Proportion of statistically-significant simulations (BWS/Neuhäuser)
+{.table .table
+style="width: auto !important; margin-left: auto; margin-right: auto;"}
 
 With smooth *kernel density estimates*, as we saw above, all cases were
 non-significant, suggesting that such data are well-reproduced by the
@@ -346,6 +353,8 @@ Five six-point items (30 potential values in scale)
 [TABLE]
 
 Proportion of statistically-significant simulations (BWS/Neuhäuser)
+{.table .table
+style="width: auto !important; margin-left: auto; margin-right: auto;"}
 
 When the *BWS* test is applied to the larger sample, all simulations are
 significantly different from the original data. This is probably due to
@@ -488,7 +497,7 @@ to outliers, was not statistically significant.
 
 The appendix table shows summary results for the three data sets for all
 135 items, indicating the proportion of cases where distribution
-comparison tests were *‘statistically significant’* ($\rho$ \< 0.05).
+comparison tests were *‘statistically significant’* ($`\rho`$ \< 0.05).
 
 In about 37 of the 135 items (27%) did the BWS test show proportion of
 significant simulations less than 80%.
@@ -603,6 +612,8 @@ three samples of different sizes.
 [TABLE]
 
 Proportion of statistically-significant simulations (BWS/Neuhauser)
+{.table .table
+style="width: auto !important; margin-left: auto; margin-right: auto;"}
 
 ## References
 
@@ -610,8 +621,9 @@ Baumgartner, W., P. Weiß, and H. Schindler. 1998. “A Nonparametric Test
 for the General Two-Sample Problem.” *Biometrics* 54 (3): 1129–35.
 <http://www.jstor.org/stable/2533862>.
 
-Condon, David M. 2023. “SAPA-Project \| Your Customized Personality
-Profile Report — Sapa-Project.org.” <https://www.sapa-project.org/>.
+Condon, David M. 2023. *SAPA-Project \| Your Customized Personality
+Profile Report — Sapa-Project.org*.
+[Https://www.sapa-project.org/](https://www.sapa-project.org/).
 
 Lilliefors, Hubert W. 1967. “On the Kolmogorov–Smirnov Test for
 Normality with Mean and Variance Unknown.” *Journal of the American
@@ -623,9 +635,9 @@ a Modified Baumgartner-Weiss-Schindler Statistic.” *Journal of
 Nonparametric Statistics* 13 (5): 729–39.
 <https://doi.org/10.1080/10485250108832874>.
 
-———. 2005. “Exact Tests Based on the Baumgartner-Weiß-Schindler
-Statistic—a Survey.” *Statistical Papers* 46 (1): 1–29.
-<https://doi.org/10.1007/bf02762032>.
+Neuhäuser, Markus. 2005. “Exact Tests Based on the
+Baumgartner-Weiß-Schindler Statistic—a Survey.” *Statistical Papers* 46
+(1): 1–29. <https://doi.org/10.1007/bf02762032>.
 
 Neuhäuser, Markus, and Graeme D. Ruxton. 2009. “Distribution-Free
 Two-Sample Comparisons in the Presence of Heteroscedasticity.”
@@ -636,9 +648,9 @@ Pav, Steven E. 2023. *BWStest: Baumgartner Weiß Schindler Test of Equal
 Distributions*. <https://github.com/shabbychef/BWStest>.
 
 Revelle, William. 2024. *Psych: Procedures for Psychological,
-Psychometric, and Personality Research*. Evanston, Illinois:
-Northwestern University. <https://CRAN.R-project.org/package=psych>.
+Psychometric, and Personality Research*. Northwestern University.
+<https://CRAN.R-project.org/package=psych>.
 
 William Revelle. 2024. *psychTools: Tools to Accompany the ’Psych’
-Package for Psychological Research*. Evanston, Illinois: Northwestern
-University. <https://CRAN.R-project.org/package=psychTools>.
+Package for Psychological Research*. Northwestern University.
+<https://CRAN.R-project.org/package=psychTools>.

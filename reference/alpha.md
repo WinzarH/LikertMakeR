@@ -32,6 +32,7 @@ a single value
 ## Examples
 
 ``` r
+
 ## Sample data frame
 df <- data.frame(
   V1  =  c(4, 2, 4, 3, 2, 2, 2, 1),

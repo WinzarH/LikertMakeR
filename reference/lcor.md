@@ -40,6 +40,7 @@ same.
 ## Examples
 
 ``` r
+
 ## parameters
 n <- 32
 lowerbound <- 1
@@ -75,8 +76,8 @@ new3 <- lcor(mydat3, tgt3)
 
 ## test output
 cor(new3) |> round(3)
-#>      X1    X2    X3
-#> X1 1.00 0.500 0.750
-#> X2 0.50 1.000 0.251
-#> X3 0.75 0.251 1.000
+#>       X1    X2   X3
+#> X1 1.000 0.499 0.75
+#> X2 0.499 1.000 0.25
+#> X3 0.750 0.250 1.00
 ```

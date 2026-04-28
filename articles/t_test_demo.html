@@ -74,18 +74,22 @@
 Winzar</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/main/vignettes/t_test_demo.Rmd" class="external-link"><code>vignettes/t_test_demo.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/WinzarH/LikertMakeR/blob/HEAD/vignettes/t_test_demo.Rmd" class="external-link"><code>vignettes/t_test_demo.Rmd</code></a></small>
       <div class="d-none name"><code>t_test_demo.Rmd</code></div>
     </div>
 
     
     
 <div class="section level2">
-<h2 id="tldr">TL;DR<a class="anchor" aria-label="anchor" href="#tldr"></a>
+<h2 id="tldr">tl;dr<a class="anchor" aria-label="anchor" href="#tldr"></a>
 </h2>
-<p><strong>What this tutorial does:</strong></p>
+<div class="section level3">
+<h3 id="what-this-tutorial-does">What this tutorial does:<a class="anchor" aria-label="anchor" href="#what-this-tutorial-does"></a>
+</h3>
 <ul>
-<li><p>Takes published summary statistics (means, SDs, n, α) from <a href="#references">You, et al. (2025)</a>.</p></li>
+<li><p>Takes published summary statistics (means, SDs, n,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>)
+from <a href="#references">You, et al. (2025)</a>.</p></li>
 <li><p>Uses <code><a href="../reference/lfast.html">LikertMakeR::lfast()</a></code> to generate synthetic
 Likert-scale data that matches those properties.</p></li>
 <li><p>Combines groups into a tidy data frame.</p></li>
@@ -101,6 +105,7 @@ ggstatsplot.</p></li>
 from reported summary statistics and use them to teach or demonstrate
 inferential statistics.</strong></p>
 </div>
+</div>
 <div class="section level2">
 <h2 id="introduction-comparing-two-or-more-groups">Introduction: comparing two or more groups<a class="anchor" aria-label="anchor" href="#introduction-comparing-two-or-more-groups"></a>
 </h2>
@@ -109,12 +114,12 @@ construct. Typically, this involves testing whether two (or more) groups
 differ on the mean of a Likert-scale measure.</p>
 <p>In this tutorial, we will:</p>
 <ol style="list-style-type: decimal">
-<li><p>Recreate published summary statistics using LikertMakeR.</p></li>
-<li><p>Generate synthetic Likert-scale data that match those
-statistics.</p></li>
-<li><p>Conduct an independent-samples t-test in base R.</p></li>
-<li><p>Interpret the result using multiple effect size
-measures.</p></li>
+<li>Recreate published summary statistics using
+<code>LikertMakeR</code>.</li>
+<li>Generate synthetic Likert-scale data that match those
+statistics.</li>
+<li>Conduct an independent-samples t-test in base R.</li>
+<li>Interpret the result using multiple effect-size measures.</li>
 </ol>
 <p>The goal is simple: *to show how reported means, standard deviations,
 and sample sizes are sufficient to reconstruct realistic data for
@@ -127,7 +132,9 @@ demonstration and teaching purposes.**</p>
 <p>To make this concrete, we will reproduce results from <a href="#references">You, et al. (2025)</a>, who studied whether a
 creative-thinking prompt increases cognitive flexibility.</p>
 <p>They measured cognitive flexibility using a three-item, 7-point
-Likert scale (α = 0.85) and compared:</p>
+Likert scale
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+= 0.85) and compared:</p>
 <ul>
 <li>A creative prompt group</li>
 <li>A control group</li>

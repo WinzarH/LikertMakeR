@@ -189,6 +189,7 @@ for generating correlation matrices from Cronbach's Alpha.
 ## Examples
 
 ``` r
+
 # Example 1: With provided IV correlation matrix
 set.seed(123)
 iv_corr <- matrix(c(1.0, 0.3, 0.3, 1.0), nrow = 2)
@@ -230,23 +231,23 @@ print(result1)
 #> Key Statistics:
 #> ---------------
 #> Target R-squared:   0.3500
-#> Achieved R-squared: 0.3223
-#> Difference:         -0.0277
+#> Achieved R-squared: 0.3217
+#> Difference:         -0.0283
 #> 
 #> Regression Coefficients (Standardised):
 #>   Variable Target Achieved   Diff
-#>   Attitude    0.4   0.3997 -3e-04
-#>  Intention    0.3   0.3006  6e-04
+#>   Attitude    0.4   0.4000  0e+00
+#>  Intention    0.3   0.2995 -5e-04
 #> 
 #> For full diagnostics, see $diagnostics
 #> For generated data, see $data
 head(result1$data)
 #>   Attitude Intention Behaviour
-#> 1     2.00      1.75      1.50
-#> 2     3.25      3.00      2.75
-#> 3     2.75      2.75      3.25
-#> 4     4.00      4.75      4.50
-#> 5     2.00      3.25      4.00
+#> 1     2.25      1.75      1.50
+#> 2     1.25      2.00      2.75
+#> 3     2.50      2.75      3.25
+#> 4     4.50      3.75      4.50
+#> 5     4.00      3.50      4.50
 #> 6     2.75      3.50      3.75
 
 

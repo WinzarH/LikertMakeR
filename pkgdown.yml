@@ -1,4 +1,4 @@
-pandoc: 3.6.3
+pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
@@ -13,7 +13,7 @@ articles:
   makeItemsScale_explainer: makeItemsScale_explainer.html
   reliability_measures: reliability_measures.html
   t_test_demo: t_test_demo.html
-last_built: 2026-04-21T00:49Z
+last_built: 2026-04-28T01:25Z
 urls:
   reference: https://winzarh.github.io/LikertMakeR/reference
   article: https://winzarh.github.io/LikertMakeR/articles

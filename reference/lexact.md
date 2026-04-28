@@ -52,6 +52,7 @@ a vector of simulated data approximating user-specified conditions.
 ## Examples
 
 ``` r
+
 x <- lexact(
   n = 256,
   mean = 4.0,

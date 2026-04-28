@@ -84,6 +84,7 @@ than optimizing any single objective at the expense of others.
 ## Examples
 
 ``` r
+
 summatedScale <- c(16, 11, 14, 7, 10, 13, 16, 13, 12, 14, 8, 11, 8, 18,  8, 13)
 
 newItems <- makeItemsScale(

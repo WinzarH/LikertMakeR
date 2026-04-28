@@ -116,6 +116,7 @@ values.
 ## Examples
 
 ``` r
+
 n <- 20
 pair_m <- c(2.5, 3.0)
 pair_s <- c(1.0, 1.5)
@@ -137,8 +138,8 @@ pairedDat <- makePaired(
 
 str(pairedDat)
 #> 'data.frame':    20 obs. of  2 variables:
-#>  $ X1: num  3 2.17 1.67 2.67 3.17 ...
-#>  $ X2: num  4.83 1.67 1.83 4.67 5 ...
+#>  $ X1: num  1.33 1.83 2.17 3 3 ...
+#>  $ X2: num  1.67 2.5 5 4.67 4.17 ...
 cor(pairedDat) |> round(2)
 #>      X1   X2
 #> X1 1.00 0.82

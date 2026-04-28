@@ -120,6 +120,7 @@ consistent with typical psychometric scale construction.
 ## Examples
 
 ``` r
+
 # Example 1
 # define parameters
 items <- 4

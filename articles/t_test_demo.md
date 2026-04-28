@@ -1,11 +1,11 @@
 # demonstrate t-tests with LikertMakeR
 
-## TL;DR
+## tl;dr
 
-**What this tutorial does:**
+### What this tutorial does:
 
-- Takes published summary statistics (means, SDs, n, α) from [You, et
-  al. (2025)](#references).
+- Takes published summary statistics (means, SDs, n, $`\alpha`$) from
+  [You, et al. (2025)](#references).
 
 - Uses
   [`LikertMakeR::lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md)
@@ -35,13 +35,10 @@ the mean of a Likert-scale measure.
 
 In this tutorial, we will:
 
-1.  Recreate published summary statistics using LikertMakeR.
-
+1.  Recreate published summary statistics using `LikertMakeR`.
 2.  Generate synthetic Likert-scale data that match those statistics.
-
 3.  Conduct an independent-samples t-test in base R.
-
-4.  Interpret the result using multiple effect size measures.
+4.  Interpret the result using multiple effect-size measures.
 
 The goal is simple: \*to show how reported means, standard deviations,
 and sample sizes are sufficient to reconstruct realistic data for
@@ -54,7 +51,7 @@ al. (2025)](#references), who studied whether a creative-thinking prompt
 increases cognitive flexibility.
 
 They measured cognitive flexibility using a three-item, 7-point Likert
-scale (α = 0.85) and compared:
+scale ($`\alpha`$ = 0.85) and compared:
 
 - A creative prompt group
 - A control group
@@ -79,6 +76,7 @@ parameters reported in *You et al.*. So we want two variables:
   `1/3`)
 
 ``` r
+
 {
   library(LikertMakeR)
 
@@ -119,6 +117,7 @@ The data structure should show two variables:
 - cognitive_flexibility, (numeric)
 
 ``` r
+
 # data structure
 str(df)
 ```
@@ -149,6 +148,7 @@ Means and standard deviations are the same as prescribed, to two decimal
 places.
 
 ``` r
+
 # calculate sample moments
 moments <- aggregate(. ~ treatment, df, function(x) c(mean = mean(x), sd = sd(x)))
 
@@ -170,6 +170,7 @@ For now, let’s visualise the data with minimal judgement. How do the two
 distributions compare? We’ll use dot-plots.
 
 ``` r
+
 library(ggplot2)
 
 ggplot(
@@ -205,6 +206,7 @@ We use the [`t.test()`](https://rdrr.io/r/stats/t.test.html) function
 from Base R.
 
 ``` r
+
 t_synthetic <- t.test(cognitive_flexibility ~ treatment, data = df)
 
 t_synthetic
@@ -264,6 +266,7 @@ To answer that, we examine three effect-size measures:
 - Wilcoxon-Mann-Whitney odds ratio
 
 ``` r
+
 library(effectsize)
 
 # Cohen's d
@@ -277,6 +280,7 @@ cohens_d(cognitive_flexibility ~ treatment, data = df)
     ## - Estimated using pooled SD.
 
 ``` r
+
 # common-language effect size (CLES)
 # Probability of superiority
 p_superiority(cognitive_flexibility ~ treatment, data = df)
@@ -287,6 +291,7 @@ p_superiority(cognitive_flexibility ~ treatment, data = df)
     ## 0.34            | [0.28, 0.40]
 
 ``` r
+
 # Wilcoxon-Mann-Whitney odds
 wmw_odds(cognitive_flexibility ~ treatment, data = df)
 ```
@@ -379,6 +384,7 @@ summary statistics plus a combination of boxplots, dotplots, and violin
 plots.
 
 ``` r
+
 library(ggplot2)
 
 ggplot(

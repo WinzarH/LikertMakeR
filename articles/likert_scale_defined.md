@@ -129,6 +129,7 @@ We will create a Likert scale that “reproduces” and a scale from a
 published report, so we can visualise the data.
 
 ``` r
+
 library(LikertMakeR)
 
 set.seed(42)
@@ -163,6 +164,7 @@ mean(df$x)
     ## [1] 3.500977
 
 ``` r
+
 sd(df$x)
 ```
 

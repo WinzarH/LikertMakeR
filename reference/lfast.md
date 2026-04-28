@@ -61,6 +61,7 @@ a vector approximating user-specified conditions.
 ## Examples
 
 ``` r
+
 ## six-item 1-7 rating scale
 x <- lfast(
   n = 256,

@@ -29,6 +29,7 @@ report on positive-definite status of cormatrix
 ## Examples
 
 ``` r
+
 ## define parameters
 
 correlationMatrix <- matrix(
