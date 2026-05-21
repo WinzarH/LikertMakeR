@@ -1,4 +1,4 @@
-# LikertMakeR (development version)
+# LikertMakeR 2.3.0
 
 # LikertMakeR 2.1.1 (April 2026)
 
