@@ -69,7 +69,7 @@ single objective at the expense of others.
 }
 \examples{
 
-summatedScale <- c(16, 11, 14, 7, 10, 13, 16, 13, 12, 14, 8, 11, 8, 18,  8, 13)
+summatedScale <- c(16, 11, 14, 7, 10, 13, 16, 13, 12, 14, 8, 11, 8, 18, 8, 13)
 
 newItems <- makeItemsScale(
   scale = summatedScale,
@@ -78,6 +78,5 @@ newItems <- makeItemsScale(
   items = 4,
   alpha = 0.8
 )
-
 
 }

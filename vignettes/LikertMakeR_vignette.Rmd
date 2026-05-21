@@ -977,7 +977,6 @@ following parameters:
 #### create items with _makeItemsScale()_
 
 ```{r makeItemsScale_example_1, fig.height=4, fig.width=5, fig.align='center', crop = TRUE}
-
 summatedScale <- c(11, 8, 14, 12, 9, 12, 10, 9, 8, 18, 16, 16, 14, 8, 15, 12)
 
 ## apply makeItemsScale() function

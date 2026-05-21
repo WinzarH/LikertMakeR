@@ -89,9 +89,9 @@ target_alpha <- 0.8
 r_mat <- makeCorrAlpha(items = k, alpha = target_alpha)
 
 df <- makeScales(
-  n = n, means = means, sds = sds, 
+  n = n, means = means, sds = sds,
   lowerbound = lower, upperbound = upper, cormatrix = r_mat
-  )
+)
 
 summated_scale <- rowSums(df)
 
@@ -254,9 +254,9 @@ df_long <- df |>
   pivot_longer(-x, names_to = "component", values_to = "value")
 
 df_long$component <- recode(df_long$component,
-                            alpha_err = "Alpha error",
-                            balance_penalty = "Balanced means penalty",
-                            score = "Total score"
+  alpha_err = "Alpha error",
+  balance_penalty = "Balanced means penalty",
+  score = "Total score"
 )
 
 df_labels <- df_long %>%
@@ -274,13 +274,13 @@ ggplot(
   labs(
     title = "Score resolves multiple objectves",
     x = "Candidate solution",
-       y = "penalty") +
+    y = "penalty"
+  ) +
   scale_linetype_manual(values = c(
     "Alpha error" = "dashed",
     "Balanced means penalty" = "dotted",
     "Total score" = "solid"
   )) +
-  
   scale_linewidth_manual(values = c(
     "Alpha error" = 0.8,
     "Balanced means penalty" = 0.8,
@@ -307,9 +307,6 @@ ggplot(
   theme(
     legend.position = "none"
   )
-
-
-
 ```
 
 
@@ -418,9 +415,11 @@ load(file = "data/trace.rdata")
 
 ggplot(trace, aes(iter, T)) +
   geom_line(linewidth = 1, colour = "blue") +
-  labs(title = "Temperature over iterations",
-       x = "Iteration",
-       y = "Temperature") +
+  labs(
+    title = "Temperature over iterations",
+    x = "Iteration",
+    y = "Temperature"
+  ) +
   theme_minimal()
 ```
 
@@ -460,21 +459,25 @@ ggplot(landscape, aes(x, y)) +
 
   # Local minimum
   annotate("point",
-           x = local_min_x, y = local_min_y,
-           colour = "#F7671A", size = 4) +
+    x = local_min_x, y = local_min_y,
+    colour = "#F7671A", size = 4
+  ) +
   annotate("text",
-           x = local_min_x, y = local_min_y,
-           label = "Local minimum",
-           vjust = 1.5, size = 4) +
+    x = local_min_x, y = local_min_y,
+    label = "Local minimum",
+    vjust = 1.5, size = 4
+  ) +
 
   # Global minimum
   annotate("point",
-           x = global_min_x, y = global_min_y,
-           colour = "#F7671A", size = 4) +
+    x = global_min_x, y = global_min_y,
+    colour = "#F7671A", size = 4
+  ) +
   annotate("text",
-           x = global_min_x, y = global_min_y,
-           label = "Optimal solution",
-           vjust = 1.5, size = 4) +
+    x = global_min_x, y = global_min_y,
+    label = "Optimal solution",
+    vjust = 1.5, size = 4
+  ) +
 
 
   # Minimal theme
@@ -484,7 +487,6 @@ ggplot(landscape, aes(x, y)) +
     axis.text = element_blank(),
     panel.grid = element_blank()
   )
-
 ```
 
 
@@ -609,10 +611,14 @@ target_alpha <- 0.85
 ggplot(trace, aes(iter)) +
   geom_line(aes(y = alpha), colour = "steelblue", alpha = 0.5) +
   geom_line(aes(y = best_alpha), colour = "royalblue", linewidth = 1) +
-  geom_hline(yintercept = target_alpha, 
-             colour = "darkgrey", linetype = "dashed", linewidth = 0.5) +
-  annotate("text", x=30, y=0.86, 
-           label="target_alpha=0.85", colour = "#666666") +
+  geom_hline(
+    yintercept = target_alpha,
+    colour = "darkgrey", linetype = "dashed", linewidth = 0.5
+  ) +
+  annotate("text",
+    x = 30, y = 0.86,
+    label = "target_alpha=0.85", colour = "#666666"
+  ) +
   labs(
     title = "Alpha convergence",
     x = "Iteration",

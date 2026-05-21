@@ -53,7 +53,7 @@
 #'
 #' @examples
 #'
-#' summatedScale <- c(16, 11, 14, 7, 10, 13, 16, 13, 12, 14, 8, 11, 8, 18,  8, 13)
+#' summatedScale <- c(16, 11, 14, 7, 10, 13, 16, 13, 12, 14, 8, 11, 8, 18, 8, 13)
 #'
 #' newItems <- makeItemsScale(
 #'   scale = summatedScale,
@@ -62,7 +62,6 @@
 #'   items = 4,
 #'   alpha = 0.8
 #' )
-#'
 #'
 #' @export
 #'
@@ -114,7 +113,6 @@ makeItemsScale <- function(
   ## score_items attempts to find penalty values so that
   ## column means are similar for the new dataset
   score_items <- function(dat, target_alpha, w_balance) {
-
     k <- ncol(dat)
 
     item_vars <- matrixStats::colVars(dat)

@@ -3,7 +3,7 @@ Package: LikertMakeR
 Title: Synthesise and Correlate Likert Scale and Rating-Scale Data Based
     on Summary Statistics
 Version: 2.1.1
-Date: 2026-04-07
+Date: 2026-04-28
 Authors@R: 
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0001-7475-2641"))
@@ -69,5 +69,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
-
+Config/roxygen2/version: 8.0.0

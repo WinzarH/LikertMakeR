@@ -404,10 +404,10 @@ set.seed(42)
 
 aff_items <- makeItemsScale(
   scale = correlated_data$AFF,
-  lowerbound = 1, upperbound = 5, 
+  lowerbound = 1, upperbound = 5,
   items = 2,
-  alpha = 0.87, 
-  summated = FALSE, 
+  alpha = 0.87,
+  summated = FALSE,
   progress = FALSE
 )
 names(aff_items) <- c("aff1", "aff2")
@@ -641,7 +641,7 @@ set.seed(42)
 sem_result <- lavaan::sem(
   model,
   data = all_items,
-  estimator = "ML" ,
+  estimator = "ML",
   se = "bootstrap",
   bootstrap = 2000
 )
