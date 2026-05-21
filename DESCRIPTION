@@ -2,7 +2,7 @@ Type: Package
 Package: LikertMakeR
 Title: Synthesise and Correlate Likert Scale and Rating-Scale Data Based
     on Summary Statistics
-Version: 2.1.1
+Version: 2.2.0
 Date: 2026-04-28
 Authors@R: 
     person("Hume", "Winzar", , "winzar@gmail.com", role = c("cre", "aut"),
@@ -18,7 +18,7 @@ Description: Generate and correlate synthetic Likert and rating-scale
     articles, accessible via the package website,
     <https://winzarh.github.io/LikertMakeR/>. 
 License: MIT + file LICENSE
-URL: https://github.com/WinzarH/LikertMakeR/, https://winzarh.github.io/LikertMakeR/
+URL: https://github.com/WinzarH/LikertMakeR/, https://winzarh.github.io/LikertMakeR/, https://github.com/WinzarH/LikertMakeR
 BugReports: https://github.com/WinzarH/LikertMakeR/issues
 Depends: 
     R (>= 4.2.0)
