@@ -1,5 +1,7 @@
 url: https://winzarh.github.io/LikertMakeR
 
+google_analytics: G-K98X8LKBWN
+
 template:
   bootstrap: 5
   params:
@@ -7,7 +9,16 @@ template:
   favicon: pkgdown/favicon/favicon.ico
   logo: pkgdown/favicon/web-app-manifest-512x512.png
   includes:
-    in_header: pkgdown/extra-head.html
+    in_header: |
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-K98X8LKBWN"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-K98X8LKBWN');
+      </script>
 
 navbar:
   title: LikertMakeR
