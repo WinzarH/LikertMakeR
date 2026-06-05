@@ -97,10 +97,6 @@ pkgdown::build_site(
 )
 
 
-## to add another file
-# pkgdown::build_site(lazy = TRUE)
-
-
 # sanity check:
 system.file(package = "LikertMakeR") # should print a path
 
