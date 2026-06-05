@@ -73,7 +73,7 @@ devtools::document()
 
 devtools::check()
 
-rhub::rhub_setup()
+# rhub::rhub_setup(overwrite = TRUE)
 
 # 0) restart R
 
