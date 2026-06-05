@@ -4,6 +4,7 @@ google_analytics: G-K98X8LKBWN
 
 template:
   bootstrap: 5
+  math-rendering: mathjax
   params:
     bootswatch: litera
   favicon: pkgdown/favicon/favicon.ico
