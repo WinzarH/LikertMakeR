@@ -73,7 +73,7 @@ devtools::document()
 
 devtools::check()
 
-
+rhub::rhub_setup()
 
 # 0) restart R
 
@@ -91,7 +91,11 @@ devtools::install()
 ## regenerate everything from scratch
 # unlink(c("docs", "_pkgdown"), recursive = TRUE)
 
-pkgdown::build_site()
+pkgdown::build_site(
+  preview = TRUE,
+  lazy = FALSE
+)
+
 
 ## to add another file
 # pkgdown::build_site(lazy = TRUE)
