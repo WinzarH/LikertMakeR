@@ -1,5 +1,8 @@
 ## send to https://winzarh.github.io/LikertMakeR/
 
+library(goodpractice)
+gp()
+
 
 ## 1. Clean and rebuild attributes
 Rcpp::compileAttributes()
