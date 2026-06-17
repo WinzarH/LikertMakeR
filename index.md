@@ -1,0 +1,215 @@
+# LikertMakeR
+
+**LikertMakeR** synthesises Likert-scale and related bounded
+rating-scale data with predefined *means*, *standard deviations*,
+*correlations*, *Cronbach’s alpha*, and *factor-loading-based structure*
+for simulation studies, teaching, and methodological research..
+
+Version 2.3.0 (May 2026)
+
+## Purpose
+
+1.  *Reverse-engineer* published results when only summary statistics
+    are reported (for re-analysis, visualisation, or teaching).
+2.  *Teaching & demos*: generate data with known properties without
+    collecting real data.
+3.  *Methods work / simulation*: explore how reliability, items, bounds,
+    and sample size interact.
+
+For a full introduction and worked examples, see the package website:
+<https://winzarh.github.io/LikertMakeR/>
+
+------------------------------------------------------------------------
+
+## Installation
+
+From ***CRAN***:
+
+``` r
+
+
+  install.packages("LikertMakeR")
+```
+
+The latest development version is available from the author’s
+***GitHub*** repository.
+
+``` r
+
+
+ library(devtools)
+ 
+ install_github("WinzarH/LikertMakeR")
+```
+
+## Quick Start
+
+``` r
+
+library(LikertMakeR)
+```
+
+### Likert-scale items with defined Cronbach’s alpha
+
+1.  Correlation matrix from Cronbach’s alpha
+
+``` r
+
+R_alpha <- makeCorrAlpha(items = 4, alpha = 0.80)
+```
+
+2.  Generate correlated items
+
+``` r
+
+dat_1 <- makeScales(
+  n = 64,
+  means = c(2.75, 3.0, 3.25, 3.5),
+  sds = c(0.85, 0.95, 0.90, 0.80),
+  items = 1,
+  cormatrix = R_alpha
+)
+```
+
+3.  Test
+
+``` r
+
+head(dat_1)
+cor(dat_1) |> round(2)
+alpha(data = dat_1) |> round(3)
+sapply(dat_1, FUN = mean)
+sapply(dat_1, FUN = sd) |> round(3)
+```
+
+### Correlated Likert Scales
+
+1.  Make a target correlation matrix
+
+``` r
+
+R_2 <- matrix(
+  c(
+    1.00, 0.60, 0.45, 0.40,
+    0.60, 1.00, 0.75, 0.35,
+    0.45, 0.75, 1.00, 0.50,
+    0.40, 0.35, 0.50, 1.00
+  ),
+  nrow = 4, ncol = 4, byrow = TRUE
+)
+```
+
+2.  Generate synthetic rating-scale data with predefined moments
+
+``` r
+
+dat_2 <- makeScales(
+  n = 64,
+  means = c(2.75, 3.00, 3.25, 3.50),
+  sds = c(1.25, 1.50, 1.30, 1.25),
+  lowerbound = rep(1, 4),
+  upperbound = rep(5, 4),
+  items = c(5, 5, 4, 4),
+  cormatrix = R_2
+)
+```
+
+3.  Test
+
+``` r
+
+head(dat_2)
+cor(dat_2) |> round(2)
+alpha(data = dat_2) |> round(3)
+sapply(dat_2, FUN = mean)
+sapply(dat_2, FUN = sd) |> round(3)
+```
+
+## Key functions
+
+- [`lfast()`](https://winzarh.github.io/LikertMakeR/reference/lfast.md):
+  generate bounded/discrete data with target mean & SD
+
+- [`lcor()`](https://winzarh.github.io/LikertMakeR/reference/lcor.md):
+  rearrange columns to approximate a target correlation matrix
+
+- [`makeCorrAlpha()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrAlpha.md):
+  generate an item correlation matrix with target Cronbach’s alpha
+
+- [`makeScales()`](https://winzarh.github.io/LikertMakeR/reference/makeScales.md):
+  wrapper for lfast() + lcor() to generate a dataframe of correlated
+  columns
+
+- [`makeCorrLoadings()`](https://winzarh.github.io/LikertMakeR/reference/makeCorrLoadings.md):
+  build an item correlation matrix from factor loadings and factor
+  correlations
+
+- [`makeItemsScale()`](https://winzarh.github.io/LikertMakeR/reference/makeItemsScale.md):
+  generate items from a summated scale with target alpha
+
+- [`makePaired()`](https://winzarh.github.io/LikertMakeR/reference/makePaired.md)
+  /
+  [`makeRepeated()`](https://winzarh.github.io/LikertMakeR/reference/makeRepeated.md):
+  reconstruct data from paired t-test / repeated-measures summaries
+
+- [`makeScalesRegression()`](https://winzarh.github.io/LikertMakeR/reference/makeScalesRegression.md):
+  generate data from summary of multiple-regression analysis
+
+- [`correlateScales()`](https://winzarh.github.io/LikertMakeR/reference/correlateScales.md):
+  combine multiple item sets so summated scales match a target
+  correlation matrix
+
+- Helpers:
+  [`alpha()`](https://winzarh.github.io/LikertMakeR/reference/alpha.md),
+  [`eigenvalues()`](https://winzarh.github.io/LikertMakeR/reference/eigenvalues.md),
+  [`reliability()`](https://winzarh.github.io/LikertMakeR/reference/reliability.md)
+
+## Rating scale properties
+
+A Likert scale is the mean, or sum, of several ordinal rating scales.
+They are bipolar (usually “agree-disagree”) responses to propositions
+that are determined to be moderately-to-highly correlated among each
+other, and capturing various facets of a theoretical construct.
+
+> ### NOTE
+>
+> A single 1-5 rating scale is ***NOT*** a true Likert scale - it may be
+> a Likert-scale item.
+
+Summated rating scales are not continuous or unbounded. For example, a
+5-point Likert scale that is constructed with, say, five items
+(questions) will have a summed range of between 5 (all rated ‘1’) and 25
+(all rated ‘5’) with all integers in between, and the mean range will be
+‘1’ to ‘5’ with intervals of 1/5=0.20. A 7-point Likert scale
+constructed from eight items will have a summed range between 8 (all
+rated ‘1’) and 56 (all rated ‘7’) with all integers in between, and the
+mean range will be ‘1’ to ‘7’ with intervals of 1/8=0.125.
+
+## Learn more
+
+Package website (recommended): <https://winzarh.github.io/LikertMakeR/>
+
+Vignettes cover:
+
+- generating scales from summary statistics,
+
+- correlation matrices from alpha or loadings,
+
+- repeated-measures and paired designs,
+
+- reliability estimation and diagnostics,
+
+- validation studies demonstrating function accuracy.
+
+------------------------------------------------------------------------
+
+### To cite *LikertMakeR*
+
+#### APA:
+
+``` R
+ Winzar, H. (2026). LikertMakeR (version 2.3.0) [R package]. 
+ The Comprehensive R Archive Network (CRAN),
+<https://CRAN.R-project.org/package=LikertMakeR>
+    
+```

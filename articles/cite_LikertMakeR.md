@@ -1,0 +1,25 @@
+# How to Cite LikertMakeR
+
+### To cite *LikertMakeR*
+
+#### APA:
+
+     Winzar, H. (202). LikertMakeR (version 2.3.0) [R package]. 
+     The Comprehensive R Archive Network (CRAN),
+    <https://CRAN.R-project.org/package=LikertMakeR>
+        
+
+#### BIB:
+
+    @software{winzar2026},
+     title = {LikertMakeR},
+     author = {Winzar, Hume},
+     abstract = {LikertMakeR synthesises and correlates rating-scale data with predefined means and standard deviations.},
+     publisher = {The Comprehensive R Archive Network (CRAN)},
+     month = apr,
+     year = {2026},
+     version = {2.3.0},
+     origdate = {2022},
+     url = {https://CRAN.R-project.org/package=LikertMakeR},
+     note = {R package}
+    }

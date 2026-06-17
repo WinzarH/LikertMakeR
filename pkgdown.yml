@@ -1,0 +1,19 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  cite_LikertMakeR: cite_LikertMakeR.html
+  dwivedi_replication: dwivedi_replication.html
+  lfast_infographic: lfast_infographic.html
+  lfast_validation: lfast_validation.html
+  likert_scale_defined: likert_scale_defined.html
+  LikertMakeR_vignette: LikertMakeR_vignette.html
+  makeCorrAlpha_explainer: makeCorrAlpha_explainer.html
+  makeCorrLoadings_validate: makeCorrLoadings_validate.html
+  makeItemsScale_explainer: makeItemsScale_explainer.html
+  reliability_measures: reliability_measures.html
+  t_test_demo: t_test_demo.html
+last_built: 2026-06-17T05:50Z
+urls:
+  reference: https://winzarh.github.io/LikertMakeR/reference
+  article: https://winzarh.github.io/LikertMakeR/articles
