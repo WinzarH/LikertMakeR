@@ -49,12 +49,46 @@ author's **_GitHub_** repository.
      
 ## Quick Start
 
+```r
+library(LikertMakeR)
+```
+
+### Likert-scale items with defined Cronbach's alpha
+
+1. Correlation matrix from Cronbach's alpha
+
+```r
+R_alpha <- makeCorrAlpha(items = 4, alpha = 0.80)
+```
+
+2. Generate correlated items
+
+```r
+dat_1 <- makeScales(
+  n = 64,
+  means = c(2.75, 3.0, 3.25, 3.5),
+  sds = c(0.85, 0.95, 0.90, 0.80),
+  items = 1,
+  cormatrix = R_alpha
+)
+```
+
+3. Test
+
+```r
+head(dat_1)
+cor(dat_1) |> round(2)
+alpha(data = dat_1) |> round(3)
+sapply(dat_1, FUN = mean)
+sapply(dat_1, FUN = sd) |> round(3)
+```
+
+### Correlated Likert Scales
+
 1. Make a target correlation matrix
 
 ```r
-library(LikertMakeR)
-
-R <- matrix(
+R_2 <- matrix(
   c(
     1.00, 0.60, 0.45, 0.40,
     0.60, 1.00, 0.75, 0.35,
@@ -68,19 +102,29 @@ R <- matrix(
 2. Generate synthetic rating-scale data with predefined moments
 
 ```r
-dat <- makeScales(
+dat_2 <- makeScales(
   n = 64,
   means = c(2.75, 3.00, 3.25, 3.50),
   sds = c(1.25, 1.50, 1.30, 1.25),
   lowerbound = rep(1, 4),
   upperbound = rep(5, 4),
   items = c(5, 5, 4, 4),
-  cormatrix = R
+  cormatrix = R_2
 )
 
-head(dat)
-cor(dat) |> round(2)
 ```    
+
+3. Test
+
+```r
+head(dat_2)
+cor(dat_2) |> round(2)
+alpha(data = dat_2) |> round(3)
+sapply(dat_2, FUN = mean)
+sapply(dat_2, FUN = sd) |> round(3)
+```
+
+
 
 ## Key functions
 
@@ -149,7 +193,7 @@ ____
 
 #### APA:
 
-     Winzar, H. (2026). LikertMakeR (version 2.0.0) [R package]. 
+     Winzar, H. (2026). LikertMakeR (version 2.3.0) [R package]. 
      The Comprehensive R Archive Network (CRAN),
     <https://CRAN.R-project.org/package=LikertMakeR>
         
