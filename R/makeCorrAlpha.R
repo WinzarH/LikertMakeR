@@ -193,7 +193,7 @@ makeCorrAlpha <- function(items,
   ## existing code may have old variance level - warn once and continue
   if (variance > 0.30) {
     warning(
-      "`variance` cannot exceed 0.30 for the current algorithm; values above this are truncated.",
+      "`variance` cannot exceed 0.30; greater values are truncated.",
       call. = FALSE
     )
     variance <- 0.30
@@ -279,7 +279,7 @@ makeCorrAlpha <- function(items,
   }
 
   if (is.null(best_result)) {
-    stop("Unable to construct feasible correlation matrix for these parameters.")
+    stop("Unable to construct feasible corr matrix for these parameters.")
   }
 
   cor_matrix <- best_result$R

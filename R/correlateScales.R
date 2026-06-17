@@ -132,7 +132,9 @@ correlateScales <- function(dataframes, scalecors) {
         if (length(available) > 0) {
           first_match <- available[1]
           # Add row to results (matrix rbind is faster than dataframe rbind)
-          results_matrix <- rbind(results_matrix, df[first_match, , drop = FALSE])
+          results_matrix <- rbind(results_matrix,
+                                  df[first_match, ,
+                                     drop = FALSE])
           used_rows[first_match] <- TRUE
         }
       }
@@ -242,7 +244,7 @@ correlateScales <- function(dataframes, scalecors) {
   ## allocate dataframe rows to corresponding sum values
   factor <- Map(
     findMatchingRows,
-    sums_vector = asplit(ordered_sums, 2), # Split matrix by columns (MARGIN = 2)
+    sums_vector = asplit(ordered_sums, 2),
     df = factor_list,
     df_row_sums = factor_sums
   )
