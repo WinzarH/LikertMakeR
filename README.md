@@ -34,7 +34,7 @@ From **_CRAN_**:
 
 ```r
 
-  install.packages("LikertMakeR")
+pak::pak("LikertMakeR")
 ```
 
 The latest development version is available from the 
@@ -42,9 +42,7 @@ author's **_GitHub_** repository.
      
 ```r  
 
- library(devtools)
- 
- install_github("WinzarH/LikertMakeR")
+pak::pak("github::WinzarH/LikertMakeR")
 ```     
      
 ## Quick Start
