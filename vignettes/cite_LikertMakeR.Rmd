@@ -8,7 +8,7 @@ output: rmarkdown::html_document
 
 #### APA:
 
-     Winzar, H. (202). LikertMakeR (version 2.3.0) [R package]. 
+     Winzar, H. (2026). LikertMakeR (version 2.3.0) [R package]. 
      The Comprehensive R Archive Network (CRAN),
     <https://CRAN.R-project.org/package=LikertMakeR>
         

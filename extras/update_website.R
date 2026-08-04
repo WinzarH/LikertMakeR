@@ -10,49 +10,11 @@ Rcpp::compileAttributes()
 # 2. Re-generate Rd files, NAMESPACE, etc.
 roxygen2::roxygenise()
 
-# 3. (Optional but good idea) Clean compiled objects
-unlink("src/*.o")
-unlink("src/*.so")
-unlink("src/*.dll")
-unlink("src/RcppExports.cpp")
-unlink("R/RcppExports.R")
-
-Rcpp::compileAttributes()
-
-
-# .rs.restartR()
-#
-# unlink(file.path(.libPaths()[1], "00LOCK-LikertMakeR"), recursive = TRUE, force = TRUE)
-
-# devtools::install(upgrade = "never")
-
-## Then rebuild from scratch
-# devtools::install(upgrade = "always")
-
-# devtools::install()
-
-## clear any stale namespace bindings
-# .rs.restartR()
 
 "LikertMakeR" %in% loadedNamespaces() # should be FALSE
 
-unlink(file.path(.libPaths()[1], "00LOCK-LikertMakeR"),
-  recursive = TRUE, force = TRUE
-)
-unlink(file.path(.libPaths()[1], "LikertMakeR"),
-  recursive = TRUE, force = TRUE
-)
-
-
 getNamespaceExports("LikertMakeR")
 # Look for: "lcor_C_randomised"
-
-# pkgdown::clean_site(force = TRUE)
-
-# pkgdown::build_favicons(overwrite = TRUE)
-
-# pkgdown::build_favicons()
-# optional but helpful if you have compiled code
 
 
 urlchecker::url_check()
@@ -63,16 +25,9 @@ urlchecker::url_update()
 
 devtools::clean_dll()
 
-# devtools::build_vignettes()
 
 devtools::document()
 
-# unlink("vignettes/dwivedi_replication_cache", recursive = TRUE)
-# unlink("vignettes/.quarto", recursive = TRUE)
-
-# devtools::test( filter = "alpha_sensitivity")
-
-# tools::showNonASCIIfile("R/alpha_sensitivity.R")
 
 devtools::check()
 
@@ -107,11 +62,4 @@ system.file(package = "LikertMakeR") # should print a path
 pkgdown::deploy_to_branch()
 
 
-#
-#
-# renv::dependencies("vignettes/dwivedi_replication.qmd")
-# renv::dependencies("vignettes")
 
-
-unlink("_freeze", recursive = TRUE)
-unlink("_cache", recursive = TRUE)
