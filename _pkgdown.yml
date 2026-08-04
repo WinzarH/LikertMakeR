@@ -97,8 +97,11 @@ articles:
 
   - title: Replications and case studies
     contents:
-      - cite_LikertMakeR
       - dwivedi_replication
+
+  - title: How to cite LikertMakeR
+    contents:
+      - cite_LikertMakeR
 
 
 
